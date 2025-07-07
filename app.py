@@ -321,7 +321,8 @@ handler = CommandHandler()
 @app.route('/commande', methods=['POST'])
 def commande():
     data = request.get_json()
-    cmd = data.get('cmd', '').strip()
+    # Accepter soit 'cmd' soit 'commande' comme clé
+    cmd = data.get('cmd', data.get('commande', '')).strip()
     profil = charger_profil()
     # Log de la commande reçue
     print(f"[API] Commande reçue: {cmd}")

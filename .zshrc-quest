@@ -20,3 +20,11 @@ alias questgo='./run.sh'
 PS1='🎮 Arkalia-Quest 🕰️ %t — 📂 %1~ — 💾 $(df -h . | tail -1 | awk "{print \$4}") libres / $(df -h . | tail -1 | awk "{print \$2}")\n🌟 Kernel IA ultra-protection active ✅\n%n@%m %1~ %# '
 
 
+alias ark-clean='
+echo "🧹 Nettoyage Arkalia en cours..."
+find . \
+  -type f \( -name "*.pyc" -o -name "*.pyo" -o -name ".DS_Store" -o -name "Icon?" -o -name "._*" -o -name "*.log" \) -exec rm -f {} \; -print;
+find . \
+  -type d \( -name "__pycache__" -o -name ".pytest_cache" -o -name ".mypy_cache" -o -name "build" -o -name "dist" -o -name "*.egg-info" \) -exec rm -rf {} \; -print;
+echo "✅ Nettoyage terminé."
+'

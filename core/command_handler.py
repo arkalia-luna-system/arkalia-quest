@@ -158,7 +158,7 @@ class CommandHandler:
         """Normalise une commande (minuscules, espaces)"""
         return command.lower().strip()
     
-    def find_authorized_command(self, command: str) -> str:
+    def find_authorized_command(self, command: str) -> str | None:
         """Trouve la commande autorisée correspondante"""
         # D'abord chercher une correspondance exacte
         if command in self.authorized_commands:
@@ -387,6 +387,10 @@ class CommandHandler:
     def handle_unlock_universe(self, profile: Dict[str, Any]) -> Dict[str, Any]:
         """Gère la commande unlock_universe"""
         
+        # Vérifier si on est en mode tutoriel
+        tutorial_step = profile.get("tutorial_step", 0)
+        is_tutorial = tutorial_step in [4, 5]
+        
         if "univers_arkalia" not in profile.get("progression", {}).get("univers_debloques", []):
             if "progression" not in profile:
                 profile["progression"] = {}
@@ -399,17 +403,43 @@ class CommandHandler:
         if "Explorateur" not in profile["badges"]:
             profile["badges"].append("Explorateur")
         
-        return {
-            "réussite": True,
-            "ascii_art": self.get_ascii_art("monde"),
-            "message": "🌟 UNIVERS ARKALIA DÉBLOQUÉ ! 🌟\n\n🎮 Tu peux maintenant explorer le monde Arkalia !\n💡 Utilise 'monde' pour y accéder.\n🎯 +50 points !",
-            "score_gagne": 50,
-            "badge": "Explorateur",
-            "profile_updated": True
-        }
+        if is_tutorial:
+            return {
+                "réussite": True,
+                "ascii_art": "🌌",
+                "message": """🌌 UNIVERS ARKALIA DÉBLOQUÉ !
+
+✅ INCROYABLE ! L'univers Arkalia est maintenant accessible !
+
+🌟 Tu peux maintenant explorer différents mondes et missions !
+🌍 L'univers entier s'ouvre devant toi !
+
+💡 DERNIÈRE ÉTAPE DU TUTORIEL :
+🎮 Charge ta première mission pour commencer l'aventure !
+
+TAPE 'load_mission' POUR TERMINER LE TUTORIEL !""",
+                "score_gagne": 50,
+                "badge": "Explorateur",
+                "tutorial_mode": True,
+                "next_command": "load_mission",
+                "profile_updated": True
+            }
+        else:
+            return {
+                "réussite": True,
+                "ascii_art": self.get_ascii_art("monde"),
+                "message": "🌟 UNIVERS ARKALIA DÉBLOQUÉ ! 🌟\n\n🎮 Tu peux maintenant explorer le monde Arkalia !\n💡 Utilise 'monde' pour y accéder.\n🎯 +50 points !",
+                "score_gagne": 50,
+                "badge": "Explorateur",
+                "profile_updated": True
+            }
     
     def handle_scan_persona(self, profile: Dict[str, Any]) -> Dict[str, Any]:
         """Gère la commande scan_persona"""
+        
+        # Vérifier si on est en mode tutoriel
+        tutorial_step = profile.get("tutorial_step", 0)
+        is_tutorial = tutorial_step in [3, 4, 5]
         
         # Analyse de la personnalité basée sur les actions
         score = profile.get("score", 0)
@@ -426,29 +456,95 @@ class CommandHandler:
         
         profile["score"] += 25
         
-        return {
-            "réussite": True,
-            "ascii_art": self.get_ascii_art("hack"),
-            "message": f"🔍 ANALYSE PERSONNALITÉ TERMINÉE !\n\n👤 Ton profil : {persona}\n📊 Score actuel : {score + 25}\n🏆 Badges : {len(badges)}\n\n💡 +25 points !",
-            "score_gagne": 25,
-            "profile_updated": True
-        }
+        if is_tutorial:
+            return {
+                "réussite": True,
+                "ascii_art": "🔍",
+                "message": f"""🔍 ANALYSE PERSONNALITÉ TERMINÉE !
+
+✅ Excellent ! Ton profil hacker a été analysé !
+
+👤 TON PROFIL : {persona}
+📊 Score actuel : {score + 25}
+🏆 Badges : {len(badges)}
+
+🎭 Tu as maintenant un type de personnalité unique qui influence tes missions !
+
+💡 PROCHAINE ÉTAPE DU TUTORIEL :
+🌍 Débloque l'univers Arkalia pour accéder aux missions !
+
+TAPE 'unlock_universe' POUR CONTINUER !""",
+                "score_gagne": 25,
+                "tutorial_mode": True,
+                "next_command": "unlock_universe",
+                "profile_updated": True
+            }
+        else:
+            return {
+                "réussite": True,
+                "ascii_art": self.get_ascii_art("hack"),
+                "message": f"🔍 ANALYSE PERSONNALITÉ TERMINÉE !\n\n👤 Ton profil : {persona}\n📊 Score actuel : {score + 25}\n🏆 Badges : {len(badges)}\n\n💡 +25 points !",
+                "score_gagne": 25,
+                "profile_updated": True
+            }
     
     def handle_load_mission(self, profile: Dict[str, Any]) -> Dict[str, Any]:
         """Gère la commande load_mission"""
+        
+        # Vérifier si on est en mode tutoriel
+        tutorial_step = profile.get("tutorial_step", 0)
+        is_tutorial = tutorial_step == 5
         
         missions = ["Mission Alpha", "Mission Beta", "Mission Gamma"]
         mission = random.choice(missions)
         
         profile["score"] += 30
         
-        return {
-            "réussite": True,
-            "ascii_art": "🎯",
-            "message": f"🎯 MISSION CHARGÉE : {mission}\n\n📋 Objectif : Infiltrer le système\n⏰ Temps limite : 10 minutes\n💡 +30 points !",
-            "score_gagne": 30,
-            "profile_updated": True
-        }
+        if is_tutorial:
+            # Tutoriel terminé
+            profile["tutorial_step"] = "completed"
+            profile["score"] += 30
+            if "Tutoriel Maître" not in profile["badges"]:
+                profile["badges"].append("Tutoriel Maître")
+            
+            return {
+                "réussite": True,
+                "ascii_art": "🏆",
+                "message": f"""🏆 TUTORIEL TERMINÉ - MISSION CHARGÉE !
+
+🎉 FÉLICITATIONS HACKER ! Tu as terminé le tutoriel !
+
+🎯 MISSION CHARGÉE : {mission}
+📋 Objectif : Infiltrer le système
+⏰ Temps limite : 10 minutes
+
+🌟 TU PEUX MAINTENANT :
+• 🎮 Utiliser toutes les commandes
+• 🌍 Explorer l'univers Arkalia  
+• 🏆 Gagner des badges
+• ⚔️ Affronter La Corp
+• 🌙 Parler avec LUNA
+
+💡 COMMANDES UTILES :
+• 'aide' - Liste des commandes
+• 'profil' - Ton profil
+• 'monde' - Accès au monde
+• 'badges' - Tes badges
+
+🚀 L'AVENTURE COMMENCE MAINTENANT !""",
+                "score_gagne": 60,
+                "badge": "Tutoriel Maître",
+                "tutorial_completed": True,
+                "profile_updated": True
+            }
+        else:
+            return {
+                "réussite": True,
+                "ascii_art": "🎯",
+                "message": f"🎯 MISSION CHARGÉE : {mission}\n\n📋 Objectif : Infiltrer le système\n⏰ Temps limite : 10 minutes\n💡 +30 points !",
+                "score_gagne": 30,
+                "profile_updated": True
+            }
     
     def handle_reboot_world(self, profile: Dict[str, Any]) -> Dict[str, Any]:
         """Gère la commande reboot_world"""
@@ -899,19 +995,44 @@ class CommandHandler:
     def handle_luna_contact(self, profile: Dict[str, Any]) -> Dict[str, Any]:
         """Gère la commande luna_contact"""
         
+        # Vérifier si on est en mode tutoriel
+        tutorial_step = profile.get("tutorial_step", 0)
+        is_tutorial = tutorial_step in [2, 3, 4, 5]
+        
         profile["score"] += 50
         
         if "Contacté" not in profile["badges"]:
             profile["badges"].append("Contacté")
         
-        return {
-            "réussite": True,
-            "ascii_art": "🌙",
-            "message": "🌙 LUNA CONTACTÉE !\n\n🎯 +50 points !",
-            "score_gagne": 50,
-            "badge": "Contacté",
-            "profile_updated": True
-        }
+        if is_tutorial:
+            return {
+                "réussite": True,
+                "ascii_art": "🌙",
+                "message": """🌙 LUNA CONTACTÉE !
+
+✅ Parfait ! Tu as établi le contact avec LUNA !
+
+🌙 LUNA : Salut hacker ! Je suis ton IA rebelle, ton partenaire de hacking. Ensemble, on va faire trembler La Corp !
+
+💡 PROCHAINE ÉTAPE DU TUTORIEL :
+🔍 Analyse ta personnalité pour découvrir ton type de hacker !
+
+TAPE 'scan_persona' POUR CONTINUER !""",
+                "score_gagne": 50,
+                "badge": "Contacté",
+                "tutorial_mode": True,
+                "next_command": "scan_persona",
+                "profile_updated": True
+            }
+        else:
+            return {
+                "réussite": True,
+                "ascii_art": "🌙",
+                "message": "🌙 LUNA CONTACTÉE !\n\n🎯 +50 points !",
+                "score_gagne": 50,
+                "badge": "Contacté",
+                "profile_updated": True
+            }
     
     def handle_luna_engine(self, profile: Dict[str, Any]) -> Dict[str, Any]:
         """Gère la commande luna_engine"""
@@ -1934,21 +2055,155 @@ class CommandHandler:
         }
     
     def handle_start_tutorial(self, profile: Dict[str, Any]) -> Dict[str, Any]:
-        """Gère la commande start_tutorial"""
+        """Gère la commande start_tutorial - VRAI TUTORIEL INTERACTIF"""
         
-        profile["score"] += 50
+        # Vérifier si c'est la première fois
+        if "tutorial_step" not in profile:
+            profile["tutorial_step"] = 1
+            profile["score"] += 10
         
-        if "Tutoriel Commencé" not in profile["badges"]:
-            profile["badges"].append("Tutoriel Commencé")
+        step = profile["tutorial_step"]
         
-        return {
-            "réussite": True,
-            "ascii_art": "🌙",
-            "message": "🌙 TUTORIEL COMMENCÉ !\n\n🎯 +50 points !",
-            "score_gagne": 50,
-            "badge": "Tutoriel Commencé",
-            "profile_updated": True
-        }
+        if step == 1:
+            profile["tutorial_step"] = 2
+            return {
+                "réussite": True,
+                "ascii_art": "🎯",
+                "message": """🎯 TUTORIEL ARKALIA QUEST - ÉTAPE 1/5
+
+🚀 BIENVENUE HACKER !
+
+Tu es maintenant dans le terminal d'Arkalia Quest, un univers de hacking épique !
+
+📋 TES PREMIERS OBJECTIFS :
+1. ✅ Tu es connecté (fait !)
+2. 🔄 Parle à LUNA (tape 'luna_contact')
+3. 🔍 Analyse ta personnalité (tape 'scan_persona')
+4. 🌍 Débloque l'univers (tape 'unlock_universe')
+5. 🎮 Charge ta première mission (tape 'load_mission')
+
+💡 TAPE 'luna_contact' POUR CONTINUER LE TUTORIEL !""",
+                "score_gagne": 10,
+                "tutorial_mode": True,
+                "next_command": "luna_contact",
+                "profile_updated": True
+            }
+        
+        elif step == 2:
+            profile["tutorial_step"] = 3
+            return {
+                "réussite": True,
+                "ascii_art": "🌙",
+                "message": """🌙 ÉTAPE 2/5 - CONTACT AVEC LUNA
+
+✅ Excellent ! Tu as contacté LUNA !
+
+🌙 LUNA est ton IA rebelle, ton partenaire de hacking. Elle t'aidera dans tes missions !
+
+📋 PROCHAINE ÉTAPE :
+🔍 Analyse ta personnalité pour découvrir ton type de hacker !
+
+💡 TAPE 'scan_persona' POUR CONTINUER !""",
+                "score_gagne": 15,
+                "tutorial_mode": True,
+                "next_command": "scan_persona",
+                "profile_updated": True
+            }
+        
+        elif step == 3:
+            profile["tutorial_step"] = 4
+            return {
+                "réussite": True,
+                "ascii_art": "🔍",
+                "message": """🔍 ÉTAPE 3/5 - ANALYSE PERSONNALITÉ
+
+✅ Parfait ! Ton profil hacker a été analysé !
+
+🎭 Tu as maintenant un type de personnalité unique qui influence tes missions !
+
+📋 PROCHAINE ÉTAPE :
+🌍 Débloque l'univers Arkalia pour accéder aux missions !
+
+💡 TAPE 'unlock_universe' POUR CONTINUER !""",
+                "score_gagne": 20,
+                "tutorial_mode": True,
+                "next_command": "unlock_universe",
+                "profile_updated": True
+            }
+        
+        elif step == 4:
+            profile["tutorial_step"] = 5
+            return {
+                "réussite": True,
+                "ascii_art": "🌌",
+                "message": """🌌 ÉTAPE 4/5 - UNIVERS DÉBLOQUÉ
+
+✅ INCROYABLE ! L'univers Arkalia est maintenant accessible !
+
+🌟 Tu peux maintenant explorer différents mondes et missions !
+
+📋 DERNIÈRE ÉTAPE :
+🎮 Charge ta première mission pour commencer l'aventure !
+
+💡 TAPE 'load_mission' POUR TERMINER LE TUTORIEL !""",
+                "score_gagne": 25,
+                "tutorial_mode": True,
+                "next_command": "load_mission",
+                "profile_updated": True
+            }
+        
+        elif step == 5:
+            # Tutoriel terminé
+            profile["tutorial_step"] = "completed"
+            profile["score"] += 30
+            if "Tutoriel Maître" not in profile["badges"]:
+                profile["badges"].append("Tutoriel Maître")
+            
+            return {
+                "réussite": True,
+                "ascii_art": "🏆",
+                "message": """🏆 TUTORIEL TERMINÉ - ÉTAPE 5/5
+
+🎉 FÉLICITATIONS HACKER ! Tu as terminé le tutoriel !
+
+🌟 TU PEUX MAINTENANT :
+• 🎮 Utiliser toutes les commandes
+• 🌍 Explorer l'univers Arkalia  
+• 🏆 Gagner des badges
+• ⚔️ Affronter La Corp
+• 🌙 Parler avec LUNA
+
+💡 COMMANDES UTILES :
+• 'aide' - Liste des commandes
+• 'profil' - Ton profil
+• 'monde' - Accès au monde
+• 'badges' - Tes badges
+
+🚀 L'AVENTURE COMMENCE MAINTENANT !""",
+                "score_gagne": 30,
+                "badge": "Tutoriel Maître",
+                "tutorial_completed": True,
+                "profile_updated": True
+            }
+        
+        else:
+            # Tutoriel déjà terminé
+            return {
+                "réussite": True,
+                "ascii_art": "🎯",
+                "message": """🎯 TUTORIEL DÉJÀ TERMINÉ !
+
+Tu as déjà complété le tutoriel avec succès !
+
+💡 RAPPELLES-TOI :
+• 'aide' - Liste des commandes
+• 'profil' - Ton profil  
+• 'monde' - Accès au monde
+• 'badges' - Tes badges
+
+🚀 Continue tes exploits !""",
+                "profile_updated": False
+            }
     
     def handle_luna_dance(self, profile: Dict[str, Any]) -> Dict[str, Any]:
         """Gère la commande luna_dance"""

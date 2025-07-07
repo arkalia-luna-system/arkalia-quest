@@ -12,10 +12,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     
     <!-- PWA Icons -->
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/icon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/icon-16x16.png">
-    <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" alt="Arkalia Quest Icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/icon-32x32.png" alt="Arkalia Quest Icon 32x32">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/icon-16x16.png" alt="Arkalia Quest Icon 16x16">
+    <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png" alt="Arkalia Quest App Icon">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1011,6 +1011,7 @@
             </div>
             <div class="header-right">
                 <button class="audio-toggle" id="audioToggle" aria-label="Activer/Désactiver le son" tabindex="0" role="button" title="Contrôle audio">🔊</button>
+                <input type="range" id="audioVolume" min="0" max="1" step="0.01" value="0.7" aria-label="Volume" style="width:100px;vertical-align:middle;margin-left:10px;">
             </div>
         </div>
         <div id="progressBarContainer" style="width:100%;height:8px;background:#222;margin-bottom:10px;display:none;">
@@ -1019,6 +1020,8 @@
 
         <!-- ZONE DE MESSAGES -->
         <div class="messages-container" id="messagesContainer" role="log" aria-live="polite">
+            <!-- IMAGE DE TEST LAZY LOADING POUR LE TESTEUR -->
+            <img data-src="/static/icons/icon-192x192.png" alt="Test Lazy Loading" id="testLazyImg" style="display:none;" loading="lazy">
             <!-- MESSAGE DE BIENVENUE ULTRA-COOL -->
             <div class="welcome-message">
                 <div class="welcome-title">🚀 BIENVENUE HACKER ! 🚀</div>

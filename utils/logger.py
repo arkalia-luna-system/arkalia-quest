@@ -11,7 +11,73 @@ from pathlib import Path
 from typing import Dict, Any, Optional
 import traceback
 
-from config import LOGGING_CONFIG, LOGS_DIR, ensure_directories
+# Configuration de logging simplifiée
+LOGS_DIR = Path("logs")
+LOGS_DIR.mkdir(exist_ok=True)
+
+LOGGING_CONFIG = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'detailed': {
+            'format': '[%(asctime)s] %(levelname)s [%(name)s] %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S'
+        },
+        'simple': {
+            'format': '%(levelname)s [%(name)s] %(message)s'
+        }
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'level': 'INFO',
+            'formatter': 'simple',
+            'stream': 'ext://sys.stdout'
+        },
+        'file': {
+            'class': 'logging.FileHandler',
+            'level': 'DEBUG',
+            'formatter': 'detailed',
+            'filename': str(LOGS_DIR / 'arkalia.log'),
+            'mode': 'a',
+            'encoding': 'utf-8'
+        },
+        'error_file': {
+            'class': 'logging.FileHandler',
+            'level': 'ERROR',
+            'formatter': 'detailed',
+            'filename': str(LOGS_DIR / 'error.log'),
+            'mode': 'a',
+            'encoding': 'utf-8'
+        }
+    },
+    'loggers': {
+        'arkalia_quest': {
+            'level': 'DEBUG',
+            'handlers': ['console', 'file', 'error_file'],
+            'propagate': False
+        },
+        'arkalia_game': {
+            'level': 'INFO',
+            'handlers': ['console', 'file'],
+            'propagate': False
+        },
+        'arkalia_security': {
+            'level': 'WARNING',
+            'handlers': ['console', 'file', 'error_file'],
+            'propagate': False
+        },
+        'arkalia_performance': {
+            'level': 'INFO',
+            'handlers': ['console', 'file'],
+            'propagate': False
+        }
+    },
+    'root': {
+        'level': 'INFO',
+        'handlers': ['console']
+    }
+}
 
 class ArkaliaLogger:
     """Logger personnalisé pour Arkalia Quest"""
@@ -23,8 +89,6 @@ class ArkaliaLogger:
     
     def _setup_logging(self):
         """Configure le système de logging"""
-        ensure_directories()
-        
         # Configuration du logging
         logging.config.dictConfig(LOGGING_CONFIG)
         self.logger = logging.getLogger(self.name)
@@ -201,15 +265,12 @@ security_logger = SecurityLogger()
 performance_logger = PerformanceLogger()
 
 def log_exception(func):
-    """Décorateur pour logger automatiquement les exceptions"""
+    """Décorateur pour logger les exceptions"""
     def wrapper(*args, **kwargs):
         try:
             return func(*args, **kwargs)
         except Exception as e:
-            game_logger.error(
-                f"Exception dans {func.__name__}: {str(e)}",
-                exc_info=True
-            )
+            game_logger.error(f"Exception dans {func.__name__}: {str(e)}", exc_info=True)
             raise
     return wrapper
 
@@ -217,51 +278,44 @@ def log_function_call(func):
     """Décorateur pour logger les appels de fonction"""
     def wrapper(*args, **kwargs):
         game_logger.debug(f"Appel de fonction: {func.__name__}")
-        start_time = datetime.now()
         try:
             result = func(*args, **kwargs)
-            execution_time = (datetime.now() - start_time).total_seconds()
-            performance_logger.response_time(func.__name__, execution_time)
+            game_logger.debug(f"Fonction {func.__name__} terminée avec succès")
             return result
         except Exception as e:
-            execution_time = (datetime.now() - start_time).total_seconds()
-            performance_logger.response_time(func.__name__, execution_time, 500)
+            game_logger.error(f"Erreur dans {func.__name__}: {str(e)}")
             raise
     return wrapper
 
-# Fonctions utilitaires
 def export_logs_to_json(output_file: Optional[str] = None):
-    """Exporte les logs au format JSON"""
+    """Exporte les logs en JSON"""
     if output_file is None:
         output_file = str(LOGS_DIR / f"logs_export_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json")
     
     logs_data = []
     
-    # Lecture du fichier de log principal
-    log_file = LOGS_DIR / "arkalia_quest.log"
+    # Lire le fichier de log principal
+    log_file = LOGS_DIR / 'arkalia.log'
     if log_file.exists():
         with open(log_file, 'r', encoding='utf-8') as f:
             for line in f:
-                try:
-                    # Tentative de parsing JSON
-                    log_entry = json.loads(line)
-                    logs_data.append(log_entry)
-                except json.JSONDecodeError:
-                    # Si ce n'est pas du JSON, on ignore
-                    continue
+                if line.strip():
+                    logs_data.append({
+                        'timestamp': datetime.now().isoformat(),
+                        'log_entry': line.strip()
+                    })
     
-    # Écriture du fichier d'export
+    # Sauvegarder en JSON
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(logs_data, f, indent=2, ensure_ascii=False)
     
-    game_logger.info(f"Logs exportés vers: {output_file}")
     return output_file
 
 def cleanup_old_logs(days_to_keep: int = 30):
-    """Nettoie les anciens fichiers de logs"""
-    cutoff_date = datetime.now().timestamp() - (days_to_keep * 24 * 3600)
+    """Nettoie les anciens logs"""
+    cutoff_date = datetime.now().timestamp() - (days_to_keep * 24 * 60 * 60)
     
     for log_file in LOGS_DIR.glob("*.log"):
         if log_file.stat().st_mtime < cutoff_date:
             log_file.unlink()
-            game_logger.info(f"Ancien fichier de log supprimé: {log_file}") 
+            game_logger.info(f"Ancien log supprimé: {log_file.name}") 

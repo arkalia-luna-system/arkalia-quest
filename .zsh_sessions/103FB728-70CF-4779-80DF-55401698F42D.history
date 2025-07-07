@@ -1,0 +1,42 @@
+./run.sh
+open http://localhost:5000/terminal
+code /Volumes/T7/devstation/arkalia-quest
+code /Volumes/T7/devstation/arkalia-quest/.zshrc-quest
+source .zshrc-quest
+cleanpycache
+cleanpycache
+source /Volumes/T7/devstation/arkalia-quest/.zshrc
+ark-clean
+ark-clean
+source .zshrc-quest
+ark-clean
+run_tests.py
+ark-clean
+python tests/test_suite_complete.py
+gunicorn app:app --bind 0.0.0.0:5001 --workers 1 --timeout 120 --reload
+python /Volumes/T7/devstation/arkalia-quest/start_gunicorn.sh
+ark-clean
+sudo purge
+sudo purge
+ark-clean
+ark-clean
+ark-clean
+ark-clean
+sudo purge
+sudo purge
+ark-clean
+ark-clean
+ark-clean
+python app.py
+ark-clean
+ark-clean
+ark-clean
+ark-clean
+ark-clean
+ark-clean
+ark-clean
+ark-clean
+ark-clean
+ark-clean
+ark-clean
+./demo_complete.sh

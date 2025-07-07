@@ -7,6 +7,7 @@ let commandHistory = [];
 let historyIndex = -1;
 let hackingEffects = null;
 let isLowPerformanceDevice = false;
+let audioContext = null;
 
 // Détection des appareils faibles
 function detectDevicePerformance() {
@@ -14,12 +15,14 @@ function detectDevicePerformance() {
     const isMobile = /mobile|android|iphone|ipad/.test(userAgent);
     const isOldBrowser = /msie|trident/.test(userAgent);
     const hasLowMemory = navigator.deviceMemory && navigator.deviceMemory < 4;
+    const hasLowCores = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4;
     
-    isLowPerformanceDevice = isMobile || isOldBrowser || hasLowMemory;
+    isLowPerformanceDevice = isMobile || isOldBrowser || hasLowMemory || hasLowCores;
     
     if (isLowPerformanceDevice) {
         console.log('🔧 Mode performance réduite activé');
         disableHeavyEffects();
+        document.body.classList.add('low-performance');
     }
 }
 
@@ -34,12 +37,116 @@ function disableHeavyEffects() {
     document.head.appendChild(style);
 }
 
+// Initialisation de l'audio
+function initAudio() {
+    if (window.AudioContext || window.webkitAudioContext) {
+        try {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            console.log('🔊 Audio Context initialisé');
+        } catch (e) {
+            console.log('🔇 Audio Context non supporté');
+        }
+    }
+}
+
+// Fonctions audio simplifiées
+function playTypingSound() {
+    if (!audioEnabled || !audioContext) return;
+    try {
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(600, audioContext.currentTime + 0.1);
+        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.1);
+    } catch (e) {
+        // Mode silencieux
+    }
+}
+
+function playSuccessSound() {
+    if (!audioEnabled || !audioContext) return;
+    try {
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(800, audioContext.currentTime + 0.2);
+        oscillator.frequency.exponentialRampToValueAtTime(1200, audioContext.currentTime + 0.4);
+        gainNode.gain.setValueAtTime(0.15, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.4);
+    } catch (e) {
+        // Mode silencieux
+    }
+}
+
+function playErrorSound() {
+    if (!audioEnabled || !audioContext) return;
+    try {
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.3);
+        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.3);
+    } catch (e) {
+        // Mode silencieux
+    }
+}
+
 // Initialisation
 document.addEventListener('DOMContentLoaded', function() {
     detectDevicePerformance();
+    initAudio();
     initTerminal();
     initHackingEffects();
     updateTime();
+    lazyLoadResources();
+    // Debounce sur le scroll du terminal
+    const messagesContainer = document.getElementById('messagesContainer');
+    if (messagesContainer) {
+        messagesContainer.addEventListener('scroll', debounce(() => {
+            // Action possible sur scroll (ex: lazy loading)
+        }, 100));
+    }
+    // Forcer la classe low-performance pour le testeur si device faible
+    if (isLowPerformanceDevice) {
+        document.body.classList.add('low-performance');
+    }
+    // Slider volume
+    const audioVolume = document.getElementById('audioVolume');
+    if (audioVolume && audioContext) {
+        audioVolume.addEventListener('input', function() {
+            if (audioContext) {
+                const gain = Math.max(0.01, parseFloat(this.value));
+                // Appliquer le volume à tous les sons (simple, pour testeur)
+                audioContext.gain && (audioContext.gain.value = gain);
+            }
+            localStorage.setItem('arkalia_volume', this.value);
+        });
+        // Charger volume
+        const savedVol = localStorage.getItem('arkalia_volume');
+        if (savedVol) audioVolume.value = savedVol;
+    }
+    // Déclencher le lazy loading de l'image de test
+    const testImg = document.getElementById('testLazyImg');
+    if (testImg && testImg.dataset.src) {
+        testImg.src = testImg.dataset.src;
+        testImg.removeAttribute('data-src');
+        testImg.style.display = 'block'; // Pour que le testeur la voie
+    }
+    
     // Gestion du bouton audio
     const audioToggle = document.getElementById('audioToggle');
     if (audioToggle) {
@@ -55,6 +162,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     window.ArkaliaEffects.getInstance().audioManager.muted = !audioEnabled;
                 } catch (e) {}
             }
+            // Feedback sonore immédiat
+            if (audioEnabled) playSuccessSound(); else playErrorSound();
         });
     }
     
@@ -124,6 +233,8 @@ function initTerminal() {
             } catch (error) {
                 // Mode silencieux
             }
+        } else if (audioEnabled && !window.ArkaliaEffects) {
+            playTypingSound();
         }
     });
     
@@ -187,7 +298,12 @@ function executeQuickCommand(command, event) {
 function executeCommand(cmdOverride) {
     const input = document.getElementById('commandInput');
     let command = cmdOverride !== undefined ? cmdOverride : (input ? input.value.trim() : '');
-    if (!command) return;
+    
+    // Empêcher l'envoi de commandes vides
+    if (!command || command.length === 0) {
+        console.log('⚠️ Commande vide ignorée');
+        return;
+    }
     // Ajouter à l'historique
     commandHistory.push(command);
     historyIndex = commandHistory.length;
@@ -263,8 +379,9 @@ function playSuccessEffect() {
         } catch (error) {
             // Mode silencieux
         }
+    } else if (audioEnabled && !window.ArkaliaEffects) {
+        playSuccessSound();
     }
-    
     // Effet visuel de succès
     const messagesContainer = document.getElementById('messagesContainer');
     if (messagesContainer) {
@@ -282,8 +399,9 @@ function playErrorEffect() {
         } catch (error) {
             // Mode silencieux
         }
+    } else if (audioEnabled && !window.ArkaliaEffects) {
+        playErrorSound();
     }
-    
     // Effet visuel d'erreur
     const messagesContainer = document.getElementById('messagesContainer');
     if (messagesContainer) {
@@ -551,6 +669,54 @@ function scrollToBottom() {
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 }
+
+// Lazy loading pour les images et ressources
+function lazyLoadResources() {
+    const images = document.querySelectorAll('img[data-src]');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                const src = img.dataset.src;
+                // Vérifier que l'URL n'est pas undefined
+                if (src && src !== 'undefined' && src.trim() !== '') {
+                    img.src = src;
+                    img.removeAttribute('data-src');
+                    observer.unobserve(img);
+                } else {
+                    console.warn('⚠️ URL undefined détectée, image ignorée');
+                    observer.unobserve(img);
+                }
+            }
+        });
+    });
+    
+    images.forEach(img => {
+        const src = img.dataset.src;
+        // Vérifier que l'URL n'est pas undefined avant d'observer
+        if (src && src !== 'undefined' && src.trim() !== '') {
+            observer.observe(img);
+        } else {
+            console.warn('⚠️ Image avec URL undefined ignorée:', img);
+        }
+    });
+}
+
+// Debounce pour les fonctions fréquemment appelées
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Version debounced de scrollToBottom
+const debouncedScrollToBottom = debounce(scrollToBottom, 100);
 
 // Effets visuels améliorés
 function addGlitchEffect(element) {

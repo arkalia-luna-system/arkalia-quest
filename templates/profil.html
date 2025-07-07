@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Profil - Arkalia Quest</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .profil-container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+            padding: 30px;
+            color: #00ff00;
+            font-family: 'Fira Mono', 'Consolas', monospace;
+        }
+        
+        .profil-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #00ff00;
+            padding-bottom: 20px;
+        }
+        
+        .profil-title {
+            font-size: 2.5em;
+            margin: 0;
+            text-shadow: 0 0 10px #00ff00;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #00ff00; }
+            to { text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00; }
+        }
+        
+        .profil-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .profil-section {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #00ff00;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .profil-section h3 {
+            color: #00ffff;
+            margin-top: 0;
+            border-bottom: 1px solid #00ffff;
+            padding-bottom: 10px;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        .badge.rare { background: linear-gradient(45deg, #5f27cd, #341f97); }
+        .badge.epic { background: linear-gradient(45deg, #ff9f43, #f39c12); }
+        .badge.legendary { background: linear-gradient(45deg, #ff9ff3, #f368e0); }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-item {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #00ffff;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            color: #00ff00;
+            margin-top: 5px;
+        }
+        
+        .navigation {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .nav-btn {
+            background: #00ff00;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 25px;
+            margin: 0 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .nav-btn:hover {
+            background: #00ffff;
+            color: #000;
+        }
+        
+        .personnalite-info {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .personnalite-type {
+            font-size: 1.3em;
+            color: #00ffff;
+            margin-bottom: 10px;
+        }
+        
+        .traits-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .traits-list li {
+            background: rgba(0, 255, 0, 0.1);
+            margin: 5px 0;
+            padding: 8px 15px;
+            border-radius: 5px;
+            border-left: 3px solid #00ff00;
+        }
+        
+        .historique {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .historique h4 {
+            color: #00ffff;
+            margin-top: 0;
+        }
+        
+        .historique-item {
+            background: rgba(0, 255, 0, 0.1);
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 3px solid #00ff00;
+        }
+    </style>
+</head>
+<body>
+    <div class="profil-container">
+        <div class="profil-header">
+            <h1 class="profil-title">👤 Profil Hacker</h1>
+            <p>Ton identité numérique dans l'univers Arkalia</p>
+        </div>
+        
+        <div class="profil-grid">
+            <div class="profil-section">
+                <h3>🏆 Badges & Récompenses</h3>
+                {% if profil.badges %}
+                    {% for badge in profil.badges %}
+                        <div class="badge {% if 'rare' in badge.lower() %}rare{% elif 'epic' in badge.lower() %}epic{% elif 'legendary' in badge.lower() %}legendary{% endif %}">
+                            {{ badge }}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Aucun badge pour le moment. Complète des missions pour en gagner !</p>
+                {% endif %}
+            </div>
+            
+            <div class="profil-section">
+                <h3>🧠 Personnalité</h3>
+                <div class="personnalite-info">
+                    <div class="personnalite-type">
+                        {{ profil.personnalite.type.replace('_', ' ').title() }}
+                    </div>
+                    {% if profil.personnalite.traits %}
+                        <ul class="traits-list">
+                            {% for trait in profil.personnalite.traits %}
+                                <li>✨ {{ trait }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>Utilise 'scan_persona' pour découvrir tes traits de personnalité !</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-value">{{ profil.score }}</div>
+                <div class="stat-label">Points Totaux</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">{{ profil.progression.niveau }}</div>
+                <div class="stat-label">Niveau</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">{{ profil.badges|length }}</div>
+                <div class="stat-label">Badges</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">{{ profil.personnalite.missions_completees|length }}</div>
+                <div class="stat-label">Missions</div>
+            </div>
+        </div>
+        
+        <div class="historique">
+            <h4>📊 Historique</h4>
+            <div class="historique-item">
+                <strong>Première connexion:</strong> {{ profil.historique.premiere_connexion[:10] }}
+            </div>
+            <div class="historique-item">
+                <strong>Dernière connexion:</strong> {{ profil.historique.derniere_connexion[:10] }}
+            </div>
+            <div class="historique-item">
+                <strong>Commandes utilisées:</strong> {{ profil.historique.commandes_utilisees|length }}
+            </div>
+        </div>
+        
+        <div class="navigation">
+            <a href="/" class="nav-btn">🏠 Accueil</a>
+            <a href="/terminal" class="nav-btn">🎮 Terminal</a>
+            <a href="/monde" class="nav-btn">🌍 Monde</a>
+        </div>
+    </div>
+</body>
+</html> 

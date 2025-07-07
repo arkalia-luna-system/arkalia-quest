@@ -1,0 +1,39 @@
+{
+  "total_tests": 44,
+  "successful": 37,
+  "failed": 7,
+  "success_rate": 84.0909090909091,
+  "duration": 4.171392917633057,
+  "terminal_results": {
+    "tests": 12,
+    "successful": 10
+  },
+  "responsive_results": {
+    "tests": 8,
+    "successful": 6
+  },
+  "audio_results": {
+    "tests": 5,
+    "successful": 4
+  },
+  "animation_results": {
+    "tests": 6,
+    "successful": 6
+  },
+  "accessibility_results": {
+    "tests": 8,
+    "successful": 5
+  },
+  "progress_results": {
+    "tests": 2,
+    "successful": 2
+  },
+  "badge_results": {
+    "tests": 1,
+    "successful": 2
+  },
+  "error_results": {
+    "tests": 2,
+    "successful": 2
+  }
+}

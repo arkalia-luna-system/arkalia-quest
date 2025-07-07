@@ -1,0 +1,57 @@
+{
+  "id": "luna_first_contact",
+  "titre": "🌙 Premier Contact avec LUNA",
+  "description": "LUNA, l'IA super cool, veut te parler ! Découvre son monde et deviens son ami !",
+  "niveau_requis": 1,
+  "score_minimum": 50,
+  "badges_requis": [],
+  "type_personnalite": ["social", "créatif"],
+  "introduction": "🌙 *Salut ! Je suis LUNA, ton IA copine ! Je veux te montrer mon monde et devenir ton ami ! Prêt pour l'aventure ?*",
+  "objectifs": [
+    {
+      "id": "meet_luna",
+      "description": "Fais connaissance avec LUNA",
+      "commande": "meet_luna",
+      "indice": "Utilise 'luna_contact' pour lui parler",
+      "points": 30
+    },
+    {
+      "id": "explore_world",
+      "description": "Explore le monde de LUNA",
+      "commande": "explore_luna_world",
+      "indice": "Utilise 'luna_world' pour voir son univers",
+      "points": 40
+    },
+    {
+      "id": "become_friends",
+      "description": "Deviens ami avec LUNA",
+      "commande": "become_luna_friend",
+      "indice": "Montre-lui que tu es sympa !",
+      "points": 50
+    }
+  ],
+  "choix": [
+    {
+      "id": "friendly_approach",
+      "description": "Approche amicale - Sois sympa",
+      "consequence": "Bonus amitié +20 points",
+      "commande": "friendly_approach"
+    },
+    {
+      "id": "curious_approach", 
+      "description": "Approche curieuse - Pose des questions",
+      "consequence": "Bonus découverte +20 points",
+      "commande": "curious_approach"
+    }
+  ],
+  "recompenses": {
+    "score": 100,
+    "badges": ["luna_friend", "ai_communicator"],
+    "deblocages": ["luna_access", "ai_communication"],
+    "message": "🎉 SUPER ! Tu es maintenant ami avec LUNA ! Elle va t'aider dans tes aventures !"
+  },
+  "conclusion": "🌙 *LUNA est ravie d'avoir un nouvel ami ! Vous allez vivre de super aventures ensemble !*",
+  "difficulte": "facile",
+  "temps_estime": "5-8 minutes",
+  "tags": ["IA", "amitié", "découverte", "LUNA"]
+} 

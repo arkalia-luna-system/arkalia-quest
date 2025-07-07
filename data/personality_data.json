@@ -1,0 +1,54 @@
+{
+  "traits": [
+    "curieux",
+    "analytique", 
+    "créatif",
+    "social",
+    "logique",
+    "intuitif",
+    "méthodique",
+    "adaptatif",
+    "collaboratif",
+    "innovant"
+  ],
+  "types": [
+    "explorateur",
+    "stratège", 
+    "artiste",
+    "communicateur",
+    "scientifique",
+    "visionnaire",
+    "organisateur",
+    "polyvalent",
+    "médiateur",
+    "inventeur"
+  ],
+  "missions_par_type": {
+    "explorateur": [
+      "Découverte de nouveaux territoires",
+      "Cartographie de zones inconnues",
+      "Exploration de systèmes cachés"
+    ],
+    "stratège": [
+      "Planification d'attaques complexes",
+      "Analyse de vulnérabilités",
+      "Optimisation de processus"
+    ],
+    "artiste": [
+      "Création d'œuvres numériques",
+      "Design d'interfaces innovantes",
+      "Expression créative par le code"
+    ],
+    "communicateur": [
+      "Médiation entre systèmes",
+      "Partage de connaissances",
+      "Collaboration en réseau"
+    ]
+  },
+  "conseils_par_type": {
+    "explorateur": "Continue à explorer ! Chaque découverte t'apporte de nouvelles compétences.",
+    "stratège": "Ta logique est ton atout. Planifie chaque action avec précision.",
+    "artiste": "Laisse libre cours à ta créativité ! L'innovation naît de l'imagination.",
+    "communicateur": "Ta capacité à connecter les gens fait de toi un hacker unique."
+  }
+} 

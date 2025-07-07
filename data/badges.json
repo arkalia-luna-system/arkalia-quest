@@ -1,0 +1,224 @@
+{
+  "badges": {
+    "debutant_hacker": {
+      "nom": "Débutant Hacker",
+      "description": "Ton premier pas dans le hacking !",
+      "icone": "💻",
+      "rarete": "commune",
+      "couleur": "#00ff00",
+      "animation": "pulse"
+    },
+    "brute_forcer": {
+      "nom": "Brute Forcer",
+      "description": "Tu aimes la force brute !",
+      "icone": "💥",
+      "rarete": "commune",
+      "couleur": "#ff4444",
+      "animation": "shake"
+    },
+    "hacker_social": {
+      "nom": "Hacker Social",
+      "description": "Maître de l'ingénierie sociale !",
+      "icone": "🎭",
+      "rarete": "rare",
+      "couleur": "#00ffff",
+      "animation": "glow"
+    },
+    "detective_secret": {
+      "nom": "Détective Secret",
+      "description": "Tu trouves tous les secrets !",
+      "icone": "🔍",
+      "rarete": "rare",
+      "couleur": "#ff00ff",
+      "animation": "rainbow"
+    },
+    "shadow_hunter": {
+      "nom": "Shadow Hunter",
+      "description": "Tu as traqué SHADOW-13 !",
+      "icone": "👻",
+      "rarete": "epique",
+      "couleur": "#ffaa00",
+      "animation": "pulse"
+    },
+    "shadow_slayer": {
+      "nom": "Shadow Slayer",
+      "description": "Tu as hacké SHADOW-13 !",
+      "icone": "⚔️",
+      "rarete": "legendaire",
+      "couleur": "#ff0000",
+      "animation": "fire"
+    },
+    "virus_killer": {
+      "nom": "Virus Killer",
+      "description": "Expert en élimination de virus !",
+      "icone": "🦠",
+      "rarete": "epique",
+      "couleur": "#00ff00",
+      "animation": "glow"
+    },
+    "speed_hacker": {
+      "nom": "Speed Hacker",
+      "description": "Le plus rapide du réseau !",
+      "icone": "⚡",
+      "rarete": "rare",
+      "couleur": "#ffff00",
+      "animation": "flash"
+    },
+    "challenge_master": {
+      "nom": "Challenge Master",
+      "description": "Maître des défis sociaux !",
+      "icone": "🏆",
+      "rarete": "epique",
+      "couleur": "#ffaa00",
+      "animation": "pulse"
+    },
+    "luna_savior": {
+      "nom": "Luna Savior",
+      "description": "Tu as sauvé LUNA !",
+      "icone": "💔",
+      "rarete": "mythique",
+      "couleur": "#ff00ff",
+      "animation": "rainbow"
+    },
+    "rebel_debutant": {
+      "nom": "Rebelle Débutant",
+      "description": "Bienvenue dans la résistance !",
+      "icone": "🔥",
+      "rarete": "commune",
+      "couleur": "#ff4444",
+      "animation": "fire"
+    },
+    "shadow_master": {
+      "nom": "Shadow Master",
+      "description": "Tu as affronté SHADOW-13 !",
+      "icone": "👑",
+      "rarete": "legendaire",
+      "couleur": "#ffaa00",
+      "animation": "crown"
+    },
+    "virus_master": {
+      "nom": "Virus Master",
+      "description": "Expert en sécurité !",
+      "icone": "🛡️",
+      "rarete": "epique",
+      "couleur": "#00ffff",
+      "animation": "shield"
+    },
+    "social_hacker": {
+      "nom": "Social Hacker",
+      "description": "Légende de la communauté !",
+      "icone": "🌟",
+      "rarete": "legendaire",
+      "couleur": "#ffff00",
+      "animation": "star"
+    },
+    "luna_master": {
+      "nom": "Luna Master",
+      "description": "Héros légendaire d'Arkalia !",
+      "icone": "🌙",
+      "rarete": "mythique",
+      "couleur": "#ff00ff",
+      "animation": "moon"
+    },
+    "chicken": {
+      "nom": "Chicken",
+      "description": "Tu as abandonné...",
+      "icone": "🐔",
+      "rarete": "commune",
+      "couleur": "#888888",
+      "animation": "none"
+    },
+    "shadow_chicken": {
+      "nom": "Shadow Chicken",
+      "description": "Tu as fui SHADOW-13...",
+      "icone": "🐔",
+      "rarete": "commune",
+      "couleur": "#888888",
+      "animation": "none"
+    },
+    "virus_chicken": {
+      "nom": "Virus Chicken",
+      "description": "Ton PC est mort...",
+      "icone": "🐔",
+      "rarete": "commune",
+      "couleur": "#888888",
+      "animation": "none"
+    },
+    "challenge_chicken": {
+      "nom": "Challenge Chicken",
+      "description": "Personne ne te respecte...",
+      "icone": "🐔",
+      "rarete": "commune",
+      "couleur": "#888888",
+      "animation": "none"
+    },
+    "luna_traitor": {
+      "nom": "Luna Traitor",
+      "description": "Tu as trahi LUNA...",
+      "icone": "💔",
+      "rarete": "commune",
+      "couleur": "#888888",
+      "animation": "none"
+    }
+  },
+  "animations": {
+    "pulse": {
+      "css": "animation: badgePulse 2s ease-in-out infinite alternate;",
+      "keyframes": "@keyframes badgePulse { from { transform: scale(1); } to { transform: scale(1.1); } }"
+    },
+    "glow": {
+      "css": "animation: badgeGlow 2s ease-in-out infinite alternate;",
+      "keyframes": "@keyframes badgeGlow { from { box-shadow: 0 0 5px currentColor; } to { box-shadow: 0 0 20px currentColor; } }"
+    },
+    "rainbow": {
+      "css": "animation: badgeRainbow 3s ease-in-out infinite;",
+      "keyframes": "@keyframes badgeRainbow { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }"
+    },
+    "shake": {
+      "css": "animation: badgeShake 0.5s ease-in-out infinite;",
+      "keyframes": "@keyframes badgeShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-2px); } 75% { transform: translateX(2px); } }"
+    },
+    "flash": {
+      "css": "animation: badgeFlash 1s ease-in-out infinite;",
+      "keyframes": "@keyframes badgeFlash { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }"
+    },
+    "fire": {
+      "css": "animation: badgeFire 2s ease-in-out infinite;",
+      "keyframes": "@keyframes badgeFire { 0%, 100% { filter: hue-rotate(0deg) brightness(1); } 50% { filter: hue-rotate(30deg) brightness(1.2); } }"
+    },
+    "crown": {
+      "css": "animation: badgeCrown 3s ease-in-out infinite;",
+      "keyframes": "@keyframes badgeCrown { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(5deg); } 75% { transform: rotate(-5deg); } }"
+    },
+    "shield": {
+      "css": "animation: badgeShield 2s ease-in-out infinite;",
+      "keyframes": "@keyframes badgeShield { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }"
+    },
+    "star": {
+      "css": "animation: badgeStar 2s ease-in-out infinite;",
+      "keyframes": "@keyframes badgeStar { 0%, 100% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(180deg) scale(1.1); } }"
+    },
+    "moon": {
+      "css": "animation: badgeMoon 4s ease-in-out infinite;",
+      "keyframes": "@keyframes badgeMoon { 0%, 100% { filter: brightness(1) hue-rotate(0deg); } 50% { filter: brightness(1.3) hue-rotate(180deg); } }"
+    },
+    "none": {
+      "css": "",
+      "keyframes": ""
+    }
+  },
+  "couleurs_rarete": {
+    "commune": "#00ff00",
+    "rare": "#00ffff",
+    "epique": "#ff00ff",
+    "legendaire": "#ffaa00",
+    "mythique": "#ff0000"
+  },
+  "recompenses": {
+    "score_base": 10,
+    "multiplicateur_rare": 2,
+    "multiplicateur_epique": 5,
+    "multiplicateur_legendaire": 10,
+    "multiplicateur_mythique": 25
+  }
+} 

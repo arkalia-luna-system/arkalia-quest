@@ -1,0 +1,44 @@
+{
+  "id": 4,
+  "titre": "⚔️ DÉFI SOCIAL : HACKER VS HACKER !",
+  "description": "Un autre hacker te défie ! Tu as 25 secondes pour prouver que t'es pas un noob ou tu perds ton statut !",
+  "timer": 25,
+  "urgence": true,
+  "social": true,
+  "choix": {
+    "accept_challenge": {
+      "texte": "⚔️ ACCEPTER LE DÉFI (combat)",
+      "bonus": {"score": 200, "badge": "Challenge Master", "temps": 20},
+      "message": "BOOM ! Tu as gagné le défi ! L'autre hacker te respecte maintenant. LUNA : 'T'es devenu un vrai rebelle ! Les autres hackers te craignent !'",
+      "consequence": "challenge_won"
+    },
+    "speed_hack": {
+      "texte": "⚡ HACK RAPIDE (vitesse)",
+      "bonus": {"score": 300, "badge": "Speed Hacker", "temps": 15},
+      "message": "INCROYABLE ! Tu as hacké plus vite que ton adversaire ! LUNA : 'T'es un speed hacker légendaire ! Personne ne peut te battre !'",
+      "consequence": "speed_victory"
+    },
+    "stealth_hack": {
+      "texte": "🕵️ HACK DISCRET (furtif)",
+      "bonus": {"score": 250, "badge": "Stealth Master", "temps": 25},
+      "message": "Parfait ! Tu as hacké sans te faire repérer ! L'autre hacker ne sait même pas ce qui s'est passé. LUNA : 'Hack furtif réussi ! Tu es invisible !'",
+      "consequence": "stealth_victory"
+    },
+    "chicken_challenge": {
+      "texte": "🐔 REFUSER LE DÉFI (chicken)",
+      "bonus": {"score": -150, "badge": "Challenge Chicken", "temps": 0},
+      "message": "Tu as refusé le défi ! Tous les hackers se moquent de toi maintenant. LUNA : 'T'es vraiment un chicken ! Personne ne te respecte !'",
+      "consequence": "challenge_lost"
+    }
+  },
+  "feedback_luna": "🌙 LUNA : Les défis sociaux font les vrais hackers ! Montre que t'es pas un noob !",
+  "easter_egg": {
+    "commande": "challenge_1337",
+    "message": "⚔️ EASTER EGG CHALLENGE ! Tu as trouvé le code secret des défis !"
+  },
+  "recompenses": {
+    "score_minimum": 200,
+    "badge_special": "Social Hacker",
+    "message_special": "🎉 Tu as prouvé ta valeur dans la communauté hacker ! Tu deviens légendaire !"
+  }
+} 

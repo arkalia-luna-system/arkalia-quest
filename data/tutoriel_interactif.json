@@ -1,0 +1,139 @@
+{
+  "tutoriel": {
+    "etapes": [
+      {
+        "id": 1,
+        "titre": "🎮 BIENVENUE HACKER !",
+        "description": "Salut jeune rebelle ! Tu vas devenir un hacker légendaire !",
+        "action": "Clique sur 'COMMENCER' pour démarrer ton aventure",
+        "bouton": "🚀 COMMENCER",
+        "commande": "start_tutorial",
+        "animation": "welcome",
+        "duree": 3000
+      },
+      {
+        "id": 2,
+        "titre": "🌙 RENCONTRE LUNA",
+        "description": "Voici LUNA, ton IA complice ! Elle va t'aider à hacker La Corp",
+        "action": "Dis 'Salut LUNA' pour la rencontrer",
+        "bouton": "🌙 PARLER À LUNA",
+        "commande": "luna_contact",
+        "animation": "luna_intro",
+        "duree": 4000
+      },
+      {
+        "id": 3,
+        "titre": "💻 PREMIER HACK",
+        "description": "Maintenant, on va faire ton premier hack ! C'est trop cool !",
+        "action": "Tape 'hack_system' pour hacker un système",
+        "bouton": "💻 HACKER",
+        "commande": "hack_system",
+        "animation": "hacking_progress",
+        "duree": 5000
+      },
+      {
+        "id": 4,
+        "titre": "🎯 TA PREMIÈRE MISSION",
+        "description": "Parfait ! Maintenant charge ta première mission de hacking",
+        "action": "Tape 'load_mission' pour commencer une mission",
+        "bouton": "🎯 MISSION",
+        "commande": "load_mission",
+        "animation": "mission_start",
+        "duree": 4000
+      },
+      {
+        "id": 5,
+        "titre": "🏆 RÉCOMPENSE !",
+        "description": "Bravo ! Tu as gagné ton premier badge de hacker !",
+        "action": "Tape 'badges' pour voir tes récompenses",
+        "bouton": "🏆 BADGES",
+        "commande": "badges",
+        "animation": "success",
+        "duree": 3000
+      }
+    ],
+    "recompenses": {
+      "badge_tutoriel": {
+        "nom": "🎓 Hacker Débutant",
+        "description": "Tu as terminé le tutoriel ! Bienvenue dans la communauté !",
+        "couleur": "#00ff00",
+        "animation": "badge_glow"
+      },
+      "points_tutoriel": 100,
+      "niveau_debloque": 2
+    },
+    "messages_motivation": [
+      "🔥 Tu es en train de devenir un vrai hacker !",
+      "⚡ Continue comme ça, c'est trop cool !",
+      "🎮 Tu vas bientôt être un pro du hacking !",
+      "🚀 La Corp ne sait pas ce qui l'attend !",
+      "💪 Tu as le potentiel d'un hacker légendaire !"
+    ]
+  },
+  "missions_rapides": {
+    "hack_express": {
+      "titre": "⚡ HACK EXPRESS",
+      "description": "Hacke un système en 10 secondes chrono !",
+      "commande": "speed_hack",
+      "duree": 10000,
+      "difficulte": "facile",
+      "recompense": 50
+    },
+    "virus_killer": {
+      "titre": "🦠 TUEUR DE VIRUS",
+      "description": "Élimine un virus de La Corp !",
+      "commande": "kill_virus",
+      "duree": 8000,
+      "difficulte": "moyen",
+      "recompense": 75
+    },
+    "shadow_hunter": {
+      "titre": "👻 CHASSEUR D'OMBRE",
+      "description": "Trouve SHADOW-13 le voleur !",
+      "commande": "find_shadow",
+      "duree": 12000,
+      "difficulte": "difficile",
+      "recompense": 100
+    }
+  },
+  "defis_sociaux": {
+    "duel_rapide": {
+      "titre": "⚔️ DUEL RAPIDE",
+      "description": "Défie un ami en mode 2 joueurs !",
+      "commande": "start_duel",
+      "duree": 30000,
+      "type": "competition"
+    },
+    "course_hacking": {
+      "titre": "🏃 COURSE DE HACKING",
+      "description": "Qui sera le plus rapide à hacker ?",
+      "commande": "speed_race",
+      "duree": 15000,
+      "type": "course"
+    }
+  },
+  "effets_visuels": {
+    "hacking_progress": {
+      "etapes": [
+        "🔍 CONNEXION AU SYSTÈME...",
+        "⚡ ANALYSE DES FAILLES...",
+        "💻 EXPLOITATION EN COURS...",
+        "🎉 HACK RÉUSSI !"
+      ],
+      "couleurs": ["#00ff00", "#00ffff", "#ff00ff", "#ffff00"],
+      "duree_etape": 2000
+    },
+    "success_effect": {
+      "particules": 20,
+      "couleur": "#00ff00",
+      "duree": 2000,
+      "son": "success"
+    },
+    "error_effect": {
+      "tremblement": true,
+      "couleur": "#ff0000",
+      "duree": 500,
+      "son": "error"
+    }
+  }
+} 

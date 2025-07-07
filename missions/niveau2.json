@@ -1,0 +1,43 @@
+{
+  "id": 2,
+  "titre": "👻 CHASSE À SHADOW-13 !",
+  "description": "SHADOW-13, le hacker légendaire, se cache dans le réseau ! Tu as 45 secondes pour le trouver avant qu'il ne vole toutes tes données !",
+  "timer": 45,
+  "urgence": true,
+  "choix": {
+    "trace_shadow": {
+      "texte": "🕵️ TRACER SHADOW-13 (détective)",
+      "bonus": {"score": 150, "badge": "Shadow Hunter", "temps": 20},
+      "message": "INCROYABLE ! Tu as tracé SHADOW-13 ! Il t'a laissé un message : 'Pas mal, petit noob ! Tu commences à m'intéresser...' LUNA : 'Wow, t'as réussi à traquer le légendaire !'",
+      "consequence": "shadow_found"
+    },
+    "hack_shadow": {
+      "texte": "💻 HACKER SHADOW-13 (direct)",
+      "bonus": {"score": 300, "badge": "Shadow Slayer", "temps": 30},
+      "message": "BOOM ! Tu as hacké SHADOW-13 ! Il t'a donné accès à son arsenal secret. LUNA : 'T'es devenu un vrai rebelle ! SHADOW-13 te respecte maintenant !'",
+      "consequence": "shadow_hacked"
+    },
+    "join_shadow": {
+      "texte": "🤝 REJOINDRE SHADOW-13 (alliance)",
+      "bonus": {"score": 200, "badge": "Shadow Ally", "temps": 25},
+      "message": "SHADOW-13 t'a accepté dans son équipe ! Tu as maintenant accès à des outils de hacking ultra-avancés. LUNA : 'Une alliance dangereuse mais puissante !'",
+      "consequence": "shadow_alliance"
+    },
+    "chicken_shadow": {
+      "texte": "🐔 FUIR SHADOW-13 (chicken)",
+      "bonus": {"score": -100, "badge": "Shadow Chicken", "temps": 0},
+      "message": "Tu as fui comme un chicken ! SHADOW-13 a volé tes données et se moque de toi. LUNA : 'T'es vraiment un noob ! SHADOW-13 va te traquer maintenant !'",
+      "consequence": "shadow_escape"
+    }
+  },
+  "feedback_luna": "🌙 LUNA : SHADOW-13 est le hacker le plus redouté ! Choisis bien, petit noob !",
+  "easter_egg": {
+    "commande": "shadow_1337",
+    "message": "👻 EASTER EGG SHADOW ! Tu as trouvé le code secret de SHADOW-13 !"
+  },
+  "recompenses": {
+    "score_minimum": 150,
+    "badge_special": "Shadow Master",
+    "message_special": "🎉 Tu as affronté SHADOW-13 et survécu ! Tu deviens légendaire !"
+  }
+} 

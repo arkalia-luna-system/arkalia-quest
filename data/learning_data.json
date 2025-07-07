@@ -1,0 +1,28 @@
+{
+  "command_patterns": {
+    "commande": {
+      "luna_engine": 1
+    },
+    "apprentissage": {
+      "luna_learning": 1
+    }
+  },
+  "response_effectiveness": {},
+  "user_preferences": {
+    "favorite_commands": {
+      "commande": [
+        "luna_engine"
+      ],
+      "apprentissage": [
+        "luna_learning"
+      ]
+    },
+    "command_frequency": {
+      "commande": 1,
+      "apprentissage": 1
+    },
+    "context_preferences": {},
+    "response_style": "balanced"
+  },
+  "learning_history": []
+}

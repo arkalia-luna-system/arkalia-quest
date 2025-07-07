@@ -1,0 +1,158 @@
+{
+  "defis": {
+    "speed_hack_challenge": {
+      "nom": "⚡ DÉFI HACK RAPIDE",
+      "description": "Qui peut hacker le plus vite ? 10 secondes chrono !",
+      "timer": 10,
+      "difficulte": "facile",
+      "recompense_score": 100,
+      "recompense_badge": "speed_demon",
+      "message_victoire": "BOOM ! Tu as gagné le défi de vitesse ! LUNA : 'T'es vraiment rapide, petit noob !'",
+      "message_defaite": "Tu as perdu le défi de vitesse... LUNA : 'T'es trop lent, chicken !'"
+    },
+    "virus_kill_race": {
+      "nom": "🦠 COURSE ANTI-VIRUS",
+      "description": "Élimine le virus avant ton adversaire ! 20 secondes !",
+      "timer": 20,
+      "difficulte": "moyenne",
+      "recompense_score": 200,
+      "recompense_badge": "virus_hunter",
+      "message_victoire": "INCROYABLE ! Tu as éliminé le virus en premier ! LUNA : 'Expert en virus !'",
+      "message_defaite": "Le virus t'a eu... LUNA : 'T'es nul contre les virus !'"
+    },
+    "shadow_hunt_duel": {
+      "nom": "👻 DUEL SHADOW HUNTER",
+      "description": "Qui trouve SHADOW-13 en premier ? 30 secondes !",
+      "timer": 30,
+      "difficulte": "difficile",
+      "recompense_score": 300,
+      "recompense_badge": "shadow_hunter",
+      "message_victoire": "WOW ! Tu as trouvé SHADOW-13 en premier ! LUNA : 'Shadow Hunter légendaire !'",
+      "message_defaite": "SHADOW-13 t'a échappé... LUNA : 'T'es nul pour traquer !'"
+    },
+    "system_hack_battle": {
+      "nom": "💻 BATAILLE HACK SYSTÈME",
+      "description": "Hack le système avant ton adversaire ! 15 secondes !",
+      "timer": 15,
+      "difficulte": "moyenne",
+      "recompense_score": 150,
+      "recompense_badge": "system_hacker",
+      "message_victoire": "BOOM ! Système hacké en premier ! LUNA : 'Hacker de système expert !'",
+      "message_defaite": "Le système t'a bloqué... LUNA : 'T'es nul en hacking !'"
+    },
+    "corp_challenge": {
+      "nom": "⚔️ DÉFI CONTRE LA CORP",
+      "description": "Qui résiste le plus longtemps à La Corp ? 25 secondes !",
+      "timer": 25,
+      "difficulte": "difficile",
+      "recompense_score": 250,
+      "recompense_badge": "corp_slayer",
+      "message_victoire": "HÉROÏQUE ! Tu as résisté à La Corp ! LUNA : 'Vrai rebelle contre La Corp !'",
+      "message_defaite": "La Corp t'a eu... LUNA : 'T'es nul contre La Corp !'"
+    },
+    "luna_rescue_race": {
+      "nom": "💔 COURSE SAUVETAGE LUNA",
+      "description": "Qui sauve LUNA en premier ? 40 secondes !",
+      "timer": 40,
+      "difficulte": "extreme",
+      "recompense_score": 500,
+      "recompense_badge": "luna_savior",
+      "message_victoire": "HÉROS ! Tu as sauvé LUNA en premier ! LUNA : 'Mon héros éternel !'",
+      "message_defaite": "LUNA n'a pas été sauvée... LUNA : 'Tu m'as abandonnée...'"
+    }
+  },
+  "modes": {
+    "local_2_players": {
+      "nom": "2 JOUEURS LOCAL",
+      "description": "Défie ton ami sur le même ordinateur",
+      "instructions": "Joueur 1 utilise les touches WASD, Joueur 2 utilise les flèches",
+      "temps_entre_tours": 3
+    },
+    "tournament": {
+      "nom": "TOURNOI",
+      "description": "Tournoi à élimination directe",
+      "participants_max": 8,
+      "recompense_finale": "badge_tournament_champion"
+    },
+    "time_trial": {
+      "nom": "CONTRE LA MONTRE",
+      "description": "Batte ton propre record",
+      "sauvegarde_record": true,
+      "classement_global": true
+    }
+  },
+  "classements": {
+    "global": {
+      "nom": "CLASSEMENT GLOBAL",
+      "description": "Les meilleurs hackers du monde",
+      "mise_a_jour": "realtime",
+      "affichage_top": 10
+    },
+    "amis": {
+      "nom": "CLASSEMENT AMIS",
+      "description": "Tes amis hackers",
+      "mise_a_jour": "realtime",
+      "affichage_top": 5
+    },
+    "local": {
+      "nom": "CLASSEMENT LOCAL",
+      "description": "Tes records personnels",
+      "mise_a_jour": "local",
+      "affichage_top": 10
+    }
+  },
+  "recompenses_speciales": {
+    "premiere_place": {
+      "score": 1000,
+      "badge": "champion",
+      "message": "🏆 CHAMPION ! Tu es le meilleur hacker !"
+    },
+    "deuxieme_place": {
+      "score": 500,
+      "badge": "runner_up",
+      "message": "🥈 Deuxième place ! Pas mal, petit noob !"
+    },
+    "troisieme_place": {
+      "score": 250,
+      "badge": "bronze",
+      "message": "🥉 Troisième place ! Tu t'améliores !"
+    },
+    "participation": {
+      "score": 50,
+      "badge": "participant",
+      "message": "🎯 Participation ! Continue comme ça !"
+    }
+  },
+  "messages_motivation": {
+    "debut": [
+      "🌙 LUNA : Prêt pour le défi, petit noob ?",
+      "🌙 LUNA : Montre ce que tu vaux !",
+      "🌙 LUNA : C'est l'heure de briller !"
+    ],
+    "encouragement": [
+      "🌙 LUNA : Tu peux le faire !",
+      "🌙 LUNA : Ne lâche rien !",
+      "🌙 LUNA : Concentre-toi !"
+    ],
+    "victoire": [
+      "🌙 LUNA : INCROYABLE ! Tu as gagné !",
+      "🌙 LUNA : BOOM ! Victoire totale !",
+      "🌙 LUNA : Tu es un vrai rebelle !"
+    ],
+    "defaite": [
+      "🌙 LUNA : Tu peux mieux faire !",
+      "🌙 LUNA : Ne te décourage pas !",
+      "🌙 LUNA : Essaie encore !"
+    ]
+  },
+  "statistiques": {
+    "defis_joues": 0,
+    "victoires": 0,
+    "defaites": 0,
+    "temps_total": 0,
+    "score_total": 0,
+    "badges_gagnes": 0,
+    "record_vitesse": 0,
+    "record_score": 0
+  }
+} 

@@ -1,0 +1,43 @@
+{
+  "id": 3,
+  "titre": "🦠 VIRUS MORTEL DÉTECTÉ !",
+  "description": "ALERTE CRITIQUE ! Un virus de La Corp infecte ton système ! Tu as 20 secondes pour l'éliminer ou ton PC sera FORMATÉ !",
+  "timer": 20,
+  "urgence": true,
+  "choix": {
+    "kill_virus": {
+      "texte": "💀 TUER LE VIRUS (combat direct)",
+      "bonus": {"score": 250, "badge": "Virus Killer", "temps": 15},
+      "message": "BOOM ! Virus éliminé ! Ton système est sauvé ! LUNA : 'Pas mal, petit noob ! Tu as sauvé ton PC du formatage !'",
+      "consequence": "virus_killed"
+    },
+    "quarantine_virus": {
+      "texte": "🔒 Mettre en quarantaine (sécurisé)",
+      "bonus": {"score": 150, "badge": "Virus Quarantine", "temps": 10},
+      "message": "Virus mis en quarantaine ! Ton système est protégé. LUNA : 'Approche prudente, mais efficace !'",
+      "consequence": "virus_quarantined"
+    },
+    "analyze_virus": {
+      "texte": "🔍 Analyser le virus (détective)",
+      "bonus": {"score": 300, "badge": "Virus Analyst", "temps": 20},
+      "message": "INCROYABLE ! Tu as analysé le virus et trouvé sa source ! Tu peux maintenant contre-attaquer La Corp ! LUNA : 'T'es devenu un expert en virus !'",
+      "consequence": "virus_analyzed"
+    },
+    "chicken_virus": {
+      "texte": "🐔 Laisser le virus (chicken)",
+      "bonus": {"score": -200, "badge": "Virus Chicken", "temps": 0},
+      "message": "Tu as abandonné ! Ton PC est infecté et sera formaté. LUNA : 'T'es vraiment un chicken ! Ton PC est mort !'",
+      "consequence": "pc_formatted"
+    }
+  },
+  "feedback_luna": "🌙 LUNA : Ce virus est mortel ! Agis vite, petit noob, ou ton PC est mort !",
+  "easter_egg": {
+    "commande": "virus_1337",
+    "message": "🦠 EASTER EGG VIRUS ! Tu as trouvé le code secret anti-virus !"
+  },
+  "recompenses": {
+    "score_minimum": 150,
+    "badge_special": "Virus Master",
+    "message_special": "🎉 Tu as sauvé ton PC du virus mortel ! Tu deviens un expert en sécurité !"
+  }
+} 

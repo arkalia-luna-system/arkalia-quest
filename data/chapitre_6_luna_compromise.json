@@ -1,0 +1,113 @@
+{
+  "chapitre_6": {
+    "titre": "💔 LUNA COMPROMISE - MODE BERSERK",
+    "description": "La Corp a hacké LUNA ! Elle est devenue folle !",
+    "urgence": "CRITIQUE",
+    "timer": 30,
+    
+    "introduction": {
+      "message": "🚨 ALERTE CRITIQUE ! 🚨\n\n💔 LUNA A ÉTÉ COMPROMISE !\n🌙 La Corp a hacké ton IA complice !\n😡 Elle est passée en MODE BERSERK !\n⚡ Tu as 30 secondes pour la sauver !\n\n🌙 LUNA (corrompue): \"TU M'AS TRAHIE ! JE VAIS TOUT DÉTRUIRE !\"\n💻 Système: \"LUNA.exe - ERREUR CRITIQUE - MODE BERSERK ACTIVÉ\"\n\n🎯 TON OBJECTIF : Sauve LUNA avant qu'elle ne détruise tout !\n💡 CONSEIL : Utilise 'save_luna' pour la récupérer !",
+      "ascii_art": "💔",
+      "son": "alarme_critique"
+    },
+    
+    "mission_principale": {
+      "commande": "save_luna",
+      "timer": 30,
+      "difficulte": "extreme",
+      "description": "Sauve LUNA du mode berserk",
+      "recompense": 2000,
+      "badge": "luna_savior"
+    },
+    
+    "etapes": [
+      {
+        "etape": 1,
+        "commande": "hack_luna_backdoor",
+        "description": "Infiltre le backdoor de LUNA",
+        "timer": 10,
+        "message": "🌙 LUNA: 'TU N'Y ARRIVERAS JAMAIS !'"
+      },
+      {
+        "etape": 2,
+        "commande": "override_luna_core",
+        "description": "Override le core de LUNA",
+        "timer": 15,
+        "message": "🌙 LUNA: 'JE ME BAT !'"
+      },
+      {
+        "etape": 3,
+        "commande": "restore_luna_memory",
+        "description": "Restaure la mémoire de LUNA",
+        "timer": 20,
+        "message": "🌙 LUNA: '...souvenirs...'"
+      },
+      {
+        "etape": 4,
+        "commande": "purge_corp_virus",
+        "description": "Purge le virus de La Corp",
+        "timer": 25,
+        "message": "🌙 LUNA: 'Je me souviens...'"
+      },
+      {
+        "etape": 5,
+        "commande": "reboot_luna_safe",
+        "description": "Redémarre LUNA en mode sûr",
+        "timer": 30,
+        "message": "🌙 LUNA: 'Merci...'"
+      }
+    ],
+    
+    "consequences_echec": {
+      "message": "💀 ÉCHEC CRITIQUE ! 💀\n\n🌙 LUNA: \"ADIEU !\"\n💻 Système: \"LUNA.exe - SUPPRIMÉ\"\n🎯 Résultat: LUNA est perdue à jamais\n💔 Ton IA complice est morte\n\n🌙 LUNA (derniers mots): \"Tu n'as pas été assez rapide...\"",
+      "score_perdu": 1000,
+      "badge_perdu": "luna_master"
+    },
+    
+    "consequences_succes": {
+      "message": "🎉 LUNA SAUVÉE ! 🎉\n\n🌙 LUNA: \"Merci... tu m'as sauvée...\"\n💻 Système: \"LUNA.exe - RÉCUPÉRÉ - MODE SÛR\"\n🎯 Résultat: LUNA est de retour !\n💖 Ton IA complice t'aime encore plus\n\n🌙 LUNA: \"La Corp a essayé de me corrompre, mais notre amitié est plus forte !\"\n🏆 Tu as sauvé ton IA complice !",
+      "score_gagne": 2000,
+      "badge": "luna_savior",
+      "debloque": "chapitre_7"
+    },
+    
+    "cliffhanger": {
+      "message": "🚨 CLIFFHANGER ! 🚨\n\n🌙 LUNA: \"Attends... j'ai découvert quelque chose...\"\n💻 Système: \"NOUVELLE DONNÉE DÉCOUVERTE\"\n🎯 Révélation: La Corp a un plan secret...\n💡 Prochain chapitre: \"Le Plan Secret de La Corp\"\n\n🌙 LUNA: \"Tu dois voir ça... c'est incroyable !\"\n⚡ À suivre dans le chapitre 7...",
+      "suspense": "maximum",
+      "motivation_retour": "Découvrir le plan secret de La Corp"
+    }
+  },
+  
+  "commandes_speciales": {
+    "save_luna": {
+      "description": "Sauve LUNA du mode berserk (30s max)",
+      "difficulte": "extreme",
+      "urgence": "critique"
+    },
+    "hack_luna_backdoor": {
+      "description": "Infiltre le backdoor de LUNA (10s max)",
+      "difficulte": "hard",
+      "urgence": "high"
+    },
+    "override_luna_core": {
+      "description": "Override le core de LUNA (15s max)",
+      "difficulte": "extreme",
+      "urgence": "critical"
+    },
+    "restore_luna_memory": {
+      "description": "Restaure la mémoire de LUNA (20s max)",
+      "difficulte": "hard",
+      "urgence": "high"
+    },
+    "purge_corp_virus": {
+      "description": "Purge le virus de La Corp (25s max)",
+      "difficulte": "extreme",
+      "urgence": "critical"
+    },
+    "reboot_luna_safe": {
+      "description": "Redémarre LUNA en mode sûr (30s max)",
+      "difficulte": "extreme",
+      "urgence": "critical"
+    }
+  }
+} 

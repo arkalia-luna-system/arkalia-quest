@@ -1,0 +1,131 @@
+{
+  "avatars": {
+    "hacker_classic": {
+      "nom": "Hacker Classique",
+      "icone": "👨‍💻",
+      "description": "Le hacker traditionnel avec sa capuche",
+      "couleur": "#00ff00",
+      "niveau_requis": 1,
+      "badge_requis": null
+    },
+    "cyber_punk": {
+      "nom": "Cyber Punk",
+      "icone": "🤖",
+      "description": "Futuriste avec des implants cybernétiques",
+      "couleur": "#00ffff",
+      "niveau_requis": 3,
+      "badge_requis": "hacker_social"
+    },
+    "matrix_master": {
+      "nom": "Matrix Master",
+      "icone": "🕶️",
+      "description": "Maître de la Matrix, comme Neo",
+      "couleur": "#ff00ff",
+      "niveau_requis": 5,
+      "badge_requis": "shadow_hunter"
+    },
+    "rebel_fire": {
+      "nom": "Rebelle Fire",
+      "icone": "🔥",
+      "description": "Rebelle enflammé contre La Corp",
+      "couleur": "#ff4444",
+      "niveau_requis": 2,
+      "badge_requis": "rebel_debutant"
+    },
+    "virus_hunter": {
+      "nom": "Virus Hunter",
+      "icone": "🦠",
+      "description": "Chasseur de virus professionnel",
+      "couleur": "#00ff00",
+      "niveau_requis": 4,
+      "badge_requis": "virus_killer"
+    },
+    "shadow_ghost": {
+      "nom": "Shadow Ghost",
+      "icone": "👻",
+      "description": "Fantôme du réseau comme SHADOW-13",
+      "couleur": "#ffaa00",
+      "niveau_requis": 6,
+      "badge_requis": "shadow_slayer"
+    },
+    "luna_protector": {
+      "nom": "Luna Protector",
+      "icone": "🌙",
+      "description": "Protecteur de LUNA, gardien de l'IA",
+      "couleur": "#ff00ff",
+      "niveau_requis": 7,
+      "badge_requis": "luna_savior"
+    },
+    "speed_demon": {
+      "nom": "Speed Demon",
+      "icone": "⚡",
+      "description": "Démon de la vitesse, hack ultra-rapide",
+      "couleur": "#ffff00",
+      "niveau_requis": 4,
+      "badge_requis": "speed_hacker"
+    }
+  },
+  "themes": {
+    "classic": {
+      "nom": "Classique",
+      "couleur_principale": "#00ff00",
+      "couleur_secondaire": "#000000",
+      "couleur_accent": "#00ffff",
+      "description": "Thème vert classique du terminal"
+    },
+    "cyber": {
+      "nom": "Cyber",
+      "couleur_principale": "#00ffff",
+      "couleur_secondaire": "#000000",
+      "couleur_accent": "#ff00ff",
+      "description": "Thème cyberpunk avec cyan"
+    },
+    "matrix": {
+      "nom": "Matrix",
+      "couleur_principale": "#00ff00",
+      "couleur_secondaire": "#000000",
+      "couleur_accent": "#ffffff",
+      "description": "Thème Matrix avec code vert"
+    },
+    "fire": {
+      "nom": "Fire",
+      "couleur_principale": "#ff4444",
+      "couleur_secondaire": "#000000",
+      "couleur_accent": "#ffaa00",
+      "description": "Thème enflammé rebelle"
+    },
+    "neon": {
+      "nom": "Neon",
+      "couleur_principale": "#ff00ff",
+      "couleur_secondaire": "#000000",
+      "couleur_accent": "#00ffff",
+      "description": "Thème néon coloré"
+    },
+    "stealth": {
+      "nom": "Stealth",
+      "couleur_principale": "#888888",
+      "couleur_secondaire": "#000000",
+      "couleur_accent": "#ffffff",
+      "description": "Thème furtif discret"
+    }
+  },
+  "debloquage": {
+    "niveau_1": ["hacker_classic"],
+    "niveau_2": ["rebel_fire"],
+    "niveau_3": ["cyber_punk"],
+    "niveau_4": ["virus_hunter", "speed_demon"],
+    "niveau_5": ["matrix_master"],
+    "niveau_6": ["shadow_ghost"],
+    "niveau_7": ["luna_protector"]
+  },
+  "recompenses": {
+    "avatar_debloque": {
+      "score": 50,
+      "message": "🎉 Nouvel avatar débloqué !"
+    },
+    "theme_debloque": {
+      "score": 25,
+      "message": "🎨 Nouveau thème débloqué !"
+    }
+  }
+} 

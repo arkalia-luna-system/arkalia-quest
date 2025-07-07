@@ -1,0 +1,40 @@
+{
+  "id": "niveau1",
+  "titre": "🎯 Mission Niveau 1 - Premiers Pas",
+  "description": "Bienvenue dans Arkalia Quest ! Cette mission te guide dans tes premiers pas en tant que hacker. Découvre ton potentiel et débloque tes capacités cachées.",
+  "difficulte": "facile",
+  "recompense": 100,
+  "etapes": [
+    {
+      "id": "etape1",
+      "titre": "Débloquer l'Univers",
+      "description": "Utilise la commande 'unlock_universe' pour débloquer ton accès au monde d'Arkalia.",
+      "commande": "unlock_universe",
+      "recompense": 50
+    },
+    {
+      "id": "etape2", 
+      "titre": "Analyser ta Personnalité",
+      "description": "Utilise 'scan_persona' pour découvrir ton type de hacker et tes traits de personnalité.",
+      "commande": "scan_persona",
+      "recompense": 30
+    },
+    {
+      "id": "etape3",
+      "titre": "Contacter LUNA",
+      "description": "Utilise 'luna_contact' pour établir un lien avec ton IA compagnon.",
+      "commande": "luna_contact", 
+      "recompense": 20
+    }
+  ],
+  "objectifs": [
+    "Débloquer l'univers Arkalia",
+    "Découvrir ton profil de hacker",
+    "Établir le contact avec LUNA"
+  ],
+  "conseils": [
+    "Commence par 'unlock_universe' pour débloquer ton potentiel",
+    "Utilise 'aide' si tu ne sais pas quelle commande utiliser",
+    "Explore 'monde' une fois l'univers débloqué"
+  ]
+} 

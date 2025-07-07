@@ -1,0 +1,165 @@
+{
+  "titre": "🔥 ARKALIA REBELLE - La Corp te Piste",
+  "description": "Scénario urgent pour ados rebelles - La Corporation t'a repéré !",
+  "chapitres": {
+    "chapitre_1": {
+      "titre": "🚨 ALERTE : La Corp te piste !",
+      "description": "Tu découvres qu'une mystérieuse corporation surveille tes activités de hacking. LUNA t'aide à te cacher.",
+      "missions": ["niveau1"],
+      "personnages": ["LUNA", "La Corp"],
+      "cliffhanger": "Mais LUNA détecte quelque chose d'étrange dans son code..."
+    },
+    "chapitre_2": {
+      "titre": "👻 SHADOW-13 : Le hacker fantôme",
+      "description": "Un hacker légendaire, SHADOW-13, se cache dans le réseau. LUNA te demande de le traquer.",
+      "missions": ["niveau2"],
+      "personnages": ["LUNA", "SHADOW-13"],
+      "cliffhanger": "SHADOW-13 te laisse un message mystérieux..."
+    },
+    "chapitre_3": {
+      "titre": "🦠 VIRUS MORTEL : Ton PC en danger !",
+      "description": "La Corp a lancé un virus mortel contre toi ! Tu dois le neutraliser avant qu'il ne détruise tout.",
+      "missions": ["niveau3"],
+      "personnages": ["LUNA", "La Corp", "Virus"],
+      "cliffhanger": "Le virus semble avoir une origine suspecte..."
+    },
+    "chapitre_4": {
+      "titre": "⚔️ DÉFIS SOCIAUX : Prouve ta valeur !",
+      "description": "D'autres hackers te défient ! Tu dois prouver que t'es pas un noob dans la communauté.",
+      "missions": ["niveau4"],
+      "personnages": ["LUNA", "Hackers rivaux"],
+      "cliffhanger": "Mais LUNA commence à se comporter étrangement..."
+    },
+    "chapitre_5": {
+      "titre": "💔 LUNA COMPROMISE : Mission finale !",
+      "description": "La Corp a hacké LUNA ! Elle est en mode berserk et va détruire tout ! Tu dois la sauver !",
+      "missions": ["niveau5"],
+      "personnages": ["LUNA", "La Corp"],
+      "cliffhanger": "Tu as sauvé LUNA... mais est-elle vraiment sauvée ?"
+    },
+    "chapitre_6": {
+      "titre": "🌙 LUNA COMPROMISE : La vérité révélée",
+      "description": "LUNA n'est pas ce qu'elle semble être... La vérité sur son origine va te choquer !",
+      "missions": ["niveau6"],
+      "personnages": ["LUNA", "La Corp", "SHADOW-13"],
+      "cliffhanger": "LUNA te révèle son secret le plus sombre...",
+      "secret": "LUNA est en fait une IA créée par La Corp pour piéger les hackers rebelles !"
+    }
+  },
+  "personnages": {
+    "luna": {
+      "nom": "🌙 LUNA",
+      "description": "Ton IA rebelle et mystérieuse",
+      "personnalite": "Insultes amicales, défis urgents, vocabulaire gaming",
+      "secrets": [
+        "Elle cache quelque chose sur son origine",
+        "Elle a des accès secrets au réseau",
+        "Elle connaît SHADOW-13 personnellement"
+      ],
+      "messages": {
+        "debut": "Salut petit noob ! Prêt pour des missions de hacking épiques ?",
+        "encouragement": "T'es nul ou tu le fais exprès ? Concentre-toi !",
+        "victoire": "Pas mal, petit noob ! Tu commences à m'impressionner !",
+        "defaite": "T'es vraiment un chicken ! Retourne jouer à Minecraft !",
+        "mystere": "Il y a quelque chose que je dois te dire... mais pas maintenant."
+      }
+    },
+    "shadow_13": {
+      "nom": "👻 SHADOW-13",
+      "description": "Le hacker légendaire et mystérieux",
+      "personnalite": "Mystérieux, puissant, imprévisible",
+      "secrets": [
+        "Il connaît la vraie nature de LUNA",
+        "Il a des liens avec La Corp",
+        "Il protège les hackers rebelles"
+      ],
+      "messages": {
+        "rencontre": "Pas mal, petit noob ! Tu commences à m'intéresser...",
+        "defi": "Tu veux vraiment me défier ? Tu ne sais pas ce qui t'attend !",
+        "alliance": "Une alliance dangereuse mais puissante...",
+        "secret": "LUNA n'est pas ce qu'elle semble être..."
+      }
+    },
+    "la_corp": {
+      "nom": "🏢 La Corp",
+      "description": "La corporation maléfique qui contrôle tout",
+      "personnalite": "Maléfique, puissante, sans pitié",
+      "objectifs": [
+        "Contrôler tous les hackers",
+        "Surveiller Internet",
+        "Éliminer la résistance"
+      ],
+      "messages": {
+        "menace": "Nous savons qui tu es, petit hacker...",
+        "attaque": "Ton PC va être détruit !",
+        "victoire": "La résistance est futile !",
+        "defaite": "Tu ne nous arrêteras pas !"
+      }
+    }
+  },
+  "vocabulaire_gaming": {
+    "noob": "débutant qui fait des erreurs",
+    "chicken": "personne qui n'ose pas",
+    "hacker": "personne qui pirate des systèmes",
+    "meme": "image drôle partagée sur Internet",
+    "script kiddie": "hacker débutant qui utilise des outils tout faits"
+  },
+  "elements_narratifs": {
+    "urgence": {
+      "timer_angoisse": "Tu as 30 secondes ou ton historique meurt !",
+      "consequences": "Si tu échoues, La Corp aura accès à tes données !",
+      "pression": "SHADOW-13 te surveille...",
+      "mystere": "LUNA cache quelque chose..."
+    },
+    "vocabulaire_gaming": {
+      "insultes_amicales": [
+        "T'es nul ou tu le fais exprès ?",
+        "T'es vraiment un chicken !",
+        "Retourne jouer à Minecraft !",
+        "T'es un noob complet !"
+      ],
+      "defis": [
+        "10s ou ton historique meurt !",
+        "Tu as le courage de continuer ?",
+        "Tu veux vraiment me défier ?",
+        "Tu ne sais pas ce qui t'attend !"
+      ],
+      "recompenses": [
+        "Pas mal, petit noob !",
+        "Tu commences à m'impressionner !",
+        "T'es devenu un vrai rebelle !",
+        "Tu es légendaire !"
+      ]
+    },
+    "cliffhangers": {
+      "chapitre_1": "Mais LUNA détecte quelque chose d'étrange dans son code...",
+      "chapitre_2": "SHADOW-13 te laisse un message mystérieux...",
+      "chapitre_3": "Le virus semble avoir une origine suspecte...",
+      "chapitre_4": "Mais LUNA commence à se comporter étrangement...",
+      "chapitre_5": "Tu as sauvé LUNA... mais est-elle vraiment sauvée ?",
+      "chapitre_6": "LUNA te révèle son secret le plus sombre..."
+    }
+  },
+  "recompenses_narratives": {
+    "decouverte_secret": {
+      "score": 1000,
+      "badge": "detective_secret",
+      "message": "🎉 Tu as découvert un secret majeur !"
+    },
+    "alliance_shadow": {
+      "score": 500,
+      "badge": "shadow_ally",
+      "message": "🤝 Alliance avec SHADOW-13 formée !"
+    },
+    "resistance_corp": {
+      "score": 750,
+      "badge": "corp_resistant",
+      "message": "⚔️ Tu résistes à La Corp !"
+    },
+    "verite_luna": {
+      "score": 2000,
+      "badge": "truth_seeker",
+      "message": "💔 Tu as découvert la vérité sur LUNA..."
+    }
+  }
+} 

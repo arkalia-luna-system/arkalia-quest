@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Profil - Arkalia Quest</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- PWA Icons -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/icon-16x16.png">
+    <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png">
+    
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="terminal-container">
+        <h2>Profil du joueur</h2>
+        <div><b>Score :</b> {{ profil.score }}</div>
+        <div><b>Badges :</b>
+            {% if profil.badges %}
+                <ul>
+                {% for badge in profil.badges %}
+                    <li>{{ badge }}</li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                Aucun badge pour l'instant.
+            {% endif %}
+        </div>
+        <div><b>Préférences :</b>
+            {% if profil.preferences %}
+                <ul>
+                {% for k, v in profil.preferences.items() %}
+                    <li>{{ k }} : {{ v }}</li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                Aucune préférence enregistrée.
+            {% endif %}
+            {% if profil.preferences.dragon_choisi %}
+                <div><b>Dragon choisi :</b> {{ profil.preferences.dragon_choisi }}
+                    {% if profil.preferences.dragon_choisi == 'bleu' %} (Dragon de glace) 🐉{% elif profil.preferences.dragon_choisi == 'rouge' %} (Dragon de feu) 🐉{% endif %}
+                </div>
+            {% endif %}
+        </div>
+        <a href="/terminal">Retour au terminal</a>
+    </div>
+</body>
+</html>

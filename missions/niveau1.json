@@ -1,0 +1,43 @@
+{
+  "id": 1,
+  "titre": "🚨 URGENCE : La Corp te piste !",
+  "description": "ALERTE ROUGE ! La Corp a détecté ton signal ! Tu as 30 secondes pour pirater leur coffre ou ton historique sera EXPOSÉ !",
+  "timer": 30,
+  "urgence": true,
+  "choix": {
+    "brute_force": {
+      "texte": "💥 FORCER LE COFFRE (risqué mais rapide)",
+      "bonus": {"score": 50, "badge": "Brute Forcer", "temps": 5},
+      "message": "BOOM ! Tu as réussi par la force, mais tu as déclenché une alarme ! LUNA : 'T'es nul ou tu le fais exprès ? La Corp va te traquer maintenant !'",
+      "consequence": "alarme_triggered"
+    },
+    "ingenierie_sociale": {
+      "texte": "🎭 TROMPER L'IA (social engineering)",
+      "bonus": {"score": 100, "badge": "Hacker Social", "temps": 10},
+      "message": "BRAVO ! Tu as piraté le coffre sans te faire repérer. LUNA : 'Pas mal, petit noob ! Tu commences à comprendre le hacking !'",
+      "consequence": "stealth_success"
+    },
+    "chercher_code": {
+      "texte": "🔍 CHERCHER LE CODE SECRET (détective)",
+      "bonus": {"score": 200, "badge": "Détective Secret", "temps": 15},
+      "message": "INCROYABLE ! Tu as trouvé le code caché : PORTAIL_X13. Tu débloques un portail secret vers le niveau supérieur ! LUNA : 'Wow, t'es pas qu'un simple chicken !'",
+      "consequence": "portal_unlocked"
+    },
+    "chicken_out": {
+      "texte": "🐔 ABANDONNER (chicken mode)",
+      "bonus": {"score": -50, "badge": "Chicken", "temps": 0},
+      "message": "Tu as abandonné ! La Corp a maintenant accès à ton historique. LUNA : 'T'es vraiment un chicken ! Retourne jouer à Minecraft !'",
+      "consequence": "history_exposed"
+    }
+  },
+  "feedback_luna": "🌙 LUNA : Chaque choix a ses conséquences, petit noob ! Les vrais hackers savent observer avant d'agir !",
+  "easter_egg": {
+    "commande": "easter_egg_1337",
+    "message": "🥚 EASTER EGG TROUVÉ ! Tu as découvert le code secret 1337 !"
+  },
+  "recompenses": {
+    "score_minimum": 100,
+    "badge_special": "Rebelle Débutant",
+    "message_special": "🎉 Tu as prouvé que t'es pas un chicken ! Bienvenue dans la résistance !"
+  }
+}

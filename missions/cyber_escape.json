@@ -1,0 +1,23 @@
+{
+  "id": "cyber_escape",
+  "titre": "🔓 Cyber Escape - Le Labyrinthe Virtuel",
+  "description": "Tu es piégé dans un labyrinthe numérique. Pour t'échapper, il te faut hacker le système, éviter les pièges IA et trouver le portail secret.",
+  "choix": {
+    "hacker_porte": {
+      "texte": "Hacker la porte principale (difficile)",
+      "bonus": {"score": 80, "badge": "Déverrouilleur"},
+      "message": "Tu as réussi à hacker la porte, mais tu as laissé des traces... LUNA te conseille la discrétion !"
+    },
+    "passer_inaperçu": {
+      "texte": "Passer inaperçu (furtif)",
+      "bonus": {"score": 120, "badge": "Fantôme du Code"},
+      "message": "Tu t'es échappé sans te faire repérer ! Un portail secret s'ouvre : PORTAIL_OMEGA."
+    },
+    "demander_a_luna": {
+      "texte": "Demander un indice à LUNA",
+      "bonus": {"score": 40, "badge": "Complice IA"},
+      "message": "LUNA t'aide, mais le système se renforce. Tu progresses, mais la prochaine énigme sera plus dure !"
+    }
+  },
+  "feedback_luna": "🌙 LUNA : Dans Arkalia, chaque choix change le jeu. Ose explorer les chemins cachés !"
+} 

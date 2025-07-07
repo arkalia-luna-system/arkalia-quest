@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARKALIA QUEST - DARK HACKER PORTAL</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="Portail secret vers l'univers Arkalia. Accès restreint aux hackers confirmés.">
+    <meta name="keywords" content="hacker, portal, secret, dark, terminal, luna, arkalia">
+    <meta name="author" content="ARKALIA SECURITY SYSTEM">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="ARKALIA">
+    
+    <!-- PWA Icons -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/icon-16x16.png">
+    <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <!-- Audio généré en JavaScript - Compatible MacOS -->
+    
+    <style>
+        /* RESET ET BASE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background: #000000;
+            color: #00ff00;
+            overflow-x: hidden;
+            cursor: crosshair;
+            user-select: none;
+        }
+
+        /* EFFET GLOBAL DE SCAN */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, transparent 98%, rgba(0, 255, 0, 0.1) 100%),
+                linear-gradient(0deg, transparent 98%, rgba(0, 255, 0, 0.1) 100%);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 1;
+            animation: scanGrid 20s linear infinite;
+        }
+
+        @keyframes scanGrid {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* CONTAINER PRINCIPAL */
+        .portal-container {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+
+        /* EFFET DE GLITCH D'ENTRÉE */
+        .glitch-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 1000;
+            animation: glitchEntrance 3s ease-out forwards;
+        }
+
+        @keyframes glitchEntrance {
+            0% { opacity: 1; }
+            20% { 
+                opacity: 0.8;
+                transform: translateX(-10px);
+                filter: hue-rotate(90deg);
+            }
+            40% { 
+                opacity: 0.9;
+                transform: translateX(10px);
+                filter: hue-rotate(180deg);
+            }
+            60% { 
+                opacity: 0.7;
+                transform: translateX(-5px);
+                filter: hue-rotate(270deg);
+            }
+            80% { 
+                opacity: 0.95;
+                transform: translateX(5px);
+                filter: hue-rotate(360deg);
+            }
+            100% { 
+                opacity: 0;
+                transform: translateX(0);
+                filter: hue-rotate(0deg);
+            }
+        }
+
+        /* LOGO PRINCIPAL */
+        .main-logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 4em;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .main-logo:hover {
+            text-shadow: 
+                0 0 20px #00ff00,
+                0 0 40px #00ff00,
+                0 0 60px #00ff00;
+            transform: scale(1.05);
+        }
+
+        .main-logo::before {
+            content: 'ARKALIA';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            color: #ff0000;
+            animation: glitchText 2s infinite;
+            z-index: -1;
+        }
+
+        .main-logo::after {
+            content: 'ARKALIA';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            color: #0000ff;
+            animation: glitchText 2s infinite reverse;
+            z-index: -2;
+        }
+
+        @keyframes glitchText {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+
+        /* SOUS-TITRE */
+        .subtitle {
+            font-size: 1.2em;
+            color: #00ffff;
+            text-align: center;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1s forwards;
+            text-shadow: 0 0 10px #00ffff;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* BOUTONS DE NAVIGATION */
+        .nav-buttons {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 2.5s forwards;
+        }
+
+        .nav-button {
+            background: linear-gradient(45deg, #00ff00, #00ffff);
+            color: #000;
+            border: none;
+            padding: 15px 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            font-family: 'Orbitron', monospace;
+            border-radius: 8px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 
+                0 0 15px rgba(0, 255, 0, 0.5),
+                inset 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .nav-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-button:hover::before {
+            left: 100%;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 
+                0 0 30px rgba(0, 255, 0, 0.8),
+                inset 0 0 30px rgba(0, 255, 255, 0.5);
+        }
+
+        .nav-button:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        /* BOUTON PRINCIPAL */
+        .enter-button {
+            background: linear-gradient(45deg, #00ff00, #00ffff);
+            color: #000;
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.5em;
+            font-weight: bold;
+            font-family: 'Orbitron', monospace;
+            border-radius: 10px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 3s forwards;
+            box-shadow: 
+                0 0 20px rgba(0, 255, 0, 0.5),
+                inset 0 0 20px rgba(0, 255, 255, 0.3);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .enter-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .enter-button:hover::before {
+            left: 100%;
+        }
+
+        .enter-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 0 40px rgba(0, 255, 0, 0.8),
+                inset 0 0 40px rgba(0, 255, 255, 0.5);
+        }
+
+        .enter-button:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        /* TERMINAL FAKE EN BAS */
+        .fake-terminal {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: rgba(0, 0, 0, 0.9);
+            border-top: 2px solid #00ff00;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.9em;
+            padding: 20px;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .terminal-content {
+            height: 100%;
+            overflow-y: auto;
+            color: #00ff00;
+        }
+
+        .terminal-line {
+            margin: 5px 0;
+            opacity: 0;
+            animation: typeWriter 0.1s ease-out forwards;
+        }
+
+        .terminal-line:nth-child(1) { animation-delay: 3.5s; }
+        .terminal-line:nth-child(2) { animation-delay: 4s; }
+        .terminal-line:nth-child(3) { animation-delay: 4.5s; }
+        .terminal-line:nth-child(4) { animation-delay: 5s; }
+        .terminal-line:nth-child(5) { animation-delay: 5.5s; }
+        .terminal-line:nth-child(6) { animation-delay: 6s; }
+        .terminal-line:nth-child(7) { animation-delay: 6.5s; }
+        .terminal-line:nth-child(8) { animation-delay: 7s; }
+
+        @keyframes typeWriter {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .terminal-cursor {
+            display: inline-block;
+            width: 10px;
+            height: 15px;
+            background: #00ff00;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* EFFET MATRIX RAIN */
+        .matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* EASTER EGG */
+        .easter-egg {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .easter-egg:hover {
+            background: rgba(0, 255, 0, 0.3);
+            transform: scale(1.2);
+            box-shadow: 0 0 20px #00ff00;
+        }
+
+        /* MODAL EASTER EGG */
+        .easter-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .easter-content {
+            background: #000;
+            border: 2px solid #00ff00;
+            padding: 40px;
+            text-align: center;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .easter-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(0, 255, 0, 0.1) 50%, transparent 70%);
+            animation: scanLine 2s linear infinite;
+        }
+
+        /* CONTROLS AUDIO */
+        .audio-controls {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+        }
+
+        .audio-btn {
+            background: rgba(0, 255, 0, 0.2);
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            padding: 10px;
+            cursor: pointer;
+            font-family: 'Share Tech Mono', monospace;
+            transition: all 0.3s ease;
+        }
+
+        .audio-btn:hover {
+            background: rgba(0, 255, 0, 0.4);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .main-logo {
+                font-size: 2.5em;
+            }
+            
+            .subtitle {
+                font-size: 1em;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .nav-button {
+                padding: 12px 20px;
+                font-size: 1em;
+            }
+            
+            .enter-button {
+                padding: 15px 30px;
+                font-size: 1.2em;
+            }
+            
+            .fake-terminal {
+                height: 150px;
+                font-size: 0.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- GLITCH OVERLAY -->
+    <div class="glitch-overlay"></div>
+    
+    <!-- AUDIO CONTROLS -->
+    <div class="audio-controls">
+        <button id="toggleAudio" class="audio-btn">🔊 SON</button>
+    </div>
+    
+    <!-- EASTER EGG -->
+    <div id="easterEgg" class="easter-egg" title="Easter Egg"></div>
+    
+    <!-- EASTER MODAL -->
+    <div id="easterModal" class="easter-modal">
+        <div class="easter-content">
+            <h2>🎮 EASTER EGG TROUVÉ !</h2>
+            <p>Tu as découvert un secret d'Arkalia Quest !</p>
+            <p>Code secret: <strong>LUNA_2024</strong></p>
+            <button onclick="closeEasterModal()" style="margin-top: 20px; padding: 10px 20px; background: #00ff00; color: #000; border: none; cursor: pointer;">FERMER</button>
+        </div>
+    </div>
+    
+    <!-- MATRIX RAIN CANVAS -->
+    <canvas id="matrixRain" class="matrix-rain"></canvas>
+    
+    <!-- MAIN CONTAINER -->
+    <div class="portal-container">
+        <h1 id="mainLogo" class="main-logo">ARKALIA QUEST</h1>
+        <p class="subtitle">🌌 PORTAL SECRET VERS L'UNIVERS IMMERSIF</p>
+        
+        <!-- BOUTONS DE NAVIGATION -->
+        <div class="nav-buttons">
+            <a href="/terminal" class="nav-button" onclick="playSound('buttonSound')">🎮 TERMINAL</a>
+            <a href="/monde" class="nav-button" onclick="playSound('buttonSound')">🌍 MONDE</a>
+            <a href="/profil" class="nav-button" onclick="playSound('buttonSound')">👤 PROFIL</a>
+        </div>
+        
+        <a href="/terminal" id="enterButton" class="enter-button" onclick="playSound('buttonSound')">🚀 ENTRER DANS L'UNIVERS</a>
+    </div>
+    
+    <!-- FAKE TERMINAL -->
+    <div class="fake-terminal">
+        <div id="terminalContent" class="terminal-content">
+            <div class="terminal-line">[SYSTÈME] Initialisation du portail Arkalia...</div>
+            <div class="terminal-line">[SÉCURITÉ] Vérification des accès...</div>
+            <div class="terminal-line">[IA] LUNA en ligne et opérationnelle</div>
+            <div class="terminal-line">[RÉSEAU] Connexion sécurisée établie</div>
+            <div class="terminal-line">[MISSIONS] 8 missions disponibles</div>
+            <div class="terminal-line">[EFFETS] Système sonore et visuel actif</div>
+            <div class="terminal-line">[STATUT] Prêt pour l'immersion totale</div>
+            <div class="terminal-line">[PROMPT] <span class="terminal-cursor"></span></div>
+        </div>
+    </div>
+
+    <script>
+        // VARIABLES GLOBALES
+        let audioEnabled = true;
+        let easterEggFound = false;
+        let audioUnlocked = false;
+        
+        // INITIALISATION
+        document.addEventListener('DOMContentLoaded', function() {
+            initMatrixRain();
+            initAudio();
+            initEasterEgg();
+            initButtonEffects();
+
+            // DÉBOGAGE : suppression de l'overlay après animation
+            setTimeout(() => {
+                const overlay = document.querySelector('.glitch-overlay');
+                if (overlay) {
+                    overlay.style.pointerEvents = 'none';
+                    overlay.style.opacity = 0;
+                    overlay.parentNode.removeChild(overlay);
+                }
+            }, 3200);
+
+            // Débloque l'audio sur le premier clic utilisateur (MacOS/Chrome/Safari)
+            document.body.addEventListener('click', function unlockAudioOnce() {
+                if (!audioUnlocked) {
+                    const ambient = document.getElementById('ambientSound');
+                    try {
+                        ambient.play().then(() => {
+                            console.log('Son d\'ambiance lancé (débloqué)');
+                        }).catch(() => {
+                            // Certains navigateurs refusent, c'est normal
+                            console.log('Tentative de lancement du son d\'ambiance');
+                        });
+                    } catch (e) {
+                        console.log('Erreur audio:', e);
+                    }
+                    audioUnlocked = true;
+                }
+            }, { once: true });
+
+            // Son de bouton à chaque clic bouton
+            document.querySelectorAll('.nav-button, .enter-button').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    playSound('buttonSound');
+                    console.log('Son bouton joué');
+                });
+            });
+        });
+        
+        // MATRIX RAIN EFFECT
+        function initMatrixRain() {
+            const canvas = document.getElementById('matrixRain');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+            const matrixArray = matrix.split("");
+            
+            const fontSize = 10;
+            const columns = canvas.width / fontSize;
+            const drops = [];
+            
+            for (let x = 0; x < columns; x++) {
+                drops[x] = 1;
+            }
+            
+            function draw() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.fillStyle = '#0F0';
+                ctx.font = fontSize + 'px monospace';
+                
+                for (let i = 0; i < drops.length; i++) {
+                    const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+            
+            setInterval(draw, 35);
+            
+            // Resize handler
+            window.addEventListener('resize', function() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        }
+        
+        // AUDIO SYSTEM - SON GÉNÉRÉ EN JAVASCRIPT PUR
+        function initAudio() {
+            // Toggle audio button
+            document.getElementById('toggleAudio').addEventListener('click', toggleAudio);
+            
+            // Force audio unlock on ANY click (MacOS fix)
+            document.addEventListener('click', function() {
+                if (!audioUnlocked) {
+                    audioUnlocked = true;
+                    console.log('Audio débloqué par clic global');
+                    // Test son immédiat
+                    playBeep(800, 0.1);
+                }
+            });
+        }
+        
+        function toggleAudio() {
+            const toggleBtn = document.getElementById('toggleAudio');
+            
+            if (audioEnabled) {
+                toggleBtn.textContent = '🔇 MUTE';
+                audioEnabled = false;
+            } else {
+                toggleBtn.textContent = '🔊 SON';
+                audioEnabled = true;
+                // Test son quand on réactive
+                playBeep(600, 0.1);
+            }
+        }
+        
+        // SON GÉNÉRÉ EN JAVASCRIPT - MARCHE SUR TOUS LES NAVIGATEURS
+        function playBeep(frequency = 800, duration = 0.2) {
+            if (!audioEnabled) return;
+            
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + duration);
+                
+                console.log('Beep joué:', frequency, 'Hz');
+            } catch (e) {
+                console.log('Erreur beep:', e);
+            }
+        }
+        
+        // SOUND PLAYER - REMPLACÉ PAR playBeep
+        function playSound(soundId) {
+            console.log('Tentative de lecture son:', soundId);
+            
+            // Force audio unlock on any click
+            if (!audioUnlocked) {
+                audioUnlocked = true;
+                console.log('Audio débloqué');
+            }
+            
+            if (audioEnabled) {
+                // Sons différents selon le type
+                switch(soundId) {
+                    case 'buttonSound':
+                        playBeep(800, 0.15); // Son bouton
+                        break;
+                    case 'ambientSound':
+                        playBeep(400, 0.5); // Son ambiance
+                        break;
+                    case 'easterSound':
+                        playBeep(1200, 0.3); // Son easter egg
+                        break;
+                    default:
+                        playBeep(600, 0.2); // Son par défaut
+                }
+            } else {
+                console.log('Audio désactivé');
+            }
+        }
+        
+        // EASTER EGG SYSTEM
+        function initEasterEgg() {
+            const easterEgg = document.getElementById('easterEgg');
+            const easterModal = document.getElementById('easterModal');
+            
+            easterEgg.addEventListener('click', function() {
+                showEasterModal();
+                playBeep(1200, 0.3); // Son aigu pour easter egg
+                
+                // Add visual effect
+                easterEgg.style.background = 'rgba(255, 255, 0, 0.5)';
+                easterEgg.style.borderColor = '#ffff00';
+                easterEgg.style.boxShadow = '0 0 30px #ffff00';
+                
+                // Reset after 1 second
+                setTimeout(() => {
+                    easterEgg.style.background = 'rgba(0, 255, 0, 0.1)';
+                    easterEgg.style.borderColor = '#00ff00';
+                    easterEgg.style.boxShadow = 'none';
+                }, 1000);
+            });
+            
+            // Keyboard easter egg
+            let konamiCode = [];
+            const konamiSequence = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // ↑↑↓↓←→←→BA
+            
+            document.addEventListener('keydown', function(e) {
+                konamiCode.push(e.keyCode);
+                if (konamiCode.length > konamiSequence.length) {
+                    konamiCode.shift();
+                }
+                
+                if (konamiCode.join(',') === konamiSequence.join(',')) {
+                    showEasterModal();
+                    playBeep(1200, 0.3);
+                }
+            });
+        }
+        
+        function showEasterModal() {
+            const modal = document.getElementById('easterModal');
+            modal.style.display = 'flex';
+            
+            // Add glitch effect
+            modal.style.animation = 'glitchEntrance 0.5s ease-out';
+            
+            // Auto-close after 2 seconds (plus rapide)
+            setTimeout(() => {
+                closeEasterModal();
+            }, 2000);
+        }
+
+        function closeEasterModal() {
+            const modal = document.getElementById('easterModal');
+            modal.style.display = 'none';
+        }
+        
+        // BUTTON EFFECTS
+        function initButtonEffects() {
+            const mainLogo = document.getElementById('mainLogo');
+            
+            // Logo hover effect
+            mainLogo.addEventListener('mouseenter', function() {
+                this.style.animation = 'glitchText 0.5s infinite';
+            });
+            
+            mainLogo.addEventListener('mouseleave', function() {
+                this.style.animation = '';
+            });
+        }
+        
+        // NAVIGATION FUNCTION
+        function navigateTo(url) {
+            console.log('Navigation vers:', url);
+            playSound('buttonSound');
+            
+            // Add click effect to the button
+            if (event && event.target) {
+                event.target.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    event.target.style.transform = '';
+                }, 150);
+            }
+            
+            // Add transition effect
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.3s ease';
+            
+            setTimeout(() => {
+                window.location.href = url;
+            }, 300);
+        }
+        
+        // TERMINAL TYPING EFFECT
+        function typeTerminalText() {
+            const terminalContent = document.getElementById('terminalContent');
+            const lines = terminalContent.children;
+            
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                const text = line.textContent;
+                line.textContent = '';
+                
+                setTimeout(() => {
+                    typeWriter(line, text, 0);
+                }, i * 500);
+            }
+        }
+        
+        function typeWriter(element, text, index) {
+            if (index < text.length) {
+                element.textContent += text.charAt(index);
+                setTimeout(() => {
+                    typeWriter(element, text, index + 1);
+                }, 50);
+            }
+        }
+        
+        // Start terminal typing after page load
+        setTimeout(typeTerminalText, 3000);
+        
+        // MOUSE TRAIL EFFECT
+        let mouseTrail = [];
+        document.addEventListener('mousemove', function(e) {
+            mouseTrail.push({x: e.clientX, y: e.clientY, time: Date.now()});
+            
+            if (mouseTrail.length > 10) {
+                mouseTrail.shift();
+            }
+            
+            // Create trail effect
+            if (mouseTrail.length > 1) {
+                const trail = document.createElement('div');
+                trail.style.position = 'fixed';
+                trail.style.left = e.clientX + 'px';
+                trail.style.top = e.clientY + 'px';
+                trail.style.width = '2px';
+                trail.style.height = '2px';
+                trail.style.background = '#00ff00';
+                trail.style.pointerEvents = 'none';
+                trail.style.zIndex = '9999';
+                document.body.appendChild(trail);
+                
+                setTimeout(() => {
+                    trail.remove();
+                }, 100);
+            }
+        });
+    </script>
+</body>
+</html>

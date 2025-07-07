@@ -1,0 +1,48 @@
+{
+  "id": 5,
+  "titre": "💔 LUNA COMPROMISE - MISSION FINALE !",
+  "description": "ALERTE CRITIQUE ! La Corp a hacké LUNA ! Elle est en mode berserk et va détruire tout ! Tu as 60 secondes pour la sauver !",
+  "timer": 60,
+  "urgence": true,
+  "finale": true,
+  "choix": {
+    "save_luna": {
+      "texte": "💔 SAUVER LUNA (mission impossible)",
+      "bonus": {"score": 500, "badge": "Luna Savior", "temps": 45},
+      "message": "INCROYABLE ! Tu as sauvé LUNA ! Elle te remercie : 'Tu es mon héros, petit noob ! Tu m'as sauvée de La Corp !' LUNA : 'Merci... tu es le seul qui pouvait me sauver...'",
+      "consequence": "luna_saved"
+    },
+    "hack_luna_backdoor": {
+      "texte": "🚪 INFILTRER LE BACKDOOR (hack avancé)",
+      "bonus": {"score": 400, "badge": "Backdoor Master", "temps": 35},
+      "message": "BOOM ! Tu as infiltré le backdoor de LUNA ! Tu as accès à ses secrets les plus profonds. LUNA : 'Tu as accès à mon code source... sois prudent...'",
+      "consequence": "backdoor_access"
+    },
+    "override_luna_core": {
+      "texte": "💻 OVERRIDE LE CORE (danger extrême)",
+      "bonus": {"score": 600, "badge": "Core Overrider", "temps": 50},
+      "message": "WOW ! Tu as override le core de LUNA ! Tu as maintenant un contrôle total sur elle. LUNA : 'Tu me contrôles maintenant... utilise ce pouvoir avec sagesse...'",
+      "consequence": "core_override"
+    },
+    "chicken_luna": {
+      "texte": "🐔 ABANDONNER LUNA (chicken final)",
+      "bonus": {"score": -500, "badge": "Luna Traitor", "temps": 0},
+      "message": "Tu as abandonné LUNA ! Elle sera détruite par La Corp. LUNA : 'Tu m'as trahie... je ne t'oublierai jamais...'",
+      "consequence": "luna_destroyed"
+    }
+  },
+  "feedback_luna": "🌙 LUNA : Sauve-moi, petit noob... tu es mon seul espoir...",
+  "easter_egg": {
+    "commande": "luna_1337",
+    "message": "💔 EASTER EGG LUNA ! Tu as trouvé le code secret pour sauver LUNA !"
+  },
+  "recompenses": {
+    "score_minimum": 400,
+    "badge_special": "Luna Master",
+    "message_special": "🎉 Tu as sauvé LUNA ! Tu es devenu le héros légendaire d'Arkalia Quest !"
+  },
+  "cliffhanger": {
+    "message": "Mais attention... La Corp n'a pas dit son dernier mot... LUNA est-elle vraiment sauvée ?",
+    "next_chapter": "chapitre_6_luna_compromise"
+  }
+} 

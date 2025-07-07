@@ -1,0 +1,22 @@
+export VENV_NAME="arkalia-quest"
+export VIRTUAL_ENV="/Volumes/T7/devstation/arkalia-quest/.venv-quest"
+export PATH="/Volumes/T7/devstation/arkalia-quest/.venv-quest/bin:$PATH"
+export FLASK_APP=app.py
+export FLASK_ENV=development
+
+# Affiche tous les fichiers cachés et trie par date
+alias lsall='ls -lahG'
+
+# Supprimer tous les fichiers __pycache__ dans le projet
+alias cleanpycache='find . -type d -name __pycache__ -exec rm -r {} +'
+
+# Ouvrir vite app.py dans VSCode
+alias codeapp='code /Volumes/T7/devstation/arkalia-quest/app.py'
+
+# Lance le jeu directement
+alias questgo='./run.sh'
+
+# Prompt Arkalia Quest
+PS1='🎮 Arkalia-Quest 🕰️ %t — 📂 %1~ — 💾 $(df -h . | tail -1 | awk "{print \$4}") libres / $(df -h . | tail -1 | awk "{print \$2}")\n🌟 Kernel IA ultra-protection active ✅\n%n@%m %1~ %# '
+
+

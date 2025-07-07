@@ -6,7 +6,7 @@ authors = ["Arkalia Quest Team <dev@arkalia-quest.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = ">=3.8.1,<4.0"
 Flask = "3.0.0"
 Werkzeug = "3.0.1"
 gunicorn = "21.2.0"

@@ -1,14 +1,14 @@
 {
-  "last_updated": "2025-07-08T14:32:44.956285",
+  "last_updated": "2025-07-08T14:42:35.559327",
   "players": [
     {
       "user_id": "default",
       "name": "Hacker",
-      "score": 18010,
+      "score": 18615,
       "level": 1,
       "badges_count": 5,
       "missions_completed": 0,
-      "last_activity": "2025-07-08T14:32:44.956275",
+      "last_activity": "2025-07-08T14:42:35.559321",
       "join_date": "2025-07-08T14:31:39.575753"
     }
   ],
@@ -16,17 +16,17 @@
     {
       "user_id": "default",
       "name": "Hacker",
-      "score": 18010,
+      "score": 18615,
       "level": 1,
       "badges_count": 5,
       "missions_completed": 0,
-      "last_activity": "2025-07-08T14:32:44.956275",
+      "last_activity": "2025-07-08T14:42:35.559321",
       "join_date": "2025-07-08T14:31:39.575753"
     }
   ],
   "statistics": {
     "total_players": 1,
-    "total_score": 18010,
-    "average_score": 18010.0
+    "total_score": 18615,
+    "average_score": 18615.0
   }
 }

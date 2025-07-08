@@ -136,7 +136,33 @@ PROFIL_PATH = 'data/profil_joueur.json'
 
 # Chargement du profil joueur amélioré
 def charger_profil():
-    return arkalia_engine.profiles.load_main_profile()
+    try:
+        return arkalia_engine.profiles.load_main_profile()
+    except Exception as e:
+        print(f"❌ Erreur chargement profil principal: {e}")
+        # Retourner un profil par défaut en cas d'erreur
+        return {
+            "id": "default",
+            "name": "Hacker",
+            "score": 0,
+            "level": 1,
+            "badges": [],
+            "preferences": {},
+            "personnalite": {
+                "type": "non_detecte",
+                "traits": [],
+                "missions_completees": [],
+                "monde_debloque": "arkalia_base"
+            },
+            "progression": {
+                "niveau": 1,
+                "univers_debloques": ["arkalia_base"],
+                "portails_ouverts": [],
+                "zones_debloquees": []
+            },
+            "created_at": "2024-01-01T00:00:00",
+            "last_login": "2024-01-01T00:00:00"
+        }
 
 def sauvegarder_profil(profil):
     arkalia_engine.profiles.save_main_profile(profil)
@@ -286,6 +312,24 @@ def profil():
     profil = charger_profil()
     return render_template('profil.html', profil=profil)
 
+@app.route('/explorateur')
+def explorateur():
+    """Module explorateur de fichiers immersif"""
+    profil = charger_profil()
+    return render_template('explorateur.html', profil=profil)
+
+@app.route('/mail')
+def mail():
+    """Module système de mail narratif"""
+    profil = charger_profil()
+    return render_template('mail.html', profil=profil)
+
+@app.route('/audio')
+def audio():
+    """Module système audio avancé"""
+    profil = charger_profil()
+    return render_template('audio.html', profil=profil)
+
 # Routes pour servir les fichiers JSON
 @app.route('/data/profil_joueur.json')
 def get_profil():
@@ -322,14 +366,25 @@ handler = CommandHandler()
 def commande():
     data = request.get_json()
     # Accepter soit 'cmd' soit 'commande' comme clé
-    cmd = data.get('cmd', data.get('commande', '')).strip()
+    cmd = data.get('cmd', data.get('commande', ''))
+    if not isinstance(cmd, str) or not cmd.strip():
+        # Erreur : commande vide ou invalide
+        return jsonify({
+            "reponse": {
+                "réussite": False,
+                "message": "❌ Commande vide ou invalide. Utilise la clé 'commande' ou 'cmd' avec une valeur non vide.",
+                "profile_updated": False
+            }
+        }), 400
+    cmd = cmd.strip()
     profil = charger_profil()
     # Log de la commande reçue
     print(f"[API] Commande reçue: {cmd}")
     reponse = handler.handle_command(cmd, profil)
+    print(f"[DEBUG] Réponse du handler: {reponse}")
     if reponse.get("profile_updated"):
         sauvegarder_profil(profil)
-    return jsonify(reponse)
+    return jsonify({"reponse": reponse})
 
 @app.route('/api/content')
 def get_available_content():
@@ -722,6 +777,11 @@ def get_system_status():
     }
     
     return jsonify(status)
+
+# @app.route('/os2142')
+# def os2142():
+#     """Route pour l'interface OS 2142"""
+#     return render_template('os2142.html')
 
 if __name__ == '__main__':
     # Créer les dossiers nécessaires

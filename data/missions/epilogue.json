@@ -1,0 +1,34 @@
+{
+  "id": "epilogue",
+  "titre": "L'Aube de PANDORA",
+  "description": "Arkalia est née, mais la menace de PANDORA plane. Génère ton certificat de hacker et découvre le teaser de la suite…",
+  "difficulte": "bonus",
+  "recompense": 200,
+  "etapes": [
+    {
+      "id": "etape1",
+      "titre": "Générer le certificat",
+      "description": "Utilise la commande 'generer_certificat' pour créer ton badge de hacker.",
+      "commande": "generer_certificat",
+      "recompense": 100
+    },
+    {
+      "id": "etape2",
+      "titre": "Découvrir le teaser",
+      "description": "Scanne le QR code pour accéder à la vidéo secrète.",
+      "commande": "scanner_qr",
+      "recompense": 100
+    }
+  ],
+  "objectifs": [
+    "Générer le certificat de hacker",
+    "Découvrir le teaser d'Arkalia Quest 2"
+  ],
+  "conseils": [
+    "Partage ton badge sur les réseaux",
+    "Prépare-toi pour la suite !"
+  ],
+  "personnages": ["arkalia", "pandora", "joueur"],
+  "objet_symbolique": "Badge_Hacker.png",
+  "cliffhanger": "PANDORA a infecté le cloud. Arkalia Quest 2 commence…"
+} 

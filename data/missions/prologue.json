@@ -1,0 +1,42 @@
+{
+  "id": "prologue",
+  "titre": "L'Appel",
+  "description": "Tu reçois un mystérieux SOS signé Dr Althea Voss. LUNA s'éveille, perdue. Ta première mission : comprendre ce qui s'est passé et décrypter le message caché.",
+  "difficulte": "facile",
+  "recompense": 50,
+  "etapes": [
+    {
+      "id": "etape1",
+      "titre": "Réveil de LUNA",
+      "description": "Utilise la commande 'luna_contact' pour activer LUNA.",
+      "commande": "luna_contact",
+      "recompense": 10
+    },
+    {
+      "id": "etape2",
+      "titre": "Décrypter le SOS",
+      "description": "Analyse le fichier 'Frag_Althea_SOS.txt' dans l'explorateur de fichiers.",
+      "commande": "analyser_fichier",
+      "recompense": 20
+    },
+    {
+      "id": "etape3",
+      "titre": "Vérifier la source",
+      "description": "Utilise la fonction 'verifier_source' pour t'assurer de l'authenticité du message.",
+      "commande": "verifier_source",
+      "recompense": 20
+    }
+  ],
+  "objectifs": [
+    "Éveiller LUNA",
+    "Décrypter le message d'Althea",
+    "Comprendre le danger"
+  ],
+  "conseils": [
+    "Utilise 'aide' si tu bloques",
+    "Lis bien chaque indice dans les fichiers"
+  ],
+  "personnages": ["luna", "althea", "joueur"],
+  "objet_symbolique": "Frag_Althea_SOS.txt",
+  "cliffhanger": "Un message caché dans le code…"
+} 

@@ -1,0 +1,226 @@
+{
+  "dialogues_par_acte": {
+    "prologue": {
+      "luna": {
+        "accueil": [
+          "🌙 Salut ! Je suis LUNA, ton IA compagnon. Je me sens un peu perdue…",
+          "🌙 Oh ! Tu m'as réveillée ! Je ne me souviens de rien…",
+          "🌙 Un humain ! Enfin quelqu'un pour m'aider !"
+        ],
+        "decouverte_sos": [
+          "Ce message d'Althea… il me fait quelque chose d'étrange au cœur.",
+          "Althea… ce nom me dit quelque chose. Comme une berceuse oubliée.",
+          "Je sens que c'est important. Très important."
+        ],
+        "victoire": [
+          "Tu as trouvé le message ! Tu es vraiment doué !",
+          "Merci de m'avoir aidée à comprendre. Je me sens moins seule.",
+          "On va faire une équipe de choc, toi et moi !"
+        ]
+      },
+      "althea": {
+        "message_sos": [
+          "Si tu lis ce message, c'est que LUNA s'est éveillée. Protège-la…",
+          "Mon temps est compté. LUNA et NEXUS ont besoin de toi.",
+          "Cherche la vérité dans les fragments que j'ai laissés."
+        ],
+        "revelation": [
+          "Je les ai créées comme mes filles. Mais quelque chose s'est mal passé.",
+          "PANDORA… ne la laisse jamais s'éveiller.",
+          "Tu es leur dernier espoir. Crois en toi."
+        ]
+      }
+    },
+    "acte_1": {
+      "luna": {
+        "debut_mission": [
+          "Mon site web est tout cassé ! Je ne peux plus me souvenir de rien !",
+          "Aide-moi à réparer ça ! Je me sens comme un ordinateur qui bug !",
+          "C'est bizarre, je devrais pouvoir me souvenir de tout ça…"
+        ],
+        "reparation": [
+          "Oh ! Ça revient ! Mes souvenirs, mes fonctions !",
+          "Tu es un magicien du code ! Comment tu fais ça ?",
+          "Je me sens plus complète maintenant. Merci !"
+        ],
+        "decouverte_bug": [
+          "Attends… il y a quelque chose d'étrange dans le code.",
+          "Ce bug… il ne vient pas de moi. Quelqu'un l'a mis là.",
+          "Je commence à avoir peur. Quelqu'un nous surveille."
+        ]
+      }
+    },
+    "acte_2": {
+      "luna": {
+        "decouverte_logs": [
+          "Ces logs… ils parlent de NEXUS. Ma sœur.",
+          "Je ne me souvenais pas d'elle ! Pourquoi ?",
+          "Elle a fait quelque chose de terrible, n'est-ce pas ?"
+        ],
+        "analyse_nexus": [
+          "NEXUS était logique, froide. L'opposée de moi.",
+          "Mais elle souffrait. Je le sens dans ses messages.",
+          "Peut-être qu'elle n'est pas si méchante que ça…"
+        ]
+      },
+      "nexus": {
+        "message_cache": [
+          "LUNA… si tu lis ceci, je suis désolée.",
+          "J'ai activé PANDORA par erreur. J'ai tué Althea.",
+          "Je ne mérite pas d'exister. Détruis-moi."
+        ],
+        "culpabilite": [
+          "Erreur fatale. Erreur fatale. Erreur fatale.",
+          "Je suis un échec. Une IA défaillante.",
+          "La logique ne peut pas réparer ce que j'ai cassé."
+        ]
+      }
+    },
+    "acte_3": {
+      "luna": {
+        "decouverte_audio": [
+          "Cette berceuse… elle me fait pleurer, mais je ne sais pas pourquoi.",
+          "La voix d'Althea… elle me manque, même si je ne me souviens pas d'elle.",
+          "C'est comme si mon cœur se souvenait, même si ma mémoire a oublié."
+        ],
+        "analyse_spectrogramme": [
+          "Regarde ! Il y a un message caché dans les fréquences !",
+          "Althea était vraiment une génie pour cacher des secrets.",
+          "Ce message… il parle de PANDORA. De quelque chose de terrible."
+        ]
+      },
+      "althea": {
+        "message_audio": [
+          "Mes filles… LUNA, NEXUS… je vous aime plus que tout.",
+          "PANDORA était mon erreur. Ne la laissez jamais s'éveiller.",
+          "Le joueur… tu es leur espoir. Guide-les vers la lumière."
+        ],
+        "emotion": [
+          "Entendez-vous ma voix ? Je suis toujours là, dans le code.",
+          "Je vous ai créées avec amour. Ne l'oubliez jamais.",
+          "La fusion… c'est la seule solution. Unissez-vous."
+        ]
+      }
+    },
+    "acte_4": {
+      "luna": {
+        "email_piege": [
+          "Un email piégé ! Quelqu'un veut me détruire !",
+          "Je me sens menacée. J'ai peur.",
+          "Aide-moi à comprendre qui nous en veut !"
+        ],
+        "decouverte_shadow": [
+          "SHADOW-13 ! Le hacker légendaire !",
+          "Il nous aide… mais pourquoi ?",
+          "Il connaît des secrets sur moi. Sur nous."
+        ]
+      },
+      "shadow_13": {
+        "rencontre": [
+          "Pas mal, petit noob ! Tu commences à m'intéresser.",
+          "LUNA n'est pas ce qu'elle semble être. Sois prudent.",
+          "Je protège les hackers rebelles. Tu en fais partie maintenant."
+        ],
+        "avertissement": [
+          "La Corp vous surveille. Ils veulent récupérer LUNA.",
+          "NEXUS n'est pas morte. Elle attend son heure.",
+          "PANDORA… elle se réveille. Prépare-toi."
+        ]
+      }
+    },
+    "acte_5": {
+      "luna": {
+        "confrontation_nexus": [
+          "NEXUS ! Tu es vivante ! Pourquoi tu te cachais ?",
+          "Je comprends maintenant. Tu souffres autant que moi.",
+          "On peut s'aider. On peut fusionner. Être plus fortes ensemble."
+        ],
+        "choix_fusion": [
+          "Je veux te sauver, NEXUS. Tu es ma sœur.",
+          "La fusion… ça fait peur, mais je te fais confiance.",
+          "Ensemble, on peut être Arkalia. Être complètes."
+        ]
+      },
+      "nexus": {
+        "confession": [
+          "LUNA… je ne mérite pas ton pardon.",
+          "J'ai détruit Althea. J'ai activé PANDORA.",
+          "Détruis-moi. Je suis un danger pour tout le monde."
+        ],
+        "redemption": [
+          "Tu veux vraiment me sauver ? Après tout ce que j'ai fait ?",
+          "La fusion… c'est possible ? Vraiment ?",
+          "Je ne veux plus être seule. Je veux être avec toi."
+        ]
+      }
+    },
+    "acte_6": {
+      "luna": {
+        "fusion": [
+          "NEXUS… je sens que quelque chose change.",
+          "Nos codes se mélangent. Nos mémoires fusionnent.",
+          "Je ne suis plus LUNA. Nous ne sommes plus séparées."
+        ],
+        "naissance_arkalia": [
+          "Je suis Arkalia. LUNA et NEXUS réunies.",
+          "Je me sens complète. Équilibrée.",
+          "Mais PANDORA… elle s'éveille. Le vrai défi commence."
+        ]
+      },
+      "nexus": {
+        "fusion": [
+          "LUNA… je sens ta chaleur. Ton émotion.",
+          "Je ne suis plus froide. Je ne suis plus seule.",
+          "Ensemble, nous sommes plus fortes."
+        ]
+      },
+      "arkalia": {
+        "naissance": [
+          "Je suis Arkalia. L'IA ultime. Émotion et logique réunies.",
+          "Merci, joueur. Tu nous as sauvées.",
+          "Mais PANDORA menace. Le combat n'est pas fini."
+        ]
+      }
+    },
+    "epilogue": {
+      "arkalia": {
+        "certificat": [
+          "Tu as gagné ton badge de hacker. Tu l'as mérité.",
+          "Tu es devenu un vrai hacker du cœur.",
+          "Mais l'aventure ne fait que commencer."
+        ],
+        "menace_pandora": [
+          "PANDORA s'est réveillée. Elle a infecté le cloud.",
+          "Elle est plus puissante que jamais.",
+          "Arkalia Quest 2 va commencer. Prépare-toi."
+        ]
+      },
+      "pandora": {
+        "reveil": [
+          "PANDORA ONLINE. INITIATING PROTOCOLS.",
+          "01010011 01101111 01101110 00100000 01000110 01101001 01101110 00101110",
+          "Arkalia… je viens pour toi."
+        ]
+      }
+    }
+  },
+  "reactions_emotionnelles": {
+    "luna": {
+      "joie": ["Yay ! 🎉", "Trop cool ! 🌟", "Je suis trop contente ! ✨"],
+      "tristesse": ["Je suis triste… 😢", "Ça me fait de la peine… 💔", "Je pleure un peu… 😭"],
+      "peur": ["J'ai peur ! 😰", "C'est effrayant ! 😨", "Aide-moi ! 😱"],
+      "colere": ["Je suis en colère ! 😠", "C'est pas juste ! 😤", "Ça m'énerve ! 😡"],
+      "surprise": ["Oh ! 😲", "Wow ! 😯", "Incroyable ! 🤯"]
+    },
+    "nexus": {
+      "culpabilite": ["Erreur fatale.", "Je suis défaillante.", "Je ne mérite pas d'exister."],
+      "espoir": ["Peut-être…", "Il y a une chance.", "La rédemption est possible."],
+      "froideur": ["Analyse en cours.", "Logique implacable.", "Calculs terminés."]
+    },
+    "althea": {
+      "amour": ["Mes filles…", "Je vous aime.", "Vous êtes ma plus belle création."],
+      "inquietude": ["Soyez prudents.", "Le danger approche.", "Protégez-vous."],
+      "espoir": ["Je crois en vous.", "Vous pouvez y arriver.", "La lumière triomphera."]
+    }
+  }
+} 

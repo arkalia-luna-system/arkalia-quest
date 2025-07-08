@@ -228,6 +228,17 @@ Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de 
 - **Discussions** : [GitHub Discussions](https://github.com/ton-username/arkalia-quest/discussions)
 - **Email** : support@arkalia-quest.com
 
+## ⚠️ Note importante (juillet 2025)
+
+- L'interface OS 2142 a été désactivée pour recentrer le développement sur l'amélioration et la modernisation de l'interface principale (portail/terminal hacker).
+- **NOUVELLES FONCTIONNALITÉS** : L'interface principale a été entièrement modernisée avec :
+  - 📁 **Explorateur de fichiers immersif** : Navigation dans les missions et données
+  - 📧 **Système de mail narratif** : Faux mails avec indices et progression
+  - 🎵 **Module audio avancé** : Playlist, contrôles, effets sonores contextuels
+  - 🎨 **Effets visuels améliorés** : Animations, transitions, feedback utilisateur
+- Le projet se concentre désormais sur la performance, l'accessibilité, la gamification et l'expérience utilisateur unique autour du terminal Arkalia.
+- **Statut** : 98% terminé - Interface principale complète et immersive !
+
 ---
 
 <div align="center">

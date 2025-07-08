@@ -1,0 +1,70 @@
+{
+  "timestamp": "2025-07-08T13:47:25.167574",
+  "test_states": {
+    "tutorial_completed": true,
+    "current_mission": null,
+    "progression_level": 2,
+    "badges_earned": [
+      "badge_0"
+    ],
+    "dialogue_history": [
+      {
+        "command": "talk_to_luna",
+        "timestamp": "2025-07-08T13:47:25.032341",
+        "response": ""
+      },
+      {
+        "command": "ask_question",
+        "timestamp": "2025-07-08T13:47:25.036879",
+        "response": ""
+      },
+      {
+        "command": "request_help",
+        "timestamp": "2025-07-08T13:47:25.040876",
+        "response": ""
+      },
+      {
+        "command": "share_thoughts",
+        "timestamp": "2025-07-08T13:47:25.044207",
+        "response": ""
+      },
+      {
+        "command": "express_emotion",
+        "timestamp": "2025-07-08T13:47:25.047736",
+        "response": ""
+      },
+      {
+        "command": "discuss_mission",
+        "timestamp": "2025-07-08T13:47:25.051040",
+        "response": ""
+      },
+      {
+        "command": "chat_about_world",
+        "timestamp": "2025-07-08T13:47:25.054790",
+        "response": ""
+      }
+    ]
+  },
+  "results": {
+    "missions_tested": 10,
+    "missions_passed": 10,
+    "missions_failed": 0,
+    "dialogue_issues": [
+      "Mission 'niveau1' sans réponse structurée",
+      "Mission 'niveau2' sans réponse structurée",
+      "Mission 'niveau3' sans réponse structurée",
+      "Mission 'niveau4' sans réponse structurée",
+      "Mission 'niveau5' sans réponse structurée",
+      "Mission 'cyber_escape' sans réponse structurée",
+      "Mission 'ai_rebellion' sans réponse structurée",
+      "Mission 'hacker_challenge' sans réponse structurée",
+      "Mission 'luna_first_contact' sans réponse structurée",
+      "Mission 'quantum_leap' sans réponse structurée"
+    ],
+    "progression_issues": [],
+    "reward_issues": [],
+    "narrative_issues": [],
+    "save_issues": [],
+    "performance_issues": []
+  }
+}

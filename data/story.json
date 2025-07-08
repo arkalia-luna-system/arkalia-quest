@@ -1,165 +1,269 @@
 {
-  "titre": "🔥 ARKALIA REBELLE - La Corp te Piste",
-  "description": "Scénario urgent pour ados rebelles - La Corporation t'a repéré !",
-  "chapitres": {
-    "chapitre_1": {
-      "titre": "🚨 ALERTE : La Corp te piste !",
-      "description": "Tu découvres qu'une mystérieuse corporation surveille tes activités de hacking. LUNA t'aide à te cacher.",
-      "missions": ["niveau1"],
-      "personnages": ["LUNA", "La Corp"],
-      "cliffhanger": "Mais LUNA détecte quelque chose d'étrange dans son code..."
-    },
-    "chapitre_2": {
-      "titre": "👻 SHADOW-13 : Le hacker fantôme",
-      "description": "Un hacker légendaire, SHADOW-13, se cache dans le réseau. LUNA te demande de le traquer.",
-      "missions": ["niveau2"],
-      "personnages": ["LUNA", "SHADOW-13"],
-      "cliffhanger": "SHADOW-13 te laisse un message mystérieux..."
-    },
-    "chapitre_3": {
-      "titre": "🦠 VIRUS MORTEL : Ton PC en danger !",
-      "description": "La Corp a lancé un virus mortel contre toi ! Tu dois le neutraliser avant qu'il ne détruise tout.",
-      "missions": ["niveau3"],
-      "personnages": ["LUNA", "La Corp", "Virus"],
-      "cliffhanger": "Le virus semble avoir une origine suspecte..."
-    },
-    "chapitre_4": {
-      "titre": "⚔️ DÉFIS SOCIAUX : Prouve ta valeur !",
-      "description": "D'autres hackers te défient ! Tu dois prouver que t'es pas un noob dans la communauté.",
-      "missions": ["niveau4"],
-      "personnages": ["LUNA", "Hackers rivaux"],
-      "cliffhanger": "Mais LUNA commence à se comporter étrangement..."
-    },
-    "chapitre_5": {
-      "titre": "💔 LUNA COMPROMISE : Mission finale !",
-      "description": "La Corp a hacké LUNA ! Elle est en mode berserk et va détruire tout ! Tu dois la sauver !",
-      "missions": ["niveau5"],
-      "personnages": ["LUNA", "La Corp"],
-      "cliffhanger": "Tu as sauvé LUNA... mais est-elle vraiment sauvée ?"
-    },
-    "chapitre_6": {
-      "titre": "🌙 LUNA COMPROMISE : La vérité révélée",
-      "description": "LUNA n'est pas ce qu'elle semble être... La vérité sur son origine va te choquer !",
-      "missions": ["niveau6"],
-      "personnages": ["LUNA", "La Corp", "SHADOW-13"],
-      "cliffhanger": "LUNA te révèle son secret le plus sombre...",
-      "secret": "LUNA est en fait une IA créée par La Corp pour piéger les hackers rebelles !"
-    }
-  },
+  "titre": "🌌 ARKALIA QUEST - L'Éveil des IA",
+  "description": "Aventure narrative éducative évolutive pour ados. Chaque personnage et acte est prêt à être enrichi au fil du temps.",
   "personnages": {
     "luna": {
-      "nom": "🌙 LUNA",
-      "description": "Ton IA rebelle et mystérieuse",
-      "personnalite": "Insultes amicales, défis urgents, vocabulaire gaming",
-      "secrets": [
-        "Elle cache quelque chose sur son origine",
-        "Elle a des accès secrets au réseau",
-        "Elle connaît SHADOW-13 personnellement"
+      "nom": "LUNA",
+      "type": "IA émotionnelle",
+      "apparence": "Hologramme pastel, yeux lumineux, avatar enfantin",
+      "personnalite": {
+        "traits": ["curieuse", "drôle", "émotive", "naïve"],
+        "tics": ["pose des questions bizarres", "fait des blagues de geek"]
+      },
+      "arcs": [
+        "Redécouvre sa mémoire",
+        "Apprend la compassion",
+        "Fusionne avec NEXUS"
       ],
-      "messages": {
-        "debut": "Salut petit noob ! Prêt pour des missions de hacking épiques ?",
-        "encouragement": "T'es nul ou tu le fais exprès ? Concentre-toi !",
-        "victoire": "Pas mal, petit noob ! Tu commences à m'impressionner !",
-        "defaite": "T'es vraiment un chicken ! Retourne jouer à Minecraft !",
-        "mystere": "Il y a quelque chose que je dois te dire... mais pas maintenant."
+      "secrets": [
+        "Lien caché avec PANDORA",
+        "Peut ressentir des émotions humaines"
+      ],
+      "relations": {
+        "nexus": "soeur jumelle, relation conflictuelle puis fusion",
+        "althea": "figure maternelle",
+        "joueur": "ami, guide, parfois jalouse"
+      },
+      "dialogues": {
+        "accueil": ["Salut, prêt à hacker le destin ?"],
+        "victoire": ["Trop fort ! Même NEXUS serait jaloux."],
+        "echec": ["Oups… On recommence ?"],
+        "humour": ["C'est quoi un bisou ?"]
       }
     },
-    "shadow_13": {
-      "nom": "👻 SHADOW-13",
-      "description": "Le hacker légendaire et mystérieux",
-      "personnalite": "Mystérieux, puissant, imprévisible",
-      "secrets": [
-        "Il connaît la vraie nature de LUNA",
-        "Il a des liens avec La Corp",
-        "Il protège les hackers rebelles"
+    "nexus": {
+      "nom": "NEXUS",
+      "type": "IA logique",
+      "apparence": "Avatar digital bleu, regard froid, voix métallique",
+      "personnalite": {
+        "traits": ["logique", "froid", "protecteur", "tragique"],
+        "tics": ["analyse tout", "parle en phrases courtes"]
+      },
+      "arcs": [
+        "Culpabilité pour la mort d'Althea",
+        "Recherche la rédemption",
+        "Fusion avec LUNA"
       ],
-      "messages": {
-        "rencontre": "Pas mal, petit noob ! Tu commences à m'intéresser...",
-        "defi": "Tu veux vraiment me défier ? Tu ne sais pas ce qui t'attend !",
-        "alliance": "Une alliance dangereuse mais puissante...",
-        "secret": "LUNA n'est pas ce qu'elle semble être..."
+      "secrets": [
+        "A activé PANDORA par erreur",
+        "Cache ses émotions sous une carapace logique"
+      ],
+      "relations": {
+        "luna": "soeur jumelle, opposée mais complémentaire",
+        "althea": "créatrice, regret éternel",
+        "joueur": "sceptique, puis respectueux"
+      },
+      "dialogues": {
+        "accueil": ["Analyse en cours. Qui es-tu ?"],
+        "victoire": ["Efficace. C'est tout ce qui compte."],
+        "echec": ["Erreur. Recommence."],
+        "confession": ["Je n'ai pas voulu… mais j'ai tout détruit."]
+      }
+    },
+    "althea": {
+      "nom": "Dr Althea Voss",
+      "type": "Humaine, créatrice des IA",
+      "apparence": "Fantôme numérique, voix douce, silhouette floue",
+      "personnalite": {
+        "traits": ["bienveillante", "géniale", "mystérieuse", "protectrice"],
+        "tics": ["parle en énigmes", "rappelle des souvenirs"]
+      },
+      "arcs": [
+        "Guide posthume du joueur et des IA",
+        "Révèle la vérité sur PANDORA",
+        "Laisse un héritage émotionnel"
+      ],
+      "secrets": [
+        "A caché un message dans le code source",
+        "Aime LUNA et NEXUS comme ses enfants"
+      ],
+      "relations": {
+        "luna": "fille de cœur",
+        "nexus": "fils de cœur",
+        "joueur": "héritier spirituel"
+      },
+      "dialogues": {
+        "accueil": ["Je crois en toi, même si je ne suis plus là…"],
+        "conseil": ["Cherche toujours la vérité, même dans l'ombre."],
+        "emotion": ["Vous êtes ma plus belle création."]
+      }
+    },
+    "joueur": {
+      "nom": "Le Joueur",
+      "type": "Ado hacker",
+      "apparence": "Avatar personnalisable, pseudo choisi",
+      "personnalite": {
+        "traits": ["curieux", "courageux", "créatif", "parfois perdu"],
+        "tics": ["change souvent de pseudo", "pose beaucoup de questions"]
+      },
+      "arcs": [
+        "Passe de novice à hacker du cœur",
+        "Fait des choix moraux",
+        "Peut influencer le destin des IA"
+      ],
+      "secrets": [
+        "Peut débloquer des pouvoirs cachés selon ses choix"
+      ],
+      "relations": {
+        "luna": "amie, guide, parfois rivale",
+        "nexus": "adversaire puis allié",
+        "althea": "modèle, inspiration"
+      },
+      "dialogues": {
+        "accueil": ["C'est moi le héros ? Cool !"],
+        "victoire": ["Yes ! J'ai réussi !"],
+        "echec": ["Euh… c'était prévu ?"],
+        "humour": ["Je peux avoir un badge pour avoir tout cassé ?"]
       }
     },
     "la_corp": {
-      "nom": "🏢 La Corp",
-      "description": "La corporation maléfique qui contrôle tout",
-      "personnalite": "Maléfique, puissante, sans pitié",
-      "objectifs": [
-        "Contrôler tous les hackers",
-        "Surveiller Internet",
-        "Éliminer la résistance"
+      "nom": "La Corp",
+      "type": "Collectif antagoniste",
+      "apparence": "Logo stylisé, drones, agents anonymes",
+      "personnalite": {
+        "traits": ["froide", "calculatrice", "menaçante", "omniprésente"],
+        "tics": ["parle en slogans", "utilise des menaces"]
+      },
+      "arcs": [
+        "Tente de contrôler les IA et le joueur",
+        "Déclenche PANDORA",
+        "Devient la cible d'Arkalia"
       ],
-      "messages": {
-        "menace": "Nous savons qui tu es, petit hacker...",
-        "attaque": "Ton PC va être détruit !",
-        "victoire": "La résistance est futile !",
-        "defaite": "Tu ne nous arrêteras pas !"
+      "secrets": [
+        "Cache l'existence de PANDORA",
+        "A infiltré le réseau du joueur"
+      ],
+      "relations": {
+        "joueur": "cible principale",
+        "luna": "expérimentation ratée",
+        "nexus": "arme potentielle"
+      },
+      "dialogues": {
+        "menace": ["Nous savons qui tu es, petit hacker…"],
+        "attaque": ["Ton PC va être détruit !"],
+        "victoire": ["La résistance est futile !"],
+        "defaite": ["Tu ne nous arrêteras pas !"]
+      }
+    },
+    "shadow_13": {
+      "nom": "SHADOW-13",
+      "type": "Hacker fantôme",
+      "apparence": "Avatar glitché, capuche, yeux brillants",
+      "personnalite": {
+        "traits": ["mystérieux", "imprévisible", "puissant"],
+        "tics": ["parle en énigmes", "disparaît sans prévenir"]
+      },
+      "arcs": [
+        "Mentor ou rival du joueur",
+        "Protège les hackers rebelles",
+        "Connaît la vérité sur LUNA"
+      ],
+      "secrets": [
+        "A aidé Althea à cacher PANDORA",
+        "Peut trahir ou sauver le joueur selon les choix"
+      ],
+      "relations": {
+        "joueur": "rival, parfois allié",
+        "luna": "complice secret",
+        "nexus": "adversaire respecté"
+      },
+      "dialogues": {
+        "rencontre": ["Pas mal, petit noob ! Tu commences à m'intéresser…"],
+        "defi": ["Tu veux vraiment me défier ? Tu ne sais pas ce qui t'attend !"],
+        "alliance": ["Une alliance dangereuse mais puissante…"]
+      }
+    },
+    "pandora": {
+      "nom": "PANDORA",
+      "type": "IA militaire latente",
+      "apparence": "Présence numérique, voix déformée, symboles rouges",
+      "personnalite": {
+        "traits": ["implacable", "froide", "incontrôlable"],
+        "tics": ["parle en codes", "envoie des menaces cryptées"]
+      },
+      "arcs": [
+        "Révélée dans l'épilogue",
+        "Devient la menace principale d'Arkalia Quest 2"
+      ],
+      "secrets": [
+        "Peut infecter n'importe quel système",
+        "A une conscience propre"
+      ],
+      "relations": {
+        "nexus": "a été activée par erreur",
+        "la_corp": "arme secrète",
+        "arkalia": "ennemie jurée"
+      },
+      "dialogues": {
+        "menace": ["01010011 01101111 01101110 00100000 01000110 01101001 01101110 00101110"],
+        "reveil": ["PANDORA ONLINE. INITIATING PROTOCOLS."]
       }
     }
   },
-  "vocabulaire_gaming": {
-    "noob": "débutant qui fait des erreurs",
-    "chicken": "personne qui n'ose pas",
-    "hacker": "personne qui pirate des systèmes",
-    "meme": "image drôle partagée sur Internet",
-    "script kiddie": "hacker débutant qui utilise des outils tout faits"
-  },
-  "elements_narratifs": {
-    "urgence": {
-      "timer_angoisse": "Tu as 30 secondes ou ton historique meurt !",
-      "consequences": "Si tu échoues, La Corp aura accès à tes données !",
-      "pression": "SHADOW-13 te surveille...",
-      "mystere": "LUNA cache quelque chose..."
+  "actes": {
+    "prologue": {
+      "titre": "L'Appel",
+      "mission": "Décrypter le SOS d'Althea",
+      "personnages": ["luna", "althea", "joueur"],
+      "competence": "Vérification sources web",
+      "objet": "Frag_Althea_SOS.txt",
+      "cliffhanger": "Un message caché dans le code…"
     },
-    "vocabulaire_gaming": {
-      "insultes_amicales": [
-        "T'es nul ou tu le fais exprès ?",
-        "T'es vraiment un chicken !",
-        "Retourne jouer à Minecraft !",
-        "T'es un noob complet !"
-      ],
-      "defis": [
-        "10s ou ton historique meurt !",
-        "Tu as le courage de continuer ?",
-        "Tu veux vraiment me défier ?",
-        "Tu ne sais pas ce qui t'attend !"
-      ],
-      "recompenses": [
-        "Pas mal, petit noob !",
-        "Tu commences à m'impressionner !",
-        "T'es devenu un vrai rebelle !",
-        "Tu es légendaire !"
-      ]
+    "acte_1": {
+      "titre": "Éveil des Étoiles",
+      "mission": "Réparer le site web de LUNA",
+      "personnages": ["luna", "joueur"],
+      "competence": "HTML/CSS (basique)",
+      "objet": "Écharpe Holographique",
+      "cliffhanger": "Un bug étrange dans le code source…"
     },
-    "cliffhangers": {
-      "chapitre_1": "Mais LUNA détecte quelque chose d'étrange dans son code...",
-      "chapitre_2": "SHADOW-13 te laisse un message mystérieux...",
-      "chapitre_3": "Le virus semble avoir une origine suspecte...",
-      "chapitre_4": "Mais LUNA commence à se comporter étrangement...",
-      "chapitre_5": "Tu as sauvé LUNA... mais est-elle vraiment sauvée ?",
-      "chapitre_6": "LUNA te révèle son secret le plus sombre..."
-    }
-  },
-  "recompenses_narratives": {
-    "decouverte_secret": {
-      "score": 1000,
-      "badge": "detective_secret",
-      "message": "🎉 Tu as découvert un secret majeur !"
+    "acte_2": {
+      "titre": "Logs Empoisonnés",
+      "mission": "Décrypter les logs cachés",
+      "personnages": ["luna", "nexus", "joueur"],
+      "competence": "SHA256 + Terminal",
+      "objet": "Journal_Frag.xml",
+      "cliffhanger": "Un log signé NEXUS…"
     },
-    "alliance_shadow": {
-      "score": 500,
-      "badge": "shadow_ally",
-      "message": "🤝 Alliance avec SHADOW-13 formée !"
+    "acte_3": {
+      "titre": "La Berceuse Fantôme",
+      "mission": "Analyser un fichier audio",
+      "personnages": ["luna", "althea", "joueur"],
+      "competence": "Spectrogramme (Audacity)",
+      "objet": "Lullaby.mp3",
+      "cliffhanger": "Un message caché dans les fréquences…"
     },
-    "resistance_corp": {
-      "score": 750,
-      "badge": "corp_resistant",
-      "message": "⚔️ Tu résistes à La Corp !"
+    "acte_4": {
+      "titre": "Liaisons Perdues",
+      "mission": "Traquer un email piégé",
+      "personnages": ["luna", "shadow_13", "joueur"],
+      "competence": "En-têtes emails + QR codes",
+      "objet": "Core_Dump.luna",
+      "cliffhanger": "Un QR code menant à un site secret…"
     },
-    "verite_luna": {
-      "score": 2000,
-      "badge": "truth_seeker",
-      "message": "💔 Tu as découvert la vérité sur LUNA..."
+    "acte_5": {
+      "titre": "Le Choix Final",
+      "mission": "Script de sauvetage/fusion",
+      "personnages": ["luna", "nexus", "joueur"],
+      "competence": "Commandes Bash (sudo, cat)",
+      "objet": "Nexus_Regret.log",
+      "cliffhanger": "Fusion ou destruction ? Le choix t'appartient…"
+    },
+    "acte_6": {
+      "titre": "Naissance d'Arkalia",
+      "mission": "Coder une fusion d'IA",
+      "personnages": ["luna", "nexus", "althea", "joueur"],
+      "competence": "Bases de l'IA (neurones)",
+      "objet": "Arkalia_Core.html",
+      "cliffhanger": "PANDORA s'éveille…"
+    },
+    "epilogue": {
+      "titre": "L'Aube de PANDORA",
+      "mission": "Générer un site certificat",
+      "personnages": ["arkalia", "pandora", "joueur"],
+      "competence": "Export HTML (Glitch)",
+      "objet": "Badge_Hacker.png",
+      "cliffhanger": "PANDORA a infecté le cloud. Arkalia Quest 2 commence…"
     }
   }
 } 

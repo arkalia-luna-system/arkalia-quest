@@ -2,175 +2,232 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Profil - Arkalia Quest</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>👤 Arkalia Quest - Profil Hacker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="Ton profil hacker dans l'univers Arkalia. Découvre tes badges, statistiques et progression.">
+    <meta name="theme-color" content="#00ff00">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
     <!-- PWA Icons -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon" alt="Arkalia Quest Icon">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/icon-32x32.png" alt="Arkalia Quest Icon 32x32">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/icon-16x16.png" alt="Arkalia Quest Icon 16x16">
     <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png" alt="Arkalia Quest App Icon">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/static/style.css">
+    
     <style>
-        .profil-container {
-            max-width: 900px;
-            margin: 40px auto;
-            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
-            padding: 30px;
-            color: #00ff00;
-            font-family: 'Fira Mono', 'Consolas', monospace;
-        }
-        
+        /* EFFETS SPÉCIAUX POUR LA PAGE PROFIL */
         .profil-header {
             text-align: center;
             margin-bottom: 30px;
             border-bottom: 2px solid #00ff00;
             padding-bottom: 20px;
+            position: relative;
         }
         
-        .profil-title {
-            font-size: 2.5em;
-            margin: 0;
-            text-shadow: 0 0 10px #00ff00;
-            animation: glow 2s ease-in-out infinite alternate;
+        .profil-header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ff00, #00ffff, #00ff00, transparent);
+            animation: headerGlow 3s ease-in-out infinite;
         }
         
-        @keyframes glow {
-            from { text-shadow: 0 0 10px #00ff00; }
-            to { text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00; }
+        @keyframes headerGlow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
         }
         
-        .profil-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .profil-section {
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid #00ff00;
-            border-radius: 10px;
-            padding: 20px;
-        }
-        
-        .profil-section h3 {
+        .profil-subtitle {
             color: #00ffff;
-            margin-top: 0;
-            border-bottom: 1px solid #00ffff;
-            padding-bottom: 10px;
+            font-size: 1.1em;
+            margin-top: 10px;
+            text-shadow: 0 0 5px #00ffff;
+            animation: subtitlePulse 2s ease-in-out infinite alternate;
         }
         
+        @keyframes subtitlePulse {
+            from { opacity: 0.7; }
+            to { opacity: 1; }
+        }
+        
+        /* BADGES AMÉLIORÉS */
         .badge {
-            display: inline-block;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            color: white;
-            padding: 8px 15px;
-            margin: 5px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            font-weight: bold;
-        }
-        
-        .badge.rare { background: linear-gradient(45deg, #5f27cd, #341f97); }
-        .badge.epic { background: linear-gradient(45deg, #ff9f43, #f39c12); }
-        .badge.legendary { background: linear-gradient(45deg, #ff9ff3, #f368e0); }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .stat-item {
-            background: rgba(0, 255, 0, 0.1);
-            border: 1px solid #00ff00;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
-        }
-        
-        .stat-value {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #00ffff;
-        }
-        
-        .stat-label {
-            font-size: 0.9em;
-            color: #00ff00;
-            margin-top: 5px;
-        }
-        
-        .navigation {
-            text-align: center;
-            margin-top: 30px;
-        }
-        
-        .nav-btn {
-            background: #00ff00;
-            color: #000;
-            border: none;
-            border-radius: 8px;
-            padding: 12px 25px;
-            margin: 0 10px;
-            font-weight: bold;
+            position: relative;
+            overflow: hidden;
             cursor: pointer;
-            transition: background 0.3s;
-            text-decoration: none;
-            display: inline-block;
+            transition: all 0.3s ease;
         }
         
-        .nav-btn:hover {
-            background: #00ffff;
-            color: #000;
+        .badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s ease;
         }
         
-        .personnalite-info {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
+        .badge:hover::before {
+            left: 100%;
         }
         
-        .personnalite-type {
-            font-size: 1.3em;
-            color: #00ffff;
-            margin-bottom: 10px;
+        .badge:hover {
+            transform: translateY(-3px) scale(1.05);
         }
         
-        .traits-list {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .traits-list li {
-            background: rgba(0, 255, 0, 0.1);
-            margin: 5px 0;
-            padding: 8px 15px;
-            border-radius: 5px;
-            border-left: 3px solid #00ff00;
-        }
-        
+        /* HISTORIQUE AMÉLIORÉ */
         .historique {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 10px;
             padding: 20px;
             margin-top: 20px;
+            border: 1px solid #00ffff;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .historique::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ffff, transparent);
+            animation: historiqueScan 4s ease-in-out infinite;
+        }
+        
+        @keyframes historiqueScan {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: 100%; }
         }
         
         .historique h4 {
             color: #00ffff;
             margin-top: 0;
+            margin-bottom: 15px;
+            font-family: 'Orbitron', monospace;
+            text-shadow: 0 0 5px #00ffff;
         }
         
         .historique-item {
             background: rgba(0, 255, 0, 0.1);
-            margin: 5px 0;
-            padding: 10px;
+            margin: 8px 0;
+            padding: 12px;
             border-radius: 5px;
             border-left: 3px solid #00ff00;
+            animation: historiqueGlow 3s ease-in-out infinite alternate;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        @keyframes historiqueGlow {
+            from { box-shadow: 0 0 5px rgba(0, 255, 0, 0.3); }
+            to { box-shadow: 0 0 10px rgba(0, 255, 0, 0.6); }
+        }
+        
+        .historique-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .historique-item:hover::before {
+            left: 100%;
+        }
+        
+        /* ANIMATIONS D'ENTRÉE */
+        .profil-grid {
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .profil-section {
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+        
+        .profil-section:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+        
+        /* PROGRESSION BAR */
+        .progression-bar {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid #00ff00;
+        }
+        
+        .progression-bar h4 {
+            color: #00ffff;
+            margin-bottom: 15px;
+            text-align: center;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .progress-item {
+            margin: 15px 0;
+        }
+        
+        .progress-label {
+            color: #00ff00;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff00, #00ffff);
+            border-radius: 4px;
+            transition: width 1s ease;
+            position: relative;
+        }
+        
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: progressShine 2s ease-in-out infinite;
+        }
+        
+        @keyframes progressShine {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+            100% { transform: translateX(100%); }
         }
     </style>
 </head>
@@ -178,7 +235,7 @@
     <div class="profil-container">
         <div class="profil-header">
             <h1 class="profil-title">👤 Profil Hacker</h1>
-            <p>Ton identité numérique dans l'univers Arkalia</p>
+            <p class="profil-subtitle">Ton identité numérique dans l'univers Arkalia</p>
         </div>
         
         <div class="profil-grid">
@@ -199,7 +256,7 @@
                 <h3>🧠 Personnalité</h3>
                 <div class="personnalite-info">
                     <div class="personnalite-type">
-                        {{ profil.personnalite.type.replace('_', ' ').title() }}
+                        {{ profil.personnalite.type.replace('_', ' ').title() if profil.personnalite.type else 'Non détectée' }}
                     </div>
                     {% if profil.personnalite.traits %}
                         <ul class="traits-list">
@@ -214,43 +271,112 @@
             </div>
         </div>
         
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="stat-value">{{ profil.score }}</div>
-                <div class="stat-label">Points Totaux</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">{{ profil.progression.niveau }}</div>
-                <div class="stat-label">Niveau</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">{{ profil.badges|length }}</div>
-                <div class="stat-label">Badges</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">{{ profil.personnalite.missions_completees|length }}</div>
-                <div class="stat-label">Missions</div>
+        <!-- STATS PRINCIPALES -->
+        <div class="stats-overview">
+            <h4>📊 Statistiques Principales</h4>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">{{ profil.progression.niveau|default(1) }}</div>
+                    <div class="stat-label">Niveau</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">{{ profil.progression.experience|default(0) }}</div>
+                    <div class="stat-label">Expérience</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">{{ profil.progression.missions_completees|default(0) }}</div>
+                    <div class="stat-label">Missions</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">{{ profil.badges|length if profil.badges else 0 }}</div>
+                    <div class="stat-label">Badges</div>
+                </div>
             </div>
         </div>
         
+        <!-- BARRES DE PROGRESSION -->
+        <div class="progression-bar">
+            <h4>📈 Progression</h4>
+            <div class="progress-item">
+                <div class="progress-label">Niveau {{ profil.progression.niveau|default(1) }} - {{ profil.progression.experience|default(0) }}/100 XP</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {{ (profil.progression.experience|default(0) % 100) }}%"></div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-label">Missions complétées - {{ profil.progression.missions_completees|default(0) }}/8</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {{ (profil.progression.missions_completees|default(0) / 8 * 100)|round }}%"></div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-label">Univers débloqués - {{ profil.progression.univers_debloques|length if profil.progression.univers_debloques else 0 }}/4</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {{ (profil.progression.univers_debloques|length if profil.progression.univers_debloques else 0) / 4 * 100 }}%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- HISTORIQUE -->
         <div class="historique">
-            <h4>📊 Historique</h4>
-            <div class="historique-item">
-                <strong>Première connexion:</strong> {{ profil.historique.premiere_connexion[:10] }}
-            </div>
-            <div class="historique-item">
-                <strong>Dernière connexion:</strong> {{ profil.historique.derniere_connexion[:10] }}
-            </div>
-            <div class="historique-item">
-                <strong>Commandes utilisées:</strong> {{ profil.historique.commandes_utilisees|length }}
-            </div>
+            <h4>📜 Historique des Actions</h4>
+            {% if profil.historique and profil.historique is sequence %}
+                {% set recent_actions = profil.historique[-5:] if profil.historique|length > 5 else profil.historique %}
+                {% for action in recent_actions %}
+                    <div class="historique-item">
+                        <strong>{{ action.date if action.date else 'Aujourd\'hui' }}</strong> - {{ action.action if action.action else action }}
+                    </div>
+                {% endfor %}
+            {% elif profil.historique %}
+                <div class="historique-item">
+                    <strong>Première connexion:</strong> {{ profil.historique.premiere_connexion if profil.historique.premiere_connexion else 'Aujourd\'hui' }}
+                </div>
+                <div class="historique-item">
+                    <strong>Dernière connexion:</strong> {{ profil.historique.derniere_connexion if profil.historique.derniere_connexion else 'Maintenant' }}
+                </div>
+                <div class="historique-item">
+                    <strong>Commandes utilisées:</strong> {{ profil.historique.commandes_utilisees|length if profil.historique.commandes_utilisees else 0 }}
+                </div>
+            {% else %}
+                <p>Aucune action enregistrée. Commence à jouer pour créer ton historique !</p>
+            {% endif %}
         </div>
         
         <div class="navigation">
-            <a href="/" class="nav-btn">🏠 Accueil</a>
-            <a href="/terminal" class="nav-btn">🎮 Terminal</a>
-            <a href="/monde" class="nav-btn">🌍 Monde</a>
+            <a href="./terminal" class="nav-btn">🎮 Retour au Terminal</a>
+            <a href="./monde" class="nav-btn">🌌 Voir le Monde</a>
+            <a href="./" class="nav-btn">🏠 Accueil</a>
         </div>
     </div>
+    
+    <script>
+        // Effets sonores et animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation des badges au clic
+            const badges = document.querySelectorAll('.badge');
+            badges.forEach(badge => {
+                badge.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+            
+            // Animation des éléments d'historique
+            const historiqueItems = document.querySelectorAll('.historique-item');
+            historiqueItems.forEach((item, index) => {
+                item.style.animationDelay = `${index * 0.1}s`;
+            });
+            
+            // Animation des barres de progression
+            const progressFills = document.querySelectorAll('.progress-fill');
+            progressFills.forEach((fill, index) => {
+                setTimeout(() => {
+                    fill.style.width = fill.style.width || '0%';
+                }, index * 200);
+            });
+        });
+    </script>
 </body>
 </html> 

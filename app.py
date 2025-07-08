@@ -6,6 +6,7 @@ import time
 from datetime import datetime
 from arkalia_engine import arkalia_engine
 from core.command_handler import CommandHandler
+from core.gamification_engine import GamificationEngine
 
 app = Flask(__name__)
 
@@ -361,6 +362,7 @@ def get_mission(mission_name):
         return jsonify({"erreur": f"Impossible de charger la mission: {str(e)}"}), 500
 
 handler = CommandHandler()
+gamification = GamificationEngine()
 
 @app.route('/commande', methods=['POST'])
 def commande():
@@ -382,8 +384,34 @@ def commande():
     print(f"[API] Commande reçue: {cmd}")
     reponse = handler.handle_command(cmd, profil)
     print(f"[DEBUG] Réponse du handler: {reponse}")
+    
+    # Mise à jour de la gamification
     if reponse.get("profile_updated"):
+        # Mettre à jour le leaderboard
+        gamification.update_leaderboard(profil.get("id", "default"), profil)
+        
+        # Vérifier les badges secrets et achievements
+        unlocked_badges = gamification.check_badges_secrets(profil.get("id", "default"), profil, "command_used", command=cmd)
+        unlocked_achievements = gamification.check_achievements(profil.get("id", "default"), profil, "command_used", command=cmd)
+        
+        # Ajouter les badges débloqués au profil
+        for badge_id in unlocked_badges:
+            if "badges" not in profil:
+                profil["badges"] = []
+            if badge_id not in profil["badges"]:
+                profil["badges"].append(badge_id)
+                reponse["badge_unlocked"] = badge_id
+        
+        # Ajouter les achievements débloqués au profil
+        for achievement_id in unlocked_achievements:
+            if "achievements" not in profil:
+                profil["achievements"] = []
+            if achievement_id not in profil["achievements"]:
+                profil["achievements"].append(achievement_id)
+                reponse["achievement_unlocked"] = achievement_id
+        
         sauvegarder_profil(profil)
+    
     return jsonify({"reponse": reponse})
 
 @app.route('/api/content')
@@ -505,6 +533,32 @@ def get_leaderboard():
         limit = request.args.get('limit', 10, type=int)
         leaderboard = db_manager.get_leaderboard(limit)
         return jsonify({"leaderboard": leaderboard})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/leaderboard', methods=['GET'])
+def get_gamification_leaderboard():
+    """Récupère le leaderboard de gamification"""
+    try:
+        limit = request.args.get('limit', 10, type=int)
+        leaderboard_data = gamification.get_leaderboard(limit)
+        return jsonify(leaderboard_data)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/leaderboard')
+def leaderboard_page():
+    """Page du leaderboard"""
+    return render_template('leaderboard.html')
+
+@app.route('/api/gamification/summary', methods=['GET'])
+def get_gamification_summary():
+    """Récupère un résumé de la gamification pour le joueur actuel"""
+    try:
+        profil = charger_profil()
+        user_id = profil.get("id", "default")
+        summary = gamification.get_gamification_summary(user_id, profil)
+        return jsonify(summary)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

@@ -196,7 +196,7 @@ def charger_ascii_art(nom_fichier):
                 return f.read()
         else:
             return "🎨 ASCII Art non trouvé"
-    except:
+    except Exception:
         return "🎨 ASCII Art non trouvé"
 
 
@@ -205,7 +205,7 @@ def charger_badges():
     try:
         with open("data/badges.json", encoding="utf-8") as f:
             return json.load(f)
-    except:
+    except Exception:
         return {"badges": {}, "animations": {}, "couleurs_rarete": {}}
 
 
@@ -214,7 +214,7 @@ def charger_avatars():
     try:
         with open("data/avatars.json", encoding="utf-8") as f:
             return json.load(f)
-    except:
+    except Exception:
         return {"avatars": {}, "themes_terminal": {}}
 
 
@@ -223,7 +223,7 @@ def charger_defis_sociaux():
     try:
         with open("data/defis_sociaux.json", encoding="utf-8") as f:
             return json.load(f)
-    except:
+    except Exception:
         return {"defis_sociaux": {}, "modes_jeu": {}, "classements": {}}
 
 
@@ -232,7 +232,7 @@ def charger_chapitre_6():
     try:
         with open("data/chapitre_6_luna_compromise.json", encoding="utf-8") as f:
             return json.load(f)
-    except:
+    except Exception:
         return {"chapitre_6": {}, "commandes_speciales": {}}
 
 

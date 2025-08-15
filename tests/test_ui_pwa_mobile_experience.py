@@ -250,7 +250,7 @@ class PWAMobileExperienceTester:
                     response = requests.get(f"{self.base_url}{resource}", timeout=3)
                     if response.status_code == 200:
                         available_resources += 1
-                except:
+                except Exception:
                     pass
 
             offline_result["duration"] = time.time() - start_time
@@ -365,7 +365,7 @@ class PWAMobileExperienceTester:
                     response = requests.get(f"{self.base_url}{page}", timeout=3)
                     if response.status_code == 200:
                         load_times.append(time.time() - page_start)
-                except:
+                except Exception:
                     load_times.append(5.0)  # Timeout
 
             performance_result["duration"] = time.time() - start_time

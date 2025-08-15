@@ -94,7 +94,7 @@ class MissionHandler:
             else:
                 # Dialogue par défaut
                 return f"{personnage}: Je n'ai rien à dire pour le moment."
-        except:
+        except Exception:
             return f"{personnage}: ..."
 
     def get_emotion_reaction(self, personnage: str, emotion: str) -> str:
@@ -107,7 +107,7 @@ class MissionHandler:
                 return random.choice(emotion_reactions)
             else:
                 return "..."
-        except:
+        except Exception:
             return "..."
 
     def execute_mission_step(

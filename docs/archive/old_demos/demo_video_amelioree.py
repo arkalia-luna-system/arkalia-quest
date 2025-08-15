@@ -118,7 +118,7 @@ class ArkaliaVideoDemo:
                     data = response.json()
                     status = data.get("status", "OK")
                     self.log_success(f"{description}: {status}")
-                except:
+                except Exception:
                     self.log_success(f"{description}: Réponse JSON reçue")
                 return True
             else:

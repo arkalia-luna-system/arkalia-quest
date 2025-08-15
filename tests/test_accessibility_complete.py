@@ -481,7 +481,7 @@ class AccessibilityTester:
         try:
             response = requests.get(f"{self.base_url}/static/css/accessibility.css")
             return response.text
-        except:
+        except Exception:
             return ""
 
     def get_js_content(self):
@@ -489,7 +489,7 @@ class AccessibilityTester:
         try:
             response = requests.get(f"{self.base_url}/static/js/accessibility.js")
             return response.text
-        except:
+        except Exception:
             return ""
 
     def calculate_overall_score(self):

@@ -1,0 +1,99 @@
+{
+  "timestamp": "2025-07-09T15:46:26.985383",
+  "duration": 0.35379576683044434,
+  "luna_emotions": {
+    "total_commands": 11,
+    "emotions_detected": 0,
+    "emotion_types": [],
+    "intensity_range": {
+      "min": 1.0,
+      "max": 0.0
+    },
+    "response_times": [
+      0.0029811859130859375,
+      0.0019259452819824219,
+      0.01694178581237793,
+      0.025686025619506836,
+      0.03840517997741699,
+      0.025521039962768555,
+      0.041603803634643555,
+      0.02210712432861328,
+      0.003167867660522461,
+      0.011085748672485352,
+      0.00448298454284668
+    ],
+    "errors": [
+      "Pas d'émotion pour aide",
+      "Pas d'émotion pour profil",
+      "Pas d'émotion pour hack_system",
+      "Pas d'émotion pour kill_virus",
+      "Pas d'émotion pour find_shadow",
+      "Pas d'émotion pour luna_contact",
+      "Pas d'émotion pour luna_engine",
+      "Pas d'émotion pour luna_analyze",
+      "Pas d'émotion pour badges",
+      "Pas d'émotion pour monde",
+      "Pas d'émotion pour commande_inexistante_test"
+    ],
+    "avg_response_time": 0.017628062855113636,
+    "success_rate": 0.0
+  },
+  "visual_effects": {
+    "effects_detected": 0,
+    "effect_types": [],
+    "colors_detected": [],
+    "sounds_detected": [],
+    "errors": []
+  },
+  "integration": {
+    "integration_checks": 5,
+    "integration_success": 0,
+    "coherence_checks": 5,
+    "coherence_success": 0,
+    "errors": [
+      "Incohérence pour aide",
+      "Structure invalide pour aide",
+      "Incohérence pour profil",
+      "Structure invalide pour profil",
+      "Incohérence pour hack_system",
+      "Structure invalide pour hack_system",
+      "Incohérence pour kill_virus",
+      "Structure invalide pour kill_virus",
+      "Incohérence pour find_shadow",
+      "Structure invalide pour find_shadow"
+    ],
+    "integration_rate": 0.0,
+    "coherence_rate": 0.0
+  },
+  "performance": {
+    "total_requests": 10,
+    "successful_requests": 10,
+    "response_times": [
+      0.010804891586303711,
+      0.01481771469116211,
+      0.012565851211547852,
+      0.011714696884155273,
+      0.015910863876342773,
+      0.024815082550048828,
+      0.03479409217834473,
+      0.037178993225097656,
+      0.046607255935668945,
+      0.05412793159484863
+    ],
+    "errors": [],
+    "stress_test_results": {},
+    "avg_response_time": 0.02633373737335205,
+    "min_response_time": 0.010804891586303711,
+    "max_response_time": 0.05412793159484863,
+    "success_rate": 100.0
+  },
+  "summary": {
+    "total_tests": 26,
+    "total_success": 10,
+    "overall_success_rate": 38.46153846153847,
+    "emotions_detected": 0,
+    "effects_triggered": 0,
+    "avg_response_time": 0.02633373737335205,
+    "status": "MAUVAIS"
+  }
+}

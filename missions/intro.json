@@ -1,0 +1,27 @@
+{
+  "id": "intro",
+  "titre": "🌌 Bienvenue dans Arkalia",
+  "description": "Tu viens de pénétrer dans un univers caché. Ta première mission : débloquer ton potentiel en utilisant les commandes du terminal.",
+  "objectif": "Utiliser 'unlock_universe' pour accéder au monde complet",
+  "commande": "unlock_universe",
+  "difficulte": "facile",
+  "recompense": 100,
+  "message": "🎉 FÉLICITATIONS ! Tu as débloqué l'univers Arkalia. Tu peux maintenant utiliser 'scan_persona' pour découvrir ton profil unique.",
+  "type": "introduction",
+  "choix": {
+    "continuer": {
+      "texte": "Continuer l'exploration",
+      "bonus": {
+        "score": 50,
+        "badge": "Explorateur Curieux"
+      }
+    },
+    "analyser": {
+      "texte": "Analyser mon profil",
+      "bonus": {
+        "score": 30,
+        "badge": "Auto-Analyste"
+      }
+    }
+  }
+} 

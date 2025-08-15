@@ -1,0 +1,78 @@
+{
+  "timestamp": "2025-07-09T16:46:35.815350",
+  "score": 79.29563492063492,
+  "tests": {
+    "skip_links": {
+      "score": 75.0,
+      "found": 3,
+      "expected": 4,
+      "details": [
+        "#main-content",
+        "#navigation",
+        "#accessibility-panel"
+      ]
+    },
+    "keyboard_navigation": {
+      "score": 100,
+      "found": 19,
+      "expected": 8
+    },
+    "focus_management": {
+      "score": 83.33333333333334,
+      "found": 5,
+      "expected": 6
+    },
+    "color_contrast": {
+      "score": 66.66666666666666,
+      "found": 4,
+      "expected": 6
+    },
+    "semantic_html": {
+      "score": 70.0,
+      "found": 7,
+      "expected": 10
+    },
+    "aria_labels": {
+      "score": 75.0,
+      "found": 6,
+      "expected": 8
+    },
+    "screen_reader_support": {
+      "score": 12.5,
+      "found": 1,
+      "expected": 8
+    },
+    "responsive_accessibility": {
+      "score": 85.71428571428571,
+      "found": 6,
+      "expected": 7
+    },
+    "accessibility_modes": {
+      "score": 100.0,
+      "found": 8,
+      "expected": 8
+    },
+    "haptic_feedback": {
+      "score": 83.33333333333334,
+      "found": 5,
+      "expected": 6
+    },
+    "advanced_accessibility": {
+      "score": 100.0,
+      "found": 5,
+      "expected": 5
+    },
+    "keyboard_shortcuts": {
+      "score": 100.0,
+      "found": 4,
+      "expected": 4
+    }
+  },
+  "recommendations": [
+    "Améliorer skip_links: 75.0%",
+    "Améliorer color_contrast: 66.7%",
+    "Améliorer semantic_html: 70.0%",
+    "Améliorer aria_labels: 75.0%",
+    "Améliorer screen_reader_support: 12.5%"
+  ]
+}

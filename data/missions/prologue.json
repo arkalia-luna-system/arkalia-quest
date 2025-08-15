@@ -1,0 +1,30 @@
+{
+    "id": "prologue",
+    "title": "Le SOS d'Althea",
+    "description": "Décrypte le message mystérieux d'Althea et découvre la vérité sur Arkalia",
+    "difficulty": "medium",
+    "timer": 120,
+    "rewards": {
+        "score": 250,
+        "badges": ["decrypteur"],
+        "unlock": "nexus_zone"
+    },
+    "steps": [
+        {
+            "id": "step_1",
+            "title": "Analyse du message",
+            "description": "Utilise 'prologue' pour analyser le SOS",
+            "command": "prologue",
+            "hint": "Le prologue révèle les secrets d'Althea"
+        },
+        {
+            "id": "step_2",
+            "title": "Décryptage",
+            "description": "Résous l'énigme du message codé",
+            "command": "decode_portal",
+            "hint": "Utilise tes compétences de hacking"
+        }
+    ],
+    "completed_by": [],
+    "created_at": "2025-01-17T12:00:00"
+}

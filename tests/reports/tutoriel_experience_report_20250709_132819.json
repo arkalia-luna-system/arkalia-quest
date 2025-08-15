@@ -1,0 +1,222 @@
+{
+  "test_name": "Tutoriel Experience Test",
+  "timestamp": "2025-07-09T13:28:19.626509",
+  "profiles_tested": [
+    {
+      "profile": "noob",
+      "steps": [
+        {
+          "name": "Page d'accueil et Tutoriel",
+          "duration": 0.005385875701904297,
+          "success": true,
+          "feedback": "",
+          "issues": [],
+          "positives": [
+            "Titre clair et visible",
+            "Bouton tutoriel visible",
+            "Script tutoriel chargé",
+            "API tutoriel fonctionnelle",
+            "Données tutoriel complètes",
+            "Effets visuels configurés",
+            "Choix interactifs disponibles",
+            "Chargement rapide"
+          ]
+        },
+        {
+          "name": "Découverte du terminal",
+          "duration": 0.0037157535552978516,
+          "success": true,
+          "feedback": "",
+          "issues": [],
+          "positives": [
+            "Interface terminal claire",
+            "Aide disponible",
+            "Terminal réactif"
+          ]
+        },
+        {
+          "name": "Première commande",
+          "duration": 0.0026650428771972656,
+          "success": true,
+          "feedback": "",
+          "issues": [
+            "Commande échouée"
+          ],
+          "positives": [
+            "Réponse instantanée"
+          ]
+        },
+        {
+          "name": "Feedback et progression",
+          "duration": 0.001569986343383789,
+          "success": true,
+          "feedback": "",
+          "issues": [
+            "Impossible de voir le profil"
+          ],
+          "positives": []
+        }
+      ],
+      "total_time": 0.016244888305664062,
+      "frustration_level": "Faible",
+      "engagement_level": "Élevé",
+      "issues": [],
+      "positives": []
+    },
+    {
+      "profile": "curieux",
+      "steps": [
+        {
+          "name": "Exploration curieuse",
+          "duration": 0.010792016983032227,
+          "success": true,
+          "feedback": "",
+          "issues": [
+            "Peu de variété visuelle"
+          ],
+          "positives": [
+            "4 commandes testées avec succès"
+          ]
+        },
+        {
+          "name": "Fonctionnalités cachées",
+          "duration": 0.008260011672973633,
+          "success": false,
+          "feedback": "",
+          "issues": [
+            "Aucun easter egg trouvé"
+          ],
+          "positives": []
+        },
+        {
+          "name": "Réactivité interactions",
+          "duration": 0.005995035171508789,
+          "success": true,
+          "feedback": "",
+          "issues": [],
+          "positives": [
+            "Réactivité excellente"
+          ]
+        }
+      ],
+      "total_time": 0.025099992752075195,
+      "frustration_level": "Faible",
+      "engagement_level": "Faible",
+      "issues": [],
+      "positives": []
+    },
+    {
+      "profile": "speedrunner",
+      "steps": [
+        {
+          "name": "Rapidité d'exécution",
+          "duration": 0.006064891815185547,
+          "success": true,
+          "feedback": "",
+          "issues": [],
+          "positives": [
+            "Exécution ultra-rapide"
+          ]
+        },
+        {
+          "name": "Raccourcis clavier",
+          "duration": 0,
+          "success": true,
+          "feedback": "Raccourcis à tester avec Selenium",
+          "issues": [],
+          "positives": [
+            "Interface compatible clavier"
+          ]
+        },
+        {
+          "name": "Fluidité transitions",
+          "duration": 0.020040035247802734,
+          "success": true,
+          "feedback": "",
+          "issues": [],
+          "positives": [
+            "Transitions fluides"
+          ]
+        }
+      ],
+      "total_time": 0.026137828826904297,
+      "frustration_level": "Faible",
+      "engagement_level": "Élevé",
+      "issues": [],
+      "positives": []
+    },
+    {
+      "profile": "interactive_tutorial",
+      "steps": [
+        {
+          "name": "Démarrage tutoriel",
+          "duration": 0.0023910999298095703,
+          "success": true,
+          "feedback": "",
+          "issues": [],
+          "positives": [
+            "Tutoriel démarré avec succès",
+            "Première étape correcte",
+            "Titre de l'étape présent",
+            "Description claire",
+            "Bouton d'action visible",
+            "Progression initialisée"
+          ]
+        },
+        {
+          "name": "Progression tutoriel",
+          "duration": 0.0020508766174316406,
+          "success": true,
+          "feedback": "",
+          "issues": [],
+          "positives": [
+            "Navigation entre étapes fonctionnelle",
+            "Étape 2 accessible"
+          ]
+        },
+        {
+          "name": "Choix interactifs",
+          "duration": 0.0024480819702148438,
+          "success": true,
+          "feedback": "",
+          "issues": [],
+          "positives": [
+            "Choix utilisateur traité"
+          ]
+        },
+        {
+          "name": "Effets visuels",
+          "duration": 0.0013527870178222656,
+          "success": true,
+          "feedback": "",
+          "issues": [],
+          "positives": [
+            "API effets accessible",
+            "Effets configurés"
+          ]
+        },
+        {
+          "name": "Dialogue LUNA",
+          "duration": 0.0011849403381347656,
+          "success": true,
+          "feedback": "",
+          "issues": [
+            "Erreur de connexion: 'str' object has no attribute 'get'"
+          ],
+          "positives": [
+            "API dialogue LUNA accessible"
+          ]
+        }
+      ],
+      "total_time": 0.009647846221923828,
+      "frustration_level": "Faible",
+      "engagement_level": "Élevé",
+      "issues": [],
+      "positives": []
+    }
+  ],
+  "overall_score": 31.66666666666667,
+  "issues_found": [],
+  "positive_feedback": [],
+  "performance_metrics": {}
+}

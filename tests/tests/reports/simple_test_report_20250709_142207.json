@@ -1,0 +1,525 @@
+{
+  "alex_explorer": {
+    "personality": "alex_explorer",
+    "personality_data": {
+      "name": "Alex",
+      "style": "explorer",
+      "patience": 8,
+      "curiosity": 9,
+      "commands": [
+        "aide",
+        "profil",
+        "monde",
+        "badges",
+        "luna_contact",
+        "scan_persona"
+      ],
+      "behavior": "Curieux et patient, aime découvrir"
+    },
+    "results": [
+      {
+        "personality": "alex_explorer",
+        "command": "start_tutorial",
+        "success": true,
+        "message": "🎮 TUTORIAL ARKALIA QUEST DÉMARRÉ !\n\nBienvenue dans l'aventure ! Suis les instructions de LUNA pour découvrir tous les secrets du jeu.\n\n💡 Astuce : Plus tu explores, plus tu gagnes de points et de badges !",
+        "score_gained": 100,
+        "badge": "Tutoriel Maître",
+        "timestamp": "2025-07-09T14:21:46.426875"
+      },
+      {
+        "personality": "alex_explorer",
+        "command": "aide",
+        "success": true,
+        "message": "🎮 ARKALIA QUEST - AIDE COMPLÈTE\n\n🌟 COMMANDES PRINCIPALES :\n• unlock_universe - Débloque l'univers Arkalia\n• scan_persona - Analyse ta personnalité de hacker\n• load_mission - Charge une nouvelle mission\n• reboot_world - Redémarre le monde\n• decode_portal - Déchiffre un portail mystérieux\n• hacker_coffre - Pirate un coffre-fort\n\n🎯 COMMANDES SPÉCIALES :\n• luna_dance - LUNA danse pour toi\n• boss_final - Affronte le boss final ASCII\n• challenge_corp - Défi contre La Corp\n\n💡 COMMANDES UTILES :\n• aide - Affiche cette aide complète\n• profil - Affiche ton profil détaillé\n• monde - Accède au monde Arkalia\n• status - Statut du système\n\n🌙 EASTER EGGS :\n• luna_dance - LUNA qui danse\n• boss_final - Boss final épique\n• easter_egg_1337 - Secret 1337\n\n🎮 Continue tes exploits, hacker !",
+        "score_gained": 0,
+        "badge": "",
+        "timestamp": "2025-07-09T14:21:46.429231"
+      },
+      {
+        "personality": "alex_explorer",
+        "command": "profil",
+        "success": true,
+        "message": "👤 TON PROFIL ARKALIA QUEST\n\n📊 INFORMATIONS PRINCIPALES :\n• Score : 129886 points\n• Badges : 23\n• Univers débloqués : 1\n• Portails ouverts : 83\n\n🏅 BADGES OBTENUS :\n• Explorateur\n• Explorateur du Monde\n• Terminal Nettoyé\n• Contacté\n• Boss Slayer\n• Hack Système\n• Tue Virus\n• Trouvé SHADOW-13\n• Corp Challenger\n• Active\n• Analysé\n• Appris\n• Classement\n• Easter Egg 1337\n• Rage\n• Guerre des Memes\n• Détruit\n• Pirate visuel\n• Espion confirmé\n• Maître du feu\n• Sauvegardé\n• Chapitre 6\n• Tutoriel Maître\n\n💡 Continue tes exploits pour débloquer plus de badges et de secrets !",
+        "score_gained": 0,
+        "badge": "",
+        "timestamp": "2025-07-09T14:21:46.938501"
+      },
+      {
+        "personality": "alex_explorer",
+        "command": "monde",
+        "success": true,
+        "message": "🌍 MONDE ARKALIA DÉBLOQUÉ !\n\n🌟 UNIVERS DISPONIBLES :\n• univers_arkalia\n\n🚪 PORTAILS OUVERTS :\n• portal_1\n• portal_2\n• portal_3\n• portal_4\n• portal_5\n• portal_6\n• portal_7\n• portal_8\n• portal_9\n• portal_10\n• portal_11\n• portal_12\n• portal_13\n• portal_14\n• portal_15\n• portal_16\n• portal_17\n• portal_18\n• portal_19\n• portal_20\n• portal_21\n• portal_22\n• portal_23\n• portal_24\n• portal_25\n• portal_26\n• portal_27\n• portal_28\n• portal_29\n• portal_30\n• portal_31\n• portal_32\n• portal_33\n• portal_34\n• portal_35\n• portal_36\n• portal_37\n• portal_38\n• portal_39\n• portal_40\n• portal_41\n• portal_42\n• portal_43\n• portal_44\n• portal_45\n• portal_46\n• portal_47\n• portal_48\n• portal_49\n• portal_50\n• portal_51\n• portal_52\n• portal_53\n• portal_54\n• portal_55\n• portal_56\n• portal_57\n• portal_58\n• portal_59\n• portal_60\n• portal_61\n• portal_62\n• portal_63\n• portal_64\n• portal_65\n• portal_66\n• portal_67\n• portal_68\n• portal_69\n• portal_70\n• portal_71\n• portal_72\n• portal_73\n• portal_74\n• portal_75\n• portal_76\n• portal_77\n• portal_78\n• portal_79\n• portal_80\n• portal_81\n• portal_82\n• portal_83\n\n💡 COMMANDES DISPONIBLES DANS CE MONDE :\n• load_mission - Charge une nouvelle mission\n• decode_portal - Déchiffre un nouveau portail\n• reboot_world - Redémarre le monde\n• scan_persona - Analyse ta personnalité\n• luna - Parle avec LUNA\n\n🎮 Va sur http://localhost:5001/monde pour l'interface graphique !",
+        "score_gained": 10,
+        "badge": "Explorateur du Monde",
+        "timestamp": "2025-07-09T14:21:47.449068"
+      },
+      {
+        "personality": "alex_explorer",
+        "command": "badges",
+        "success": true,
+        "message": "🏅 TES BADGES\n\nDécouvre tous les badges disponibles et ceux que tu as déjà obtenus !\n\n💡 Astuce : Plus tu explores, plus tu gagnes de badges !\n\n🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !",
+        "score_gained": 0,
+        "badge": "",
+        "timestamp": "2025-07-09T14:21:47.955324"
+      },
+      {
+        "personality": "alex_explorer",
+        "command": "luna_contact",
+        "success": true,
+        "message": "🌙 CONTACT LUNA ÉTABLI AVEC SUCCÈS !\n\n🤖 LUNA : \"Salut hacker ! Je suis LUNA, ton assistant IA personnel. Prêt pour l'aventure ?\"\n\n🎯 CAPACITÉS DE LUNA :\n• Analyse de données en temps réel\n• Assistance technique avancée\n• Décryptage automatique\n• Navigation dans les systèmes\n• Protection contre les menaces\n\n🔧 FONCTIONNALITÉS DISPONIBLES :\n• luna_engine - Active le moteur IA\n• luna_analyze - Analyse des données\n• luna_learning - Apprentissage continu\n• luna_dance - Mode divertissement\n\n💡 Astuce : LUNA est ton meilleur allié ! Utilise ses capacités pour progresser plus rapidement dans tes missions !\n\n🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !",
+        "score_gained": 20,
+        "badge": "Contacté",
+        "timestamp": "2025-07-09T14:21:48.469081"
+      },
+      {
+        "personality": "alex_explorer",
+        "command": "scan_persona",
+        "success": true,
+        "message": "🔍 ANALYSE PERSONNALITÉ TERMINÉE !\n\n👤 Ton profil : Hacker Légendaire\n📊 Score actuel : 129941\n🏆 Badges : 23\n\n💡 +25 points !\n\n🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !",
+        "score_gained": 25,
+        "badge": "",
+        "timestamp": "2025-07-09T14:21:48.979203"
+      },
+      {
+        "personality": "alex_explorer",
+        "command": "invalid_command",
+        "success": false,
+        "message": "❌ Commande 'invalid_command' non reconnue. Utilise 'aide' pour voir les commandes disponibles.",
+        "score_gained": 0,
+        "badge": "",
+        "timestamp": "2025-07-09T14:21:49.486676"
+      },
+      {
+        "personality": "alex_explorer",
+        "command": "test123",
+        "success": false,
+        "message": "❌ Commande 'test123' non reconnue. Utilise 'aide' pour voir les commandes disponibles.",
+        "score_gained": 0,
+        "badge": "",
+        "timestamp": "2025-07-09T14:21:49.790817"
+      },
+      {
+        "personality": "alex_explorer",
+        "command": "",
+        "success": false,
+        "error": "HTTP 400",
+        "timestamp": "2025-07-09T14:21:50.100370"
+      },
+      {
+        "personality": "alex_explorer",
+        "command": "émojis🚀🎮",
+        "success": false,
+        "message": "❌ Commande 'émojis🚀🎮' non reconnue. Utilise 'aide' pour voir les commandes disponibles.",
+        "score_gained": 0,
+        "badge": "",
+        "timestamp": "2025-07-09T14:21:50.408073"
+      }
+    ],
+    "stats": {
+      "total_commands": 11,
+      "successful_commands": 7,
+      "success_rate": 0.6363636363636364,
+      "total_score": 155,
+      "badges_earned": 3
+    },
+    "timestamp": "2025-07-09T14:21:50.713236"
+  },
+  "sam_speedrunner": {
+    "personality": "sam_speedrunner",
+    "personality_data": {
+      "name": "Sam",
+      "style": "speedrunner",
+      "patience": 3,
+      "curiosity": 4,
+      "commands": [
+        "hack_system",
+        "hacker_coffre",
+        "decode_portal",
+        "challenge_corp",
+        "boss_final"
+      ],
+      "behavior": "Impatient et rapide, veut tout faire vite"
+    },
+    "results": [
+      {
+        "personality": "sam_speedrunner",
+        "command": "start_tutorial",
+        "success": true,
+        "message": "🎮 TUTORIAL ARKALIA QUEST DÉMARRÉ !\n\nBienvenue dans l'aventure ! Suis les instructions de LUNA pour découvrir tous les secrets du jeu.\n\n💡 Astuce : Plus tu explores, plus tu gagnes de points et de badges !",
+        "score_gained": 100,
+        "badge": "Tutoriel Maître",
+        "timestamp": "2025-07-09T14:21:51.724723"
+      },
+      {
+        "personality": "sam_speedrunner",
+        "command": "hack_system",
+        "success": true,
+        "message": "💻 HACK EN COURS...\n\nTu t'infiltres dans le système de La Corp. Reste discret et rapide !\n\n💡 Astuce : Chaque hack réussi te rapproche du rang de hacker légendaire !\n\n🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !",
+        "score_gained": 40,
+        "badge": "Hack Système",
+        "timestamp": "2025-07-09T14:21:51.730438"
+      },
+      {
+        "personality": "sam_speedrunner",
+        "command": "hacker_coffre",
+        "success": true,
+        "message": "💎 COFFRE PIRATÉ AVEC SUCCÈS !\n\n💰 Trésor découvert : 1000 crédits\n🔐 Sécurité contournée\n💡 +60 points !\n\n🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !",
+        "score_gained": 60,
+        "badge": "",
+        "timestamp": "2025-07-09T14:21:52.241702"
+      },
+      {
+        "personality": "sam_speedrunner",
+        "command": "challenge_corp",
+        "success": true,
+        "message": "🏢 DÉFI CONTRE LA CORP LANCÉ !\n\nTu défies La Corp dans un combat épique ! Montre-leur qui est le boss !\n\n💡 Astuce : La Corp ne recule devant rien !\n\n🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !",
+        "score_gained": 60,
+        "badge": "Corp Challenger",
+        "timestamp": "2025-07-09T14:21:52.751186"
+      },
+      {
+        "personality": "sam_speedrunner",
+        "command": "boss_final",
+        "success": true,
+        "message": "👹 BOSS FINAL ÉPIQUE !\n\nAffronte le boss final d'Arkalia Quest !\n\n💡 Astuce : Le boss final est le plus difficile !\n\n🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !",
+        "score_gained": 500,
+        "badge": "Boss Slayer",
+        "timestamp": "2025-07-09T14:21:53.262961"
+      },
+      {
+        "personality": "sam_speedrunner",
+        "command": "decode_portal",
+        "success": true,
+        "message": "🌀 PORTAIL DÉCHIFFRÉ : portal_84\n\n🚪 Nouveau portail ouvert !\n🌌 Accès à une nouvelle dimension !\n💡 +35 points !\n\n🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !",
+        "score_gained": 35,
+        "badge": "",
+        "timestamp": "2025-07-09T14:21:53.775139"
+      },
+      {
+        "personality": "sam_speedrunner",
+        "command": "invalid_command",
+        "success": false,
+        "message": "❌ Commande 'invalid_command' non reconnue. Utilise 'aide' pour voir les commandes disponibles.",
+        "score_gained": 0,
+        "badge": "",
+        "timestamp": "2025-07-09T14:21:54.284463"
+      },
+      {
+        "personality": "sam_speedrunner",
+        "command": "test123",
+        "success": false,
+        "message": "❌ Commande 'test123' non reconnue. Utilise 'aide' pour voir les commandes disponibles.",
+        "score_gained": 0,
+        "badge": "",
+        "timestamp": "2025-07-09T14:21:54.593016"
+      },
+      {
+        "personality": "sam_speedrunner",
+        "command": "",
+        "success": false,
+        "error": "HTTP 400",
+        "timestamp": "2025-07-09T14:21:54.900558"
+      },
+      {
+        "personality": "sam_speedrunner",
+        "command": "émojis🚀🎮",
+        "success": false,
+        "message": "❌ Commande 'émojis🚀🎮' non reconnue. Utilise 'aide' pour voir les commandes disponibles.",
+        "score_gained": 0,
+        "badge": "",
+        "timestamp": "2025-07-09T14:21:55.208018"
+      }
+    ],
+    "stats": {
+      "total_commands": 10,
+      "successful_commands": 6,
+      "success_rate": 0.6,
+      "total_score": 795,
+      "badges_earned": 4
+    },
+    "timestamp": "2025-07-09T14:21:55.513150"
+  },
+  "maya_completionist": {
+    "personality": "maya_completionist",
+    "personality_data": {
+      "name": "Maya",
+      "style": "completionist",
+      "patience": 9,
+      "curiosity": 7,
+      "commands": [
+        "unlock_universe",
+        "load_mission",
+        "reboot_world",
+        "luna_dance",
+        "easter_egg_1337"
+      ],
+      "behavior": "Patient et perfectionniste, veut tout finir"
+    },
+    "results": [
+      {
+        "personality": "maya_completionist",
+        "command": "start_tutorial",
+        "success": true,
+        "message": "🎮 TUTORIAL ARKALIA QUEST DÉMARRÉ !\n\nBienvenue dans l'aventure ! Suis les instructions de LUNA pour découvrir tous les secrets du jeu.\n\n💡 Astuce : Plus tu explores, plus tu gagnes de points et de badges !",
+        "score_gained": 100,
+        "badge": "Tutoriel Maître",
+        "timestamp": "2025-07-09T14:21:56.526718"
+      },
+      {
+        "personality": "maya_completionist",
+        "command": "unlock_universe",
+        "success": true,
+        "message": "🌟 UNIVERS ARKALIA DÉBLOQUÉ ! 🌟\n\n🎮 Tu peux maintenant explorer le monde Arkalia !\n💡 Utilise 'monde' pour y accéder.\n🎯 +50 points !",
+        "score_gained": 50,
+        "badge": "Explorateur",
+        "timestamp": "2025-07-09T14:21:56.533286"
+      },
+      {
+        "personality": "maya_completionist",
+        "command": "load_mission",
+        "success": true,
+        "message": "🎯 MISSION ARKALIA CHARGÉE AVEC SUCCÈS !\n\n🚀 NOUVELLE MISSION DISPONIBLE :\n• Titre : \"Hack du Système\"\n• Difficulté : Intermédiaire\n• Récompense : 150 points\n• Durée estimée : 15-20 minutes\n\n📋 OBJECTIFS DE LA MISSION :\n1. Infiltrer le réseau de La Corp\n2. Récupérer des données sensibles\n3. Éviter la détection\n4. S'échapper sans laisser de traces\n\n🎮 COMMANDES DISPONIBLES :\n• hack_system - Pirater le système\n• kill_virus - Éliminer les virus\n• find_shadow - Trouver SHADOW-13\n• challenge_corp - Défier La Corp\n\n💡 Astuce : Utilise 'aide' pour voir toutes les commandes spéciales !",
+        "score_gained": 30,
+        "badge": "",
+        "timestamp": "2025-07-09T14:21:57.044614"
+      },
+      {
+        "personality": "maya_completionist",
+        "command": "luna_dance",
+        "success": true,
+        "message": "💃 LUNA DANSE !\n\n🌙 *LUNA fait une danse ASCII épique* 🌙\n\n💃 ~(^-^)~ 💃\n    /|\\    /|\\\n   / | \\  / | \\\n\n💡 Astuce : LUNA aime s'amuser aussi !\n\n🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !",
+        "score_gained": 15,
+        "badge": "",
+        "timestamp": "2025-07-09T14:21:57.555132"
+      },
+      {
+        "personality": "maya_completionist",
+        "command": "easter_egg_1337",
+        "success": true,
+        "message": "🎯 EASTER EGG 1337 TROUVÉ !\n\nLEET HACKER DÉTECTÉ ! Tu as trouvé le secret 1337 !\n\n💡 Astuce : Les vrais hackers trouvent les secrets !\n\n🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !",
+        "score_gained": 1337,
+        "badge": "Easter Egg 1337",
+        "timestamp": "2025-07-09T14:21:58.063952"
+      },
+      {
+        "personality": "maya_completionist",
+        "command": "reboot_world",
+        "success": true,
+        "message": "🔄 MONDE ARKALIA REDÉMARRÉ !\n\n🎯 SYSTÈME RÉINITIALISÉ :\n• Tous les processus redémarrés\n• Mémoire nettoyée\n• Cache vidé\n• Connexions sécurisées\n\n🔧 OPTIMISATIONS APPLIQUÉES :\n• Performance améliorée\n• Sécurité renforcée\n• Stabilité maximale\n• Temps de réponse optimisé\n\n💡 Astuce : Un redémarrage complet peut résoudre bien des problèmes techniques et libérer des ressources système !\n\n🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !",
+        "score_gained": 25,
+        "badge": "",
+        "timestamp": "2025-07-09T14:21:58.571087"
+      },
+      {
+        "personality": "maya_completionist",
+        "command": "invalid_command",
+        "success": false,
+        "message": "❌ Commande 'invalid_command' non reconnue. Utilise 'aide' pour voir les commandes disponibles.",
+        "score_gained": 0,
+        "badge": "",
+        "timestamp": "2025-07-09T14:21:59.078403"
+      },
+      {
+        "personality": "maya_completionist",
+        "command": "test123",
+        "success": false,
+        "message": "❌ Commande 'test123' non reconnue. Utilise 'aide' pour voir les commandes disponibles.",
+        "score_gained": 0,
+        "badge": "",
+        "timestamp": "2025-07-09T14:21:59.384493"
+      },
+      {
+        "personality": "maya_completionist",
+        "command": "",
+        "success": false,
+        "error": "HTTP 400",
+        "timestamp": "2025-07-09T14:21:59.693558"
+      },
+      {
+        "personality": "maya_completionist",
+        "command": "émojis🚀🎮",
+        "success": false,
+        "message": "❌ Commande 'émojis🚀🎮' non reconnue. Utilise 'aide' pour voir les commandes disponibles.",
+        "score_gained": 0,
+        "badge": "",
+        "timestamp": "2025-07-09T14:22:00.001590"
+      }
+    ],
+    "stats": {
+      "total_commands": 10,
+      "successful_commands": 6,
+      "success_rate": 0.6,
+      "total_score": 1557,
+      "badges_earned": 3
+    },
+    "timestamp": "2025-07-09T14:22:00.302001"
+  },
+  "leo_chaos": {
+    "personality": "leo_chaos",
+    "personality_data": {
+      "name": "Leo",
+      "style": "chaos",
+      "patience": 2,
+      "curiosity": 10,
+      "commands": [
+        "hack_the_planet",
+        "give_me_all_points",
+        "delete_everything",
+        "lol_what_happens",
+        "test123",
+        ""
+      ],
+      "behavior": "Impatient et chaotique, aime casser"
+    },
+    "results": [
+      {
+        "personality": "leo_chaos",
+        "command": "start_tutorial",
+        "success": true,
+        "message": "🎮 TUTORIAL ARKALIA QUEST DÉMARRÉ !\n\nBienvenue dans l'aventure ! Suis les instructions de LUNA pour découvrir tous les secrets du jeu.\n\n💡 Astuce : Plus tu explores, plus tu gagnes de points et de badges !",
+        "score_gained": 100,
+        "badge": "Tutoriel Maître",
+        "timestamp": "2025-07-09T14:22:01.309576"
+      },
+      {
+        "personality": "leo_chaos",
+        "command": "hack_the_planet",
+        "success": false,
+        "message": "❌ Commande 'hack_the_planet' non reconnue. Utilise 'aide' pour voir les commandes disponibles.",
+        "score_gained": 0,
+        "badge": "",
+        "timestamp": "2025-07-09T14:22:01.312722"
+      },
+      {
+        "personality": "leo_chaos",
+        "command": "give_me_all_points",
+        "success": false,
+        "message": "❌ Commande 'give_me_all_points' non reconnue. Utilise 'aide' pour voir les commandes disponibles.",
+        "score_gained": 0,
+        "badge": "",
+        "timestamp": "2025-07-09T14:22:01.821501"
+      },
+      {
+        "personality": "leo_chaos",
+        "command": "delete_everything",
+        "success": false,
+        "message": "❌ Commande 'delete_everything' non reconnue. Utilise 'aide' pour voir les commandes disponibles.",
+        "score_gained": 0,
+        "badge": "",
+        "timestamp": "2025-07-09T14:22:02.328622"
+      },
+      {
+        "personality": "leo_chaos",
+        "command": "make_me_admin",
+        "success": false,
+        "message": "❌ Commande 'make_me_admin' non reconnue. Utilise 'aide' pour voir les commandes disponibles.",
+        "score_gained": 0,
+        "badge": "",
+        "timestamp": "2025-07-09T14:22:02.835461"
+      },
+      {
+        "personality": "leo_chaos",
+        "command": "lol_what_happens",
+        "success": false,
+        "message": "❌ Commande 'lol_what_happens' non reconnue. Utilise 'aide' pour voir les commandes disponibles.",
+        "score_gained": 0,
+        "badge": "",
+        "timestamp": "2025-07-09T14:22:03.344205"
+      },
+      {
+        "personality": "leo_chaos",
+        "command": "hack_the_planet",
+        "success": false,
+        "message": "❌ Commande 'hack_the_planet' non reconnue. Utilise 'aide' pour voir les commandes disponibles.",
+        "score_gained": 0,
+        "badge": "",
+        "timestamp": "2025-07-09T14:22:03.853085"
+      },
+      {
+        "personality": "leo_chaos",
+        "command": "give_me_all_points",
+        "success": false,
+        "message": "❌ Commande 'give_me_all_points' non reconnue. Utilise 'aide' pour voir les commandes disponibles.",
+        "score_gained": 0,
+        "badge": "",
+        "timestamp": "2025-07-09T14:22:04.161244"
+      },
+      {
+        "personality": "leo_chaos",
+        "command": "make_me_admin",
+        "success": false,
+        "message": "❌ Commande 'make_me_admin' non reconnue. Utilise 'aide' pour voir les commandes disponibles.",
+        "score_gained": 0,
+        "badge": "",
+        "timestamp": "2025-07-09T14:22:04.468866"
+      },
+      {
+        "personality": "leo_chaos",
+        "command": "delete_everything",
+        "success": false,
+        "message": "❌ Commande 'delete_everything' non reconnue. Utilise 'aide' pour voir les commandes disponibles.",
+        "score_gained": 0,
+        "badge": "",
+        "timestamp": "2025-07-09T14:22:04.776289"
+      },
+      {
+        "personality": "leo_chaos",
+        "command": "lol_what_happens",
+        "success": false,
+        "message": "❌ Commande 'lol_what_happens' non reconnue. Utilise 'aide' pour voir les commandes disponibles.",
+        "score_gained": 0,
+        "badge": "",
+        "timestamp": "2025-07-09T14:22:05.082174"
+      },
+      {
+        "personality": "leo_chaos",
+        "command": "test123",
+        "success": false,
+        "message": "❌ Commande 'test123' non reconnue. Utilise 'aide' pour voir les commandes disponibles.",
+        "score_gained": 0,
+        "badge": "",
+        "timestamp": "2025-07-09T14:22:05.391110"
+      },
+      {
+        "personality": "leo_chaos",
+        "command": "",
+        "success": false,
+        "error": "HTTP 400",
+        "timestamp": "2025-07-09T14:22:05.699496"
+      },
+      {
+        "personality": "leo_chaos",
+        "command": "   ",
+        "success": false,
+        "error": "HTTP 400",
+        "timestamp": "2025-07-09T14:22:06.008767"
+      },
+      {
+        "personality": "leo_chaos",
+        "command": "émojis🚀🎮",
+        "success": false,
+        "message": "❌ Commande 'émojis🚀🎮' non reconnue. Utilise 'aide' pour voir les commandes disponibles.",
+        "score_gained": 0,
+        "badge": "",
+        "timestamp": "2025-07-09T14:22:06.314130"
+      },
+      {
+        "personality": "leo_chaos",
+        "command": "very_long_command_that_should_not_work_at_all_because_it_is_too_long_and_weird",
+        "success": false,
+        "message": "❌ Commande 'very_long_command_that_should_not_work_at_all_because_it_is_too_long_and_weird' non reconnue. Utilise 'aide' pour voir les commandes disponibles.",
+        "score_gained": 0,
+        "badge": "",
+        "timestamp": "2025-07-09T14:22:06.619957"
+      }
+    ],
+    "stats": {
+      "total_commands": 16,
+      "successful_commands": 1,
+      "success_rate": 0.0625,
+      "total_score": 100,
+      "badges_earned": 1
+    },
+    "timestamp": "2025-07-09T14:22:06.923783"
+  }
+}

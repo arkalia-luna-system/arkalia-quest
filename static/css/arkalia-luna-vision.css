@@ -1,0 +1,435 @@
+/* ===== ARKALIA-LUNA-VISION - LE MONDE SENSIBLE DE LUNA ===== */
+/* 🌙✨ Interface cyber-organique avec particules pulsars et respiration */
+
+/* POLICES LUNA */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600&family=Cormorant:wght@300;400;500;600;700&display=swap');
+
+/* PALETTE LUNA VISION */
+:root {
+    --violet-lunaire: #a78bfa;        /* Violet lunaire - Couleur signature */
+    --bleu-spectre: #60a5fa;          /* Bleu spectre - Émotions */
+    --argent-holographique: #e5e7eb;  /* Argent holographique - Interface */
+    --noir-silence: #09090b;          /* Noir silence - Fond profond */
+    --violet-celeste: #8b5cf6;        /* Violet céleste - Gradient */
+    --rose-souvenir: #ec4899;         /* Rose souvenir - Accents */
+    --or-pale: #fbbf24;               /* Or pâle - Highlights */
+    
+    /* Couleurs d'émotions LUNA */
+    --luna-calm: var(--bleu-spectre);
+    --luna-excited: var(--violet-lunaire);
+    --luna-concerned: var(--rose-souvenir);
+    --luna-proud: var(--or-pale);
+    --luna-mysterious: var(--violet-celeste);
+}
+
+/* BASE LUNA VISION */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, var(--noir-silence) 0%, var(--violet-celeste) 50%, var(--noir-silence) 100%);
+    background-size: 400% 400%;
+    animation: gradientBreath 8s ease-in-out infinite;
+    color: var(--argent-holographique);
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* RESPIRATION DU FOND */
+@keyframes gradientBreath {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* BRUMES NUMÉRIQUES */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(167, 139, 250, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(96, 165, 250, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 1;
+    animation: mistFloat 20s ease-in-out infinite;
+}
+
+@keyframes mistFloat {
+    0%, 100% { opacity: 0.3; transform: translateY(0px); }
+    50% { opacity: 0.6; transform: translateY(-20px); }
+}
+
+/* CONTAINER PRINCIPAL */
+.container {
+    position: relative;
+    z-index: 10;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 80px;
+}
+
+/* NAVIGATION LUNA */
+.main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(9, 9, 11, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(167, 139, 250, 0.3);
+    z-index: 100;
+    padding: 15px 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.nav-logo {
+    font-family: 'Cormorant', serif;
+    font-size: 1.5em;
+    font-weight: 600;
+    color: var(--violet-lunaire);
+    text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-link {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85em;
+    color: var(--argent-holographique);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.nav-link:hover::before {
+    left: 100%;
+}
+
+.nav-link:hover {
+    color: var(--violet-lunaire);
+    background: rgba(167, 139, 250, 0.1);
+    box-shadow: 0 0 15px rgba(167, 139, 250, 0.3);
+    transform: translateY(-2px);
+}
+
+.nav-link.active {
+    color: var(--violet-lunaire);
+    background: rgba(167, 139, 250, 0.15);
+    box-shadow: 0 0 20px rgba(167, 139, 250, 0.4);
+}
+
+/* HEADER LUNA */
+.luna-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 40px 20px;
+    background: rgba(9, 9, 11, 0.8);
+    border: 1px solid rgba(167, 139, 250, 0.3);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.luna-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--violet-lunaire), transparent);
+    animation: headerGlow 3s ease-in-out infinite;
+}
+
+@keyframes headerGlow {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+.luna-header h1 {
+    font-family: 'Cormorant', serif;
+    font-size: 2.5em;
+    font-weight: 600;
+    color: var(--violet-lunaire);
+    text-shadow: 0 0 20px rgba(167, 139, 250, 0.6);
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 0.5s forwards;
+}
+
+.luna-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1em;
+    color: var(--argent-holographique);
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 1s forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* GRID MONDE LUNA */
+.monde-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.monde-section {
+    background: rgba(9, 9, 11, 0.9);
+    border: 1px solid rgba(167, 139, 250, 0.2);
+    border-radius: 12px;
+    padding: 25px;
+    backdrop-filter: blur(10px);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.monde-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(167, 139, 250, 0.05), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.monde-section:hover::before {
+    opacity: 1;
+}
+
+.monde-section:hover {
+    border-color: rgba(167, 139, 250, 0.4);
+    box-shadow: 0 0 30px rgba(167, 139, 250, 0.2);
+    transform: translateY(-5px);
+}
+
+.monde-section h3 {
+    font-family: 'Cormorant', serif;
+    font-size: 1.4em;
+    font-weight: 600;
+    color: var(--violet-lunaire);
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px rgba(167, 139, 250, 0.4);
+}
+
+/* BOUTONS LUNA */
+.luna-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.9em;
+    color: var(--argent-holographique);
+    background: rgba(167, 139, 250, 0.1);
+    border: 1px solid rgba(167, 139, 250, 0.3);
+    border-radius: 8px;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.luna-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(167, 139, 250, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+.luna-btn:hover::before {
+    width: 200px;
+    height: 200px;
+}
+
+.luna-btn:hover {
+    color: var(--violet-lunaire);
+    border-color: rgba(167, 139, 250, 0.6);
+    box-shadow: 0 0 20px rgba(167, 139, 250, 0.4);
+    transform: translateY(-2px);
+}
+
+/* PULSAR PARTICULES */
+.pulsar {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--violet-lunaire);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: pulsarFloat 6s ease-in-out infinite;
+}
+
+@keyframes pulsarFloat {
+    0%, 100% {
+        opacity: 0.3;
+        transform: translateY(0px) scale(1);
+        box-shadow: 0 0 10px var(--violet-lunaire);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(-20px) scale(1.5);
+        box-shadow: 0 0 20px var(--violet-lunaire);
+    }
+}
+
+/* CURSEUR LUNA */
+.luna-cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, var(--violet-lunaire), transparent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: screen;
+    transition: transform 0.1s ease;
+}
+
+.luna-cursor.luna-present {
+    transform: scale(2);
+    background: radial-gradient(circle, var(--violet-lunaire), var(--bleu-spectre), transparent);
+}
+
+/* MESSAGE LUNA */
+.luna-message {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: rgba(9, 9, 11, 0.95);
+    border: 1px solid rgba(167, 139, 250, 0.3);
+    border-radius: 8px;
+    padding: 15px 20px;
+    backdrop-filter: blur(10px);
+    font-family: 'Cormorant', serif;
+    font-size: 0.9em;
+    color: var(--violet-lunaire);
+    max-width: 300px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.luna-message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .monde-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .luna-header h1 {
+        font-size: 2em;
+    }
+    
+    .luna-message {
+        bottom: 20px;
+        right: 20px;
+        left: 20px;
+        max-width: none;
+    }
+}
+
+/* ANIMATIONS DE TEXTE */
+.typing-text {
+    overflow: hidden;
+    border-right: 2px solid var(--violet-lunaire);
+    white-space: nowrap;
+    animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: var(--violet-lunaire); }
+}
+
+/* EFFETS DE RESPIRATION */
+.breathing {
+    animation: breathing 4s ease-in-out infinite;
+}
+
+@keyframes breathing {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+/* GLOW EFFECTS */
+.glow {
+    box-shadow: 0 0 20px rgba(167, 139, 250, 0.3);
+}
+
+.glow:hover {
+    box-shadow: 0 0 30px rgba(167, 139, 250, 0.5);
+} 

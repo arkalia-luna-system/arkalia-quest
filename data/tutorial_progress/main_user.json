@@ -1,0 +1,17 @@
+{
+    "user_id": "main_user",
+    "tutorial_step": "not_started",
+    "steps_completed": [],
+    "current_step": {
+        "id": "welcome",
+        "title": "Bienvenue dans Arkalia Quest",
+        "description": "Prêt à commencer l'aventure ?",
+        "completed": false
+    },
+    "progress_percentage": 0,
+    "started_at": null,
+    "completed_at": null,
+    "total_time": 0,
+    "hints_used": 0,
+    "score": 0
+}

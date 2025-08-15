@@ -1,0 +1,142 @@
+<!-- ===== PANNEAU D'ACCESSIBILITÉ ARKALIA QUEST ===== -->
+<!-- Template à inclure dans toutes les pages pour l'accessibilité WCAG 2.1 AA -->
+
+<!-- Skip Links pour navigation rapide -->
+<a href="#main-content" class="skip-link">Aller au contenu principal</a>
+<a href="#navigation" class="skip-link">Aller à la navigation</a>
+<a href="#accessibility-menu" class="skip-link">Paramètres d'accessibilité</a>
+
+<!-- Indicateur de navigation clavier -->
+<div class="nav-focus-indicator" aria-hidden="true"></div>
+
+<!-- Bouton d'accessibilité discret dans la navigation -->
+<button id="accessibility-toggle" 
+        class="accessibility-toggle-btn" 
+        aria-label="Paramètres d'accessibilité"
+        aria-expanded="false"
+        aria-controls="accessibility-menu">
+    ♿
+</button>
+
+<!-- Menu d'accessibilité flottant -->
+<div id="accessibility-menu" 
+     class="accessibility-menu" 
+     role="dialog" 
+     aria-label="Paramètres d'accessibilité"
+     aria-hidden="true">
+    
+    <div class="accessibility-menu-header">
+        <h3>♿ Accessibilité</h3>
+        <button class="accessibility-close-btn" 
+                aria-label="Fermer les paramètres d'accessibilité"
+                onclick="toggleAccessibilityMenu()">
+            ✕
+        </button>
+    </div>
+    
+    <div class="accessibility-controls">
+        <!-- Mode Daltonien -->
+        <button class="accessibility-btn" 
+                data-mode="daltonian" 
+                aria-pressed="false"
+                aria-describedby="daltonian-desc">
+            🎨 Mode Daltonien
+        </button>
+        <div id="daltonian-desc" class="sr-only">
+            Active le mode daltonien avec des couleurs adaptées pour les personnes daltoniennes
+        </div>
+        
+        <!-- Mode Haut Contraste -->
+        <button class="accessibility-btn" 
+                data-mode="highContrast" 
+                aria-pressed="false"
+                aria-describedby="highcontrast-desc">
+            🌟 Haut Contraste
+        </button>
+        <div id="highcontrast-desc" class="sr-only">
+            Active le mode haut contraste pour une meilleure visibilité
+        </div>
+        
+        <!-- Police Dyslexie -->
+        <button class="accessibility-btn" 
+                data-mode="dyslexia" 
+                aria-pressed="false"
+                aria-describedby="dyslexia-desc">
+            📖 Police Dyslexie
+        </button>
+        <div id="dyslexia-desc" class="sr-only">
+            Active une police adaptée pour les personnes dyslexiques
+        </div>
+        
+        <!-- Animations Réduites -->
+        <button class="accessibility-btn" 
+                data-mode="reducedMotion" 
+                aria-pressed="false"
+                aria-describedby="motion-desc">
+            ⏸️ Animations Réduites
+        </button>
+        <div id="motion-desc" class="sr-only">
+            Réduit les animations pour les personnes sensibles au mouvement
+        </div>
+        
+        <!-- Taille Police -->
+        <button class="accessibility-btn" 
+                data-action="fontSize" 
+                aria-pressed="false"
+                aria-describedby="fontsize-desc">
+            🔤 Taille Police
+        </button>
+        <div id="fontsize-desc" class="sr-only">
+            Change la taille de la police pour une meilleure lisibilité
+        </div>
+        
+        <!-- Feedback Haptique -->
+        <button class="accessibility-btn" 
+                data-action="hapticFeedback" 
+                aria-pressed="true"
+                aria-describedby="haptic-desc">
+            📳 Feedback Haptique
+        </button>
+        <div id="haptic-desc" class="sr-only">
+            Active ou désactive les vibrations sur mobile
+        </div>
+    </div>
+    
+    <!-- Raccourcis clavier -->
+    <div class="accessibility-shortcuts">
+        <h4>⌨️ Raccourcis Clavier</h4>
+        <ul>
+            <li><kbd>Alt</kbd> + <kbd>A</kbd> : Ouvrir/fermer ce menu</li>
+            <li><kbd>Alt</kbd> + <kbd>1</kbd> : Mode daltonien</li>
+            <li><kbd>Alt</kbd> + <kbd>2</kbd> : Haut contraste</li>
+            <li><kbd>Alt</kbd> + <kbd>3</kbd> : Police dyslexie</li>
+            <li><kbd>Alt</kbd> + <kbd>4</kbd> : Animations réduites</li>
+            <li><kbd>Échap</kbd> : Fermer les fenêtres</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Overlay pour fermer le menu -->
+<div id="accessibility-overlay" 
+     class="accessibility-overlay" 
+     aria-hidden="true"
+     onclick="toggleAccessibilityMenu()">
+</div>
+
+<!-- Région pour annonces lecteurs d'écran -->
+<div id="screen-reader-announcements" 
+     class="sr-only" 
+     aria-live="polite" 
+     aria-atomic="true"
+     role="status">
+</div>
+
+<!-- Structure sémantique pour le contenu principal -->
+<main id="main-content" role="main" aria-label="Contenu principal Arkalia Quest">
+    <!-- Le contenu de la page sera injecté ici -->
+</main>
+
+<!-- Navigation principale -->
+<nav id="navigation" role="navigation" aria-label="Navigation principale">
+    <!-- La navigation sera injectée ici -->
+</nav> 

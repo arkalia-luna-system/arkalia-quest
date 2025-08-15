@@ -1,0 +1,142 @@
+{
+  "last_updated": "2025-08-15T13:07:17.890783",
+  "players": [
+    {
+      "user_id": "hacker_001",
+      "name": "CyberMaster",
+      "score": 2100,
+      "level": 4,
+      "badges_count": 7,
+      "missions_completed": 12,
+      "last_activity": "2025-07-10T09:25:00",
+      "join_date": "2025-07-10T07:30:00",
+      "is_current": false
+    },
+    {
+      "user_id": "hacker_002",
+      "name": "CodeNinja",
+      "score": 1800,
+      "level": 3,
+      "badges_count": 5,
+      "missions_completed": 10,
+      "last_activity": "2025-07-10T09:20:00",
+      "join_date": "2025-07-10T08:15:00",
+      "is_current": false
+    },
+    {
+      "user_id": "default",
+      "name": "Hacker",
+      "score": 1250,
+      "level": 3,
+      "badges_count": 4,
+      "missions_completed": 8,
+      "last_activity": "2025-07-10T09:30:00",
+      "join_date": "2025-07-10T08:00:00",
+      "is_current": true
+    },
+    {
+      "user_id": 2,
+      "name": "main_user",
+      "score": 1170,
+      "level": 2,
+      "badges_count": 5,
+      "missions_completed": 0,
+      "last_activity": "2025-08-15T13:07:17.890770",
+      "join_date": "2025-08-15T12:58:38.952459"
+    },
+    {
+      "user_id": "hacker_003",
+      "name": "DataPhantom",
+      "score": 950,
+      "level": 2,
+      "badges_count": 3,
+      "missions_completed": 6,
+      "last_activity": "2025-07-10T09:15:00",
+      "join_date": "2025-07-10T08:45:00",
+      "is_current": false
+    },
+    {
+      "user_id": "hacker_004",
+      "name": "ByteWizard",
+      "score": 750,
+      "level": 2,
+      "badges_count": 2,
+      "missions_completed": 4,
+      "last_activity": "2025-07-10T09:10:00",
+      "join_date": "2025-07-10T09:00:00",
+      "is_current": false
+    }
+  ],
+  "top_players": [
+    {
+      "user_id": "hacker_001",
+      "name": "CyberMaster",
+      "score": 2100,
+      "level": 4,
+      "badges_count": 7,
+      "missions_completed": 12,
+      "last_activity": "2025-07-10T09:25:00",
+      "join_date": "2025-07-10T07:30:00",
+      "is_current": false
+    },
+    {
+      "user_id": "hacker_002",
+      "name": "CodeNinja",
+      "score": 1800,
+      "level": 3,
+      "badges_count": 5,
+      "missions_completed": 10,
+      "last_activity": "2025-07-10T09:20:00",
+      "join_date": "2025-07-10T08:15:00",
+      "is_current": false
+    },
+    {
+      "user_id": "default",
+      "name": "Hacker",
+      "score": 1250,
+      "level": 3,
+      "badges_count": 4,
+      "missions_completed": 8,
+      "last_activity": "2025-07-10T09:30:00",
+      "join_date": "2025-07-10T08:00:00",
+      "is_current": true
+    },
+    {
+      "user_id": 2,
+      "name": "main_user",
+      "score": 1170,
+      "level": 2,
+      "badges_count": 5,
+      "missions_completed": 0,
+      "last_activity": "2025-08-15T13:07:17.890770",
+      "join_date": "2025-08-15T12:58:38.952459"
+    },
+    {
+      "user_id": "hacker_003",
+      "name": "DataPhantom",
+      "score": 950,
+      "level": 2,
+      "badges_count": 3,
+      "missions_completed": 6,
+      "last_activity": "2025-07-10T09:15:00",
+      "join_date": "2025-07-10T08:45:00",
+      "is_current": false
+    },
+    {
+      "user_id": "hacker_004",
+      "name": "ByteWizard",
+      "score": 750,
+      "level": 2,
+      "badges_count": 2,
+      "missions_completed": 4,
+      "last_activity": "2025-07-10T09:10:00",
+      "join_date": "2025-07-10T09:00:00",
+      "is_current": false
+    }
+  ],
+  "statistics": {
+    "total_players": 6,
+    "total_score": 8020,
+    "average_score": 1336.67
+  }
+}

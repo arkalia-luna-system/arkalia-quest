@@ -1,0 +1,197 @@
+{
+  "test_name": "Terminal Experience Test",
+  "timestamp": "2025-07-09T13:09:50.308356",
+  "user_types_tested": [
+    {
+      "user_type": "noob",
+      "tests": [
+        {
+          "name": "Découverte interface",
+          "duration": 0.005777835845947266,
+          "success": true,
+          "issues": [],
+          "positives": [
+            "Interface terminal claire",
+            "Zone de saisie visible",
+            "Aide accessible",
+            "Chargement rapide"
+          ]
+        },
+        {
+          "name": "Première saisie",
+          "duration": 0.00133514404296875,
+          "success": true,
+          "issues": [
+            "Commande échouée"
+          ],
+          "positives": [
+            "Réponse instantanée"
+          ]
+        },
+        {
+          "name": "Compréhension réponses",
+          "duration": 0.0060040950775146484,
+          "success": false,
+          "issues": [
+            "Réponses peu claires"
+          ],
+          "positives": []
+        },
+        {
+          "name": "Utilisation aide",
+          "duration": 0.0015087127685546875,
+          "success": true,
+          "issues": [
+            "Aide non accessible"
+          ],
+          "positives": []
+        }
+      ],
+      "total_time": 0.014973878860473633,
+      "success_rate": 75.0,
+      "frustration_points": [],
+      "satisfaction_points": []
+    },
+    {
+      "user_type": "explorer",
+      "tests": [
+        {
+          "name": "Exploration commandes",
+          "duration": 0.022066354751586914,
+          "success": false,
+          "issues": [
+            "Peu de commandes fonctionnent",
+            "Réponses peu variées"
+          ],
+          "positives": []
+        },
+        {
+          "name": "Commandes spéciales",
+          "duration": 0.018934011459350586,
+          "success": false,
+          "issues": [
+            "Peu de commandes spéciales"
+          ],
+          "positives": []
+        },
+        {
+          "name": "Découverte easter eggs",
+          "duration": 0.006094694137573242,
+          "success": false,
+          "issues": [
+            "Aucun easter egg trouvé"
+          ],
+          "positives": []
+        },
+        {
+          "name": "Commandes invalides",
+          "duration": 0.00402522087097168,
+          "success": false,
+          "issues": [
+            "Erreurs mal gérées"
+          ],
+          "positives": []
+        }
+      ],
+      "total_time": 0.0511784553527832,
+      "success_rate": 0.0,
+      "frustration_points": [],
+      "satisfaction_points": []
+    },
+    {
+      "user_type": "speedrunner",
+      "tests": [
+        {
+          "name": "Rapidité exécution",
+          "duration": 0.0064792633056640625,
+          "success": true,
+          "issues": [],
+          "positives": [
+            "Exécution ultra-rapide"
+          ]
+        },
+        {
+          "name": "Enchaînement commandes",
+          "duration": 0.0067288875579833984,
+          "success": false,
+          "issues": [
+            "Enchaînement difficile"
+          ],
+          "positives": []
+        },
+        {
+          "name": "Raccourcis",
+          "duration": 0,
+          "success": true,
+          "issues": [],
+          "positives": [
+            "Interface compatible raccourcis",
+            "Navigation clavier possible"
+          ]
+        },
+        {
+          "name": "Performance sous charge",
+          "duration": 0.0052127838134765625,
+          "success": true,
+          "issues": [],
+          "positives": [
+            "Performance stable sous charge"
+          ]
+        }
+      ],
+      "total_time": 0.01846623420715332,
+      "success_rate": 75.0,
+      "frustration_points": [],
+      "satisfaction_points": []
+    },
+    {
+      "user_type": "power_user",
+      "tests": [
+        {
+          "name": "Utilisation avancée",
+          "duration": 0.012556076049804688,
+          "success": false,
+          "issues": [
+            "Fonctionnalités avancées limitées"
+          ],
+          "positives": []
+        },
+        {
+          "name": "Personnalisation",
+          "duration": 0.006600856781005859,
+          "success": false,
+          "issues": [
+            "Personnalisation limitée"
+          ],
+          "positives": []
+        },
+        {
+          "name": "Fonctionnalités cachées",
+          "duration": 0.004849910736083984,
+          "success": false,
+          "issues": [
+            "Peu de fonctionnalités cachées"
+          ],
+          "positives": []
+        },
+        {
+          "name": "Intégration complète",
+          "duration": 0.017316102981567383,
+          "success": false,
+          "issues": [
+            "Intégration limitée"
+          ],
+          "positives": []
+        }
+      ],
+      "total_time": 0.04137587547302246,
+      "success_rate": 0.0,
+      "frustration_points": [],
+      "satisfaction_points": []
+    }
+  ],
+  "overall_score": 37.5,
+  "performance_metrics": {},
+  "usability_issues": [],
+  "positive_features": []
+}

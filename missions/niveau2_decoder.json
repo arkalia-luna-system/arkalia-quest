@@ -1,0 +1,10 @@
+{
+  "id": 2,
+  "objectif": "Déchiffre le message secret",
+  "commande": "decoder_message",
+  "recompense": "badge_espion",
+  "difficulte": "facile",
+  "titre": "Déchiffre le message secret",
+  "récompense": 30,
+  "message": "Tu as déchiffré le message : 'Le trésor est caché sous le volcan !'"
+} 

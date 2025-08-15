@@ -1,0 +1,28 @@
+# Arkalia Quest - Dépendances Python
+# Version 3.0.0
+
+# Framework web
+Flask==3.0.0
+Werkzeug==3.0.1
+gunicorn==21.2.0
+
+# WebSockets pour défis temps réel
+Flask-SocketIO==5.3.6
+python-socketio==5.9.0
+eventlet==0.33.3
+
+# Utilitaires
+python-dotenv==1.0.0
+click==8.1.7
+colorama==0.4.6
+requests==2.31.0
+
+# Sécurité
+cryptography==41.0.7
+
+# Performance et monitoring
+psutil==5.9.6
+
+# Tests (optionnel pour production)
+pytest==7.4.3
+pytest-cov==4.1.0

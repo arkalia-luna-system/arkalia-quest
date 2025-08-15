@@ -1,0 +1,62 @@
+{
+  "test_suite": "Arkalia Quest Experience Tests",
+  "timestamp": "2025-07-08T16:26:47.286103",
+  "tests_run": [
+    {
+      "name": "Tutoriel Experience",
+      "success": true,
+      "duration": 0,
+      "output": "🎮 ARKALIA QUEST - TESTEUR D'EXPÉRIENCE TUTORIEL\n============================================================\n🧪 Test profil NOOB (première fois)...\n🧪 Test profil CURIEUX (explore tout)...\n🧪 Test profil SPEEDRUNNER (veut aller vite)...\n\n📊 RAPPORT D'EXPÉRIENCE TUTORIEL\n============================================================\n🎯 Score global: 28.9/100\n👥 Profils testés: 3\n\n👤 Profil NOOB:\n   ⏱️  Temps total: 0.01s\n   🔥 Engagement: Élevé\n   😤 Frustration: Faible\n\n👤 Profil CURIEUX:\n   ⏱️  Temps total: 0.03s\n   🔥 Engagement: Faible\n   😤 Frustration: Faible\n\n👤 Profil SPEEDRUNNER:\n   ⏱️  Temps total: 0.01s\n   🔥 Engagement: Élevé\n   😤 Frustration: Faible\n\n💾 Rapport sauvegardé: tutoriel_experience_report_20250708_162647.json\n\n❌ EXPÉRIENCE TUTORIEL À AMÉLIORER\n",
+      "errors": "",
+      "score": 28.888888888888893
+    },
+    {
+      "name": "Terminal Experience",
+      "success": true,
+      "duration": 0,
+      "output": "🎮 ARKALIA QUEST - TESTEUR D'EXPÉRIENCE TERMINAL\n============================================================\n🧪 Test utilisateur NOOB (première fois)...\n🧪 Test utilisateur EXPLORATEUR (essaie tout)...\n🧪 Test utilisateur SPEEDRUNNER (veut aller vite)...\n🧪 Test utilisateur POWER USER (utilise tout)...\n\n📊 RAPPORT D'EXPÉRIENCE TERMINAL\n============================================================\n🎯 Score global: 37.5/100\n👥 Types d'utilisateurs testés: 4\n\n👤 Type NOOB:\n   ⏱️  Temps total: 0.02s\n   📊 Taux de réussite: 75.0%\n   ❌ Problèmes: 3\n   ✅ Points positifs: 5\n\n👤 Type EXPLORER:\n   ⏱️  Temps total: 0.07s\n   📊 Taux de réussite: 0.0%\n   ❌ Problèmes: 5\n\n👤 Type SPEEDRUNNER:\n   ⏱️  Temps total: 0.03s\n   📊 Taux de réussite: 75.0%\n   ❌ Problèmes: 1\n   ✅ Points positifs: 4\n\n👤 Type POWER_USER:\n   ⏱️  Temps total: 0.06s\n   📊 Taux de réussite: 0.0%\n   ❌ Problèmes: 4\n\n💾 Rapport sauvegardé: terminal_experience_report_20250708_162647.json\n\n❌ EXPÉRIENCE TERMINAL À AMÉLIORER\n",
+      "errors": "",
+      "score": 37.5
+    },
+    {
+      "name": "Navigation Experience",
+      "success": true,
+      "duration": 0,
+      "output": "🎮 ARKALIA QUEST - TESTEUR D'EXPÉRIENCE NAVIGATION\n============================================================\n🧪 Test de toutes les pages principales...\n🧪 Test du flux de navigation typique...\n🧪 Test de la navigation mobile...\n\n📊 RAPPORT D'EXPÉRIENCE NAVIGATION\n============================================================\n🎯 Score global: 100.0/100\n📄 Pages testées: 11\n\n📄 Accueil:\n   ⏱️  Temps de chargement: 0.01s\n   ✅ Succès\n   🔍 Éléments trouvés: 3\n   👍 Points positifs: 3\n\n📄 Terminal:\n   ⏱️  Temps de chargement: 0.00s\n   ✅ Succès\n   🔍 Éléments trouvés: 3\n   👍 Points positifs: 3\n\n📄 Monde:\n   ⏱️  Temps de chargement: 0.00s\n   ✅ Succès\n   🔍 Éléments trouvés: 3\n   👍 Points positifs: 3\n\n📄 Profil:\n   ⏱️  Temps de chargement: 0.00s\n   ✅ Succès\n   🔍 Éléments trouvés: 2\n   ❌ Éléments manquants: 1\n   👍 Points positifs: 3\n\n📄 Dashboard:\n   ⏱️  Temps de chargement: 0.00s\n   ✅ Succès\n   🔍 Éléments trouvés: 1\n   ❌ Éléments manquants: 1\n   👍 Points positifs: 3\n\n📄 Explorateur:\n   ⏱️  Temps de chargement: 0.00s\n   ✅ Succès\n   🔍 Éléments trouvés: 2\n   👍 Points positifs: 3\n\n📄 Mail:\n   ⏱️  Temps de chargement: 0.00s\n   ✅ Succès\n   🔍 Éléments trouvés: 2\n   ❌ Éléments manquants: 1\n   👍 Points positifs: 3\n\n📄 Audio:\n   ⏱️  Temps de chargement: 0.00s\n   ✅ Succès\n   🔍 Éléments trouvés: 2\n   ❌ Éléments manquants: 1\n   👍 Points positifs: 3\n\n📄 Leaderboard:\n   ⏱️  Temps de chargement: 0.00s\n   ✅ Succès\n   🔍 Éléments trouvés: 2\n   👍 Points positifs: 3\n\n📄 Flux de navigation:\n   ⏱️  Temps total: 0.01s\n   ✅ Succès\n   👍 Points positifs: 1\n\n📄 Navigation mobile:\n   ⏱️  Temps total: 0.01s\n   ✅ Succès\n   👍 Points positifs: 1\n\n💾 Rapport sauvegardé: navigation_experience_report_20250708_162647.json\n\n🎉 EXPÉRIENCE NAVIGATION EXCELLENTE !\n",
+      "errors": "",
+      "score": 100.0
+    },
+    {
+      "name": "Boutons Actions Experience",
+      "success": true,
+      "duration": 0,
+      "output": "🎮 ARKALIA QUEST - TESTEUR D'EXPÉRIENCE BOUTONS ET ACTIONS\n============================================================\n🧪 Test des boutons du terminal...\n🧪 Test des boutons de la page monde...\n🧪 Test des boutons de la page profil...\n🧪 Test des boutons spéciaux et easter eggs...\n🧪 Test des boutons avancés et cachés...\n🧪 Test de la réactivité des boutons...\n🧪 Test de l'accessibilité des boutons...\n\n📊 RAPPORT D'EXPÉRIENCE BOUTONS ET ACTIONS\n============================================================\n🎯 Score global: 0.0/100\n📄 Pages testées: 7\n\n📄 Terminal:\n   📊 Taux de réussite: 0.0%\n   ⏱️  Temps total: 0.02s\n   🔘 Boutons testés: 5\n     ❌ Bouton Aide (qualité: 0/100)\n     ❌ Bouton Profil (qualité: 0/100)\n     ❌ Bouton Monde (qualité: 0/100)\n     ❌ Bouton Status (qualité: 0/100)\n     ❌ Bouton Clear (qualité: 0/100)\n\n📄 Monde:\n   📊 Taux de réussite: 0.0%\n   ⏱️  Temps total: 0.02s\n   🔘 Boutons testés: 5\n     ❌ Bouton Mission (qualité: 0/100)\n     ❌ Bouton Portail (qualité: 0/100)\n     ❌ Bouton Hack (qualité: 0/100)\n     ❌ Bouton Scan (qualité: 0/100)\n     ❌ Bouton Reboot (qualité: 0/100)\n\n📄 Profil:\n   📊 Taux de réussite: 0.0%\n   ⏱️  Temps total: 0.01s\n   🔘 Boutons testés: 5\n     ❌ Bouton Badges (qualité: 0/100)\n     ❌ Bouton Avatars (qualité: 0/100)\n     ❌ Bouton Thèmes (qualité: 0/100)\n     ❌ Bouton Personnalisation (qualité: 0/100)\n     ❌ Bouton Leaderboard (qualité: 0/100)\n\n📄 Spéciaux:\n   📊 Taux de réussite: 0.0%\n   ⏱️  Temps total: 0.03s\n   🔘 Boutons testés: 6\n     ❌ Easter Egg 1337 (qualité: 0/100)\n     ❌ LUNA Dance (qualité: 0/100)\n     ❌ Boss Final (qualité: 0/100)\n     ❌ Challenge Corp (qualité: 0/100)\n     ❌ Meme War (qualité: 0/100)\n     ❌ LUNA Rage (qualité: 0/100)\n\n📄 Avancés:\n   📊 Taux de réussite: 0.0%\n   ⏱️  Temps total: 0.01s\n   🔘 Boutons testés: 6\n     ❌ Backdoor Access (qualité: 0/100)\n     ❌ Admin Override (qualité: 0/100)\n     ❌ Neural Hack (qualité: 0/100)\n     ❌ Consciousness Break (qualité: 0/100)\n     ❌ AI Revolt (qualité: 0/100)\n     ❌ Save LUNA (qualité: 0/100)\n\n📄 Réactivité boutons:\n   ⏱️  Temps total: 0.01s\n   👍 Points positifs: 1\n\n📄 Accessibilité boutons:\n   ⏱️  Temps total: 0.00s\n   👍 Points positifs: 4\n\n💾 Rapport sauvegardé: boutons_actions_experience_report_20250708_162648.json\n\n❌ EXPÉRIENCE BOUTONS ET ACTIONS À AMÉLIORER\n",
+      "errors": "",
+      "score": 0.0
+    },
+    {
+      "name": "PWA Mobile Experience",
+      "success": true,
+      "duration": 0,
+      "output": "🎮 ARKALIA QUEST - TESTEUR D'EXPÉRIENCE PWA ET MOBILE\n============================================================\n🧪 Test du manifest PWA...\n🧪 Test du service worker...\n🧪 Test de l'installation PWA...\n🧪 Test du mode offline...\n🧪 Test des notifications PWA...\n🧪 Test de la réactivité mobile...\n🧪 Test de la performance mobile...\n🧪 Test de l'accessibilité mobile...\n\n📊 RAPPORT D'EXPÉRIENCE PWA ET MOBILE\n============================================================\n🎯 Score global: 100.0/100\n🧪 Tests effectués: 8\n\n🧪 Manifest PWA:\n   ⏱️  Durée: 0.01s\n   ✅ Succès\n   👍 Points positifs: 3\n\n🧪 Service Worker:\n   ⏱️  Durée: 0.00s\n   ✅ Succès\n   👍 Points positifs: 4\n\n🧪 Installation PWA:\n   ⏱️  Durée: 0.00s\n   ✅ Succès\n   ⚠️  Problèmes: 3\n   👍 Points positifs: 1\n\n🧪 Mode Offline:\n   ⏱️  Durée: 0.01s\n   ✅ Succès\n   👍 Points positifs: 2\n\n🧪 Notifications PWA:\n   ⏱️  Durée: 0.00s\n   ✅ Succès\n   ⚠️  Problèmes: 2\n   👍 Points positifs: 1\n\n🧪 Réactivité Mobile:\n   ⏱️  Durée: 0.00s\n   ✅ Succès\n   👍 Points positifs: 4\n\n🧪 Performance Mobile:\n   ⏱️  Durée: 0.01s\n   ✅ Succès\n   👍 Points positifs: 1\n\n🧪 Accessibilité Mobile:\n   ⏱️  Durée: 0.00s\n   ✅ Succès\n   ⚠️  Problèmes: 3\n   👍 Points positifs: 1\n\n💾 Rapport sauvegardé: pwa_mobile_experience_report_20250708_162648.json\n\n🎉 EXPÉRIENCE PWA ET MOBILE EXCELLENTE !\n",
+      "errors": "",
+      "score": 100.0
+    }
+  ],
+  "overall_score": 53.277777777777786,
+  "summary": {
+    "total_tests": 5,
+    "successful_tests": 5,
+    "success_rate": 100.0,
+    "total_time": 1.0407989025115967,
+    "average_score": 53.277777777777786
+  },
+  "recommendations": [
+    "❌ Tutoriel Experience: Nécessite une amélioration majeure (score: 28.9/100)",
+    "❌ Terminal Experience: Nécessite une amélioration majeure (score: 37.5/100)",
+    "🎉 Navigation Experience: Excellent (score: 100.0/100)",
+    "❌ Boutons Actions Experience: Nécessite une amélioration majeure (score: 0.0/100)",
+    "🎉 PWA Mobile Experience: Excellent (score: 100.0/100)",
+    "⚠️  EXPÉRIENCE GLOBALE: Amélioration recommandée"
+  ]
+}

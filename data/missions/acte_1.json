@@ -1,0 +1,30 @@
+{
+    "id": "acte_1",
+    "title": "Répare le site web de LUNA",
+    "description": "LUNA a besoin de ton aide pour réparer son site web compromis",
+    "difficulty": "medium",
+    "timer": 180,
+    "rewards": {
+        "score": 300,
+        "badges": ["web_hacker"],
+        "unlock": "luna_workshop"
+    },
+    "steps": [
+        {
+            "id": "step_1",
+            "title": "Diagnostic",
+            "description": "Utilise 'acte_1' pour commencer la mission",
+            "command": "acte_1",
+            "hint": "Commence par 'acte_1' pour diagnostiquer le problème"
+        },
+        {
+            "id": "step_2",
+            "title": "Réparation",
+            "description": "Répare les vulnérabilités du site",
+            "command": "hack_system",
+            "hint": "Utilise 'hack_system' pour accéder au code"
+        }
+    ],
+    "completed_by": [],
+    "created_at": "2025-01-17T12:00:00"
+}

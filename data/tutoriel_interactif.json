@@ -1,0 +1,49 @@
+{
+  "tutoriel": {
+    "etapes": [
+      {
+        "id": 1,
+        "titre": "Bienvenue dans Arkalia Quest",
+        "message": "Salut hacker ! Je suis LUNA, ton assistant IA. Prêt pour l'aventure ?",
+        "commande": "luna_contact",
+        "aide": "Tape 'luna_contact' pour me parler",
+        "recompense": {
+          "points": 10,
+          "badge": "Contacté"
+        }
+      },
+      {
+        "id": 2,
+        "titre": "Première mission",
+        "message": "Découvre le SOS mystérieux du Dr Althea Voss",
+        "commande": "prologue",
+        "aide": "Tape 'prologue' pour commencer l'histoire",
+        "recompense": {
+          "points": 20,
+          "badge": "Explorateur"
+        }
+      },
+      {
+        "id": 3,
+        "titre": "Répare le site de LUNA",
+        "message": "Aide-moi à réparer mon site web compromis",
+        "commande": "acte_1",
+        "aide": "Tape 'acte_1' pour la première mission",
+        "recompense": {
+          "points": 30,
+          "badge": "Hack Système"
+        }
+      }
+    ],
+    "progression": {
+      "etape_actuelle": 1,
+      "etapes_completees": [],
+      "score_total": 0
+    },
+    "parametres": {
+      "auto_avance": false,
+      "aide_visible": true,
+      "recompenses_visibles": true
+    }
+  }
+} 

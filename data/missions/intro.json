@@ -1,0 +1,30 @@
+{
+    "id": "intro",
+    "title": "Bienvenue dans Arkalia Quest",
+    "description": "Découvre le monde mystérieux d'Arkalia et rencontre LUNA, ton IA complice",
+    "difficulty": "easy",
+    "timer": 60,
+    "rewards": {
+        "score": 100,
+        "badges": ["debutant"],
+        "unlock": "arkalia_base"
+    },
+    "steps": [
+        {
+            "id": "step_1",
+            "title": "Premier contact",
+            "description": "Utilise la commande 'start_tutorial' pour commencer",
+            "command": "start_tutorial",
+            "hint": "Tape 'start_tutorial' dans le terminal"
+        },
+        {
+            "id": "step_2",
+            "title": "Rencontre LUNA",
+            "description": "Contacte LUNA avec 'luna_contact'",
+            "command": "luna_contact",
+            "hint": "LUNA est ton guide, utilise 'luna_contact'"
+        }
+    ],
+    "completed_by": [],
+    "created_at": "2025-01-17T12:00:00"
+}

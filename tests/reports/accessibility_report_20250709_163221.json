@@ -1,0 +1,83 @@
+{
+  "test_name": "Accessibilité WCAG 2.1 AA",
+  "timestamp": "2025-07-09T16:32:21.106266",
+  "overall_score": 21.785714285714285,
+  "wcag_level": "Non conforme",
+  "tests_performed": [
+    {
+      "name": "Skip Links",
+      "score": 0.0,
+      "status": "FAIL",
+      "details": "0/4 skip links trouvés"
+    },
+    {
+      "name": "Navigation Clavier",
+      "score": 50.0,
+      "status": "FAIL",
+      "details": "4/8 éléments trouvés"
+    },
+    {
+      "name": "Gestion du Focus",
+      "score": 50.0,
+      "status": "FAIL",
+      "details": "3/6 éléments trouvés"
+    },
+    {
+      "name": "Contraste des Couleurs",
+      "score": 0.0,
+      "status": "FAIL",
+      "details": "0/6 éléments trouvés"
+    },
+    {
+      "name": "HTML Sémantique",
+      "score": 0.0,
+      "status": "FAIL",
+      "details": "0/10 éléments trouvés"
+    },
+    {
+      "name": "Labels ARIA",
+      "score": 25.0,
+      "status": "FAIL",
+      "details": "2/8 attributs trouvés"
+    },
+    {
+      "name": "Support Lecteurs d'Écran",
+      "score": 50.0,
+      "status": "FAIL",
+      "details": "4/8 éléments trouvés"
+    },
+    {
+      "name": "Accessibilité Responsive",
+      "score": 42.857142857142854,
+      "status": "FAIL",
+      "details": "3/7 éléments trouvés"
+    },
+    {
+      "name": "Modes d'Accessibilité",
+      "score": 0.0,
+      "status": "FAIL",
+      "details": "0/8 modes trouvés"
+    },
+    {
+      "name": "Feedback Haptique",
+      "score": 0.0,
+      "status": "FAIL",
+      "details": "0/6 éléments trouvés"
+    }
+  ],
+  "critical_issues": [
+    "Skip links manquants",
+    "Focus non visible",
+    "Labels ARIA manquants",
+    "Support lecteurs d'écran limité"
+  ],
+  "warnings": [
+    "Navigation clavier limitée",
+    "Contraste insuffisant",
+    "HTML sémantique limité",
+    "Accessibilité responsive limitée",
+    "Modes d'accessibilité limités",
+    "Feedback haptique limité"
+  ],
+  "successes": []
+}

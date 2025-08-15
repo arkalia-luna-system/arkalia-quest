@@ -1,0 +1,34 @@
+{
+  "achievements": {
+    "first_mission": {
+      "nom": "Première Mission",
+      "description": "Complète ta première mission",
+      "points": 50,
+      "icone": "🎯"
+    },
+    "score_1000": {
+      "nom": "Score 1000",
+      "description": "Atteins 1000 points",
+      "points": 100,
+      "icone": "🏆"
+    },
+    "badge_collector": {
+      "nom": "Collectionneur",
+      "description": "Obtiens 5 badges",
+      "points": 200,
+      "icone": "📜"
+    },
+    "speed_runner": {
+      "nom": "Speed Runner",
+      "description": "Complète 3 missions rapidement",
+      "points": 150,
+      "icone": "⚡"
+    },
+    "social_expert": {
+      "nom": "Expert Social",
+      "description": "Utilise toutes les commandes sociales",
+      "points": 300,
+      "icone": "🤝"
+    }
+  }
+}

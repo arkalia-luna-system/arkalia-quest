@@ -1,0 +1,135 @@
+{
+  "performance": {
+    "simple": {
+      "avg_response_time": 0.0019509451729910715,
+      "min_response_time": 0.0010612010955810547,
+      "max_response_time": 0.005810976028442383,
+      "total_requests": 7,
+      "successful_requests": 7
+    },
+    "concurrent": {
+      "avg_response_time": 0.005792193412780762,
+      "min_response_time": 0.00160980224609375,
+      "max_response_time": 0.013550758361816406,
+      "p95_response_time": 0.010406816005706787,
+      "total_requests": 200,
+      "successful_requests": 200,
+      "workers": 10,
+      "requests_per_worker": 20
+    },
+    "commands": {
+      "aide": {
+        "avg_response_time": 0.0033510446548461912,
+        "min_response_time": 0.002501249313354492,
+        "max_response_time": 0.004366159439086914,
+        "total_requests": 10
+      },
+      "profil": {
+        "avg_response_time": 0.004576492309570313,
+        "min_response_time": 0.004113912582397461,
+        "max_response_time": 0.004996061325073242,
+        "total_requests": 10
+      },
+      "status": {
+        "avg_response_time": 0.0038808584213256836,
+        "min_response_time": 0.002112150192260742,
+        "max_response_time": 0.0053691864013671875,
+        "total_requests": 10
+      },
+      "badges": {
+        "avg_response_time": 0.003356599807739258,
+        "min_response_time": 0.001837015151977539,
+        "max_response_time": 0.004945993423461914,
+        "total_requests": 10
+      },
+      "missions": {
+        "avg_response_time": 0.003455853462219238,
+        "min_response_time": 0.0018761157989501953,
+        "max_response_time": 0.0048770904541015625,
+        "total_requests": 10
+      }
+    },
+    "memory": [
+      {
+        "batch_size": 10,
+        "success_rate": 100.0,
+        "requests_per_second": 75.0597983160193,
+        "duration": 0.13322710990905762
+      },
+      {
+        "batch_size": 50,
+        "success_rate": 100.0,
+        "requests_per_second": 78.45595505626385,
+        "duration": 0.6373002529144287
+      },
+      {
+        "batch_size": 100,
+        "success_rate": 100.0,
+        "requests_per_second": 79.1204346818925,
+        "duration": 1.2638959884643555
+      },
+      {
+        "batch_size": 200,
+        "success_rate": 100.0,
+        "requests_per_second": 78.22730453543734,
+        "duration": 2.556652069091797
+      }
+    ]
+  },
+  "stress": {
+    "gradual": [
+      {
+        "workers": 1,
+        "success_rate": 100.0,
+        "requests_per_second": 17.073704289732056,
+        "total_requests": 10,
+        "successful_requests": 10,
+        "duration": 0.5856959819793701
+      },
+      {
+        "workers": 2,
+        "success_rate": 100.0,
+        "requests_per_second": 33.64662374907246,
+        "total_requests": 20,
+        "successful_requests": 20,
+        "duration": 0.5944132804870605
+      },
+      {
+        "workers": 5,
+        "success_rate": 100.0,
+        "requests_per_second": 83.1761218939619,
+        "total_requests": 50,
+        "successful_requests": 50,
+        "duration": 0.6011340618133545
+      },
+      {
+        "workers": 10,
+        "success_rate": 100.0,
+        "requests_per_second": 162.4090871249596,
+        "total_requests": 100,
+        "successful_requests": 100,
+        "duration": 0.6157290935516357
+      },
+      {
+        "workers": 15,
+        "success_rate": 100.0,
+        "requests_per_second": 239.26798658279648,
+        "total_requests": 150,
+        "successful_requests": 150,
+        "duration": 0.6269121170043945
+      },
+      {
+        "workers": 20,
+        "success_rate": 100.0,
+        "requests_per_second": 332.12436894806797,
+        "total_requests": 200,
+        "successful_requests": 200,
+        "duration": 0.6021840572357178
+      }
+    ]
+  },
+  "limits": {
+    "max_concurrent_users": 20
+  },
+  "metrics": {}
+}

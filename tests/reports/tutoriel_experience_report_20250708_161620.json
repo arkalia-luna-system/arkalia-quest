@@ -1,0 +1,148 @@
+{
+  "test_name": "Tutoriel Experience Test",
+  "timestamp": "2025-07-08T16:16:20.661842",
+  "profiles_tested": [
+    {
+      "profile": "noob",
+      "steps": [
+        {
+          "name": "Page d'accueil",
+          "duration": 0.00855398178100586,
+          "success": true,
+          "feedback": "",
+          "issues": [],
+          "positives": [
+            "Titre clair et visible",
+            "Lien vers le terminal visible",
+            "Chargement rapide"
+          ]
+        },
+        {
+          "name": "Découverte du terminal",
+          "duration": 0.002086162567138672,
+          "success": true,
+          "feedback": "",
+          "issues": [],
+          "positives": [
+            "Interface terminal claire",
+            "Aide disponible",
+            "Terminal réactif"
+          ]
+        },
+        {
+          "name": "Première commande",
+          "duration": 0.0032300949096679688,
+          "success": true,
+          "feedback": "",
+          "issues": [
+            "Commande échouée"
+          ],
+          "positives": [
+            "Réponse instantanée"
+          ]
+        },
+        {
+          "name": "Feedback et progression",
+          "duration": 0.0016751289367675781,
+          "success": true,
+          "feedback": "",
+          "issues": [
+            "Impossible de voir le profil"
+          ],
+          "positives": []
+        }
+      ],
+      "total_time": 0.016198158264160156,
+      "frustration_level": "Faible",
+      "engagement_level": "Élevé",
+      "issues": [],
+      "positives": []
+    },
+    {
+      "profile": "curieux",
+      "steps": [
+        {
+          "name": "Exploration curieuse",
+          "duration": 0.0155029296875,
+          "success": true,
+          "feedback": "",
+          "issues": [
+            "Peu de variété visuelle"
+          ],
+          "positives": [
+            "4 commandes testées avec succès"
+          ]
+        },
+        {
+          "name": "Fonctionnalités cachées",
+          "duration": 0.01147007942199707,
+          "success": false,
+          "feedback": "",
+          "issues": [
+            "Aucun easter egg trouvé"
+          ],
+          "positives": []
+        },
+        {
+          "name": "Réactivité interactions",
+          "duration": 0.008090734481811523,
+          "success": true,
+          "feedback": "",
+          "issues": [],
+          "positives": [
+            "Réactivité excellente"
+          ]
+        }
+      ],
+      "total_time": 0.03512001037597656,
+      "frustration_level": "Faible",
+      "engagement_level": "Faible",
+      "issues": [],
+      "positives": []
+    },
+    {
+      "profile": "speedrunner",
+      "steps": [
+        {
+          "name": "Rapidité d'exécution",
+          "duration": 0.009315013885498047,
+          "success": true,
+          "feedback": "",
+          "issues": [],
+          "positives": [
+            "Exécution ultra-rapide"
+          ]
+        },
+        {
+          "name": "Raccourcis clavier",
+          "duration": 0,
+          "success": true,
+          "feedback": "Raccourcis à tester avec Selenium",
+          "issues": [],
+          "positives": [
+            "Interface compatible clavier"
+          ]
+        },
+        {
+          "name": "Fluidité transitions",
+          "duration": 0.009008169174194336,
+          "success": true,
+          "feedback": "",
+          "issues": [],
+          "positives": [
+            "Transitions fluides"
+          ]
+        }
+      ],
+      "total_time": 0.018359899520874023,
+      "frustration_level": "Faible",
+      "engagement_level": "Élevé",
+      "issues": [],
+      "positives": []
+    }
+  ],
+  "overall_score": 28.888888888888893,
+  "issues_found": [],
+  "positive_feedback": [],
+  "performance_metrics": {}
+}

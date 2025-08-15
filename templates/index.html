@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>🌌 ARKALIA QUEST - PORTAL LUNA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="Portail d'entrée dans l'esprit de LUNA. Bienvenue dans Arkalia Quest, l'aventure cybernétique immersive.">
+    <meta name="theme-color" content="#a78bfa">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
+    <!-- PWA Icons -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/icon-16x16.png">
+    <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png">
+    
+    <!-- CSS LUNA VISION -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animations-optimized.css') }}">
+    
+    <style>
+        /* Styles spécifiques au portail d'accueil */
+        .portal-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .portal-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(167, 139, 250, 0.1) 0%, transparent 70%);
+            animation: portalPulse 8s ease-in-out infinite;
+        }
+        
+        @keyframes portalPulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.05); }
+        }
+        
+        .luna-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--violet-lunaire), var(--bleu-spectre));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            margin-bottom: 30px;
+            box-shadow: 0 0 50px rgba(167, 139, 250, 0.6);
+            animation: lunaFloat 4s ease-in-out infinite;
+            position: relative;
+        }
+        
+        .luna-avatar::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--violet-lunaire), var(--bleu-spectre), var(--argent-holographique));
+            opacity: 0.3;
+            animation: lunaGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes lunaFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+        
+        @keyframes lunaGlow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+        }
+        
+        .hero-section {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-title {
+            font-family: 'Cormorant', serif;
+            font-size: 4em;
+            font-weight: 700;
+            color: var(--violet-lunaire);
+            text-shadow: 0 0 40px rgba(167, 139, 250, 0.8);
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInUp 2s ease-out 0.5s forwards;
+            position: relative;
+        }
+        
+        .hero-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--violet-lunaire), transparent);
+            animation: titleUnderline 2s ease-out 2s forwards;
+        }
+        
+        @keyframes titleUnderline {
+            to { width: 80%; }
+        }
+        
+        .hero-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.4em;
+            color: var(--argent-holographique);
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 2s ease-out 1s forwards;
+            line-height: 1.6;
+        }
+        
+        .luna-greeting {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1.1em;
+            color: var(--bleu-spectre);
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInUp 2s ease-out 1.5s forwards;
+            font-style: italic;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+            opacity: 0;
+            animation: fadeInUp 2s ease-out 2s forwards;
+        }
+        
+        .cta-btn {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1.1em;
+            color: var(--argent-holographique);
+            background: rgba(167, 139, 250, 0.15);
+            border: 2px solid rgba(167, 139, 250, 0.4);
+            border-radius: 15px;
+            padding: 18px 35px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.4), transparent);
+            transition: left 0.8s ease;
+        }
+        
+        .cta-btn:hover::before {
+            left: 100%;
+        }
+        
+        .cta-btn:hover {
+            color: var(--violet-lunaire);
+            border-color: rgba(167, 139, 250, 0.8);
+            box-shadow: 0 0 40px rgba(167, 139, 250, 0.6);
+            transform: translateY(-5px) scale(1.05);
+        }
+        
+        .cta-btn.primary {
+            background: rgba(167, 139, 250, 0.25);
+            border-color: rgba(167, 139, 250, 0.7);
+            box-shadow: 0 0 30px rgba(167, 139, 250, 0.3);
+        }
+        
+        .cta-btn.primary:hover {
+            background: rgba(167, 139, 250, 0.35);
+            box-shadow: 0 0 50px rgba(167, 139, 250, 0.7);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+            margin-bottom: 50px;
+            opacity: 0;
+            animation: fadeInUp 2s ease-out 2.5s forwards;
+        }
+        
+        .feature-card {
+            background: rgba(9, 9, 11, 0.9);
+            border: 1px solid rgba(167, 139, 250, 0.2);
+            border-radius: 15px;
+            padding: 35px;
+            backdrop-filter: blur(15px);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(167, 139, 250, 0.08), transparent);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+        
+        .feature-card:hover {
+            border-color: rgba(167, 139, 250, 0.5);
+            box-shadow: 0 0 50px rgba(167, 139, 250, 0.4);
+            transform: translateY(-8px) scale(1.02);
+        }
+        
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            display: block;
+            text-shadow: 0 0 20px rgba(167, 139, 250, 0.6);
+        }
+        
+        .feature-title {
+            font-family: 'Cormorant', serif;
+            font-size: 1.5em;
+            font-weight: 600;
+            color: var(--violet-lunaire);
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(167, 139, 250, 0.5);
+        }
+        
+        .feature-description {
+            font-family: 'Inter', sans-serif;
+            font-size: 1em;
+            color: var(--argent-holographique);
+            line-height: 1.7;
+        }
+        
+        .luna-status {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(167, 139, 250, 0.1);
+            border: 1px solid rgba(167, 139, 250, 0.3);
+            border-radius: 10px;
+            padding: 10px 15px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8em;
+            color: var(--argent-holographique);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            animation: fadeIn 2s ease-out 3s forwards;
+        }
+        
+        .luna-status::before {
+            content: '🌙';
+            margin-right: 8px;
+            animation: lunaBlink 3s ease-in-out infinite;
+        }
+        
+        @keyframes lunaBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.8em;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2em;
+            }
+            
+            .luna-avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 2.5em;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-btn {
+                width: 100%;
+                max-width: 320px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Links pour accessibilité -->
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+    <a href="#navigation" class="skip-link">Aller à la navigation</a>
+    <a href="#accessibility-panel" class="skip-link">Paramètres d'accessibilité</a>
+
+    <!-- Panneau d'accessibilité -->
+    {% include 'accessibility_panel.html' %}
+
+    <!-- Navigation LUNA -->
+    <div id="navigation">
+        <nav class="main-nav">
+            <div class="nav-container">
+                <div class="nav-logo">ARKALIA QUEST</div>
+                <div class="nav-links">
+                    <a href="/" class="nav-link active">🏠 ACCUEIL</a>
+                    <a href="/terminal" class="nav-link">⌨️ TERMINAL</a>
+                    <a href="/monde" class="nav-link">🌍 MONDE</a>
+                    <a href="/profil" class="nav-link">👤 PROFIL</a>
+                    <a href="/leaderboard" class="nav-link">🏆 CLASSEMENT</a>
+                    <a href="/dashboard" class="nav-link">📊 DASHBOARD</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <main id="main-content" class="portal-container">
+        <!-- Fond animé du portail -->
+        <div class="portal-background"></div>
+        
+        <!-- Avatar de LUNA -->
+        <div class="luna-avatar">🌙</div>
+        
+        <!-- Section héro -->
+        <div class="hero-section">
+            <h1 class="hero-title" id="main-title">ARKALIA QUEST</h1>
+            <p class="hero-subtitle" id="hero-subtitle">Portail d'entrée dans l'esprit de LUNA</p>
+            <p class="luna-greeting" id="luna-greeting">"Bienvenue, hacker. Je suis LUNA, ton guide dans cette aventure cybernétique..."</p>
+            
+            <!-- Boutons d'action -->
+            <div class="cta-buttons">
+                <a href="/terminal" class="cta-btn primary">🚀 COMMENCER L'AVENTURE</a>
+                <a href="/monde" class="cta-btn">🌍 EXPLORER LE MONDE</a>
+                <a href="/profil" class="cta-btn">👤 MON PROFIL</a>
+            </div>
+        </div>
+        
+        <!-- Grille des fonctionnalités -->
+        <div class="features-grid">
+            <div class="feature-card">
+                <span class="feature-icon">🌙</span>
+                <h3 class="feature-title">IA LUNA</h3>
+                <p class="feature-description">Une intelligence artificielle sensible qui s'adapte à ta personnalité et guide ton parcours dans Arkalia Quest.</p>
+            </div>
+            
+            <div class="feature-card">
+                <span class="feature-icon">🎮</span>
+                <h3 class="feature-title">Gamification Avancée</h3>
+                <p class="feature-description">Système de badges, niveaux et achievements qui évolue avec tes actions et ta progression.</p>
+            </div>
+            
+            <div class="feature-card">
+                <span class="feature-icon">🌌</span>
+                <h3 class="feature-title">Monde Immersif</h3>
+                <p class="feature-description">Un univers cybernétique riche avec des missions, des défis et des mystères à découvrir.</p>
+            </div>
+            
+            <div class="feature-card">
+                <span class="feature-icon">⚡</span>
+                <h3 class="feature-title">Terminal Interactif</h3>
+                <p class="feature-description">Interface de commande immersive pour communiquer avec LUNA et maîtriser les outils de hacking.</p>
+            </div>
+            
+            <div class="feature-card">
+                <span class="feature-icon">📊</span>
+                <h3 class="feature-title">Analytics Intelligents</h3>
+                <p class="feature-description">Suivi détaillé de tes performances et insights personnalisés pour optimiser ton parcours.</p>
+            </div>
+            
+            <div class="feature-card">
+                <span class="feature-icon">🎯</span>
+                <h3 class="feature-title">Missions Personnalisées</h3>
+                <p class="feature-description">Des défis adaptés à ton niveau et à tes préférences pour une expérience unique.</p>
+            </div>
+        </div>
+        
+        <!-- Statut LUNA -->
+        <div class="luna-status" id="luna-status">
+            LUNA en ligne - Prête à t'accompagner
+        </div>
+    </main>
+
+    <!-- Scripts LUNA VISION -->
+    <script src="{{ url_for('static', filename='js/arkalia-luna-vision.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/audio-manager.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/accessibility.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/tutorial.js') }}"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animation du titre principal
+            setTimeout(() => {
+                const title = document.getElementById('main-title');
+                if (window.lunaVision && title) {
+                    window.lunaVision.typeText(title, "ARKALIA QUEST", 100);
+                }
+            }, 1000);
+            
+            // Animation du sous-titre
+            setTimeout(() => {
+                const subtitle = document.getElementById('hero-subtitle');
+                if (window.lunaVision && subtitle) {
+                    window.lunaVision.typeText(subtitle, "Portail d'entrée dans l'esprit de LUNA", 50);
+                }
+            }, 3000);
+            
+            // Animation du message de LUNA
+            setTimeout(() => {
+                const greeting = document.getElementById('luna-greeting');
+                if (window.lunaVision && greeting) {
+                    window.lunaVision.typeText(greeting, '"Bienvenue, hacker. Je suis LUNA, ton guide dans cette aventure cybernétique. Ensemble, nous allons explorer les mystères d\'Arkalia et débloquer ton potentiel..."', 30);
+                }
+            }, 5000);
+            
+            // Message de LUNA contextuel
+            setTimeout(() => {
+                if (window.lunaVision) {
+                    window.lunaVision.showLunaMessage("Le portail est ouvert. Choisis ton chemin...", 4000);
+                    window.lunaVision.setEmotion('welcoming');
+                }
+            }, 8000);
+            
+            // Animation des cartes au survol
+            const featureCards = document.querySelectorAll('.feature-card');
+            featureCards.forEach((card, index) => {
+                card.addEventListener('mouseenter', () => {
+                    if (window.lunaVision) {
+                        const titles = ['IA LUNA', 'Gamification Avancée', 'Monde Immersif', 'Terminal Interactif', 'Analytics Intelligents', 'Missions Personnalisées'];
+                        window.lunaVision.showLunaMessage(`Découvre ${titles[index]}...`, 2000);
+                    }
+                });
+            });
+            
+            // Effet de particules spécial pour l'accueil
+            if (window.lunaVision) {
+                window.lunaVision.createPortalParticles();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+# Arkalia Quest - .gitignore
+# Version 3.0.0 - Janvier 2025
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/*.log
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Cache
+.pytest_cache/
+.benchmarks/
+.cache/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Cleanup directory (fichiers temporaires)
+cleanup/
+
+# Environment variables
+.env.local
+.env.production
+.env.staging
+
+# Docker
+.dockerignore
+
+# Kubernetes
+k8s/*.yaml.bak
+
+# Test results
+test_*.py
+*_test.py
+test_*.json
+*_report.json
+*_results.json
+
+# Demo files
+demo_*.py
+demo_*.sh
+launch_*.sh
+record_*.sh
+
+# Diagnostic files
+diagnostic_*.py
+check_*.py
+
+# Old reports
+RAPPORT_*.md
+AUDIT_*.md

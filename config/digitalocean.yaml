@@ -1,0 +1,26 @@
+name: arkalia-quest
+services:
+  - name: web
+    source_dir: /
+    github:
+      repo: arkalia-luna-system/arkalia-quest
+      branch: main
+    run_command: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120 --preload
+    build_command: pip install -r requirements.txt
+    environment_slug: python
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    health_check:
+      http_path: /health
+      initial_delay_seconds: 10
+      interval_seconds: 30
+      timeout_seconds: 5
+      healthy_threshold: 3
+      unhealthy_threshold: 3
+    routes:
+      - path: /
+    envs:
+      - key: FLASK_ENV
+        value: production
+      - key: PYTHON_VERSION
+        value: "3.11.13"

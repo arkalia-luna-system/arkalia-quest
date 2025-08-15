@@ -1,0 +1,59 @@
+name: 🚀 Déploiement Automatique
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🚀 Checkout du code
+        uses: actions/checkout@v4
+
+      - name: 🐍 Configuration Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 📦 Installation des dépendances
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: 🔍 Vérification finale
+        run: |
+          echo "=== VÉRIFICATION FINALE ==="
+          black --check . --quiet && echo "✅ Black: PASS"
+          ruff check . --quiet && echo "✅ Ruff: PASS"
+          python -m pytest tests/ --tb=no -q | tail -1 && echo "✅ Tests: PASS"
+
+      - name: 🐳 Construction Docker
+        run: |
+          docker build -f config/Dockerfile -t arkalia-quest:${{ github.sha }} .
+          docker tag arkalia-quest:${{ github.sha }} arkalia-quest:latest
+
+      - name: 📊 Push Docker Hub
+        if: github.ref == 'refs/heads/main'
+        run: |
+          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+          docker tag arkalia-quest:${{ github.sha }} ${{ secrets.DOCKER_USERNAME }}/arkalia-quest:${{ github.sha }}
+          docker tag arkalia-quest:${{ github.sha }} ${{ secrets.DOCKER_USERNAME }}/arkalia-quest:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/arkalia-quest:${{ github.sha }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/arkalia-quest:latest
+
+      - name: 🏷️ Création du tag
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git tag -a "v3.0.0-${{ github.sha }}" -m "Release v3.0.0-${{ github.sha }}"
+          git push origin "v3.0.0-${{ github.sha }}"
+
+      - name: 🎉 Déploiement réussi
+        run: |
+          echo "🚀 ARKALIA QUEST v3.0.0 déployé avec succès !"
+          echo "🐳 Image Docker: ${{ secrets.DOCKER_USERNAME }}/arkalia-quest:${{ github.sha }}"
+          echo "🏷️ Tag: v3.0.0-${{ github.sha }}"

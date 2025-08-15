@@ -1,0 +1,32 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-f', 'config/Dockerfile', '-t', 'gcr.io/$PROJECT_ID/arkalia-quest:$COMMIT_SHA', '.']
+  
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/arkalia-quest:$COMMIT_SHA']
+  
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'arkalia-quest'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/arkalia-quest:$COMMIT_SHA'
+      - '--region'
+      - 'us-central1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--port'
+      - '5000'
+      - '--memory'
+      - '512Mi'
+      - '--cpu'
+      - '1'
+      - '--max-instances'
+      - '10'
+      - '--set-env-vars'
+      - 'FLASK_ENV=production,PYTHON_VERSION=3.11.13'
+
+images:
+  - 'gcr.io/$PROJECT_ID/arkalia-quest:$COMMIT_SHA'

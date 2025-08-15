@@ -14,49 +14,49 @@ jobs:
         python-version: ["3.9", "3.10", "3.11"]
 
     steps:
-    - name: 🚀 Checkout du code
-      uses: actions/checkout@v4
+      - name: 🚀 Checkout du code
+        uses: actions/checkout@v4
 
-    - name: 🐍 Configuration Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.python-version }}
+      - name: 🐍 Configuration Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
 
-    - name: 📦 Mise à jour de pip
-      run: |
-        python -m pip install --upgrade pip setuptools wheel
+      - name: 📦 Mise à jour de pip
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
 
-    - name: 📦 Installation des dépendances
-      run: |
-        pip install -r requirements.txt
+      - name: 📦 Installation des dépendances
+        run: |
+          pip install -r requirements.txt
 
-    - name: 🔍 Vérification Ruff (Linting)
-      run: |
-        ruff check . --output-format=github
+      - name: 🔍 Vérification Ruff (Linting)
+        run: |
+          ruff check . --output-format=github
 
-    - name: 🎨 Vérification Black (Formatage)
-      run: |
-        black --check . --diff
+      - name: 🎨 Vérification Black (Formatage)
+        run: |
+          black --check . --diff
 
-    - name: 🧪 Exécution des tests
-      run: |
-        python -m pytest tests/ -v --cov=core --cov=engines --cov=utils --cov-report=xml --cov-report=html
+      - name: 🧪 Exécution des tests
+        run: |
+          python -m pytest tests/ -v --cov=core --cov=engines --cov=utils --cov-report=xml --cov-report=html
 
-    - name: 📊 Upload des rapports de couverture
-      uses: codecov/codecov-action@v3
-      with:
-        file: ./coverage.xml
-        flags: unittests
-        name: codecov-umbrella
-        fail_ci_if_error: false
+      - name: 📊 Upload des rapports de couverture
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
 
-    - name: 📦 Upload des artefacts de couverture
-      uses: actions/upload-artifact@v3
-      with:
-        name: coverage-reports-${{ matrix.python-version }}
-        path: |
-          htmlcov/
-          coverage.xml
+      - name: 📦 Upload des artefacts de couverture
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-reports-${{ matrix.python-version }}
+          path: |
+            htmlcov/
+            coverage.xml
 
   quality:
     runs-on: ubuntu-latest
@@ -67,7 +67,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: 🐍 Configuration Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.10"
 
@@ -116,7 +116,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: 🐍 Configuration Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.10"
 

@@ -6,7 +6,8 @@ Version finale ultra-propre - Juillet 2025
 import json
 import os
 from datetime import datetime
-from typing import Dict, Any, List
+from typing import Any, Dict, List
+
 from core.database import DatabaseManager
 
 
@@ -223,7 +224,7 @@ class ContentManager:
         try:
             badges_path = "data/badges.json"
             if os.path.exists(badges_path):
-                with open(badges_path, "r", encoding="utf-8") as f:
+                with open(badges_path, encoding="utf-8") as f:
                     badges_data = json.load(f)
                     return list(badges_data.keys())
             return []
@@ -235,7 +236,7 @@ class ContentManager:
         try:
             avatars_path = "data/avatars.json"
             if os.path.exists(avatars_path):
-                with open(avatars_path, "r", encoding="utf-8") as f:
+                with open(avatars_path, encoding="utf-8") as f:
                     avatars_data = json.load(f)
                     return list(avatars_data.keys())
             return []

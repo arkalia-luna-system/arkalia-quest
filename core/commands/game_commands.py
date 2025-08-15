@@ -3,7 +3,8 @@ Commandes de jeux éducatifs pour Arkalia Quest
 Active les mini-jeux interactifs avec interface graphique
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
+
 from core.educational_games_engine import EducationalGamesEngine
 
 
@@ -69,7 +70,7 @@ class GameCommands:
 
 🎯 EXEMPLES DE JEUX DISPONIBLES :
 • 🔍 Décrypte le Mot de Passe (Logique)
-• 💻 Débogue le Code (Programmation)  
+• 💻 Débogue le Code (Programmation)
 • 🛡️ Détecte l'Attaque (Cybersécurité)
 • 🔐 Décode le Message (Cryptographie)
 • 🌐 Analyse le Réseau (Réseau)

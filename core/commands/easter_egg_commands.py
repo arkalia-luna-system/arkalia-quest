@@ -3,7 +3,7 @@ Easter eggs Arkalia Quest
 Commandes secrètes et easter eggs
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 class EasterEggCommands:

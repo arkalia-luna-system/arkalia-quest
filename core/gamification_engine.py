@@ -3,10 +3,10 @@ Gamification Engine - Moteur de gamification avancée pour Arkalia Quest
 """
 
 import json
-import os
-from typing import Dict, Any, List
-from datetime import datetime
 import math
+import os
+from datetime import datetime
+from typing import Any, Dict, List
 
 
 class GamificationEngine:
@@ -140,32 +140,32 @@ class GamificationEngine:
 
     def _load_leaderboard(self) -> Dict[str, Any]:
         """Charge le leaderboard"""
-        with open(self.leaderboard_file, "r", encoding="utf-8") as f:
+        with open(self.leaderboard_file, encoding="utf-8") as f:
             return json.load(f)
 
     def _save_leaderboard(self, data: Dict[str, Any]):
         """Sauvegarde le leaderboard"""
-        with open(self.leaderboard_file, "w", encoding="utf-8") as f:
+        with open(self.leaderboard_file, encoding="utf-8", mode="w") as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
 
     def _load_badges_secrets(self) -> Dict[str, Any]:
         """Charge les badges secrets"""
-        with open(self.badges_secrets_file, "r", encoding="utf-8") as f:
+        with open(self.badges_secrets_file, encoding="utf-8") as f:
             return json.load(f)
 
     def _save_badges_secrets(self, data: Dict[str, Any]):
         """Sauvegarde les badges secrets"""
-        with open(self.badges_secrets_file, "w", encoding="utf-8") as f:
+        with open(self.badges_secrets_file, encoding="utf-8", mode="w") as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
 
     def _load_achievements(self) -> Dict[str, Any]:
         """Charge les achievements"""
-        with open(self.achievements_file, "r", encoding="utf-8") as f:
+        with open(self.achievements_file, encoding="utf-8") as f:
             return json.load(f)
 
     def _save_achievements(self, data: Dict[str, Any]):
         """Sauvegarde les achievements"""
-        with open(self.achievements_file, "w", encoding="utf-8") as f:
+        with open(self.achievements_file, encoding="utf-8", mode="w") as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
 
     def update_leaderboard(self, user_id: str, profile: Dict[str, Any]):
@@ -304,7 +304,7 @@ class GamificationEngine:
         achievements = self._load_achievements()
         unlocked_achievements = []
 
-        for achievement_id, achievement_data in achievements["achievements"].items():
+        for achievement_id, _achievement_data in achievements["achievements"].items():
             if achievement_id not in profile.get("achievements", []):
                 if self._check_achievement_condition(
                     achievement_id, profile, action, **kwargs

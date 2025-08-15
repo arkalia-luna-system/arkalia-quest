@@ -5,7 +5,8 @@ Intègre les missions des 7 actes avec le moteur de jeu existant
 """
 
 import random
-from typing import Dict, Any, List, Optional
+from typing import Any, Dict, List, Optional
+
 from core.database import DatabaseManager
 
 

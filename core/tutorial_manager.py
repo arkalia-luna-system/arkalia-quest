@@ -5,9 +5,9 @@ Gère la progression, les choix, et l'état du tutoriel pour chaque utilisateur
 
 import json
 import os
-from datetime import datetime
-from typing import Dict, Any, List, Optional
 from dataclasses import dataclass
+from datetime import datetime
+from typing import Any, Dict, List, Optional
 
 
 @dataclass
@@ -66,7 +66,7 @@ class TutorialManager:
     def _load_tutorial_data(self) -> Dict[str, Any]:
         """Charge les données du tutoriel depuis le JSON"""
         try:
-            with open(self.tutorial_data_path, "r", encoding="utf-8") as f:
+            with open(self.tutorial_data_path, encoding="utf-8") as f:
                 return json.load(f)
         except Exception as e:
             print(f"❌ Erreur chargement tutoriel: {e}")
@@ -78,7 +78,7 @@ class TutorialManager:
 
         if os.path.exists(progress_path):
             try:
-                with open(progress_path, "r", encoding="utf-8") as f:
+                with open(progress_path, encoding="utf-8") as f:
                     data = json.load(f)
                     return self._deserialize_progress(data)
             except Exception as e:
@@ -91,7 +91,7 @@ class TutorialManager:
         """Sauvegarde la progression d'un utilisateur"""
         try:
             progress_path = os.path.join(self.progress_dir, f"{user_id}_progress.json")
-            with open(progress_path, "w", encoding="utf-8") as f:
+            with open(progress_path, encoding="utf-8", mode="w") as f:
                 json.dump(
                     self._serialize_progress(progress), f, indent=2, ensure_ascii=False
                 )

@@ -3,7 +3,7 @@ Commandes d'histoire Arkalia Quest
 Commandes pour la progression narrative : prologue, acte_1 à acte_6, epilogue
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 class StoryCommands:

@@ -3,8 +3,9 @@ Commandes Analytics pour Arkalia Quest
 Permet d'accéder aux insights et analytics depuis le terminal
 """
 
+from typing import Any, Dict
+
 import requests
-from typing import Dict, Any
 
 
 class AnalyticsCommands:

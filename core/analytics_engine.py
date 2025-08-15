@@ -9,15 +9,15 @@ Ce module implémente un système d'analytics avancé pour :
 - Générer des insights pour l'amélioration du jeu
 """
 
-import json
-import time
 import hashlib
-import sqlite3
-from typing import Dict, List, Optional, Any
-from dataclasses import dataclass
+import json
 import logging
+import sqlite3
 import threading
+import time
+from dataclasses import dataclass
 from enum import Enum
+from typing import Any, Dict, List, Optional
 
 # Configuration du logging
 logging.basicConfig(level=logging.INFO)
@@ -298,8 +298,8 @@ class AnalyticsEngine:
                 cursor = conn.cursor()
                 cursor.execute(
                     """
-                    INSERT OR REPLACE INTO analytics_sessions 
-                    (session_id, user_id, start_time, end_time, duration, 
+                    INSERT OR REPLACE INTO analytics_sessions
+                    (session_id, user_id, start_time, end_time, duration,
                      events_count, missions_attempted, games_played, commands_used)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
@@ -354,7 +354,7 @@ class AnalyticsEngine:
                 cursor = conn.cursor()
                 cursor.execute(
                     """
-                    INSERT OR REPLACE INTO analytics_user_profiles 
+                    INSERT OR REPLACE INTO analytics_user_profiles
                     (user_id, total_sessions, total_playtime, missions_completed,
                      games_completed, badges_earned, current_level, preferred_games,
                      learning_style, engagement_score, last_active, created_at)
@@ -418,7 +418,7 @@ class AnalyticsEngine:
                 for event in self.event_buffer:
                     cursor.execute(
                         """
-                        INSERT INTO analytics_events 
+                        INSERT INTO analytics_events
                         (event_type, user_id, timestamp, session_id, data, context, anonymized)
                         VALUES (?, ?, ?, ?, ?, ?, ?)
                     """,
@@ -502,8 +502,8 @@ class AnalyticsEngine:
                 cursor.execute(
                     """
                     SELECT event_type, COUNT(*) as count
-                    FROM analytics_events 
-                    WHERE user_id = ? 
+                    FROM analytics_events
+                    WHERE user_id = ?
                     GROUP BY event_type
                 """,
                     (user_id,),
@@ -584,9 +584,9 @@ class AnalyticsEngine:
                 cursor.execute(
                     """
                     SELECT event_type, COUNT(*) as count
-                    FROM analytics_events 
-                    GROUP BY event_type 
-                    ORDER BY count DESC 
+                    FROM analytics_events
+                    GROUP BY event_type
+                    ORDER BY count DESC
                     LIMIT 10
                 """
                 )
@@ -596,7 +596,7 @@ class AnalyticsEngine:
                 week_ago = time.time() - (7 * 24 * 3600)
                 cursor.execute(
                     """
-                    SELECT COUNT(*) FROM analytics_sessions 
+                    SELECT COUNT(*) FROM analytics_sessions
                     WHERE start_time > ?
                 """,
                     (week_ago,),
@@ -631,7 +631,7 @@ class AnalyticsEngine:
                 week_ago = time.time() - (7 * 24 * 3600)
                 cursor.execute(
                     """
-                    SELECT COUNT(*) FROM analytics_user_profiles 
+                    SELECT COUNT(*) FROM analytics_user_profiles
                     WHERE last_active > ?
                 """,
                     (week_ago,),
@@ -648,7 +648,7 @@ class AnalyticsEngine:
                 # Taux de complétion des missions
                 cursor.execute(
                     """
-                    SELECT COUNT(*) FROM analytics_events 
+                    SELECT COUNT(*) FROM analytics_events
                     WHERE event_type = ?
                 """,
                     (EventType.MISSION_COMPLETE.value,),
@@ -657,7 +657,7 @@ class AnalyticsEngine:
 
                 cursor.execute(
                     """
-                    SELECT COUNT(*) FROM analytics_events 
+                    SELECT COUNT(*) FROM analytics_events
                     WHERE event_type IN (?, ?)
                 """,
                     (EventType.MISSION_START.value, EventType.MISSION_COMPLETE.value),

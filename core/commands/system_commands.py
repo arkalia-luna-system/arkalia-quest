@@ -3,7 +3,7 @@ Commandes système Arkalia Quest
 Commandes système : test_performance, test_security, etc.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 class SystemCommands:

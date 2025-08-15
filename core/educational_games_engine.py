@@ -3,9 +3,9 @@ Educational Games Engine - Moteur de mini-jeux éducatifs pour Arkalia Quest
 Jeux de logique, code et cybersécurité pour apprendre en s'amusant
 """
 
-from typing import Dict, Any, List
 from datetime import datetime
 from enum import Enum
+from typing import Any, Dict, List
 
 
 class GameType(Enum):
@@ -225,7 +225,7 @@ def create_md5_hash(text):
                 "difficulty": Difficulty.BEGINNER.value,
                 "ip_addresses": ["192.168.1.1", "10.0.0.1", "172.16.0.1", "8.8.8.8"],
                 "options": ["Réseau privé", "Réseau public", "DNS Google"],
-                "solutions": [0, 0, 0, 2],  # Indices des bonnes réponses
+                "solution": [0, 0, 0, 2],  # Indices des bonnes réponses
                 "explanation": "192.168.x.x et 10.x.x.x sont des réseaux privés, 8.8.8.8 est DNS Google",
                 "points": 50,
                 "badge": "Réseau",
@@ -236,7 +236,7 @@ def create_md5_hash(text):
         """Récupère les jeux disponibles selon le niveau de l'utilisateur"""
         available_games = []
 
-        for game_type, games in self.games_data.items():
+        for _game_type, games in self.games_data.items():
             for game in games:
                 # Déterminer la difficulté selon le niveau
                 if user_level >= 3 and game["difficulty"] == Difficulty.EXPERT.value:
@@ -257,7 +257,7 @@ def create_md5_hash(text):
         """Démarre un jeu éducatif"""
         # Trouver le jeu
         game = None
-        for game_type, games in self.games_data.items():
+        for _game_type, games in self.games_data.items():
             for g in games:
                 if g["id"] == game_id:
                     game = g
@@ -343,7 +343,7 @@ def create_md5_hash(text):
 
         # Trouver le jeu
         game = None
-        for game_type, games in self.games_data.items():
+        for _game_type, games in self.games_data.items():
             for g in games:
                 if g["id"] == game_id:
                     game = g
@@ -431,7 +431,8 @@ def create_md5_hash(text):
             return answer == solution
         elif game["type"] == GameType.NETWORK.value:
             if isinstance(solution, list):
-                return answer in solution
+                # Pour les jeux réseau, vérifier l'égalité des listes
+                return answer == solution
             return answer == solution
 
         return False

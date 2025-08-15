@@ -6,8 +6,8 @@ Système d'émotions ultra-avancé pour LUNA qui réagit en temps réel
 
 import random
 from datetime import datetime
-from typing import Dict, List
 from enum import Enum
+from typing import Dict, List
 
 
 class LunaEmotion(Enum):

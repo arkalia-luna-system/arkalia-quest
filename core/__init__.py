@@ -6,8 +6,8 @@ Contient les modules avancés : database, websocket_manager, tutorial_manager
 # Import des modules principaux
 try:
     from .database import db_manager
-    from .websocket_manager import websocket_manager
     from .tutorial_manager import tutorial_manager
+    from .websocket_manager import websocket_manager
 
     __all__ = ["db_manager", "websocket_manager", "tutorial_manager"]
 

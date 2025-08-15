@@ -3,7 +3,7 @@ WebSocket Manager - Gestionnaire de WebSockets pour défis temps réel
 """
 
 import time
-from typing import Dict, Any, Optional, Callable
+from typing import Any, Callable, Dict, Optional
 
 
 class WebSocketManager:

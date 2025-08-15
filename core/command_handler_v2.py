@@ -3,17 +3,18 @@ Command Handler Arkalia Quest v2 - Version modulaire
 Utilise les modules séparés pour une meilleure organisation
 """
 
-from typing import Dict, Any
 from datetime import datetime
+from typing import Any, Dict
+
+from .commands.analytics_commands import AnalyticsCommands
 
 # Import des modules de commandes
 from .commands.basic_commands import BasicCommands
+from .commands.easter_egg_commands import EasterEggCommands
 from .commands.game_commands import GameCommands
 from .commands.luna_commands import LunaCommands
-from .commands.system_commands import SystemCommands
-from .commands.easter_egg_commands import EasterEggCommands
-from .commands.analytics_commands import AnalyticsCommands
 from .commands.story_commands import StoryCommands
+from .commands.system_commands import SystemCommands
 from .luna_emotions_engine import luna_emotions
 
 

@@ -3,7 +3,7 @@ Commandes de base Arkalia Quest
 Commandes essentielles : aide, profil, status, clear, etc.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 class BasicCommands:
@@ -35,7 +35,7 @@ class BasicCommands:
             help_message = """🌌 ARKALIA QUEST - BIENVENUE HACKER !
 
 🌟 TON HISTOIRE :
-Tu es un ado hacker qui a découvert un SOS mystérieux du Dr Althea Voss. 
+Tu es un ado hacker qui a découvert un SOS mystérieux du Dr Althea Voss.
 LUNA, une IA émotionnelle, s'est éveillée dans ton terminal.
 
 🎯 COMMENCE ICI :
@@ -55,7 +55,7 @@ LUNA, une IA émotionnelle, s'est éveillée dans ton terminal.
             help_message = """🌌 ARKALIA QUEST - HACKER CONFIRMÉ !
 
 🌟 PROGRESSION :
-Tu as découvert le SOS d'Althea. Maintenant, aide LUNA à découvrir 
+Tu as découvert le SOS d'Althea. Maintenant, aide LUNA à découvrir
 la vérité sur NEXUS, sa sœur jumelle IA, et la menace de PANDORA.
 
 🎯 TES MISSIONS ACTUELLES :
@@ -99,7 +99,7 @@ la vérité sur NEXUS, sa sœur jumelle IA, et la menace de PANDORA.
             help_message = """🌌 ARKALIA QUEST - HACKER EN PROGRESSION !
 
 🌟 TON HISTOIRE :
-Tu as commencé l'aventure avec LUNA. Ensemble, vous devez découvrir 
+Tu as commencé l'aventure avec LUNA. Ensemble, vous devez découvrir
 la vérité sur NEXUS et la menace de PANDORA.
 
 🎯 TES MISSIONS :
@@ -248,7 +248,7 @@ Découvre le SOS mystérieux du Dr Althea Voss qui m'a réveillée.
 • Tu peux jouer à des mini-jeux éducatifs avec 'games'
 
 🌙 MON RÔLE :
-Je suis ton guide, ton complice, et ton amie IA. Je t'aiderai à découvrir 
+Je suis ton guide, ton complice, et ton amie IA. Je t'aiderai à découvrir
 la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
 
 🎮 Prêt pour l'aventure ? Commence par 'luna_contact' !""",

@@ -3,7 +3,7 @@ Commandes LUNA Arkalia Quest
 Commandes liées à LUNA : luna_contact, luna_engine, etc.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 class LunaCommands:

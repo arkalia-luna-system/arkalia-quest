@@ -1,14 +1,16 @@
-from flask import Flask, render_template, request, jsonify, send_from_directory
 import json
 import os
 import random
 import time
+
+from flask import Flask, jsonify, render_template, request, send_from_directory
+
 from arkalia_engine import arkalia_engine
 from core.command_handler_v2 import CommandHandlerV2 as CommandHandler
-from core.gamification_engine import GamificationEngine
 from core.database import DatabaseManager
-from core.websocket_manager import websocket_manager
+from core.gamification_engine import GamificationEngine
 from core.tutorial_manager import tutorial_manager
+from core.websocket_manager import websocket_manager
 
 # from core.educational_games_engine import educational_games
 
@@ -180,7 +182,7 @@ def charger_ascii_art(nom_fichier):
     try:
         chemin = f"data/effects/ascii/{nom_fichier}.txt"
         if os.path.exists(chemin):
-            with open(chemin, "r", encoding="utf-8") as f:
+            with open(chemin, encoding="utf-8") as f:
                 return f.read()
         else:
             return "🎨 ASCII Art non trouvé"
@@ -191,7 +193,7 @@ def charger_ascii_art(nom_fichier):
 def charger_badges():
     """Charge le système de badges"""
     try:
-        with open("data/badges.json", "r", encoding="utf-8") as f:
+        with open("data/badges.json", encoding="utf-8") as f:
             return json.load(f)
     except Exception:
         return {"badges": {}, "animations": {}, "couleurs_rarete": {}}
@@ -200,7 +202,7 @@ def charger_badges():
 def charger_avatars():
     """Charge le système d'avatars"""
     try:
-        with open("data/avatars.json", "r", encoding="utf-8") as f:
+        with open("data/avatars.json", encoding="utf-8") as f:
             return json.load(f)
     except Exception:
         return {"avatars": {}, "themes_terminal": {}}
@@ -209,7 +211,7 @@ def charger_avatars():
 def charger_defis_sociaux():
     """Charge le système de défis sociaux"""
     try:
-        with open("data/defis_sociaux.json", "r", encoding="utf-8") as f:
+        with open("data/defis_sociaux.json", encoding="utf-8") as f:
             return json.load(f)
     except Exception:
         return {"defis_sociaux": {}, "modes_jeu": {}, "classements": {}}
@@ -218,7 +220,7 @@ def charger_defis_sociaux():
 def charger_chapitre_6():
     """Charge le chapitre 6 - LUNA compromise"""
     try:
-        with open("data/chapitre_6_luna_compromise.json", "r", encoding="utf-8") as f:
+        with open("data/chapitre_6_luna_compromise.json", encoding="utf-8") as f:
             return json.load(f)
     except Exception:
         return {"chapitre_6": {}, "commandes_speciales": {}}
@@ -620,8 +622,8 @@ def luna_meme_reaction(fail_type, score):
 # Import des nouveaux modules
 try:
     from core.database import db_manager
-    from core.websocket_manager import websocket_manager
     from core.tutorial_manager import tutorial_manager
+    from core.websocket_manager import websocket_manager
 
     DATABASE_AVAILABLE = True
     WEBSOCKET_AVAILABLE = True
@@ -702,7 +704,7 @@ def get_gamification_leaderboard():
         # Charger directement depuis le fichier JSON
         leaderboard_file = os.path.join("data", "leaderboard.json")
         if os.path.exists(leaderboard_file):
-            with open(leaderboard_file, "r", encoding="utf-8") as f:
+            with open(leaderboard_file, encoding="utf-8") as f:
                 leaderboard_data = json.load(f)
         else:
             # Données par défaut si le fichier n'existe pas
@@ -717,7 +719,7 @@ def get_gamification_leaderboard():
 
         # Format attendu par le frontend
         formatted_leaderboard = []
-        for i, player in enumerate(leaderboard_data.get("players", [])[:limit]):
+        for _i, player in enumerate(leaderboard_data.get("players", [])[:limit]):
             formatted_leaderboard.append(
                 {
                     "username": player.get("name", "Hacker"),
@@ -873,7 +875,7 @@ def get_luna_learning_data():
         # Charger les données d'apprentissage depuis le fichier JSON
         learning_data_path = "data/learning_data.json"
         if os.path.exists(learning_data_path):
-            with open(learning_data_path, "r", encoding="utf-8") as f:
+            with open(learning_data_path, encoding="utf-8") as f:
                 learning_data = json.load(f)
         else:
             # Données par défaut

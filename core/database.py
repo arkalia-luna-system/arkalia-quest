@@ -2,11 +2,11 @@
 Database Engine - Gestionnaire de base de données SQLite pour Arkalia Quest
 """
 
-import sqlite3
 import json
 import os
-from typing import Dict, Any, List, Optional
+import sqlite3
 from datetime import datetime
+from typing import Any, Dict, List, Optional
 
 
 class DatabaseManager:
@@ -95,11 +95,13 @@ class DatabaseManager:
         """Migre les données JSON existantes vers SQLite"""
         # Migrer le profil principal
         try:
-            with open("data/profil_joueur.json", "r", encoding="utf-8") as f:
-                profile_data = json.load(f)
+            profile_file = "data/profil_joueur.json"
+            if os.path.exists(profile_file):
+                with open(profile_file, encoding="utf-8") as f:
+                    profile_data = json.load(f)
 
-            self.save_profile("main_user", profile_data)
-            print("✅ Migration du profil principal réussie")
+                self.save_profile("main_user", profile_data)
+                print("✅ Migration du profil principal réussie")
         except Exception as e:
             print(f"⚠️ Erreur migration profil: {e}")
 
@@ -109,9 +111,7 @@ class DatabaseManager:
             if os.path.exists(missions_dir):
                 for filename in os.listdir(missions_dir):
                     if filename.endswith(".json"):
-                        with open(
-                            f"{missions_dir}/{filename}", "r", encoding="utf-8"
-                        ) as f:
+                        with open(f"{missions_dir}/{filename}", encoding="utf-8") as f:
                             mission_data = json.load(f)
                             self.save_mission(mission_data)
                 print("✅ Migration des missions réussie")
@@ -134,7 +134,7 @@ class DatabaseManager:
                     # Mettre à jour le profil existant
                     cursor.execute(
                         """
-                        UPDATE profiles 
+                        UPDATE profiles
                         SET score = ?, level = ?, badges = ?, avatars = ?, preferences = ?, updated_at = CURRENT_TIMESTAMP
                         WHERE username = ?
                     """,
@@ -286,8 +286,8 @@ class DatabaseManager:
                 cursor.execute(
                     """
                     SELECT username, score, level, badges
-                    FROM profiles 
-                    ORDER BY score DESC 
+                    FROM profiles
+                    ORDER BY score DESC
                     LIMIT ?
                 """,
                     (limit,),

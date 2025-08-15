@@ -2,7 +2,8 @@
 Profile Manager - Gestion des profils utilisateur
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
+
 from core.database import DatabaseManager
 
 

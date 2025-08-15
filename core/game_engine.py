@@ -6,11 +6,12 @@ Orchestre tous les composants du jeu
 import json
 import os
 from datetime import datetime
-from typing import Dict, Any
+from typing import Any, Dict
 
-from .profile_manager import ProfileManager
-from .command_handler_v2 import CommandHandlerV2 as CommandHandler
 from core.database import DatabaseManager
+
+from .command_handler_v2 import CommandHandlerV2 as CommandHandler
+from .profile_manager import ProfileManager
 
 
 class GameEngine:
@@ -117,22 +118,22 @@ class GameEngine:
         """Vérifie si l'utilisateur peut démarrer une mission"""
 
         # Charger la mission
-        mission_path = f"data/missions/{mission_id}.json"
-        if not os.path.exists(mission_path):
+        mission_file = f"data/missions/{mission_id}.json"
+        if not os.path.exists(mission_file):
             return False
 
-        with open(mission_path, "r", encoding="utf-8") as f:
+        with open(mission_file, encoding="utf-8") as f:
             mission = json.load(f)
 
         # Vérifier les prérequis
         prerequis = mission.get("prerequis", [])
 
-        for prerequis in prerequis:
-            if prerequis == "unlock_universe":
+        for prerequis_item in prerequis:
+            if prerequis_item == "unlock_universe":
                 if not self.game_state["universe_unlocked"]:
                     return False
-            elif prerequis == "scan_persona":
-                if not self.game_state["personality_detected"]:
+            elif prerequis_item == "complete_tutorial":
+                if not self.game_state["tutorial_completed"]:
                     return False
 
         return True

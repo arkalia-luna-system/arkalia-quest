@@ -35,7 +35,7 @@ class ImmersiveSystemTester:
             "luna_analyze",
             "badges",
             "monde",
-            "commande_inexistante_test"
+            "commande_inexistante_test",
         ]
 
     def run_complete_test(self) -> Dict[str, Any]:
@@ -72,7 +72,9 @@ class ImmersiveSystemTester:
             "visual_effects": visual_results,
             "integration": integration_results,
             "performance": performance_results,
-            "summary": self.generate_summary(luna_results, visual_results, integration_results, performance_results)
+            "summary": self.generate_summary(
+                luna_results, visual_results, integration_results, performance_results
+            ),
         }
 
         # Sauvegarder les résultats
@@ -93,7 +95,7 @@ class ImmersiveSystemTester:
             "emotion_types": set(),
             "intensity_range": {"min": 1.0, "max": 0.0},
             "response_times": [],
-            "errors": []
+            "errors": [],
         }
 
         for command in self.test_commands:
@@ -101,9 +103,7 @@ class ImmersiveSystemTester:
                 start_time = time.time()
 
                 response = self.session.post(
-                    f"{self.base_url}/commande",
-                    json={"commande": command},
-                    timeout=10
+                    f"{self.base_url}/commande", json={"commande": command}, timeout=10
                 )
 
                 response_time = time.time() - start_time
@@ -124,19 +124,27 @@ class ImmersiveSystemTester:
 
                         # Vérifier l'intensité
                         intensity = data.get("luna_intensity", 0.5)
-                        emotions_test["intensity_range"]["min"] = min(emotions_test["intensity_range"]["min"], intensity)
-                        emotions_test["intensity_range"]["max"] = max(emotions_test["intensity_range"]["max"], intensity)
+                        emotions_test["intensity_range"]["min"] = min(
+                            emotions_test["intensity_range"]["min"], intensity
+                        )
+                        emotions_test["intensity_range"]["max"] = max(
+                            emotions_test["intensity_range"]["max"], intensity
+                        )
 
                         # Vérifier la cohérence
                         self.validate_emotion_data(data)
 
-                        print(f"    ✅ {command}: {data['luna_emotion']} (intensité: {intensity:.2f})")
+                        print(
+                            f"    ✅ {command}: {data['luna_emotion']} (intensité: {intensity:.2f})"
+                        )
                     else:
                         print(f"    ⚠️ {command}: Pas d'émotion LUNA détectée")
                         emotions_test["errors"].append(f"Pas d'émotion pour {command}")
                 else:
                     print(f"    ❌ {command}: Erreur HTTP {response.status_code}")
-                    emotions_test["errors"].append(f"HTTP {response.status_code} pour {command}")
+                    emotions_test["errors"].append(
+                        f"HTTP {response.status_code} pour {command}"
+                    )
 
             except Exception as e:
                 print(f"    💥 {command}: Erreur - {str(e)}")
@@ -144,8 +152,16 @@ class ImmersiveSystemTester:
 
         # Calculer les statistiques
         emotions_test["emotion_types"] = list(emotions_test["emotion_types"])
-        emotions_test["avg_response_time"] = sum(emotions_test["response_times"]) / len(emotions_test["response_times"]) if emotions_test["response_times"] else 0
-        emotions_test["success_rate"] = (emotions_test["emotions_detected"] / emotions_test["total_commands"]) * 100 if emotions_test["total_commands"] > 0 else 0
+        emotions_test["avg_response_time"] = (
+            sum(emotions_test["response_times"]) / len(emotions_test["response_times"])
+            if emotions_test["response_times"]
+            else 0
+        )
+        emotions_test["success_rate"] = (
+            (emotions_test["emotions_detected"] / emotions_test["total_commands"]) * 100
+            if emotions_test["total_commands"] > 0
+            else 0
+        )
 
         return emotions_test
 
@@ -158,7 +174,7 @@ class ImmersiveSystemTester:
             "effect_types": set(),
             "colors_detected": set(),
             "sounds_detected": set(),
-            "errors": []
+            "errors": [],
         }
 
         # Tester avec des commandes qui déclenchent des effets
@@ -167,9 +183,7 @@ class ImmersiveSystemTester:
         for command in effect_commands:
             try:
                 response = self.session.post(
-                    f"{self.base_url}/commande",
-                    json={"commande": command},
-                    timeout=10
+                    f"{self.base_url}/commande", json={"commande": command}, timeout=10
                 )
 
                 if response.status_code == 200:
@@ -190,10 +204,14 @@ class ImmersiveSystemTester:
                     if "luna_sound" in data:
                         effects_test["sounds_detected"].add(data["luna_sound"])
 
-                    print(f"    ✅ {command}: Effet {data.get('luna_effect', 'N/A')} - Couleur {data.get('luna_color', 'N/A')}")
+                    print(
+                        f"    ✅ {command}: Effet {data.get('luna_effect', 'N/A')} - Couleur {data.get('luna_color', 'N/A')}"
+                    )
                 else:
                     print(f"    ❌ {command}: Erreur HTTP {response.status_code}")
-                    effects_test["errors"].append(f"HTTP {response.status_code} pour {command}")
+                    effects_test["errors"].append(
+                        f"HTTP {response.status_code} pour {command}"
+                    )
 
             except Exception as e:
                 print(f"    💥 {command}: Erreur - {str(e)}")
@@ -215,16 +233,14 @@ class ImmersiveSystemTester:
             "integration_success": 0,
             "coherence_checks": 0,
             "coherence_success": 0,
-            "errors": []
+            "errors": [],
         }
 
         # Test de cohérence émotion-effet
         for command in self.test_commands[:5]:  # Test avec 5 commandes
             try:
                 response = self.session.post(
-                    f"{self.base_url}/commande",
-                    json={"commande": command},
-                    timeout=10
+                    f"{self.base_url}/commande", json={"commande": command}, timeout=10
                 )
 
                 if response.status_code == 200:
@@ -246,7 +262,9 @@ class ImmersiveSystemTester:
                     if self.validate_response_structure(data):
                         integration_test["coherence_success"] += 1
                     else:
-                        integration_test["errors"].append(f"Structure invalide pour {command}")
+                        integration_test["errors"].append(
+                            f"Structure invalide pour {command}"
+                        )
 
                     integration_test["coherence_checks"] += 1
 
@@ -255,8 +273,24 @@ class ImmersiveSystemTester:
                 integration_test["errors"].append(f"Exception pour {command}: {str(e)}")
 
         # Calculer les taux de réussite
-        integration_test["integration_rate"] = (integration_test["integration_success"] / integration_test["integration_checks"]) * 100 if integration_test["integration_checks"] > 0 else 0
-        integration_test["coherence_rate"] = (integration_test["coherence_success"] / integration_test["coherence_checks"]) * 100 if integration_test["coherence_checks"] > 0 else 0
+        integration_test["integration_rate"] = (
+            (
+                integration_test["integration_success"]
+                / integration_test["integration_checks"]
+            )
+            * 100
+            if integration_test["integration_checks"] > 0
+            else 0
+        )
+        integration_test["coherence_rate"] = (
+            (
+                integration_test["coherence_success"]
+                / integration_test["coherence_checks"]
+            )
+            * 100
+            if integration_test["coherence_checks"] > 0
+            else 0
+        )
 
         return integration_test
 
@@ -269,7 +303,7 @@ class ImmersiveSystemTester:
             "successful_requests": 0,
             "response_times": [],
             "errors": [],
-            "stress_test_results": {}
+            "stress_test_results": {},
         }
 
         # Test de charge simple
@@ -284,9 +318,7 @@ class ImmersiveSystemTester:
             try:
                 start_time = time.time()
                 response = self.session.post(
-                    f"{self.base_url}/commande",
-                    json={"commande": command},
-                    timeout=5
+                    f"{self.base_url}/commande", json={"commande": command}, timeout=5
                 )
                 response_time = time.time() - start_time
 
@@ -300,20 +332,24 @@ class ImmersiveSystemTester:
                     except Exception:
                         pass
 
-                results_queue.put({
-                    "request_id": request_id,
-                    "success": response.status_code == 200,
-                    "response_time": response_time,
-                    "status_code": response.status_code,
-                    "data": data
-                })
+                results_queue.put(
+                    {
+                        "request_id": request_id,
+                        "success": response.status_code == 200,
+                        "response_time": response_time,
+                        "status_code": response.status_code,
+                        "data": data,
+                    }
+                )
             except Exception as e:
-                results_queue.put({
-                    "request_id": request_id,
-                    "success": False,
-                    "response_time": 0,
-                    "error": str(e)
-                })
+                results_queue.put(
+                    {
+                        "request_id": request_id,
+                        "success": False,
+                        "response_time": 0,
+                        "error": str(e),
+                    }
+                )
 
         # Lancer 10 requêtes simultanées
         threads = []
@@ -336,27 +372,51 @@ class ImmersiveSystemTester:
                 performance_test["successful_requests"] += 1
                 performance_test["response_times"].append(result["response_time"])
             else:
-                performance_test["errors"].append(f"Requête {result['request_id']}: Échec")
+                performance_test["errors"].append(
+                    f"Requête {result['request_id']}: Échec"
+                )
 
         # Calculer les statistiques
         if performance_test["response_times"]:
-            performance_test["avg_response_time"] = sum(performance_test["response_times"]) / len(performance_test["response_times"])
-            performance_test["min_response_time"] = min(performance_test["response_times"])
-            performance_test["max_response_time"] = max(performance_test["response_times"])
+            performance_test["avg_response_time"] = sum(
+                performance_test["response_times"]
+            ) / len(performance_test["response_times"])
+            performance_test["min_response_time"] = min(
+                performance_test["response_times"]
+            )
+            performance_test["max_response_time"] = max(
+                performance_test["response_times"]
+            )
         else:
             performance_test["avg_response_time"] = 0
             performance_test["min_response_time"] = 0
             performance_test["max_response_time"] = 0
 
-        performance_test["success_rate"] = (performance_test["successful_requests"] / performance_test["total_requests"]) * 100 if performance_test["total_requests"] > 0 else 0
+        performance_test["success_rate"] = (
+            (
+                performance_test["successful_requests"]
+                / performance_test["total_requests"]
+            )
+            * 100
+            if performance_test["total_requests"] > 0
+            else 0
+        )
 
-        print(f"    📊 Performance: {performance_test['success_rate']:.1f}% succès, {performance_test['avg_response_time']:.3f}s moyenne")
+        print(
+            f"    📊 Performance: {performance_test['success_rate']:.1f}% succès, {performance_test['avg_response_time']:.3f}s moyenne"
+        )
 
         return performance_test
 
     def validate_emotion_data(self, data: Dict[str, Any]) -> bool:
         """Valide les données d'émotion"""
-        required_fields = ["luna_emotion", "luna_intensity", "luna_color", "luna_effect", "luna_sound"]
+        required_fields = [
+            "luna_emotion",
+            "luna_intensity",
+            "luna_color",
+            "luna_effect",
+            "luna_sound",
+        ]
 
         for field in required_fields:
             if field not in data:
@@ -396,7 +456,7 @@ class ImmersiveSystemTester:
             "focused": "zoom_blue",
             "surprised": "flash_pink",
             "calm": "float_lightblue",
-            "energetic": "vibrate_green"
+            "energetic": "vibrate_green",
         }
 
         emotion = data["luna_emotion"]
@@ -414,23 +474,31 @@ class ImmersiveSystemTester:
 
         return True
 
-    def generate_summary(self, luna_results: Dict, visual_results: Dict, integration_results: Dict, performance_results: Dict) -> Dict[str, Any]:
+    def generate_summary(
+        self,
+        luna_results: Dict,
+        visual_results: Dict,
+        integration_results: Dict,
+        performance_results: Dict,
+    ) -> Dict[str, Any]:
         """Génère un résumé des tests"""
         total_tests = (
-            luna_results.get("total_commands", 0) +
-            len(visual_results.get("effect_types", [])) +
-            integration_results.get("integration_checks", 0) +
-            performance_results.get("total_requests", 0)
+            luna_results.get("total_commands", 0)
+            + len(visual_results.get("effect_types", []))
+            + integration_results.get("integration_checks", 0)
+            + performance_results.get("total_requests", 0)
         )
 
         total_success = (
-            luna_results.get("emotions_detected", 0) +
-            visual_results.get("effects_detected", 0) +
-            integration_results.get("integration_success", 0) +
-            performance_results.get("successful_requests", 0)
+            luna_results.get("emotions_detected", 0)
+            + visual_results.get("effects_detected", 0)
+            + integration_results.get("integration_success", 0)
+            + performance_results.get("successful_requests", 0)
         )
 
-        overall_success_rate = (total_success / total_tests) * 100 if total_tests > 0 else 0
+        overall_success_rate = (
+            (total_success / total_tests) * 100 if total_tests > 0 else 0
+        )
 
         return {
             "total_tests": total_tests,
@@ -439,7 +507,15 @@ class ImmersiveSystemTester:
             "emotions_detected": len(self.luna_emotions_seen),
             "effects_triggered": len(self.effects_triggered),
             "avg_response_time": performance_results.get("avg_response_time", 0),
-            "status": "EXCELLENT" if overall_success_rate >= 90 else "BON" if overall_success_rate >= 75 else "MOYEN" if overall_success_rate >= 50 else "MAUVAIS"
+            "status": (
+                "EXCELLENT"
+                if overall_success_rate >= 90
+                else (
+                    "BON"
+                    if overall_success_rate >= 75
+                    else "MOYEN" if overall_success_rate >= 50 else "MAUVAIS"
+                )
+            ),
         }
 
     def save_results(self, results: Dict[str, Any]):
@@ -448,9 +524,10 @@ class ImmersiveSystemTester:
 
         # Créer le dossier si nécessaire
         import os
+
         os.makedirs("tests/results", exist_ok=True)
 
-        with open(filename, 'w', encoding='utf-8') as f:
+        with open(filename, "w", encoding="utf-8") as f:
             json.dump(results, f, indent=2, ensure_ascii=False)
 
         print(f"\n💾 Résultats sauvegardés dans: {filename}")
@@ -471,17 +548,29 @@ class ImmersiveSystemTester:
         print(f"⚡ TEMPS DE RÉPONSE MOYEN: {summary['avg_response_time']:.3f}s")
 
         print("\n📋 DÉTAILS:")
-        print(f"  • Tests LUNA: {results['luna_emotions']['emotions_detected']}/{results['luna_emotions']['total_commands']} émotions détectées")
-        print(f"  • Tests visuels: {results['visual_effects']['effects_detected']} effets détectés")
-        print(f"  • Tests intégration: {results['integration']['integration_success']}/{results['integration']['integration_checks']} cohérences OK")
-        print(f"  • Tests performance: {results['performance']['successful_requests']}/{results['performance']['total_requests']} requêtes réussies")
+        print(
+            f"  • Tests LUNA: {results['luna_emotions']['emotions_detected']}/{results['luna_emotions']['total_commands']} émotions détectées"
+        )
+        print(
+            f"  • Tests visuels: {results['visual_effects']['effects_detected']} effets détectés"
+        )
+        print(
+            f"  • Tests intégration: {results['integration']['integration_success']}/{results['integration']['integration_checks']} cohérences OK"
+        )
+        print(
+            f"  • Tests performance: {results['performance']['successful_requests']}/{results['performance']['total_requests']} requêtes réussies"
+        )
 
-        if summary['status'] == "EXCELLENT":
+        if summary["status"] == "EXCELLENT":
             print("\n🎉 SYSTÈME IMMERSIF PARFAIT ! LUNA est prête à bluffer les ados !")
-        elif summary['status'] == "BON":
-            print("\n👍 SYSTÈME IMMERSIF FONCTIONNEL ! Quelques ajustements mineurs recommandés.")
+        elif summary["status"] == "BON":
+            print(
+                "\n👍 SYSTÈME IMMERSIF FONCTIONNEL ! Quelques ajustements mineurs recommandés."
+            )
         else:
-            print("\n⚠️ SYSTÈME IMMERSIF À AMÉLIORER ! Des corrections sont nécessaires.")
+            print(
+                "\n⚠️ SYSTÈME IMMERSIF À AMÉLIORER ! Des corrections sont nécessaires."
+            )
 
 
 def main():
@@ -493,10 +582,14 @@ def main():
     try:
         response = requests.get("http://localhost:5001/api/status", timeout=5)
         if response.status_code != 200:
-            print("❌ Serveur non accessible. Assurez-vous qu'Arkalia Quest est démarré sur le port 5001.")
+            print(
+                "❌ Serveur non accessible. Assurez-vous qu'Arkalia Quest est démarré sur le port 5001."
+            )
             return False
     except:
-        print("❌ Impossible de se connecter au serveur. Assurez-vous qu'Arkalia Quest est démarré.")
+        print(
+            "❌ Impossible de se connecter au serveur. Assurez-vous qu'Arkalia Quest est démarré."
+        )
         return False
 
     # Lancer les tests

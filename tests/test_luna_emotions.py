@@ -18,8 +18,11 @@ except ImportError as e:
     print("🔍 Vérification du chemin...")
     print(f"📁 Répertoire actuel: {os.getcwd()}")
     print(f"📁 Fichier test: {__file__}")
-    print(f"📁 Core directory: {os.path.join(os.path.dirname(os.path.dirname(__file__)), 'core')}")
+    print(
+        f"📁 Core directory: {os.path.join(os.path.dirname(os.path.dirname(__file__)), 'core')}"
+    )
     sys.exit(1)
+
 
 class TestLunaEmotionsEngine(unittest.TestCase):
     """Tests pour le moteur d'émotions LUNA"""
@@ -33,8 +36,8 @@ class TestLunaEmotionsEngine(unittest.TestCase):
             "badges": ["Hacker", "Explorateur", "Maître"],
             "personnalite": {
                 "type": "hacker_expert",
-                "traits": ["expert", "persévérant"]
-            }
+                "traits": ["expert", "persévérant"],
+            },
         }
 
     def tearDown(self):
@@ -52,26 +55,39 @@ class TestLunaEmotionsEngine(unittest.TestCase):
         """Test l'émotion déterminée lors du hacking"""
         # Simuler une action de hacking
         result = {"réussite": True, "score_gagne": 100}
-        emotion_data = self.engine.analyze_action("hack_system", result, self.test_profile)
+        emotion_data = self.engine.analyze_action(
+            "hack_system", result, self.test_profile
+        )
 
         # L'émotion peut varier selon le contexte, vérifions qu'elle est valide
-        valid_emotions = ['determined', 'focused', 'energetic', 'excited', 'proud', 'surprised']
+        valid_emotions = [
+            "determined",
+            "focused",
+            "energetic",
+            "excited",
+            "proud",
+            "surprised",
+        ]
         self.assertIn(emotion_data["emotion"], valid_emotions)
 
     def test_emotion_colors(self):
         """Test les couleurs des émotions"""
         # Tester une émotion spécifique
         result = {"réussite": True, "score_gagne": 100}
-        emotion_data = self.engine.analyze_action("hack_system", result, self.test_profile)
+        emotion_data = self.engine.analyze_action(
+            "hack_system", result, self.test_profile
+        )
         color = emotion_data["color"]
         # La couleur peut varier selon l'implémentation
         self.assertIsInstance(color, str)
-        self.assertTrue(color.startswith('#'))
+        self.assertTrue(color.startswith("#"))
 
     def test_excited_emotion_on_success(self):
         """Test l'émotion excitée lors d'un succès"""
         result = {"réussite": True, "score_gagne": 100}
-        emotion_data = self.engine.analyze_action("hack_system", result, self.test_profile)
+        emotion_data = self.engine.analyze_action(
+            "hack_system", result, self.test_profile
+        )
         message = emotion_data["message"]
 
         # Vérifier que le message contient des éléments d'excitation ou de fierté
@@ -83,7 +99,9 @@ class TestLunaEmotionsEngine(unittest.TestCase):
         """Test le calcul d'intensité"""
         # L'intensité peut varier selon l'implémentation
         result = {"réussite": True, "score_gagne": 100}
-        emotion_data = self.engine.analyze_action("hack_system", result, self.test_profile)
+        emotion_data = self.engine.analyze_action(
+            "hack_system", result, self.test_profile
+        )
         intensity = emotion_data["intensity"]
         self.assertGreaterEqual(intensity, 0.0)
         self.assertLessEqual(intensity, 1.0)
@@ -100,7 +118,9 @@ class TestLunaEmotionsEngine(unittest.TestCase):
     def test_worried_emotion_on_failure(self):
         """Test l'émotion inquiète lors d'un échec"""
         result = {"réussite": False, "score_gagne": 0}
-        emotion_data = self.engine.analyze_action("hack_system", result, self.test_profile)
+        emotion_data = self.engine.analyze_action(
+            "hack_system", result, self.test_profile
+        )
         message = emotion_data["message"]
 
         # Vérifier que le message est valide
@@ -166,7 +186,7 @@ class TestLunaEmotionsEngine(unittest.TestCase):
             "focused": "zoom_blue",
             "surprised": "flash_pink",
             "calm": "float_lightblue",
-            "energetic": "vibrate_green"
+            "energetic": "vibrate_green",
         }
 
         for emotion_name, expected_effect in expected_effects.items():
@@ -186,7 +206,7 @@ class TestLunaEmotionsEngine(unittest.TestCase):
             "focused": "luna_focused",
             "surprised": "luna_surprised",
             "calm": "luna_calm",
-            "energetic": "luna_energetic"
+            "energetic": "luna_energetic",
         }
 
         for emotion_name, expected_sound in expected_sounds.items():
@@ -204,7 +224,7 @@ class TestLunaEmotionsEngine(unittest.TestCase):
             ("profil", "exploration"),
             ("decode_portal", "hacking"),
             ("crack_password", "hacking"),
-            ("random_action", "general")
+            ("random_action", "general"),
         ]
 
         for action, expected_type in test_cases:
@@ -243,7 +263,14 @@ class TestLunaEmotionsEngine(unittest.TestCase):
         state = self.engine.get_current_state()
 
         # Vérifier la structure
-        required_keys = ["emotion", "intensity", "relationship", "color", "effect", "sound"]
+        required_keys = [
+            "emotion",
+            "intensity",
+            "relationship",
+            "color",
+            "effect",
+            "sound",
+        ]
         for key in required_keys:
             self.assertIn(key, state)
 
@@ -263,16 +290,21 @@ class TestLunaEmotionsEngine(unittest.TestCase):
 
             # Vérifier que chaque phrase contient un emoji
             for phrase in phrases:
-                self.assertTrue(any(ord(char) > 127 for char in phrase),
-                              f"Phrase sans emoji: {phrase}")
+                self.assertTrue(
+                    any(ord(char) > 127 for char in phrase),
+                    f"Phrase sans emoji: {phrase}",
+                )
 
     def test_intensity_bounds(self):
         """Test que l'intensité reste dans les bornes"""
         # Test avec des actions extrêmes
         extreme_actions = [
-            ("hack_system", {"réussite": True, "score_gagne": 1000, "badge": "Ultimate"}),
+            (
+                "hack_system",
+                {"réussite": True, "score_gagne": 1000, "badge": "Ultimate"},
+            ),
             ("commande_inexistante", {"réussite": False, "score_gagne": 0}),
-            ("aide", {"réussite": True, "score_gagne": 1})
+            ("aide", {"réussite": True, "score_gagne": 1}),
         ]
 
         for action, result in extreme_actions:
@@ -302,7 +334,7 @@ class TestLunaEmotionsEngine(unittest.TestCase):
             ("aide", {"réussite": True, "score_gagne": 10}),
             ("profil", {"réussite": True, "score_gagne": 5}),
             ("start_tutorial", {"réussite": True, "score_gagne": 50}),
-            ("complete_mission", {"réussite": True, "score_gagne": 200})
+            ("complete_mission", {"réussite": True, "score_gagne": 200}),
         ]
 
         for action, result in actions:
@@ -315,7 +347,17 @@ class TestLunaEmotionsEngine(unittest.TestCase):
         self.assertGreaterEqual(len(emotions_seen), 2)
 
         # Vérifier que toutes les émotions sont valides
-        valid_emotions = {"excited", "proud", "worried", "surprised", "determined", "playful", "curious", "calm", "mysterious"}
+        valid_emotions = {
+            "excited",
+            "proud",
+            "worried",
+            "surprised",
+            "determined",
+            "playful",
+            "curious",
+            "calm",
+            "mysterious",
+        }
         for emotion in emotions_seen:
             self.assertIn(emotion, valid_emotions)
 
@@ -333,11 +375,14 @@ class TestLunaEmotionsIntegration(unittest.TestCase):
 
         # Cycle d'émotions typique
         actions_results = [
-            ("start_tutorial", {"réussite": True, "score_gagne": 100, "badge": "Débutant"}),
+            (
+                "start_tutorial",
+                {"réussite": True, "score_gagne": 100, "badge": "Débutant"},
+            ),
             ("hack_system", {"réussite": True, "score_gagne": 80, "badge": "Hacker"}),
             ("commande_inexistante", {"réussite": False, "score_gagne": 0}),
             ("aide", {"réussite": True, "score_gagne": 10}),
-            ("hack_system", {"réussite": True, "score_gagne": 100, "badge": "Expert"})
+            ("hack_system", {"réussite": True, "score_gagne": 100, "badge": "Expert"}),
         ]
 
         emotions_sequence = []
@@ -411,7 +456,9 @@ def run_emotion_tests():
         for test, traceback in result.errors:
             print(f"  - {test}: {traceback}")
 
-    success_rate = ((result.testsRun - len(result.failures) - len(result.errors)) / result.testsRun) * 100
+    success_rate = (
+        (result.testsRun - len(result.failures) - len(result.errors)) / result.testsRun
+    ) * 100
     print(f"\n🎯 TAUX DE RÉUSSITE: {success_rate:.1f}%")
 
     return result.wasSuccessful()

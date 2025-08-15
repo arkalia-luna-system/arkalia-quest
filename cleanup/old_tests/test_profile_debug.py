@@ -11,6 +11,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 try:
     from arkalia_engine import arkalia_engine
+
     print("✅ Import arkalia_engine réussi")
 
     try:
@@ -25,9 +26,11 @@ try:
     except Exception as e:
         print(f"❌ Erreur load_main_profile: {e}")
         import traceback
+
         traceback.print_exc()
 
 except Exception as e:
     print(f"❌ Erreur import arkalia_engine: {e}")
     import traceback
+
     traceback.print_exc()

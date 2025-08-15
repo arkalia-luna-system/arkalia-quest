@@ -27,33 +27,59 @@ class SimpleIntelligentTester:
                 "style": "explorer",
                 "patience": 8,
                 "curiosity": 9,
-                "commands": ["aide", "profil", "monde", "badges", "luna_contact", "scan_persona"],
-                "behavior": "Curieux et patient, aime découvrir"
+                "commands": [
+                    "aide",
+                    "profil",
+                    "monde",
+                    "badges",
+                    "luna_contact",
+                    "scan_persona",
+                ],
+                "behavior": "Curieux et patient, aime découvrir",
             },
             "sam_speedrunner": {
                 "name": "Sam",
                 "style": "speedrunner",
                 "patience": 3,
                 "curiosity": 4,
-                "commands": ["hack_system", "hacker_coffre", "decode_portal", "challenge_corp", "boss_final"],
-                "behavior": "Impatient et rapide, veut tout faire vite"
+                "commands": [
+                    "hack_system",
+                    "hacker_coffre",
+                    "decode_portal",
+                    "challenge_corp",
+                    "boss_final",
+                ],
+                "behavior": "Impatient et rapide, veut tout faire vite",
             },
             "maya_completionist": {
                 "name": "Maya",
                 "style": "completionist",
                 "patience": 9,
                 "curiosity": 7,
-                "commands": ["unlock_universe", "load_mission", "reboot_world", "luna_dance", "easter_egg_1337"],
-                "behavior": "Patient et perfectionniste, veut tout finir"
+                "commands": [
+                    "unlock_universe",
+                    "load_mission",
+                    "reboot_world",
+                    "luna_dance",
+                    "easter_egg_1337",
+                ],
+                "behavior": "Patient et perfectionniste, veut tout finir",
             },
             "leo_chaos": {
                 "name": "Leo",
                 "style": "chaos",
                 "patience": 2,
                 "curiosity": 10,
-                "commands": ["hack_the_planet", "give_me_all_points", "delete_everything", "lol_what_happens", "test123", ""],
-                "behavior": "Impatient et chaotique, aime casser"
-            }
+                "commands": [
+                    "hack_the_planet",
+                    "give_me_all_points",
+                    "delete_everything",
+                    "lol_what_happens",
+                    "test123",
+                    "",
+                ],
+                "behavior": "Impatient et chaotique, aime casser",
+            },
         }
 
     def test_command(self, personality: str, command: str) -> Dict:
@@ -62,26 +88,24 @@ class SimpleIntelligentTester:
             print(f"🎮 {self.personalities[personality]['name']} essaie: '{command}'")
 
             response = self.session.post(
-                f"{self.base_url}/commande",
-                json={"commande": command},
-                timeout=10
+                f"{self.base_url}/commande", json={"commande": command}, timeout=10
             )
 
             if response.status_code == 200:
                 result = response.json()
                 # L'API retourne la réponse dans un objet 'reponse'
-                if 'reponse' in result:
-                    reponse = result['reponse']
-                    success = reponse.get('réussite', False)
-                    message = reponse.get('message', '')
-                    score_gained = reponse.get('score_gagne', 0)
-                    badge = reponse.get('badge', '')
+                if "reponse" in result:
+                    reponse = result["reponse"]
+                    success = reponse.get("réussite", False)
+                    message = reponse.get("message", "")
+                    score_gained = reponse.get("score_gagne", 0)
+                    badge = reponse.get("badge", "")
                 else:
                     # Fallback pour l'ancien format
-                    success = result.get('réussite', False)
-                    message = result.get('message', '')
-                    score_gained = result.get('score_gagne', 0)
-                    badge = result.get('badge', '')
+                    success = result.get("réussite", False)
+                    message = result.get("message", "")
+                    score_gained = result.get("score_gagne", 0)
+                    badge = result.get("badge", "")
 
                 # Afficher le résultat avec plus de détails
                 if success:
@@ -97,7 +121,7 @@ class SimpleIntelligentTester:
                     "message": message,
                     "score_gained": score_gained,
                     "badge": badge,
-                    "timestamp": datetime.now().isoformat()
+                    "timestamp": datetime.now().isoformat(),
                 }
             else:
                 print(f"❌ Erreur HTTP: {response.status_code}")
@@ -106,7 +130,7 @@ class SimpleIntelligentTester:
                     "command": command,
                     "success": False,
                     "error": f"HTTP {response.status_code}",
-                    "timestamp": datetime.now().isoformat()
+                    "timestamp": datetime.now().isoformat(),
                 }
 
         except Exception as e:
@@ -116,7 +140,7 @@ class SimpleIntelligentTester:
                 "command": command,
                 "success": False,
                 "error": str(e),
-                "timestamp": datetime.now().isoformat()
+                "timestamp": datetime.now().isoformat(),
             }
 
     def test_tutorial(self, personality: str) -> List[Dict]:
@@ -134,13 +158,38 @@ class SimpleIntelligentTester:
 
         # Choisir des commandes selon la personnalité
         if personality == "alex_explorer":
-            commands = ["aide", "profil", "monde", "badges", "luna_contact", "scan_persona"]
+            commands = [
+                "aide",
+                "profil",
+                "monde",
+                "badges",
+                "luna_contact",
+                "scan_persona",
+            ]
         elif personality == "sam_speedrunner":
-            commands = ["hack_system", "hacker_coffre", "challenge_corp", "boss_final", "decode_portal"]
+            commands = [
+                "hack_system",
+                "hacker_coffre",
+                "challenge_corp",
+                "boss_final",
+                "decode_portal",
+            ]
         elif personality == "maya_completionist":
-            commands = ["unlock_universe", "load_mission", "luna_dance", "easter_egg_1337", "reboot_world"]
+            commands = [
+                "unlock_universe",
+                "load_mission",
+                "luna_dance",
+                "easter_egg_1337",
+                "reboot_world",
+            ]
         elif personality == "leo_chaos":
-            commands = ["hack_the_planet", "give_me_all_points", "delete_everything", "make_me_admin", "lol_what_happens"]
+            commands = [
+                "hack_the_planet",
+                "give_me_all_points",
+                "delete_everything",
+                "make_me_admin",
+                "lol_what_happens",
+            ]
         else:
             commands = ["aide", "profil"]
 
@@ -154,7 +203,9 @@ class SimpleIntelligentTester:
 
     def test_edge_cases(self, personality: str) -> List[Dict]:
         """Teste des cas limites selon la personnalité"""
-        print(f"\n🔧 {self.personalities[personality]['name']} teste les cas limites...")
+        print(
+            f"\n🔧 {self.personalities[personality]['name']} teste les cas limites..."
+        )
 
         results = []
         self.personalities[personality]
@@ -171,15 +222,10 @@ class SimpleIntelligentTester:
                 "",
                 "   ",
                 "émojis🚀🎮",
-                "very_long_command_that_should_not_work_at_all_because_it_is_too_long_and_weird"
+                "very_long_command_that_should_not_work_at_all_because_it_is_too_long_and_weird",
             ]
         else:
-            weird_commands = [
-                "invalid_command",
-                "test123",
-                "",
-                "émojis🚀🎮"
-            ]
+            weird_commands = ["invalid_command", "test123", "", "émojis🚀🎮"]
 
         for cmd in weird_commands:
             result = self.test_command(personality, cmd)
@@ -211,9 +257,9 @@ class SimpleIntelligentTester:
 
         # Statistiques
         total_commands = len(all_results)
-        successful_commands = len([r for r in all_results if r.get('success', False)])
-        total_score = sum([r.get('score_gained', 0) for r in all_results])
-        badges_earned = len([r for r in all_results if r.get('badge')])
+        successful_commands = len([r for r in all_results if r.get("success", False)])
+        total_score = sum([r.get("score_gained", 0) for r in all_results])
+        badges_earned = len([r for r in all_results if r.get("badge")])
 
         print(f"\n📊 RÉSULTATS DE {personality_data['name']}:")
         print(f"   • Commandes testées: {total_commands}")
@@ -228,23 +274,30 @@ class SimpleIntelligentTester:
             "stats": {
                 "total_commands": total_commands,
                 "successful_commands": successful_commands,
-                "success_rate": successful_commands / total_commands if total_commands > 0 else 0,
+                "success_rate": (
+                    successful_commands / total_commands if total_commands > 0 else 0
+                ),
                 "total_score": total_score,
-                "badges_earned": badges_earned
+                "badges_earned": badges_earned,
             },
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().isoformat(),
         }
 
     def run_all_tests(self) -> Dict:
         """Lance tous les tests avec toutes les personnalités"""
-        print("🎮" + "="*60 + "🎮")
+        print("🎮" + "=" * 60 + "🎮")
         print("🧠 TESTEUR INTELLIGENT SIMPLIFIÉ - ARKALIA QUEST")
         print("🎯 Test avec 4 personnalités d'ados de 13 ans")
-        print("="*64)
+        print("=" * 64)
 
         all_results = {}
 
-        personalities = ["alex_explorer", "sam_speedrunner", "maya_completionist", "leo_chaos"]
+        personalities = [
+            "alex_explorer",
+            "sam_speedrunner",
+            "maya_completionist",
+            "leo_chaos",
+        ]
 
         for personality in personalities:
             try:
@@ -258,7 +311,7 @@ class SimpleIntelligentTester:
                 all_results[personality] = {
                     "personality": personality,
                     "error": str(e),
-                    "timestamp": datetime.now().isoformat()
+                    "timestamp": datetime.now().isoformat(),
                 }
 
         # Rapport final
@@ -277,28 +330,36 @@ class SimpleIntelligentTester:
         total_badges = 0
 
         for _personality, result in all_results.items():
-            if 'stats' in result:
-                stats = result['stats']
-                total_commands += stats['total_commands']
-                total_successful += stats['successful_commands']
-                total_score += stats['total_score']
-                total_badges += stats['badges_earned']
+            if "stats" in result:
+                stats = result["stats"]
+                total_commands += stats["total_commands"]
+                total_successful += stats["successful_commands"]
+                total_score += stats["total_score"]
+                total_badges += stats["badges_earned"]
 
-                print(f"\n🧭 {result['personality_data']['name']} ({result['personality_data']['style']}):")
-                print(f"   • Succès: {stats['successful_commands']}/{stats['total_commands']} ({stats['success_rate']*100:.1f}%)")
+                print(
+                    f"\n🧭 {result['personality_data']['name']} ({result['personality_data']['style']}):"
+                )
+                print(
+                    f"   • Succès: {stats['successful_commands']}/{stats['total_commands']} ({stats['success_rate']*100:.1f}%)"
+                )
                 print(f"   • Score: {stats['total_score']} points")
                 print(f"   • Badges: {stats['badges_earned']}")
 
         print("\n📊 TOTAL GLOBAL:")
         print(f"   • Commandes testées: {total_commands}")
         print(f"   • Commandes réussies: {total_successful}")
-        print(f"   • Taux de succès: {total_successful/total_commands*100:.1f}%" if total_commands > 0 else "   • Taux de succès: 0%")
+        print(
+            f"   • Taux de succès: {total_successful/total_commands*100:.1f}%"
+            if total_commands > 0
+            else "   • Taux de succès: 0%"
+        )
         print(f"   • Score total: {total_score}")
         print(f"   • Badges total: {total_badges}")
 
         # Sauvegarder le rapport
         filename = f"tests/reports/simple_test_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-        with open(filename, 'w', encoding='utf-8') as f:
+        with open(filename, "w", encoding="utf-8") as f:
             json.dump(all_results, f, indent=2, ensure_ascii=False)
 
         print(f"\n💾 Rapport sauvegardé: {filename}")
@@ -308,39 +369,57 @@ class SimpleIntelligentTester:
         print("=" * 50)
 
         for _personality, result in all_results.items():
-            if 'personality_data' in result:
-                name = result['personality_data']['name']
-                style = result['personality_data']['style']
-                stats = result.get('stats', {})
-                success_rate = stats.get('success_rate', 0) * 100
-                total_score = stats.get('total_score', 0)
-                badges_earned = stats.get('badges_earned', 0)
+            if "personality_data" in result:
+                name = result["personality_data"]["name"]
+                style = result["personality_data"]["style"]
+                stats = result.get("stats", {})
+                success_rate = stats.get("success_rate", 0) * 100
+                total_score = stats.get("total_score", 0)
+                badges_earned = stats.get("badges_earned", 0)
 
                 if style == "explorer":
                     if success_rate > 50:
-                        print(f"🧭 {name}: 'Wow, ce jeu est trop cool ! J'ai trouvé plein de trucs cachés ! ({success_rate:.1f}% de succès)'")
+                        print(
+                            f"🧭 {name}: 'Wow, ce jeu est trop cool ! J'ai trouvé plein de trucs cachés ! ({success_rate:.1f}% de succès)'"
+                        )
                     else:
-                        print(f"🧭 {name}: 'Hmm, c'est pas facile de tout découvrir... ({success_rate:.1f}% de succès)'")
+                        print(
+                            f"🧭 {name}: 'Hmm, c'est pas facile de tout découvrir... ({success_rate:.1f}% de succès)'"
+                        )
                 elif style == "speedrunner":
                     if success_rate > 50:
-                        print(f"⚡ {name}: 'C'est rapide et efficace ! J'aime ça ! ({success_rate:.1f}% de succès)'")
+                        print(
+                            f"⚡ {name}: 'C'est rapide et efficace ! J'aime ça ! ({success_rate:.1f}% de succès)'"
+                        )
                     else:
-                        print(f"⚡ {name}: 'C'est trop lent ! Je veux aller plus vite ! ({success_rate:.1f}% de succès)'")
+                        print(
+                            f"⚡ {name}: 'C'est trop lent ! Je veux aller plus vite ! ({success_rate:.1f}% de succès)'"
+                        )
                 elif style == "completionist":
                     if badges_earned > 0:
-                        print(f"🏆 {name}: 'J'ai gagné {badges_earned} badges et {total_score} points ! Je veux tous les avoir !'")
+                        print(
+                            f"🏆 {name}: 'J'ai gagné {badges_earned} badges et {total_score} points ! Je veux tous les avoir !'"
+                        )
                     else:
-                        print(f"🏆 {name}: 'Je n'ai pas encore de badges... Je dois continuer ! ({success_rate:.1f}% de succès)'")
+                        print(
+                            f"🏆 {name}: 'Je n'ai pas encore de badges... Je dois continuer ! ({success_rate:.1f}% de succès)'"
+                        )
                 elif style == "chaos":
                     if success_rate < 20:
-                        print(f"🤪 {name}: 'Haha, j'ai essayé de casser le jeu ! C'était marrant ! ({success_rate:.1f}% de succès)'")
+                        print(
+                            f"🤪 {name}: 'Haha, j'ai essayé de casser le jeu ! C'était marrant ! ({success_rate:.1f}% de succès)'"
+                        )
                     else:
-                        print(f"🤪 {name}: 'Même mes commandes bizarres marchent ! ({success_rate:.1f}% de succès)'")
+                        print(
+                            f"🤪 {name}: 'Même mes commandes bizarres marchent ! ({success_rate:.1f}% de succès)'"
+                        )
+
 
 def main():
     """Fonction principale"""
     tester = SimpleIntelligentTester()
     tester.run_all_tests()
+
 
 if __name__ == "__main__":
     main()

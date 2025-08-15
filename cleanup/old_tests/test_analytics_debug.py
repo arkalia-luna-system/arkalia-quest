@@ -11,6 +11,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 try:
     from core.analytics_engine import analytics_engine
+
     print("✅ Import analytics_engine réussi")
 
     # Test avec un ID utilisateur simple
@@ -24,6 +25,7 @@ try:
     except Exception as e:
         print(f"❌ Erreur get_user_insights: {e}")
         import traceback
+
         traceback.print_exc()
 
         # Test de la fonction d'anonymisation
@@ -40,9 +42,11 @@ try:
         except Exception as e3:
             print(f"❌ Erreur analyse style: {e3}")
             import traceback
+
             traceback.print_exc()
 
 except Exception as e:
     print(f"❌ Erreur import: {e}")
     import traceback
+
     traceback.print_exc()

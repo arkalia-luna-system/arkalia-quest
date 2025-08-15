@@ -22,7 +22,8 @@ class DatabaseManager:
             cursor = conn.cursor()
 
             # Table des profils utilisateurs
-            cursor.execute("""
+            cursor.execute(
+                """
                 CREATE TABLE IF NOT EXISTS profiles (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     username TEXT UNIQUE NOT NULL,
@@ -34,10 +35,12 @@ class DatabaseManager:
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
-            """)
+            """
+            )
 
             # Table des missions
-            cursor.execute("""
+            cursor.execute(
+                """
                 CREATE TABLE IF NOT EXISTS missions (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     mission_id TEXT UNIQUE NOT NULL,
@@ -49,10 +52,12 @@ class DatabaseManager:
                     completed_by TEXT DEFAULT '[]',
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
-            """)
+            """
+            )
 
             # Table des défis sociaux
-            cursor.execute("""
+            cursor.execute(
+                """
                 CREATE TABLE IF NOT EXISTS challenges (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     challenge_id TEXT UNIQUE NOT NULL,
@@ -65,10 +70,12 @@ class DatabaseManager:
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     completed_at TIMESTAMP
                 )
-            """)
+            """
+            )
 
             # Table des logs d'apprentissage LUNA
-            cursor.execute("""
+            cursor.execute(
+                """
                 CREATE TABLE IF NOT EXISTS luna_learning (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     user_id INTEGER,
@@ -79,7 +86,8 @@ class DatabaseManager:
                     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     FOREIGN KEY (user_id) REFERENCES profiles (id)
                 )
-            """)
+            """
+            )
 
             conn.commit()
 
@@ -87,21 +95,21 @@ class DatabaseManager:
         """Migre les données JSON existantes vers SQLite"""
         # Migrer le profil principal
         try:
-            with open('data/profil_joueur.json', encoding='utf-8') as f:
+            with open("data/profil_joueur.json", encoding="utf-8") as f:
                 profile_data = json.load(f)
 
-            self.save_profile('main_user', profile_data)
+            self.save_profile("main_user", profile_data)
             print("✅ Migration du profil principal réussie")
         except Exception as e:
             print(f"⚠️ Erreur migration profil: {e}")
 
         # Migrer les missions
         try:
-            missions_dir = 'data/missions'
+            missions_dir = "data/missions"
             if os.path.exists(missions_dir):
                 for filename in os.listdir(missions_dir):
-                    if filename.endswith('.json'):
-                        with open(f'{missions_dir}/{filename}', encoding='utf-8') as f:
+                    if filename.endswith(".json"):
+                        with open(f"{missions_dir}/{filename}", encoding="utf-8") as f:
                             mission_data = json.load(f)
                             self.save_mission(mission_data)
                 print("✅ Migration des missions réussie")
@@ -115,36 +123,44 @@ class DatabaseManager:
                 cursor = conn.cursor()
 
                 # Vérifier si le profil existe déjà
-                cursor.execute("SELECT id FROM profiles WHERE username = ?", (username,))
+                cursor.execute(
+                    "SELECT id FROM profiles WHERE username = ?", (username,)
+                )
                 existing = cursor.fetchone()
 
                 if existing:
                     # Mettre à jour le profil existant
-                    cursor.execute("""
+                    cursor.execute(
+                        """
                         UPDATE profiles
                         SET score = ?, level = ?, badges = ?, avatars = ?, preferences = ?, updated_at = CURRENT_TIMESTAMP
                         WHERE username = ?
-                    """, (
-                        profile_data.get('score', 0),
-                        profile_data.get('niveau', 1),
-                        json.dumps(profile_data.get('badges', [])),
-                        json.dumps(profile_data.get('avatars', [])),
-                        json.dumps(profile_data.get('preferences', {})),
-                        username
-                    ))
+                    """,
+                        (
+                            profile_data.get("score", 0),
+                            profile_data.get("niveau", 1),
+                            json.dumps(profile_data.get("badges", [])),
+                            json.dumps(profile_data.get("avatars", [])),
+                            json.dumps(profile_data.get("preferences", {})),
+                            username,
+                        ),
+                    )
                 else:
                     # Créer un nouveau profil
-                    cursor.execute("""
+                    cursor.execute(
+                        """
                         INSERT INTO profiles (username, score, level, badges, avatars, preferences)
                         VALUES (?, ?, ?, ?, ?, ?)
-                    """, (
-                        username,
-                        profile_data.get('score', 0),
-                        profile_data.get('niveau', 1),
-                        json.dumps(profile_data.get('badges', [])),
-                        json.dumps(profile_data.get('avatars', [])),
-                        json.dumps(profile_data.get('preferences', {}))
-                    ))
+                    """,
+                        (
+                            username,
+                            profile_data.get("score", 0),
+                            profile_data.get("niveau", 1),
+                            json.dumps(profile_data.get("badges", [])),
+                            json.dumps(profile_data.get("avatars", [])),
+                            json.dumps(profile_data.get("preferences", {})),
+                        ),
+                    )
 
                 conn.commit()
                 return True
@@ -162,15 +178,15 @@ class DatabaseManager:
 
                 if row:
                     return {
-                        'id': row[0],
-                        'username': row[1],
-                        'score': row[2],
-                        'niveau': row[3],
-                        'badges': json.loads(row[4]),
-                        'avatars': json.loads(row[5]),
-                        'preferences': json.loads(row[6]),
-                        'created_at': row[7],
-                        'updated_at': row[8]
+                        "id": row[0],
+                        "username": row[1],
+                        "score": row[2],
+                        "niveau": row[3],
+                        "badges": json.loads(row[4]),
+                        "avatars": json.loads(row[5]),
+                        "preferences": json.loads(row[6]),
+                        "created_at": row[7],
+                        "updated_at": row[8],
                     }
                 return None
         except Exception as e:
@@ -183,17 +199,20 @@ class DatabaseManager:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
 
-                cursor.execute("""
+                cursor.execute(
+                    """
                     INSERT OR REPLACE INTO missions (mission_id, title, description, difficulty, timer, rewards)
                     VALUES (?, ?, ?, ?, ?, ?)
-                """, (
-                    mission_data.get('id', 'unknown'),
-                    mission_data.get('titre', 'Mission'),
-                    mission_data.get('description', ''),
-                    mission_data.get('difficulte', 'medium'),
-                    mission_data.get('timer', 30),
-                    json.dumps(mission_data.get('recompenses', {}))
-                ))
+                """,
+                    (
+                        mission_data.get("id", "unknown"),
+                        mission_data.get("titre", "Mission"),
+                        mission_data.get("description", ""),
+                        mission_data.get("difficulte", "medium"),
+                        mission_data.get("timer", 30),
+                        json.dumps(mission_data.get("recompenses", {})),
+                    ),
+                )
 
                 conn.commit()
                 return True
@@ -207,16 +226,21 @@ class DatabaseManager:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
 
-                cursor.execute("""
+                cursor.execute(
+                    """
                     INSERT INTO challenges (challenge_id, title, description, timer, players)
                     VALUES (?, ?, ?, ?, ?)
-                """, (
-                    challenge_data.get('id', f"challenge_{datetime.now().timestamp()}"),
-                    challenge_data.get('title', 'Défi'),
-                    challenge_data.get('description', ''),
-                    challenge_data.get('timer', 30),
-                    json.dumps(challenge_data.get('players', []))
-                ))
+                """,
+                    (
+                        challenge_data.get(
+                            "id", f"challenge_{datetime.now().timestamp()}"
+                        ),
+                        challenge_data.get("title", "Défi"),
+                        challenge_data.get("description", ""),
+                        challenge_data.get("timer", 30),
+                        json.dumps(challenge_data.get("players", [])),
+                    ),
+                )
 
                 conn.commit()
                 return cursor.lastrowid
@@ -224,22 +248,26 @@ class DatabaseManager:
             print(f"❌ Erreur création défi: {e}")
             return None
 
-    def log_luna_learning(self, user_id: int, action_type: str, action_data: Dict[str, Any], response: str, success: bool = True):
+    def log_luna_learning(
+        self,
+        user_id: int,
+        action_type: str,
+        action_data: Dict[str, Any],
+        response: str,
+        success: bool = True,
+    ):
         """Enregistre une action d'apprentissage de LUNA"""
         try:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
 
-                cursor.execute("""
+                cursor.execute(
+                    """
                     INSERT INTO luna_learning (user_id, action_type, action_data, response, success)
                     VALUES (?, ?, ?, ?, ?)
-                """, (
-                    user_id,
-                    action_type,
-                    json.dumps(action_data),
-                    response,
-                    success
-                ))
+                """,
+                    (user_id, action_type, json.dumps(action_data), response, success),
+                )
 
                 conn.commit()
         except Exception as e:
@@ -251,19 +279,22 @@ class DatabaseManager:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
 
-                cursor.execute("""
+                cursor.execute(
+                    """
                     SELECT username, score, level, badges
                     FROM profiles
                     ORDER BY score DESC
                     LIMIT ?
-                """, (limit,))
+                """,
+                    (limit,),
+                )
 
                 return [
                     {
-                        'username': row[0],
-                        'score': row[1],
-                        'level': row[2],
-                        'badges_count': len(json.loads(row[3]))
+                        "username": row[0],
+                        "score": row[1],
+                        "level": row[2],
+                        "badges_count": len(json.loads(row[3])),
                     }
                     for row in cursor.fetchall()
                 ]

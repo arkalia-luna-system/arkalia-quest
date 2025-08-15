@@ -23,21 +23,25 @@ class CorrectionsTester:
         try:
             response = requests.get(f"{self.base_url}/profil", timeout=5)
             success = response.status_code == 200
-            self.results.append({
-                "test": "Page Profil",
-                "success": success,
-                "status_code": response.status_code,
-                "error": None if success else f"Status {response.status_code}"
-            })
+            self.results.append(
+                {
+                    "test": "Page Profil",
+                    "success": success,
+                    "status_code": response.status_code,
+                    "error": None if success else f"Status {response.status_code}",
+                }
+            )
             print(f"✅ Page profil: {'SUCCÈS' if success else 'ÉCHEC'}")
             return success
         except Exception as e:
-            self.results.append({
-                "test": "Page Profil",
-                "success": False,
-                "status_code": None,
-                "error": str(e)
-            })
+            self.results.append(
+                {
+                    "test": "Page Profil",
+                    "success": False,
+                    "status_code": None,
+                    "error": str(e),
+                }
+            )
             print(f"❌ Page profil: ERREUR - {e}")
             return False
 
@@ -47,21 +51,25 @@ class CorrectionsTester:
         try:
             response = requests.get(f"{self.base_url}/static/css/style.css", timeout=5)
             success = response.status_code == 200
-            self.results.append({
-                "test": "Fichier CSS",
-                "success": success,
-                "status_code": response.status_code,
-                "error": None if success else f"Status {response.status_code}"
-            })
+            self.results.append(
+                {
+                    "test": "Fichier CSS",
+                    "success": success,
+                    "status_code": response.status_code,
+                    "error": None if success else f"Status {response.status_code}",
+                }
+            )
             print(f"✅ Fichier CSS: {'SUCCÈS' if success else 'ÉCHEC'}")
             return success
         except Exception as e:
-            self.results.append({
-                "test": "Fichier CSS",
-                "success": False,
-                "status_code": None,
-                "error": str(e)
-            })
+            self.results.append(
+                {
+                    "test": "Fichier CSS",
+                    "success": False,
+                    "status_code": None,
+                    "error": str(e),
+                }
+            )
             print(f"❌ Fichier CSS: ERREUR - {e}")
             return False
 
@@ -75,21 +83,25 @@ class CorrectionsTester:
                 data = response.json()
                 has_data = "top_players" in data and "statistics" in data
                 success = has_data
-            self.results.append({
-                "test": "API Leaderboard",
-                "success": success,
-                "status_code": response.status_code,
-                "error": None if success else "Données manquantes"
-            })
+            self.results.append(
+                {
+                    "test": "API Leaderboard",
+                    "success": success,
+                    "status_code": response.status_code,
+                    "error": None if success else "Données manquantes",
+                }
+            )
             print(f"✅ API Leaderboard: {'SUCCÈS' if success else 'ÉCHEC'}")
             return success
         except Exception as e:
-            self.results.append({
-                "test": "API Leaderboard",
-                "success": False,
-                "status_code": None,
-                "error": str(e)
-            })
+            self.results.append(
+                {
+                    "test": "API Leaderboard",
+                    "success": False,
+                    "status_code": None,
+                    "error": str(e),
+                }
+            )
             print(f"❌ API Leaderboard: ERREUR - {e}")
             return False
 
@@ -98,30 +110,32 @@ class CorrectionsTester:
         print("🔍 Test de la commande hack_system...")
         try:
             response = requests.post(
-                f"{self.base_url}/commande",
-                json={"commande": "hack_system"},
-                timeout=5
+                f"{self.base_url}/commande", json={"commande": "hack_system"}, timeout=5
             )
             success = response.status_code == 200
             if success:
                 data = response.json()
                 command_success = data.get("reponse", {}).get("réussite", False)
                 success = command_success
-            self.results.append({
-                "test": "Commande hack_system",
-                "success": success,
-                "status_code": response.status_code,
-                "error": None if success else "Commande non reconnue"
-            })
+            self.results.append(
+                {
+                    "test": "Commande hack_system",
+                    "success": success,
+                    "status_code": response.status_code,
+                    "error": None if success else "Commande non reconnue",
+                }
+            )
             print(f"✅ Commande hack_system: {'SUCCÈS' if success else 'ÉCHEC'}")
             return success
         except Exception as e:
-            self.results.append({
-                "test": "Commande hack_system",
-                "success": False,
-                "status_code": None,
-                "error": str(e)
-            })
+            self.results.append(
+                {
+                    "test": "Commande hack_system",
+                    "success": False,
+                    "status_code": None,
+                    "error": str(e),
+                }
+            )
             print(f"❌ Commande hack_system: ERREUR - {e}")
             return False
 
@@ -133,9 +147,7 @@ class CorrectionsTester:
         for cmd in commands:
             try:
                 response = requests.post(
-                    f"{self.base_url}/commande",
-                    json={"commande": cmd},
-                    timeout=5
+                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=5
                 )
                 success = response.status_code == 200
                 if success:
@@ -143,21 +155,25 @@ class CorrectionsTester:
                     command_success = data.get("reponse", {}).get("réussite", False)
                     success = command_success
 
-                self.results.append({
-                    "test": f"Commande {cmd}",
-                    "success": success,
-                    "status_code": response.status_code,
-                    "error": None if success else "Commande non reconnue"
-                })
+                self.results.append(
+                    {
+                        "test": f"Commande {cmd}",
+                        "success": success,
+                        "status_code": response.status_code,
+                        "error": None if success else "Commande non reconnue",
+                    }
+                )
                 print(f"✅ Commande {cmd}: {'SUCCÈS' if success else 'ÉCHEC'}")
 
             except Exception as e:
-                self.results.append({
-                    "test": f"Commande {cmd}",
-                    "success": False,
-                    "status_code": None,
-                    "error": str(e)
-                })
+                self.results.append(
+                    {
+                        "test": f"Commande {cmd}",
+                        "success": False,
+                        "status_code": None,
+                        "error": str(e),
+                    }
+                )
                 print(f"❌ Commande {cmd}: ERREUR - {e}")
 
     def test_pages_accessibility(self):
@@ -169,29 +185,33 @@ class CorrectionsTester:
             try:
                 response = requests.get(f"{self.base_url}{page}", timeout=5)
                 success = response.status_code == 200
-                self.results.append({
-                    "test": f"Page {page}",
-                    "success": success,
-                    "status_code": response.status_code,
-                    "error": None if success else f"Status {response.status_code}"
-                })
+                self.results.append(
+                    {
+                        "test": f"Page {page}",
+                        "success": success,
+                        "status_code": response.status_code,
+                        "error": None if success else f"Status {response.status_code}",
+                    }
+                )
                 print(f"✅ Page {page}: {'SUCCÈS' if success else 'ÉCHEC'}")
 
             except Exception as e:
-                self.results.append({
-                    "test": f"Page {page}",
-                    "success": False,
-                    "status_code": None,
-                    "error": str(e)
-                })
+                self.results.append(
+                    {
+                        "test": f"Page {page}",
+                        "success": False,
+                        "status_code": None,
+                        "error": str(e),
+                    }
+                )
                 print(f"❌ Page {page}: ERREUR - {e}")
 
     def run_all_tests(self):
         """Lance tous les tests"""
-        print("🎮" + "="*60 + "🎮")
+        print("🎮" + "=" * 60 + "🎮")
         print("🔧 TEST DES CORRECTIONS - ARKALIA QUEST")
         print("📅 " + datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-        print("="*64)
+        print("=" * 64)
 
         # Tests des erreurs critiques corrigées
         self.test_page_profil()
@@ -208,9 +228,9 @@ class CorrectionsTester:
 
     def generate_report(self):
         """Génère un rapport des tests"""
-        print("\n" + "="*64)
+        print("\n" + "=" * 64)
         print("📊 RAPPORT DES TESTS")
-        print("="*64)
+        print("=" * 64)
 
         total_tests = len(self.results)
         successful_tests = sum(1 for r in self.results if r["success"])
@@ -239,9 +259,9 @@ class CorrectionsTester:
                 "total_tests": total_tests,
                 "successful_tests": successful_tests,
                 "failed_tests": failed_tests,
-                "success_rate": (successful_tests/total_tests)*100
+                "success_rate": (successful_tests / total_tests) * 100,
             },
-            "results": self.results
+            "results": self.results,
         }
 
         with open("test_corrections_report.json", "w", encoding="utf-8") as f:
@@ -253,6 +273,7 @@ class CorrectionsTester:
             print("\n🎉 TOUTES LES CORRECTIONS FONCTIONNENT PARFAITEMENT !")
         else:
             print(f"\n⚠️  {failed_tests} erreur(s) restante(s) à corriger.")
+
 
 if __name__ == "__main__":
     tester = CorrectionsTester()

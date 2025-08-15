@@ -60,16 +60,14 @@ class ArkaliaDemo:
             ("easter_egg_1337", "Easter egg"),
             ("meme_war", "Guerre de memes"),
             ("nuke_world", "Nuke world"),
-            ("luna_rage", "LUNA rage")
+            ("luna_rage", "LUNA rage"),
         ]
 
         for cmd, description in commands:
             try:
                 print(f"   Testing: {cmd} ({description})")
                 response = self.session.post(
-                    f"{self.base_url}/commande",
-                    json={"cmd": cmd},
-                    timeout=5
+                    f"{self.base_url}/commande", json={"cmd": cmd}, timeout=5
                 )
 
                 if response.status_code == 200:
@@ -91,21 +89,23 @@ class ArkaliaDemo:
         error_commands = [
             "commande_inexistante_test",
             "truc_bidule_machin",
-            "commande_tres_longue_et_invalide_qui_devrait_echouer"
+            "commande_tres_longue_et_invalide_qui_devrait_echouer",
         ]
 
         for cmd in error_commands:
             try:
                 print(f"   Testing erreur: {cmd}")
                 response = self.session.post(
-                    f"{self.base_url}/commande",
-                    json={"cmd": cmd},
-                    timeout=5
+                    f"{self.base_url}/commande", json={"cmd": cmd}, timeout=5
                 )
 
                 if response.status_code == 200:
                     data = response.json()
-                    if "message" in data and "erreur" in data["message"].lower() or "pas autorisée" in data["message"].lower():
+                    if (
+                        "message" in data
+                        and "erreur" in data["message"].lower()
+                        or "pas autorisée" in data["message"].lower()
+                    ):
                         print(f"   ✅ Erreur gérée: {data['message'][:50]}...")
                     else:
                         print("   ⚠️ Pas de message d'erreur détecté")
@@ -122,7 +122,7 @@ class ArkaliaDemo:
         pages = [
             ("/monde", "Page monde"),
             ("/profil", "Page profil"),
-            ("/", "Page d'accueil")
+            ("/", "Page d'accueil"),
         ]
 
         for page, description in pages:
@@ -143,7 +143,7 @@ class ArkaliaDemo:
             ("/api/status", "Statut système"),
             ("/api/test/database", "Test base de données"),
             ("/api/test/websocket", "Test WebSocket"),
-            ("/api/test/ai", "Test IA")
+            ("/api/test/ai", "Test IA"),
         ]
 
         for api, description in apis:
@@ -164,9 +164,11 @@ class ArkaliaDemo:
         print("✅ Toutes les fonctionnalités testées avec succès !")
         print("🚀 Arkalia Quest est prêt pour la production !")
 
+
 def main():
     demo = ArkaliaDemo()
     demo.demo_sequence()
+
 
 if __name__ == "__main__":
     main()

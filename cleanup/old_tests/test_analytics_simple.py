@@ -11,6 +11,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 try:
     from core.analytics_engine import analytics_engine
+
     print("✅ Import analytics_engine réussi")
 
     # Test simple d'insights
@@ -21,6 +22,7 @@ try:
     except Exception as e:
         print(f"❌ Erreur get_user_insights: {e}")
         import traceback
+
         traceback.print_exc()
 
     # Test simple d'analytics globaux
@@ -31,9 +33,11 @@ try:
     except Exception as e:
         print(f"❌ Erreur get_global_analytics: {e}")
         import traceback
+
         traceback.print_exc()
 
 except Exception as e:
     print(f"❌ Erreur import: {e}")
     import traceback
+
     traceback.print_exc()

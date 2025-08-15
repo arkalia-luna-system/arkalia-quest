@@ -11,6 +11,7 @@ import unittest
 # Ajouter le répertoire parent au path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+
 class TestImmersiveEffects(unittest.TestCase):
     """Tests pour le système d'effets immersifs"""
 
@@ -21,7 +22,7 @@ class TestImmersiveEffects(unittest.TestCase):
             "intensity": 0.8,
             "color": "#00ff00",
             "effect": "pulse_green",
-            "sound": "luna_excited"
+            "sound": "luna_excited",
         }
 
     def test_emotion_data_structure(self):
@@ -49,8 +50,16 @@ class TestImmersiveEffects(unittest.TestCase):
     def test_emotion_validation(self):
         """Test de validation des émotions"""
         valid_emotions = [
-            "excited", "worried", "proud", "mysterious", "determined",
-            "playful", "focused", "surprised", "calm", "energetic"
+            "excited",
+            "worried",
+            "proud",
+            "mysterious",
+            "determined",
+            "playful",
+            "focused",
+            "surprised",
+            "calm",
+            "energetic",
         ]
 
         self.assertIn(self.test_emotion_data["emotion"], valid_emotions)
@@ -58,9 +67,16 @@ class TestImmersiveEffects(unittest.TestCase):
     def test_effect_validation(self):
         """Test de validation des effets"""
         valid_effects = [
-            "pulse_green", "shake_orange", "sparkle_magenta", "fade_cyan",
-            "glow_red", "bounce_yellow", "zoom_blue", "flash_pink",
-            "float_lightblue", "vibrate_green"
+            "pulse_green",
+            "shake_orange",
+            "sparkle_magenta",
+            "fade_cyan",
+            "glow_red",
+            "bounce_yellow",
+            "zoom_blue",
+            "flash_pink",
+            "float_lightblue",
+            "vibrate_green",
         ]
 
         self.assertIn(self.test_emotion_data["effect"], valid_effects)
@@ -68,9 +84,16 @@ class TestImmersiveEffects(unittest.TestCase):
     def test_sound_validation(self):
         """Test de validation des sons"""
         valid_sounds = [
-            "luna_excited", "luna_worried", "luna_proud", "luna_mysterious",
-            "luna_determined", "luna_playful", "luna_focused", "luna_surprised",
-            "luna_calm", "luna_energetic"
+            "luna_excited",
+            "luna_worried",
+            "luna_proud",
+            "luna_mysterious",
+            "luna_determined",
+            "luna_playful",
+            "luna_focused",
+            "luna_surprised",
+            "luna_calm",
+            "luna_energetic",
         ]
 
         self.assertIn(self.test_emotion_data["sound"], valid_sounds)
@@ -78,16 +101,16 @@ class TestImmersiveEffects(unittest.TestCase):
     def test_color_emotion_mapping(self):
         """Test du mapping couleur-émotion"""
         color_mapping = {
-            "excited": "#00ff00",      # Vert vif
-            "worried": "#ff6600",      # Orange inquiet
-            "proud": "#ff00ff",        # Magenta fier
-            "mysterious": "#00ffff",   # Cyan mystérieux
-            "determined": "#ff0000",   # Rouge déterminé
-            "playful": "#ffff00",      # Jaune joueur
-            "focused": "#0000ff",      # Bleu concentré
-            "surprised": "#ff00aa",    # Rose surprise
-            "calm": "#00ccff",         # Bleu calme
-            "energetic": "#00ff88"     # Vert énergique
+            "excited": "#00ff00",  # Vert vif
+            "worried": "#ff6600",  # Orange inquiet
+            "proud": "#ff00ff",  # Magenta fier
+            "mysterious": "#00ffff",  # Cyan mystérieux
+            "determined": "#ff0000",  # Rouge déterminé
+            "playful": "#ffff00",  # Jaune joueur
+            "focused": "#0000ff",  # Bleu concentré
+            "surprised": "#ff00aa",  # Rose surprise
+            "calm": "#00ccff",  # Bleu calme
+            "energetic": "#00ff88",  # Vert énergique
         }
 
         emotion = self.test_emotion_data["emotion"]
@@ -120,7 +143,7 @@ class TestImmersiveEffects(unittest.TestCase):
             {"emotion": "worried", "color": "#ff6600", "effect": "shake_orange"},
             {"emotion": "proud", "color": "#ff00ff", "effect": "sparkle_magenta"},
             {"emotion": "mysterious", "color": "#00ffff", "effect": "fade_cyan"},
-            {"emotion": "determined", "color": "#ff0000", "effect": "glow_red"}
+            {"emotion": "determined", "color": "#ff0000", "effect": "glow_red"},
         ]
 
         for emotion_data in test_emotions:
@@ -155,8 +178,16 @@ class TestImmersiveEffects(unittest.TestCase):
 
         emotion = parts[1]
         valid_emotions = [
-            "excited", "worried", "proud", "mysterious", "determined",
-            "playful", "focused", "surprised", "calm", "energetic"
+            "excited",
+            "worried",
+            "proud",
+            "mysterious",
+            "determined",
+            "playful",
+            "focused",
+            "surprised",
+            "calm",
+            "energetic",
         ]
         self.assertIn(emotion, valid_emotions)
 
@@ -170,7 +201,7 @@ class TestImmersiveEffectsIntegration(unittest.TestCase):
             "level": 3,
             "score": 500,
             "badges": ["Hacker", "Explorateur"],
-            "personnalite": {"type": "hacker_intermediaire"}
+            "personnalite": {"type": "hacker_intermediaire"},
         }
 
     def test_emotion_transition_sequence(self):
@@ -180,7 +211,7 @@ class TestImmersiveEffectsIntegration(unittest.TestCase):
             {"emotion": "excited", "intensity": 0.8, "action": "hack_system"},
             {"emotion": "worried", "intensity": 0.6, "action": "commande_inexistante"},
             {"emotion": "proud", "intensity": 0.9, "action": "hack_system"},
-            {"emotion": "mysterious", "intensity": 0.4, "action": "explore"}
+            {"emotion": "mysterious", "intensity": 0.4, "action": "explore"},
         ]
 
         for emotion_data in emotion_sequence:
@@ -211,7 +242,7 @@ class TestImmersiveEffectsIntegration(unittest.TestCase):
                 "intensity": intensity,
                 "color": "#00ff00",
                 "effect": "pulse_green",
-                "sound": "luna_excited"
+                "sound": "luna_excited",
             }
 
             # Vérifier que l'intensité est valide
@@ -229,7 +260,7 @@ class TestImmersiveEffectsIntegration(unittest.TestCase):
             ("hack_system", {"réussite": True, "score_gagne": 100}, "excited"),
             ("commande_inexistante", {"réussite": False, "score_gagne": 0}, "worried"),
             ("aide", {"réussite": True, "score_gagne": 10}, "calm"),
-            ("profil", {"réussite": True, "score_gagne": 5}, "playful")
+            ("profil", {"réussite": True, "score_gagne": 5}, "playful"),
         ]
 
         for action, result, expected_emotion in action_results:
@@ -241,8 +272,16 @@ class TestImmersiveEffectsIntegration(unittest.TestCase):
 
             # Vérifier que l'émotion attendue est valide
             valid_emotions = [
-                "excited", "worried", "proud", "mysterious", "determined",
-                "playful", "focused", "surprised", "calm", "energetic"
+                "excited",
+                "worried",
+                "proud",
+                "mysterious",
+                "determined",
+                "playful",
+                "focused",
+                "surprised",
+                "calm",
+                "energetic",
             ]
             self.assertIn(expected_emotion, valid_emotions)
 
@@ -265,7 +304,7 @@ class TestImmersiveEffectsPerformance(unittest.TestCase):
                 "intensity": 0.5 + (i % 10) * 0.05,
                 "color": "#00ff00",
                 "effect": "pulse_green",
-                "sound": "luna_excited"
+                "sound": "luna_excited",
             }
 
             # Validation basique
@@ -293,7 +332,7 @@ class TestImmersiveEffectsPerformance(unittest.TestCase):
                 "intensity": (i % 100) / 100.0,
                 "color": "#00ff00",
                 "effect": "pulse_green",
-                "sound": "luna_excited"
+                "sound": "luna_excited",
             }
             effects_data.append(emotion_data)
 
@@ -319,7 +358,7 @@ def run_immersive_effects_tests():
     test_classes = [
         TestImmersiveEffects,
         TestImmersiveEffectsIntegration,
-        TestImmersiveEffectsPerformance
+        TestImmersiveEffectsPerformance,
     ]
 
     for test_class in test_classes:
@@ -348,7 +387,9 @@ def run_immersive_effects_tests():
         for test, traceback in result.errors:
             print(f"  - {test}: {traceback}")
 
-    success_rate = ((result.testsRun - len(result.failures) - len(result.errors)) / result.testsRun) * 100
+    success_rate = (
+        (result.testsRun - len(result.failures) - len(result.errors)) / result.testsRun
+    ) * 100
     print(f"\n🎯 TAUX DE RÉUSSITE: {success_rate:.1f}%")
 
     return result.wasSuccessful()

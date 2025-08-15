@@ -9,6 +9,7 @@ import sys
 # Ajouter le répertoire courant au path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+
 def test_educational_games_engine():
     """Test simple du moteur de mini-jeux éducatifs"""
 
@@ -71,8 +72,10 @@ def test_educational_games_engine():
     except Exception as e:
         print(f"❌ Erreur : {e}")
         import traceback
+
         traceback.print_exc()
         return False
+
 
 def test_educational_games_commands():
     """Test des commandes de mini-jeux"""
@@ -89,7 +92,7 @@ def test_educational_games_commands():
             "name": "Test User",
             "level": 2,
             "score": 100,
-            "badges": []
+            "badges": [],
         }
 
         # Test des commandes
@@ -98,7 +101,7 @@ def test_educational_games_commands():
             ("games_list", []),
             ("game_stats", []),
             ("game_leaderboard", []),
-            ("game_progress", [])
+            ("game_progress", []),
         ]
 
         for command, args in commands_to_test:
@@ -116,8 +119,10 @@ def test_educational_games_commands():
     except Exception as e:
         print(f"❌ Erreur commandes : {e}")
         import traceback
+
         traceback.print_exc()
         return False
+
 
 def main():
     """Fonction principale"""
@@ -139,7 +144,9 @@ def main():
     if engine_success and commands_success:
         print("\n🎉 SYSTÈME DE MINI-JEUX ÉDUCATIFS OPÉRATIONNEL !")
         print("💡 Fonctionnalités disponibles :")
-        print("  - 9 mini-jeux éducatifs (logique, code, cybersécurité, cryptographie, réseaux)")
+        print(
+            "  - 9 mini-jeux éducatifs (logique, code, cybersécurité, cryptographie, réseaux)"
+        )
         print("  - Système de points et badges")
         print("  - Interface immersive avec effets visuels")
         print("  - Commandes terminal intégrées")
@@ -149,6 +156,7 @@ def main():
         print("\n❌ CERTAINS TESTS ONT ÉCHOUÉ")
         return False
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     success = main()
     sys.exit(0 if success else 1)

@@ -24,7 +24,7 @@ class TerminalImprovementsTester:
             "feedback_quality": 0,
             "accessibility_score": 0,
             "responsive_score": 0,
-            "performance_score": 0
+            "performance_score": 0,
         }
 
     def test_intelligent_feedback(self):
@@ -36,20 +36,20 @@ class TerminalImprovementsTester:
                 "name": "Commande inexistante",
                 "command": "commande_inexistante",
                 "expected_feedback": "help",
-                "description": "Doit afficher une aide contextuelle"
+                "description": "Doit afficher une aide contextuelle",
             },
             {
                 "name": "Commande valide",
                 "command": "aide",
                 "expected_feedback": "encouragement",
-                "description": "Doit afficher un encouragement"
+                "description": "Doit afficher un encouragement",
             },
             {
                 "name": "Commande rapide",
                 "command": "profil",
                 "expected_feedback": "success",
-                "description": "Doit afficher un message de succès"
-            }
+                "description": "Doit afficher un message de succès",
+            },
         ]
 
         feedback_score = 0
@@ -60,7 +60,7 @@ class TerminalImprovementsTester:
                 response = requests.post(
                     f"{self.base_url}/commande",
                     json={"commande": test["command"]},
-                    timeout=5
+                    timeout=5,
                 )
 
                 if response.status_code == 200:
@@ -81,7 +81,9 @@ class TerminalImprovementsTester:
                 print(f"❌ {test['name']}: Erreur - {e}")
 
         self.results["feedback_quality"] = (feedback_score / total_tests) * 100
-        print(f"📊 Score feedback intelligent: {self.results['feedback_quality']:.1f}/100")
+        print(
+            f"📊 Score feedback intelligent: {self.results['feedback_quality']:.1f}/100"
+        )
 
     def test_accessibility(self):
         """Test de l'accessibilité"""
@@ -102,7 +104,7 @@ class TerminalImprovementsTester:
                     ("ARIA labels", "aria-label", "Labels ARIA présents"),
                     ("Contraste", "color: #ffffff", "Contraste suffisant"),
                     ("Navigation clavier", "keydown", "Navigation clavier supportée"),
-                    ("Messages d'erreur", "error", "Messages d'erreur clairs")
+                    ("Messages d'erreur", "error", "Messages d'erreur clairs"),
                 ]
 
                 for check_name, check_term, description in checks:
@@ -113,8 +115,12 @@ class TerminalImprovementsTester:
                     else:
                         print(f"⚠️ {check_name}: {description} manquant")
 
-                self.results["accessibility_score"] = (accessibility_score / total_checks) * 100
-                print(f"📊 Score accessibilité: {self.results['accessibility_score']:.1f}/100")
+                self.results["accessibility_score"] = (
+                    accessibility_score / total_checks
+                ) * 100
+                print(
+                    f"📊 Score accessibilité: {self.results['accessibility_score']:.1f}/100"
+                )
 
             else:
                 print(f"❌ Erreur HTTP {response.status_code}")
@@ -136,11 +142,23 @@ class TerminalImprovementsTester:
 
                 # Vérifier les breakpoints responsive
                 checks = [
-                    ("Breakpoint 1024px", "@media (max-width: 1024px)", "Breakpoint desktop"),
-                    ("Breakpoint 768px", "@media (max-width: 768px)", "Breakpoint tablette"),
-                    ("Breakpoint 480px", "@media (max-width: 480px)", "Breakpoint mobile"),
+                    (
+                        "Breakpoint 1024px",
+                        "@media (max-width: 1024px)",
+                        "Breakpoint desktop",
+                    ),
+                    (
+                        "Breakpoint 768px",
+                        "@media (max-width: 768px)",
+                        "Breakpoint tablette",
+                    ),
+                    (
+                        "Breakpoint 480px",
+                        "@media (max-width: 480px)",
+                        "Breakpoint mobile",
+                    ),
                     ("Viewport meta", "viewport", "Meta viewport présent"),
-                    ("Flexbox", "display: flex", "Layout flexbox")
+                    ("Flexbox", "display: flex", "Layout flexbox"),
                 ]
 
                 for check_name, check_term, description in checks:
@@ -151,8 +169,12 @@ class TerminalImprovementsTester:
                     else:
                         print(f"⚠️ {check_name}: {description} manquant")
 
-                self.results["responsive_score"] = (responsive_score / total_checks) * 100
-                print(f"📊 Score responsive: {self.results['responsive_score']:.1f}/100")
+                self.results["responsive_score"] = (
+                    responsive_score / total_checks
+                ) * 100
+                print(
+                    f"📊 Score responsive: {self.results['responsive_score']:.1f}/100"
+                )
 
             else:
                 print(f"❌ Erreur HTTP {response.status_code}")
@@ -216,7 +238,7 @@ class TerminalImprovementsTester:
             self.results["feedback_quality"],
             self.results["accessibility_score"],
             self.results["responsive_score"],
-            self.results["performance_score"]
+            self.results["performance_score"],
         ]
 
         self.results["overall_score"] = sum(scores) / len(scores)
@@ -237,22 +259,23 @@ class TerminalImprovementsTester:
         print(f"⚡ Performance: {self.results['performance_score']:.1f}/100")
 
         # Évaluation qualitative
-        if self.results['overall_score'] >= 85:
+        if self.results["overall_score"] >= 85:
             print("🏆 EXCELLENT: Terminal professionnel et accessible !")
-        elif self.results['overall_score'] >= 70:
+        elif self.results["overall_score"] >= 70:
             print("✅ BON: Terminal bien amélioré avec quelques points à optimiser")
-        elif self.results['overall_score'] >= 50:
+        elif self.results["overall_score"] >= 50:
             print("⚠️ MOYEN: Améliorations visibles mais encore du travail")
         else:
             print("❌ INSUFFISANT: Besoin d'améliorations majeures")
 
         # Sauvegarder le rapport
         filename = f"terminal_improvements_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-        with open(filename, 'w', encoding='utf-8') as f:
+        with open(filename, "w", encoding="utf-8") as f:
             json.dump(self.results, f, indent=2, ensure_ascii=False)
 
         print(f"\n📄 Rapport sauvegardé: {filename}")
         print("=" * 60)
+
 
 if __name__ == "__main__":
     tester = TerminalImprovementsTester()

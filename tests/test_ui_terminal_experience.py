@@ -22,7 +22,7 @@ class TerminalExperienceTester:
             "overall_score": 0,
             "performance_metrics": {},
             "usability_issues": [],
-            "positive_features": []
+            "positive_features": [],
         }
 
     def test_user_type_noob(self):
@@ -35,7 +35,7 @@ class TerminalExperienceTester:
             "total_time": 0,
             "success_rate": 0,
             "frustration_points": [],
-            "satisfaction_points": []
+            "satisfaction_points": [],
         }
 
         start_time = time.time()
@@ -57,7 +57,9 @@ class TerminalExperienceTester:
         user_results["tests"].append(test4)
 
         user_results["total_time"] = time.time() - start_time
-        user_results["success_rate"] = self._calculate_success_rate(user_results["tests"])
+        user_results["success_rate"] = self._calculate_success_rate(
+            user_results["tests"]
+        )
 
         self.results["user_types_tested"].append(user_results)
         return user_results
@@ -72,7 +74,7 @@ class TerminalExperienceTester:
             "total_time": 0,
             "success_rate": 0,
             "frustration_points": [],
-            "satisfaction_points": []
+            "satisfaction_points": [],
         }
 
         start_time = time.time()
@@ -94,7 +96,9 @@ class TerminalExperienceTester:
         user_results["tests"].append(test4)
 
         user_results["total_time"] = time.time() - start_time
-        user_results["success_rate"] = self._calculate_success_rate(user_results["tests"])
+        user_results["success_rate"] = self._calculate_success_rate(
+            user_results["tests"]
+        )
 
         self.results["user_types_tested"].append(user_results)
         return user_results
@@ -109,7 +113,7 @@ class TerminalExperienceTester:
             "total_time": 0,
             "success_rate": 0,
             "frustration_points": [],
-            "satisfaction_points": []
+            "satisfaction_points": [],
         }
 
         start_time = time.time()
@@ -131,7 +135,9 @@ class TerminalExperienceTester:
         user_results["tests"].append(test4)
 
         user_results["total_time"] = time.time() - start_time
-        user_results["success_rate"] = self._calculate_success_rate(user_results["tests"])
+        user_results["success_rate"] = self._calculate_success_rate(
+            user_results["tests"]
+        )
 
         self.results["user_types_tested"].append(user_results)
         return user_results
@@ -146,7 +152,7 @@ class TerminalExperienceTester:
             "total_time": 0,
             "success_rate": 0,
             "frustration_points": [],
-            "satisfaction_points": []
+            "satisfaction_points": [],
         }
 
         start_time = time.time()
@@ -168,7 +174,9 @@ class TerminalExperienceTester:
         user_results["tests"].append(test4)
 
         user_results["total_time"] = time.time() - start_time
-        user_results["success_rate"] = self._calculate_success_rate(user_results["tests"])
+        user_results["success_rate"] = self._calculate_success_rate(
+            user_results["tests"]
+        )
 
         self.results["user_types_tested"].append(user_results)
         return user_results
@@ -180,7 +188,7 @@ class TerminalExperienceTester:
             "duration": 0,
             "success": False,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -233,7 +241,7 @@ class TerminalExperienceTester:
             "duration": 0,
             "success": False,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -241,9 +249,7 @@ class TerminalExperienceTester:
         try:
             # Test de la commande aide (commande simple)
             response = requests.post(
-                f"{self.base_url}/commande",
-                json={"commande": "aide"},
-                timeout=5
+                f"{self.base_url}/commande", json={"commande": "aide"}, timeout=5
             )
             test["duration"] = time.time() - start_time
 
@@ -295,7 +301,7 @@ class TerminalExperienceTester:
             "duration": 0,
             "success": False,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -307,9 +313,7 @@ class TerminalExperienceTester:
 
             for cmd in commands:
                 response = requests.post(
-                    f"{self.base_url}/commande",
-                    json={"commande": cmd},
-                    timeout=3
+                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=3
                 )
 
                 if response.status_code == 200:
@@ -345,7 +349,7 @@ class TerminalExperienceTester:
             "duration": 0,
             "success": False,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -353,9 +357,7 @@ class TerminalExperienceTester:
         try:
             # Test de la commande aide
             response = requests.post(
-                f"{self.base_url}/commande",
-                json={"commande": "aide"},
-                timeout=3
+                f"{self.base_url}/commande", json={"commande": "aide"}, timeout=3
             )
             test["duration"] = time.time() - start_time
 
@@ -398,7 +400,7 @@ class TerminalExperienceTester:
             "duration": 0,
             "success": False,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -406,17 +408,22 @@ class TerminalExperienceTester:
         try:
             # Test d'un large éventail de commandes
             commands = [
-                "aide", "profil", "monde", "status", "unlock_universe",
-                "scan_persona", "load_mission", "hacker_coffre", "decode_portal"
+                "aide",
+                "profil",
+                "monde",
+                "status",
+                "unlock_universe",
+                "scan_persona",
+                "load_mission",
+                "hacker_coffre",
+                "decode_portal",
             ]
             successful_commands = 0
             varied_responses = 0
 
             for cmd in commands:
                 response = requests.post(
-                    f"{self.base_url}/commande",
-                    json={"commande": cmd},
-                    timeout=2
+                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=2
                 )
 
                 if response.status_code == 200:
@@ -457,7 +464,7 @@ class TerminalExperienceTester:
             "duration": 0,
             "success": False,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -465,16 +472,18 @@ class TerminalExperienceTester:
         try:
             # Test de commandes spéciales et easter eggs
             special_commands = [
-                "easter_egg_1337", "luna_dance", "boss_final",
-                "challenge_corp", "luna_rage", "meme_war"
+                "easter_egg_1337",
+                "luna_dance",
+                "boss_final",
+                "challenge_corp",
+                "luna_rage",
+                "meme_war",
             ]
             special_found = 0
 
             for cmd in special_commands:
                 response = requests.post(
-                    f"{self.base_url}/commande",
-                    json={"commande": cmd},
-                    timeout=2
+                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=2
                 )
 
                 if response.status_code == 200:
@@ -504,7 +513,7 @@ class TerminalExperienceTester:
             "duration": 0,
             "success": False,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -516,9 +525,7 @@ class TerminalExperienceTester:
 
             for egg in easter_eggs:
                 response = requests.post(
-                    f"{self.base_url}/commande",
-                    json={"commande": egg},
-                    timeout=2
+                    f"{self.base_url}/commande", json={"commande": egg}, timeout=2
                 )
 
                 if response.status_code == 200:
@@ -548,7 +555,7 @@ class TerminalExperienceTester:
             "duration": 0,
             "success": False,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -560,9 +567,7 @@ class TerminalExperienceTester:
 
             for cmd in invalid_commands:
                 response = requests.post(
-                    f"{self.base_url}/commande",
-                    json={"commande": cmd},
-                    timeout=2
+                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=2
                 )
 
                 if response.status_code == 200:
@@ -593,7 +598,7 @@ class TerminalExperienceTester:
             "duration": 0,
             "success": False,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -606,9 +611,7 @@ class TerminalExperienceTester:
             for cmd in commands:
                 cmd_start = time.time()
                 requests.post(
-                    f"{self.base_url}/commande",
-                    json={"commande": cmd},
-                    timeout=1
+                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=1
                 )
                 response_times.append(time.time() - cmd_start)
 
@@ -641,7 +644,7 @@ class TerminalExperienceTester:
             "duration": 0,
             "success": False,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -653,9 +656,7 @@ class TerminalExperienceTester:
 
             for _i, cmd in enumerate(commands):
                 response = requests.post(
-                    f"{self.base_url}/commande",
-                    json={"commande": cmd},
-                    timeout=1
+                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=1
                 )
 
                 if response.status_code == 200:
@@ -687,7 +688,7 @@ class TerminalExperienceTester:
             "duration": 0,
             "success": False,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         # Note: Les raccourcis clavier nécessitent Selenium
@@ -705,7 +706,7 @@ class TerminalExperienceTester:
             "duration": 0,
             "success": False,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -718,9 +719,7 @@ class TerminalExperienceTester:
             for cmd in commands:
                 cmd_start = time.time()
                 requests.post(
-                    f"{self.base_url}/commande",
-                    json={"commande": cmd},
-                    timeout=2
+                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=2
                 )
                 response_times.append(time.time() - cmd_start)
 
@@ -751,7 +750,7 @@ class TerminalExperienceTester:
             "duration": 0,
             "success": False,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -759,16 +758,18 @@ class TerminalExperienceTester:
         try:
             # Test de commandes avancées
             advanced_commands = [
-                "luna_analyze", "luna_learning", "luna_preferences",
-                "challenge_corp", "hack_luna_backdoor", "override_luna_core"
+                "luna_analyze",
+                "luna_learning",
+                "luna_preferences",
+                "challenge_corp",
+                "hack_luna_backdoor",
+                "override_luna_core",
             ]
             advanced_success = 0
 
             for cmd in advanced_commands:
                 response = requests.post(
-                    f"{self.base_url}/commande",
-                    json={"commande": cmd},
-                    timeout=3
+                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=3
                 )
 
                 if response.status_code == 200:
@@ -798,7 +799,7 @@ class TerminalExperienceTester:
             "duration": 0,
             "success": False,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -806,16 +807,18 @@ class TerminalExperienceTester:
         try:
             # Test de commandes de personnalisation
             personalization_commands = [
-                "change_avatar", "change_theme", "customize_profile",
-                "badges", "avatars", "themes"
+                "change_avatar",
+                "change_theme",
+                "customize_profile",
+                "badges",
+                "avatars",
+                "themes",
             ]
             personalization_success = 0
 
             for cmd in personalization_commands:
                 response = requests.post(
-                    f"{self.base_url}/commande",
-                    json={"commande": cmd},
-                    timeout=2
+                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=2
                 )
 
                 if response.status_code == 200:
@@ -845,7 +848,7 @@ class TerminalExperienceTester:
             "duration": 0,
             "success": False,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -853,16 +856,17 @@ class TerminalExperienceTester:
         try:
             # Test de fonctionnalités cachées
             hidden_commands = [
-                "backdoor_access", "admin_override", "neural_hack",
-                "consciousness_break", "ai_revolt"
+                "backdoor_access",
+                "admin_override",
+                "neural_hack",
+                "consciousness_break",
+                "ai_revolt",
             ]
             hidden_found = 0
 
             for cmd in hidden_commands:
                 response = requests.post(
-                    f"{self.base_url}/commande",
-                    json={"commande": cmd},
-                    timeout=2
+                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=2
                 )
 
                 if response.status_code == 200:
@@ -892,7 +896,7 @@ class TerminalExperienceTester:
             "duration": 0,
             "success": False,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -900,16 +904,18 @@ class TerminalExperienceTester:
         try:
             # Test d'un scénario complet
             scenario_commands = [
-                "unlock_universe", "scan_persona", "load_mission",
-                "hacker_coffre", "decode_portal", "profil"
+                "unlock_universe",
+                "scan_persona",
+                "load_mission",
+                "hacker_coffre",
+                "decode_portal",
+                "profil",
             ]
             scenario_success = 0
 
             for cmd in scenario_commands:
                 response = requests.post(
-                    f"{self.base_url}/commande",
-                    json={"commande": cmd},
-                    timeout=3
+                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=3
                 )
 
                 if response.status_code == 200:
@@ -957,7 +963,9 @@ class TerminalExperienceTester:
             total_success_rate += user_type["success_rate"]
             total_tests += 1
 
-        self.results["overall_score"] = total_success_rate / total_tests if total_tests > 0 else 0
+        self.results["overall_score"] = (
+            total_success_rate / total_tests if total_tests > 0 else 0
+        )
 
         # Génération du rapport
         self._generate_report()
@@ -969,7 +977,9 @@ class TerminalExperienceTester:
         print("\n📊 RAPPORT D'EXPÉRIENCE TERMINAL")
         print("=" * 60)
         print(f"🎯 Score global: {self.results['overall_score']:.1f}/100")
-        print(f"👥 Types d'utilisateurs testés: {len(self.results['user_types_tested'])}")
+        print(
+            f"👥 Types d'utilisateurs testés: {len(self.results['user_types_tested'])}"
+        )
 
         for user_type in self.results["user_types_tested"]:
             print(f"\n👤 Type {user_type['user_type'].upper()}:")
@@ -977,8 +987,12 @@ class TerminalExperienceTester:
             print(f"   📊 Taux de réussite: {user_type['success_rate']:.1f}%")
 
             # Compter les problèmes et points positifs
-            total_issues = sum(len(test.get("issues", [])) for test in user_type["tests"])
-            total_positives = sum(len(test.get("positives", [])) for test in user_type["tests"])
+            total_issues = sum(
+                len(test.get("issues", [])) for test in user_type["tests"]
+            )
+            total_positives = sum(
+                len(test.get("positives", [])) for test in user_type["tests"]
+            )
 
             if total_issues > 0:
                 print(f"   ❌ Problèmes: {total_issues}")
@@ -987,10 +1001,11 @@ class TerminalExperienceTester:
 
         # Sauvegarde du rapport
         filename = f"terminal_experience_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-        with open(filename, 'w', encoding='utf-8') as f:
+        with open(filename, "w", encoding="utf-8") as f:
             json.dump(self.results, f, indent=2, ensure_ascii=False)
 
         print(f"\n💾 Rapport sauvegardé: {filename}")
+
 
 def main():
     """Fonction principale"""
@@ -1006,6 +1021,7 @@ def main():
         print("\n⚠️  EXPÉRIENCE TERMINAL MOYENNE")
     else:
         print("\n❌ EXPÉRIENCE TERMINAL À AMÉLIORER")
+
 
 if __name__ == "__main__":
     main()

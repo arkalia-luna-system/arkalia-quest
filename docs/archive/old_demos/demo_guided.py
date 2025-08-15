@@ -65,12 +65,7 @@ class ArkaliaGuidedDemo:
 
             # 3. Test des commandes via interface
             print("\n3️⃣ Test des commandes via interface...")
-            commands = [
-                "aide",
-                "luna_contact",
-                "badges",
-                "profil"
-            ]
+            commands = ["aide", "luna_contact", "badges", "profil"]
 
             for cmd in commands:
                 try:
@@ -102,10 +97,7 @@ class ArkaliaGuidedDemo:
 
             # 4. Navigation vers les autres pages
             print("\n4️⃣ Navigation vers les autres pages...")
-            pages = [
-                ("/monde", "Page monde"),
-                ("/profil", "Page profil")
-            ]
+            pages = [("/monde", "Page monde"), ("/profil", "Page profil")]
 
             for page, description in pages:
                 try:
@@ -134,7 +126,9 @@ class ArkaliaGuidedDemo:
                 buttons = self.driver.find_elements(By.TAG_NAME, "button")
                 links = self.driver.find_elements(By.TAG_NAME, "a")
 
-                print(f"   📊 Éléments interactifs trouvés: {len(buttons)} boutons, {len(links)} liens")
+                print(
+                    f"   📊 Éléments interactifs trouvés: {len(buttons)} boutons, {len(links)} liens"
+                )
 
                 # Tester un bouton si disponible
                 if buttons:
@@ -153,7 +147,7 @@ class ArkaliaGuidedDemo:
                 sizes = [
                     (1920, 1080, "Desktop"),
                     (768, 1024, "Tablet"),
-                    (375, 667, "Mobile")
+                    (375, 667, "Mobile"),
                 ]
 
                 for width, height, device in sizes:
@@ -205,9 +199,11 @@ class ArkaliaGuidedDemo:
             if self.driver:
                 self.driver.quit()
 
+
 def main():
     demo = ArkaliaGuidedDemo()
     demo.demo_sequence()
+
 
 if __name__ == "__main__":
     main()

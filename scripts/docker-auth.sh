@@ -23,6 +23,37 @@ if ! docker info &> /dev/null; then
     exit 1
 fi
 
+# Fonction pour valider les credentials
+validate_credentials() {
+    local username="$1"
+    local password="$2"
+    
+    # Vérifier que username n'est pas vide
+    if [ -z "$username" ] || [ "$username" = "null" ] || [ "$username" = "undefined" ]; then
+        echo "❌ Username Docker invalide ou manquant"
+        return 1
+    fi
+    
+    # Vérifier que password n'est pas vide
+    if [ -z "$password" ] || [ "$password" = "null" ] || [ "$password" = "undefined" ]; then
+        echo "❌ Password Docker invalide ou manquant"
+        return 1
+    fi
+    
+    # Vérifier la longueur minimale
+    if [ ${#username} -lt 3 ]; then
+        echo "❌ Username Docker trop court (minimum 3 caractères)"
+        return 1
+    fi
+    
+    if [ ${#password} -lt 6 ]; then
+        echo "❌ Password Docker trop court (minimum 6 caractères)"
+        return 1
+    fi
+    
+    return 0
+}
+
 # Fonction pour lire les credentials de manière sécurisée
 read_credentials() {
     local username_var="DOCKER_USERNAME"
@@ -33,7 +64,14 @@ read_credentials() {
         echo "✅ Credentials trouvés dans les variables d'environnement"
         DOCKER_USERNAME="${!username_var}"
         DOCKER_PASSWORD="${!password_var}"
-        return 0
+        
+        # Valider les credentials
+        if validate_credentials "$DOCKER_USERNAME" "$DOCKER_PASSWORD"; then
+            return 0
+        else
+            echo "❌ Credentials des variables d'environnement invalides"
+            return 1
+        fi
     fi
     
     # Essayer de lire depuis un fichier .env
@@ -42,20 +80,30 @@ read_credentials() {
         source "$SCRIPT_DIR/../.env"
         if [ -n "$DOCKER_USERNAME" ] && [ -n "$DOCKER_PASSWORD" ]; then
             echo "✅ Credentials trouvés dans .env"
-            return 0
+            if validate_credentials "$DOCKER_USERNAME" "$DOCKER_PASSWORD"; then
+                return 0
+            else
+                echo "❌ Credentials du fichier .env invalides"
+                return 1
+            fi
         fi
     fi
     
     # Demander interactivement (seulement si TTY disponible)
     if [ -t 0 ]; then
         echo "📝 Saisie interactive des credentials:"
-        read -p "Username Docker: " DOCKER_USERNAME
-        read -s -p "Password Docker: " DOCKER_PASSWORD
-        echo
-        if [ -n "$DOCKER_USERNAME" ] && [ -n "$DOCKER_PASSWORD" ]; then
-            echo "✅ Credentials saisis"
-            return 0
-        fi
+        while true; do
+            read -p "Username Docker: " DOCKER_USERNAME
+            read -s -p "Password Docker: " DOCKER_PASSWORD
+            echo
+            
+            if validate_credentials "$DOCKER_USERNAME" "$DOCKER_PASSWORD"; then
+                echo "✅ Credentials saisis et validés"
+                return 0
+            else
+                echo "❌ Credentials invalides, veuillez réessayer"
+            fi
+        done
     fi
     
     return 1
@@ -63,24 +111,48 @@ read_credentials() {
 
 # Lire les credentials
 if ! read_credentials; then
-    echo "❌ Impossible de récupérer les credentials Docker"
+    echo "❌ Impossible de récupérer des credentials Docker valides"
     echo "📋 Solutions:"
     echo "   1. Définir DOCKER_USERNAME et DOCKER_PASSWORD dans l'environnement"
     echo "   2. Créer un fichier .env avec ces variables"
     echo "   3. Exécuter ce script dans un terminal interactif"
+    echo ""
+    echo "🔍 Vérification des variables d'environnement:"
+    echo "   DOCKER_USERNAME: ${DOCKER_USERNAME:-'non défini'}"
+    echo "   DOCKER_PASSWORD: ${DOCKER_PASSWORD:+'***défini***'}"
     exit 1
 fi
 
-# Authentification Docker
+# Affichage des informations de connexion
+echo "🔐 Tentative de connexion Docker..."
+echo "👤 Utilisateur: $DOCKER_USERNAME"
+echo "🏷️ Registry: $REGISTRY"
+echo "🔒 Password: ${DOCKER_PASSWORD:0:3}***"
+
+# Authentification Docker avec gestion d'erreur robuste
 echo "🔐 Authentification Docker..."
-if echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin "$REGISTRY"; then
+if echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin "$REGISTRY" 2>/tmp/docker_login_error; then
     echo "✅ Authentification Docker réussie pour $REGISTRY"
     echo "👤 Utilisateur: $DOCKER_USERNAME"
     echo "🏷️ Registry: $REGISTRY"
 else
     echo "❌ Échec de l'authentification Docker"
+    echo "🔍 Détails de l'erreur:"
+    cat /tmp/docker_login_error
+    rm -f /tmp/docker_login_error
+    
+    # Suggestions de résolution
+    echo ""
+    echo "🚨 Solutions possibles:"
+    echo "   1. Vérifier que les credentials sont corrects"
+    echo "   2. Vérifier la connectivité réseau"
+    echo "   3. Vérifier que le registry est accessible"
+    echo "   4. Essayer avec un autre registry (ex: ghcr.io)"
     exit 1
 fi
+
+# Nettoyage
+rm -f /tmp/docker_login_error
 
 echo ""
 echo "🎉 Authentification terminée avec succès !"

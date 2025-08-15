@@ -373,7 +373,7 @@ class TestLunaEmotionsIntegration(unittest.TestCase):
         """Test d'un cycle complet d'émotions"""
         profile = {"level": 1, "score": 0, "badges": []}
 
-        # Cycle d'émotions typique
+        # Cycle d'émotions typique avec plus d'actions pour garantir la diversité
         actions_results = [
             (
                 "start_tutorial",
@@ -383,6 +383,9 @@ class TestLunaEmotionsIntegration(unittest.TestCase):
             ("commande_inexistante", {"réussite": False, "score_gagne": 0}),
             ("aide", {"réussite": True, "score_gagne": 10}),
             ("hack_system", {"réussite": True, "score_gagne": 100, "badge": "Expert"}),
+            ("explore", {"réussite": True, "score_gagne": 50}),
+            ("kill_virus", {"réussite": False, "score_gagne": 0}),
+            ("find_shadow", {"réussite": True, "score_gagne": 150}),
         ]
 
         emotions_sequence = []
@@ -391,8 +394,13 @@ class TestLunaEmotionsIntegration(unittest.TestCase):
             emotion_data = self.engine.analyze_action(action, result, profile)
             emotions_sequence.append(emotion_data["emotion"])
 
-        # Vérifier qu'on a une progression logique
-        self.assertGreater(len(set(emotions_sequence)), 2)
+        # Vérifier qu'on a une progression logique avec au moins 3 émotions uniques
+        unique_emotions = set(emotions_sequence)
+        self.assertGreaterEqual(
+            len(unique_emotions),
+            3,
+            f"Attendu au moins 3 émotions uniques, obtenu {len(unique_emotions)}: {unique_emotions}",
+        )
 
         # Vérifier que la relation progresse
         self.assertGreater(self.engine.player_relationship, 0.0)

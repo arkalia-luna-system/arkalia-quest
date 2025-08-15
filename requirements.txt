@@ -2,39 +2,38 @@
 # Version 3.0.0
 
 # Framework web
-Flask==3.0.0
-Werkzeug==3.0.1
-gunicorn==21.2.0
+Flask>=3.0.0
+Werkzeug>=3.0.0
+gunicorn>=21.0.0
 
 # WebSockets pour défis temps réel
-Flask-SocketIO==5.3.6
-python-socketio==5.9.0
-eventlet==0.33.3
+Flask-SocketIO>=5.3.0
+python-socketio>=5.9.0
+eventlet>=0.33.0
 
 # Utilitaires
-python-dotenv==1.0.0
-click==8.1.7
-colorama==0.4.6
-requests==2.31.0
+python-dotenv>=1.0.0
+click>=8.0.0
+colorama>=0.4.0
+requests>=2.31.0
 
 # Sécurité
-cryptography==41.0.7
+cryptography>=41.0.0
 
 # Performance et monitoring
-psutil==5.9.6
+psutil>=5.9.0
 
 # Tests et développement
-pytest==7.4.3
-pytest-cov==4.1.0
-pytest-mock==3.14.1
-pytest-asyncio==0.24.0
-pytest-timeout==2.4.0
-pytest-benchmark==5.1.0
+pytest>=7.0.0
+pytest-cov>=4.0.0
+pytest-mock>=3.10.0
+pytest-asyncio>=0.20.0
+pytest-timeout>=2.0.0
+pytest-benchmark>=4.0.0
 
 # Qualité du code
-ruff==0.12.0
-black==25.1.0
-mypy==1.12.0
+ruff>=0.10.0
+black>=23.0.0
 
 # Couverture de code
-coverage==7.4.0
+coverage>=7.0.0

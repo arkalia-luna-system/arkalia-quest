@@ -1,0 +1,42 @@
+{
+  "id": "acte_2",
+  "titre": "Logs Empoisonnés",
+  "description": "Des logs cachés révèlent des secrets sur NEXUS. Décrypte-les pour comprendre son passé et le danger qui approche.",
+  "difficulte": "moyen",
+  "recompense": 120,
+  "etapes": [
+    {
+      "id": "etape1",
+      "titre": "Trouver les logs",
+      "description": "Utilise la commande 'chercher_logs' pour localiser les fichiers suspects.",
+      "commande": "chercher_logs",
+      "recompense": 30
+    },
+    {
+      "id": "etape2",
+      "titre": "Décrypter SHA256",
+      "description": "Décrypte les logs avec l'outil SHA256 intégré.",
+      "commande": "decrypter_sha256",
+      "recompense": 50
+    },
+    {
+      "id": "etape3",
+      "titre": "Analyser le message de NEXUS",
+      "description": "Lis le message caché signé NEXUS.",
+      "commande": "analyser_message",
+      "recompense": 40
+    }
+  ],
+  "objectifs": [
+    "Trouver et décrypter les logs",
+    "Comprendre le passé de NEXUS",
+    "Découvrir le danger latent"
+  ],
+  "conseils": [
+    "Utilise l'outil SHA256 pour décoder les fichiers",
+    "Lis bien chaque indice dans les logs"
+  ],
+  "personnages": ["luna", "nexus", "joueur"],
+  "objet_symbolique": "Journal_Frag.xml",
+  "cliffhanger": "Un log signé NEXUS…"
+} 

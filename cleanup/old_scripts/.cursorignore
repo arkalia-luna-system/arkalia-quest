@@ -1,0 +1,8 @@
+# Ignorer l'environnement Luna
+/Volumes/T7/arkalia-luna-venv/
+/Volumes/T7/devstation/cursor/arkalia-luna-pro/
+
+# Ignorer les environnements virtuels non-Quest
+.venv/
+venv/
+env/ 

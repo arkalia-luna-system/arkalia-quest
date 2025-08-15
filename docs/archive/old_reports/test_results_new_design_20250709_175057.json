@@ -1,0 +1,60 @@
+{
+  "timestamp": "2025-07-09T17:50:57.526096",
+  "summary": {
+    "total": 7,
+    "successful": 5,
+    "failed": 2,
+    "success_rate": 71.42857142857143
+  },
+  "results": [
+    {
+      "test": "Design System CSS",
+      "success": true,
+      "message": "Toutes les variables et classes du design system sont présentes",
+      "timestamp": "2025-07-09T17:50:53.959786",
+      "details": {}
+    },
+    {
+      "test": "Page d'accueil - Nouveau design",
+      "success": true,
+      "message": "Tous les éléments du design system sont présents",
+      "timestamp": "2025-07-09T17:50:54.465298",
+      "details": {}
+    },
+    {
+      "test": "Terminal - Nouveau design",
+      "success": false,
+      "message": "Éléments manquants: Terminal moderne",
+      "timestamp": "2025-07-09T17:50:54.980752",
+      "details": {}
+    },
+    {
+      "test": "Terminal - Fonctionnalité",
+      "success": true,
+      "message": "La commande aide fonctionne correctement",
+      "timestamp": "2025-07-09T17:50:55.492131",
+      "details": {}
+    },
+    {
+      "test": "LUNA - Émotions",
+      "success": true,
+      "message": "LUNA est calm (couleur: #00ccff)",
+      "timestamp": "2025-07-09T17:50:56.007297",
+      "details": {}
+    },
+    {
+      "test": "Accessibilité",
+      "success": false,
+      "message": "Éléments d'accessibilité manquants: Focus visible, ARIA labels",
+      "timestamp": "2025-07-09T17:50:56.514054",
+      "details": {}
+    },
+    {
+      "test": "Design Responsive",
+      "success": true,
+      "message": "Toutes les media queries sont présentes",
+      "timestamp": "2025-07-09T17:50:57.023274",
+      "details": {}
+    }
+  ]
+}

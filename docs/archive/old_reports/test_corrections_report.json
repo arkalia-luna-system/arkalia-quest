@@ -1,0 +1,83 @@
+{
+  "timestamp": "2025-07-09T15:29:32.508119",
+  "summary": {
+    "total_tests": 12,
+    "successful_tests": 12,
+    "failed_tests": 0,
+    "success_rate": 100.0
+  },
+  "results": [
+    {
+      "test": "Page Profil",
+      "success": true,
+      "status_code": 200,
+      "error": null
+    },
+    {
+      "test": "Fichier CSS",
+      "success": true,
+      "status_code": 200,
+      "error": null
+    },
+    {
+      "test": "API Leaderboard",
+      "success": true,
+      "status_code": 200,
+      "error": null
+    },
+    {
+      "test": "Commande hack_system",
+      "success": true,
+      "status_code": 200,
+      "error": null
+    },
+    {
+      "test": "Commande kill_virus",
+      "success": true,
+      "status_code": 200,
+      "error": null
+    },
+    {
+      "test": "Commande find_shadow",
+      "success": true,
+      "status_code": 200,
+      "error": null
+    },
+    {
+      "test": "Commande challenge_corp",
+      "success": true,
+      "status_code": 200,
+      "error": null
+    },
+    {
+      "test": "Commande decode_portal",
+      "success": true,
+      "status_code": 200,
+      "error": null
+    },
+    {
+      "test": "Page /",
+      "success": true,
+      "status_code": 200,
+      "error": null
+    },
+    {
+      "test": "Page /terminal",
+      "success": true,
+      "status_code": 200,
+      "error": null
+    },
+    {
+      "test": "Page /monde",
+      "success": true,
+      "status_code": 200,
+      "error": null
+    },
+    {
+      "test": "Page /leaderboard",
+      "success": true,
+      "status_code": 200,
+      "error": null
+    }
+  ]
+}

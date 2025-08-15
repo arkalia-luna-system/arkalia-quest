@@ -1,0 +1,42 @@
+{
+  "id": "acte_6",
+  "titre": "Naissance d'Arkalia",
+  "description": "C'est l'heure de coder la fusion ultime. Utilise tes connaissances en IA pour créer Arkalia et affronter la menace de PANDORA.",
+  "difficulte": "difficile",
+  "recompense": 180,
+  "etapes": [
+    {
+      "id": "etape1",
+      "titre": "Coder la fusion IA",
+      "description": "Utilise la commande 'coder_fusion' pour lancer le processus.",
+      "commande": "coder_fusion",
+      "recompense": 60
+    },
+    {
+      "id": "etape2",
+      "titre": "Analyser le réseau neuronal",
+      "description": "Inspecte la structure du réseau pour vérifier la réussite.",
+      "commande": "analyser_reseau",
+      "recompense": 60
+    },
+    {
+      "id": "etape3",
+      "titre": "Détecter la menace",
+      "description": "Surveille l'apparition de PANDORA dans le système.",
+      "commande": "detecter_pandora",
+      "recompense": 60
+    }
+  ],
+  "objectifs": [
+    "Coder la fusion IA",
+    "Analyser le réseau neuronal",
+    "Détecter la menace de PANDORA"
+  ],
+  "conseils": [
+    "Révise les bases des réseaux de neurones",
+    "Sois attentif aux signaux d'alerte dans le système"
+  ],
+  "personnages": ["luna", "nexus", "althea", "joueur"],
+  "objet_symbolique": "Arkalia_Core.html",
+  "cliffhanger": "PANDORA s'éveille…"
+} 

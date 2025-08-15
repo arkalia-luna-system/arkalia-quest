@@ -1,0 +1,36 @@
+{
+  "tests_executes": 140,
+  "tests_reussis": 135,
+  "tests_echecs": 0,
+  "erreurs": [],
+  "warnings": [
+    "Base de données incomplète"
+  ],
+  "performance": {
+    "avg_response_time": 0.001470637321472168,
+    "status": "EXCELLENT",
+    "stress_status": "EXCELLENT",
+    "stress_results": {
+      "total_requests": 100,
+      "total_success": 100,
+      "total_errors": 0,
+      "success_rate": 100.0
+    }
+  },
+  "security": {
+    "score": 2,
+    "status": "OK"
+  },
+  "accessibility": {
+    "score": 4,
+    "status": "OK"
+  },
+  "database": {
+    "status": "WARNING"
+  },
+  "pwa": {
+    "score": 4,
+    "status": "OK"
+  },
+  "details": []
+}

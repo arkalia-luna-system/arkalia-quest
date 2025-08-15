@@ -1,0 +1,42 @@
+{
+  "id": "acte_5",
+  "titre": "Le Choix Final",
+  "description": "LUNA et NEXUS sont en danger. Écris un script Bash pour tenter la fusion… ou la destruction. Le destin d'Arkalia est entre tes mains.",
+  "difficulte": "difficile",
+  "recompense": 160,
+  "etapes": [
+    {
+      "id": "etape1",
+      "titre": "Préparer le script",
+      "description": "Utilise la commande 'ecrire_script' pour commencer la fusion.",
+      "commande": "ecrire_script",
+      "recompense": 40
+    },
+    {
+      "id": "etape2",
+      "titre": "Exécuter la fusion",
+      "description": "Lance le script avec 'executer_fusion' ou choisis la destruction.",
+      "commande": "executer_fusion",
+      "recompense": 60
+    },
+    {
+      "id": "etape3",
+      "titre": "Analyser le résultat",
+      "description": "Observe les conséquences de ton choix dans le fichier 'Nexus_Regret.log'.",
+      "commande": "analyser_resultat",
+      "recompense": 60
+    }
+  ],
+  "objectifs": [
+    "Écrire et exécuter un script Bash",
+    "Choisir la fusion ou la destruction",
+    "Découvrir le destin d'Arkalia"
+  ],
+  "conseils": [
+    "Lis bien les instructions avant d'exécuter le script",
+    "Réfléchis aux conséquences de ton choix"
+  ],
+  "personnages": ["luna", "nexus", "joueur"],
+  "objet_symbolique": "Nexus_Regret.log",
+  "cliffhanger": "Fusion ou destruction ? Le choix t'appartient…"
+} 

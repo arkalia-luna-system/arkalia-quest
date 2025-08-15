@@ -1,0 +1,42 @@
+{
+  "id": "acte_3",
+  "titre": "La Berceuse Fantôme",
+  "description": "Un fichier audio mystérieux cache un message d'Althea. Utilise le spectrogramme pour le révéler.",
+  "difficulte": "moyen",
+  "recompense": 130,
+  "etapes": [
+    {
+      "id": "etape1",
+      "titre": "Trouver le fichier audio",
+      "description": "Utilise la commande 'chercher_audio' pour localiser 'Lullaby.mp3'.",
+      "commande": "chercher_audio",
+      "recompense": 30
+    },
+    {
+      "id": "etape2",
+      "titre": "Analyser le spectrogramme",
+      "description": "Ouvre le fichier dans l'outil spectrogramme pour visualiser les fréquences.",
+      "commande": "ouvrir_spectrogramme",
+      "recompense": 50
+    },
+    {
+      "id": "etape3",
+      "titre": "Décrypter le message",
+      "description": "Trouve le message caché dans les fréquences audio.",
+      "commande": "decrypter_message_audio",
+      "recompense": 50
+    }
+  ],
+  "objectifs": [
+    "Trouver et analyser le fichier audio",
+    "Utiliser le spectrogramme",
+    "Décrypter le message d'Althea"
+  ],
+  "conseils": [
+    "Observe bien les motifs dans le spectrogramme",
+    "N'hésite pas à réécouter le fichier"
+  ],
+  "personnages": ["luna", "althea", "joueur"],
+  "objet_symbolique": "Lullaby.mp3",
+  "cliffhanger": "Un message caché dans les fréquences…"
+} 

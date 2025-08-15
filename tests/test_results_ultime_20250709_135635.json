@@ -1,0 +1,16 @@
+{
+  "tests_executes": 239,
+  "tests_reussis": 238,
+  "tests_echecs": 1,
+  "erreurs": [],
+  "warnings": [
+    "Injection basique non gérée"
+  ],
+  "performance": {
+    "stress_test": {
+      "total_requests": 50,
+      "success_rate": 100.0
+    }
+  },
+  "details": []
+}

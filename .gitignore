@@ -1,5 +1,4 @@
-# Arkalia Quest - .gitignore
-# Version 3.0.0 - Janvier 2025
+# Arkalia Quest - Fichiers à ignorer
 
 # Python
 __pycache__/
@@ -22,8 +21,9 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
-# Virtual Environment
+# Environnements virtuels
 .env
 .venv
 env/
@@ -32,14 +32,14 @@ ENV/
 env.bak/
 venv.bak/
 
-# IDE
+# IDE et éditeurs
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
-# OS
+# Système
 .DS_Store
 .DS_Store?
 ._*
@@ -48,57 +48,46 @@ venv.bak/
 ehthumbs.db
 Thumbs.db
 
-# Logs
+# Logs et bases de données
 *.log
-logs/*.log
-
-# Database
 *.db
 *.sqlite
 *.sqlite3
 
-# Cache
+# Tests et couverture
+.coverage
+coverage.xml
+htmlcov/
 .pytest_cache/
-.benchmarks/
-.cache/
+.tox/
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
 
-# Temporary files
+# Fichiers temporaires
 *.tmp
 *.temp
 *.bak
 *.backup
 
-# Cleanup directory (fichiers temporaires)
-cleanup/
-
-# Environment variables
+# Fichiers de déploiement
 .env.local
 .env.production
 .env.staging
 
-# Docker
-.dockerignore
+# Fichiers de cache
+.ruff_cache/
+.mypy_cache/
+.benchmarks/
 
-# Kubernetes
-k8s/*.yaml.bak
+# Fichiers de rapports de test
+tests/reports/*.json
+tests/results/*.json
 
-# Test results
-test_*.py
-*_test.py
-test_*.json
-*_report.json
-*_results.json
-
-# Demo files
-demo_*.py
-demo_*.sh
-launch_*.sh
-record_*.sh
-
-# Diagnostic files
-diagnostic_*.py
-check_*.py
-
-# Old reports
-RAPPORT_*.md
-AUDIT_*.md
+# Fichiers de données utilisateur
+data/profil_joueur.json
+data/leaderboard.json
+data/badges_secrets.json
+data/achievements.json

@@ -1,0 +1,60 @@
+{
+  "timestamp": "2025-07-09T17:50:28.428342",
+  "summary": {
+    "total": 7,
+    "successful": 4,
+    "failed": 3,
+    "success_rate": 57.14285714285714
+  },
+  "results": [
+    {
+      "test": "Design System CSS",
+      "success": true,
+      "message": "Toutes les variables et classes du design system sont présentes",
+      "timestamp": "2025-07-09T17:50:24.887679",
+      "details": {}
+    },
+    {
+      "test": "Page d'accueil - Nouveau design",
+      "success": false,
+      "message": "Éléments manquants: Design System CSS, Nouveau titre, Section LUNA, Palette émotionnelle, Boutons émotionnels, Navigation moderne, Accessibilité",
+      "timestamp": "2025-07-09T17:50:25.391808",
+      "details": {}
+    },
+    {
+      "test": "Terminal - Nouveau design",
+      "success": false,
+      "message": "Éléments manquants: Design System CSS, Terminal moderne, Zone de saisie, LUNA en direct, Commandes rapides, Émotions LUNA",
+      "timestamp": "2025-07-09T17:50:25.899302",
+      "details": {}
+    },
+    {
+      "test": "Terminal - Fonctionnalité",
+      "success": true,
+      "message": "La commande aide fonctionne correctement",
+      "timestamp": "2025-07-09T17:50:26.403354",
+      "details": {}
+    },
+    {
+      "test": "LUNA - Émotions",
+      "success": true,
+      "message": "LUNA est calm (couleur: #00ccff)",
+      "timestamp": "2025-07-09T17:50:26.912622",
+      "details": {}
+    },
+    {
+      "test": "Accessibilité",
+      "success": false,
+      "message": "Éléments d'accessibilité manquants: Skip link, Panneau accessibilité, Contrôles accessibilité, CSS accessibilité, Focus visible, ARIA labels",
+      "timestamp": "2025-07-09T17:50:27.419571",
+      "details": {}
+    },
+    {
+      "test": "Design Responsive",
+      "success": true,
+      "message": "Toutes les media queries sont présentes",
+      "timestamp": "2025-07-09T17:50:27.925415",
+      "details": {}
+    }
+  ]
+}

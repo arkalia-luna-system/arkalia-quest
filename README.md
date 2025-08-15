@@ -1,5 +1,11 @@
 # 🌌 ARKALIA QUEST v3.0.0 - L'ÉVEIL DES IA
 
+[![CI Tests](https://github.com/arkalia-luna-system/arkalia-quest/workflows/%F0%9F%A7%AA%20CI%20-%20Tests%20et%20Qualité%20du%20Code/badge.svg)](https://github.com/arkalia-luna-system/arkalia-quest/actions)
+[![Code Quality](https://img.shields.io/badge/code%20quality-A%2B-brightgreen)](https://github.com/arkalia-luna-system/arkalia-quest)
+[![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Status](https://img.shields.io/badge/status-PRÊT%20PRODUCTION-success)](https://github.com/arkalia-luna-system/arkalia-quest)
+
 ## 🎮 **QU'EST-CE QU'ARKALIA QUEST ?**
 
 **Arkalia Quest** est un jeu éducatif immersif avec IA émotionnelle, conçu spécialement pour les adolescents. Plongez dans un univers cyberpunk où vous devez sauver l'humanité avec l'aide de LUNA, votre assistant IA personnel.

@@ -1,0 +1,18 @@
+[Unit]
+Description=Arkalia Quest Game Server
+After=network.target
+
+[Service]
+Type=simple
+User=arkalia
+WorkingDirectory=/opt/arkalia-quest
+Environment=PATH=/opt/arkalia-quest/venv/bin
+Environment=FLASK_ENV=production
+Environment=SECRET_KEY=your-secret-key-here
+ExecStart=/opt/arkalia-quest/venv/bin/gunicorn app:app --bind 0.0.0.0:5000 --workers 2 --timeout 120 --preload
+ExecReload=/bin/kill -s HUP $MAINPID
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

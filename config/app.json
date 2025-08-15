@@ -1,0 +1,40 @@
+{
+  "name": "arkalia-quest",
+  "description": "Jeu éducatif immersif avec IA émotionnelle LUNA",
+  "repository": "https://github.com/arkalia-luna-system/arkalia-quest",
+  "logo": "https://raw.githubusercontent.com/arkalia-luna-system/arkalia-quest/main/static/favicon.ico",
+  "keywords": ["python", "flask", "game", "education", "ai", "luna"],
+  "env": {
+    "FLASK_ENV": {
+      "description": "Environment Flask",
+      "value": "production"
+    },
+    "SECRET_KEY": {
+      "description": "Clé secrète Flask",
+      "generator": "secret"
+    },
+    "PYTHON_VERSION": {
+      "description": "Version Python",
+      "value": "3.11.13"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "addons": [
+    {
+      "plan": "heroku-postgresql:hobby-dev"
+    }
+  ],
+  "scripts": {
+    "postdeploy": "python -c \"print('🎮 Arkalia Quest déployé avec succès!')\""
+  }
+}

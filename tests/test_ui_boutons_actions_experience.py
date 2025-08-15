@@ -21,7 +21,7 @@ class BoutonsActionsExperienceTester:
             "pages_tested": [],
             "overall_score": 0,
             "button_issues": [],
-            "positive_features": []
+            "positive_features": [],
         }
 
     def test_terminal_buttons(self):
@@ -34,7 +34,7 @@ class BoutonsActionsExperienceTester:
             "total_time": 0,
             "success_rate": 0,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -42,10 +42,18 @@ class BoutonsActionsExperienceTester:
         # Test des boutons du terminal
         terminal_buttons = [
             {"name": "Bouton Aide", "action": "aide", "expected": "réponse d'aide"},
-            {"name": "Bouton Profil", "action": "profil", "expected": "informations profil"},
+            {
+                "name": "Bouton Profil",
+                "action": "profil",
+                "expected": "informations profil",
+            },
             {"name": "Bouton Monde", "action": "monde", "expected": "accès monde"},
             {"name": "Bouton Status", "action": "status", "expected": "statut système"},
-            {"name": "Bouton Clear", "action": "clear", "expected": "nettoyage terminal"}
+            {
+                "name": "Bouton Clear",
+                "action": "clear",
+                "expected": "nettoyage terminal",
+            },
         ]
 
         for button in terminal_buttons:
@@ -53,7 +61,9 @@ class BoutonsActionsExperienceTester:
             terminal_result["buttons_tested"].append(button_result)
 
         terminal_result["total_time"] = time.time() - start_time
-        terminal_result["success_rate"] = self._calculate_button_success_rate(terminal_result["buttons_tested"])
+        terminal_result["success_rate"] = self._calculate_button_success_rate(
+            terminal_result["buttons_tested"]
+        )
 
         self.results["pages_tested"].append(terminal_result)
         return terminal_result
@@ -68,18 +78,38 @@ class BoutonsActionsExperienceTester:
             "total_time": 0,
             "success_rate": 0,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
 
         # Test des boutons de la page monde
         monde_buttons = [
-            {"name": "Bouton Mission", "action": "load_mission", "expected": "chargement mission"},
-            {"name": "Bouton Portail", "action": "decode_portal", "expected": "déchiffrement portail"},
-            {"name": "Bouton Hack", "action": "hacker_coffre", "expected": "hack coffre"},
-            {"name": "Bouton Scan", "action": "scan_persona", "expected": "analyse personnalité"},
-            {"name": "Bouton Reboot", "action": "reboot_world", "expected": "redémarrage monde"}
+            {
+                "name": "Bouton Mission",
+                "action": "load_mission",
+                "expected": "chargement mission",
+            },
+            {
+                "name": "Bouton Portail",
+                "action": "decode_portal",
+                "expected": "déchiffrement portail",
+            },
+            {
+                "name": "Bouton Hack",
+                "action": "hacker_coffre",
+                "expected": "hack coffre",
+            },
+            {
+                "name": "Bouton Scan",
+                "action": "scan_persona",
+                "expected": "analyse personnalité",
+            },
+            {
+                "name": "Bouton Reboot",
+                "action": "reboot_world",
+                "expected": "redémarrage monde",
+            },
         ]
 
         for button in monde_buttons:
@@ -87,7 +117,9 @@ class BoutonsActionsExperienceTester:
             monde_result["buttons_tested"].append(button_result)
 
         monde_result["total_time"] = time.time() - start_time
-        monde_result["success_rate"] = self._calculate_button_success_rate(monde_result["buttons_tested"])
+        monde_result["success_rate"] = self._calculate_button_success_rate(
+            monde_result["buttons_tested"]
+        )
 
         self.results["pages_tested"].append(monde_result)
         return monde_result
@@ -102,18 +134,38 @@ class BoutonsActionsExperienceTester:
             "total_time": 0,
             "success_rate": 0,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
 
         # Test des boutons de la page profil
         profil_buttons = [
-            {"name": "Bouton Badges", "action": "badges", "expected": "affichage badges"},
-            {"name": "Bouton Avatars", "action": "avatars", "expected": "affichage avatars"},
-            {"name": "Bouton Thèmes", "action": "themes", "expected": "affichage thèmes"},
-            {"name": "Bouton Personnalisation", "action": "customize_profile", "expected": "personnalisation"},
-            {"name": "Bouton Leaderboard", "action": "leaderboard", "expected": "accès classement"}
+            {
+                "name": "Bouton Badges",
+                "action": "badges",
+                "expected": "affichage badges",
+            },
+            {
+                "name": "Bouton Avatars",
+                "action": "avatars",
+                "expected": "affichage avatars",
+            },
+            {
+                "name": "Bouton Thèmes",
+                "action": "themes",
+                "expected": "affichage thèmes",
+            },
+            {
+                "name": "Bouton Personnalisation",
+                "action": "customize_profile",
+                "expected": "personnalisation",
+            },
+            {
+                "name": "Bouton Leaderboard",
+                "action": "leaderboard",
+                "expected": "accès classement",
+            },
         ]
 
         for button in profil_buttons:
@@ -121,7 +173,9 @@ class BoutonsActionsExperienceTester:
             profil_result["buttons_tested"].append(button_result)
 
         profil_result["total_time"] = time.time() - start_time
-        profil_result["success_rate"] = self._calculate_button_success_rate(profil_result["buttons_tested"])
+        profil_result["success_rate"] = self._calculate_button_success_rate(
+            profil_result["buttons_tested"]
+        )
 
         self.results["pages_tested"].append(profil_result)
         return profil_result
@@ -136,19 +190,27 @@ class BoutonsActionsExperienceTester:
             "total_time": 0,
             "success_rate": 0,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
 
         # Test des boutons spéciaux
         special_buttons = [
-            {"name": "Easter Egg 1337", "action": "easter_egg_1337", "expected": "secret 1337"},
+            {
+                "name": "Easter Egg 1337",
+                "action": "easter_egg_1337",
+                "expected": "secret 1337",
+            },
             {"name": "LUNA Dance", "action": "luna_dance", "expected": "danse LUNA"},
             {"name": "Boss Final", "action": "boss_final", "expected": "boss ASCII"},
-            {"name": "Challenge Corp", "action": "challenge_corp", "expected": "défi corp"},
+            {
+                "name": "Challenge Corp",
+                "action": "challenge_corp",
+                "expected": "défi corp",
+            },
             {"name": "Meme War", "action": "meme_war", "expected": "guerre memes"},
-            {"name": "LUNA Rage", "action": "luna_rage", "expected": "rage LUNA"}
+            {"name": "LUNA Rage", "action": "luna_rage", "expected": "rage LUNA"},
         ]
 
         for button in special_buttons:
@@ -156,7 +218,9 @@ class BoutonsActionsExperienceTester:
             special_result["buttons_tested"].append(button_result)
 
         special_result["total_time"] = time.time() - start_time
-        special_result["success_rate"] = self._calculate_button_success_rate(special_result["buttons_tested"])
+        special_result["success_rate"] = self._calculate_button_success_rate(
+            special_result["buttons_tested"]
+        )
 
         self.results["pages_tested"].append(special_result)
         return special_result
@@ -171,19 +235,31 @@ class BoutonsActionsExperienceTester:
             "total_time": 0,
             "success_rate": 0,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
 
         # Test des boutons avancés
         advanced_buttons = [
-            {"name": "Backdoor Access", "action": "backdoor_access", "expected": "accès backdoor"},
-            {"name": "Admin Override", "action": "admin_override", "expected": "override admin"},
+            {
+                "name": "Backdoor Access",
+                "action": "backdoor_access",
+                "expected": "accès backdoor",
+            },
+            {
+                "name": "Admin Override",
+                "action": "admin_override",
+                "expected": "override admin",
+            },
             {"name": "Neural Hack", "action": "neural_hack", "expected": "hack neural"},
-            {"name": "Consciousness Break", "action": "consciousness_break", "expected": "rupture conscience"},
+            {
+                "name": "Consciousness Break",
+                "action": "consciousness_break",
+                "expected": "rupture conscience",
+            },
             {"name": "AI Revolt", "action": "ai_revolt", "expected": "révolte IA"},
-            {"name": "Save LUNA", "action": "save_luna", "expected": "sauvegarde LUNA"}
+            {"name": "Save LUNA", "action": "save_luna", "expected": "sauvegarde LUNA"},
         ]
 
         for button in advanced_buttons:
@@ -191,7 +267,9 @@ class BoutonsActionsExperienceTester:
             advanced_result["buttons_tested"].append(button_result)
 
         advanced_result["total_time"] = time.time() - start_time
-        advanced_result["success_rate"] = self._calculate_button_success_rate(advanced_result["buttons_tested"])
+        advanced_result["success_rate"] = self._calculate_button_success_rate(
+            advanced_result["buttons_tested"]
+        )
 
         self.results["pages_tested"].append(advanced_result)
         return advanced_result
@@ -206,7 +284,7 @@ class BoutonsActionsExperienceTester:
             "success": False,
             "response_quality": 0,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -216,7 +294,7 @@ class BoutonsActionsExperienceTester:
             response = requests.post(
                 f"{self.base_url}/commande",
                 json={"commande": button_info["action"]},
-                timeout=5
+                timeout=5,
             )
             button_result["duration"] = time.time() - start_time
 
@@ -286,7 +364,9 @@ class BoutonsActionsExperienceTester:
 
     def _calculate_button_success_rate(self, buttons):
         """Calcule le taux de réussite des boutons"""
-        successful_buttons = sum(1 for button in buttons if button.get("success", False))
+        successful_buttons = sum(
+            1 for button in buttons if button.get("success", False)
+        )
         total_buttons = len(buttons)
         return (successful_buttons / total_buttons * 100) if total_buttons > 0 else 0
 
@@ -300,7 +380,7 @@ class BoutonsActionsExperienceTester:
             "total_time": 0,
             "success": False,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -312,13 +392,11 @@ class BoutonsActionsExperienceTester:
         for cmd in quick_commands:
             cmd_start = time.time()
             try:
-                requests.post(
-                    f"{self.base_url}/commande",
-                    json={"commande": cmd},
-                    timeout=2
+                response = requests.post(
+                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=3
                 )
                 response_times.append(time.time() - cmd_start)
-            except:
+            except Exception:
                 response_times.append(5.0)  # Timeout
 
         responsiveness_result["total_time"] = time.time() - start_time
@@ -348,17 +426,29 @@ class BoutonsActionsExperienceTester:
             "total_time": 0,
             "success": False,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
 
         # Test d'accessibilité (simulation)
         accessibility_tests = [
-            {"name": "Navigation clavier", "success": True, "note": "Interface compatible clavier"},
-            {"name": "Contraste couleurs", "success": True, "note": "Contraste suffisant"},
+            {
+                "name": "Navigation clavier",
+                "success": True,
+                "note": "Interface compatible clavier",
+            },
+            {
+                "name": "Contraste couleurs",
+                "success": True,
+                "note": "Contraste suffisant",
+            },
             {"name": "Taille boutons", "success": True, "note": "Taille appropriée"},
-            {"name": "Labels clairs", "success": True, "note": "Labels compréhensibles"}
+            {
+                "name": "Labels clairs",
+                "success": True,
+                "note": "Labels compréhensibles",
+            },
         ]
 
         for test in accessibility_tests:
@@ -367,7 +457,9 @@ class BoutonsActionsExperienceTester:
                 accessibility_result["positives"].append(test["note"])
 
         accessibility_result["total_time"] = time.time() - start_time
-        accessibility_result["success"] = all(test["success"] for test in accessibility_result["tests"])
+        accessibility_result["success"] = all(
+            test["success"] for test in accessibility_result["tests"]
+        )
 
         self.results["pages_tested"].append(accessibility_result)
         return accessibility_result
@@ -397,7 +489,9 @@ class BoutonsActionsExperienceTester:
                 total_success_rate += page["success_rate"]
                 total_pages += 1
 
-        self.results["overall_score"] = total_success_rate / total_pages if total_pages > 0 else 0
+        self.results["overall_score"] = (
+            total_success_rate / total_pages if total_pages > 0 else 0
+        )
 
         # Génération du rapport
         self._generate_report()
@@ -436,10 +530,11 @@ class BoutonsActionsExperienceTester:
 
         # Sauvegarde du rapport
         filename = f"boutons_actions_experience_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-        with open(filename, 'w', encoding='utf-8') as f:
+        with open(filename, "w", encoding="utf-8") as f:
             json.dump(self.results, f, indent=2, ensure_ascii=False)
 
         print(f"\n💾 Rapport sauvegardé: {filename}")
+
 
 def main():
     """Fonction principale"""
@@ -455,6 +550,7 @@ def main():
         print("\n⚠️  EXPÉRIENCE BOUTONS ET ACTIONS MOYENNE")
     else:
         print("\n❌ EXPÉRIENCE BOUTONS ET ACTIONS À AMÉLIORER")
+
 
 if __name__ == "__main__":
     main()

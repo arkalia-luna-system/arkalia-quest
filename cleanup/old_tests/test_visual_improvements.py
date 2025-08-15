@@ -24,11 +24,27 @@ def test_visual_improvements():
 
             # Vérifier les nouvelles améliorations CSS
             improvements = [
-                ("Messages contextuels", ".contextual-message", "Nouveaux messages intelligents"),
-                ("Breakpoints responsive", "@media (max-width: 768px)", "Design responsive multi-breakpoints"),
-                ("Focus amélioré", "outline: 3px solid #00ff00", "Accessibilité renforcée"),
+                (
+                    "Messages contextuels",
+                    ".contextual-message",
+                    "Nouveaux messages intelligents",
+                ),
+                (
+                    "Breakpoints responsive",
+                    "@media (max-width: 768px)",
+                    "Design responsive multi-breakpoints",
+                ),
+                (
+                    "Focus amélioré",
+                    "outline: 3px solid #00ff00",
+                    "Accessibilité renforcée",
+                ),
                 ("Animations contextuelles", "contextualSlideIn", "Animations fluides"),
-                ("Mode performance", "low-performance", "Adaptation aux appareils faibles")
+                (
+                    "Mode performance",
+                    "low-performance",
+                    "Adaptation aux appareils faibles",
+                ),
             ]
 
             found_improvements = 0
@@ -39,7 +55,9 @@ def test_visual_improvements():
                 else:
                     print(f"❌ {name}: {description} - MANQUANT")
 
-            print(f"\n📊 Améliorations CSS trouvées: {found_improvements}/{len(improvements)}")
+            print(
+                f"\n📊 Améliorations CSS trouvées: {found_improvements}/{len(improvements)}"
+            )
 
         else:
             print(f"❌ Erreur HTTP {response.status_code}")
@@ -54,18 +72,18 @@ def test_visual_improvements():
         {
             "name": "Utilisateur débutant - Commande inexistante",
             "command": "commande_inexistante",
-            "expected_behavior": "Affiche une aide contextuelle après 1 seconde"
+            "expected_behavior": "Affiche une aide contextuelle après 1 seconde",
         },
         {
             "name": "Utilisateur débutant - Commande valide",
             "command": "aide",
-            "expected_behavior": "Affiche un encouragement après 0.5 seconde"
+            "expected_behavior": "Affiche un encouragement après 0.5 seconde",
         },
         {
             "name": "Utilisateur pressé - Erreurs répétées",
             "command": "test_rapide",
-            "expected_behavior": "Affiche une astuce rapide après 1.5 seconde"
-        }
+            "expected_behavior": "Affiche une astuce rapide après 1.5 seconde",
+        },
     ]
 
     for scenario in feedback_scenarios:
@@ -76,8 +94,8 @@ def test_visual_improvements():
         try:
             response = requests.post(
                 f"{base_url}/commande",
-                json={"commande": scenario['command']},
-                timeout=5
+                json={"commande": scenario["command"]},
+                timeout=5,
             )
 
             if response.status_code == 200:
@@ -104,13 +122,21 @@ def test_visual_improvements():
             js_content = response.text
 
             js_improvements = [
-                ("Feedback intelligent", "provideIntelligentFeedback", "Système de feedback adaptatif"),
-                ("Messages contextuels", "addContextualMessage", "Messages intelligents"),
+                (
+                    "Feedback intelligent",
+                    "provideIntelligentFeedback",
+                    "Système de feedback adaptatif",
+                ),
+                (
+                    "Messages contextuels",
+                    "addContextualMessage",
+                    "Messages intelligents",
+                ),
                 ("Aide contextuelle", "showContextualHelp", "Aide adaptée"),
                 ("Encouragements", "showEncouragement", "Messages motivants"),
                 ("Détection niveau", "userLevel", "Adaptation au niveau utilisateur"),
                 ("Accessibilité", "setupAccessibility", "Amélioration accessibilité"),
-                ("Responsive", "low-performance", "Mode performance adaptatif")
+                ("Responsive", "low-performance", "Mode performance adaptatif"),
             ]
 
             found_js_improvements = 0
@@ -121,7 +147,9 @@ def test_visual_improvements():
                 else:
                     print(f"❌ {name}: {description} - MANQUANT")
 
-            print(f"\n📊 Améliorations JavaScript trouvées: {found_js_improvements}/{len(js_improvements)}")
+            print(
+                f"\n📊 Améliorations JavaScript trouvées: {found_js_improvements}/{len(js_improvements)}"
+            )
 
         else:
             print(f"❌ Erreur HTTP {response.status_code}")
@@ -162,6 +190,7 @@ def test_visual_improvements():
     print("🎉 Les améliorations sont maintenant actives !")
     print("   Ouvre le terminal dans ton navigateur pour les voir !")
     print("=" * 60)
+
 
 if __name__ == "__main__":
     test_visual_improvements()

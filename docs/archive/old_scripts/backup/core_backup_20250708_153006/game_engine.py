@@ -22,7 +22,7 @@ class GameEngine:
         self.game_state = {
             "luna_relationship": 0,
             "universe_unlocked": False,
-            "personality_detected": False
+            "personality_detected": False,
         }
 
     def process_command(self, command: str, user_id: str = "default") -> Dict[str, Any]:
@@ -51,7 +51,9 @@ class GameEngine:
 
         return result
 
-    def add_effects(self, result: Dict[str, Any], profile: Dict[str, Any]) -> Dict[str, Any]:
+    def add_effects(
+        self, result: Dict[str, Any], profile: Dict[str, Any]
+    ) -> Dict[str, Any]:
         """Ajoute des effets visuels et audio à la réponse"""
 
         # Effet de base selon le type de réponse
@@ -59,25 +61,27 @@ class GameEngine:
             result["effect"] = {
                 "type": "success",
                 "color": "#00ff88",
-                "animation": "pulse_green"
+                "animation": "pulse_green",
             }
         else:
             result["effect"] = {
                 "type": "error",
                 "color": "#ff4444",
-                "animation": "shake"
+                "animation": "shake",
             }
 
         # Effet spécial pour LUNA uniquement si le message commence par 'luna' ou concerne explicitement LUNA
         message = result.get("message", "").lower()
-        if ("luna" in message and (message.startswith("🌙 luna") or "luna :" in message)):
+        if "luna" in message and (message.startswith("🌙 luna") or "luna :" in message):
             result["effect"]["type"] = "luna"
             result["effect"]["color"] = "#00ffff"
             result["effect"]["animation"] = "typing_effect"
 
         return result
 
-    def start_mission(self, mission_id: str, user_id: str = "default") -> Dict[str, Any]:
+    def start_mission(
+        self, mission_id: str, user_id: str = "default"
+    ) -> Dict[str, Any]:
         """Démarre une mission pour un utilisateur"""
 
         profile = self.profile_manager.load_profile(user_id)
@@ -86,7 +90,7 @@ class GameEngine:
         if not self.can_start_mission(mission_id, profile):
             return {
                 "réussite": False,
-                "message": "❌ Prérequis non satisfaits pour cette mission."
+                "message": "❌ Prérequis non satisfaits pour cette mission.",
             }
 
         # Créer le contexte de mission
@@ -94,7 +98,7 @@ class GameEngine:
             "mission_id": mission_id,
             "start_time": datetime.now().isoformat(),
             "choices_made": [],
-            "current_step": 0
+            "current_step": 0,
         }
 
         self.current_missions[user_id] = mission_context
@@ -102,7 +106,7 @@ class GameEngine:
         return {
             "réussite": True,
             "message": f"🎯 Mission '{mission_id}' démarrée !",
-            "mission_context": mission_context
+            "mission_context": mission_context,
         }
 
     def can_start_mission(self, mission_id: str, profile: Dict[str, Any]) -> bool:
@@ -113,7 +117,7 @@ class GameEngine:
         if not os.path.exists(mission_path):
             return False
 
-        with open(mission_path, encoding='utf-8') as f:
+        with open(mission_path, encoding="utf-8") as f:
             mission = json.load(f)
 
         # Vérifier les prérequis
@@ -139,8 +143,8 @@ class GameEngine:
         missions_dir = "data/missions"
         if os.path.exists(missions_dir):
             for filename in os.listdir(missions_dir):
-                if filename.endswith('.json'):
-                    mission_id = filename.replace('.json', '')
+                if filename.endswith(".json"):
+                    mission_id = filename.replace(".json", "")
                     if self.can_start_mission(mission_id, profile):
                         available_missions.append(mission_id)
 

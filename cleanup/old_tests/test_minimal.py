@@ -5,6 +5,7 @@ print("🚀 Test import minimal...")
 
 try:
     from flask import Flask
+
     print("✅ Flask OK")
 except Exception as e:
     print(f"❌ Flask: {e}")
@@ -43,14 +44,15 @@ print("🎯 Test de création minimal Flask...")
 try:
     app = Flask(__name__)
 
-    @app.route('/')
+    @app.route("/")
     def index():
         return "OK"
 
     print("✅ App Flask créée")
-    app.run(debug=True, host='0.0.0.0', port=5001)
+    app.run(debug=True, host="0.0.0.0", port=5001)
 
 except Exception as e:
     print(f"❌ Erreur Flask: {e}")
     import traceback
+
     traceback.print_exc()

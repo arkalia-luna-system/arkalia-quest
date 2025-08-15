@@ -80,15 +80,17 @@ class ArkaliaVideoDemo:
             self.log_info(f"Testing: {cmd} ({description})")
 
             response = self.session.post(
-                f"{self.base_url}/commande",
-                json={"cmd": cmd},
-                timeout=10
+                f"{self.base_url}/commande", json={"cmd": cmd}, timeout=10
             )
 
             if response.status_code == 200:
                 data = response.json()
                 if "message" in data:
-                    message = data["message"][:100] + "..." if len(data["message"]) > 100 else data["message"]
+                    message = (
+                        data["message"][:100] + "..."
+                        if len(data["message"]) > 100
+                        else data["message"]
+                    )
                     self.log_success(f"{description}: {message}")
                 else:
                     self.log_success(f"{description}: Réponse reçue")
@@ -114,7 +116,7 @@ class ArkaliaVideoDemo:
             if response.status_code == 200:
                 try:
                     data = response.json()
-                    status = data.get('status', 'OK')
+                    status = data.get("status", "OK")
                     self.log_success(f"{description}: {status}")
                 except:
                     self.log_success(f"{description}: Réponse JSON reçue")
@@ -146,7 +148,7 @@ class ArkaliaVideoDemo:
             ("/", "Page d'accueil"),
             ("/terminal", "Page terminal"),
             ("/monde", "Page monde"),
-            ("/profil", "Page profil")
+            ("/profil", "Page profil"),
         ]
 
         page_success = 0
@@ -173,7 +175,7 @@ class ArkaliaVideoDemo:
             ("easter_egg_1337", "Easter egg"),
             ("meme_war", "Guerre de memes"),
             ("nuke_world", "Nuke world"),
-            ("luna_rage", "LUNA rage")
+            ("luna_rage", "LUNA rage"),
         ]
 
         command_success = 0
@@ -188,7 +190,7 @@ class ArkaliaVideoDemo:
         error_commands = [
             "commande_inexistante_test",
             "truc_bidule_machin",
-            "commande_tres_longue_et_invalide_qui_devrait_echouer"
+            "commande_tres_longue_et_invalide_qui_devrait_echouer",
         ]
 
         error_success = 0
@@ -196,14 +198,15 @@ class ArkaliaVideoDemo:
             try:
                 self.log_info(f"Testing erreur: {cmd}")
                 response = self.session.post(
-                    f"{self.base_url}/commande",
-                    json={"cmd": cmd},
-                    timeout=5
+                    f"{self.base_url}/commande", json={"cmd": cmd}, timeout=5
                 )
 
                 if response.status_code == 200:
                     data = response.json()
-                    if "message" in data and ("erreur" in data["message"].lower() or "pas autorisée" in data["message"].lower()):
+                    if "message" in data and (
+                        "erreur" in data["message"].lower()
+                        or "pas autorisée" in data["message"].lower()
+                    ):
                         self.log_success(f"Erreur gérée: {data['message'][:50]}...")
                         error_success += 1
                     else:
@@ -223,7 +226,7 @@ class ArkaliaVideoDemo:
             ("/api/status", "Statut système"),
             ("/api/test/database", "Test base de données"),
             ("/api/test/websocket", "Test WebSocket"),
-            ("/api/test/ai", "Test IA")
+            ("/api/test/ai", "Test IA"),
         ]
 
         api_success = 0
@@ -245,7 +248,9 @@ class ArkaliaVideoDemo:
         print(f"⚠️  Erreurs gérées: {error_success}/{len(error_commands)} ✅")
         print(f"🔧 API testées: {api_success}/{len(apis)} ✅")
         print()
-        print(f"🎯 Score global: {total_success}/{total_tests} ({total_success/total_tests*100:.1f}%)")
+        print(
+            f"🎯 Score global: {total_success}/{total_tests} ({total_success/total_tests*100:.1f}%)"
+        )
 
         if total_success == total_tests:
             print("🏆 DÉMONSTRATION PARFAITE !")
@@ -269,6 +274,7 @@ class ArkaliaVideoDemo:
 
         return total_success == total_tests
 
+
 def main():
     demo = ArkaliaVideoDemo()
     success = demo.run_demo_sequence()
@@ -279,6 +285,7 @@ def main():
     else:
         print("\n⚠️  Des problèmes ont été détectés")
         sys.exit(1)
+
 
 if __name__ == "__main__":
     main()

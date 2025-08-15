@@ -50,12 +50,17 @@ class ArkaliaChecker:
         print("\n🔍 Vérification de la syntaxe Python...")
 
         python_files = list(self.project_root.rglob("*.py"))
-        python_files = [f for f in python_files if ".venv" not in str(f) and ".git" not in str(f)]
+        python_files = [
+            f for f in python_files if ".venv" not in str(f) and ".git" not in str(f)
+        ]
 
         for py_file in python_files:
             try:
-                result = subprocess.run([sys.executable, "-m", "py_compile", str(py_file)],
-                                      capture_output=True, text=True)
+                result = subprocess.run(
+                    [sys.executable, "-m", "py_compile", str(py_file)],
+                    capture_output=True,
+                    text=True,
+                )
                 if result.returncode != 0:
                     self.log_error(f"Erreur de syntaxe dans {py_file}", str(py_file))
                 else:
@@ -68,11 +73,13 @@ class ArkaliaChecker:
         print("\n🔍 Vérification des fichiers JSON...")
 
         json_files = list(self.project_root.rglob("*.json"))
-        json_files = [f for f in json_files if ".venv" not in str(f) and ".git" not in str(f)]
+        json_files = [
+            f for f in json_files if ".venv" not in str(f) and ".git" not in str(f)
+        ]
 
         for json_file in json_files:
             try:
-                with open(json_file, encoding='utf-8') as f:
+                with open(json_file, encoding="utf-8") as f:
                     json.load(f)
                 print(f"✅ {json_file}")
             except json.JSONDecodeError as e:
@@ -95,7 +102,7 @@ class ArkaliaChecker:
                 ("engines.luna_ai", "engines/luna_ai.py"),
                 ("engines.effects_engine", "engines/effects_engine.py"),
                 ("mission_utils.meme_engine", "mission_utils/meme_engine.py"),
-                ("utils.logger", "utils/logger.py")
+                ("utils.logger", "utils/logger.py"),
             ]
 
             for module_name, file_path in imports_to_test:
@@ -105,7 +112,9 @@ class ArkaliaChecker:
                 except ImportError as e:
                     self.log_error(f"Import échoué pour {module_name}: {e}", file_path)
                 except Exception as e:
-                    self.log_error(f"Erreur lors de l'import de {module_name}: {e}", file_path)
+                    self.log_error(
+                        f"Erreur lors de l'import de {module_name}: {e}", file_path
+                    )
 
         except Exception as e:
             self.log_error(f"Erreur lors de la vérification des imports: {e}")
@@ -121,13 +130,17 @@ class ArkaliaChecker:
             script_path = self.project_root / script
             if script_path.exists():
                 if not os.access(script_path, os.X_OK):
-                    self.log_warning(f"Script {script} n'est pas exécutable", str(script_path))
+                    self.log_warning(
+                        f"Script {script} n'est pas exécutable", str(script_path)
+                    )
                     # Corriger automatiquement
                     try:
                         os.chmod(script_path, 0o755)
                         self.log_fix(f"Permissions corrigées pour {script}")
                     except Exception as e:
-                        self.log_error(f"Impossible de corriger les permissions de {script}: {e}")
+                        self.log_error(
+                            f"Impossible de corriger les permissions de {script}: {e}"
+                        )
                 else:
                     print(f"✅ {script} (exécutable)")
 
@@ -148,7 +161,7 @@ class ArkaliaChecker:
             "data/avatars.json",
             "templates/terminal.html",
             "static/style.css",
-            "static/js/terminal.js"
+            "static/js/terminal.js",
         ]
 
         for file_path in required_files:
@@ -164,7 +177,7 @@ class ArkaliaChecker:
         # Vérifier le profil joueur via SQLite
         try:
             db_manager = DatabaseManager()
-            profil = db_manager.load_profile('main_user')
+            profil = db_manager.load_profile("main_user")
 
             if profil:
                 required_fields = ["username", "score", "level", "badges"]
@@ -182,7 +195,7 @@ class ArkaliaChecker:
                             profil[field] = "main_user"
 
                 # Sauvegarder les corrections
-                db_manager.save_profile('main_user', profil)
+                db_manager.save_profile("main_user", profil)
                 self.log_fix("Profil joueur corrigé")
             else:
                 self.log_warning("Profil principal non trouvé en base")
@@ -202,7 +215,9 @@ class ArkaliaChecker:
             required_packages = ["Flask", "gunicorn", "Werkzeug"]
             for package in required_packages:
                 if package not in requirements:
-                    self.log_warning(f"Package requis manquant dans requirements.txt: {package}")
+                    self.log_warning(
+                        f"Package requis manquant dans requirements.txt: {package}"
+                    )
 
             print("✅ requirements.txt")
         except Exception as e:
@@ -229,35 +244,48 @@ class ArkaliaChecker:
         for html_file in html_files:
             if ".venv" not in str(html_file) and ".git" not in str(html_file):
                 try:
-                    with open(html_file, encoding='utf-8') as f:
+                    with open(html_file, encoding="utf-8") as f:
                         content = f.read()
 
                     # Vérifications basiques
                     if "<!DOCTYPE html>" not in content and "<html" in content:
-                        self.log_warning(f"DOCTYPE manquant dans {html_file}", str(html_file))
+                        self.log_warning(
+                            f"DOCTYPE manquant dans {html_file}", str(html_file)
+                        )
 
                     if "charset" not in content:
-                        self.log_warning(f"Charset manquant dans {html_file}", str(html_file))
+                        self.log_warning(
+                            f"Charset manquant dans {html_file}", str(html_file)
+                        )
 
                     print(f"✅ {html_file}")
                 except Exception as e:
-                    self.log_error(f"Erreur lors de la vérification de {html_file}: {e}", str(html_file))
+                    self.log_error(
+                        f"Erreur lors de la vérification de {html_file}: {e}",
+                        str(html_file),
+                    )
 
         # Vérifier les fichiers CSS
         css_files = list(self.project_root.rglob("*.css"))
         for css_file in css_files:
             if ".venv" not in str(css_file) and ".git" not in str(css_file):
                 try:
-                    with open(css_file, encoding='utf-8') as f:
+                    with open(css_file, encoding="utf-8") as f:
                         content = f.read()
 
                     # Vérifications basiques CSS
                     if "{" in content and "}" in content:
                         print(f"✅ {css_file}")
                     else:
-                        self.log_warning(f"CSS potentiellement vide ou invalide: {css_file}", str(css_file))
+                        self.log_warning(
+                            f"CSS potentiellement vide ou invalide: {css_file}",
+                            str(css_file),
+                        )
                 except Exception as e:
-                    self.log_error(f"Erreur lors de la vérification de {css_file}: {e}", str(css_file))
+                    self.log_error(
+                        f"Erreur lors de la vérification de {css_file}: {e}",
+                        str(css_file),
+                    )
 
     def run_all_checks(self):
         """Exécute toutes les vérifications"""
@@ -297,11 +325,16 @@ class ArkaliaChecker:
                 print(f"  {fix}")
 
         if not self.errors:
-            print("\n🎉 Aucune erreur critique trouvée ! Le projet est prêt pour le déploiement.")
+            print(
+                "\n🎉 Aucune erreur critique trouvée ! Le projet est prêt pour le déploiement."
+            )
         else:
-            print("\n⚠️ Des erreurs critiques ont été trouvées. Corrigez-les avant le déploiement.")
+            print(
+                "\n⚠️ Des erreurs critiques ont été trouvées. Corrigez-les avant le déploiement."
+            )
 
         return len(self.errors) == 0
+
 
 if __name__ == "__main__":
     checker = ArkaliaChecker()

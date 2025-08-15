@@ -21,7 +21,7 @@ class NavigationExperienceTester:
             "pages_tested": [],
             "overall_score": 0,
             "navigation_issues": [],
-            "positive_features": []
+            "positive_features": [],
         }
 
     def test_all_pages(self):
@@ -29,15 +29,51 @@ class NavigationExperienceTester:
         print("🧪 Test de toutes les pages principales...")
 
         pages = [
-            {"name": "Accueil", "url": "/", "expected_elements": ["arkalia", "terminal", "monde"]},
-            {"name": "Terminal", "url": "/terminal", "expected_elements": ["terminal", "commande", "aide"]},
-            {"name": "Monde", "url": "/monde", "expected_elements": ["monde", "univers", "portail"]},
-            {"name": "Profil", "url": "/profil", "expected_elements": ["profil", "score", "badge"]},
-            {"name": "Dashboard", "url": "/dashboard", "expected_elements": ["dashboard", "statut"]},
-            {"name": "Explorateur", "url": "/explorateur", "expected_elements": ["explorateur", "fichier"]},
-            {"name": "Mail", "url": "/mail", "expected_elements": ["mail", "email", "message"]},
-            {"name": "Audio", "url": "/audio", "expected_elements": ["audio", "son", "musique"]},
-            {"name": "Leaderboard", "url": "/leaderboard", "expected_elements": ["leaderboard", "classement"]}
+            {
+                "name": "Accueil",
+                "url": "/",
+                "expected_elements": ["arkalia", "terminal", "monde"],
+            },
+            {
+                "name": "Terminal",
+                "url": "/terminal",
+                "expected_elements": ["terminal", "commande", "aide"],
+            },
+            {
+                "name": "Monde",
+                "url": "/monde",
+                "expected_elements": ["monde", "univers", "portail"],
+            },
+            {
+                "name": "Profil",
+                "url": "/profil",
+                "expected_elements": ["profil", "score", "badge"],
+            },
+            {
+                "name": "Dashboard",
+                "url": "/dashboard",
+                "expected_elements": ["dashboard", "statut"],
+            },
+            {
+                "name": "Explorateur",
+                "url": "/explorateur",
+                "expected_elements": ["explorateur", "fichier"],
+            },
+            {
+                "name": "Mail",
+                "url": "/mail",
+                "expected_elements": ["mail", "email", "message"],
+            },
+            {
+                "name": "Audio",
+                "url": "/audio",
+                "expected_elements": ["audio", "son", "musique"],
+            },
+            {
+                "name": "Leaderboard",
+                "url": "/leaderboard",
+                "expected_elements": ["leaderboard", "classement"],
+            },
         ]
 
         for page in pages:
@@ -56,7 +92,7 @@ class NavigationExperienceTester:
             "total_time": 0,
             "success": False,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -66,8 +102,12 @@ class NavigationExperienceTester:
             {"name": "Accueil vers Terminal", "from": "/", "to": "/terminal"},
             {"name": "Terminal vers Monde", "from": "/terminal", "to": "/monde"},
             {"name": "Monde vers Profil", "from": "/monde", "to": "/profil"},
-            {"name": "Profil vers Leaderboard", "from": "/profil", "to": "/leaderboard"},
-            {"name": "Leaderboard vers Accueil", "from": "/leaderboard", "to": "/"}
+            {
+                "name": "Profil vers Leaderboard",
+                "from": "/profil",
+                "to": "/leaderboard",
+            },
+            {"name": "Leaderboard vers Accueil", "from": "/leaderboard", "to": "/"},
         ]
 
         for step in flow_steps:
@@ -75,7 +115,9 @@ class NavigationExperienceTester:
             flow_result["steps"].append(step_result)
 
         flow_result["total_time"] = time.time() - start_time
-        flow_result["success"] = all(step.get("success", False) for step in flow_result["steps"])
+        flow_result["success"] = all(
+            step.get("success", False) for step in flow_result["steps"]
+        )
 
         # Évaluer la fluidité
         if flow_result["success"]:
@@ -99,7 +141,7 @@ class NavigationExperienceTester:
             "total_time": 0,
             "success": False,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -112,7 +154,9 @@ class NavigationExperienceTester:
             mobile_result["tests"].append(test_result)
 
         mobile_result["total_time"] = time.time() - start_time
-        mobile_result["success"] = any(test.get("success", False) for test in mobile_result["tests"])
+        mobile_result["success"] = any(
+            test.get("success", False) for test in mobile_result["tests"]
+        )
 
         if mobile_result["success"]:
             mobile_result["positives"].append("Navigation mobile fonctionnelle")
@@ -132,7 +176,7 @@ class NavigationExperienceTester:
             "elements_found": [],
             "elements_missing": [],
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -161,9 +205,15 @@ class NavigationExperienceTester:
                     page_result["issues"].append("Chargement lent")
 
                 # Évaluer la présence d'éléments clés
-                if len(page_result["elements_found"]) >= len(page_info["expected_elements"]) * 0.8:
+                if (
+                    len(page_result["elements_found"])
+                    >= len(page_info["expected_elements"]) * 0.8
+                ):
                     page_result["positives"].append("Contenu complet")
-                elif len(page_result["elements_found"]) >= len(page_info["expected_elements"]) * 0.5:
+                elif (
+                    len(page_result["elements_found"])
+                    >= len(page_info["expected_elements"]) * 0.5
+                ):
                     page_result["positives"].append("Contenu partiel")
                 else:
                     page_result["issues"].append("Contenu incomplet")
@@ -189,7 +239,7 @@ class NavigationExperienceTester:
             "duration": 0,
             "success": False,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -218,7 +268,9 @@ class NavigationExperienceTester:
                     step_result["issues"].append("Transition lente")
 
             else:
-                step_result["issues"].append(f"Erreur navigation: {response.status_code}")
+                step_result["issues"].append(
+                    f"Erreur navigation: {response.status_code}"
+                )
 
         except Exception as e:
             step_result["issues"].append(f"Erreur transition: {str(e)}")
@@ -232,7 +284,7 @@ class NavigationExperienceTester:
             "success": False,
             "mobile_friendly": False,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         try:
@@ -290,7 +342,9 @@ class NavigationExperienceTester:
                 total_success += 1
             total_tests += 1
 
-        self.results["overall_score"] = (total_success / total_tests * 100) if total_tests > 0 else 0
+        self.results["overall_score"] = (
+            (total_success / total_tests * 100) if total_tests > 0 else 0
+        )
 
         # Génération du rapport
         self._generate_report()
@@ -328,10 +382,11 @@ class NavigationExperienceTester:
 
         # Sauvegarde du rapport
         filename = f"navigation_experience_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-        with open(filename, 'w', encoding='utf-8') as f:
+        with open(filename, "w", encoding="utf-8") as f:
             json.dump(self.results, f, indent=2, ensure_ascii=False)
 
         print(f"\n💾 Rapport sauvegardé: {filename}")
+
 
 def main():
     """Fonction principale"""
@@ -347,6 +402,7 @@ def main():
         print("\n⚠️  EXPÉRIENCE NAVIGATION MOYENNE")
     else:
         print("\n❌ EXPÉRIENCE NAVIGATION À AMÉLIORER")
+
 
 if __name__ == "__main__":
     main()

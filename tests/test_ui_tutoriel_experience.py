@@ -22,7 +22,7 @@ class TutorielExperienceTester:
             "overall_score": 0,
             "issues_found": [],
             "positive_feedback": [],
-            "performance_metrics": {}
+            "performance_metrics": {},
         }
 
     def test_profile_noob(self):
@@ -36,7 +36,7 @@ class TutorielExperienceTester:
             "frustration_level": 0,
             "engagement_level": 0,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -60,8 +60,12 @@ class TutorielExperienceTester:
         profile_results["total_time"] = time.time() - start_time
 
         # Calcul du score d'expérience
-        profile_results["engagement_level"] = self._calculate_engagement(profile_results["steps"])
-        profile_results["frustration_level"] = self._calculate_frustration(profile_results["steps"])
+        profile_results["engagement_level"] = self._calculate_engagement(
+            profile_results["steps"]
+        )
+        profile_results["frustration_level"] = self._calculate_frustration(
+            profile_results["steps"]
+        )
 
         self.results["profiles_tested"].append(profile_results)
         return profile_results
@@ -77,7 +81,7 @@ class TutorielExperienceTester:
             "frustration_level": 0,
             "engagement_level": 0,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -95,8 +99,12 @@ class TutorielExperienceTester:
         profile_results["steps"].append(step3)
 
         profile_results["total_time"] = time.time() - start_time
-        profile_results["engagement_level"] = self._calculate_engagement(profile_results["steps"])
-        profile_results["frustration_level"] = self._calculate_frustration(profile_results["steps"])
+        profile_results["engagement_level"] = self._calculate_engagement(
+            profile_results["steps"]
+        )
+        profile_results["frustration_level"] = self._calculate_frustration(
+            profile_results["steps"]
+        )
 
         self.results["profiles_tested"].append(profile_results)
         return profile_results
@@ -112,7 +120,7 @@ class TutorielExperienceTester:
             "frustration_level": 0,
             "engagement_level": 0,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -130,8 +138,12 @@ class TutorielExperienceTester:
         profile_results["steps"].append(step3)
 
         profile_results["total_time"] = time.time() - start_time
-        profile_results["engagement_level"] = self._calculate_engagement(profile_results["steps"])
-        profile_results["frustration_level"] = self._calculate_frustration(profile_results["steps"])
+        profile_results["engagement_level"] = self._calculate_engagement(
+            profile_results["steps"]
+        )
+        profile_results["frustration_level"] = self._calculate_frustration(
+            profile_results["steps"]
+        )
 
         self.results["profiles_tested"].append(profile_results)
         return profile_results
@@ -147,7 +159,7 @@ class TutorielExperienceTester:
             "frustration_level": 0,
             "engagement_level": 0,
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -173,8 +185,12 @@ class TutorielExperienceTester:
         tutorial_results["steps"].append(step5)
 
         tutorial_results["total_time"] = time.time() - start_time
-        tutorial_results["engagement_level"] = self._calculate_engagement(tutorial_results["steps"])
-        tutorial_results["frustration_level"] = self._calculate_frustration(tutorial_results["steps"])
+        tutorial_results["engagement_level"] = self._calculate_engagement(
+            tutorial_results["steps"]
+        )
+        tutorial_results["frustration_level"] = self._calculate_frustration(
+            tutorial_results["steps"]
+        )
 
         self.results["profiles_tested"].append(tutorial_results)
         return tutorial_results
@@ -187,7 +203,7 @@ class TutorielExperienceTester:
             "success": False,
             "feedback": "",
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -223,7 +239,7 @@ class TutorielExperienceTester:
                 api_response = requests.post(
                     f"{self.base_url}/api/tutorial/start",
                     json={"user_id": "test_user"},
-                    timeout=5
+                    timeout=5,
                 )
 
                 if api_response.status_code == 200:
@@ -242,7 +258,9 @@ class TutorielExperienceTester:
                     else:
                         step["issues"].append("API tutoriel retourne une erreur")
                 else:
-                    step["issues"].append(f"API tutoriel inaccessible: {api_response.status_code}")
+                    step["issues"].append(
+                        f"API tutoriel inaccessible: {api_response.status_code}"
+                    )
 
                 # Évaluer le temps de chargement
                 if step["duration"] < 1.0:
@@ -268,7 +286,7 @@ class TutorielExperienceTester:
             "success": False,
             "feedback": "",
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -316,7 +334,7 @@ class TutorielExperienceTester:
             "success": False,
             "feedback": "",
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -324,9 +342,7 @@ class TutorielExperienceTester:
         try:
             # Test de la commande aide
             response = requests.post(
-                f"{self.base_url}/commande",
-                json={"commande": "aide"},
-                timeout=5
+                f"{self.base_url}/commande", json={"commande": "aide"}, timeout=5
             )
             step["duration"] = time.time() - start_time
 
@@ -376,7 +392,7 @@ class TutorielExperienceTester:
             "success": False,
             "feedback": "",
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -384,9 +400,7 @@ class TutorielExperienceTester:
         try:
             # Test de la commande profil pour voir la progression
             response = requests.post(
-                f"{self.base_url}/commande",
-                json={"commande": "profil"},
-                timeout=5
+                f"{self.base_url}/commande", json={"commande": "profil"}, timeout=5
             )
             step["duration"] = time.time() - start_time
 
@@ -432,7 +446,7 @@ class TutorielExperienceTester:
             "success": False,
             "feedback": "",
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -444,9 +458,7 @@ class TutorielExperienceTester:
 
             for cmd in commands:
                 response = requests.post(
-                    f"{self.base_url}/commande",
-                    json={"commande": cmd},
-                    timeout=3
+                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=3
                 )
                 if response.status_code == 200:
                     responses.append(response.json())
@@ -455,7 +467,9 @@ class TutorielExperienceTester:
             step["success"] = len(responses) > 0
 
             if step["success"]:
-                step["positives"].append(f"{len(responses)} commandes testées avec succès")
+                step["positives"].append(
+                    f"{len(responses)} commandes testées avec succès"
+                )
 
                 # Vérifier la variété des réponses
                 unique_ascii = {r.get("ascii_art", "") for r in responses}
@@ -480,7 +494,7 @@ class TutorielExperienceTester:
             "success": False,
             "feedback": "",
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -492,9 +506,7 @@ class TutorielExperienceTester:
 
             for cmd in special_commands:
                 response = requests.post(
-                    f"{self.base_url}/commande",
-                    json={"commande": cmd},
-                    timeout=3
+                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=3
                 )
                 if response.status_code == 200:
                     data = response.json()
@@ -523,7 +535,7 @@ class TutorielExperienceTester:
             "success": False,
             "feedback": "",
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -536,9 +548,7 @@ class TutorielExperienceTester:
             for cmd in commands:
                 cmd_start = time.time()
                 requests.post(
-                    f"{self.base_url}/commande",
-                    json={"commande": cmd},
-                    timeout=2
+                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=2
                 )
                 response_times.append(time.time() - cmd_start)
 
@@ -570,7 +580,7 @@ class TutorielExperienceTester:
             "success": False,
             "feedback": "",
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -583,9 +593,7 @@ class TutorielExperienceTester:
             for cmd in commands:
                 cmd_start = time.time()
                 requests.post(
-                    f"{self.base_url}/commande",
-                    json={"commande": cmd},
-                    timeout=1
+                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=1
                 )
                 total_time += time.time() - cmd_start
 
@@ -617,7 +625,7 @@ class TutorielExperienceTester:
             "success": False,
             "feedback": "",
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         # Note: Les raccourcis clavier nécessitent Selenium pour être testés
@@ -636,7 +644,7 @@ class TutorielExperienceTester:
             "success": False,
             "feedback": "",
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -679,7 +687,7 @@ class TutorielExperienceTester:
             "success": False,
             "feedback": "",
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -689,7 +697,7 @@ class TutorielExperienceTester:
             response = requests.post(
                 f"{self.base_url}/api/tutorial/start",
                 json={"user_id": "test_user"},
-                timeout=5
+                timeout=5,
             )
 
             step["duration"] = time.time() - start_time
@@ -717,7 +725,9 @@ class TutorielExperienceTester:
                         step["positives"].append("Progression initialisée")
 
                 else:
-                    step["issues"].append(f"Erreur tutoriel: {data.get('error', 'Unknown')}")
+                    step["issues"].append(
+                        f"Erreur tutoriel: {data.get('error', 'Unknown')}"
+                    )
             else:
                 step["issues"].append(f"Erreur HTTP: {response.status_code}")
 
@@ -734,7 +744,7 @@ class TutorielExperienceTester:
             "success": False,
             "feedback": "",
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -772,7 +782,7 @@ class TutorielExperienceTester:
             "success": False,
             "feedback": "",
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
@@ -784,9 +794,9 @@ class TutorielExperienceTester:
                 json={
                     "user_id": "test_user",
                     "step_id": 1,
-                    "choice": "tutorial_complet"
+                    "choice": "tutorial_complet",
                 },
-                timeout=5
+                timeout=5,
             )
 
             step["duration"] = time.time() - start_time
@@ -797,7 +807,9 @@ class TutorielExperienceTester:
                     step["success"] = True
                     step["positives"].append("Choix utilisateur traité")
                 else:
-                    step["issues"].append(f"Erreur choix: {data.get('error', 'Unknown')}")
+                    step["issues"].append(
+                        f"Erreur choix: {data.get('error', 'Unknown')}"
+                    )
             else:
                 step["issues"].append(f"Erreur HTTP choix: {response.status_code}")
 
@@ -814,14 +826,16 @@ class TutorielExperienceTester:
             "success": False,
             "feedback": "",
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
 
         try:
             # Test des effets d'une étape
-            response = requests.get(f"{self.base_url}/api/tutorial/effects/1", timeout=5)
+            response = requests.get(
+                f"{self.base_url}/api/tutorial/effects/1", timeout=5
+            )
 
             step["duration"] = time.time() - start_time
 
@@ -854,14 +868,16 @@ class TutorielExperienceTester:
             "success": False,
             "feedback": "",
             "issues": [],
-            "positives": []
+            "positives": [],
         }
 
         start_time = time.time()
 
         try:
             # Test du dialogue LUNA
-            response = requests.get(f"{self.base_url}/api/tutorial/luna-dialogue/1", timeout=5)
+            response = requests.get(
+                f"{self.base_url}/api/tutorial/luna-dialogue/1", timeout=5
+            )
 
             step["duration"] = time.time() - start_time
 
@@ -949,7 +965,9 @@ class TutorielExperienceTester:
         engagement_score = (total_engagement / max_score) * 50
         frustration_penalty = (total_frustration / max_score) * 30
 
-        self.results["overall_score"] = max(0, min(100, engagement_score - frustration_penalty))
+        self.results["overall_score"] = max(
+            0, min(100, engagement_score - frustration_penalty)
+        )
 
         # Génération du rapport
         self._generate_report()
@@ -976,10 +994,11 @@ class TutorielExperienceTester:
 
         # Sauvegarde du rapport
         filename = f"tutoriel_experience_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-        with open(filename, 'w', encoding='utf-8') as f:
+        with open(filename, "w", encoding="utf-8") as f:
             json.dump(self.results, f, indent=2, ensure_ascii=False)
 
         print(f"\n💾 Rapport sauvegardé: {filename}")
+
 
 def main():
     """Fonction principale"""
@@ -995,6 +1014,7 @@ def main():
         print("\n⚠️  EXPÉRIENCE TUTORIEL MOYENNE")
     else:
         print("\n❌ EXPÉRIENCE TUTORIEL À AMÉLIORER")
+
 
 if __name__ == "__main__":
     main()

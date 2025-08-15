@@ -20,7 +20,7 @@ class ProfileManager:
         profile_path = os.path.join(self.profiles_dir, f"{user_id}.json")
 
         if os.path.exists(profile_path):
-            with open(profile_path, encoding='utf-8') as f:
+            with open(profile_path, encoding="utf-8") as f:
                 profile = json.load(f)
         else:
             profile = self.create_default_profile()
@@ -35,7 +35,7 @@ class ProfileManager:
 
         profile_path = os.path.join(self.profiles_dir, f"{user_id}.json")
 
-        with open(profile_path, 'w', encoding='utf-8') as f:
+        with open(profile_path, "w", encoding="utf-8") as f:
             json.dump(profile, f, indent=2, ensure_ascii=False)
 
     def create_default_profile(self) -> Dict[str, Any]:
@@ -52,16 +52,16 @@ class ProfileManager:
                 "type": "non_detecte",
                 "traits": [],
                 "missions_completees": [],
-                "monde_debloque": "arkalia_base"
+                "monde_debloque": "arkalia_base",
             },
             "progression": {
                 "niveau": 1,
                 "univers_debloques": ["arkalia_base"],
                 "portails_ouverts": [],
-                "zones_debloquees": []
+                "zones_debloquees": [],
             },
             "created_at": "2024-01-01T00:00:00",
-            "last_login": "2024-01-01T00:00:00"
+            "last_login": "2024-01-01T00:00:00",
         }
 
     def ensure_profile_structure(self, profile: Dict[str, Any]) -> Dict[str, Any]:
@@ -120,8 +120,8 @@ class ProfileManager:
 
         if os.path.exists(self.profiles_dir):
             for filename in os.listdir(self.profiles_dir):
-                if filename.endswith('.json'):
-                    user_id = filename.replace('.json', '')
+                if filename.endswith(".json"):
+                    user_id = filename.replace(".json", "")
                     profiles[user_id] = self.load_profile(user_id)
 
         return profiles

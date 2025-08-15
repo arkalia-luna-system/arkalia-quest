@@ -32,13 +32,15 @@ class TestManager:
         filename = f"{test_name}_{self.session_id}.json"
         filepath = self.results_dir / filename
 
-        result_data.update({
-            "timestamp": datetime.now().isoformat(),
-            "session_id": self.session_id,
-            "test_name": test_name
-        })
+        result_data.update(
+            {
+                "timestamp": datetime.now().isoformat(),
+                "session_id": self.session_id,
+                "test_name": test_name,
+            }
+        )
 
-        with open(filepath, 'w', encoding='utf-8') as f:
+        with open(filepath, "w", encoding="utf-8") as f:
             json.dump(result_data, f, indent=2, ensure_ascii=False)
 
         print(f"📊 Résultat sauvegardé: {filepath}")
@@ -66,7 +68,7 @@ class TestManager:
             result_data = {
                 "success": True,
                 "duration": round(end_time - start_time, 2),
-                "result": result
+                "result": result,
             }
 
         except Exception as e:
@@ -74,7 +76,7 @@ class TestManager:
             result_data = {
                 "success": False,
                 "duration": round(end_time - start_time, 2),
-                "error": str(e)
+                "error": str(e),
             }
 
         # Sauvegarder le résultat
@@ -99,7 +101,7 @@ class TestManager:
             ("test_tutoriel", self.test_tutoriel),
             ("test_interface_complete", self.test_interface_complete),
             ("test_os2142_complete", self.test_os2142_complete),
-            ("test_phase1_complete", self.test_phase1_complete)
+            ("test_phase1_complete", self.test_phase1_complete),
         ]
 
         results = {}
@@ -122,14 +124,17 @@ class TestManager:
             ("/dashboard", "Dashboard"),
             ("/explorateur", "Explorateur"),
             ("/mail", "Mail"),
-            ("/audio", "Audio")
+            ("/audio", "Audio"),
         ]
 
         for page, name in pages_to_test:
             try:
                 response = requests.get(f"{self.base_url}{page}", timeout=5)
                 # Vérifier que la page répond (même si c'est une erreur 404, c'est normal)
-                assert response.status_code in [200, 404], f"{name}: Erreur inattendue {response.status_code}"
+                assert response.status_code in [
+                    200,
+                    404,
+                ], f"{name}: Erreur inattendue {response.status_code}"
 
             except Exception:
                 # Si le serveur n'est pas accessible, c'est normal en mode test
@@ -141,7 +146,10 @@ class TestManager:
             # Test de base du tutoriel
             response = requests.get(f"{self.base_url}/tutorial", timeout=5)
             # Le tutoriel peut retourner 200 ou 404 selon la configuration
-            assert response.status_code in [200, 404], f"Tutoriel: Erreur inattendue {response.status_code}"
+            assert response.status_code in [
+                200,
+                404,
+            ], f"Tutoriel: Erreur inattendue {response.status_code}"
 
         except Exception:
             # Si le serveur n'est pas accessible, c'est normal en mode test
@@ -152,7 +160,10 @@ class TestManager:
         try:
             # Test de l'interface principale
             response = requests.get(f"{self.base_url}/", timeout=5)
-            assert response.status_code in [200, 404], f"Interface: Erreur inattendue {response.status_code}"
+            assert response.status_code in [
+                200,
+                404,
+            ], f"Interface: Erreur inattendue {response.status_code}"
 
         except Exception:
             # Si le serveur n'est pas accessible, c'est normal en mode test
@@ -163,7 +174,10 @@ class TestManager:
         try:
             # Test du système OS2142
             response = requests.get(f"{self.base_url}/os2142", timeout=5)
-            assert response.status_code in [200, 404], f"OS2142: Erreur inattendue {response.status_code}"
+            assert response.status_code in [
+                200,
+                404,
+            ], f"OS2142: Erreur inattendue {response.status_code}"
 
         except Exception:
             # Si le serveur n'est pas accessible, c'est normal en mode test
@@ -174,7 +188,10 @@ class TestManager:
         try:
             # Test de la phase 1
             response = requests.get(f"{self.base_url}/phase1", timeout=5)
-            assert response.status_code in [200, 404], f"Phase1: Erreur inattendue {response.status_code}"
+            assert response.status_code in [
+                200,
+                404,
+            ], f"Phase1: Erreur inattendue {response.status_code}"
 
         except Exception:
             # Si le serveur n'est pas accessible, c'est normal en mode test
@@ -189,13 +206,13 @@ class TestManager:
             "successful_tests": sum(1 for r in results.values() if r.get("success")),
             "failed_tests": sum(1 for r in results.values() if not r.get("success")),
             "total_duration": sum(r.get("duration", 0) for r in results.values()),
-            "results": results
+            "results": results,
         }
 
         filename = f"global_test_report_{self.session_id}.json"
         filepath = self.reports_dir / filename
 
-        with open(filepath, 'w', encoding='utf-8') as f:
+        with open(filepath, "w", encoding="utf-8") as f:
             json.dump(report, f, indent=2, ensure_ascii=False)
 
         print(f"\n📋 RAPPORT GLOBAL GÉNÉRÉ: {filepath}")
@@ -203,6 +220,7 @@ class TestManager:
         print(f"⏱️ Durée totale: {report['total_duration']}s")
 
         return filepath
+
 
 if __name__ == "__main__":
     manager = TestManager()

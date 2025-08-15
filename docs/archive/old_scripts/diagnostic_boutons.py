@@ -52,11 +52,11 @@ class ButtonDiagnostic:
     def analyze_html_file(self, html_file: Path):
         """Analyse un fichier HTML spécifique"""
         try:
-            with open(html_file, encoding='utf-8') as f:
+            with open(html_file, encoding="utf-8") as f:
                 content = f.read()
 
             # Chercher les boutons
-            buttons = re.findall(r'<button[^>]*>', content)
+            buttons = re.findall(r"<button[^>]*>", content)
             onclick_buttons = re.findall(r'onclick="([^"]*)"', content)
 
             print(f"  📊 Boutons trouvés: {len(buttons)}")
@@ -70,15 +70,23 @@ class ButtonDiagnostic:
                 if "playSound" in onclick:
                     self.success.append(f"✅ playSound() trouvé dans {html_file.name}")
                 if "executeQuickCommand" in onclick:
-                    self.success.append(f"✅ executeQuickCommand() trouvé dans {html_file.name}")
+                    self.success.append(
+                        f"✅ executeQuickCommand() trouvé dans {html_file.name}"
+                    )
                 if "executeCommand" in onclick:
-                    self.success.append(f"✅ executeCommand() trouvé dans {html_file.name}")
+                    self.success.append(
+                        f"✅ executeCommand() trouvé dans {html_file.name}"
+                    )
 
                 # Détecter les problèmes potentiels
                 if "undefined" in onclick:
-                    self.issues.append(f"❌ Fonction undefined dans {html_file.name}: {onclick}")
+                    self.issues.append(
+                        f"❌ Fonction undefined dans {html_file.name}: {onclick}"
+                    )
                 if "error" in onclick.lower():
-                    self.issues.append(f"⚠️ Possible erreur dans {html_file.name}: {onclick}")
+                    self.issues.append(
+                        f"⚠️ Possible erreur dans {html_file.name}: {onclick}"
+                    )
 
         except Exception as e:
             self.issues.append(f"❌ Erreur lecture {html_file.name}: {e}")
@@ -100,36 +108,55 @@ class ButtonDiagnostic:
     def analyze_js_file(self, js_file: Path):
         """Analyse un fichier JavaScript spécifique"""
         try:
-            with open(js_file, encoding='utf-8') as f:
+            with open(js_file, encoding="utf-8") as f:
                 content = f.read()
 
             # Chercher les fonctions importantes
             functions = {
-                'playSound': len(re.findall(r'function\s+playSound|playSound\s*=', content)),
-                'executeQuickCommand': len(re.findall(r'function\s+executeQuickCommand|executeQuickCommand\s*=', content)),
-                'executeCommand': len(re.findall(r'function\s+executeCommand|executeCommand\s*=', content)),
-                'addEventListener': len(re.findall(r'addEventListener', content)),
-                'DOMContentLoaded': len(re.findall(r'DOMContentLoaded', content))
+                "playSound": len(
+                    re.findall(r"function\s+playSound|playSound\s*=", content)
+                ),
+                "executeQuickCommand": len(
+                    re.findall(
+                        r"function\s+executeQuickCommand|executeQuickCommand\s*=",
+                        content,
+                    )
+                ),
+                "executeCommand": len(
+                    re.findall(r"function\s+executeCommand|executeCommand\s*=", content)
+                ),
+                "addEventListener": len(re.findall(r"addEventListener", content)),
+                "DOMContentLoaded": len(re.findall(r"DOMContentLoaded", content)),
             }
 
             print("  📊 Fonctions trouvées:")
             for func, count in functions.items():
                 print(f"    {func}: {count} occurrence(s)")
 
-                if count > 1 and func in ['playSound', 'executeQuickCommand', 'executeCommand']:
-                    self.warnings.append(f"⚠️ Fonction {func} dupliquée dans {js_file.name} ({count}x)")
+                if count > 1 and func in [
+                    "playSound",
+                    "executeQuickCommand",
+                    "executeCommand",
+                ]:
+                    self.warnings.append(
+                        f"⚠️ Fonction {func} dupliquée dans {js_file.name} ({count}x)"
+                    )
 
             # Chercher les erreurs potentielles
-            if 'console.error' in content:
+            if "console.error" in content:
                 self.warnings.append(f"⚠️ console.error trouvé dans {js_file.name}")
-            if 'throw new Error' in content:
+            if "throw new Error" in content:
                 self.warnings.append(f"⚠️ throw new Error trouvé dans {js_file.name}")
 
             # Vérifier la syntaxe basique
-            if content.count('{') != content.count('}'):
-                self.issues.append(f"❌ Parenthèses non équilibrées dans {js_file.name}")
-            if content.count('(') != content.count(')'):
-                self.issues.append(f"❌ Parenthèses non équilibrées dans {js_file.name}")
+            if content.count("{") != content.count("}"):
+                self.issues.append(
+                    f"❌ Parenthèses non équilibrées dans {js_file.name}"
+                )
+            if content.count("(") != content.count(")"):
+                self.issues.append(
+                    f"❌ Parenthèses non équilibrées dans {js_file.name}"
+                )
 
         except Exception as e:
             self.issues.append(f"❌ Erreur lecture {js_file.name}: {e}")
@@ -145,17 +172,21 @@ class ButtonDiagnostic:
             all_js_content = ""
             for js_file in js_dir.glob("*.js"):
                 try:
-                    with open(js_file, encoding='utf-8') as f:
+                    with open(js_file, encoding="utf-8") as f:
                         all_js_content += f.read() + "\n"
                 except:
                     continue
 
             # Chercher les fonctions dupliquées
-            functions = ['playSound', 'executeQuickCommand', 'executeCommand']
+            functions = ["playSound", "executeQuickCommand", "executeCommand"]
             for func in functions:
-                count = len(re.findall(r'function\s+' + func + r'\s*\(', all_js_content))
+                count = len(
+                    re.findall(r"function\s+" + func + r"\s*\(", all_js_content)
+                )
                 if count > 1:
-                    self.issues.append(f"❌ CONFLIT: Fonction {func} définie {count} fois")
+                    self.issues.append(
+                        f"❌ CONFLIT: Fonction {func} définie {count} fois"
+                    )
                 elif count == 1:
                     self.success.append(f"✅ Fonction {func} définie une seule fois")
                 else:
@@ -219,11 +250,11 @@ class ButtonDiagnostic:
             "summary": {
                 "success": len(self.success),
                 "warnings": len(self.warnings),
-                "issues": len(self.issues)
+                "issues": len(self.issues),
             },
             "success": self.success,
             "warnings": self.warnings,
-            "issues": self.issues
+            "issues": self.issues,
         }
 
         try:
@@ -233,10 +264,12 @@ class ButtonDiagnostic:
         except Exception as e:
             print(f"\n❌ Erreur sauvegarde rapport: {e}")
 
+
 def main():
     """Fonction principale"""
     diagnostic = ButtonDiagnostic()
     diagnostic.run_full_diagnostic()
+
 
 if __name__ == "__main__":
     main()

@@ -38,11 +38,20 @@ jobs:
       - name: 📊 Push Docker Hub
         if: github.ref == 'refs/heads/main'
         run: |
-          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-          docker tag arkalia-quest:${{ github.sha }} ${{ secrets.DOCKER_USERNAME }}/arkalia-quest:${{ github.sha }}
-          docker tag arkalia-quest:${{ github.sha }} ${{ secrets.DOCKER_USERNAME }}/arkalia-quest:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/arkalia-quest:${{ github.sha }}
-          docker push ${{ secrets.DOCKER_USERNAME }}/arkalia-quest:latest
+          # Vérifier que les secrets sont définis
+          if [ -z "${{ secrets.DOCKER_USERNAME }}" ] || [ -z "${{ secrets.DOCKER_PASSWORD }}" ]; then
+            echo "❌ Secrets Docker manquants - skip du push"
+            exit 0
+          fi
+
+          echo "🔐 Authentification Docker..."
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+          echo "📤 Push des images..."
+          docker tag arkalia-quest:${{ github.sha }} "${{ secrets.DOCKER_USERNAME }}/arkalia-quest:${{ github.sha }}"
+          docker tag arkalia-quest:${{ github.sha }} "${{ secrets.DOCKER_USERNAME }}/arkalia-quest:latest"
+          docker push "${{ secrets.DOCKER_USERNAME }}/arkalia-quest:${{ github.sha }}"
+          docker push "${{ secrets.DOCKER_USERNAME }}/arkalia-quest:latest"
 
       - name: 🏷️ Création du tag
         if: github.ref == 'refs/heads/main'

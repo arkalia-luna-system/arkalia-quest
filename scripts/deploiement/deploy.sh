@@ -57,7 +57,7 @@ if [ -n "$DOCKER_USERNAME" ] && [ -n "$DOCKER_PASSWORD" ]; then
         
         # Authentification Docker
         echo "🔐 Authentification Docker..."
-        if echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin 2>/tmp/docker_login_error; then
+        if echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin "docker.io" 2>/tmp/docker_login_error; then
             echo "✅ Authentification Docker réussie"
             
             # Tag et push vers le registry

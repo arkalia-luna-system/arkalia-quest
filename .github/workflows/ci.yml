@@ -51,7 +51,7 @@ jobs:
           fail_ci_if_error: false
 
       - name: 📦 Upload des artefacts de couverture
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-reports-${{ matrix.python-version }}
           path: |

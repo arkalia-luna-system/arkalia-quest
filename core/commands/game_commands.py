@@ -59,6 +59,8 @@ class GameCommands:
 
     def handle_play_game(self, profile: Dict[str, Any]) -> Dict[str, Any]:
         """Démarre un mini-jeu éducatif"""
+        # Récupérer l'ID du jeu depuis le profil ou la commande
+        # Pour l'instant, on simule le démarrage d'un jeu
         return {
             "réussite": True,
             "ascii_art": "🎮",

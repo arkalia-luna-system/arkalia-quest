@@ -1,6 +1,16 @@
 {
-  "last_updated": "2025-08-15T13:07:17.890783",
+  "last_updated": "2025-08-15T13:57:25.978135",
   "players": [
+    {
+      "user_id": 2,
+      "name": "main_user",
+      "score": 7190,
+      "level": 10,
+      "badges_count": 5,
+      "missions_completed": 0,
+      "last_activity": "2025-08-15T13:57:25.978121",
+      "join_date": "2025-08-15T12:58:38.952459"
+    },
     {
       "user_id": "hacker_001",
       "name": "CyberMaster",
@@ -33,16 +43,6 @@
       "last_activity": "2025-07-10T09:30:00",
       "join_date": "2025-07-10T08:00:00",
       "is_current": true
-    },
-    {
-      "user_id": 2,
-      "name": "main_user",
-      "score": 1170,
-      "level": 2,
-      "badges_count": 5,
-      "missions_completed": 0,
-      "last_activity": "2025-08-15T13:07:17.890770",
-      "join_date": "2025-08-15T12:58:38.952459"
     },
     {
       "user_id": "hacker_003",
@@ -69,6 +69,16 @@
   ],
   "top_players": [
     {
+      "user_id": 2,
+      "name": "main_user",
+      "score": 7190,
+      "level": 10,
+      "badges_count": 5,
+      "missions_completed": 0,
+      "last_activity": "2025-08-15T13:57:25.978121",
+      "join_date": "2025-08-15T12:58:38.952459"
+    },
+    {
       "user_id": "hacker_001",
       "name": "CyberMaster",
       "score": 2100,
@@ -102,16 +112,6 @@
       "is_current": true
     },
     {
-      "user_id": 2,
-      "name": "main_user",
-      "score": 1170,
-      "level": 2,
-      "badges_count": 5,
-      "missions_completed": 0,
-      "last_activity": "2025-08-15T13:07:17.890770",
-      "join_date": "2025-08-15T12:58:38.952459"
-    },
-    {
       "user_id": "hacker_003",
       "name": "DataPhantom",
       "score": 950,
@@ -136,7 +136,7 @@
   ],
   "statistics": {
     "total_players": 6,
-    "total_score": 8020,
-    "average_score": 1336.67
+    "total_score": 14040,
+    "average_score": 2340.0
   }
 }

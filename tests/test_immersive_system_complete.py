@@ -586,7 +586,7 @@ def main():
                 "❌ Serveur non accessible. Assurez-vous qu'Arkalia Quest est démarré sur le port 5001."
             )
             return False
-    except:
+    except Exception:
         print(
             "❌ Impossible de se connecter au serveur. Assurez-vous qu'Arkalia Quest est démarré."
         )

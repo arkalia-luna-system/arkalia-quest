@@ -60,7 +60,7 @@ class ArkaliaGuidedDemo:
                     EC.presence_of_element_located((By.ID, "terminal"))
                 )
                 print("   ✅ Terminal chargé")
-            except:
+            except Exception:
                 print("   ⚠️ Terminal non trouvé, mais page accessible")
 
             # 3. Test des commandes via interface

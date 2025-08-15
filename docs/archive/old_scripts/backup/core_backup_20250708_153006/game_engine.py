@@ -123,8 +123,8 @@ class GameEngine:
         # Vérifier les prérequis
         prerequis = mission.get("prerequis", [])
 
-        for prerequis in prerequis:
-            if prerequis == "unlock_universe":
+        for prereq in prerequis:
+            if prereq == "unlock_universe":
                 if not self.game_state["universe_unlocked"]:
                     return False
             elif prerequis == "scan_persona":

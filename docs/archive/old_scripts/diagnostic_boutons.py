@@ -174,7 +174,7 @@ class ButtonDiagnostic:
                 try:
                     with open(js_file, encoding="utf-8") as f:
                         all_js_content += f.read() + "\n"
-                except:
+                except Exception:
                     continue
 
             # Chercher les fonctions dupliquées

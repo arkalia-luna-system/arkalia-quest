@@ -580,15 +580,13 @@ def main():
 
     # Vérifier que le serveur est accessible
     try:
-        response = requests.get(f"{self.base_url}/", timeout=5)
-        if response.status_code == 200:
-            return True
-        else:
+        response = requests.get("http://localhost:5001/api/status", timeout=5)
+        if response.status_code != 200:
             print(
                 "❌ Serveur non accessible. Assurez-vous qu'Arkalia Quest est démarré sur le port 5001."
             )
             return False
-    except Exception:
+    except:
         print(
             "❌ Impossible de se connecter au serveur. Assurez-vous qu'Arkalia Quest est démarré."
         )

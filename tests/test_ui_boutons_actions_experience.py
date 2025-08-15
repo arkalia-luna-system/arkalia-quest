@@ -392,11 +392,11 @@ class BoutonsActionsExperienceTester:
         for cmd in quick_commands:
             cmd_start = time.time()
             try:
-                response = requests.post(
-                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=3
+                requests.post(
+                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=2
                 )
                 response_times.append(time.time() - cmd_start)
-            except Exception:
+            except:
                 response_times.append(5.0)  # Timeout
 
         responsiveness_result["total_time"] = time.time() - start_time

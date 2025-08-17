@@ -344,6 +344,7 @@
                 <div class="nav-logo">ARKALIA QUEST</div>
                 <div class="nav-links">
                     <a href="/" class="nav-link active">🏠 ACCUEIL</a>
+                    <a href="/tutorial" class="nav-link">🎯 TUTORIEL</a>
                     <a href="/terminal" class="nav-link">⌨️ TERMINAL</a>
                     <a href="/monde" class="nav-link">🌍 MONDE</a>
                     <a href="/profil" class="nav-link">👤 PROFIL</a>
@@ -365,11 +366,12 @@
         <div class="hero-section">
             <h1 class="hero-title" id="main-title">ARKALIA QUEST</h1>
             <p class="hero-subtitle" id="hero-subtitle">Portail d'entrée dans l'esprit de LUNA</p>
-            <p class="luna-greeting" id="luna-greeting">"Bienvenue, hacker. Je suis LUNA, ton guide dans cette aventure cybernétique..."</p>
+            <p class="luna-greeting" id="luna-greeting">"Bienvenue, hacker. Je suis LUNA, ton guide dans cette aventure cybernétique. Commence par le tutoriel pour comprendre comment jouer !"</p>
             
             <!-- Boutons d'action -->
             <div class="cta-buttons">
-                <a href="/terminal" class="cta-btn primary">🚀 COMMENCER L'AVENTURE</a>
+                <a href="/tutorial" class="cta-btn primary">🎯 TUTORIEL DÉBUTANT</a>
+                <a href="/terminal" class="cta-btn">🚀 COMMENCER L'AVENTURE</a>
                 <a href="/monde" class="cta-btn">🌍 EXPLORER LE MONDE</a>
                 <a href="/profil" class="cta-btn">👤 MON PROFIL</a>
             </div>
@@ -448,14 +450,14 @@
             setTimeout(() => {
                 const greeting = document.getElementById('luna-greeting');
                 if (window.lunaVision && greeting) {
-                    window.lunaVision.typeText(greeting, '"Bienvenue, hacker. Je suis LUNA, ton guide dans cette aventure cybernétique. Ensemble, nous allons explorer les mystères d\'Arkalia et débloquer ton potentiel..."', 30);
+                    window.lunaVision.typeText(greeting, '"Bienvenue, hacker. Je suis LUNA, ton guide dans cette aventure cybernétique. Commence par le tutoriel pour comprendre comment jouer !"', 30);
                 }
             }, 5000);
             
             // Message de LUNA contextuel
             setTimeout(() => {
                 if (window.lunaVision) {
-                    window.lunaVision.showLunaMessage("Le portail est ouvert. Choisis ton chemin...", 4000);
+                    window.lunaVision.showLunaMessage("Le portail est ouvert. Commence par le tutoriel pour comprendre le jeu !", 4000);
                     window.lunaVision.setEmotion('welcoming');
                 }
             }, 8000);

@@ -319,6 +319,12 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/tutorial")
+def tutorial():
+    """Page tutoriel d'accueil pour nouveaux utilisateurs"""
+    return render_template("tutorial_welcome.html")
+
+
 @app.route("/terminal")
 def terminal():
     return render_template("terminal.html")
@@ -1540,6 +1546,57 @@ def cleanup_analytics_data():
         return jsonify(
             {"success": True, "message": "Nettoyage des données analytics effectué"}
         )
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+# API Tutoriel
+@app.route("/api/tutorial/steps")
+def get_tutorial_steps():
+    """Récupère les étapes du tutoriel depuis le système existant"""
+    try:
+        if TUTORIAL_AVAILABLE:
+            # Utiliser le gestionnaire de tutoriel existant
+            try:
+                from core.tutorial_manager import TutorialManager
+
+                tutorial_manager = TutorialManager()
+                tutorial_data = tutorial_manager._load_tutorial_data()
+            except ImportError:
+                # Fallback si l'import échoue
+                tutorial_data = None
+            return jsonify(tutorial_data)
+        else:
+            # Fallback vers les données locales
+            return jsonify(
+                {
+                    "tutoriel": {
+                        "etapes": [
+                            {
+                                "id": 1,
+                                "titre": "Bienvenue dans Arkalia Quest",
+                                "message": "Salut hacker ! Je suis LUNA, ton assistant IA. Prêt pour l'aventure ?",
+                                "commande": "luna_contact",
+                                "aide": "Tape 'luna_contact' pour me parler",
+                            },
+                            {
+                                "id": 2,
+                                "titre": "Première mission",
+                                "message": "Découvre le SOS mystérieux du Dr Althea Voss",
+                                "commande": "prologue",
+                                "aide": "Tape 'prologue' pour commencer l'histoire",
+                            },
+                            {
+                                "id": 3,
+                                "titre": "Répare le site de LUNA",
+                                "message": "Aide-moi à réparer mon site web compromis",
+                                "commande": "acte_1",
+                                "aide": "Tape 'acte_1' pour la première mission",
+                            },
+                        ]
+                    }
+                }
+            )
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

@@ -487,5 +487,62 @@ def create_md5_hash(text):
         }
 
 
+    def _calculate_matrix_bonus(self, user_id: str, game: Dict[str, Any], attempts: int) -> Dict[str, Any]:
+        """Calcule les bonus Matrix pour l'engagement adolescent"""
+        base_bonus = 10
+        streak_bonus = 0
+        difficulty_bonus = 0
+        
+        # Bonus pour tentatives rapides
+        if attempts == 1:
+            base_bonus += 20  # Bonus "première fois"
+        elif attempts == 2:
+            base_bonus += 10  # Bonus "persévérance"
+        
+        # Bonus pour difficulté
+        if game.get("difficulty") == "expert":
+            difficulty_bonus = 30
+        elif game.get("difficulty") == "advanced":
+            difficulty_bonus = 20
+        elif game.get("difficulty") == "intermediate":
+            difficulty_bonus = 10
+        
+        # Bonus de série
+        progress = self.get_user_progress(user_id)
+        if progress.get("games_completed", 0) >= 5:
+            streak_bonus = 25  # Bonus "hacker confirmé"
+        elif progress.get("games_completed", 0) >= 10:
+            streak_bonus = 50  # Bonus "maître hacker"
+        
+        total_bonus = base_bonus + difficulty_bonus + streak_bonus
+        
+        return {
+            "base": base_bonus,
+            "difficulty": difficulty_bonus,
+            "streak": streak_bonus,
+            "total": total_bonus,
+            "message": f"🌟 Bonus Matrix : +{total_bonus} points !"
+        }
+
+    def _get_encouragement(self, attempts: int) -> str:
+        """Génère des encouragements personnalisés pour les ados"""
+        encouragements = [
+            "💪 Ne lâche pas ! Chaque échec te rapproche du succès !",
+            "🌟 Tu y es presque ! Essaie une approche différente !",
+            "🚀 C'est normal de se tromper, c'est comme ça qu'on apprend !",
+            "🎯 Garde la tête haute, tu vas y arriver !",
+            "⚡ Un petit pas en arrière, deux pas en avant !",
+            "🔍 Regarde bien les indices, la réponse est là !",
+            "💡 Parfois il faut voir les choses sous un autre angle !"
+        ]
+        
+        # Choisir selon le nombre de tentatives
+        if attempts == 1:
+            return encouragements[0]  # Premier encouragement
+        elif attempts == 2:
+            return encouragements[1]  # Encouragement de persévérance
+        else:
+            return encouragements[2]  # Encouragement général
+
 # Instance globale
 educational_games = EducationalGamesEngine()

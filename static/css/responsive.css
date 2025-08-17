@@ -4,15 +4,15 @@
 
 /* ===== BREAKPOINTS PROFESSIONNELS ===== */
 
-/* Mobile Portrait (320px - 480px) */
+/* Mobile Portrait (320px - 480px) - OPTIMISÉ ADOLESCENT */
 @media (max-width: 480px) {
     :root {
-        --font-size-base: 18px;
-        --spacing-xs: 6px;
-        --spacing-sm: 10px;
-        --spacing-md: 14px;
-        --spacing-lg: 20px;
-        --spacing-xl: 28px;
+        --font-size-base: 20px;  /* Plus grand pour les ados */
+        --spacing-xs: 8px;       /* Plus d'espace */
+        --spacing-sm: 12px;
+        --spacing-md: 16px;
+        --spacing-lg: 24px;      /* Plus d'espace entre éléments */
+        --spacing-xl: 32px;
     }
     
     /* Containers principaux */
@@ -35,18 +35,19 @@
         margin-bottom: 20px;
     }
     
-    /* Boutons tactiles optimisés */
+    /* Boutons tactiles optimisés ADOLESCENT */
     .main-action-btn,
     .nav-button,
     .secondary-btn,
     .nav-btn,
     button {
-        min-height: 48px;
-        min-width: 48px;
-        padding: 12px 16px;
-        font-size: 16px;
-        margin: 8px 4px;
-        border-radius: 8px;
+        min-height: 56px;        /* Plus grand pour les doigts d'ados */
+        min-width: 56px;
+        padding: 16px 20px;      /* Plus de padding */
+        font-size: 18px;         /* Texte plus grand */
+        margin: 10px 6px;        /* Plus d'espace entre boutons */
+        border-radius: 12px;     /* Plus arrondi, style moderne */
+        font-weight: 600;        /* Plus visible */
     }
     
     /* Navigation */

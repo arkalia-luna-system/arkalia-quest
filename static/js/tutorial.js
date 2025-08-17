@@ -205,18 +205,44 @@ class TutorialEngine {
 
         choices.forEach((choice, index) => {
             const choiceButton = document.createElement('button');
-            choiceButton.className = `tutorial-choice choice-${choice.effet}`;
+            choiceButton.className = `tutorial-choice choice-${choice.effet} matrix-choice`;
             choiceButton.innerHTML = `
                 <div class="choice-text">${choice.texte}</div>
                 <div class="choice-description">${choice.description}</div>
+                <div class="choice-effect">${this.getChoiceEffectIcon(choice.effet)}</div>
             `;
+            
+            // Ajouter des effets Matrix
+            choiceButton.style.background = 'linear-gradient(45deg, #00ff00, #00ff88)';
+            choiceButton.style.border = '2px solid #00ff00';
+            choiceButton.style.boxShadow = '0 0 15px rgba(0, 255, 0, 0.4)';
             
             choiceButton.addEventListener('click', () => {
                 this.handleChoice(choice, index);
             });
 
+            // Animation d'entrée Matrix
+            choiceButton.style.opacity = '0';
+            choiceButton.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                choiceButton.style.transition = 'all 0.3s ease';
+                choiceButton.style.opacity = '1';
+                choiceButton.style.transform = 'translateY(0)';
+            }, index * 100);
+
             this.choiceContainer.appendChild(choiceButton);
         });
+    }
+
+    getChoiceEffectIcon(effect) {
+        const icons = {
+            'epic': '🚀',
+            'stealth': '🕵️',
+            'smooth': '✨',
+            'hack': '💻',
+            'matrix': '🌐'
+        };
+        return icons[effect] || '🎯';
     }
 
     handleChoice(choice, index) {

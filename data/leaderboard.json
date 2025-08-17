@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-08-15T13:57:25.978135",
+  "last_updated": "2025-08-17T16:01:11.247528",
   "players": [
     {
       "user_id": 2,
@@ -34,17 +34,6 @@
       "is_current": false
     },
     {
-      "user_id": "default",
-      "name": "Hacker",
-      "score": 1250,
-      "level": 3,
-      "badges_count": 4,
-      "missions_completed": 8,
-      "last_activity": "2025-07-10T09:30:00",
-      "join_date": "2025-07-10T08:00:00",
-      "is_current": true
-    },
-    {
       "user_id": "hacker_003",
       "name": "DataPhantom",
       "score": 950,
@@ -56,6 +45,16 @@
       "is_current": false
     },
     {
+      "user_id": 1,
+      "name": "main_user",
+      "score": 950,
+      "level": 2,
+      "badges_count": 2,
+      "missions_completed": 0,
+      "last_activity": "2025-08-17T16:01:11.247460",
+      "join_date": "2025-08-17T15:53:28.668736"
+    },
+    {
       "user_id": "hacker_004",
       "name": "ByteWizard",
       "score": 750,
@@ -65,6 +64,17 @@
       "last_activity": "2025-07-10T09:10:00",
       "join_date": "2025-07-10T09:00:00",
       "is_current": false
+    },
+    {
+      "user_id": "default",
+      "name": "Hacker",
+      "score": 250,
+      "level": 2,
+      "badges_count": 1,
+      "missions_completed": 0,
+      "last_activity": "2025-08-17T15:53:24.746922",
+      "join_date": "2025-07-10T08:00:00",
+      "is_current": true
     }
   ],
   "top_players": [
@@ -101,17 +111,6 @@
       "is_current": false
     },
     {
-      "user_id": "default",
-      "name": "Hacker",
-      "score": 1250,
-      "level": 3,
-      "badges_count": 4,
-      "missions_completed": 8,
-      "last_activity": "2025-07-10T09:30:00",
-      "join_date": "2025-07-10T08:00:00",
-      "is_current": true
-    },
-    {
       "user_id": "hacker_003",
       "name": "DataPhantom",
       "score": 950,
@@ -123,6 +122,16 @@
       "is_current": false
     },
     {
+      "user_id": 1,
+      "name": "main_user",
+      "score": 950,
+      "level": 2,
+      "badges_count": 2,
+      "missions_completed": 0,
+      "last_activity": "2025-08-17T16:01:11.247460",
+      "join_date": "2025-08-17T15:53:28.668736"
+    },
+    {
       "user_id": "hacker_004",
       "name": "ByteWizard",
       "score": 750,
@@ -132,11 +141,22 @@
       "last_activity": "2025-07-10T09:10:00",
       "join_date": "2025-07-10T09:00:00",
       "is_current": false
+    },
+    {
+      "user_id": "default",
+      "name": "Hacker",
+      "score": 250,
+      "level": 2,
+      "badges_count": 1,
+      "missions_completed": 0,
+      "last_activity": "2025-08-17T15:53:24.746922",
+      "join_date": "2025-07-10T08:00:00",
+      "is_current": true
     }
   ],
   "statistics": {
-    "total_players": 6,
-    "total_score": 14040,
-    "average_score": 2340.0
+    "total_players": 7,
+    "total_score": 13990,
+    "average_score": 1998.57
   }
 }

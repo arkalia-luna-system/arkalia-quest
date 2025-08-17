@@ -187,6 +187,165 @@ body::before {
     }
 }
 
+/* ===== SYSTÈME DE PROGRESSION VISUELLE ADOLESCENT ===== */
+
+.progress-container {
+    background: rgba(0, 17, 0, 0.8);
+    border: 2px solid var(--matrix-green);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
+    backdrop-filter: blur(10px);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 25px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    margin: 10px 0;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--matrix-green), var(--matrix-glow));
+    border-radius: 12px;
+    transition: width 0.8s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: progressShine 2s infinite;
+}
+
+@keyframes progressShine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.challenge-card {
+    background: linear-gradient(135deg, rgba(0, 17, 0, 0.9), rgba(0, 255, 0, 0.1));
+    border: 2px solid var(--matrix-green);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 15px 0;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.challenge-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.4);
+    border-color: var(--matrix-accent);
+}
+
+.challenge-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--matrix-green), var(--matrix-accent), var(--matrix-green));
+    animation: challengeGlow 3s ease-in-out infinite;
+}
+
+@keyframes challengeGlow {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+.challenge-progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.progress-blocks {
+    display: flex;
+    gap: 2px;
+}
+
+.progress-block {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.progress-block.filled {
+    background: var(--matrix-green);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.6);
+}
+
+.progress-block.empty {
+    background: rgba(0, 255, 0, 0.2);
+    border: 1px solid rgba(0, 255, 0, 0.4);
+}
+
+.challenge-status {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.9em;
+    color: var(--matrix-accent);
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+}
+
+/* ===== ÉVÉNEMENTS ALÉATOIRES ===== */
+
+.random-event {
+    background: linear-gradient(135deg, rgba(136, 0, 255, 0.1), rgba(0, 255, 255, 0.1));
+    border: 2px solid var(--matrix-accent);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 15px 0;
+    animation: eventPulse 2s ease-in-out infinite;
+}
+
+@keyframes eventPulse {
+    0%, 100% { 
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        transform: scale(1);
+    }
+    50% { 
+        box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
+        transform: scale(1.02);
+    }
+}
+
+.event-trigger {
+    background: rgba(0, 255, 255, 0.1);
+    border: 1px solid var(--matrix-accent);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.8em;
+    color: var(--matrix-accent);
+    display: inline-block;
+    margin: 5px 0;
+}
+
+.event-chance {
+    background: rgba(255, 0, 255, 0.1);
+    border: 1px solid var(--rose-souvenir);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.8em;
+    color: var(--rose-souvenir);
+    display: inline-block;
+    margin: 5px 0;
+}
+
 /* CONTAINER PRINCIPAL */
 .container {
     position: relative;

@@ -7,7 +7,7 @@ import json
 import os
 import random
 from datetime import datetime
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 from core.database import DatabaseManager
 
@@ -27,6 +27,148 @@ class GameEngine:
             "luna_relationship": 0,
             "universe_unlocked": False,
             "personality_detected": False,
+        }
+
+        # NOUVEAU : Système de défis quotidiens pour ados
+        self.daily_challenges = self._init_daily_challenges()
+        self.random_events = self._init_random_events()
+        self.last_challenge_reset = datetime.now().date()
+
+    def _init_daily_challenges(self) -> Dict[str, Any]:
+        """Initialise les défis quotidiens engageants pour les ados"""
+        return {
+            "speed_hacker": {
+                "title": "⚡ Speed Hacker",
+                "description": "Complète 3 missions en moins de 5 minutes",
+                "reward": {"xp": 100, "badge": "Speed Demon", "coins": 50},
+                "condition": "complete_3_missions_fast",
+                "progress": 0,
+                "target": 3,
+                "time_limit": 300,
+            },
+            "code_master": {
+                "title": "💻 Code Master",
+                "description": "Résous 2 mini-jeux de programmation",
+                "reward": {"xp": 150, "badge": "Code Master", "coins": 75},
+                "condition": "solve_2_code_games",
+                "progress": 0,
+                "target": 2,
+            },
+            "social_butterfly": {
+                "title": "🦋 Social Butterfly",
+                "description": "Utilise 5 commandes sociales différentes",
+                "reward": {"xp": 80, "badge": "Social Expert", "coins": 40},
+                "condition": "use_5_social_commands",
+                "progress": 0,
+                "target": 5,
+            },
+            "night_owl": {
+                "title": "🦉 Night Owl",
+                "description": "Joue entre 22h et 6h du matin",
+                "reward": {"xp": 120, "badge": "Night Hacker", "coins": 60},
+                "condition": "play_at_night",
+                "progress": 0,
+                "target": 1,
+            },
+        }
+
+    def _init_random_events(self) -> List[Dict[str, Any]]:
+        """Initialise les événements aléatoires pour surprendre les ados"""
+        return [
+            {
+                "id": "luna_surprise",
+                "title": "🎁 Surprise LUNA !",
+                "description": "LUNA t'offre un bonus XP aléatoire !",
+                "trigger": "random_action",
+                "chance": 0.1,  # 10% de chance
+                "effect": {
+                    "bonus_xp": "random_50_200",
+                    "message": "🌟 LUNA t'aime bien ! Bonus XP !",
+                },
+            },
+            {
+                "id": "secret_badge",
+                "title": "🔍 Badge Secret Découvert !",
+                "description": "Tu as trouvé un badge caché !",
+                "trigger": "exploration",
+                "chance": 0.05,  # 5% de chance
+                "effect": {"badge": "Secret Explorer", "bonus_xp": 100},
+            },
+            {
+                "id": "matrix_glitch",
+                "title": "🌐 Glitch Matrix !",
+                "description": "Le système bug, profites-en !",
+                "trigger": "system_action",
+                "chance": 0.08,  # 8% de chance
+                "effect": {
+                    "bonus_coins": 25,
+                    "message": "🌐 Glitch détecté ! Bonus coins !",
+                },
+            },
+        ]
+
+    def get_daily_challenges(self, user_id: str = "default") -> Dict[str, Any]:
+        """Récupère les défis quotidiens pour l'utilisateur"""
+        # Vérifier si on doit réinitialiser les défis
+        current_date = datetime.now().date()
+        if current_date != self.last_challenge_reset:
+            self._reset_daily_challenges()
+            self.last_challenge_reset = current_date
+
+        return {
+            "challenges": self.daily_challenges,
+            "date": current_date.isoformat(),
+            "completed_today": self._get_completed_challenges_count(user_id),
+        }
+
+    def _reset_daily_challenges(self):
+        """Réinitialise tous les défis quotidiens"""
+        for challenge in self.daily_challenges.values():
+            challenge["progress"] = 0
+
+    def _get_completed_challenges_count(self, user_id: str) -> int:
+        """Compte les défis complétés aujourd'hui"""
+        profile = self.db_manager.load_profile(user_id)
+        if not profile:
+            return 0
+
+        completed = profile.get("daily_challenges_completed", [])
+        today = datetime.now().date().isoformat()
+        return len([c for c in completed if c.get("date") == today])
+
+    def check_random_event(
+        self, action_type: str, profile: Dict[str, Any]
+    ) -> Dict[str, Any]:
+        """Vérifie si un événement aléatoire doit se déclencher"""
+        for event in self.random_events:
+            if event["trigger"] == action_type:
+                if random.random() < event["chance"]:
+                    return self._execute_random_event(event, profile)
+        return {}
+
+    def _execute_random_event(
+        self, event: Dict[str, Any], profile: Dict[str, Any]
+    ) -> Dict[str, Any]:
+        """Exécute un événement aléatoire"""
+        effect = event["effect"]
+
+        if "bonus_xp" in effect:
+            if effect["bonus_xp"] == "random_50_200":
+                bonus_xp = random.randint(50, 200)
+                profile["xp"] = profile.get("xp", 0) + bonus_xp
+                effect["bonus_xp"] = bonus_xp
+
+        if "badge" in effect:
+            if "badges" not in profile:
+                profile["badges"] = []
+            if effect["badge"] not in profile["badges"]:
+                profile["badges"].append(effect["badge"])
+
+        return {
+            "event_triggered": True,
+            "event": event,
+            "effect": effect,
+            "profile_updated": True,
         }
 
     def process_command(self, command: str, user_id: str = "default") -> Dict[str, Any]:

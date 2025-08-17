@@ -91,6 +91,14 @@ Le message est codé et contient des informations cruciales sur PANDORA.
         if "Web Hacker" not in profile["badges"]:
             profile["badges"].append("Web Hacker")
 
+        # NOUVEAU : Système de progression visuelle
+        mission_progress = {
+            "current_step": 1,
+            "total_steps": 4,
+            "steps_completed": ["diagnostic"],
+            "next_objective": "Nettoyer les fichiers infectés",
+        }
+
         return {
             "réussite": True,
             "ascii_art": "🌟",
@@ -98,28 +106,27 @@ Le message est codé et contient des informations cruciales sur PANDORA.
 
 🌐 LUNA : "Mon site web a été compromis par La Corp !"
 
-🔧 DIAGNOSTIC :
+🔧 DIAGNOSTIC : ✅ TERMINÉ
 • Vulnérabilités XSS détectées
 • Injection SQL dans les formulaires
 • Fichiers malveillants uploadés
 • Backdoor dans le code source
 
-💻 TES ACTIONS :
+💻 PROCHAIN OBJECTIF : 🧹 NETTOYAGE
 • Analyse des logs d'accès
 • Nettoyage des fichiers infectés
 • Correction des vulnérabilités
 • Mise à jour de la sécurité
 
-✅ SITE WEB RÉPARÉ !
-La Corp ne peut plus accéder aux données de LUNA.
+🎯 PROGRESSION : 1/4 étapes complétées
+📊 Prochaine étape : Nettoyer les fichiers infectés
 
-🎯 PROCHAINE MISSION :
-• acte_2 → Décrypte les logs de NEXUS
-
-🏆 Badge débloqué : Web Hacker !""",
+💡 Utilise 'hack_system' pour continuer la mission !""",
             "score_gagne": 300,
             "badge": "Web Hacker",
             "profile_updated": True,
+            "mission_progress": mission_progress,
+            "next_action": "hack_system",
         }
 
     def handle_acte_2(self, profile: Dict[str, Any]) -> Dict[str, Any]:
@@ -390,28 +397,148 @@ Tu es maintenant un héros légendaire !
 
     def handle_hack_system(self, profile: Dict[str, Any]) -> Dict[str, Any]:
         """Gère la commande hack_system - Hack du système de La Corp"""
-        profile["score"] += 100
+        if "missions_completed" not in profile:
+            profile["missions_completed"] = []
 
-        return {
-            "réussite": True,
-            "ascii_art": "💻",
-            "message": """💻 HACK SYSTÈME LA CORP
+        # Vérifier si acte_1 est complété
+        if "acte_1" not in profile["missions_completed"]:
+            return {
+                "réussite": False,
+                "ascii_art": "❌",
+                "message": """❌ ACCÈS REFUSÉ - MISSION ACTE_1 REQUISE
 
-🔓 ACCÈS RÉUSSI !
-• Système de La Corp compromis
-• Données sensibles extraites
-• Plans d'invasion découverts
-• Coordonnées des bases secrètes
+🌙 LUNA : "Hacker, tu dois d'abord compléter la mission Acte 1 !"
 
-🎯 PROCHAINES CIBLES :
-• kill_virus → Élimine les virus
-• find_shadow → Trouve SHADOW-13
-• challenge_corp → Défie La Corp
+🎯 PROCHAINES ÉTAPES :
+• acte_1 → Répare le site web de LUNA
+• Puis hack_system → Hack le système de La Corp
 
-🌙 LUNA : "Excellent travail, hacker !""",
-            "score_gagne": 100,
-            "profile_updated": True,
-        }
+💡 Commence par 'acte_1' pour débloquer cette commande !""",
+                "profile_updated": False,
+            }
+
+        # NOUVEAU : Système de progression interactive
+        if "hack_progress" not in profile:
+            profile["hack_progress"] = {
+                "step": 1,
+                "total_steps": 3,
+                "completed": [],
+                "current_objective": "Analyser les logs d'accès",
+            }
+
+        hack_progress = profile["hack_progress"]
+
+        if hack_progress["step"] == 1:
+            # Étape 1 : Analyse des logs
+            hack_progress["step"] = 2
+            hack_progress["completed"].append("logs_analysis")
+            hack_progress["current_objective"] = "Nettoyer les fichiers infectés"
+
+            return {
+                "réussite": True,
+                "ascii_art": "🔍",
+                "message": """🔍 HACK SYSTÈME - ÉTAPE 1/3 TERMINÉE !
+
+🌐 LUNA : "Excellent ! J'ai analysé les logs d'accès..."
+
+📊 ANALYSE DES LOGS : ✅ TERMINÉ
+• 47 tentatives d'intrusion détectées
+• IP source : 192.168.1.100 (La Corp)
+• Heure d'attaque : 02:47 UTC
+• Méthode : Injection SQL + XSS
+
+🧹 PROCHAIN OBJECTIF : NETTOYAGE
+• Identifier les fichiers infectés
+• Supprimer les backdoors
+• Corriger les vulnérabilités
+
+🎯 PROGRESSION : 1/3 étapes complétées
+📊 Prochaine étape : Nettoyer les fichiers infectés
+
+💡 Utilise 'hack_system' à nouveau pour continuer !""",
+                "profile_updated": True,
+                "hack_progress": hack_progress,
+                "next_step": "cleanup_files",
+            }
+
+        elif hack_progress["step"] == 2:
+            # Étape 2 : Nettoyage des fichiers
+            hack_progress["step"] = 3
+            hack_progress["completed"].append("files_cleanup")
+            hack_progress["current_objective"] = "Corriger les vulnérabilités"
+
+            return {
+                "réussite": True,
+                "ascii_art": "🧹",
+                "message": """🧹 HACK SYSTÈME - ÉTAPE 2/3 TERMINÉE !
+
+🌐 LUNA : "Fichiers infectés supprimés avec succès !"
+
+🧹 NETTOYAGE DES FICHIERS : ✅ TERMINÉ
+• 3 fichiers malveillants supprimés
+• Backdoor principale neutralisée
+• Code source sécurisé
+• Permissions restreintes
+
+🔧 PROCHAIN OBJECTIF : CORRECTION
+• Corriger les vulnérabilités XSS
+• Sécuriser les formulaires
+• Mettre à jour la sécurité
+
+🎯 PROGRESSION : 2/3 étapes complétées
+📊 Prochaine étape : Corriger les vulnérabilités
+
+💡 Utilise 'hack_system' une dernière fois !""",
+                "profile_updated": True,
+                "hack_progress": hack_progress,
+                "next_step": "fix_vulnerabilities",
+            }
+
+        else:
+            # Étape 3 : Finalisation
+            profile["missions_completed"].append("hack_system_completed")
+            profile["score"] += 150
+
+            if "badges" not in profile:
+                profile["badges"] = []
+            if "System Hacker" not in profile["badges"]:
+                profile["badges"].append("System Hacker")
+
+            # Réinitialiser le hack_progress
+            profile["hack_progress"] = {
+                "step": 1,
+                "total_steps": 3,
+                "completed": [],
+                "current_objective": "Mission terminée",
+            }
+
+            return {
+                "réussite": True,
+                "ascii_art": "✅",
+                "message": """✅ HACK SYSTÈME - MISSION TERMINÉE !
+
+🌐 LUNA : "Parfait ! Le système est maintenant sécurisé !"
+
+🔧 CORRECTION DES VULNÉRABILITÉS : ✅ TERMINÉ
+• Vulnérabilités XSS corrigées
+• Formulaires sécurisés
+• Système de sécurité mis à jour
+• La Corp ne peut plus accéder aux données
+
+🎯 MISSION COMPLÈTE : 3/3 étapes
+🏆 Badge débloqué : System Hacker !
+💎 +150 points bonus !
+
+🚀 PROCHAINE MISSION :
+• acte_2 → Décrypte les logs de NEXUS
+
+🌙 LUNA : "Tu es un vrai hacker, mon ami ! Continuons l'aventure !" """,
+                "score_gagne": 150,
+                "badge": "System Hacker",
+                "profile_updated": True,
+                "mission_complete": True,
+                "next_mission": "acte_2",
+            }
 
     def handle_kill_virus(self, profile: Dict[str, Any]) -> Dict[str, Any]:
         """Gère la commande kill_virus - Élimination des virus"""

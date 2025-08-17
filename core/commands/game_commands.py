@@ -19,6 +19,8 @@ class GameCommands:
             "games": self.handle_games,
             "play_game": self.handle_play_game,
             "game_stats": self.handle_game_stats,
+            "daily_challenges": self.handle_daily_challenges,
+            "random_events": self.handle_random_events,
         }
 
     def handle_games(self, profile: Dict[str, Any]) -> Dict[str, Any]:
@@ -99,6 +101,102 @@ class GameCommands:
         message += "💡 Commence par 'games' pour voir les jeux !"
 
         return {"réussite": True, "ascii_art": "📊", "message": message}
+
+    def handle_daily_challenges(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+        """Affiche les défis quotidiens engageants pour les ados"""
+        # Simuler des défis quotidiens
+        challenges = {
+            "speed_hacker": {
+                "title": "⚡ Speed Hacker",
+                "description": "Complète 3 missions en moins de 5 minutes",
+                "progress": 1,
+                "target": 3,
+                "reward": "100 XP + Badge Speed Demon + 50 Coins",
+            },
+            "code_master": {
+                "title": "💻 Code Master",
+                "description": "Résous 2 mini-jeux de programmation",
+                "progress": 0,
+                "target": 2,
+                "reward": "150 XP + Badge Code Master + 75 Coins",
+            },
+            "social_butterfly": {
+                "title": "🦋 Social Butterfly",
+                "description": "Utilise 5 commandes sociales différentes",
+                "progress": 2,
+                "target": 5,
+                "reward": "80 XP + Badge Social Expert + 40 Coins",
+            },
+            "night_owl": {
+                "title": "🦉 Night Owl",
+                "description": "Joue entre 22h et 6h du matin",
+                "progress": 0,
+                "target": 1,
+                "reward": "120 XP + Badge Night Hacker + 60 Coins",
+            },
+        }
+
+        message = "🎯 DÉFIS QUOTIDIENS - RÉINITIALISÉS CHAQUE JOUR !\n\n"
+
+        for _challenge_id, challenge in challenges.items():
+            progress_bar = "█" * challenge["progress"] + "░" * (
+                challenge["target"] - challenge["progress"]
+            )
+            status = (
+                "✅ COMPLÉTÉ !"
+                if challenge["progress"] >= challenge["target"]
+                else f"📊 {challenge['progress']}/{challenge['target']}"
+            )
+
+            message += f"🎯 {challenge['title']}\n"
+            message += f"   📝 {challenge['description']}\n"
+            message += f"   {progress_bar} {status}\n"
+            message += f"   🏆 Récompense : {challenge['reward']}\n\n"
+
+        message += "💡 Les défis se réinitialisent chaque jour à minuit !\n"
+        message += "🌟 Complète-les tous pour des bonus exclusifs !"
+
+        return {"réussite": True, "ascii_art": "🎯", "message": message}
+
+    def handle_random_events(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+        """Affiche les événements aléatoires et leurs déclencheurs"""
+        events = {
+            "luna_surprise": {
+                "title": "🎁 Surprise LUNA !",
+                "description": "LUNA t'offre un bonus XP aléatoire !",
+                "trigger": "Actions aléatoires",
+                "chance": "10%",
+                "effect": "Bonus XP 50-200 + Message spécial",
+            },
+            "secret_badge": {
+                "title": "🔍 Badge Secret Découvert !",
+                "description": "Tu as trouvé un badge caché !",
+                "trigger": "Exploration du monde",
+                "chance": "5%",
+                "effect": "Badge 'Secret Explorer' + 100 XP",
+            },
+            "matrix_glitch": {
+                "title": "🌐 Glitch Matrix !",
+                "description": "Le système bug, profites-en !",
+                "trigger": "Actions système",
+                "chance": "8%",
+                "effect": "25 Coins bonus + Message glitch",
+            },
+        }
+
+        message = "🎲 ÉVÉNEMENTS ALÉATOIRES - SURPRISES MATRIX !\n\n"
+
+        for _event_id, event in events.items():
+            message += f"🎲 {event['title']}\n"
+            message += f"   📝 {event['description']}\n"
+            message += f"   🎯 Déclencheur : {event['trigger']}\n"
+            message += f"   🎲 Chance : {event['chance']}\n"
+            message += f"   ⚡ Effet : {event['effect']}\n\n"
+
+        message += "💡 Ces événements se déclenchent aléatoirement !\n"
+        message += "🌟 Plus tu joues, plus tu as de chances !"
+
+        return {"réussite": True, "ascii_art": "🎲", "message": message}
 
     def _get_type_emoji(self, game_type: str) -> str:
         """Retourne l'emoji pour un type de jeu"""

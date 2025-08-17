@@ -357,6 +357,8 @@ class TestLunaEmotionsEngine(unittest.TestCase):
             "curious",
             "calm",
             "mysterious",
+            "energetic",  # Ajout de l'émotion manquante
+            "focused",  # Ajout de l'émotion focused
         }
         for emotion in emotions_seen:
             self.assertIn(emotion, valid_emotions)

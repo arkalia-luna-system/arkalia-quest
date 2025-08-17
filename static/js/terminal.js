@@ -89,6 +89,141 @@ function playSuccessSound() {
     }
 }
 
+// ===== EFFETS MATRIX AMÉLIORÉS =====
+
+function playMatrixSuccessEffect() {
+    if (!audioEnabled || !audioContext) return;
+    try {
+        // Son Matrix success
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(800, audioContext.currentTime + 0.3);
+        oscillator.frequency.exponentialRampToValueAtTime(1600, audioContext.currentTime + 0.6);
+        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.6);
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.6);
+    } catch (e) {
+        // Mode silencieux
+    }
+    
+    // Effet visuel Matrix
+    showMatrixParticles();
+}
+
+function playMatrixErrorEffect() {
+    if (!audioEnabled || !audioContext) return;
+    try {
+        // Son Matrix error
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.2);
+        oscillator.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.4);
+        gainNode.gain.setValueAtTime(0.15, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.4);
+    } catch (e) {
+        // Mode silencieux
+    }
+}
+
+function showMatrixParticles() {
+    const container = document.querySelector('.terminal-container');
+    if (!container) return;
+    
+    // Créer des particules Matrix
+    for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'matrix-particle';
+        particle.style.cssText = `
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #00ff00;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1000;
+            left: ${Math.random() * 100}%;
+            top: ${Math.random() * 100}%;
+            animation: matrixParticle 2s ease-out forwards;
+        `;
+        
+        container.appendChild(particle);
+        
+        // Supprimer après animation
+        setTimeout(() => {
+            if (particle.parentNode) {
+                particle.parentNode.removeChild(particle);
+            }
+        }, 2000);
+    }
+}
+
+function showMatrixRewards(rewards) {
+    if (!rewards) return;
+    
+    const rewardContainer = document.createElement('div');
+    rewardContainer.className = 'matrix-rewards';
+    rewardContainer.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(45deg, #001100, #00ff00);
+        border: 2px solid #00ff00;
+        border-radius: 15px;
+        padding: 20px;
+        color: #00ff00;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 18px;
+        text-align: center;
+        z-index: 10000;
+        box-shadow: 0 0 30px rgba(0, 255, 0, 0.6);
+        animation: matrixRewardShow 0.5s ease-out;
+    `;
+    
+    let rewardHTML = '<h3>🎉 RÉCOMPENSES MATRIX !</h3>';
+    
+    if (rewards.badge) {
+        rewardHTML += `<div class="reward-item">🏆 ${rewards.badge}</div>`;
+    }
+    if (rewards.achievement) {
+        rewardHTML += `<div class="reward-item">🎯 ${rewards.achievement}</div>`;
+    }
+    if (rewards.xp) {
+        rewardHTML += `<div class="reward-item">⭐ +${rewards.xp} XP</div>`;
+    }
+    
+    rewardContainer.innerHTML = rewardHTML;
+    document.body.appendChild(rewardContainer);
+    
+    // Supprimer après 3 secondes
+    setTimeout(() => {
+        if (rewardContainer.parentNode) {
+            rewardContainer.parentNode.removeChild(rewardContainer);
+        }
+    }, 3000);
+}
+
+function addMatrixSuccessMessage(message) {
+    addMessage(message, 'matrix-success');
+}
+
+function addMatrixErrorMessage(message) {
+    addMessage(message, 'matrix-error');
+}
+
+function addEncouragementMessage(message) {
+    addMessage(message, 'encouragement');
+}
+
 function playErrorSound() {
     if (!audioEnabled || !audioContext) return;
     try {
@@ -487,14 +622,29 @@ function executeCommand(cmdOverride) {
         }
         const reponse = data.reponse || data; // fallback pour compatibilité
         if (reponse.réussite || reponse.reussite) {
-            playSuccessEffect();
-            addSuccessMessage(reponse.message || 'Succès !');
+            playMatrixSuccessEffect();
+            addMatrixSuccessMessage(reponse.message || 'Succès !');
+            
+            // Système de récompenses Matrix amélioré
+            if (reponse.instant_rewards) {
+                showMatrixRewards(reponse.instant_rewards);
+            }
             if (reponse.badge) celebrate('badge', reponse.badge);
             if (reponse.niveau_gagne) celebrate('level', reponse.niveau_gagne);
             if (reponse.urgent) showUrgentProgressBar(reponse.urgent);
+            
+            // Feedback haptique pour mobile
+            if ('vibrate' in navigator) {
+                navigator.vibrate([100, 50, 100]);
+            }
         } else {
-            playErrorEffect();
-            addErrorMessage(reponse.message || 'Erreur inconnue.');
+            playMatrixErrorEffect();
+            addMatrixErrorMessage(reponse.message || 'Erreur inconnue.');
+            
+            // Encouragement personnalisé
+            if (reponse.encouragement) {
+                addEncouragementMessage(reponse.encouragement);
+            }
         }
         if (reponse.badge) {
             addSuccessMessage('🏆 Badge : ' + reponse.badge);

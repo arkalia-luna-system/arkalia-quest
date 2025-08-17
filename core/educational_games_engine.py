@@ -364,15 +364,9 @@ def create_md5_hash(text):
             session["completed"] = True
             session["score"] = game["points"]
 
-            # Calculer le bonus selon le nombre de tentatives
-            if session["attempts"] == 1:
-                bonus = 20  # Bonus pour première tentative
-            elif session["attempts"] <= 3:
-                bonus = 10  # Bonus pour peu de tentatives
-            else:
-                bonus = 0
-
-            total_score = game["points"] + bonus
+            # SYSTÈME DE RÉCOMPENSES MATRIX AMÉLIORÉ
+            matrix_bonus = self._calculate_matrix_bonus(user_id, game, session["attempts"])
+            total_score = game["points"] + matrix_bonus["total"]
 
             return {
                 "success": True,
@@ -381,6 +375,10 @@ def create_md5_hash(text):
                 "badge": game["badge"],
                 "explanation": game.get("explanation", "Bravo ! Tu as réussi !"),
                 "message": f"🎉 Correct ! +{total_score} points !",
+                "matrix_bonus": matrix_bonus,
+                "celebration": True,
+                "particles": True,
+                "matrix_effect": "success_pulse"
             }
         else:
             # Donner un indice après 2 tentatives

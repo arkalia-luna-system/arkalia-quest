@@ -4,22 +4,29 @@
 /* POLICES LUNA */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600&family=Cormorant:wght@300;400;500;600;700&display=swap');
 
-/* PALETTE LUNA VISION */
+/* PALETTE LUNA VISION - THÈME MATRIX ADOLESCENT */
 :root {
-    --violet-lunaire: #a78bfa;        /* Violet lunaire - Couleur signature */
-    --bleu-spectre: #60a5fa;          /* Bleu spectre - Émotions */
+    --matrix-green: #00ff00;          /* Vert Matrix signature - Couleur principale */
+    --matrix-dark: #001100;           /* Noir Matrix profond - Fond principal */
+    --matrix-glow: #00ff88;           /* Vert Matrix brillant - Accents */
+    --matrix-accent: #00ffff;         /* Cyan Matrix - Émotions */
+    --matrix-highlight: #00ff44;      /* Vert Matrix vif - Highlights */
     --argent-holographique: #e5e7eb;  /* Argent holographique - Interface */
     --noir-silence: #09090b;          /* Noir silence - Fond profond */
-    --violet-celeste: #8b5cf6;        /* Violet céleste - Gradient */
-    --rose-souvenir: #ec4899;         /* Rose souvenir - Accents */
-    --or-pale: #fbbf24;               /* Or pâle - Highlights */
     
-    /* Couleurs d'émotions LUNA */
-    --luna-calm: var(--bleu-spectre);
-    --luna-excited: var(--violet-lunaire);
-    --luna-concerned: var(--rose-souvenir);
-    --luna-proud: var(--or-pale);
-    --luna-mysterious: var(--violet-celeste);
+    /* Couleurs d'émotions LUNA - Thème Matrix */
+    --luna-calm: var(--matrix-accent);
+    --luna-excited: var(--matrix-green);
+    --luna-concerned: var(--matrix-highlight);
+    --luna-proud: var(--matrix-glow);
+    --luna-mysterious: var(--matrix-accent);
+    
+    /* Couleurs principales pour compatibilité */
+    --violet-lunaire: var(--matrix-green);
+    --bleu-spectre: var(--matrix-accent);
+    --violet-celeste: var(--matrix-glow);
+    --rose-souvenir: var(--matrix-highlight);
+    --or-pale: var(--matrix-green);
 }
 
 /* BASE LUNA VISION */
@@ -31,7 +38,7 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, var(--noir-silence) 0%, var(--violet-celeste) 50%, var(--noir-silence) 100%);
+    background: linear-gradient(135deg, var(--matrix-dark) 0%, var(--matrix-green) 25%, var(--matrix-accent) 50%, var(--matrix-green) 75%, var(--matrix-dark) 100%);
     background-size: 400% 400%;
     animation: gradientBreath 8s ease-in-out infinite;
     color: var(--argent-holographique);
@@ -46,7 +53,7 @@ body {
     50% { background-position: 100% 50%; }
 }
 
-/* BRUMES NUMÉRIQUES */
+/* BRUMES NUMÉRIQUES MATRIX */
 body::before {
     content: '';
     position: fixed;
@@ -55,9 +62,9 @@ body::before {
     width: 100%;
     height: 100%;
     background: 
-        radial-gradient(circle at 20% 80%, rgba(167, 139, 250, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(96, 165, 250, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+        radial-gradient(circle at 20% 80%, rgba(0, 255, 0, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(0, 255, 136, 0.08) 0%, transparent 50%);
     pointer-events: none;
     z-index: 1;
     animation: mistFloat 20s ease-in-out infinite;
@@ -263,15 +270,16 @@ body::before {
     text-shadow: 0 0 10px rgba(167, 139, 250, 0.4);
 }
 
-/* BOUTONS LUNA */
+/* BOUTONS LUNA MATRIX - STYLE ADOLESCENT */
 .luna-btn {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.9em;
-    color: var(--argent-holographique);
-    background: rgba(167, 139, 250, 0.1);
-    border: 1px solid rgba(167, 139, 250, 0.3);
-    border-radius: 8px;
-    padding: 12px 20px;
+    font-size: 1em;
+    font-weight: 600;
+    color: var(--matrix-dark);
+    background: linear-gradient(45deg, var(--matrix-green), var(--matrix-glow));
+    border: 2px solid var(--matrix-green);
+    border-radius: 12px;
+    padding: 15px 25px;
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
@@ -279,6 +287,8 @@ body::before {
     text-decoration: none;
     display: inline-block;
     text-align: center;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
 }
 
 .luna-btn::before {
@@ -292,6 +302,13 @@ body::before {
     border-radius: 50%;
     transform: translate(-50%, -50%);
     transition: width 0.3s ease, height 0.3s ease;
+}
+
+.luna-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.6);
+    border-color: var(--matrix-accent);
+    background: linear-gradient(45deg, var(--matrix-glow), var(--matrix-accent));
 }
 
 .luna-btn:hover::before {

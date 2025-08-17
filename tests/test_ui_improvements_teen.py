@@ -47,7 +47,8 @@ class TeenUXImprovementsTester:
 
             if response.status_code == 200:
                 data = response.json()
-                if data.get("réussite", False):
+                response_data = data.get("reponse", data)
+                if response_data.get("réussite", False):
                     test["success"] = True
                     test["score"] += 25
                     test["features_tested"].append(
@@ -55,7 +56,7 @@ class TeenUXImprovementsTester:
                     )
 
                     # Vérifier le contenu des défis
-                    message = data.get("message", "")
+                    message = response_data.get("message", "")
                     if "Speed Hacker" in message:
                         test["score"] += 25
                         test["features_tested"].append("Défi Speed Hacker présent")
@@ -108,13 +109,14 @@ class TeenUXImprovementsTester:
 
             if response.status_code == 200:
                 data = response.json()
-                if data.get("réussite", False):
+                response_data = data.get("reponse", data)
+                if response_data.get("réussite", False):
                     test["success"] = True
                     test["score"] += 25
                     test["features_tested"].append("Commande random_events fonctionne")
 
                     # Vérifier le contenu des événements
-                    message = data.get("message", "")
+                    message = response_data.get("message", "")
                     if "Surprise LUNA" in message:
                         test["score"] += 25
                         test["features_tested"].append(
@@ -171,13 +173,14 @@ class TeenUXImprovementsTester:
 
             if response.status_code == 200:
                 data = response.json()
-                if data.get("réussite", False):
+                response_data = data.get("reponse", data)
+                if response_data.get("réussite", False):
                     test["success"] = True
                     test["score"] += 25
                     test["features_tested"].append("Commande acte_1 fonctionne")
 
                     # Vérifier la progression de mission
-                    if "mission_progress" in data:
+                    if "mission_progress" in response_data:
                         test["score"] += 25
                         test["features_tested"].append(
                             "Progression de mission présente"
@@ -231,13 +234,14 @@ class TeenUXImprovementsTester:
 
             if response.status_code == 200:
                 data = response.json()
-                if data.get("réussite", False):
+                response_data = data.get("reponse", data)
+                if response_data.get("réussite", False):
                     test["success"] = True
                     test["score"] += 25
                     test["features_tested"].append("Commande hack_system fonctionne")
 
                     # Vérifier la progression étape par étape
-                    if "hack_progress" in data:
+                    if "hack_progress" in response_data:
                         test["score"] += 25
                         test["features_tested"].append("Progression hack présente")
                     else:

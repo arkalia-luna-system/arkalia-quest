@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-08-17T16:01:11.247528",
+  "last_updated": "2025-08-17T16:03:46.124146",
   "players": [
     {
       "user_id": 2,
@@ -23,6 +23,16 @@
       "is_current": false
     },
     {
+      "user_id": 1,
+      "name": "main_user",
+      "score": 1850,
+      "level": 2,
+      "badges_count": 2,
+      "missions_completed": 0,
+      "last_activity": "2025-08-17T16:03:46.124118",
+      "join_date": "2025-08-17T15:53:28.668736"
+    },
+    {
       "user_id": "hacker_002",
       "name": "CodeNinja",
       "score": 1800,
@@ -43,16 +53,6 @@
       "last_activity": "2025-07-10T09:15:00",
       "join_date": "2025-07-10T08:45:00",
       "is_current": false
-    },
-    {
-      "user_id": 1,
-      "name": "main_user",
-      "score": 950,
-      "level": 2,
-      "badges_count": 2,
-      "missions_completed": 0,
-      "last_activity": "2025-08-17T16:01:11.247460",
-      "join_date": "2025-08-17T15:53:28.668736"
     },
     {
       "user_id": "hacker_004",
@@ -100,6 +100,16 @@
       "is_current": false
     },
     {
+      "user_id": 1,
+      "name": "main_user",
+      "score": 1850,
+      "level": 2,
+      "badges_count": 2,
+      "missions_completed": 0,
+      "last_activity": "2025-08-17T16:03:46.124118",
+      "join_date": "2025-08-17T15:53:28.668736"
+    },
+    {
       "user_id": "hacker_002",
       "name": "CodeNinja",
       "score": 1800,
@@ -120,16 +130,6 @@
       "last_activity": "2025-07-10T09:15:00",
       "join_date": "2025-07-10T08:45:00",
       "is_current": false
-    },
-    {
-      "user_id": 1,
-      "name": "main_user",
-      "score": 950,
-      "level": 2,
-      "badges_count": 2,
-      "missions_completed": 0,
-      "last_activity": "2025-08-17T16:01:11.247460",
-      "join_date": "2025-08-17T15:53:28.668736"
     },
     {
       "user_id": "hacker_004",
@@ -156,7 +156,7 @@
   ],
   "statistics": {
     "total_players": 7,
-    "total_score": 13990,
-    "average_score": 1998.57
+    "total_score": 14890,
+    "average_score": 2127.14
   }
 }

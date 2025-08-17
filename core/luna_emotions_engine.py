@@ -7,7 +7,7 @@ Système d'émotions ultra-avancé pour LUNA qui réagit en temps réel
 import random
 from datetime import datetime
 from enum import Enum
-from typing import Dict, List
+from typing import Any, Dict, List
 
 
 class LunaEmotion(Enum):
@@ -331,7 +331,73 @@ class LunaEmotionsEngine:
             "color": self.emotion_colors[self.current_emotion],
             "effect": self.emotion_effects[self.current_emotion],
             "sound": self.emotion_sounds[self.current_emotion],
+            "matrix_effects": self._generate_matrix_effects(self.current_emotion),
         }
+
+    def _generate_matrix_effects(self, emotion: LunaEmotion) -> Dict[str, Any]:
+        """Génère des effets Matrix spéciaux selon l'émotion pour les ados"""
+
+        effects = {
+            "particles": True,
+            "color": "#00ff00",  # Vert Matrix par défaut
+            "animation": "matrix_pulse",
+            "sound": "matrix_ambient",
+            "intensity": "medium",
+        }
+
+        # Effets selon l'émotion
+        if emotion == LunaEmotion.EXCITED:
+            effects.update(
+                {
+                    "color": "#00ff88",
+                    "animation": "matrix_excited",
+                    "particles": True,
+                    "intensity": "high",
+                    "message": "🚀 WOW ! Tu es en feu aujourd'hui !",
+                }
+            )
+        elif emotion == LunaEmotion.PROUD:
+            effects.update(
+                {
+                    "color": "#00ffff",
+                    "animation": "matrix_proud",
+                    "particles": True,
+                    "intensity": "medium",
+                    "message": "🌟 Je suis si fière de toi !",
+                }
+            )
+        elif emotion == LunaEmotion.WORRIED:
+            effects.update(
+                {
+                    "color": "#ff8800",
+                    "animation": "matrix_worried",
+                    "particles": False,
+                    "intensity": "low",
+                    "message": "💪 Ne lâche pas ! Tu vas y arriver !",
+                }
+            )
+        elif emotion == LunaEmotion.MYSTERIOUS:
+            effects.update(
+                {
+                    "color": "#8800ff",
+                    "animation": "matrix_mysterious",
+                    "particles": True,
+                    "intensity": "medium",
+                    "message": "🔮 Il y a des mystères à découvrir...",
+                }
+            )
+        elif emotion == LunaEmotion.DETERMINED:
+            effects.update(
+                {
+                    "color": "#00ff44",
+                    "animation": "matrix_determined",
+                    "particles": True,
+                    "intensity": "high",
+                    "message": "⚡ Rien ne nous arrêtera !",
+                }
+            )
+
+        return effects
 
     def get_emotion_history(self) -> List[Dict]:
         """Retourne l'historique des émotions"""

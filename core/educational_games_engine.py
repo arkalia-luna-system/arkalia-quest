@@ -365,7 +365,9 @@ def create_md5_hash(text):
             session["score"] = game["points"]
 
             # SYSTÈME DE RÉCOMPENSES MATRIX AMÉLIORÉ
-            matrix_bonus = self._calculate_matrix_bonus(user_id, game, session["attempts"])
+            matrix_bonus = self._calculate_matrix_bonus(
+                session.get("user_id", "default"), game, session["attempts"]
+            )
             total_score = game["points"] + matrix_bonus["total"]
 
             return {
@@ -378,7 +380,7 @@ def create_md5_hash(text):
                 "matrix_bonus": matrix_bonus,
                 "celebration": True,
                 "particles": True,
-                "matrix_effect": "success_pulse"
+                "matrix_effect": "success_pulse",
             }
         else:
             # Donner un indice après 2 tentatives
@@ -486,19 +488,20 @@ def create_md5_hash(text):
             "last_updated": datetime.now().isoformat(),
         }
 
-
-    def _calculate_matrix_bonus(self, user_id: str, game: Dict[str, Any], attempts: int) -> Dict[str, Any]:
+    def _calculate_matrix_bonus(
+        self, user_id: str, game: Dict[str, Any], attempts: int
+    ) -> Dict[str, Any]:
         """Calcule les bonus Matrix pour l'engagement adolescent"""
         base_bonus = 10
         streak_bonus = 0
         difficulty_bonus = 0
-        
+
         # Bonus pour tentatives rapides
         if attempts == 1:
             base_bonus += 20  # Bonus "première fois"
         elif attempts == 2:
             base_bonus += 10  # Bonus "persévérance"
-        
+
         # Bonus pour difficulté
         if game.get("difficulty") == "expert":
             difficulty_bonus = 30
@@ -506,22 +509,22 @@ def create_md5_hash(text):
             difficulty_bonus = 20
         elif game.get("difficulty") == "intermediate":
             difficulty_bonus = 10
-        
+
         # Bonus de série
         progress = self.get_user_progress(user_id)
         if progress.get("games_completed", 0) >= 5:
             streak_bonus = 25  # Bonus "hacker confirmé"
         elif progress.get("games_completed", 0) >= 10:
             streak_bonus = 50  # Bonus "maître hacker"
-        
+
         total_bonus = base_bonus + difficulty_bonus + streak_bonus
-        
+
         return {
             "base": base_bonus,
             "difficulty": difficulty_bonus,
             "streak": streak_bonus,
             "total": total_bonus,
-            "message": f"🌟 Bonus Matrix : +{total_bonus} points !"
+            "message": f"🌟 Bonus Matrix : +{total_bonus} points !",
         }
 
     def _get_encouragement(self, attempts: int) -> str:
@@ -533,9 +536,9 @@ def create_md5_hash(text):
             "🎯 Garde la tête haute, tu vas y arriver !",
             "⚡ Un petit pas en arrière, deux pas en avant !",
             "🔍 Regarde bien les indices, la réponse est là !",
-            "💡 Parfois il faut voir les choses sous un autre angle !"
+            "💡 Parfois il faut voir les choses sous un autre angle !",
         ]
-        
+
         # Choisir selon le nombre de tentatives
         if attempts == 1:
             return encouragements[0]  # Premier encouragement
@@ -543,6 +546,7 @@ def create_md5_hash(text):
             return encouragements[1]  # Encouragement de persévérance
         else:
             return encouragements[2]  # Encouragement général
+
 
 # Instance globale
 educational_games = EducationalGamesEngine()

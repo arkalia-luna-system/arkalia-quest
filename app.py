@@ -5,17 +5,22 @@ import time
 from datetime import datetime
 
 from flask import Flask, jsonify, render_template, request, send_from_directory
+from flask_compress import Compress
 
 from arkalia_engine import arkalia_engine
 from core.command_handler_v2 import CommandHandlerV2 as CommandHandler
 from core.database import DatabaseManager
 from core.gamification_engine import GamificationEngine
+from core.security_manager import security_manager
 from core.tutorial_manager import tutorial_manager
 from core.websocket_manager import websocket_manager
 
 # from core.educational_games_engine import educational_games
 
 app = Flask(__name__)
+
+# Configuration de la compression gzip
+Compress(app)
 
 # Instances des modules
 gamification = GamificationEngine()
@@ -27,6 +32,11 @@ DATABASE_AVAILABLE = True
 WEBSOCKET_AVAILABLE = True
 TUTORIAL_AVAILABLE = True
 EDUCATIONAL_GAMES_AVAILABLE = False  # Désactivé temporairement
+
+# Rate limiting simple
+request_counts = {}
+RATE_LIMIT = 100  # 100 requêtes par minute par IP
+RATE_LIMIT_WINDOW = 60  # Fenêtre de 60 secondes
 
 # Variable de temps de démarrage pour les métriques
 start_time = time.time()
@@ -52,10 +62,22 @@ def add_security_headers(response):
 
 @app.after_request
 def add_cache_headers(response):
-    if "static" in request.path:
-        response.cache_control.max_age = 31536000  # 1 an
-        response.cache_control.public = True
-    return response
+    """Ajoute des headers de cache appropriés selon le type de ressource"""
+    # Cache long pour les assets statiques
+    if request.path.startswith("/static/"):
+        response.headers["Cache-Control"] = "public, max-age=31536000"  # 1 an
+        response.headers["ETag"] = f'"{hash(request.path)}"'
+    # Cache court pour les pages HTML
+    elif request.path.endswith(".html"):
+        response.headers["Cache-Control"] = "public, max-age=3600"  # 1 heure
+    # Pas de cache pour les API dynamiques
+    elif request.path.startswith("/api/") or request.path.startswith("/commande"):
+        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+        response.headers["Pragma"] = "no-cache"
+        response.headers["Expires"] = "0"
+    # Cache par défaut pour les autres ressources
+    else:
+        response.headers["Cache-Control"] = "public, max-age=300"  # 5 minutes
 
 
 # Commandes autorisées - Version "L'Éveil des IA"
@@ -387,8 +409,55 @@ def get_mission(mission_name):
         return jsonify({"erreur": f"Mission {mission_name} non trouvée"}), 404
 
 
+def check_rate_limit(ip_address):
+    """Vérifie le rate limiting pour une IP donnée"""
+    global request_counts
+    current_time = time.time()
+
+    # Nettoyer les anciennes entrées
+    request_counts = {
+        ip: (count, timestamp)
+        for ip, (count, timestamp) in request_counts.items()
+        if current_time - timestamp < RATE_LIMIT_WINDOW
+    }
+
+    if ip_address not in request_counts:
+        request_counts[ip_address] = (1, current_time)
+        return True
+
+    count, timestamp = request_counts[ip_address]
+
+    if current_time - timestamp >= RATE_LIMIT_WINDOW:
+        # Nouvelle fenêtre de temps
+        request_counts[ip_address] = (1, current_time)
+        return True
+
+    if count >= RATE_LIMIT:
+        return False
+
+    # Incrémenter le compteur
+    request_counts[ip_address] = (count + 1, timestamp)
+    return True
+
+
 @app.route("/commande", methods=["POST"])
 def commande():
+    # Rate limiting
+    client_ip = request.remote_addr
+    if not check_rate_limit(client_ip):
+        return (
+            jsonify(
+                {
+                    "reponse": {
+                        "réussite": False,
+                        "message": "❌ Trop de requêtes. Attendez un peu avant de réessayer.",
+                        "profile_updated": False,
+                    }
+                }
+            ),
+            429,  # Too Many Requests
+        )
+
     data = request.get_json()
 
     # Validation stricte des entrées
@@ -455,15 +524,21 @@ def commande():
             400,
         )
 
-    # Protection contre les injections
-    dangerous_chars = ["<", ">", '"', "'", "&", ";", "|", "`", "$", "(", ")", "{", "}"]
-    if any(char in cmd for char in dangerous_chars):
+    # Vérification de sécurité avancée
+    security_check = security_manager.check_input_security(cmd, client_ip)
+    if not security_check["is_safe"]:
+        # Bloquer l'IP si menace critique
+        if security_check["risk_level"] == "critical":
+            security_manager.block_ip(
+                client_ip, f"Commande dangereuse: {security_check['threats_detected']}"
+            )
+
         return (
             jsonify(
                 {
                     "reponse": {
                         "réussite": False,
-                        "message": "❌ Commande contenant des caractères dangereux détectée.",
+                        "message": "❌ Commande rejetée pour des raisons de sécurité.",
                         "profile_updated": False,
                     }
                 }
@@ -1479,6 +1554,23 @@ def track_analytics_event():
                 )
 
         return jsonify({"success": True, "events_tracked": len(events)})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/security/status", methods=["GET"])
+def get_security_status():
+    """Récupère le statut de sécurité du système"""
+    try:
+        # Vérifier l'origine de la requête
+        origin = request.headers.get("Origin")
+        if origin and not security_manager.check_origin_security(
+            origin, request.remote_addr
+        ):
+            return jsonify({"error": "Origine non autorisée"}), 403
+
+        security_report = security_manager.get_security_report()
+        return jsonify(security_report)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

@@ -529,8 +529,7 @@ class BoutonsActionsExperienceTester:
                 print(f"   👍 Points positifs: {len(page['positives'])}")
 
         # Sauvegarde du rapport
-filename =
-f"boutons_actions_experience_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+        filename = f"boutons_actions_experience_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(self.results, f, indent=2, ensure_ascii=False)
 

@@ -135,7 +135,8 @@ class ImmersiveSystemTester:
                         self.validate_emotion_data(data)
 
                         print(
-                            f"✅ {command}: {data['luna_emotion']} (intensité:" + "{intensity:.2f})"
+                            f"✅ {command}: {data['luna_emotion']} (intensité:"
+                            + "{intensity:.2f})"
                         )
                     else:
                         print(f"    ⚠️ {command}: Pas d'émotion LUNA détectée")
@@ -205,7 +206,8 @@ class ImmersiveSystemTester:
                         effects_test["sounds_detected"].add(data["luna_sound"])
 
                     print(
-                        f"✅ {command}: Effet {data.get('luna_effect', 'N/A')} -" + "Couleur {data.get('luna_color', 'N/A')}"
+                        f"✅ {command}: Effet {data.get('luna_effect', 'N/A')} -"
+                        + "Couleur {data.get('luna_color', 'N/A')}"
                     )
                 else:
                     print(f"    ❌ {command}: Erreur HTTP {response.status_code}")
@@ -403,7 +405,8 @@ class ImmersiveSystemTester:
         )
 
         print(
-            f"📊 Performance: {performance_test['success_rate']:.1f}%" + "succès, {performance_test['avg_response_time']:.3f}s moyenne"
+            f"📊 Performance: {performance_test['success_rate']:.1f}%"
+            + "succès, {performance_test['avg_response_time']:.3f}s moyenne"
         )
 
         return performance_test

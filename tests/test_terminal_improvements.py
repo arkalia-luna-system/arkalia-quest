@@ -119,7 +119,7 @@ class TerminalImprovementsTester:
                     accessibility_score / total_checks
                 ) * 100
                 print(
-                    f"📊 Score accessibilité:" + "{self.results['accessibility_score']:.1f}/100"
+                    f"📊 Score accessibilité: {self.results['accessibility_score']:.1f}/100"
                 )
 
             else:
@@ -269,8 +269,7 @@ class TerminalImprovementsTester:
             print("❌ INSUFFISANT: Besoin d'améliorations majeures")
 
         # Sauvegarder le rapport
-filename =
-f"terminal_improvements_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+        filename = f"terminal_improvements_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(self.results, f, indent=2, ensure_ascii=False)
 

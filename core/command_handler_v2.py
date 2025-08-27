@@ -99,8 +99,7 @@ class CommandHandlerV2:
         result = {
             "réussite": False,
             "ascii_art": "❌",
-"message": f"❌ Commande '{command}' non reconnue.\n\n💡 Tape 'aide' pour voir toutes les
-commandes disponibles !",
+            "message": f"❌ Commande '{command}' non reconnue.\n\n💡 Tape 'aide' pour voir toutes les commandes disponibles !",
             "score_gagne": 0,
             "profile_updated": False,
         }
@@ -152,7 +151,7 @@ commandes disponibles !",
                 return {
                     "réussite": False,
                     "ascii_art": "❌",
-"message": f"❌ Erreur interne : Commande '{command}' non implémentée.",
+                    "message": f"❌ Erreur interne : Commande '{command}' non implémentée.",
                     "score_gagne": 0,
                     "profile_updated": False,
                 }

@@ -5,6 +5,7 @@ Database Engine - Gestionnaire de base de données SQLite pour Arkalia Quest
 import json
 import os
 import sqlite3
+import time
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
@@ -14,11 +15,16 @@ class DatabaseManager:
 
     def __init__(self, db_path: str = "arkalia.db"):
         self.db_path = db_path
+        # Cache simple pour améliorer les performances
+        self._profile_cache = {}
+        self._mission_cache = {}
+        self._cache_ttl = 300  # 5 minutes
+        self._cache_timestamps = {}
         self.init_database()
 
     def init_database(self):
         """Initialise la base de données avec les tables nécessaires"""
-        with sqlite3.connect(self.db_path) as conn:
+        with self.get_connection() as conn:
             cursor = conn.cursor()
 
             # Table des profils utilisateurs
@@ -89,7 +95,63 @@ class DatabaseManager:
             """
             )
 
+            # Créer des index pour optimiser les performances
+            cursor.execute(
+                "CREATE INDEX IF NOT EXISTS idx_profiles_username ON profiles(username)"
+            )
+            cursor.execute(
+                "CREATE INDEX IF NOT EXISTS idx_profiles_score ON profiles(score)"
+            )
+            cursor.execute(
+                "CREATE INDEX IF NOT EXISTS idx_profiles_level ON profiles(level)"
+            )
+            cursor.execute(
+                "CREATE INDEX IF NOT EXISTS idx_missions_difficulty ON missions(difficulty)"
+            )
+            cursor.execute(
+                "CREATE INDEX IF NOT EXISTS idx_challenges_status ON challenges(status)"
+            )
+            cursor.execute(
+                "CREATE INDEX IF NOT EXISTS idx_luna_learning_user_time ON luna_learning(user_id, timestamp)"
+            )
+
             conn.commit()
+
+    def get_connection(self):
+        """Obtient une connexion à la base de données avec optimisations"""
+        conn = sqlite3.connect(self.db_path)
+        # Optimisations SQLite
+        conn.execute("PRAGMA journal_mode=WAL")  # Write-Ahead Logging
+        conn.execute("PRAGMA synchronous=NORMAL")  # Performance vs sécurité
+        conn.execute("PRAGMA cache_size=10000")  # Cache de 10MB
+        conn.execute("PRAGMA temp_store=MEMORY")  # Tables temporaires en mémoire
+        return conn
+
+    def _is_cache_valid(self, key: str) -> bool:
+        """Vérifie si un élément du cache est encore valide"""
+        if key not in self._cache_timestamps:
+            return False
+        return time.time() - self._cache_timestamps[key] < self._cache_ttl
+
+    def _get_from_cache(self, cache_type: str, key: str) -> Optional[Any]:
+        """Récupère un élément du cache"""
+        cache_key = f"{cache_type}:{key}"
+        if self._is_cache_valid(cache_key):
+            return (
+                self._profile_cache.get(cache_key)
+                if cache_type == "profile"
+                else self._mission_cache.get(cache_key)
+            )
+        return None
+
+    def _set_cache(self, cache_type: str, key: str, value: Any):
+        """Met en cache un élément"""
+        cache_key = f"{cache_type}:{key}"
+        if cache_type == "profile":
+            self._profile_cache[cache_key] = value
+        else:
+            self._mission_cache[cache_key] = value
+        self._cache_timestamps[cache_key] = time.time()
 
     def migrate_json_to_sqlite(self):
         """Migre les données JSON existantes vers SQLite"""
@@ -121,7 +183,7 @@ class DatabaseManager:
     def save_profile(self, username: str, profile_data: Dict[str, Any]) -> bool:
         """Sauvegarde un profil utilisateur"""
         try:
-            with sqlite3.connect(self.db_path) as conn:
+            with self.get_connection() as conn:
                 cursor = conn.cursor()
 
                 # Vérifier si le profil existe déjà
@@ -135,7 +197,7 @@ class DatabaseManager:
                     cursor.execute(
                         """
                         UPDATE profiles
-                        SET score = ?, level = ?, badges = ?, avatars = ?, 
+                        SET score = ?, level = ?, badges = ?, avatars = ?,
                             preferences = ?, updated_at = CURRENT_TIMESTAMP
                         WHERE username = ?
                     """,
@@ -152,7 +214,7 @@ class DatabaseManager:
                     # Créer un nouveau profil
                     cursor.execute(
                         """
-                        INSERT INTO profiles (username, score, level, badges, avatars, 
+                        INSERT INTO profiles (username, score, level, badges, avatars,
                                             preferences)
                         VALUES (?, ?, ?, ?, ?, ?)
                     """,
@@ -174,14 +236,19 @@ class DatabaseManager:
 
     def load_profile(self, username: str) -> Optional[Dict[str, Any]]:
         """Charge un profil utilisateur"""
+        # Vérifier le cache d'abord
+        cached_profile = self._get_from_cache("profile", username)
+        if cached_profile:
+            return cached_profile
+
         try:
-            with sqlite3.connect(self.db_path) as conn:
+            with self.get_connection() as conn:
                 cursor = conn.cursor()
                 cursor.execute("SELECT * FROM profiles WHERE username = ?", (username,))
                 row = cursor.fetchone()
 
                 if row:
-                    return {
+                    profile_data = {
                         "id": row[0],
                         "username": row[1],
                         "name": row[1],  # Ajout de la clé 'name'
@@ -194,6 +261,9 @@ class DatabaseManager:
                         "created_at": row[7],
                         "updated_at": row[8],
                     }
+                    # Mettre en cache le profil récupéré
+                    self._set_cache("profile", username, profile_data)
+                    return profile_data
                 return None
         except Exception as e:
             print(f"❌ Erreur chargement profil: {e}")
@@ -207,7 +277,7 @@ class DatabaseManager:
 
                 cursor.execute(
                     """
-                    INSERT OR REPLACE INTO missions (mission_id, title, description, 
+                    INSERT OR REPLACE INTO missions (mission_id, title, description,
                                                     difficulty, timer, rewards)
                     VALUES (?, ?, ?, ?, ?, ?)
                 """,
@@ -235,7 +305,7 @@ class DatabaseManager:
 
                 cursor.execute(
                     """
-                    INSERT INTO challenges (challenge_id, title, description, timer, 
+                    INSERT INTO challenges (challenge_id, title, description, timer,
                                           players)
                     VALUES (?, ?, ?, ?, ?)
                 """,
@@ -271,7 +341,7 @@ class DatabaseManager:
 
                 cursor.execute(
                     """
-                    INSERT INTO luna_learning (user_id, action_type, action_data, 
+                    INSERT INTO luna_learning (user_id, action_type, action_data,
                                               response, success)
                     VALUES (?, ?, ?, ?, ?)
                 """,

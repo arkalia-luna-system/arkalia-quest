@@ -222,7 +222,7 @@ class SimpleIntelligentTester:
                 "",
                 "   ",
                 "émojis🚀🎮",
-"very_long_command_that_should_not_work_at_all_because_it_is_too_long_and_weird",
+                "very_long_command_that_should_not_work_at_all_because_it_is_too_long_and_weird",
             ]
         else:
             weird_commands = ["invalid_command", "test123", "", "émojis🚀🎮"]
@@ -338,10 +338,10 @@ class SimpleIntelligentTester:
                 total_badges += stats["badges_earned"]
 
                 print(
-                    f"\n🧭 {result['personality_data']['name']}" + "({result['personality_data']['style']}):"
+                    f"\n🧭 {result['personality_data']['name']} ({result['personality_data']['style']}):"
                 )
                 print(
-                    f"• Succès:" + "{stats['successful_commands']}/{stats['total_commands']}" + "({stats['success_rate']*100:.1f}%)"
+                    f"• Succès: {stats['successful_commands']}/{stats['total_commands']} ({stats['success_rate']*100:.1f}%)"
                 )
                 print(f"   • Score: {stats['total_score']} points")
                 print(f"   • Badges: {stats['badges_earned']}")
@@ -380,38 +380,38 @@ class SimpleIntelligentTester:
                 if style == "explorer":
                     if success_rate > 50:
                         print(
-                            f"🧭 {name}: 'Wow, ce jeu est trop cool ! J'ai trouvé plein de" + "trucs cachés ! ({success_rate:.1f}% de succès)'"
+                            f"🧭 {name}: 'Wow, ce jeu est trop cool ! J'ai trouvé plein de trucs cachés ! ({success_rate:.1f}% de succès)'"
                         )
                     else:
                         print(
-                            f"🧭 {name}: 'Hmm, c'est pas facile de tout découvrir..." + "({success_rate:.1f}% de succès)'"
+                            f"🧭 {name}: 'Hmm, c'est pas facile de tout découvrir... ({success_rate:.1f}% de succès)'"
                         )
                 elif style == "speedrunner":
                     if success_rate > 50:
                         print(
-                            f"⚡ {name}: 'C'est rapide et efficace ! J'aime ça !" + "({success_rate:.1f}% de succès)'"
+                            f"⚡ {name}: 'C'est rapide et efficace ! J'aime ça ! ({success_rate:.1f}% de succès)'"
                         )
                     else:
                         print(
-                            f"⚡ {name}: 'C'est trop lent ! Je veux aller plus vite !" + "({success_rate:.1f}% de succès)'"
+                            f"⚡ {name}: 'C'est trop lent ! Je veux aller plus vite ! ({success_rate:.1f}% de succès)'"
                         )
                 elif style == "completionist":
                     if badges_earned > 0:
                         print(
-                            f"🏆 {name}: 'J'ai gagné {badges_earned} badges et" + "{total_score} points ! Je veux tous les avoir !'"
+                            f"🏆 {name}: 'J'ai gagné {badges_earned} badges et {total_score} points ! Je veux tous les avoir !'"
                         )
                     else:
                         print(
-                            f"🏆 {name}: 'Je n'ai pas encore de badges... Je dois continuer" + "! ({success_rate:.1f}% de succès)'"
+                            f"🏆 {name}: 'Je n'ai pas encore de badges... Je dois continuer ! ({success_rate:.1f}% de succès)'"
                         )
                 elif style == "chaos":
                     if success_rate < 20:
                         print(
-                            f"🤪 {name}: 'Haha, j'ai essayé de casser le jeu ! C'était" + "marrant ! ({success_rate:.1f}% de succès)'"
+                            f"🤪 {name}: 'Haha, j'ai essayé de casser le jeu ! C'était marrant ! ({success_rate:.1f}% de succès)'"
                         )
                     else:
                         print(
-                            f"🤪 {name}: 'Même mes commandes bizarres marchent !" + "({success_rate:.1f}% de succès)'"
+                            f"🤪 {name}: 'Même mes commandes bizarres marchent ! ({success_rate:.1f}% de succès)'"
                         )
 
 

@@ -180,16 +180,13 @@ class AnalyticsEngine:
 
             # Index pour optimiser les requêtes
             cursor.execute(
-                "CREATE INDEX IF NOT EXISTS idx_events_user_time ON"
-                + "analytics_events(user_id, timestamp)"
+                "CREATE INDEX IF NOT EXISTS idx_events_user_time ON analytics_events(user_id, timestamp)"
             )
             cursor.execute(
-                "CREATE INDEX IF NOT EXISTS idx_events_type ON"
-                + "analytics_events(event_type)"
+                "CREATE INDEX IF NOT EXISTS idx_events_type ON analytics_events(event_type)"
             )
             cursor.execute(
-                "CREATE INDEX IF NOT EXISTS idx_sessions_user ON"
-                + "analytics_sessions(user_id)"
+                "CREATE INDEX IF NOT EXISTS idx_sessions_user ON analytics_sessions(user_id)"
             )
 
             conn.commit()

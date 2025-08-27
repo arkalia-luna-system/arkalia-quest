@@ -24,7 +24,7 @@ class AnalyticsCommands:
             "export_data": self.cmd_export_data,
         }
 
-    def cmd_analytics(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def cmd_analytics(self) -> Dict[str, Any]:
         """Affiche les analytics globaux"""
         try:
             response = requests.get(f"{self.base_url}/api/analytics/global")
@@ -88,7 +88,7 @@ class AnalyticsCommands:
                 "profile_updated": False,
             }
 
-    def cmd_insights(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def cmd_insights(self) -> Dict[str, Any]:
         """Affiche les insights personnalisés"""
         try:
             response = requests.get(f"{self.base_url}/api/analytics/insights")
@@ -167,7 +167,7 @@ class AnalyticsCommands:
                 "profile_updated": False,
             }
 
-    def cmd_stats(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def cmd_stats(self) -> Dict[str, Any]:
         """Affiche les statistiques détaillées"""
         try:
             # Récupérer les insights
@@ -233,7 +233,7 @@ class AnalyticsCommands:
                 "profile_updated": False,
             }
 
-    def cmd_progress(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def cmd_progress(self) -> Dict[str, Any]:
         """Affiche la progression détaillée"""
         try:
             response = requests.get(f"{self.base_url}/api/analytics/insights")
@@ -303,7 +303,7 @@ class AnalyticsCommands:
                 "profile_updated": False,
             }
 
-    def cmd_recommendations(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def cmd_recommendations(self) -> Dict[str, Any]:
         """Affiche les recommandations personnalisées"""
         try:
             response = requests.get(f"{self.base_url}/api/analytics/insights")
@@ -358,7 +358,7 @@ class AnalyticsCommands:
                 "profile_updated": False,
             }
 
-    def cmd_learning_style(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def cmd_learning_style(self) -> Dict[str, Any]:
         """Affiche l'analyse du style d'apprentissage"""
         try:
             response = requests.get(f"{self.base_url}/api/analytics/insights")
@@ -428,7 +428,7 @@ class AnalyticsCommands:
                 "profile_updated": False,
             }
 
-    def cmd_engagement(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def cmd_engagement(self) -> Dict[str, Any]:
         """Affiche les métriques d'engagement"""
         try:
             response = requests.get(f"{self.base_url}/api/analytics/insights")
@@ -501,7 +501,7 @@ class AnalyticsCommands:
                 "profile_updated": False,
             }
 
-    def cmd_export_data(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def cmd_export_data(self) -> Dict[str, Any]:
         """Exporte les données analytics"""
         try:
             response = requests.get(f"{self.base_url}/api/analytics/export")

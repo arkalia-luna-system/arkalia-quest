@@ -202,8 +202,8 @@ class AnalyticsEngine:
         event_type: EventType,
         user_id: str,
         session_id: str,
-        data: Dict[str, Any] = None,
-        context: Dict[str, Any] = None,
+        data: Optional[Dict[str, Any]] = None,
+        context: Optional[Dict[str, Any]] = None,
     ):
         """Tracker un événement"""
         try:
@@ -263,7 +263,7 @@ class AnalyticsEngine:
                 session.commands_used.append(command)
 
     def start_session(
-        self, user_id: str, session_id: str, context: Dict[str, Any] = None
+        self, user_id: str, session_id: str, context: Optional[Dict[str, Any]] = None
     ):
         """Démarrer une session"""
         self.track_event(
@@ -726,7 +726,7 @@ class AnalyticsEngine:
         except Exception as e:
             logger.error(f"Erreur lors du nettoyage des données: {e}")
 
-    def export_data(self, user_id: str = None, format: str = "json") -> str:
+    def export_data(self, user_id: Optional[str] = None, format: str = "json") -> str:
         """Exporter les données analytics"""
         try:
             if user_id:

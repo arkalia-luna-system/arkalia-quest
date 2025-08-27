@@ -282,12 +282,9 @@ class TestPerformanceComplete(unittest.TestCase):
 
         for i in range(50):
             # Simuler des opérations intensives
-            start_cpu = time.time()
 
             # Opération de calcul
             result = sum(i * j for i in range(1000) for j in range(100))
-
-            end_cpu = time.time()
 
             # Mesurer l'utilisation CPU système
             try:

@@ -271,7 +271,7 @@ def lancer_defi_social(defi_id, joueur1, joueur2=None):
     return {"defi_lance": False}
 
 
-def executer_chapitre_6(profil, etape):
+def executer_chapitre_6(etape):
     """Exécute une étape du chapitre 6"""
     chapitre_data = charger_chapitre_6()
     chapitre = chapitre_data.get("chapitre_6", {})

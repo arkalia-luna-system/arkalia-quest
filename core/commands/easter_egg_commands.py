@@ -137,7 +137,7 @@ Tu as détruit le monde ! (Mais pas vraiment)
             "profile_updated": True,
         }
 
-    def handle_generer_meme(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_generer_meme(self) -> Dict[str, Any]:
         """Gère la génération de memes"""
         return {
             "réussite": True,

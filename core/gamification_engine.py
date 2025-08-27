@@ -298,7 +298,7 @@ class GamificationEngine:
         return False
 
     def check_achievements(
-        self, profile: Dict[str, Any], action: str, **kwargs
+        self, profile: Dict[str, Any]
     ) -> List[str]:
         """Vérifie et débloque les achievements"""
 

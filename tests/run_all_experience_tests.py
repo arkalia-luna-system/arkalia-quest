@@ -349,11 +349,13 @@ class ExperienceTestRunner:
         for test_name, score in test_scores.items():
             if score < 40:
                 recommendations.append(
-                    f"❌ {test_name}: Nécessite une amélioration majeure (score: {score:.1f}/100)"
+                    f"❌ {test_name}: Nécessite une amélioration majeure (score:"
+                    + "{score:.1f}/100)"
                 )
             elif score < 60:
                 recommendations.append(
-                    f"⚠️  {test_name}: Amélioration recommandée (score: {score:.1f}/100)"
+                    f"⚠️ {test_name}: Amélioration recommandée (score:"
+                    + "{score:.1f}/100)"
                 )
             elif score < 80:
                 recommendations.append(

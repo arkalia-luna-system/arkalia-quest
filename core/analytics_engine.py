@@ -180,13 +180,16 @@ class AnalyticsEngine:
 
             # Index pour optimiser les requêtes
             cursor.execute(
-                "CREATE INDEX IF NOT EXISTS idx_events_user_time ON analytics_events(user_id, timestamp)"
+                "CREATE INDEX IF NOT EXISTS idx_events_user_time ON"
+                + "analytics_events(user_id, timestamp)"
             )
             cursor.execute(
-                "CREATE INDEX IF NOT EXISTS idx_events_type ON analytics_events(event_type)"
+                "CREATE INDEX IF NOT EXISTS idx_events_type ON"
+                + "analytics_events(event_type)"
             )
             cursor.execute(
-                "CREATE INDEX IF NOT EXISTS idx_sessions_user ON analytics_sessions(user_id)"
+                "CREATE INDEX IF NOT EXISTS idx_sessions_user ON"
+                + "analytics_sessions(user_id)"
             )
 
             conn.commit()
@@ -419,7 +422,7 @@ class AnalyticsEngine:
                     cursor.execute(
                         """
                         INSERT INTO analytics_events
-                        (event_type, user_id, timestamp, session_id, data, context, anonymized)
+(event_type, user_id, timestamp, session_id, data, context, anonymized)
                         VALUES (?, ?, ?, ?, ?, ?, ?)
                     """,
                         (
@@ -720,7 +723,8 @@ class AnalyticsEngine:
                 conn.commit()
 
                 logger.info(
-                    f"Nettoyage des données antérieures à {self.retention_days} jours effectué"
+                    f"Nettoyage des données antérieures à {self.retention_days}"
+                    + "jours effectué"
                 )
 
         except Exception as e:
@@ -731,7 +735,7 @@ class AnalyticsEngine:
         try:
             if user_id:
                 # Export pour un utilisateur spécifique
-                # anonymized_user_id = self._anonymize_user_id(user_id)  # Variable non utilisée
+                # anonymized_user_id = self._anonymize_user_id(user_id) # Variable non utilisée
                 data = self.get_user_insights(user_id)
 
                 if format == "json":

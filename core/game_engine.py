@@ -273,9 +273,7 @@ class GameEngine:
         ]
         return random.choice(encouragements)
 
-    def _generate_instant_rewards(
-        self, profile: Dict[str, Any]
-    ) -> Dict[str, Any]:
+    def _generate_instant_rewards(self, profile: Dict[str, Any]) -> Dict[str, Any]:
         """Génère des récompenses instantanées visuelles"""
         rewards = {"badge": None, "achievement": None, "special_effect": None}
 

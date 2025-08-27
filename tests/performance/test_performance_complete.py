@@ -461,7 +461,8 @@ class TestPerformanceComplete(unittest.TestCase):
                 self.assertLess(
                     memory_growth,
                     50,
-                    f"Fuite mémoire détectée dans la session {session}: +{memory_growth:.1f}MB",
+                    f"Fuite mémoire détectée dans la session {session}:"
+                    + "+{memory_growth:.1f}MB",
                 )
 
         # Vérifier qu'il n'y a pas de fuite mémoire globale
@@ -566,7 +567,8 @@ class TestPerformanceComplete(unittest.TestCase):
                         self.assertGreaterEqual(
                             operation_throughput,
                             baselines["min_throughput"],
-                            f"Débit insuffisant pour {operation}: {operation_throughput:.1f} ops/s",
+                            f"Débit insuffisant pour {operation}:"
+                            + "{operation_throughput:.1f} ops/s",
                         )
 
     # ===== TESTS DE VALIDATION FINALE =====

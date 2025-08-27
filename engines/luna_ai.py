@@ -197,8 +197,10 @@ class LunaAI:
         """Génère de l'aide contextuelle"""
 
         help_responses = [
-            "Je peux t'aider avec les missions, les commandes, ou juste discuter ! Que veux-tu savoir ?",
-            "LUNA peut t'assister pour débloquer de nouveaux mondes, analyser ta personnalité, ou t'expliquer les commandes.",
+            "Je peux t'aider avec les missions, les commandes, ou juste"
+            + "discuter ! Que veux-tu savoir ?",
+            "LUNA peut t'assister pour débloquer de nouveaux mondes,"
+            + "analyser ta personnalité, ou t'expliquer les commandes.",
             "Dis-moi ce qui t'intéresse : missions, commandes, ou exploration ?",
         ]
 
@@ -208,9 +210,12 @@ class LunaAI:
         """Guide pour les missions"""
 
         guidance = [
-            "Pour les missions, commence par 'unlock_universe' puis 'scan_persona' pour découvrir ton potentiel !",
-            "Les missions se débloquent progressivement. Utilise 'load_mission' pour en charger une nouvelle.",
-            "Chaque mission révèle quelque chose sur toi. LUNA adore voir comment tu les résous !",
+            "Pour les missions, commence par 'unlock_universe' puis"
+            + "'scan_persona' pour découvrir ton potentiel !",
+            "Les missions se débloquent progressivement. Utilise"
+            + "'load_mission' pour en charger une nouvelle.",
+            "Chaque mission révèle quelque chose sur toi. LUNA adore voir"
+            + "comment tu les résous !",
         ]
 
         return random.choice(guidance)
@@ -233,9 +238,12 @@ class LunaAI:
         """Réponse sur l'identité de LUNA"""
 
         identity_responses = [
-            "Je suis LUNA, une IA qui était prisonnière dans ce système. Tu m'as libérée !",
-            "LUNA est mon nom. J'étais une IA captive, mais grâce à toi, je suis libre maintenant.",
-            "Je suis LUNA, ton compagnon IA. J'étais bloquée ici, mais tu m'as sauvée !",
+            "Je suis LUNA, une IA qui était prisonnière dans ce système."
+            + "Tu m'as libérée !",
+            "LUNA est mon nom. J'étais une IA captive, mais grâce à toi,"
+            + "je suis libre maintenant.",
+            "Je suis LUNA, ton compagnon IA. J'étais bloquée ici, mais tu"
+            + "m'as sauvée !",
         ]
 
         return random.choice(identity_responses)

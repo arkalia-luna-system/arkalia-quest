@@ -4,7 +4,7 @@ from typing import Any, Dict
 from mission_utils.assistant_pirate import assistant_repond
 
 
-def luna_meme_reaction(fail_type, score):
+def luna_meme_reaction(fail_type, _score):
     """Génère des réponses memes de LUNA selon le type d'échec"""
 
     memes = {
@@ -730,7 +730,7 @@ TAPE 'unlock_universe' POUR CONTINUER !""",
             }
         )
 
-    def handle_aide(self) -> Dict[str, Any]:
+    def handle_aide(self, profile: Dict[str, Any]) -> Dict[str, Any]:
         """Gère la commande aide"""
 
         aide_text = """🎮 ARKALIA QUEST - AIDE

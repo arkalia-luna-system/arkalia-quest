@@ -42,19 +42,19 @@ class AnalyticsCommands:
                 message += (
                     f"🎮 Sessions totales: {analytics.get('total_sessions', 0)}\n"
                 )
-                message += f"⏱️ Temps de jeu total: {analytics.get('total_playtime_hours', 0)}h\n"
-                message += f"📊 Temps moyen par utilisateur: {analytics.get('avg_playtime_per_user', 0)}h\n\n"
+                message += f"⏱️ Temps de jeu total:" + "{analytics.get('total_playtime_hours', 0)}h\n"
+                message += f"📊 Temps moyen par utilisateur:" + "{analytics.get('avg_playtime_per_user', 0)}h\n\n"
 
                 # Sessions récentes
-                message += f"📈 Sessions (7 derniers jours): {analytics.get('recent_sessions_7_days', 0)}\n\n"
+                message += f"📈 Sessions (7 derniers jours):" + "{analytics.get('recent_sessions_7_days', 0)}\n\n"
 
                 # Métriques d'engagement
                 engagement = analytics.get("engagement_metrics", {})
                 if engagement:
                     message += "📊 MÉTRIQUES D'ENGAGEMENT:\n"
-                    message += f"🔄 Taux de rétention (7j): {engagement.get('retention_rate_7_days', 0)}%\n"
-                    message += f"✅ Taux de complétion missions: {engagement.get('mission_completion_rate', 0)}%\n"
-                    message += f"⭐ Score d'engagement moyen: {engagement.get('avg_engagement_score', 0)}/100\n\n"
+                    message += f"🔄 Taux de rétention (7j):" + "{engagement.get('retention_rate_7_days', 0)}%\n"
+                    message += f"✅ Taux de complétion missions:" + "{engagement.get('mission_completion_rate', 0)}%\n"
+                    message += f"⭐ Score d'engagement moyen:" + "{engagement.get('avg_engagement_score', 0)}/100\n\n"
 
                 # Événements populaires
                 popular_events = analytics.get("popular_events", {})
@@ -192,18 +192,18 @@ class AnalyticsCommands:
                 message += "⏱️ TEMPS DE JEU:\n"
                 message += f"• Total: {insights.get('total_playtime_hours', 0)}h\n"
                 message += f"• Sessions: {insights.get('total_sessions', 0)}\n"
-                message += f"• Moyenne par session: {insights.get('avg_session_duration_minutes', 0)}min\n\n"
+                message += f"• Moyenne par session:" + "{insights.get('avg_session_duration_minutes', 0)}min\n\n"
 
                 # Statistiques d'engagement
                 message += "📊 ENGAGEMENT:\n"
                 message += (
                     f"• Taux d'engagement: {insights.get('engagement_rate', 0)}%\n"
                 )
-                message += f"• Dernière activité: {insights.get('last_active_days', 0)} jours\n\n"
+                message += f"• Dernière activité: {insights.get('last_active_days', 0)}" + "jours\n\n"
 
                 # Statistiques de profil
                 message += "👤 PROFIL:\n"
-                message += f"• Style d'apprentissage: {self._format_learning_style(insights.get('learning_style', 'unknown'))}\n"
+                message += f"• Style d'apprentissage:" + "{self._format_learning_style(insights.get('learning_style'," + "'unknown'))}\n"
 
                 preferred_games = insights.get("preferred_games", [])
                 if preferred_games:
@@ -277,7 +277,7 @@ class AnalyticsCommands:
                 if badge_progress < 50:
                     message += "• Débloque de nouveaux badges en explorant\n"
                 if mission_progress >= 80 and game_progress >= 80:
-                    message += "• Excellent travail ! Continue d'explorer les fonctionnalités avancées\n"
+                    message += "• Excellent travail ! Continue d'explorer les" + "fonctionnalités avancées\n"
 
                 return {
                     "réussite": True,
@@ -376,11 +376,16 @@ class AnalyticsCommands:
 
                 # Description détaillée du style
                 style_descriptions = {
-                    "guided_learner": "Vous préférez suivre des tutoriels étape par étape et avoir des instructions claires. Vous aimez apprendre de manière structurée et progressive.",
-                    "hands_on_learner": "Vous apprenez mieux en expérimentant directement. Vous préférez essayer par vous-même et découvrir les solutions de manière pratique.",
-                    "support_seeker": "Vous n'hésitez pas à demander de l'aide quand vous en avez besoin. Vous utilisez les indices et le support pour progresser efficacement.",
-                    "balanced_learner": "Vous adaptez votre approche selon les situations. Vous combinez différentes méthodes d'apprentissage pour optimiser vos résultats.",
-                    "unknown": "Votre style d'apprentissage n'a pas encore été déterminé. Continuez à jouer pour que nous puissions l'analyser.",
+                    "guided_learner": "Vous préférez suivre des tutoriels étape par étape et avoir des "
+                    "instructions claires. Vous aimez apprendre de manière structurée et progressive.",
+                    "hands_on_learner": "Vous apprenez mieux en expérimentant directement. "
+                    "Vous préférez essayer par vous-même et découvrir les solutions de manière pratique.",
+                    "support_seeker": "Vous n'hésitez pas à demander de l'aide quand vous en avez besoin. "
+                    "Vous utilisez les indices et le support pour progresser efficacement.",
+                    "balanced_learner": "Vous adaptez votre approche selon les situations. "
+                    "Vous combinez différentes méthodes d'apprentissage pour optimiser vos résultats.",
+                    "unknown": "Votre style d'apprentissage n'a pas encore été déterminé. "
+                    "Continuez à jouer pour que nous puissions l'analyser.",
                 }
 
                 message += f"📝 DESCRIPTION:\n{style_descriptions.get(learning_style, 'Style non reconnu')}\n\n"
@@ -488,7 +493,7 @@ class AnalyticsCommands:
                 return {
                     "réussite": False,
                     "ascii_art": "❌",
-                    "message": "❌ Erreur lors de la récupération des métriques d'engagement",
+"message": "❌ Erreur lors de la récupération des métriques d'engagement",
                     "score_gagne": 0,
                     "profile_updated": False,
                 }

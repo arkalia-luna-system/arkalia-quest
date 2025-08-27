@@ -135,7 +135,8 @@ class DatabaseManager:
                     cursor.execute(
                         """
                         UPDATE profiles
-                        SET score = ?, level = ?, badges = ?, avatars = ?, preferences = ?, updated_at = CURRENT_TIMESTAMP
+                        SET score = ?, level = ?, badges = ?, avatars = ?, 
+                            preferences = ?, updated_at = CURRENT_TIMESTAMP
                         WHERE username = ?
                     """,
                         (
@@ -151,7 +152,8 @@ class DatabaseManager:
                     # Créer un nouveau profil
                     cursor.execute(
                         """
-                        INSERT INTO profiles (username, score, level, badges, avatars, preferences)
+                        INSERT INTO profiles (username, score, level, badges, avatars, 
+                                            preferences)
                         VALUES (?, ?, ?, ?, ?, ?)
                     """,
                         (
@@ -205,7 +207,8 @@ class DatabaseManager:
 
                 cursor.execute(
                     """
-                    INSERT OR REPLACE INTO missions (mission_id, title, description, difficulty, timer, rewards)
+                    INSERT OR REPLACE INTO missions (mission_id, title, description, 
+                                                    difficulty, timer, rewards)
                     VALUES (?, ?, ?, ?, ?, ?)
                 """,
                     (
@@ -232,7 +235,8 @@ class DatabaseManager:
 
                 cursor.execute(
                     """
-                    INSERT INTO challenges (challenge_id, title, description, timer, players)
+                    INSERT INTO challenges (challenge_id, title, description, timer, 
+                                          players)
                     VALUES (?, ?, ?, ?, ?)
                 """,
                     (
@@ -267,7 +271,8 @@ class DatabaseManager:
 
                 cursor.execute(
                     """
-                    INSERT INTO luna_learning (user_id, action_type, action_data, response, success)
+                    INSERT INTO luna_learning (user_id, action_type, action_data, 
+                                              response, success)
                     VALUES (?, ?, ?, ?, ?)
                 """,
                     (user_id, action_type, json.dumps(action_data), response, success),

@@ -993,7 +993,7 @@ class TutorielExperienceTester:
                 print(f"   ✅ Positifs: {len(profile['positives'])}")
 
         # Sauvegarde du rapport
-        filename = f"tutoriel_experience_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+filename = f"tutoriel_experience_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(self.results, f, indent=2, ensure_ascii=False)
 

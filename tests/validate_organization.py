@@ -257,7 +257,8 @@ def main():
         print("\n🎉 EXCELLENT ! L'organisation est parfaitement fonctionnelle")
     elif report["score"] >= 75:
         print(
-            "\n✅ BON ! L'organisation fonctionne bien avec quelques améliorations mineures"
+            "\n✅ BON ! L'organisation fonctionne bien avec quelques"
+            + "améliorations mineures"
         )
     elif report["score"] >= 50:
         print("\n⚠️ MOYEN ! L'organisation nécessite des corrections")

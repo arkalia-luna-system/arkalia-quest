@@ -52,7 +52,7 @@ class GameEngine:
         return result
 
     def add_effects(
-        self, result: Dict[str, Any], profile: Dict[str, Any]
+        self, result: Dict[str, Any], _profile: Dict[str, Any]
     ) -> Dict[str, Any]:
         """Ajoute des effets visuels et audio à la réponse"""
 
@@ -124,12 +124,12 @@ class GameEngine:
         prerequis = mission.get("prerequis", [])
 
         for prereq in prerequis:
-            if prereq == "unlock_universe":
-                if not self.game_state["universe_unlocked"]:
-                    return False
-            elif prerequis == "scan_persona":
-                if not self.game_state["personality_detected"]:
-                    return False
+            if prereq == "unlock_universe" and not self.game_state["universe_unlocked"]:
+                return False
+            elif (
+                prereq == "scan_persona" and not self.game_state["personality_detected"]
+            ):
+                return False
 
         return True
 

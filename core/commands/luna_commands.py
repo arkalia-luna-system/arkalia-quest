@@ -32,7 +32,7 @@ class LunaCommands:
             "ascii_art": "🌙",
             "message": """🌙 CONTACT LUNA ÉTABLI AVEC SUCCÈS !
 
-🤖 LUNA : "Salut hacker ! Je suis LUNA, ton assistant IA personnel. Prêt pour l'aventure ?"
+🤖 LUNA : "Salut hacker ! Je suis LUNA, ton assistant IA personnel." + "Prêt pour l'aventure ?"
 
 🎯 CAPACITÉS DE LUNA :
 • Analyse de données en temps réel
@@ -47,7 +47,8 @@ class LunaCommands:
 • luna_learning - Apprentissage continu
 • luna_dance - Mode divertissement
 
-💡 Astuce : LUNA est ton meilleur allié ! Utilise ses capacités pour progresser plus rapidement dans tes missions !
+💡 Astuce : LUNA est ton meilleur allié ! Utilise ses capacités pour progresser plus
+rapidement dans tes missions !
 
 🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !""",
             "score_gagne": 20,
@@ -79,7 +80,8 @@ class LunaCommands:
 • Détection d'anomalies
 • Traitement multi-thread
 
-💡 Astuce : Le moteur IA de LUNA peut analyser des données complexes et t'aider à prendre les meilleures décisions !
+💡 Astuce : Le moteur IA de LUNA peut analyser des données complexes et t'aider à prendre
+les meilleures décisions !
 
 🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !""",
             "score_gagne": 30,
@@ -110,7 +112,8 @@ class LunaCommands:
 • 3 vulnérabilités détectées
 • 8 systèmes cartographiés
 
-💡 Astuce : L'analyse LUNA révèle des secrets cachés et des failles de sécurité que tu peux exploiter !
+💡 Astuce : L'analyse LUNA révèle des secrets cachés et des failles de sécurité que tu
+peux exploiter !
 
 🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !""",
             "score_gagne": 25,
@@ -141,7 +144,8 @@ class LunaCommands:
 • 8 nouvelles capacités
 • Efficacité +35%
 
-💡 Astuce : Plus LUNA apprend de tes actions, plus elle devient intelligente et utile pour tes missions !
+💡 Astuce : Plus LUNA apprend de tes actions, plus elle devient intelligente et utile
+pour tes missions !
 
 🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !""",
             "score_gagne": 30,

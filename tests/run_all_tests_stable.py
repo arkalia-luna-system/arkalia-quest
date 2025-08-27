@@ -183,11 +183,13 @@ class StableVersionTestRunner:
             )
         elif summary["success_rate"] >= 80:
             recommendations.append(
-                "✅ Version stable correcte. Quelques améliorations mineures recommandées."
+                "✅ Version stable correcte. Quelques améliorations mineures"
+                + "recommandées."
             )
         elif summary["success_rate"] >= 60:
             recommendations.append(
-                "⚠️ Version stable avec des problèmes. Corrections nécessaires avant production."
+                "⚠️ Version stable avec des problèmes. Corrections"
+                + "nécessaires avant production."
             )
         else:
             recommendations.append(

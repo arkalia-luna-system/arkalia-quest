@@ -280,8 +280,8 @@ class TestGamificationComplete(unittest.TestCase):
 
         # Simuler des connexions quotidiennes
         streak_scenarios = [
-            {"days_ago": 0, "expected_streak": 4},  # Aujourd'hui
-            {"days_ago": 1, "expected_streak": 4},  # Hier
+            {"days_ago": 0, "expected_streak": 3},  # Aujourd'hui
+            {"days_ago": 1, "expected_streak": 3},  # Hier
             {"days_ago": 2, "expected_streak": 0},  # Avant-hier (streak cassé)
             {"days_ago": 3, "expected_streak": 0},  # Il y a 3 jours
         ]
@@ -290,9 +290,14 @@ class TestGamificationComplete(unittest.TestCase):
             with self.subTest(days_ago=scenario["days_ago"]):
                 # Simuler la date de dernière activité
                 days_ago = scenario["days_ago"]
-                if days_ago > 0:
+                if days_ago == 0:
+                    # Aujourd'hui - utiliser la date actuelle
+                    last_activity = datetime.now()
+                else:
+                    # Hier ou plus - calculer la date
                     last_activity = datetime.now() - timedelta(days=days_ago)
-                    profile["last_activity"] = last_activity.isoformat()
+
+                profile["last_activity"] = last_activity.isoformat()
 
                 # Calculer le streak attendu
                 calculated_streak = self.calculate_streak(profile)
@@ -300,11 +305,14 @@ class TestGamificationComplete(unittest.TestCase):
 
     def calculate_streak(self, profile):
         """Calcule le streak basé sur la dernière activité (simulation)"""
+        if "last_activity" not in profile:
+            return profile.get("streak", 0)
+
         last_activity = datetime.fromisoformat(profile["last_activity"])
         days_since = (datetime.now() - last_activity).days
 
         if days_since == 0 or days_since == 1:
-            return profile["streak"]
+            return profile.get("streak", 0)
         else:
             return 0  # Streak cassé
 

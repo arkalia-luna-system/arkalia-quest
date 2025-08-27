@@ -135,7 +135,7 @@ class ImmersiveSystemTester:
                         self.validate_emotion_data(data)
 
                         print(
-                            f"    ✅ {command}: {data['luna_emotion']} (intensité: {intensity:.2f})"
+                            f"✅ {command}: {data['luna_emotion']} (intensité:" + "{intensity:.2f})"
                         )
                     else:
                         print(f"    ⚠️ {command}: Pas d'émotion LUNA détectée")
@@ -205,7 +205,7 @@ class ImmersiveSystemTester:
                         effects_test["sounds_detected"].add(data["luna_sound"])
 
                     print(
-                        f"    ✅ {command}: Effet {data.get('luna_effect', 'N/A')} - Couleur {data.get('luna_color', 'N/A')}"
+                        f"✅ {command}: Effet {data.get('luna_effect', 'N/A')} -" + "Couleur {data.get('luna_color', 'N/A')}"
                     )
                 else:
                     print(f"    ❌ {command}: Erreur HTTP {response.status_code}")
@@ -403,7 +403,7 @@ class ImmersiveSystemTester:
         )
 
         print(
-            f"    📊 Performance: {performance_test['success_rate']:.1f}% succès, {performance_test['avg_response_time']:.3f}s moyenne"
+            f"📊 Performance: {performance_test['success_rate']:.1f}%" + "succès, {performance_test['avg_response_time']:.3f}s moyenne"
         )
 
         return performance_test
@@ -542,16 +542,16 @@ class ImmersiveSystemTester:
 
         print("\n📋 DÉTAILS:")
         print(
-            f"  • Tests LUNA: {results['luna_emotions']['emotions_detected']}/{results['luna_emotions']['total_commands']} émotions détectées"
+            f"• Tests LUNA: {results['luna_emotions']['emotions_detected']}/{results['luna_emotions']['total_commands']} émotions détectées"
         )
         print(
-            f"  • Tests visuels: {results['visual_effects']['effects_detected']} effets détectés"
+            f"• Tests visuels: {results['visual_effects']['effects_detected']} effets détectés"
         )
         print(
-            f"  • Tests intégration: {results['integration']['integration_success']}/{results['integration']['integration_checks']} cohérences OK"
+            f"• Tests intégration: {results['integration']['integration_success']}/{results['integration']['integration_checks']} cohérences OK"
         )
         print(
-            f"  • Tests performance: {results['performance']['successful_requests']}/{results['performance']['total_requests']} requêtes réussies"
+            f"• Tests performance: {results['performance']['successful_requests']}/{results['performance']['total_requests']} requêtes réussies"
         )
 
         if summary["status"] == "EXCELLENT":

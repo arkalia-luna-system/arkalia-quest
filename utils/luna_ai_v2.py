@@ -161,7 +161,8 @@ class LunaAI:
         # Recommandations selon le niveau
         if analyse["niveau"] < 3:
             analyse["recommandations"].append(
-                "🎯 Objectif : Atteindre le niveau 3 pour débloquer de nouvelles missions"
+                "🎯 Objectif : Atteindre le niveau 3 pour débloquer de"
+                + "nouvelles missions"
             )
         elif analyse["niveau"] < 5:
             analyse["recommandations"].append(

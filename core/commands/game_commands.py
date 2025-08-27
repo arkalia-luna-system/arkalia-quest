@@ -51,7 +51,10 @@ class GameCommands:
 
             for game in games:
                 difficulty_emoji = self._get_difficulty_emoji(game["difficulty"])
-                message += f"  • {game['id']}: {game['title']} {difficulty_emoji} (+{game['points']}pts)\n"
+                message += (
+                    f"• {game['id']}: {game['title']} {difficulty_emoji}"
+                    + "(+{game['points']}pts)\n"
+                )
             message += "\n"
 
         message += "💡 Utilise 'play_game <id>' pour jouer !\n"

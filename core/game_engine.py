@@ -141,9 +141,8 @@ class GameEngine:
     ) -> Dict[str, Any]:
         """Vérifie si un événement aléatoire doit se déclencher"""
         for event in self.random_events:
-            if event["trigger"] == action_type:
-                if random.random() < event["chance"]:
-                    return self._execute_random_event(event, profile)
+            if event["trigger"] == action_type and random.random() < event["chance"]:
+                return self._execute_random_event(event, profile)
         return {}
 
     def _execute_random_event(
@@ -152,11 +151,10 @@ class GameEngine:
         """Exécute un événement aléatoire"""
         effect = event["effect"]
 
-        if "bonus_xp" in effect:
-            if effect["bonus_xp"] == "random_50_200":
-                bonus_xp = random.randint(50, 200)
-                profile["xp"] = profile.get("xp", 0) + bonus_xp
-                effect["bonus_xp"] = bonus_xp
+        if "bonus_xp" in effect and effect["bonus_xp"] == "random_50_200":
+            bonus_xp = random.randint(50, 200)
+            profile["xp"] = profile.get("xp", 0) + bonus_xp
+            effect["bonus_xp"] = bonus_xp
 
         if "badge" in effect:
             if "badges" not in profile:
@@ -381,9 +379,11 @@ class GameEngine:
             if prerequis_item == "unlock_universe":
                 if not self.game_state["universe_unlocked"]:
                     return False
-            elif prerequis_item == "complete_tutorial":
-                if not self.game_state["tutorial_completed"]:
-                    return False
+            elif (
+                prerequis_item == "complete_tutorial"
+                and not self.game_state["tutorial_completed"]
+            ):
+                return False
 
         return True
 

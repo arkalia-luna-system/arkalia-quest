@@ -280,7 +280,7 @@ class GamificationEngine:
         elif condition == "night_play":
             # Jeu de nuit
             current_hour = datetime.now().hour
-            if 22 <= current_hour or current_hour <= 6:
+            if current_hour >= 22 or current_hour <= 6:
                 return True
 
         elif condition == "perfect_mission":

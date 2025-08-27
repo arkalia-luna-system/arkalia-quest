@@ -102,7 +102,7 @@ class GameCommands:
 
         return {"réussite": True, "ascii_art": "📊", "message": message}
 
-    def handle_daily_challenges(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_daily_challenges(self) -> Dict[str, Any]:
         """Affiche les défis quotidiens engageants pour les ados"""
         # Simuler des défis quotidiens
         challenges = {
@@ -158,7 +158,7 @@ class GameCommands:
 
         return {"réussite": True, "ascii_art": "🎯", "message": message}
 
-    def handle_random_events(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_random_events(self) -> Dict[str, Any]:
         """Affiche les événements aléatoires et leurs déclencheurs"""
         events = {
             "luna_surprise": {

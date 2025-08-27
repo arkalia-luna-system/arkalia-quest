@@ -1,0 +1,451 @@
+/* 🚀 COMPOSANTS MODERNES POUR ADO - ARKALIA QUEST */
+
+/* ===== SECTION PROGRESSION MODERNE ===== */
+.progress-section-modern {
+    background: linear-gradient(135deg, rgba(0, 255, 0, 0.05) 0%, rgba(0, 100, 0, 0.1) 100%);
+    border: 2px solid rgba(0, 255, 0, 0.2);
+    border-radius: 25px;
+    padding: 30px;
+    margin: 30px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-section-modern::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(0, 255, 0, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 255, 0, 0.03) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.progress-title-modern {
+    color: #00ff00;
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+    position: relative;
+}
+
+.progress-title-modern::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #00ff00, transparent);
+    border-radius: 2px;
+}
+
+/* ===== STATISTIQUES AVANCÉES ===== */
+.advanced-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.stat-modern {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 50, 0, 0.2) 100%);
+    border: 2px solid rgba(0, 255, 0, 0.2);
+    border-radius: 20px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-modern::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(0, 255, 0, 0.02) 50%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.stat-modern:hover::before {
+    opacity: 1;
+}
+
+.stat-modern:hover {
+    border-color: rgba(0, 255, 0, 0.5);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 255, 0, 0.3);
+}
+
+.stat-icon-modern {
+    font-size: 2.5em;
+    filter: drop-shadow(0 0 15px rgba(0, 255, 0, 0.5));
+    transition: all 0.3s ease;
+}
+
+.stat-modern:hover .stat-icon-modern {
+    transform: scale(1.1) rotate(5deg);
+    filter: drop-shadow(0 0 25px rgba(0, 255, 0, 0.8));
+}
+
+.stat-content {
+    flex: 1;
+}
+
+.stat-value-modern {
+    color: #00ff00;
+    font-size: 2em;
+    font-weight: bold;
+    text-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+    margin-bottom: 5px;
+}
+
+.stat-label-modern {
+    color: rgba(0, 255, 0, 0.7);
+    font-size: 0.9em;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ===== SECTION BADGES MODERNE ===== */
+.badges-section-modern {
+    background: linear-gradient(135deg, rgba(0, 255, 0, 0.03) 0%, rgba(0, 100, 0, 0.08) 100%);
+    border: 2px solid rgba(0, 255, 0, 0.15);
+    border-radius: 25px;
+    padding: 30px;
+    margin: 30px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.badges-title-modern {
+    color: #00ff00;
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+    position: relative;
+}
+
+.badges-title-modern::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #00ff00, transparent);
+    border-radius: 2px;
+}
+
+/* ===== ANIMATIONS ET EFFETS ===== */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 0, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(0, 255, 0, 0.6); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ===== EFFETS DE HOVER AVANCÉS ===== */
+.progress-section-modern:hover {
+    border-color: rgba(0, 255, 0, 0.4);
+    box-shadow: 0 20px 60px rgba(0, 255, 0, 0.2);
+}
+
+.stat-modern:hover .stat-icon-modern {
+    animation: float 2s ease-in-out infinite;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .progress-section-modern,
+    .badges-section-modern {
+        padding: 20px;
+        margin: 20px 0;
+    }
+    
+    .progress-title-modern,
+    .badges-title-modern {
+        font-size: 1.5em;
+    }
+    
+    .advanced-stats {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .stat-modern {
+        padding: 20px;
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .stat-icon-modern {
+        font-size: 2em;
+    }
+    
+    .stat-value-modern {
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 480px) {
+    .progress-section-modern,
+    .badges-section-modern {
+        padding: 15px;
+        margin: 15px 0;
+    }
+    
+    .progress-title-modern,
+    .badges-title-modern {
+        font-size: 1.3em;
+    }
+    
+    .stat-modern {
+        padding: 15px;
+    }
+}
+
+/* ===== EFFETS DE FOCUS POUR ACCESSIBILITÉ ===== */
+.progress-section-modern:focus-within,
+.badges-section-modern:focus-within {
+    outline: 2px solid #00ff00;
+    outline-offset: 2px;
+}
+
+.stat-modern:focus-within {
+    outline: 2px solid #00ff00;
+    outline-offset: 2px;
+    border-color: #00ff00;
+}
+
+/* ===== THÈMES DYNAMIQUES ===== */
+.progress-section-modern[data-theme="night"] {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 50, 0, 0.3) 100%);
+    border-color: rgba(0, 255, 0, 0.4);
+}
+
+.progress-section-modern[data-theme="day"] {
+    background: linear-gradient(135deg, rgba(0, 255, 0, 0.1) 0%, rgba(0, 100, 0, 0.2) 100%);
+    border-color: rgba(0, 255, 0, 0.3);
+}
+
+/* ===== EFFETS DE PARTICULES ===== */
+.progress-section-modern::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(0, 255, 0, 0.1) 1px, transparent 1px),
+        radial-gradient(circle at 90% 80%, rgba(0, 255, 0, 0.08) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: particleFloat 8s infinite linear;
+    pointer-events: none;
+}
+
+@keyframes particleFloat {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-50px); }
+}
+
+/* ===== EFFETS DE LUMIÈRE ===== */
+.progress-section-modern::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg, transparent, rgba(0, 255, 0, 0.1), transparent);
+    animation: lightRotate 10s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes lightRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ===== TRANSITIONS FLUIDES ===== */
+.progress-section-modern,
+.badges-section-modern,
+.stat-modern {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress-section-modern:hover,
+.badges-section-modern:hover {
+    transform: translateY(-2px);
+}
+
+/* ===== EFFETS DE PROFONDEUR ===== */
+.progress-section-modern,
+.badges-section-modern {
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(0, 255, 0, 0.1);
+}
+
+.progress-section-modern:hover,
+.badges-section-modern:hover {
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.4),
+        0 0 0 2px rgba(0, 255, 0, 0.2);
+}
+
+/* ===== ANIMATIONS D'APPARITION ===== */
+.progress-section-modern {
+    animation: slideInUp 0.8s ease-out;
+}
+
+.badges-section-modern {
+    animation: slideInUp 0.8s ease-out 0.2s both;
+}
+
+.stat-modern:nth-child(1) { animation: slideInLeft 0.6s ease-out 0.4s both; }
+.stat-modern:nth-child(2) { animation: slideInUp 0.6s ease-out 0.6s both; }
+.stat-modern:nth-child(3) { animation: slideInRight 0.6s ease-out 0.8s both; }
+
+/* ===== EFFETS DE SURCHARGE ===== */
+.progress-section-modern[data-overload="true"] {
+    border-color: #ff0000;
+    animation: pulse 1s infinite;
+}
+
+.progress-section-modern[data-overload="true"]::before {
+    background: conic-gradient(from 0deg, transparent, rgba(255, 0, 0, 0.2), transparent);
+}
+
+/* ===== MODE DARK/LIGHT ===== */
+@media (prefers-color-scheme: light) {
+    .progress-section-modern,
+    .badges-section-modern {
+        background: linear-gradient(135deg, rgba(0, 255, 0, 0.1) 0%, rgba(0, 100, 0, 0.2) 100%);
+        border-color: rgba(0, 255, 0, 0.3);
+    }
+    
+    .stat-modern {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 255, 0, 0.1) 100%);
+        border-color: rgba(0, 255, 0, 0.3);
+    }
+}
+
+/* ===== EFFETS DE PERFORMANCE ===== */
+@media (prefers-reduced-motion: reduce) {
+    .progress-section-modern,
+    .badges-section-modern,
+    .stat-modern {
+        animation: none;
+        transition: none;
+    }
+    
+    .progress-section-modern::before,
+    .progress-section-modern::after,
+    .badges-section-modern::before,
+    .badges-section-modern::after {
+        display: none;
+    }
+}
+
+/* ===== EFFETS DE SURCHARGE VISUELLE ===== */
+.progress-section-modern[data-overload="true"] .progress-title-modern {
+    color: #ff0000;
+    text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+}
+
+.stat-modern[data-critical="true"] {
+    border-color: #ff0000;
+    animation: criticalPulse 2s infinite;
+}
+
+@keyframes criticalPulse {
+    0%, 100% { 
+        border-color: #ff0000;
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+    }
+    50% { 
+        border-color: #ff6666;
+        box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
+    }
+}
+
+/* ===== EFFETS DE SUCCÈS ===== */
+.progress-section-modern[data-success="true"] {
+    border-color: #00ff00;
+    animation: successGlow 1s ease-out;
+}
+
+@keyframes successGlow {
+    0% { 
+        border-color: rgba(0, 255, 0, 0.2);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    50% { 
+        border-color: #00ff00;
+        box-shadow: 0 20px 60px rgba(0, 255, 0, 0.4);
+    }
+    100% { 
+        border-color: rgba(0, 255, 0, 0.2);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+}

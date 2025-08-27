@@ -196,7 +196,7 @@ class LunaEmotionsEngine:
             "action_type": self._classify_action(action),
             "success": result.get("réussite", False),
             "score_gained": result.get("score_gagne", 0),
-            "badge_gained": result.get("badge", None),
+            "badge_gained": result.get("badge"),
             "player_level": profile.get("level", 1),
             "player_score": profile.get("score", 0),
             "time_of_day": datetime.now().hour,

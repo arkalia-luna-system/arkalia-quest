@@ -889,7 +889,7 @@ TAPE 'unlock_universe' POUR CONTINUER !""",
             return self.format_response(
                 {
                     "réussite": False,
-                    "message": f"Erreur lors de la création du meme : {str(e)}",
+                    "message": f"Erreur lors de la création du meme : {e!s}",
                     "profile_updated": False,
                 }
             )

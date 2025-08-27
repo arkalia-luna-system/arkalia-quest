@@ -358,7 +358,7 @@ class BoutonsActionsExperienceTester:
                 button_result["issues"].append(f"Erreur API: {response.status_code}")
 
         except Exception as e:
-            button_result["issues"].append(f"Erreur action: {str(e)}")
+            button_result["issues"].append(f"Erreur action: {e!s}")
 
         return button_result
 

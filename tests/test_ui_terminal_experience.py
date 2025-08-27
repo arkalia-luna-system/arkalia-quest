@@ -230,7 +230,7 @@ class TerminalExperienceTester:
                 test["issues"].append(f"Erreur de chargement: {response.status_code}")
 
         except Exception as e:
-            test["issues"].append(f"Erreur de connexion: {str(e)}")
+            test["issues"].append(f"Erreur de connexion: {e!s}")
 
         return test
 
@@ -290,7 +290,7 @@ class TerminalExperienceTester:
                 test["issues"].append(f"Erreur API: {response.status_code}")
 
         except Exception as e:
-            test["issues"].append(f"Erreur de commande: {str(e)}")
+            test["issues"].append(f"Erreur de commande: {e!s}")
 
         return test
 
@@ -338,7 +338,7 @@ class TerminalExperienceTester:
                 test["issues"].append("Réponses peu claires")
 
         except Exception as e:
-            test["issues"].append(f"Erreur de test: {str(e)}")
+            test["issues"].append(f"Erreur de test: {e!s}")
 
         return test
 
@@ -389,7 +389,7 @@ class TerminalExperienceTester:
                 test["issues"].append(f"Erreur aide: {response.status_code}")
 
         except Exception as e:
-            test["issues"].append(f"Erreur aide: {str(e)}")
+            test["issues"].append(f"Erreur aide: {e!s}")
 
         return test
 
@@ -453,7 +453,7 @@ class TerminalExperienceTester:
                 test["issues"].append("Réponses peu variées")
 
         except Exception as e:
-            test["issues"].append(f"Erreur exploration: {str(e)}")
+            test["issues"].append(f"Erreur exploration: {e!s}")
 
         return test
 
@@ -502,7 +502,7 @@ class TerminalExperienceTester:
                 test["issues"].append("Peu de commandes spéciales")
 
         except Exception as e:
-            test["issues"].append(f"Erreur spéciales: {str(e)}")
+            test["issues"].append(f"Erreur spéciales: {e!s}")
 
         return test
 
@@ -544,7 +544,7 @@ class TerminalExperienceTester:
                 test["issues"].append("Aucun easter egg trouvé")
 
         except Exception as e:
-            test["issues"].append(f"Erreur easter eggs: {str(e)}")
+            test["issues"].append(f"Erreur easter eggs: {e!s}")
 
         return test
 
@@ -587,7 +587,7 @@ class TerminalExperienceTester:
                 test["issues"].append("Erreurs mal gérées")
 
         except Exception as e:
-            test["issues"].append(f"Erreur test invalides: {str(e)}")
+            test["issues"].append(f"Erreur test invalides: {e!s}")
 
         return test
 
@@ -633,7 +633,7 @@ class TerminalExperienceTester:
                 test["issues"].append("Exécution impossible")
 
         except Exception as e:
-            test["issues"].append(f"Erreur rapidité: {str(e)}")
+            test["issues"].append(f"Erreur rapidité: {e!s}")
 
         return test
 
@@ -677,7 +677,7 @@ class TerminalExperienceTester:
                 test["issues"].append("Enchaînement difficile")
 
         except Exception as e:
-            test["issues"].append(f"Erreur enchaînement: {str(e)}")
+            test["issues"].append(f"Erreur enchaînement: {e!s}")
 
         return test
 
@@ -739,7 +739,7 @@ class TerminalExperienceTester:
                 test["issues"].append("Performance insuffisante")
 
         except Exception as e:
-            test["issues"].append(f"Erreur performance: {str(e)}")
+            test["issues"].append(f"Erreur performance: {e!s}")
 
         return test
 
@@ -788,7 +788,7 @@ class TerminalExperienceTester:
                 test["issues"].append("Fonctionnalités avancées limitées")
 
         except Exception as e:
-            test["issues"].append(f"Erreur avancé: {str(e)}")
+            test["issues"].append(f"Erreur avancé: {e!s}")
 
         return test
 
@@ -837,7 +837,7 @@ class TerminalExperienceTester:
                 test["issues"].append("Personnalisation limitée")
 
         except Exception as e:
-            test["issues"].append(f"Erreur personnalisation: {str(e)}")
+            test["issues"].append(f"Erreur personnalisation: {e!s}")
 
         return test
 
@@ -885,7 +885,7 @@ class TerminalExperienceTester:
                 test["issues"].append("Peu de fonctionnalités cachées")
 
         except Exception as e:
-            test["issues"].append(f"Erreur cachées: {str(e)}")
+            test["issues"].append(f"Erreur cachées: {e!s}")
 
         return test
 
@@ -934,7 +934,7 @@ class TerminalExperienceTester:
                 test["issues"].append("Intégration limitée")
 
         except Exception as e:
-            test["issues"].append(f"Erreur intégration: {str(e)}")
+            test["issues"].append(f"Erreur intégration: {e!s}")
 
         return test
 

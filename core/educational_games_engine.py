@@ -239,16 +239,21 @@ def create_md5_hash(text):
         for _game_type, games in self.games_data.items():
             for game in games:
                 # Déterminer la difficulté selon le niveau
-                if user_level >= 3 and game["difficulty"] == Difficulty.EXPERT.value:
-                    available_games.append(game)
-                elif (
-                    user_level >= 2 and game["difficulty"] == Difficulty.ADVANCED.value
+                if (
+                    (user_level >= 3 and game["difficulty"] == Difficulty.EXPERT.value)
+                    or (
+                        user_level >= 2
+                        and game["difficulty"] == Difficulty.ADVANCED.value
+                    )
+                    or (
+                        user_level >= 1
+                        and game["difficulty"]
+                        in [
+                            Difficulty.BEGINNER.value,
+                            Difficulty.INTERMEDIATE.value,
+                        ]
+                    )
                 ):
-                    available_games.append(game)
-                elif user_level >= 1 and game["difficulty"] in [
-                    Difficulty.BEGINNER.value,
-                    Difficulty.INTERMEDIATE.value,
-                ]:
                     available_games.append(game)
 
         return available_games

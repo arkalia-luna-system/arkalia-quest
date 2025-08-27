@@ -147,8 +147,8 @@ class ImmersiveSystemTester:
                     )
 
             except Exception as e:
-                print(f"    💥 {command}: Erreur - {str(e)}")
-                emotions_test["errors"].append(f"Exception pour {command}: {str(e)}")
+                print(f"    💥 {command}: Erreur - {e!s}")
+                emotions_test["errors"].append(f"Exception pour {command}: {e!s}")
 
         # Calculer les statistiques
         emotions_test["emotion_types"] = list(emotions_test["emotion_types"])
@@ -214,8 +214,8 @@ class ImmersiveSystemTester:
                     )
 
             except Exception as e:
-                print(f"    💥 {command}: Erreur - {str(e)}")
-                effects_test["errors"].append(f"Exception pour {command}: {str(e)}")
+                print(f"    💥 {command}: Erreur - {e!s}")
+                effects_test["errors"].append(f"Exception pour {command}: {e!s}")
 
         # Convertir les sets en listes
         effects_test["effect_types"] = list(effects_test["effect_types"])
@@ -269,8 +269,8 @@ class ImmersiveSystemTester:
                     integration_test["coherence_checks"] += 1
 
             except Exception as e:
-                print(f"    💥 {command}: Erreur - {str(e)}")
-                integration_test["errors"].append(f"Exception pour {command}: {str(e)}")
+                print(f"    💥 {command}: Erreur - {e!s}")
+                integration_test["errors"].append(f"Exception pour {command}: {e!s}")
 
         # Calculer les taux de réussite
         integration_test["integration_rate"] = (
@@ -435,10 +435,7 @@ class ImmersiveSystemTester:
             return False
 
         # Vérifier les bornes
-        if not (0.0 <= data["luna_intensity"] <= 1.0):
-            return False
-
-        return True
+        return 0.0 <= data["luna_intensity"] <= 1.0
 
     def check_emotion_effect_coherence(self, data: Dict[str, Any]) -> bool:
         """Vérifie la cohérence émotion-effet"""
@@ -468,11 +465,7 @@ class ImmersiveSystemTester:
         """Valide la structure de la réponse"""
         required_fields = ["réussite", "message"]
 
-        for field in required_fields:
-            if field not in data:
-                return False
-
-        return True
+        return all(field in data for field in required_fields)
 
     def generate_summary(
         self,

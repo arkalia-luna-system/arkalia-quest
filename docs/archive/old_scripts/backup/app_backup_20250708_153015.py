@@ -399,7 +399,7 @@ def get_mission(mission_name):
             }
             return jsonify(mission_defaut)
     except Exception as e:
-        return jsonify({"erreur": f"Impossible de charger la mission: {str(e)}"}), 500
+        return jsonify({"erreur": f"Impossible de charger la mission: {e!s}"}), 500
 
 
 handler = CommandHandler()

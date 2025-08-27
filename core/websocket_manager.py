@@ -122,9 +122,7 @@ class WebSocketManager:
 
         return {"type": "action_processed"}
 
-    def handle_chat_message(
-        self, session_id: str, data: Dict[str, Any]
-    ) -> Dict[str, Any]:
+    def handle_chat_message(self, data: Dict[str, Any]) -> Dict[str, Any]:
         """Gère un message de chat"""
         room_id = data.get("room_id")
         if not room_id:
@@ -146,11 +144,11 @@ class WebSocketManager:
 
         return {"type": "message_sent"}
 
-    def handle_ping(self, session_id: str, data: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_ping(self) -> Dict[str, Any]:
         """Gère un ping pour maintenir la connexion"""
         return {"type": "pong", "timestamp": time.time()}
 
-    def start_challenge(self, room_id: str, session_id: str) -> Dict[str, Any]:
+    def start_challenge(self, room_id: str) -> Dict[str, Any]:
         """Démarre un défi"""
         if room_id in self.challenge_data:
             challenge = self.challenge_data[room_id]

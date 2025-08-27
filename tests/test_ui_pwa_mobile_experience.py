@@ -93,7 +93,7 @@ class PWAMobileExperienceTester:
                 )
 
         except Exception as e:
-            manifest_result["issues"].append(f"Erreur manifest: {str(e)}")
+            manifest_result["issues"].append(f"Erreur manifest: {e!s}")
 
         self.results["tests_performed"].append(manifest_result)
         return manifest_result
@@ -150,7 +150,7 @@ class PWAMobileExperienceTester:
                 )
 
         except Exception as e:
-            sw_result["issues"].append(f"Erreur service worker: {str(e)}")
+            sw_result["issues"].append(f"Erreur service worker: {e!s}")
 
         self.results["tests_performed"].append(sw_result)
         return sw_result
@@ -214,7 +214,7 @@ class PWAMobileExperienceTester:
                 )
 
         except Exception as e:
-            install_result["issues"].append(f"Erreur installation: {str(e)}")
+            install_result["issues"].append(f"Erreur installation: {e!s}")
 
         self.results["tests_performed"].append(install_result)
         return install_result
@@ -274,7 +274,7 @@ class PWAMobileExperienceTester:
                     offline_result["issues"].append("Cache offline non configuré")
 
         except Exception as e:
-            offline_result["issues"].append(f"Erreur mode offline: {str(e)}")
+            offline_result["issues"].append(f"Erreur mode offline: {e!s}")
 
         self.results["tests_performed"].append(offline_result)
         return offline_result
@@ -335,7 +335,7 @@ class PWAMobileExperienceTester:
                 )
 
         except Exception as e:
-            mobile_result["issues"].append(f"Erreur mobile: {str(e)}")
+            mobile_result["issues"].append(f"Erreur mobile: {e!s}")
 
         self.results["tests_performed"].append(mobile_result)
         return mobile_result
@@ -391,7 +391,7 @@ class PWAMobileExperienceTester:
                 performance_result["issues"].append("Performance mobile insuffisante")
 
         except Exception as e:
-            performance_result["issues"].append(f"Erreur performance: {str(e)}")
+            performance_result["issues"].append(f"Erreur performance: {e!s}")
 
         self.results["tests_performed"].append(performance_result)
         return performance_result
@@ -457,7 +457,7 @@ class PWAMobileExperienceTester:
                 )
 
         except Exception as e:
-            accessibility_result["issues"].append(f"Erreur accessibilité: {str(e)}")
+            accessibility_result["issues"].append(f"Erreur accessibilité: {e!s}")
 
         self.results["tests_performed"].append(accessibility_result)
         return accessibility_result
@@ -519,7 +519,7 @@ class PWAMobileExperienceTester:
                 )
 
         except Exception as e:
-            notifications_result["issues"].append(f"Erreur notifications: {str(e)}")
+            notifications_result["issues"].append(f"Erreur notifications: {e!s}")
 
         self.results["tests_performed"].append(notifications_result)
         return notifications_result

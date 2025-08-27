@@ -22,6 +22,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
     
+    <!-- Composants modernes pour ado -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/teen-modern-components.css') }}">
+    
     <style>
         /* Styles spécifiques au profil immersif */
         .profile-workspace {
@@ -564,37 +567,47 @@
                 </div>
             </div>
             
-            <!-- Section Progression -->
-            <div class="progress-section">
-                <h2 class="progress-title">Progression du Niveau</h2>
+            <!-- Section Progression Moderne -->
+            <div class="progress-section-modern">
+                <h2 class="progress-title-modern">🚀 PROGRESSION AVANCÉE</h2>
                 
-                <div class="progress-item">
-                    <div class="progress-label">
-                        <span>Niveau <span id="level-current">--</span></span>
-                        <span><span id="level-progress">--</span>%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="level-fill" style="width: 0%"></div>
-                    </div>
-                </div>
+                <!-- Composant de progression moderne -->
+                {% include 'components/progress_bar.html' %}
                 
-                <div class="progress-item">
-                    <div class="progress-label">
-                        <span>Expérience</span>
-                        <span><span id="xp-current">--</span> / <span id="xp-needed">--</span></span>
+                <!-- Statistiques avancées -->
+                <div class="advanced-stats">
+                    <div class="stat-modern">
+                        <div class="stat-icon-modern">⚡</div>
+                        <div class="stat-content">
+                            <div class="stat-value-modern" id="streak-days">--</div>
+                            <div class="stat-label-modern">Jours de Streak</div>
+                        </div>
                     </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="xp-fill" style="width: 0%"></div>
+                    
+                    <div class="stat-modern">
+                        <div class="stat-icon-modern">🎯</div>
+                        <div class="stat-content">
+                            <div class="stat-value-modern" id="accuracy-rate">--</div>
+                            <div class="stat-label-modern">Taux de Réussite</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-modern">
+                        <div class="stat-icon-modern">🏆</div>
+                        <div class="stat-content">
+                            <div class="stat-value-modern" id="rank-position">--</div>
+                            <div class="stat-label-modern">Position Classement</div>
+                        </div>
                     </div>
                 </div>
             </div>
             
-            <!-- Section Badges -->
-            <div class="badges-section">
-                <h2 class="badges-title">Mes Badges</h2>
-                <div class="badges-grid" id="badges-grid">
-                    <!-- Badges seront chargés dynamiquement -->
-                </div>
+            <!-- Section Badges Moderne -->
+            <div class="badges-section-modern">
+                <h2 class="badges-title-modern">🏆 COLLECTION DE BADGES</h2>
+                
+                <!-- Composant de badges moderne -->
+                {% include 'components/badges_display.html' %}
             </div>
             
             <!-- Timeline des accomplissements -->
@@ -611,6 +624,9 @@
             Chargement de ta personnalité...
         </div>
     </main>
+    
+    <!-- Composant de notifications d'achievement -->
+    {% include 'components/achievement_notification.html' %}
 
     <!-- Scripts LUNA VISION -->
     <script src="{{ url_for('static', filename='js/arkalia-luna-vision.js') }}"></script>

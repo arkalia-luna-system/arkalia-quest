@@ -228,7 +228,7 @@ class NavigationExperienceTester:
                 page_result["issues"].append(f"Erreur HTTP: {response.status_code}")
 
         except Exception as e:
-            page_result["issues"].append(f"Erreur de connexion: {str(e)}")
+            page_result["issues"].append(f"Erreur de connexion: {e!s}")
 
         return page_result
 
@@ -273,7 +273,7 @@ class NavigationExperienceTester:
                 )
 
         except Exception as e:
-            step_result["issues"].append(f"Erreur transition: {str(e)}")
+            step_result["issues"].append(f"Erreur transition: {e!s}")
 
         return step_result
 
@@ -315,7 +315,7 @@ class NavigationExperienceTester:
                 test_result["issues"].append(f"Erreur page: {response.status_code}")
 
         except Exception as e:
-            test_result["issues"].append(f"Erreur mobile: {str(e)}")
+            test_result["issues"].append(f"Erreur mobile: {e!s}")
 
         return test_result
 

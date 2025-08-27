@@ -9,7 +9,7 @@ try:
     from .tutorial_manager import tutorial_manager
     from .websocket_manager import websocket_manager
 
-    __all__ = ["db_manager", "websocket_manager", "tutorial_manager"]
+    __all__ = ["db_manager", "tutorial_manager", "websocket_manager"]
 
 except ImportError as e:
     print(f"⚠️ Erreur import module core: {e}")
@@ -23,4 +23,4 @@ except ImportError as e:
     websocket_manager = DummyManager()
     tutorial_manager = DummyManager()
 
-    __all__ = ["db_manager", "websocket_manager", "tutorial_manager"]
+    __all__ = ["db_manager", "tutorial_manager", "websocket_manager"]

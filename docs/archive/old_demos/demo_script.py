@@ -102,10 +102,8 @@ class ArkaliaDemo:
                 if response.status_code == 200:
                     data = response.json()
                     if (
-                        "message" in data
-                        and "erreur" in data["message"].lower()
-                        or "pas autorisée" in data["message"].lower()
-                    ):
+                        "message" in data and "erreur" in data["message"].lower()
+                    ) or "pas autorisée" in data["message"].lower():
                         print(f"   ✅ Erreur gérée: {data['message'][:50]}...")
                     else:
                         print("   ⚠️ Pas de message d'erreur détecté")

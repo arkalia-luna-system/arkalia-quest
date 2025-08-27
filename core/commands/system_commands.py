@@ -17,7 +17,7 @@ class SystemCommands:
             "chapitre_6": self.handle_chapitre_6,
         }
 
-    def handle_test_performance(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_test_performance(self) -> Dict[str, Any]:
         """Gère la commande test_performance"""
         return {
             "réussite": True,
@@ -32,7 +32,7 @@ Analyse des performances du système Arkalia Quest en cours...
             "profile_updated": False,
         }
 
-    def handle_test_security(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_test_security(self) -> Dict[str, Any]:
         """Gère la commande test_security"""
         return {
             "réussite": True,
@@ -47,7 +47,7 @@ Vérification de la sécurité du système Arkalia Quest...
             "profile_updated": False,
         }
 
-    def handle_test_database(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_test_database(self) -> Dict[str, Any]:
         """Gère la commande test_database"""
         return {
             "réussite": True,

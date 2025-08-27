@@ -82,7 +82,7 @@ class TeenUXImprovementsTester:
                 test["issues"].append(f"Erreur HTTP: {response.status_code}")
 
         except Exception as e:
-            test["issues"].append(f"Erreur de test: {str(e)}")
+            test["issues"].append(f"Erreur de test: {e!s}")
 
         self.results["tests"].append(test)
         return test
@@ -148,7 +148,7 @@ class TeenUXImprovementsTester:
                 test["issues"].append(f"Erreur HTTP: {response.status_code}")
 
         except Exception as e:
-            test["issues"].append(f"Erreur de test: {str(e)}")
+            test["issues"].append(f"Erreur de test: {e!s}")
 
         self.results["tests"].append(test)
         return test
@@ -209,7 +209,7 @@ class TeenUXImprovementsTester:
                 test["issues"].append(f"Erreur HTTP: {response.status_code}")
 
         except Exception as e:
-            test["issues"].append(f"Erreur de test: {str(e)}")
+            test["issues"].append(f"Erreur de test: {e!s}")
 
         self.results["tests"].append(test)
         return test
@@ -270,7 +270,7 @@ class TeenUXImprovementsTester:
                 test["issues"].append(f"Erreur HTTP: {response.status_code}")
 
         except Exception as e:
-            test["issues"].append(f"Erreur de test: {str(e)}")
+            test["issues"].append(f"Erreur de test: {e!s}")
 
         self.results["tests"].append(test)
         return test
@@ -322,7 +322,7 @@ class TeenUXImprovementsTester:
                 test["issues"].append(f"Erreur HTTP: {response.status_code}")
 
         except Exception as e:
-            test["issues"].append(f"Erreur de test: {str(e)}")
+            test["issues"].append(f"Erreur de test: {e!s}")
 
         self.results["tests"].append(test)
         return test

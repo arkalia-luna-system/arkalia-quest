@@ -38,7 +38,6 @@ class TestGamificationEngineComplete(unittest.TestCase):
     def tearDown(self):
         """Nettoyage après chaque test"""
         # Nettoyer les données de test
-        pass
 
     def test_initialization(self):
         """Test d'initialisation du moteur de gamification"""
@@ -407,7 +406,7 @@ class TestGamificationEngineComplete(unittest.TestCase):
                 is_valid_rule = self.validate_data_rule(rule, constraint)
                 self.assertIsInstance(is_valid_rule, bool)
 
-    def validate_data_rule(self, rule, constraint):
+    def validate_data_rule(self, rule):
         """Valide une règle de données"""
         valid_rules = [
             "score_range",

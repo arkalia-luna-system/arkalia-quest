@@ -240,7 +240,7 @@ class GamificationEngine:
         }
 
     def check_badges_secrets(
-        self, user_id: str, profile: Dict[str, Any], action: str, **kwargs
+        self, profile: Dict[str, Any], action: str, **kwargs
     ) -> List[str]:
         """Vérifie et débloque les badges secrets"""
 
@@ -248,9 +248,10 @@ class GamificationEngine:
         unlocked_badges = []
 
         for badge_id, badge_data in badges_secrets["badges_secrets"].items():
-            if badge_id not in profile.get("badges", []):
-                if self._check_badge_condition(badge_data, profile, action, **kwargs):
-                    unlocked_badges.append(badge_id)
+            if badge_id not in profile.get(
+                "badges", []
+            ) and self._check_badge_condition(badge_data, profile, action, **kwargs):
+                unlocked_badges.append(badge_id)
 
         return unlocked_badges
 
@@ -280,7 +281,7 @@ class GamificationEngine:
         elif condition == "night_play":
             # Jeu de nuit
             current_hour = datetime.now().hour
-            if 22 <= current_hour or current_hour <= 6:
+            if current_hour >= 22 or current_hour <= 6:
                 return True
 
         elif condition == "perfect_mission":
@@ -297,7 +298,7 @@ class GamificationEngine:
         return False
 
     def check_achievements(
-        self, user_id: str, profile: Dict[str, Any], action: str, **kwargs
+        self, profile: Dict[str, Any], action: str, **kwargs
     ) -> List[str]:
         """Vérifie et débloque les achievements"""
 
@@ -305,16 +306,15 @@ class GamificationEngine:
         unlocked_achievements = []
 
         for achievement_id, _achievement_data in achievements["achievements"].items():
-            if achievement_id not in profile.get("achievements", []):
-                if self._check_achievement_condition(
-                    achievement_id, profile, action, **kwargs
-                ):
-                    unlocked_achievements.append(achievement_id)
+            if achievement_id not in profile.get(
+                "achievements", []
+            ) and self._check_achievement_condition(achievement_id, profile):
+                unlocked_achievements.append(achievement_id)
 
         return unlocked_achievements
 
     def _check_achievement_condition(
-        self, achievement_id: str, profile: Dict[str, Any], action: str, **kwargs
+        self, achievement_id: str, profile: Dict[str, Any]
     ) -> bool:
         """Vérifie si une condition d'achievement est remplie"""
 

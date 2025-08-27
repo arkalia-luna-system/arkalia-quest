@@ -48,7 +48,7 @@ class LunaAI:
             ],
         }
 
-    def analyser_contexte(self, commande: str, profil_joueur: Dict) -> Dict:
+    def analyser_contexte(self, profil_joueur: Dict) -> Dict:
         """Analyse le contexte de la commande pour adapter la réponse"""
         contexte = {
             "heure": datetime.now().hour,

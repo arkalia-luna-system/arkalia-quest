@@ -274,7 +274,7 @@ class TutorielExperienceTester:
                 step["issues"].append(f"Erreur HTTP: {response.status_code}")
 
         except Exception as e:
-            step["issues"].append(f"Erreur de connexion: {str(e)}")
+            step["issues"].append(f"Erreur de connexion: {e!s}")
 
         return step
 
@@ -322,7 +322,7 @@ class TutorielExperienceTester:
                 step["issues"].append(f"Erreur terminal: {response.status_code}")
 
         except Exception as e:
-            step["issues"].append(f"Erreur terminal: {str(e)}")
+            step["issues"].append(f"Erreur terminal: {e!s}")
 
         return step
 
@@ -380,7 +380,7 @@ class TutorielExperienceTester:
                 step["issues"].append(f"Erreur API: {response.status_code}")
 
         except Exception as e:
-            step["issues"].append(f"Erreur commande: {str(e)}")
+            step["issues"].append(f"Erreur commande: {e!s}")
 
         return step
 
@@ -434,7 +434,7 @@ class TutorielExperienceTester:
                 step["issues"].append(f"Erreur profil: {response.status_code}")
 
         except Exception as e:
-            step["issues"].append(f"Erreur feedback: {str(e)}")
+            step["issues"].append(f"Erreur feedback: {e!s}")
 
         return step
 
@@ -482,7 +482,7 @@ class TutorielExperienceTester:
                 step["issues"].append("Aucune commande ne fonctionne")
 
         except Exception as e:
-            step["issues"].append(f"Erreur exploration: {str(e)}")
+            step["issues"].append(f"Erreur exploration: {e!s}")
 
         return step
 
@@ -523,7 +523,7 @@ class TutorielExperienceTester:
                 step["issues"].append("Aucun easter egg trouvé")
 
         except Exception as e:
-            step["issues"].append(f"Erreur secrets: {str(e)}")
+            step["issues"].append(f"Erreur secrets: {e!s}")
 
         return step
 
@@ -568,7 +568,7 @@ class TutorielExperienceTester:
                 step["issues"].append("Pas de réponse aux interactions")
 
         except Exception as e:
-            step["issues"].append(f"Erreur réactivité: {str(e)}")
+            step["issues"].append(f"Erreur réactivité: {e!s}")
 
         return step
 
@@ -613,7 +613,7 @@ class TutorielExperienceTester:
                 step["issues"].append("Exécution impossible")
 
         except Exception as e:
-            step["issues"].append(f"Erreur rapidité: {str(e)}")
+            step["issues"].append(f"Erreur rapidité: {e!s}")
 
         return step
 
@@ -675,7 +675,7 @@ class TutorielExperienceTester:
                 step["issues"].append("Navigation impossible")
 
         except Exception as e:
-            step["issues"].append(f"Erreur transitions: {str(e)}")
+            step["issues"].append(f"Erreur transitions: {e!s}")
 
         return step
 
@@ -732,7 +732,7 @@ class TutorielExperienceTester:
                 step["issues"].append(f"Erreur HTTP: {response.status_code}")
 
         except Exception as e:
-            step["issues"].append(f"Erreur de connexion: {str(e)}")
+            step["issues"].append(f"Erreur de connexion: {e!s}")
 
         return step
 
@@ -770,7 +770,7 @@ class TutorielExperienceTester:
                 step["issues"].append(f"Erreur accès étape: {response.status_code}")
 
         except Exception as e:
-            step["issues"].append(f"Erreur de connexion: {str(e)}")
+            step["issues"].append(f"Erreur de connexion: {e!s}")
 
         return step
 
@@ -814,7 +814,7 @@ class TutorielExperienceTester:
                 step["issues"].append(f"Erreur HTTP choix: {response.status_code}")
 
         except Exception as e:
-            step["issues"].append(f"Erreur de connexion: {str(e)}")
+            step["issues"].append(f"Erreur de connexion: {e!s}")
 
         return step
 
@@ -856,7 +856,7 @@ class TutorielExperienceTester:
                 step["issues"].append(f"Erreur HTTP effets: {response.status_code}")
 
         except Exception as e:
-            step["issues"].append(f"Erreur de connexion: {str(e)}")
+            step["issues"].append(f"Erreur de connexion: {e!s}")
 
         return step
 
@@ -900,7 +900,7 @@ class TutorielExperienceTester:
                 step["issues"].append(f"Erreur HTTP dialogue: {response.status_code}")
 
         except Exception as e:
-            step["issues"].append(f"Erreur de connexion: {str(e)}")
+            step["issues"].append(f"Erreur de connexion: {e!s}")
 
         return step
 

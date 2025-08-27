@@ -132,7 +132,7 @@ class EffectsEngine:
         }
 
     def generate_effect(
-        self, effect_type: str, context: Dict[str, Any] = None
+        self, effect_type: str, context: Optional[Dict[str, Any]] = None
     ) -> Dict[str, Any]:
         """
         Génère un effet selon le type et le contexte

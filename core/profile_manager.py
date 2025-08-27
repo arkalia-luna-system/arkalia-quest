@@ -10,7 +10,7 @@ from core.database import DatabaseManager
 class ProfileManager:
     """Gestionnaire des profils utilisateur"""
 
-    def __init__(self, profiles_dir: str = "data/profiles"):
+    def __init__(self):
         self.db_manager = DatabaseManager()
 
     def load_profile(self, user_id: str) -> Dict[str, Any]:
@@ -68,10 +68,7 @@ class ProfileManager:
 
         # Ajouter toutes les clés du profil par défaut
         for key, value in default_profile.items():
-            if key in profile:
-                complete_profile[key] = profile[key]
-            else:
-                complete_profile[key] = value
+            complete_profile[key] = profile.get(key, value)
 
         # Correction spécifique pour les sous-dictionnaires
         if "personnalite" in profile and isinstance(profile["personnalite"], dict):

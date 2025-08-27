@@ -161,7 +161,7 @@ class CommandHandlerV2:
             return {
                 "réussite": False,
                 "ascii_art": "💥",
-                "message": f"💥 Erreur lors de l'exécution de '{command}': {str(e)}",
+                "message": f"💥 Erreur lors de l'exécution de '{command}': {e!s}",
                 "score_gagne": 0,
                 "profile_updated": False,
             }

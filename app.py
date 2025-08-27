@@ -1318,7 +1318,7 @@ def api_educational_games_list():
 
         return jsonify({"success": True, "games": games})
     except Exception as e:
-        return jsonify({"success": False, "message": f"Erreur: {str(e)}"})
+        return jsonify({"success": False, "message": f"Erreur: {e!s}"})
 
 
 @app.route("/api/educational-games/start", methods=["POST"])
@@ -1341,7 +1341,7 @@ def api_educational_games_start():
 
         return jsonify(result)
     except Exception as e:
-        return jsonify({"success": False, "message": f"Erreur: {str(e)}"})
+        return jsonify({"success": False, "message": f"Erreur: {e!s}"})
 
 
 @app.route("/api/educational-games/submit", methods=["POST"])
@@ -1385,7 +1385,7 @@ def api_educational_games_submit():
                 }
             )
     except Exception as e:
-        return jsonify({"success": False, "message": f"Erreur: {str(e)}"})
+        return jsonify({"success": False, "message": f"Erreur: {e!s}"})
 
 
 @app.route("/api/educational-games/stats", methods=["GET"])
@@ -1408,7 +1408,7 @@ def api_educational_games_stats():
 
         return jsonify({"success": True, "stats": stats})
     except Exception as e:
-        return jsonify({"success": False, "message": f"Erreur: {str(e)}"})
+        return jsonify({"success": False, "message": f"Erreur: {e!s}"})
 
 
 @app.route("/api/educational-games/leaderboard", methods=["GET"])
@@ -1421,7 +1421,7 @@ def api_educational_games_leaderboard():
         ]
         return jsonify({"success": True, "leaderboard": leaderboard})
     except Exception as e:
-        return jsonify({"success": False, "message": f"Erreur: {str(e)}"})
+        return jsonify({"success": False, "message": f"Erreur: {e!s}"})
 
 
 @app.route("/api/educational-games/progress", methods=["GET"])
@@ -1439,7 +1439,7 @@ def api_educational_games_progress():
 
         return jsonify({"success": True, "progress": progress})
     except Exception as e:
-        return jsonify({"success": False, "message": f"Erreur: {str(e)}"})
+        return jsonify({"success": False, "message": f"Erreur: {e!s}"})
 
 
 # ===== ROUTES API POUR ANALYTICS =====

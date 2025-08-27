@@ -286,9 +286,7 @@ def log_exception(func):
         try:
             return func(*args, **kwargs)
         except Exception as e:
-            game_logger.error(
-                f"Exception dans {func.__name__}: {str(e)}", exc_info=True
-            )
+            game_logger.error(f"Exception dans {func.__name__}: {e!s}", exc_info=True)
             raise
 
     return wrapper
@@ -304,7 +302,7 @@ def log_function_call(func):
             game_logger.debug(f"Fonction {func.__name__} terminée avec succès")
             return result
         except Exception as e:
-            game_logger.error(f"Erreur dans {func.__name__}: {str(e)}")
+            game_logger.error(f"Erreur dans {func.__name__}: {e!s}")
             raise
 
     return wrapper

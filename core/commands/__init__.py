@@ -11,8 +11,8 @@ from .system_commands import SystemCommands
 
 __all__ = [
     "BasicCommands",
+    "EasterEggCommands",
     "GameCommands",
     "LunaCommands",
     "SystemCommands",
-    "EasterEggCommands",
 ]

@@ -5,59 +5,64 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "arkalia-quest"
 version = "3.0.0"
-description = "Jeu narratif éducatif de hacking pour adolescents"
-authors = [
-    {name = "Arkalia Quest Team", email = "dev@arkalia-quest.com"}
-]
+description = "Jeu éducatif immersif avec IA émotionnelle LUNA"
 readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Arkalia Quest Team", email = "team@arkalia-quest.com"}
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Education",
+    "Topic :: Games/Entertainment",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
 requires-python = ">=3.8"
 dependencies = [
     "Flask>=3.0.0",
-    "Werkzeug>=3.0.1",
-    "gunicorn>=21.2.0",
-    "Flask-SocketIO>=5.3.6",
-    "python-socketio>=5.9.0",
-    "eventlet>=0.33.3",
-    "python-dotenv>=1.0.0",
-    "click>=8.1.7",
-    "colorama>=0.4.6",
-    "requests>=2.31.0",
-    "cryptography>=41.0.7",
-    "psutil>=5.9.6",
+    "SQLite3",
+    "psutil>=5.8.0",
+    "requests>=2.25.0",
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
 ]
 
 [project.optional-dependencies]
 dev = [
-    "pytest>=7.4.3",
-    "pytest-cov>=4.1.0",
-    "ruff>=0.12.0",
-    "black>=25.1.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "pytest-mock>=3.10.0",
+    "coverage>=7.0.0",
+    "pre-commit>=3.0.0",
+]
+test = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "pytest-mock>=3.10.0",
+    "coverage>=7.0.0",
 ]
 
-[tool.ruff]
-target-version = "py38"
-line-length = 88
-select = [
-    "E",  # pycodestyle errors
-    "W",  # pycodestyle warnings
-    "F",  # pyflakes
-    "I",  # isort
-    "B",  # flake8-bugbear
-    "C4", # flake8-comprehensions
-    "UP", # pyupgrade
-]
-ignore = [
-    "E501",  # line too long, handled by black
-    "B008",  # do not perform function calls in argument defaults
-    "C901",  # too complex
-]
-
-[tool.ruff.per-file-ignores]
-"__init__.py" = ["F401"]
+[project.urls]
+Homepage = "https://github.com/arkalia-luna-system/arkalia-quest"
+Documentation = "https://arkalia-quest.readthedocs.io"
+Repository = "https://github.com/arkalia-luna-system/arkalia-quest.git"
+"Bug Tracker" = "https://github.com/arkalia-luna-system/arkalia-quest/issues"
 
 [tool.black]
 line-length = 88
-target-version = ['py38']
+target-version = ['py38', 'py39', 'py310', 'py311', 'py312']
 include = '\.pyi?$'
 extend-exclude = '''
 /(
@@ -73,19 +78,97 @@ extend-exclude = '''
 )/
 '''
 
+[tool.ruff]
+# Enable pycodestyle (`E`), Pyflakes (`F`), and isort (`I`) codes by default.
+select = ["E", "F", "I", "B", "C4", "UP", "W", "N", "Q", "SIM", "ARG", "PIE", "TCH", "TID", "TCH", "RUF"]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+# Allow autofix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = []
+
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".bzr",
+    ".darcs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+]
+
+# Same as Black.
+line-length = 88
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+# Assume Python 3.8+
+target-version = "py38"
+
+[tool.ruff.mccabe]
+# Unlike Flake8, default to a complexity level of 10.
+max-complexity = 10
+
+[tool.ruff.isort]
+known-first-party = ["arkalia_quest"]
+
 [tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --strict-markers --strict-config"
 testpaths = ["tests"]
-python_files = ["test_*.py"]
+python_files = ["test_*.py", "*_test.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
-addopts = [
-    "--verbose",
-    "--tb=short",
-    "--strict-markers",
-    "--disable-warnings"
-]
 markers = [
-    "slow: marks tests as slow (deselect with '-m not slow')",
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
     "integration: marks tests as integration tests",
-    "performance: marks tests as performance tests"
+    "performance: marks tests as performance tests",
+    "critical: marks tests as critical for the system",
 ]
+
+[tool.coverage.run]
+source = ["core", "arkalia_engine.py", "app.py"]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "*/__pycache__/*",
+    "*/venv/*",
+    "*/env/*",
+    "*/\\.venv/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+
+[tool.coverage.html]
+directory = "htmlcov"
+
+[tool.coverage.xml]
+output = "coverage.xml"

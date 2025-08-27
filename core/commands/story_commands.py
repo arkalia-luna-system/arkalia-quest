@@ -693,7 +693,7 @@ La Corp a été vaincue et ses systèmes détruits.
             "profile_updated": True,
         }
 
-    def handle_monde(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_monde(self) -> Dict[str, Any]:
         """Gère la commande monde - Accès au monde Arkalia"""
         return {
             "réussite": True,

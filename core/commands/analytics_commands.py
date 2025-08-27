@@ -83,7 +83,7 @@ class AnalyticsCommands:
             return {
                 "réussite": False,
                 "ascii_art": "💥",
-                "message": f"💥 Erreur: {str(e)}",
+                "message": f"💥 Erreur: {e!s}",
                 "score_gagne": 0,
                 "profile_updated": False,
             }
@@ -162,7 +162,7 @@ class AnalyticsCommands:
             return {
                 "réussite": False,
                 "ascii_art": "💥",
-                "message": f"💥 Erreur: {str(e)}",
+                "message": f"💥 Erreur: {e!s}",
                 "score_gagne": 0,
                 "profile_updated": False,
             }
@@ -228,7 +228,7 @@ class AnalyticsCommands:
             return {
                 "réussite": False,
                 "ascii_art": "💥",
-                "message": f"💥 Erreur: {str(e)}",
+                "message": f"💥 Erreur: {e!s}",
                 "score_gagne": 0,
                 "profile_updated": False,
             }
@@ -298,7 +298,7 @@ class AnalyticsCommands:
             return {
                 "réussite": False,
                 "ascii_art": "💥",
-                "message": f"💥 Erreur: {str(e)}",
+                "message": f"💥 Erreur: {e!s}",
                 "score_gagne": 0,
                 "profile_updated": False,
             }
@@ -353,7 +353,7 @@ class AnalyticsCommands:
             return {
                 "réussite": False,
                 "ascii_art": "💥",
-                "message": f"💥 Erreur: {str(e)}",
+                "message": f"💥 Erreur: {e!s}",
                 "score_gagne": 0,
                 "profile_updated": False,
             }
@@ -423,7 +423,7 @@ class AnalyticsCommands:
             return {
                 "réussite": False,
                 "ascii_art": "💥",
-                "message": f"💥 Erreur: {str(e)}",
+                "message": f"💥 Erreur: {e!s}",
                 "score_gagne": 0,
                 "profile_updated": False,
             }
@@ -496,7 +496,7 @@ class AnalyticsCommands:
             return {
                 "réussite": False,
                 "ascii_art": "💥",
-                "message": f"💥 Erreur: {str(e)}",
+                "message": f"💥 Erreur: {e!s}",
                 "score_gagne": 0,
                 "profile_updated": False,
             }
@@ -540,7 +540,7 @@ class AnalyticsCommands:
             return {
                 "réussite": False,
                 "ascii_art": "💥",
-                "message": f"💥 Erreur: {str(e)}",
+                "message": f"💥 Erreur: {e!s}",
                 "score_gagne": 0,
                 "profile_updated": False,
             }

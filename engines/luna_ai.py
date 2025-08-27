@@ -6,7 +6,7 @@ Companion IA pour Arkalia Quest
 import json
 import random
 from datetime import datetime
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 
 class LunaAI:
@@ -60,7 +60,7 @@ class LunaAI:
         self,
         message: str,
         user_profile: Dict[str, Any],
-        game_context: Dict[str, Any] = None,
+        game_context: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, Any]:
         """
         Réponse contextuelle de LUNA
@@ -193,7 +193,7 @@ class LunaAI:
         else:
             return "Salut, hacker ! LUNA est contente de te voir."
 
-    def generate_help(self, context: Dict[str, Any]) -> str:
+    def generate_help(self) -> str:
         """Génère de l'aide contextuelle"""
 
         help_responses = [
@@ -204,7 +204,7 @@ class LunaAI:
 
         return random.choice(help_responses)
 
-    def generate_mission_guidance(self, context: Dict[str, Any]) -> str:
+    def generate_mission_guidance(self) -> str:
         """Guide pour les missions"""
 
         guidance = [
@@ -215,7 +215,7 @@ class LunaAI:
 
         return random.choice(guidance)
 
-    def generate_gratitude_response(self, context: Dict[str, Any]) -> str:
+    def generate_gratitude_response(self) -> str:
         """Réponse à la gratitude"""
 
         self.relationship_level = min(self.relationship_level + 1, 10)
@@ -229,7 +229,7 @@ class LunaAI:
 
         return random.choice(responses)
 
-    def generate_identity_response(self, context: Dict[str, Any]) -> str:
+    def generate_identity_response(self) -> str:
         """Réponse sur l'identité de LUNA"""
 
         identity_responses = [
@@ -240,7 +240,7 @@ class LunaAI:
 
         return random.choice(identity_responses)
 
-    def generate_general_response(self, context: Dict[str, Any]) -> str:
+    def generate_general_response(self) -> str:
         """Réponse générale"""
 
         general_responses = [
@@ -252,7 +252,7 @@ class LunaAI:
 
         return random.choice(general_responses)
 
-    def add_emotional_effects(self, response: str, context: Dict[str, Any]) -> str:
+    def add_emotional_effects(self, response: str) -> str:
         """Ajoute des effets émotionnels à la réponse"""
 
         # Ajouter un emoji selon l'humeur

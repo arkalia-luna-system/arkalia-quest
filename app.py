@@ -417,6 +417,13 @@ def audio():
     return render_template("audio.html", profil=profil)
 
 
+@app.route("/accessibility")
+def accessibility():
+    """Panneau d'accessibilité pour personnaliser l'expérience utilisateur"""
+    profil = charger_profil()
+    return render_template("accessibility_panel.html", profil=profil)
+
+
 # Routes pour servir les fichiers JSON
 
 

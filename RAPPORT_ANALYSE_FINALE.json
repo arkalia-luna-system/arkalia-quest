@@ -1,0 +1,38 @@
+{
+  "timestamp": "2025-08-29T15:04:57.536085",
+  "tests": {
+    "collectes": 0,
+    "fichiers": 20,
+    "categories": {
+      "tests": 14,
+      "robustesse": 1,
+      "core": 2,
+      "performance": 3
+    }
+  },
+  "performance": {
+    "api_speed": "excellent",
+    "response_time": 0.0062291622161865234,
+    "status": "accessible"
+  },
+  "robustesse": {
+    "status": "echec"
+  },
+  "couverture": {},
+  "erreurs": [
+    "Erreur calcul couverture"
+  ],
+  "recommandations": [
+    "🧪 Ajouter plus de tests unitaires et d'intégration",
+    "🛡️  Corriger les tests de robustesse qui échouent",
+    "🔧 Résoudre les erreurs détectées dans l'analyse",
+    "🚀 Mettre en place un plan d'amélioration continue"
+  ],
+  "score_global": 55.0,
+  "structure": {
+    "composants_presents": 6,
+    "composants_totaux": 6,
+    "score": 100.0
+  },
+  "niveau": "faible"
+}

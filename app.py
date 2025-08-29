@@ -46,38 +46,61 @@ start_time = time.time()
 @app.after_request
 def add_security_headers(response):
     """Ajoute les headers de sécurité à toutes les réponses"""
-    response.headers["X-Content-Type-Options"] = "nosniff"
-    response.headers["X-Frame-Options"] = "DENY"
-    response.headers["X-XSS-Protection"] = "1; mode=block"
-    response.headers["Strict-Transport-Security"] = (
-        "max-age=31536000; includeSubDomains"
-    )
-    response.headers["Content-Security-Policy"] = (
-        "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self';"
-    )
-    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
-    response.headers["Permissions-Policy"] = "geolocation=(), microphone=(), camera=()"
+    if response is not None:
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["X-Frame-Options"] = "DENY"
+        response.headers["X-XSS-Protection"] = "1; mode=block"
+        response.headers["Strict-Transport-Security"] = (
+            "max-age=31536000; includeSubDomains"
+        )
+        response.headers["Content-Security-Policy"] = (
+            "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self';"
+        )
+        response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+        response.headers["Permissions-Policy"] = "geolocation=(), microphone=(), camera=()"
     return response
 
 
 @app.after_request
 def add_cache_headers(response):
     """Ajoute des headers de cache appropriés selon le type de ressource"""
-    # Cache long pour les assets statiques
-    if request.path.startswith("/static/"):
-        response.headers["Cache-Control"] = "public, max-age=31536000"  # 1 an
-        response.headers["ETag"] = f'"{hash(request.path)}"'
-    # Cache court pour les pages HTML
-    elif request.path.endswith(".html"):
-        response.headers["Cache-Control"] = "public, max-age=3600"  # 1 heure
-    # Pas de cache pour les API dynamiques
-    elif request.path.startswith("/api/") or request.path.startswith("/commande"):
-        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-        response.headers["Pragma"] = "no-cache"
-        response.headers["Expires"] = "0"
-    # Cache par défaut pour les autres ressources
-    else:
-        response.headers["Cache-Control"] = "public, max-age=300"  # 5 minutes
+    if response is not None:
+        # Cache long pour les assets statiques
+        if request.path.startswith("/static/"):
+            response.headers["Cache-Control"] = "public, max-age=31536000"  # 1 an
+            response.headers["ETag"] = f'"{hash(request.path)}"'
+        # Cache court pour les pages HTML
+        elif request.path.endswith(".html"):
+            response.headers["Cache-Control"] = "public, max-age=3600"  # 1 heure
+        # Pas de cache pour les API dynamiques
+        elif request.path.startswith("/api/") or request.path.startswith("/commande"):
+            response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+            response.headers["Pragma"] = "no-cache"
+            response.headers["Expires"] = "0"
+        # Cache par défaut pour les autres ressources
+        else:
+            response.headers["Cache-Control"] = "public, max-age=300"  # 5 minutes
+    return response
+
+
+# Gestionnaire d'erreurs global
+@app.errorhandler(Exception)
+def handle_exception(e):
+    """Gestionnaire d'erreurs global pour éviter les erreurs en cascade"""
+    app.logger.error(f"Exception non gérée: {e}")
+    return jsonify({"error": "Internal server error", "details": str(e)}), 500
+
+
+@app.errorhandler(500)
+def internal_error(error):
+    """Gestionnaire d'erreur 500"""
+    return jsonify({"error": "Internal server error"}), 500
+
+
+@app.errorhandler(404)
+def not_found_error(error):
+    """Gestionnaire d'erreur 404"""
+    return jsonify({"error": "Not found"}), 404
 
 
 # Commandes autorisées - Version "L'Éveil des IA"

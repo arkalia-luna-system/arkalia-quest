@@ -308,7 +308,7 @@ class LunaEmotionsEngine:
                 LunaEmotion.MYSTERIOUS,
             ]
             if mood_factor > 0.5:
-                base_emotions.extend([LunaEmotion.CURIOUS, LunaEmotion.ENERGETIC])
+                base_emotions.extend([LunaEmotion.SURPRISED, LunaEmotion.ENERGETIC])
             emotions = base_emotions
 
         else:  # general

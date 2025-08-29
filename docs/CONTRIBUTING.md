@@ -1,369 +1,335 @@
----
-**Statut : ACTIF**
-**Dernière mise à jour : Juillet 2025**
-**Résumé :** Guide de contribution pour participer au développement d'Arkalia Quest.
+# 🤝 Guide de Contribution - Arkalia Quest
 
-**Liens utiles :**
-- [Documentation principale](README.md)
-- [Statut projet](STATUT_PROJET_ACTUEL.md)
-- [Changelog documentation](CHANGELOG_DOCUMENTATION.md)
----
+Merci de votre intérêt pour contribuer à **Arkalia Quest** ! Ce guide vous aidera à participer au développement de ce projet éducatif innovant.
 
-## 🎯 BIENVENUE CONTRIBUTEURS !
+## 📋 **Table des Matières**
 
-Merci de votre intérêt pour contribuer à **Arkalia Quest** ! Ce guide vous aidera à comprendre comment participer au développement de ce jeu éducatif pour ados.
-
-### 🌟 **Pourquoi contribuer ?**
-- **Éducation** : Aider les ados à apprendre la programmation
-- **Innovation** : Créer des expériences de jeu uniques
-- **Communauté** : Rejoindre une équipe passionnée
-- **Impact** : Faire une différence dans l'éducation numérique
+- [🚀 Démarrage Rapide](#-démarrage-rapide)
+- [🔧 Configuration de l'Environnement](#-configuration-de-lenvironnement)
+- [📝 Standards de Code](#-standards-de-code)
+- [🧪 Tests](#-tests)
+- [📚 Documentation](#-documentation)
+- [🔄 Workflow de Contribution](#-workflow-de-contribution)
+- [🏷️ Types de Contributions](#-types-de-contributions)
+- [📞 Support et Questions](#-support-et-questions)
 
 ---
 
-## 📋 PRÉREQUIS
+## 🚀 **Démarrage Rapide**
 
-### 🛠️ **Compétences techniques**
-- **Python** : Connaissance de base (Flask, SQLite)
-- **JavaScript** : HTML, CSS, ES6+
-- **Git** : Gestion de versions
-- **Tests** : Notions de tests automatisés
-
-### 🎮 **Connaissance du projet**
-- **Lire la documentation** : `/docs/`
-- **Tester le jeu** : Comprendre l'expérience utilisateur
-- **Connaître l'architecture** : Structure du code
-- **Comprendre le public** : Ados de 13 ans
-
----
-
-## 🚀 PREMIERS PAS
-
-### 1️⃣ **Fork et Clone**
+### **1. Fork et Clone**
 ```bash
 # Fork le projet sur GitHub
-# Puis cloner votre fork
-git clone https://github.com/votre-username/arkalia-quest.git
+# Puis clonez votre fork
+git clone https://github.com/VOTRE_USERNAME/arkalia-quest.git
 cd arkalia-quest
 
-# Ajouter le repository original
-git remote add upstream https://github.com/original/arkalia-quest.git
+# Ajoutez le remote upstream
+git remote add upstream https://github.com/arkalia-luna-system/arkalia-quest.git
 ```
 
-### 2️⃣ **Installation locale**
+### **2. Installation**
 ```bash
-# Créer l'environnement virtuel
+# Créez l'environnement virtuel
 python -m venv venv
-source venv/bin/activate  # Linux/macOS
-# ou venv\Scripts\activate  # Windows
+source venv/bin/activate  # Linux/Mac
+# ou
+venv\Scripts\activate     # Windows
 
-# Installer les dépendances
+# Installez les dépendances
 pip install -r requirements.txt
-
-# Initialiser la base de données
-python -c "from core.database import DatabaseManager; DatabaseManager().init_database()"
 ```
 
-### 3️⃣ **Lancer le projet**
+### **3. Lancement**
 ```bash
+# Démarrez l'application
 python app.py
-# Accéder à http://localhost:5001
+
+# Ouvrez http://localhost:5000
 ```
 
 ---
 
-## 🎯 TYPES DE CONTRIBUTIONS
+## 🔧 **Configuration de l'Environnement**
 
-### 🐛 **Correction de bugs**
-- **Rapporter un bug** : Issue détaillée
-- **Corriger un bug** : Pull Request avec tests
-- **Améliorer la robustesse** : Gestion d'erreurs
+### **Prérequis**
+- **Python** : 3.8+
+- **Git** : 2.20+
+- **pip** : 20.0+
 
-### ✨ **Nouvelles fonctionnalités**
-- **Commandes** : Nouvelles commandes de jeu
-- **Missions** : Scénarios additionnels
-- **Badges** : Système de récompenses
-- **Interface** : Améliorations UX/UI
+### **Variables d'Environnement**
+```bash
+# Copiez le fichier de configuration
+cp config/config.example.py config/config.py
 
-### 📚 **Documentation**
-- **Guides** : Tutoriels et explications
-- **API** : Documentation technique
-- **Traductions** : Support multi-langues
-- **Exemples** : Code d'exemple
+# Configurez vos variables
+export FLASK_ENV=development
+export DEBUG=true
+export SECRET_KEY=your-secret-key
+```
 
-### 🧪 **Tests**
-- **Tests unitaires** : Couverture de code
-- **Tests d'intégration** : Fonctionnalités
-- **Tests de performance** : Optimisations
-- **Tests de sécurité** : Vulnérabilités
+### **Outils de Développement**
+```bash
+# Installation des outils de qualité
+pip install black ruff pytest pytest-cov
+
+# Configuration des hooks Git (optionnel)
+pre-commit install
+```
 
 ---
 
-## 🔧 PROCESSUS DE DÉVELOPPEMENT
+## 📝 **Standards de Code**
 
-### 1️⃣ **Créer une branche**
+### **Python (PEP 8)**
+- **Indentation** : 4 espaces
+- **Longueur de ligne** : 88 caractères max
+- **Imports** : Triés et groupés
+- **Docstrings** : Format Google
+
+### **Formatage Automatique**
 ```bash
-# Synchroniser avec upstream
+# Formatage avec Black
+black .
+
+# Linting avec Ruff
+ruff check .
+ruff format .
+```
+
+### **Exemple de Code**
+```python
+def calculate_score(user_id: int, game_type: str) -> float:
+    """Calcule le score d'un utilisateur pour un type de jeu.
+    
+    Args:
+        user_id: Identifiant de l'utilisateur
+        game_type: Type de jeu ('math', 'logic', 'science')
+        
+    Returns:
+        Score calculé (0.0 à 100.0)
+        
+    Raises:
+        ValueError: Si le type de jeu est invalide
+    """
+    if game_type not in VALID_GAME_TYPES:
+        raise ValueError(f"Type de jeu invalide: {game_type}")
+    
+    # Logique de calcul...
+    return final_score
+```
+
+---
+
+## 🧪 **Tests**
+
+### **Exécution des Tests**
+```bash
+# Tous les tests
+python -m pytest tests/
+
+# Tests spécifiques
+python -m pytest tests/test_game_engine.py
+
+# Avec couverture
+python -m pytest tests/ --cov=core --cov-report=html
+
+# Tests en parallèle
+python -m pytest tests/ -n auto
+```
+
+### **Écriture de Tests**
+```python
+import pytest
+from core.game_engine import GameEngine
+
+class TestGameEngine:
+    """Tests pour le moteur de jeu."""
+    
+    def setup_method(self):
+        """Configuration avant chaque test."""
+        self.engine = GameEngine()
+    
+    def test_new_game_creation(self):
+        """Test de création d'une nouvelle partie."""
+        game = self.engine.create_game("math", user_id=1)
+        assert game is not None
+        assert game.type == "math"
+        assert game.user_id == 1
+    
+    def test_invalid_game_type(self):
+        """Test avec un type de jeu invalide."""
+        with pytest.raises(ValueError):
+            self.engine.create_game("invalid", user_id=1)
+```
+
+### **Standards des Tests**
+- **Nommage** : `test_<fonctionnalité>_<scénario>`
+- **Structure** : Arrange-Act-Assert
+- **Couverture** : Minimum 80%
+- **Mocking** : Utilisez `pytest-mock`
+
+---
+
+## 📚 **Documentation**
+
+### **Docstrings**
+```python
+def process_user_input(input_data: dict) -> dict:
+    """Traite les données d'entrée utilisateur.
+    
+    Cette fonction valide et traite les données soumises
+    par l'utilisateur via l'interface web.
+    
+    Args:
+        input_data: Dictionnaire contenant les données utilisateur
+        
+    Returns:
+        Dictionnaire avec les données traitées et validées
+        
+    Raises:
+        ValidationError: Si les données sont invalides
+        ProcessingError: Si le traitement échoue
+        
+    Example:
+        >>> data = {"name": "John", "age": 25}
+        >>> result = process_user_input(data)
+        >>> print(result["status"])
+        'validated'
+    """
+```
+
+### **README et Documentation**
+- **README.md** : Présentation du projet
+- **docs/** : Documentation technique
+- **API** : Documentation des endpoints
+- **Architecture** : Schémas et diagrammes
+
+---
+
+## 🔄 **Workflow de Contribution**
+
+### **1. Préparation**
+```bash
+# Synchronisez avec upstream
 git fetch upstream
 git checkout main
 git merge upstream/main
 
-# Créer une branche pour votre contribution
+# Créez une branche feature
 git checkout -b feature/nouvelle-fonctionnalite
-# ou
-git checkout -b fix/correction-bug
 ```
 
-### 2️⃣ **Développer**
+### **2. Développement**
 ```bash
-# Faire vos modifications
-# Tester localement
-python app.py
-
-# Vérifier les tests
+# Faites vos modifications
+# Testez localement
 python -m pytest tests/
-
-# Vérifier le style de code
-flake8 .
 black .
-```
+ruff check .
 
-### 3️⃣ **Commiter**
-```bash
-# Ajouter vos fichiers
+# Committez régulièrement
 git add .
-
-# Commiter avec un message descriptif
-git commit -m "feat: ajouter nouvelle commande hack_advanced
-
-- Implémente la commande hack_advanced
-- Ajoute des effets visuels Matrix
-- Inclut des tests unitaires
-- Met à jour la documentation"
+git commit -m "feat: ajoute nouvelle fonctionnalité X"
 ```
 
-### 4️⃣ **Pousser et créer une Pull Request**
+### **3. Soumission**
 ```bash
+# Poussez votre branche
 git push origin feature/nouvelle-fonctionnalite
-# Créer une Pull Request sur GitHub
+
+# Créez une Pull Request sur GitHub
+# Remplissez le template de PR
+```
+
+### **4. Revue et Merge**
+- **Code Review** : Au moins 1 approbation
+- **Tests** : Tous les tests doivent passer
+- **CI/CD** : GitHub Actions doit réussir
+- **Merge** : Squash et merge recommandé
+
+---
+
+## 🏷️ **Types de Contributions**
+
+### **🐛 Corrections de Bugs**
+- **Issue** : Décrivez le bug clairement
+- **Reproduction** : Étapes pour reproduire
+- **Fix** : Solution proposée
+- **Tests** : Tests pour éviter la régression
+
+### **✨ Nouvelles Fonctionnalités**
+- **Discussion** : Ouvrez une issue pour discuter
+- **Spécification** : Décrivez la fonctionnalité
+- **Implémentation** : Code + tests + docs
+- **Documentation** : Mise à jour des guides
+
+### **📚 Documentation**
+- **README** : Amélioration de la présentation
+- **API Docs** : Documentation des endpoints
+- **Guides** : Tutoriels et exemples
+- **Traduction** : Support multilingue
+
+### **🧪 Tests**
+- **Couverture** : Augmentation de la couverture
+- **Nouveaux tests** : Tests pour nouvelles fonctionnalités
+- **Performance** : Tests de charge et stress
+- **Intégration** : Tests end-to-end
+
+---
+
+## 📞 **Support et Questions**
+
+### **Ressources**
+- **Issues GitHub** : [Bugs et demandes](https://github.com/arkalia-luna-system/arkalia-quest/issues)
+- **Discussions** : [Forum communautaire](https://github.com/arkalia-luna-system/arkalia-quest/discussions)
+- **Wiki** : [Documentation détaillée](https://github.com/arkalia-luna-system/arkalia-quest/wiki)
+
+### **Contact**
+- **Mainteneurs** : [@arkalia-luna-system](https://github.com/arkalia-luna-system)
+- **Email** : arkalia-support@example.com
+- **Discord** : [Serveur communautaire](https://discord.gg/arkalia)
+
+---
+
+## 🎯 **Conventions de Commit**
+
+### **Format**
+```
+<type>(<scope>): <description>
+
+[body optionnel]
+
+[footer optionnel]
+```
+
+### **Types**
+- **feat** : Nouvelle fonctionnalité
+- **fix** : Correction de bug
+- **docs** : Documentation
+- **style** : Formatage, point-virgules, etc.
+- **refactor** : Refactoring du code
+- **test** : Ajout de tests
+- **chore** : Tâches de maintenance
+
+### **Exemples**
+```bash
+git commit -m "feat(game): ajoute système de niveaux progressifs"
+git commit -m "fix(ui): corrige l'affichage sur mobile"
+git commit -m "docs(api): met à jour la documentation des endpoints"
 ```
 
 ---
 
-## 📝 STANDARDS DE CODE
+## 🌟 **Reconnaissance**
 
-### 🐍 **Python (PEP 8)**
-```python
-# ✅ Bon
-def calculate_score(points, multiplier=1.0):
-    """Calcule le score final du joueur."""
-    return points * multiplier
-
-# ❌ Mauvais
-def calculateScore(points,multiplier=1.0):
-    return points*multiplier
-```
-
-### 🟨 **JavaScript (ES6+)**
-```javascript
-// ✅ Bon
-const calculateScore = (points, multiplier = 1.0) => {
-    return points * multiplier;
-};
-
-// ❌ Mauvais
-function calculateScore(points,multiplier){
-    return points*multiplier;
-}
-```
-
-### 🎨 **CSS (BEM)**
-```css
-/* ✅ Bon */
-.terminal__input {
-    background-color: #000;
-}
-
-.terminal__input--error {
-    border-color: #ff0000;
-}
-
-/* ❌ Mauvais */
-.terminalInput {
-    background-color: #000;
-}
-```
+Toutes les contributions sont appréciées ! Les contributeurs seront mentionnés dans :
+- **README.md** : Section contributeurs
+- **CHANGELOG.md** : Historique des versions
+- **Releases GitHub** : Notes de version
 
 ---
 
-## 🧪 TESTS
+**Merci de contribuer à Arkalia Quest ! 🎮✨**
 
-### 📊 **Tests unitaires**
-```python
-# tests/test_commands.py
-import pytest
-from app import app
-
-def test_hack_command():
-    """Test de la commande hack_system."""
-    with app.test_client() as client:
-        response = client.get('/commande?commande=hack_system')
-        assert response.status_code == 200
-        assert 'HACK RÉUSSI' in response.get_json()['message']
-```
-
-### 🔄 **Tests d'intégration**
-```python
-# tests/test_integration.py
-def test_complete_game_flow():
-    """Test du flux complet du jeu."""
-    # Test tutoriel → mission → badge
-    pass
-```
-
-### ⚡ **Tests de performance**
-```python
-# tests/test_performance.py
-def test_response_time():
-    """Test du temps de réponse."""
-    start_time = time.time()
-    # Faire une requête
-    response_time = time.time() - start_time
-    assert response_time < 1.0  # Moins d'1 seconde
-```
-
----
-
-## 📋 CHECKLIST PULL REQUEST
-
-### ✅ **Avant de soumettre**
-- [ ] **Code fonctionne** : Tests locaux passent
-- [ ] **Tests ajoutés** : Couverture appropriée
-- [ ] **Documentation mise à jour** : README, docstrings
-- [ ] **Style de code** : PEP 8, ESLint respecté
-- [ ] **Commit message** : Conventionnel et descriptif
-
-### ✅ **Description de la PR**
-```markdown
-## 🎯 Description
-Ajoute une nouvelle commande `hack_advanced` avec effets visuels.
-
-## 🔧 Changements
-- Nouvelle commande dans `app.py`
-- Effets CSS dans `static/css/style.css`
-- Tests dans `tests/test_commands.py`
-- Documentation dans `README.md`
-
-## 🧪 Tests
-- [x] Tests unitaires passent
-- [x] Tests d'intégration validés
-- [x] Performance vérifiée
-
-## 📸 Screenshots
-[Si applicable]
-
-## 🔗 Issues liées
-Closes #123
-```
-
----
-
-## 🎮 GUIDELINES SPÉCIFIQUES
-
-### 👦 **Public cible : Ados de 13 ans**
-- **Langage adapté** : Vocabulaire gaming, insultes amicales
-- **Interface intuitive** : Navigation simple et claire
-- **Feedback immédiat** : Réponses rapides et visuelles
-- **Gamification** : Badges, points, progression
-
-### 🎯 **Commandes de jeu**
-```python
-# ✅ Bon - Style rebelle pour ados
-def hack_advanced():
-    return {
-        "message": "BOOM ! Hack avancé réussi ! La Corp va chier dans son clavier !",
-        "points": 150,
-        "badge": "advanced_hacker"
-    }
-
-# ❌ Mauvais - Trop technique
-def execute_advanced_hacking_protocol():
-    return {
-        "message": "Advanced hacking protocol executed successfully.",
-        "points": 150,
-        "badge": "advanced_hacker"
-    }
-```
-
-### 🎨 **Interface utilisateur**
-- **Design cyberpunk** : Couleurs sombres, effets Matrix
-- **Responsive** : Mobile-first design
-- **Accessibilité** : Support clavier, navigation
-- **Performance** : Animations fluides 60 FPS
-
----
-
-## 🚨 RÈGLES IMPORTANTES
-
-### ✅ **À faire**
-- **Respecter le public** : Ados de 13 ans
-- **Tester localement** : Avant chaque commit
-- **Documenter** : Code et fonctionnalités
-- **Communiquer** : Issues, discussions, feedback
-
-### ❌ **À éviter**
-- **Contenu inapproprié** : Violence, langage offensant
-- **Bugs de sécurité** : Injections, XSS
-- **Performance dégradée** : Temps de réponse > 1s
-- **Breaking changes** : Sans migration guide
-
----
-
-## 🏆 RECONNAISSANCE
-
-### 🌟 **Contributeurs**
-- **Badge GitHub** : Apparaître dans les contributeurs
-- **Mention README** : Crédits dans la documentation
-- **Badge in-game** : Badge spécial "Contributeur"
-- **Accès prioritaire** : Nouvelles fonctionnalités
-
-### 🎯 **Niveaux de contribution**
-- **Bronze** : 1-5 contributions
-- **Argent** : 6-15 contributions
-- **Or** : 16-30 contributions
-- **Platine** : 30+ contributions
-
----
-
-## 📞 SUPPORT ET COMMUNICATION
-
-### 💬 **Canaux de communication**
-- **GitHub Issues** : Bugs et suggestions
-- **GitHub Discussions** : Questions et idées
-- **Discord** : Chat en temps réel
-- **Email** : contact@arkalia-quest.com
-
-### 🆘 **Besoin d'aide ?**
-1. **Vérifier la documentation** : `/docs/`
-2. **Chercher dans les issues** : GitHub Issues
-3. **Poser une question** : GitHub Discussions
-4. **Contacter l'équipe** : Discord ou email
-
----
-
-## 🎉 MERCI !
-
-### 🌟 **Votre contribution compte !**
-Chaque ligne de code, chaque test, chaque documentation aide à créer une meilleure expérience pour les ados qui apprennent la programmation.
-
-### 🚀 **Prêt à contribuer ?**
-1. **Fork le projet**
-2. **Créez une branche**
-3. **Développez votre fonctionnalité**
-4. **Soumettez une Pull Request**
-
-### 🎮 **Ensemble, créons le meilleur jeu éducatif !**
-
----
-
-**🤝 Merci de contribuer à Arkalia Quest ! 🚀** 
+*Ensemble, créons l'éducation de demain !*

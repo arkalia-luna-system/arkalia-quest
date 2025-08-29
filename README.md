@@ -1,98 +1,55 @@
-# 🎮 Arkalia Quest v3.0.0
+# 🚀 Arkalia Quest - Jeu Éducatif Immersif
 
-> **Jeu éducatif immersif avec IA émotionnelle LUNA**  
-> *Une aventure interactive pour apprendre en s'amusant*
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Linting](https://img.shields.io/badge/linting-ruff-red.svg)](https://github.com/astral-sh/ruff)
 
-[![CI/CD](https://github.com/arkalia-luna-system/arkalia-quest/workflows/CI%20-%20Tests%20et%20Qualité%20du%20Code/badge.svg)](https://github.com/arkalia-luna-system/arkalia-quest/actions)
-[![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://python.org)
-[![Flask](https://img.shields.io/badge/Flask-3.0%2B-green.svg)](https://flask.palletsprojects.com)
-[![Tests](https://img.shields.io/badge/Tests-135%2F135%20passing-brightgreen.svg)](https://github.com/arkalia-luna-system/arkalia-quest/actions)
-[![Code Quality](https://img.shields.io/badge/Code%20Quality-A%2B-brightgreen.svg)](https://github.com/arkalia-luna-system/arkalia-quest/actions)
+## 🌟 Vue d'ensemble
 
-## 🚀 **Démo en Ligne**
+**Arkalia Quest** est un jeu éducatif immersif qui combine apprentissage, gamification et intelligence artificielle pour créer une expérience d'apprentissage unique et engageante.
 
-**[🎯 Jouer Maintenant](https://arkalia-quest-demo.herokuapp.com)** *(Bientôt disponible)*
+### ✨ Caractéristiques principales
 
-## 🆕 **Dernières Améliorations (27 août 2025)**
+- 🎮 **Gameplay immersif** avec système de missions et défis
+- 🧠 **Intelligence artificielle LUNA** pour l'adaptation personnalisée
+- 📚 **Contenu éducatif** intégré de manière ludique
+- 🏆 **Système de gamification** avec badges et progression
+- 📱 **Interface moderne** et responsive
+- 🔒 **Sécurité et confidentialité** des données utilisateur
 
-### 🧹 **Nettoyage Complet du Code**
-- **Suppression de scripts dangereux** : Sécurité renforcée
-- **Correction de 149 erreurs ARG002** : Arguments non utilisés supprimés
-- **Simplification de 6 conditions imbriquées** : Logique optimisée
-- **Application de Black et Ruff** : Code formaté et linté
-- **Réduction de 68% des erreurs** : Qualité significativement améliorée
+## 🏗️ Architecture
 
-### 🧪 **Tests et Validation**
-- **135 tests fonctionnels** : Couverture complète des fonctionnalités
-- **99.3% de réussite** : Robustesse exceptionnelle
-- **Tests de performance** : Validation des métriques système
-- **Tests d'accessibilité** : Conformité WCAG 2.1 AA
-
-### 🎨 **Interface et UX**
-- **Composants UI modernes** : Notifications, badges, barres de progression
-- **Thème Matrix adolescent** : Style vert #00ff00 immersif
-- **CSS responsive** : Adaptation mobile et desktop
-- **Effets visuels** : Animations et transitions fluides
-
-## ✨ **Fonctionnalités Principales**
-
-### 🧠 **IA Émotionnelle LUNA**
-- **Système d'émotions dynamiques** : LUNA apprend et s'adapte
-- **Recommandations personnalisées** basées sur le comportement
-- **Interaction naturelle** avec reconnaissance de contexte
-
-### 🎓 **Mini-Jeux Éducatifs**
-- **Mathématiques** : Problèmes adaptatifs
-- **Logique** : Puzzles et énigmes
-- **Langues** : Vocabulaire et grammaire
-- **Sciences** : Expériences virtuelles
-
-### 🏆 **Système de Gamification**
-- **Points et niveaux** progressifs
-- **Badges et achievements** débloquables
-- **Classements** compétitifs
-- **Missions** quotidiennes
-
-### ♿ **Accessibilité WCAG 2.1 AA**
-- **Navigation clavier** complète
-- **Support lecteurs d'écran**
-- **Contraste élevé** et modes daltoniens
-- **Design responsive** mobile-first
-
-## 🛠️ **Technologies Utilisées**
-
-### **Backend**
-- **Python 3.8+** : Langage principal
-- **Flask 3.0** : Framework web moderne
-- **SQLite3** : Base de données légère
-- **WebSockets** : Communication temps réel
-
-### **Frontend**
-- **HTML5/CSS3** : Interface moderne
-- **JavaScript ES6+** : Interactivité avancée
-- **PWA** : Application web progressive
-- **Responsive Design** : Mobile-first
-
-### **Qualité & Tests**
-- **Pytest** : Suite de tests complète (135 tests)
-- **Black** : Formatage automatique PEP 8
-- **Ruff** : Linting et qualité (réduction de 68% des erreurs)
-- **Coverage** : Couverture de code complète
-
-## 📦 **Installation Rapide**
-
-### **Prérequis**
-```bash
-Python 3.8+ | Git | pip
+```
+arkalia-quest/
+├── 📁 core/                 # Moteurs principaux
+├── 📁 engines/              # Moteurs spécialisés
+├── 📁 data/                 # Données et configuration
+├── 📁 static/               # Assets statiques (CSS, JS, images)
+├── 📁 templates/            # Templates HTML
+├── 📁 tests/                # Suite de tests complète
+├── 📁 docs/                 # Documentation technique
+├── 📁 reports/              # Rapports et analyses
+├── 📁 scripts/              # Scripts utilitaires
+└── 📁 config/               # Configuration déploiement
 ```
 
-### **Installation**
+## 🚀 Installation
+
+### Prérequis
+
+- Python 3.8+
+- pip ou poetry
+- Git
+
+### Installation rapide
+
 ```bash
 # Cloner le projet
-git clone https://github.com/arkalia-luna-system/arkalia-quest.git
+git clone https://github.com/votre-username/arkalia-quest.git
 cd arkalia-quest
 
-# Créer l'environnement virtuel
+# Créer un environnement virtuel
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
 # ou
@@ -105,131 +62,143 @@ pip install -r requirements.txt
 python app.py
 ```
 
-### **Tests**
+### Installation avec Poetry
+
 ```bash
-# Tous les tests
-python -m pytest tests/
+# Installer Poetry (si pas déjà installé)
+curl -sSL https://install.python-poetry.org | python3 -
 
-# Avec couverture
-python -m pytest tests/ --cov=core --cov-report=html
+# Installer les dépendances
+poetry install
 
-# Qualité du code
-black . --check
-ruff check .
+# Lancer l'application
+poetry run python app.py
 ```
 
-## 🏗️ **Architecture du Projet**
+## 🧪 Tests
 
-```
-arkalia-quest/
-├── core/                    # Logique métier
-│   ├── game_engine.py      # Moteur de jeu
-│   ├── luna_emotions.py    # IA émotionnelle
-│   ├── educational_games.py # Mini-jeux
-│   └── gamification.py     # Système de récompenses
-├── engines/                 # Moteurs spécialisés
-│   ├── effects_engine.py   # Effets visuels
-│   └── luna_ai.py         # IA avancée
-├── templates/               # Interface utilisateur
-├── static/                  # Assets statiques
-├── tests/                   # Suite de tests (76 tests)
-└── docs/                    # Documentation technique
-```
-
-## 🎯 **Cas d'Usage**
-
-### **Éducation**
-- **Écoles primaires** : Apprentissage ludique
-- **Collèges** : Révision interactive
-- **Formation continue** : Développement de compétences
-
-### **Gamification**
-- **Entreprises** : Formation employés
-- **Organisations** : Engagement utilisateurs
-- **Communautés** : Apprentissage collaboratif
-
-## 📊 **Métriques de Qualité**
-
-- **Tests** : 135/135 passent (99.3%)
-- **Couverture** : 90%+ du code testé
-- **Qualité** : Grade A+ (Black + Ruff, 68% d'erreurs corrigées)
-- **CI/CD** : GitHub Actions automatisé
-- **Documentation** : Complète et maintenue (dernière mise à jour : 27 août 2025)
-
-## 🤝 **Contribution**
-
-Nous accueillons les contributions ! Consultez notre [Guide de Contribution](docs/CONTRIBUTING.md).
-
-### **Comment Contribuer**
-1. Fork le projet
-2. Créez une branche feature (`git checkout -b feature/AmazingFeature`)
-3. Committez vos changements (`git commit -m 'Add AmazingFeature'`)
-4. Push vers la branche (`git push origin feature/AmazingFeature`)
-5. Ouvrez une Pull Request
-
-## 📚 **Documentation**
-
-- **[Guide Technique](docs/GUIDE_TECHNIQUE_DEVELOPPEUR.md)** : Architecture et développement
-- **[Guide Déploiement](docs/GUIDE_DEPLOIEMENT.md)** : Mise en production
-- **[Roadmap](docs/ROADMAP_STRATEGIQUE.md)** : Évolutions futures
-- **[Changelog](docs/CHANGELOG_DOCUMENTATION.md)** : Historique des versions
-
-## 🚀 **Déploiement**
-
-### **Heroku**
 ```bash
-# Déploiement automatique
-git push heroku main
+# Lancer tous les tests
+pytest
+
+# Tests avec couverture
+pytest --cov=core --cov-report=html
+
+# Tests de performance
+pytest tests/performance/
+
+# Tests d'expérience utilisateur
+pytest tests/test_ui_*.py
 ```
 
-### **Docker**
+## 🔧 Développement
+
+### Code Quality
+
+Le projet utilise des outils modernes pour maintenir la qualité du code :
+
+- **Black** : Formatage automatique du code
+- **Ruff** : Linting et correction automatique
+- **Pre-commit** : Hooks de pré-commit
+
 ```bash
-# Construction de l'image
+# Formater le code
+black .
+
+# Linter et corriger
+ruff check . --fix
+
+# Vérifier la qualité
+ruff check . --output-format=github
+```
+
+### Structure du code
+
+- **Type hints** : Utilisation complète des annotations de type
+- **Docstrings** : Documentation détaillée des fonctions
+- **Tests unitaires** : Couverture complète des fonctionnalités
+- **Architecture modulaire** : Séparation claire des responsabilités
+
+## 📊 Fonctionnalités
+
+### 🎯 Système de missions
+- Missions progressives avec difficulté adaptative
+- Système de récompenses et badges
+- Suivi de progression personnalisé
+
+### 🧠 Intelligence LUNA
+- Analyse des émotions et comportements
+- Adaptation du contenu selon le profil
+- Apprentissage continu et personnalisation
+
+### 🎮 Gamification
+- Système de points et niveaux
+- Défis communautaires
+- Classements et achievements
+
+### 📱 Interface utilisateur
+- Design responsive et moderne
+- Thème Matrix/terminal
+- Accessibilité complète
+
+## 🚀 Déploiement
+
+### Docker
+
+```bash
+# Construire l'image
 docker build -t arkalia-quest .
 
-# Lancement du conteneur
-docker run -p 5000:5000 arkalia-quest
+# Lancer le conteneur
+docker run -p 5001:5001 arkalia-quest
 ```
 
-## 📈 **Roadmap**
+### Déploiement cloud
 
-### **v3.1.0** (Q4 2024)
-- [ ] Support multilingue
-- [ ] API REST complète
-- [ ] Intégration OAuth
+Le projet supporte plusieurs plateformes :
+- **Heroku** : Configuration automatique
+- **Railway** : Déploiement simple
+- **DigitalOcean** : Infrastructure scalable
+- **Google Cloud** : Solutions enterprise
 
-### **v3.2.0** (Q1 2025)
-- [ ] Mode hors ligne
-- [ ] Synchronisation cloud
-- [ ] Analytics avancés
+## 📚 Documentation
 
-### **v4.0.0** (Q2 2025)
-- [ ] Version mobile native
-- [ ] IA conversationnelle
-- [ ] Réalité augmentée
+- [Guide de développement](docs/README.md)
+- [Architecture technique](docs/ARCHITECTURE.md)
+- [Guide de déploiement](docs/DEPLOYMENT.md)
+- [API Reference](docs/API.md)
 
-## 📄 **Licence**
+## 🤝 Contribution
+
+Nous accueillons les contributions ! Consultez notre [guide de contribution](CONTRIBUTING.md) pour commencer.
+
+### Comment contribuer
+
+1. Fork le projet
+2. Créer une branche feature (`git checkout -b feature/AmazingFeature`)
+3. Commit vos changements (`git commit -m 'Add AmazingFeature'`)
+4. Push vers la branche (`git push origin feature/AmazingFeature`)
+5. Ouvrir une Pull Request
+
+## 📄 Licence
 
 Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
 
-## 👥 **Équipe**
+## 🙏 Remerciements
 
-- **Développement** : [@arkalia-luna-system](https://github.com/arkalia-luna-system)
-- **Architecture** : Système modulaire et extensible
-- **Design** : Interface moderne et accessible
+- Équipe de développement Arkalia
+- Communauté open source
+- Testeurs et utilisateurs beta
 
-## 🌟 **Support**
+## 📞 Contact
 
-- **Issues** : [GitHub Issues](https://github.com/arkalia-luna-system/arkalia-quest/issues)
-- **Discussions** : [GitHub Discussions](https://github.com/arkalia-luna-system/arkalia-quest/discussions)
-- **Wiki** : [Documentation Wiki](https://github.com/arkalia-luna-system/arkalia-quest/wiki)
+- **Email** : contact@arkalia-quest.com
+- **Discord** : [Serveur communautaire](https://discord.gg/arkalia)
+- **Documentation** : [docs.arkalia-quest.com](https://docs.arkalia-quest.com)
 
 ---
 
 <div align="center">
-
-**⭐ Si ce projet vous plaît, donnez-lui une étoile ! ⭐**
-
-*Construit avec ❤️ et ☕ pour l'éducation de demain*
-
+  <p>Fait avec ❤️ par l'équipe Arkalia</p>
+  <p>🌟 <strong>Transformons l'apprentissage en aventure !</strong> 🌟</p>
 </div> 

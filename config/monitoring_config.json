@@ -1,0 +1,59 @@
+{
+  "monitoring_config": {
+    "metrics": {
+      "enabled": true,
+      "port": 9090,
+      "endpoint": "/metrics",
+      "collection_interval": 30
+    },
+    "logging": {
+      "level": "INFO",
+      "format": "json",
+      "handlers": {
+        "file": {
+          "enabled": true,
+          "path": "logs/app.log",
+          "max_size": "10MB",
+          "backup_count": 5
+        },
+        "console": {
+          "enabled": true,
+          "level": "INFO"
+        }
+      }
+    },
+    "security_monitoring": {
+      "enabled": true,
+      "log_security_events": true,
+      "alert_thresholds": {
+        "failed_logins": 5,
+        "suspicious_ips": 3,
+        "rate_limit_violations": 10
+      }
+    },
+    "performance_monitoring": {
+      "enabled": true,
+      "metrics": [
+        "response_time",
+        "throughput",
+        "error_rate",
+        "cpu_usage",
+        "memory_usage"
+      ],
+      "alerts": {
+        "response_time_threshold": 200,
+        "cpu_threshold": 80,
+        "memory_threshold": 80
+      }
+    },
+    "health_checks": {
+      "enabled": true,
+      "endpoints": [
+        "/health",
+        "/api/status",
+        "/api/security/status"
+      ],
+      "check_interval": 60
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+    "load_test_config": {
+        "base_url": "http://localhost:5000",
+        "test_scenarios": {
+            "light_load": {
+                "concurrent_users": 5,
+                "duration": 30,
+                "description": "Charge légère pour tests de base"
+            },
+            "medium_load": {
+                "concurrent_users": 10,
+                "duration": 30,
+                "description": "Charge moyenne pour validation"
+            },
+            "high_load": {
+                "concurrent_users": 20,
+                "duration": 30,
+                "description": "Charge élevée pour stress test"
+            }
+        },
+        "endpoints": [
+            {
+                "endpoint": "/",
+                "method": "GET",
+                "weight": 40,
+                "description": "Page d'accueil"
+            },
+            {
+                "endpoint": "/terminal",
+                "method": "GET",
+                "weight": 30,
+                "description": "Interface terminal"
+            },
+            {
+                "endpoint": "/commande",
+                "method": "POST",
+                "weight": 20,
+                "data": {
+                    "commande": "status"
+                },
+                "description": "Commande système"
+            },
+            {
+                "endpoint": "/api/security/status",
+                "method": "GET",
+                "weight": 10,
+                "description": "Statut de sécurité"
+            }
+        ],
+        "performance_thresholds": {
+            "response_time_p95": 200,
+            "response_time_p99": 500,
+            "error_rate": 1.0,
+            "throughput_min": 50
+        },
+        "monitoring": {
+            "enable_metrics": true,
+            "log_level": "INFO",
+            "save_results": true,
+            "results_dir": "tests/results"
+        }
+    }
+}

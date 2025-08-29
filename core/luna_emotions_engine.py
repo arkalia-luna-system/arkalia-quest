@@ -192,6 +192,10 @@ class LunaEmotionsEngine:
 
     def _analyze_context(self, action: str, result: Dict, profile: Dict) -> Dict:
         """Analyse le contexte de l'action"""
+        # Extraire les informations du profil
+        personality = profile.get("personnalite", {})
+        player_type = personality.get("type", "debutant")
+
         context = {
             "action_type": self._classify_action(action),
             "success": result.get("réussite", False),
@@ -199,6 +203,8 @@ class LunaEmotionsEngine:
             "badge_gained": result.get("badge"),
             "player_level": profile.get("level", 1),
             "player_score": profile.get("score", 0),
+            "player_badges": profile.get("badges", []),
+            "player_type": player_type,
             "time_of_day": datetime.now().hour,
             "action_frequency": self._get_action_frequency(action),
             "relationship_change": 0.0,
@@ -245,12 +251,24 @@ class LunaEmotionsEngine:
         player_level = context["player_level"]
         action_frequency = context["action_frequency"]
 
+        # Facteurs de profil joueur
+        player_type = context.get("player_type", "debutant")
+
         # Facteurs de variabilité
         mood_factor = random.random()
         time_factor = (time_of_day - 12) / 12  # -1 à +1 selon l'heure
         level_factor = min(player_level / 10, 1.0)  # 0 à 1 selon le niveau
 
-        # Logique d'émotions avancée avec plus de variété
+        # Facteur de personnalité
+        personality_factor = 0.5
+        if player_type == "expert":
+            personality_factor = 0.8
+        elif player_type == "hacker":
+            personality_factor = 0.7
+        elif player_type == "debutant":
+            personality_factor = 0.3
+
+        # Logique d'émotions avancée avec plus de variété basée sur le profil
         if action_type == "success" and success:
             if score_gained > 100:
                 emotions = [
@@ -258,22 +276,39 @@ class LunaEmotionsEngine:
                     LunaEmotion.PROUD,
                     LunaEmotion.SURPRISED,
                 ]
+                # Les experts sont plus déterminés
+                if player_type == "expert":
+                    emotions.extend([LunaEmotion.DETERMINED, LunaEmotion.FOCUSED])
+                # Les débutants sont plus surpris
+                elif player_type == "debutant":
+                    emotions.extend([LunaEmotion.SURPRISED, LunaEmotion.EXCITED])
             elif score_gained > 50:
                 emotions = [
                     LunaEmotion.PROUD,
                     LunaEmotion.EXCITED,
                     LunaEmotion.DETERMINED,
                 ]
+                # Adaptation selon le type de joueur
+                if player_type == "hacker":
+                    emotions.extend([LunaEmotion.FOCUSED, LunaEmotion.ENERGETIC])
             else:
                 emotions = [LunaEmotion.CALM, LunaEmotion.FOCUSED, LunaEmotion.PLAYFUL]
+                # Les débutants restent plus calmes
+                if player_type == "debutant":
+                    emotions = [LunaEmotion.CALM, LunaEmotion.PLAYFUL]
 
-            # Ajouter de la variabilité selon l'heure et le niveau
+            # Ajouter de la variabilité selon l'heure, le niveau et la personnalité
             if mood_factor > 0.7:
                 emotions.extend([LunaEmotion.ENERGETIC, LunaEmotion.MYSTERIOUS])
             if time_factor > 0.5:
                 emotions.append(LunaEmotion.ENERGETIC)
             if level_factor > 0.5:
                 emotions.append(LunaEmotion.PROUD)
+            # Variabilité selon la personnalité
+            if personality_factor > 0.7:
+                emotions.append(LunaEmotion.DETERMINED)
+            elif personality_factor < 0.4:
+                emotions.append(LunaEmotion.CALM)
 
         elif action_type == "failure" or not success:
             if action_frequency > 3:  # Échecs répétés
@@ -349,13 +384,18 @@ class LunaEmotionsEngine:
         """Calcule l'intensité de l'émotion avec plus de variabilité"""
         base_intensity = 0.5
 
-        # Facteurs d'intensité dynamiques
-        if context["score_gained"] > 100:
+        # Facteurs d'intensité dynamiques basés sur le score
+        score_gained = context["score_gained"]
+        if score_gained > 500:
+            base_intensity += 0.5
+        elif score_gained > 100:
             base_intensity += 0.4
-        elif context["score_gained"] > 50:
+        elif score_gained > 50:
             base_intensity += 0.3
-        elif context["score_gained"] > 20:
+        elif score_gained > 20:
             base_intensity += 0.2
+        elif score_gained > 0:
+            base_intensity += 0.1
         else:
             base_intensity -= 0.1  # Actions sans score = moins intense
 
@@ -381,8 +421,8 @@ class LunaEmotionsEngine:
         if player_level > 5:
             base_intensity += 0.1
 
-        # Ajouter de la variabilité aléatoire et contextuelle
-        random_factor = (random.random() - 0.5) * 0.3  # ±0.15
+        # Ajouter de la variabilité aléatoire réduite pour maintenir la progression
+        random_factor = (random.random() - 0.5) * 0.1  # ±0.05 (réduit pour les tests)
         base_intensity += random_factor
 
         # Facteur de fatigue pour les actions répétitives

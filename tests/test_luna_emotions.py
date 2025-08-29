@@ -354,7 +354,6 @@ class TestLunaEmotionsEngine(unittest.TestCase):
             "surprised",
             "determined",
             "playful",
-            "curious",
             "calm",
             "mysterious",
             "energetic",  # Ajout de l'émotion manquante

@@ -13,6 +13,9 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    
+    # Ajout de la gestion des erreurs
+    continue-on-error: false
 
     steps:
       - name: 🚀 Checkout du code
@@ -20,6 +23,8 @@ jobs:
         with:
           # Token avec permissions étendues
           token: ${{ secrets.GITHUB_TOKEN }}
+          # Fetch complet pour avoir accès aux tags
+          fetch-depth: 0
 
       - name: 🐍 Configuration Python
         uses: actions/setup-python@v5
@@ -64,10 +69,17 @@ jobs:
       - name: 🏷️ Création du tag
         if: github.ref == 'refs/heads/main'
         run: |
+          echo "🏷️ Configuration Git pour la création de tag..."
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
+          
+          echo "🏷️ Création du tag v3.0.0-${{ github.sha }}..."
           git tag -a "v3.0.0-${{ github.sha }}" -m "Release v3.0.0-${{ github.sha }}"
+          
+          echo "📤 Push du tag vers origin..."
           git push origin "v3.0.0-${{ github.sha }}"
+          
+          echo "✅ Tag créé et poussé avec succès"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -76,3 +88,13 @@ jobs:
           echo "🚀 ARKALIA QUEST v3.0.0 déployé avec succès !"
           echo "🐳 Image Docker: ${{ secrets.DOCKER_USERNAME }}/arkalia-quest:${{ github.sha }}"
           echo "🏷️ Tag: v3.0.0-${{ github.sha }}"
+
+      - name: 🚨 Gestion des erreurs
+        if: failure()
+        run: |
+          echo "❌ ERREUR LORS DU DÉPLOIEMENT"
+          echo "🔍 Vérifiez les logs pour identifier le problème"
+          echo "📋 Actions à effectuer :"
+          echo "   1. Vérifier les secrets Docker"
+          echo "   2. Vérifier la configuration Git"
+          echo "   3. Vérifier les permissions du repository"

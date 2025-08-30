@@ -1,5 +1,5 @@
 # Arkalia Quest - Dockerfile de production
-FROM python:3.11-slim
+FROM python:3.10-slim
 
 # Définir les variables d'environnement
 ENV PYTHONDONTWRITEBYTECODE=1

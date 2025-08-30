@@ -30,9 +30,9 @@
         }
     },
     "ci_requirements": {
-        "min_test_coverage": 10.0,
+        "min_test_coverage": 11.0,
         "max_warnings": 0,
-        "required_tests": 140,
+        "required_tests": 179,
         "quality_gates": {
             "ruff_errors": 0,
             "black_violations": 0,

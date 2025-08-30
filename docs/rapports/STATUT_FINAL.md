@@ -17,7 +17,7 @@
 - ✅ **Interface utilisateur** : Design Matrix/terminal
 
 ### 🧪 **QUALITÉ ET TESTS**
-- ✅ **Tests automatisés** : 49/49 passent (100%)
+- ✅ **Tests automatisés** : 179/179 collectés (100%)
 - ✅ **Code qualité** : 0 erreurs Ruff
 - ✅ **Formatage** : Black appliqué
 - ✅ **Performance** : 65+ req/s, < 20ms

@@ -5,8 +5,6 @@ Identifie et corrige les problèmes courants
 """
 
 import os
-import subprocess
-import json
 import sys
 
 
@@ -39,7 +37,7 @@ class GitHubActionsDiagnostic:
         # Vérifier deploy.yml
         deploy_yml = ".github/workflows/deploy.yml"
         if os.path.exists(deploy_yml):
-            with open(deploy_yml, "r") as f:
+            with open(deploy_yml) as f:
                 content = f.read()
 
             if "permissions:" in content:
@@ -65,7 +63,7 @@ class GitHubActionsDiagnostic:
 
         deploy_yml = ".github/workflows/deploy.yml"
         if os.path.exists(deploy_yml):
-            with open(deploy_yml, "r") as f:
+            with open(deploy_yml) as f:
                 content = f.read()
 
             if "github-actions[bot]@users.noreply.github.com" in content:
@@ -84,7 +82,7 @@ class GitHubActionsDiagnostic:
 
         deploy_yml = ".github/workflows/deploy.yml"
         if os.path.exists(deploy_yml):
-            with open(deploy_yml, "r") as f:
+            with open(deploy_yml) as f:
                 content = f.read()
 
             if "DOCKER_USERNAME" in content:
@@ -114,7 +112,7 @@ class GitHubActionsDiagnostic:
 
         deploy_yml = ".github/workflows/deploy.yml"
         if os.path.exists(deploy_yml):
-            with open(deploy_yml, "r") as f:
+            with open(deploy_yml) as f:
                 content = f.read()
 
             if "docker build" in content:
@@ -128,7 +126,7 @@ class GitHubActionsDiagnostic:
 
         deploy_yml = ".github/workflows/deploy.yml"
         if os.path.exists(deploy_yml):
-            with open(deploy_yml, "r") as f:
+            with open(deploy_yml) as f:
                 content = f.read()
 
             if "branches: [main]" in content:

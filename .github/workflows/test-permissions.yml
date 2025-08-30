@@ -1,0 +1,50 @@
+name: 🔐 Test des Permissions GitHub Actions
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [develop]
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  test-permissions:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 🚀 Checkout du code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: 🧪 Test de création de tag
+        run: |
+          echo "🧪 Test des permissions de création de tag..."
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          # Créer un tag de test
+          git tag -a "test-permissions-$(date +%Y%m%d-%H%M%S)" -m "Test des permissions GitHub Actions"
+          
+          # Essayer de pousser le tag
+          if git push origin --tags; then
+            echo "✅ Permissions OK - Tag créé et poussé avec succès"
+          else
+            echo "❌ Permissions KO - Impossible de pousser le tag"
+            exit 1
+          fi
+          
+      - name: 🧹 Nettoyage des tags de test
+        if: always()
+        run: |
+          echo "🧹 Nettoyage des tags de test..."
+          # Supprimer les tags de test locaux
+          git tag -l "test-permissions-*" | xargs git tag -d || true
+          
+      - name: 🎉 Test réussi
+        run: |
+          echo "🎉 Test des permissions GitHub Actions réussi !"
+          echo "✅ L'action peut créer et pousser des tags"
+          echo "✅ Les permissions sont correctement configurées"

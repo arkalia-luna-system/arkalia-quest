@@ -1,0 +1,57 @@
+# Configuration des permissions du repository
+# Ce fichier configure les permissions pour GitHub Actions
+
+repository:
+  # Permissions par défaut pour les workflows
+  default_branch: main
+
+  # Permissions pour les actions
+  actions:
+    # Permissions d'écriture pour le contenu
+    contents: write
+
+    # Permissions pour les packages Docker
+    packages: write
+
+    # Permissions pour les pull requests
+    pull-requests: write
+
+    # Permissions pour les issues
+    issues: write
+
+    # Permissions pour les discussions
+    discussions: write
+
+# Configuration des branches
+branches:
+  - name: main
+    protection:
+      required_status_checks:
+        strict: true
+        contexts:
+          - "🧪 CI - Tests et Qualité du Code"
+          - "🚀 Déploiement Automatique"
+      enforce_admins: true
+      required_pull_request_reviews:
+        required_approving_review_count: 1
+        dismiss_stale_reviews: true
+      restrictions:
+        users: []
+        teams: []
+      allow_force_pushes: false
+      allow_deletions: false
+
+  - name: develop
+    protection:
+      required_status_checks:
+        strict: false
+        contexts:
+          - "🧪 CI - Tests et Qualité du Code"
+      enforce_admins: false
+      required_pull_request_reviews:
+        required_approving_review_count: 0
+      restrictions:
+        users: []
+        teams: []
+      allow_force_pushes: true
+      allow_deletions: false

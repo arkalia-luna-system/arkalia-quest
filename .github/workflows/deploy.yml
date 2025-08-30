@@ -5,6 +5,11 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# Permissions nécessaires pour pousser des tags
+permissions:
+  contents: write
+  packages: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -12,6 +17,9 @@ jobs:
     steps:
       - name: 🚀 Checkout du code
         uses: actions/checkout@v4
+        with:
+          # Token avec permissions étendues
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🐍 Configuration Python
         uses: actions/setup-python@v5
@@ -56,10 +64,12 @@ jobs:
       - name: 🏷️ Création du tag
         if: github.ref == 'refs/heads/main'
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git tag -a "v3.0.0-${{ github.sha }}" -m "Release v3.0.0-${{ github.sha }}"
           git push origin "v3.0.0-${{ github.sha }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🎉 Déploiement réussi
         run: |

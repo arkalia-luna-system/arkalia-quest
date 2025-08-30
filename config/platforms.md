@@ -160,7 +160,7 @@ gcloud run deploy arkalia-quest \
 docker build -f config/Dockerfile -t arkalia-quest .
 
 # Lancement
-docker run -p 5000:5000 arkalia-quest
+docker run -p 5001:5001 arkalia-quest
 
 # Avec docker-compose
 cd config
@@ -175,7 +175,7 @@ cd arkalia-quest
 
 # Construction et lancement
 docker build -f config/Dockerfile -t arkalia-quest .
-docker run -d -p 80:5000 --name arkalia-quest arkalia-quest
+docker run -d -p 80:5001 --name arkalia-quest arkalia-quest
 
 # Avec Nginx (reverse proxy)
 docker run -d -p 80:80 nginx:alpine
@@ -204,7 +204,7 @@ MAX_REQUESTS=1000
 ### **Gunicorn Configuration**
 ```python
 # gunicorn.conf.py
-bind = "0.0.0.0:5000"
+bind = "0.0.0.0:5001"
 workers = 2
 timeout = 120
 max_requests = 1000

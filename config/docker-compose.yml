@@ -6,18 +6,18 @@ services:
       context: ..
       dockerfile: config/Dockerfile
     ports:
-      - "5000:5000"
+      - "5001:5001"
     environment:
       - FLASK_ENV=development
       - DEBUG=true
       - HOST=0.0.0.0
-      - PORT=5000
+      - PORT=5001
     volumes:
       - ../logs:/app/logs
       - ../data:/app/data
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:5001/health"]
       interval: 30s
       timeout: 10s
       retries: 3

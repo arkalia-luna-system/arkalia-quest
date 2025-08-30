@@ -1,6 +1,6 @@
 ---
 **Statut : ACTIF**
-**Dernière mise à jour : Juillet 2025**
+**Dernière mise à jour : Août 2025**
 **Résumé :** Changelog global du projet Arkalia Quest (code, fonctionnalités, releases). Pour la documentation, voir `docs/CHANGELOG_DOCUMENTATION.md`.
 
 **Liens utiles :**

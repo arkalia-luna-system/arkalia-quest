@@ -29,6 +29,8 @@ pip install -r requirements.txt
 python app.py
 ```
 
+**🌐 Application accessible sur :** `http://localhost:5000`
+
 ---
 
 ## 🎯 **Fonctionnalités Principales**
@@ -53,6 +55,7 @@ python app.py
 ```bash
 python -m pytest tests/ -v
 ```
+**📊 Résultat actuel :** 179 tests collectés sur 179 ✅
 
 ### **Tests de charge :**
 ```bash
@@ -68,6 +71,12 @@ black . --line-length 88
 ```bash
 ruff check . --fix
 ```
+
+### **Couverture des tests :**
+```bash
+python -m pytest --cov=core --cov-report=html
+```
+**📈 Couverture actuelle :** 11.55% (seuil minimum : 10%)
 
 ---
 

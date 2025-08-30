@@ -1,5 +1,5 @@
 # Arkalia Quest - Dockerfile de production
-FROM python:3.11-slim
+FROM python:3.10-slim
 
 # Définir les variables d'environnement
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -37,7 +37,7 @@ RUN adduser --disabled-password --gecos '' appuser \
 USER appuser
 
 # Exposer le port
-EXPOSE 5000
+EXPOSE 5001
 
 # Commande de démarrage
-CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:5000", "--workers", "2", "--timeout", "120"]
+CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:5001", "--workers", "2", "--timeout", "120"]

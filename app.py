@@ -198,8 +198,8 @@ def charger_profil():
                 "portails_ouverts": [],
                 "zones_debloquees": [],
             },
-            "created_at": "2024-01-01T00:00:00",
-            "last_login": "2024-01-01T00:00:00",
+            "created_at": "2025-01-01T00:00:00",
+            "last_login": "2025-01-01T00:00:00",
         }
 
 
@@ -675,8 +675,8 @@ def get_profile_summary():
                 "personnalite": profil.get(
                     "personnalite", {"type": "non_detecte", "traits": []}
                 ),
-                "created_at": profil.get("created_at", "2024-01-01T00:00:00"),
-                "last_login": profil.get("last_login", "2024-01-01T00:00:00"),
+                "created_at": profil.get("created_at", "2025-01-01T00:00:00"),
+                "last_login": profil.get("last_login", "2025-01-01T00:00:00"),
             },
         }
 
@@ -694,8 +694,8 @@ def get_profile_summary():
                     "badges": [],
                     "missions_completees": 0,
                     "personnalite": {"type": "non_detecte", "traits": []},
-                    "created_at": "2024-01-01T00:00:00",
-                    "last_login": "2024-01-01T00:00:00",
+                    "created_at": "2025-01-01T00:00:00",
+                    "last_login": "2025-01-01T00:00:00",
                 },
             }
         )

@@ -110,4 +110,4 @@ echo "🐳 Image Docker: $DOCKER_IMAGE"
 if [ -n "$DOCKER_USERNAME" ] && [ -n "$DOCKER_PASSWORD" ]; then
     echo "📤 Registry: $DOCKER_USERNAME/$DOCKER_IMAGE"
 fi
-echo "🌐 Service disponible sur: http://localhost:5000"
+echo "🌐 Service disponible sur: http://localhost:5001"

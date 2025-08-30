@@ -732,7 +732,7 @@ graph TB
 
 | Environnement | URL | Description | Statut |
 |---------------|-----|-------------|---------|
-| **👨‍💻 Development** | `localhost:5000` | Développement local | ✅ Actif |
+| **👨‍💻 Development** | `localhost:5001` | Développement local | ✅ Actif |
 | **🧪 Testing** | `test.arkalia-quest.com` | Tests et validation | 🚧 En cours |
 | **🚀 Staging** | `staging.arkalia-quest.com` | Pré-production | 🚧 En cours |
 | **🌐 Production** | `arkalia-quest.com` | Production publique | 🚧 En cours |

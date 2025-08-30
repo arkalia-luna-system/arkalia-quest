@@ -45,7 +45,7 @@ class TestGamificationComplete(unittest.TestCase):
                 "achievements": [],
                 "experience": 0,
                 "streak": 0,
-                "last_activity": "2024-08-17T10:00:00",
+                "last_activity": "2025-08-17T10:00:00",
             },
             "intermediaire": {
                 "username": "test_intermediaire",
@@ -55,7 +55,7 @@ class TestGamificationComplete(unittest.TestCase):
                 "achievements": ["first_mission", "explorer"],
                 "experience": 1500,
                 "streak": 3,
-                "last_activity": "2024-08-17T12:00:00",
+                "last_activity": "2025-08-17T12:00:00",
             },
             "expert": {
                 "username": "test_expert",
@@ -65,7 +65,7 @@ class TestGamificationComplete(unittest.TestCase):
                 "achievements": ["master_hacker", "speed_demon", "treasure_hunter"],
                 "experience": 5000,
                 "streak": 7,
-                "last_activity": "2024-08-17T14:00:00",
+                "last_activity": "2025-08-17T14:00:00",
             },
         }
 

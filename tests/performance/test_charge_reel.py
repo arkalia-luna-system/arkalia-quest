@@ -22,15 +22,16 @@ TIMEOUT = 30
 class TestChargeReel:
     """Test de charge réel avec simulation d'utilisateurs"""
 
-    def __init__(self):
+    def setup_method(self):
+        """Configuration avant chaque test"""
         self.results = []
         self.start_time = None
         self.end_time = None
 
-    async def test_endpoint(
+    async def _test_endpoint(
         self, session: aiohttp.ClientSession, endpoint: str
     ) -> Dict:
-        """Test un endpoint spécifique"""
+        """Test un endpoint spécifique (méthode privée)"""
         start_time = time.time()
 
         try:
@@ -95,7 +96,7 @@ class TestChargeReel:
             if i > 0:
                 await asyncio.sleep(0.1 + (i * 0.05))
 
-            result = await self.test_endpoint(session, endpoint)
+            result = await self._test_endpoint(session, endpoint)
             result["user_id"] = user_id
             result["request_order"] = i
             user_results.append(result)
@@ -288,6 +289,20 @@ class TestChargeReel:
         except Exception as e:
             print(f"❌ Erreur lors de la sauvegarde: {e}")
 
+    def test_load_test_class_initialization(self):
+        """Test que la classe TestChargeReel s'initialise correctement"""
+        # Ce test vérifie que la classe peut être instanciée
+        # et que les méthodes de base fonctionnent
+        test_instance = TestChargeReel()
+        test_instance.setup_method()
+
+        # Vérifier que les attributs sont initialisés
+        assert test_instance.results == []
+        assert test_instance.start_time is None
+        assert test_instance.end_time is None
+
+        print("✅ Test d'initialisation de la classe TestChargeReel réussi")
+
 
 async def main():
     """Fonction principale"""
@@ -296,7 +311,9 @@ async def main():
 
     # Vérifier que l'application est accessible
     try:
-        async with aiohttp.ClientSession() as session, session.get(f"{BASE_URL}/health", timeout=5) as response:
+        async with aiohttp.ClientSession() as session, session.get(
+            f"{BASE_URL}/health", timeout=5
+        ) as response:
             if response.status != 200:
                 print(
                     f"❌ L'application n'est pas accessible (status: {response.status})"

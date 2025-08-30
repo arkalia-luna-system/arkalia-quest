@@ -68,6 +68,7 @@ class TestLunaEmotionsEngine(unittest.TestCase):
             "proud",
             "surprised",
             "calm",  # Ajout de calm car c'est l'émotion par défaut
+            "playful",  # Ajout de playful car l'engine peut la retourner
         ]
         self.assertIn(emotion_data["emotion"], valid_emotions)
 

@@ -110,6 +110,8 @@ extend-exclude = '''
 [tool.ruff]
 target-version = "py38"
 line-length = 88
+
+[tool.ruff.lint]
 select = [
     "E",  # pycodestyle errors
     "W",  # pycodestyle warnings
@@ -121,7 +123,7 @@ select = [
     "ARG", # flake8-unused-arguments
     "PIE", # flake8-pie
     "SIM", # flake8-simplify
-    "TCH", # flake8-type-checking
+    "TC", # flake8-type-checking (nouveau nom)
     "Q", # flake8-quotes
 ]
 ignore = [
@@ -130,14 +132,14 @@ ignore = [
     "C901",  # too complex
     "SIM102", # use a for loop instead of any/all
     "ARG001", # unused function argument
-    "TCH001", # import typing in TYPE_CHECKING block
+    "TC001", # import typing in TYPE_CHECKING block
 ]
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]
 "tests/**/*.py" = ["B011", "S101", "S603", "S607"]
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 known-first-party = ["core", "engines", "utils"]
 
 # Configuration Pytest

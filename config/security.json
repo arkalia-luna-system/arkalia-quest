@@ -1,0 +1,25 @@
+{
+  "max_failed_attempts": 5,
+  "block_duration": 3600,
+  "suspicious_patterns": [
+    "script",
+    "javascript",
+    "onload",
+    "onerror",
+    "union select",
+    "drop table",
+    "insert into",
+    "exec(",
+    "eval(",
+    "document.cookie"
+  ],
+  "max_request_size": 1048576,
+  "allowed_origins": [
+    "localhost",
+    "127.0.0.1",
+    "arkalia-quest.herokuapp.com"
+  ],
+  "security_level": "high",
+  "enable_logging": true,
+  "enable_monitoring": true
+}

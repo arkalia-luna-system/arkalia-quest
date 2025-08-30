@@ -1,0 +1,42 @@
+{
+    "load_test": {
+        "base_url": "http://localhost:5001",
+        "concurrent_users": 50,
+        "requests_per_user": 20,
+        "timeout": 30,
+        "endpoints": [
+            "/",
+            "/tutorial",
+            "/terminal",
+            "/profil",
+            "/dashboard",
+            "/monde",
+            "/leaderboard",
+            "/explorateur",
+            "/mail",
+            "/audio",
+            "/accessibility",
+            "/api/profile/summary",
+            "/api/gamification/summary",
+            "/api/tutorial/steps",
+            "/api/leaderboard",
+            "/api/educational-games/list",
+            "/api/educational-games/stats"
+        ],
+        "performance_thresholds": {
+            "success_rate": 95.0,
+            "max_response_time": 500,
+            "min_throughput": 10
+        }
+    },
+    "ci_requirements": {
+        "min_test_coverage": 10.0,
+        "max_warnings": 0,
+        "required_tests": 140,
+        "quality_gates": {
+            "ruff_errors": 0,
+            "black_violations": 0,
+            "pytest_failures": 0
+        }
+    }
+}

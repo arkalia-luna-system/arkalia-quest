@@ -1,142 +1,612 @@
-<!-- ===== PANNEAU D'ACCESSIBILITÉ ARKALIA QUEST ===== -->
-<!-- Template à inclure dans toutes les pages pour l'accessibilité WCAG 2.1 AA -->
+<!DOCTYPE html>
+<html lang="fr">
 
-<!-- Skip Links pour navigation rapide -->
-<a href="#main-content" class="skip-link">Aller au contenu principal</a>
-<a href="#navigation" class="skip-link">Aller à la navigation</a>
-<a href="#accessibility-menu" class="skip-link">Paramètres d'accessibilité</a>
+<head>
+    <meta charset="UTF-8">
+    <title>♿ ARKALIA QUEST - ACCESSIBILITÉ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Indicateur de navigation clavier -->
-<div class="nav-focus-indicator" aria-hidden="true"></div>
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="Panneau d'accessibilité pour Arkalia Quest. Personnalise ton expérience de jeu.">
+    <meta name="theme-color" content="#a78bfa">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-<!-- Bouton d'accessibilité discret dans la navigation -->
-<button id="accessibility-toggle" 
-        class="accessibility-toggle-btn" 
-        aria-label="Paramètres d'accessibilité"
-        aria-expanded="false"
-        aria-controls="accessibility-menu">
-    ♿
-</button>
+    <!-- PWA Icons -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="/static/images/apple-touch-icon.png">
+    <link rel="manifest" href="/static/manifest.json">
 
-<!-- Menu d'accessibilité flottant -->
-<div id="accessibility-menu" 
-     class="accessibility-menu" 
-     role="dialog" 
-     aria-label="Paramètres d'accessibilité"
-     aria-hidden="true">
-    
-    <div class="accessibility-menu-header">
-        <h3>♿ Accessibilité</h3>
-        <button class="accessibility-close-btn" 
-                aria-label="Fermer les paramètres d'accessibilité"
-                onclick="toggleAccessibilityMenu()">
-            ✕
-        </button>
+    <!-- CSS LUNA VISION -->
+    <link rel="stylesheet" href="/static/css/arkalia-luna-vision.css">
+    <link rel="stylesheet" href="/static/css/accessibility.css">
+    <link rel="stylesheet" href="/static/css/responsive.css">
+
+    <style>
+        .accessibility-workspace {
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(9, 9, 11, 0.95) 0%, rgba(30, 30, 40, 0.95) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .accessibility-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 30% 70%, rgba(167, 139, 250, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(96, 165, 250, 0.08) 0%, transparent 50%);
+            animation: accessibilityAmbient 12s ease-in-out infinite;
+        }
+
+        @keyframes accessibilityAmbient {
+
+            0%,
+            100% {
+                opacity: 0.4;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.7;
+                transform: scale(1.03);
+            }
+        }
+
+        .accessibility-container {
+            padding: 30px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .accessibility-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .accessibility-title {
+            font-family: 'Cormorant', serif;
+            font-size: 3em;
+            font-weight: 700;
+            color: var(--violet-lunaire);
+            text-shadow: 0 0 30px rgba(167, 139, 250, 0.6);
+            margin-bottom: 15px;
+            opacity: 0;
+            animation: fadeInUp 1.5s ease-out 0.5s forwards;
+        }
+
+        .accessibility-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.2em;
+            color: var(--argent-holographique);
+            opacity: 0;
+            animation: fadeInUp 1.5s ease-out 1s forwards;
+        }
+
+        .accessibility-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .accessibility-card {
+            background: rgba(9, 9, 11, 0.9);
+            border: 2px solid rgba(167, 139, 250, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(15px);
+            transition: all 0.3s ease;
+        }
+
+        .accessibility-card:hover {
+            border-color: rgba(167, 139, 250, 0.6);
+            box-shadow: 0 0 30px rgba(167, 139, 250, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .accessibility-card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .accessibility-card-icon {
+            font-size: 2em;
+            color: var(--violet-lunaire);
+        }
+
+        .accessibility-card-title {
+            font-family: 'Cormorant', serif;
+            font-size: 1.4em;
+            font-weight: 600;
+            color: var(--violet-lunaire);
+            margin: 0;
+        }
+
+        .accessibility-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .control-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(167, 139, 250, 0.1);
+        }
+
+        .control-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95em;
+            color: var(--argent-holographique);
+        }
+
+        .control-input {
+            background: rgba(167, 139, 250, 0.1);
+            border: 1px solid rgba(167, 139, 250, 0.3);
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: var(--argent-holographique);
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .control-toggle {
+            position: relative;
+            width: 50px;
+            height: 24px;
+            background: rgba(167, 139, 250, 0.2);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .control-toggle.active {
+            background: var(--violet-lunaire);
+        }
+
+        .control-toggle::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .control-toggle.active::after {
+            transform: translateX(26px);
+        }
+
+        .accessibility-actions {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .accessibility-btn {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1.1em;
+            padding: 15px 30px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            margin: 0 10px;
+        }
+
+        .btn-primary {
+            background: var(--violet-lunaire);
+            color: white;
+            box-shadow: 0 0 20px rgba(167, 139, 250, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: var(--bleu-spectre);
+            box-shadow: 0 0 30px rgba(96, 165, 250, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            background: rgba(167, 139, 250, 0.2);
+            color: var(--argent-holographique);
+            border: 1px solid rgba(167, 139, 250, 0.4);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(167, 139, 250, 0.3);
+            border-color: rgba(167, 139, 250, 0.6);
+        }
+
+        .luna-accessibility-guide {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(167, 139, 250, 0.1);
+            border: 1px solid rgba(167, 139, 250, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            max-width: 300px;
+            opacity: 0;
+            animation: fadeIn 2s ease-out 2s forwards;
+        }
+
+        .luna-accessibility-guide::before {
+            content: '🌙 LUNA:';
+            font-weight: bold;
+            color: var(--violet-lunaire);
+            margin-right: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .accessibility-title {
+                font-size: 2.2em;
+            }
+
+            .accessibility-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .accessibility-actions {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                align-items: center;
+            }
+
+            .accessibility-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .luna-accessibility-guide {
+                position: static;
+                margin: 20px auto;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation principale -->
+    <div class="nav-wrapper">
+        <nav class="main-nav">
+            <div class="nav-container">
+                <div class="nav-logo">ARKALIA QUEST</div>
+                <div class="nav-links">
+                    <a href="/" class="nav-link">🏠 ACCUEIL</a>
+                    <a href="/terminal" class="nav-link">⌨️ TERMINAL</a>
+                    <a href="/monde" class="nav-link">🌍 MONDE</a>
+                    <a href="/profil" class="nav-link">👤 PROFIL</a>
+                    <a href="/leaderboard" class="nav-link">🏆 CLASSEMENT</a>
+                    <a href="/dashboard" class="nav-link">📊 DASHBOARD</a>
+                    <a href="/accessibility" class="nav-link active">♿ ACCESSIBILITÉ</a>
+                </div>
+            </div>
+        </nav>
     </div>
-    
-    <div class="accessibility-controls">
-        <!-- Mode Daltonien -->
-        <button class="accessibility-btn" 
-                data-mode="daltonian" 
-                aria-pressed="false"
-                aria-describedby="daltonian-desc">
-            🎨 Mode Daltonien
-        </button>
-        <div id="daltonian-desc" class="sr-only">
-            Active le mode daltonien avec des couleurs adaptées pour les personnes daltoniennes
-        </div>
-        
-        <!-- Mode Haut Contraste -->
-        <button class="accessibility-btn" 
-                data-mode="highContrast" 
-                aria-pressed="false"
-                aria-describedby="highcontrast-desc">
-            🌟 Haut Contraste
-        </button>
-        <div id="highcontrast-desc" class="sr-only">
-            Active le mode haut contraste pour une meilleure visibilité
-        </div>
-        
-        <!-- Police Dyslexie -->
-        <button class="accessibility-btn" 
-                data-mode="dyslexia" 
-                aria-pressed="false"
-                aria-describedby="dyslexia-desc">
-            📖 Police Dyslexie
-        </button>
-        <div id="dyslexia-desc" class="sr-only">
-            Active une police adaptée pour les personnes dyslexiques
-        </div>
-        
-        <!-- Animations Réduites -->
-        <button class="accessibility-btn" 
-                data-mode="reducedMotion" 
-                aria-pressed="false"
-                aria-describedby="motion-desc">
-            ⏸️ Animations Réduites
-        </button>
-        <div id="motion-desc" class="sr-only">
-            Réduit les animations pour les personnes sensibles au mouvement
-        </div>
-        
-        <!-- Taille Police -->
-        <button class="accessibility-btn" 
-                data-action="fontSize" 
-                aria-pressed="false"
-                aria-describedby="fontsize-desc">
-            🔤 Taille Police
-        </button>
-        <div id="fontsize-desc" class="sr-only">
-            Change la taille de la police pour une meilleure lisibilité
-        </div>
-        
-        <!-- Feedback Haptique -->
-        <button class="accessibility-btn" 
-                data-action="hapticFeedback" 
-                aria-pressed="true"
-                aria-describedby="haptic-desc">
-            📳 Feedback Haptique
-        </button>
-        <div id="haptic-desc" class="sr-only">
-            Active ou désactive les vibrations sur mobile
-        </div>
-    </div>
-    
-    <!-- Raccourcis clavier -->
-    <div class="accessibility-shortcuts">
-        <h4>⌨️ Raccourcis Clavier</h4>
-        <ul>
-            <li><kbd>Alt</kbd> + <kbd>A</kbd> : Ouvrir/fermer ce menu</li>
-            <li><kbd>Alt</kbd> + <kbd>1</kbd> : Mode daltonien</li>
-            <li><kbd>Alt</kbd> + <kbd>2</kbd> : Haut contraste</li>
-            <li><kbd>Alt</kbd> + <kbd>3</kbd> : Police dyslexie</li>
-            <li><kbd>Alt</kbd> + <kbd>4</kbd> : Animations réduites</li>
-            <li><kbd>Échap</kbd> : Fermer les fenêtres</li>
-        </ul>
-    </div>
-</div>
 
-<!-- Overlay pour fermer le menu -->
-<div id="accessibility-overlay" 
-     class="accessibility-overlay" 
-     aria-hidden="true"
-     onclick="toggleAccessibilityMenu()">
-</div>
+    <main id="main-content" class="accessibility-workspace">
+        <!-- Fond animé de l'accessibilité -->
+        <div class="accessibility-background" aria-hidden="true"></div>
 
-<!-- Région pour annonces lecteurs d'écran -->
-<div id="screen-reader-announcements" 
-     class="sr-only" 
-     aria-live="polite" 
-     aria-atomic="true"
-     role="status">
-</div>
+        <div class="accessibility-container">
+            <!-- En-tête de l'accessibilité -->
+            <div class="accessibility-header">
+                <h1 class="accessibility-title" id="accessibility-title">♿ ACCESSIBILITÉ</h1>
+                <p class="accessibility-subtitle" id="accessibility-subtitle">Personnalise ton expérience de jeu</p>
+            </div>
 
-<!-- Structure sémantique pour le contenu principal -->
-<main id="main-content" role="main" aria-label="Contenu principal Arkalia Quest">
-    <!-- Le contenu de la page sera injecté ici -->
-</main>
+            <!-- Grille des options d'accessibilité -->
+            <div class="accessibility-grid">
+                <!-- Carte Visuelle -->
+                <div class="accessibility-card">
+                    <div class="accessibility-card-header">
+                        <span class="accessibility-card-icon">👁️</span>
+                        <h3 class="accessibility-card-title">Options Visuelles</h3>
+                    </div>
+                    <div class="accessibility-controls">
+                        <div class="control-group">
+                            <span class="control-label">Contraste élevé</span>
+                            <div class="control-toggle" id="high-contrast" onclick="toggleControl(this)"></div>
+                        </div>
+                        <div class="control-group">
+                            <span class="control-label">Taille du texte</span>
+                            <select class="control-input" id="font-size">
+                                <option value="small">Petit</option>
+                                <option value="medium" selected>Moyen</option>
+                                <option value="large">Grand</option>
+                                <option value="xlarge">Très grand</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <span class="control-label">Animations réduites</span>
+                            <div class="control-toggle" id="reduced-motion" onclick="toggleControl(this)"></div>
+                        </div>
+                    </div>
+                </div>
 
-<!-- Navigation principale -->
-<nav id="navigation" role="navigation" aria-label="Navigation principale">
-    <!-- La navigation sera injectée ici -->
-</nav> 
+                <!-- Carte Audio -->
+                <div class="accessibility-card">
+                    <div class="accessibility-card-header">
+                        <span class="accessibility-card-icon">🔊</span>
+                        <h3 class="accessibility-card-title">Options Audio</h3>
+                    </div>
+                    <div class="accessibility-controls">
+                        <div class="control-group">
+                            <span class="control-label">Sous-titres</span>
+                            <div class="control-toggle active" id="subtitles" onclick="toggleControl(this)"></div>
+                        </div>
+                        <div class="control-group">
+                            <span class="control-label">Volume des effets</span>
+                            <input type="range" class="control-input" id="effects-volume" min="0" max="100" value="80">
+                        </div>
+                        <div class="control-group">
+                            <span class="control-label">Audio descriptif</span>
+                            <div class="control-toggle" id="audio-description" onclick="toggleControl(this)"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Carte Navigation -->
+                <div class="accessibility-card">
+                    <div class="accessibility-card-header">
+                        <span class="control-label">⌨️</span>
+                        <h3 class="accessibility-card-title">Navigation</h3>
+                    </div>
+                    <div class="accessibility-controls">
+                        <div class="control-group">
+                            <span class="control-label">Navigation clavier</span>
+                            <div class="control-toggle active" id="keyboard-nav" onclick="toggleControl(this)"></div>
+                        </div>
+                        <div class="control-group">
+                            <span class="control-label">Focus visible</span>
+                            <div class="control-toggle active" id="focus-visible" onclick="toggleControl(this)"></div>
+                        </div>
+                        <div class="control-group">
+                            <span class="control-label">Raccourcis clavier</span>
+                            <div class="control-toggle" id="keyboard-shortcuts" onclick="toggleControl(this)"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Carte Interface -->
+                <div class="accessibility-card">
+                    <div class="accessibility-card-header">
+                        <span class="accessibility-card-icon">🎛️</span>
+                        <h3 class="accessibility-card-title">Interface</h3>
+                    </div>
+                    <div class="accessibility-controls">
+                        <div class="control-group">
+                            <span class="control-label">Mode sombre</span>
+                            <div class="control-toggle active" id="dark-mode" onclick="toggleControl(this)"></div>
+                        </div>
+                        <div class="control-group">
+                            <span class="control-label">Espacement des éléments</span>
+                            <select class="control-input" id="element-spacing">
+                                <option value="compact">Compact</option>
+                                <option value="normal" selected>Normal</option>
+                                <option value="spacious">Spacieux</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <span class="control-label">Curseur personnalisé</span>
+                            <div class="control-toggle" id="custom-cursor" onclick="toggleControl(this)"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="accessibility-actions">
+                <button class="accessibility-btn btn-primary" onclick="saveAccessibilitySettings()">💾
+                    SAUVEGARDER</button>
+                <button class="accessibility-btn btn-secondary" onclick="resetAccessibilitySettings()">🔄
+                    RÉINITIALISER</button>
+                <button class="accessibility-btn btn-secondary" onclick="testAccessibilitySettings()">🧪 TESTER</button>
+            </div>
+        </div>
+
+        <!-- Guide LUNA -->
+        <div class="luna-accessibility-guide" id="luna-accessibility-guide" aria-live="polite">
+            Personnalise ton expérience pour qu'elle te convienne parfaitement...
+        </div>
+    </main>
+
+    <!-- Scripts LUNA VISION -->
+    <script src="/static/js/arkalia-luna-vision.js"></script>
+    <script src="/static/js/accessibility.js"></script>
+    <script src="/static/js/audio-manager.js"></script>
+
+    <script>
+        // Gestion des contrôles d'accessibilité
+        function toggleControl(element) {
+            element.classList.toggle('active');
+            updateAccessibilitySettings();
+        }
+
+        function updateAccessibilitySettings() {
+            const settings = {
+                highContrast: document.getElementById('high-contrast').classList.contains('active'),
+                fontSize: document.getElementById('font-size').value,
+                reducedMotion: document.getElementById('reduced-motion').classList.contains('active'),
+                subtitles: document.getElementById('subtitles').classList.contains('active'),
+                effectsVolume: document.getElementById('effects-volume').value,
+                audioDescription: document.getElementById('audio-description').classList.contains('active'),
+                keyboardNav: document.getElementById('keyboard-nav').classList.contains('active'),
+                focusVisible: document.getElementById('focus-visible').classList.contains('active'),
+                keyboardShortcuts: document.getElementById('keyboard-shortcuts').classList.contains('active'),
+                darkMode: document.getElementById('dark-mode').classList.contains('active'),
+                elementSpacing: document.getElementById('element-spacing').value,
+                customCursor: document.getElementById('custom-cursor').classList.contains('active')
+            };
+
+            // Appliquer les paramètres
+            applyAccessibilitySettings(settings);
+
+            // Sauvegarder localement
+            localStorage.setItem('arkalia-accessibility', JSON.stringify(settings));
+        }
+
+        function applyAccessibilitySettings(settings) {
+            // Contraste élevé
+            if (settings.highContrast) {
+                document.body.style.filter = 'contrast(1.5)';
+            } else {
+                document.body.style.filter = 'none';
+            }
+
+            // Taille du texte
+            const fontSizeMap = {
+                'small': '14px',
+                'medium': '16px',
+                'large': '18px',
+                'xlarge': '20px'
+            };
+            document.body.style.fontSize = fontSizeMap[settings.fontSize];
+
+            // Animations réduites
+            if (settings.reducedMotion) {
+                document.body.style.setProperty('--animation-duration', '0.1s');
+            } else {
+                document.body.style.setProperty('--animation-duration', '0.3s');
+            }
+
+            // Mode sombre
+            if (settings.darkMode) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+
+            // Espacement des éléments
+            const spacingMap = {
+                'compact': '0.5',
+                'normal': '1',
+                'spacious': '1.5'
+            };
+            document.body.style.setProperty('--element-spacing', spacingMap[settings.elementSpacing]);
+        }
+
+        function saveAccessibilitySettings() {
+            updateAccessibilitySettings();
+
+            // Message de confirmation
+            if (window.lunaVision) {
+                window.lunaVision.showLunaMessage("Paramètres d'accessibilité sauvegardés !", 3000);
+            }
+
+            // Sauvegarder sur le serveur (si API disponible)
+            const settings = JSON.parse(localStorage.getItem('arkalia-accessibility') || '{}');
+            fetch('/api/accessibility/save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(settings)
+            }).catch(error => {
+                console.log('API d\'accessibilité non disponible, sauvegarde locale uniquement');
+            });
+        }
+
+        function resetAccessibilitySettings() {
+            // Réinitialiser tous les contrôles
+            document.querySelectorAll('.control-toggle').forEach(toggle => {
+                toggle.classList.remove('active');
+            });
+
+            document.getElementById('font-size').value = 'medium';
+            document.getElementById('element-spacing').value = 'normal';
+            document.getElementById('effects-volume').value = 80;
+
+            // Réinitialiser les paramètres
+            updateAccessibilitySettings();
+
+            if (window.lunaVision) {
+                window.lunaVision.showLunaMessage("Paramètres réinitialisés !", 3000);
+            }
+        }
+
+        function testAccessibilitySettings() {
+            // Test des paramètres actuels
+            const currentSettings = JSON.parse(localStorage.getItem('arkalia-accessibility') || '{}');
+
+            let testMessage = "Test des paramètres actuels :\n";
+            testMessage += `• Contraste élevé: ${currentSettings.highContrast ? 'Activé' : 'Désactivé'}\n`;
+            testMessage += `• Taille du texte: ${currentSettings.fontSize || 'Moyen'}\n`;
+            testMessage += `• Animations réduites: ${currentSettings.reducedMotion ? 'Activé' : 'Désactivé'}\n`;
+            testMessage += `• Mode sombre: ${currentSettings.darkMode ? 'Activé' : 'Désactivé'}`;
+
+            if (window.lunaVision) {
+                window.lunaVision.showLunaMessage(testMessage, 5000);
+            } else {
+                alert(testMessage);
+            }
+        }
+
+        // Charger les paramètres sauvegardés au démarrage
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedSettings = JSON.parse(localStorage.getItem('arkalia-accessibility') || '{}');
+
+            // Appliquer les paramètres sauvegardés
+            if (savedSettings.highContrast) document.getElementById('high-contrast').classList.add('active');
+            if (savedSettings.reducedMotion) document.getElementById('reduced-motion').classList.add('active');
+            if (savedSettings.subtitles) document.getElementById('subtitles').classList.add('active');
+            if (savedSettings.audioDescription) document.getElementById('audio-description').classList.add('active');
+            if (savedSettings.keyboardNav) document.getElementById('keyboard-nav').classList.add('active');
+            if (savedSettings.focusVisible) document.getElementById('focus-visible').classList.add('active');
+            if (savedSettings.keyboardShortcuts) document.getElementById('keyboard-shortcuts').classList.add('active');
+            if (savedSettings.darkMode) document.getElementById('dark-mode').classList.add('active');
+            if (savedSettings.customCursor) document.getElementById('custom-cursor').classList.add('active');
+
+            if (savedSettings.fontSize) document.getElementById('font-size').value = savedSettings.fontSize;
+            if (savedSettings.elementSpacing) document.getElementById('element-spacing').value = savedSettings.elementSpacing;
+            if (savedSettings.effectsVolume) document.getElementById('effects-volume').value = savedSettings.effectsVolume;
+
+            // Appliquer les paramètres
+            updateAccessibilitySettings();
+
+            // Animation du titre
+            setTimeout(() => {
+                const title = document.getElementById('accessibility-title');
+                if (window.lunaVision && title) {
+                    window.lunaVision.typeText(title, "♿ ACCESSIBILITÉ", 80);
+                }
+            }, 1000);
+
+            // Animation du sous-titre
+            setTimeout(() => {
+                const subtitle = document.getElementById('accessibility-subtitle');
+                if (window.lunaVision && subtitle) {
+                    window.lunaVision.typeText(subtitle, "Personnalise ton expérience de jeu", 40);
+                }
+            }, 2000);
+
+            // Message de LUNA
+            setTimeout(() => {
+                if (window.lunaVision) {
+                    window.lunaVision.showLunaMessage("Ton expérience de jeu s'adapte à tes besoins...", 4000);
+                    window.lunaVision.setEmotion('caring');
+                }
+            }, 3000);
+
+            // Écouter les changements de paramètres
+            document.querySelectorAll('.control-input, .control-toggle').forEach(element => {
+                element.addEventListener('change', updateAccessibilitySettings);
+            });
+        });
+    </script>
+</body>
+
+</html>

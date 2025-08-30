@@ -262,7 +262,7 @@ class GameEngine:
             "level_progress": self._calculate_level_progress(profile, xp_gained),
         }
 
-    def _get_encouragement(self, profile: Dict[str, Any]) -> str:
+    def _get_encouragement(self) -> str:
         """Génère des encouragements personnalisés pour les ados"""
         encouragements = [
             "💪 Ne lâche pas ! Chaque échec te rapproche du succès !",
@@ -273,9 +273,7 @@ class GameEngine:
         ]
         return random.choice(encouragements)
 
-    def _generate_instant_rewards(
-        self, profile: Dict[str, Any], result: Dict[str, Any]
-    ) -> Dict[str, Any]:
+    def _generate_instant_rewards(self, profile: Dict[str, Any]) -> Dict[str, Any]:
         """Génère des récompenses instantanées visuelles"""
         rewards = {"badge": None, "achievement": None, "special_effect": None}
 
@@ -361,7 +359,7 @@ class GameEngine:
             "mission_context": mission_context,
         }
 
-    def can_start_mission(self, mission_id: str, profile: Dict[str, Any]) -> bool:
+    def can_start_mission(self, mission_id: str) -> bool:
         """Vérifie si l'utilisateur peut démarrer une mission"""
 
         # Charger la mission

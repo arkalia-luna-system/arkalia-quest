@@ -185,7 +185,8 @@ la vérité sur NEXUS et la menace de PANDORA.
 • Portails ouverts : {len(portails)}
 
 🏆 BADGES RÉCENTS :
-{chr(10).join(['• ' + badge for badge in badges[-5:]]) if len(badges) > 5 else chr(10).join(['• ' + badge for badge in badges])}
+{chr(10).join(['• ' + badge for badge in badges[-5:]]) if len(badges) > 5 else
+chr(10).join(['• ' + badge for badge in badges])}
 
 🌍 PROGRESSION :
 • Univers disponibles : {', '.join(univers) if univers else 'Aucun univers débloqué'}

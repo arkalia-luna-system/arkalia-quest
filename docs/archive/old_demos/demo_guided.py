@@ -9,7 +9,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import expected_conditions as expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 
 
@@ -57,7 +57,7 @@ class ArkaliaGuidedDemo:
             # Attendre que le terminal soit chargé
             try:
                 WebDriverWait(self.driver, 10).until(
-                    EC.presence_of_element_located((By.ID, "terminal"))
+                    expected_conditions.presence_of_element_located((By.ID, "terminal"))
                 )
                 print("   ✅ Terminal chargé")
             except Exception:

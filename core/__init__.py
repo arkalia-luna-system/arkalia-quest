@@ -17,7 +17,7 @@ except ImportError as e:
     # Créer des objets factices pour éviter les erreurs
     class DummyManager:
         def __getattr__(self, name):
-            return lambda *args, **kwargs: {"error": "Module not available"}
+            return lambda *_args, **_kwargs: {"error": "Module not available"}
 
     db_manager = DummyManager()
     websocket_manager = DummyManager()

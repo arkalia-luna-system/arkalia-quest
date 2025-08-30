@@ -24,7 +24,7 @@ class AnalyticsCommands:
             "export_data": self.cmd_export_data,
         }
 
-    def cmd_analytics(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def cmd_analytics(self) -> Dict[str, Any]:
         """Affiche les analytics globaux"""
         try:
             response = requests.get(f"{self.base_url}/api/analytics/global")
@@ -88,7 +88,7 @@ class AnalyticsCommands:
                 "profile_updated": False,
             }
 
-    def cmd_insights(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def cmd_insights(self) -> Dict[str, Any]:
         """Affiche les insights personnalisés"""
         try:
             response = requests.get(f"{self.base_url}/api/analytics/insights")
@@ -167,7 +167,7 @@ class AnalyticsCommands:
                 "profile_updated": False,
             }
 
-    def cmd_stats(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def cmd_stats(self) -> Dict[str, Any]:
         """Affiche les statistiques détaillées"""
         try:
             # Récupérer les insights
@@ -233,7 +233,7 @@ class AnalyticsCommands:
                 "profile_updated": False,
             }
 
-    def cmd_progress(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def cmd_progress(self) -> Dict[str, Any]:
         """Affiche la progression détaillée"""
         try:
             response = requests.get(f"{self.base_url}/api/analytics/insights")
@@ -303,7 +303,7 @@ class AnalyticsCommands:
                 "profile_updated": False,
             }
 
-    def cmd_recommendations(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def cmd_recommendations(self) -> Dict[str, Any]:
         """Affiche les recommandations personnalisées"""
         try:
             response = requests.get(f"{self.base_url}/api/analytics/insights")
@@ -358,7 +358,7 @@ class AnalyticsCommands:
                 "profile_updated": False,
             }
 
-    def cmd_learning_style(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def cmd_learning_style(self) -> Dict[str, Any]:
         """Affiche l'analyse du style d'apprentissage"""
         try:
             response = requests.get(f"{self.base_url}/api/analytics/insights")
@@ -376,11 +376,16 @@ class AnalyticsCommands:
 
                 # Description détaillée du style
                 style_descriptions = {
-                    "guided_learner": "Vous préférez suivre des tutoriels étape par étape et avoir des instructions claires. Vous aimez apprendre de manière structurée et progressive.",
-                    "hands_on_learner": "Vous apprenez mieux en expérimentant directement. Vous préférez essayer par vous-même et découvrir les solutions de manière pratique.",
-                    "support_seeker": "Vous n'hésitez pas à demander de l'aide quand vous en avez besoin. Vous utilisez les indices et le support pour progresser efficacement.",
-                    "balanced_learner": "Vous adaptez votre approche selon les situations. Vous combinez différentes méthodes d'apprentissage pour optimiser vos résultats.",
-                    "unknown": "Votre style d'apprentissage n'a pas encore été déterminé. Continuez à jouer pour que nous puissions l'analyser.",
+                    "guided_learner": "Vous préférez suivre des tutoriels étape par étape et avoir des "
+                    "instructions claires. Vous aimez apprendre de manière structurée et progressive.",
+                    "hands_on_learner": "Vous apprenez mieux en expérimentant directement. "
+                    "Vous préférez essayer par vous-même et découvrir les solutions de manière pratique.",
+                    "support_seeker": "Vous n'hésitez pas à demander de l'aide quand vous en avez besoin. "
+                    "Vous utilisez les indices et le support pour progresser efficacement.",
+                    "balanced_learner": "Vous adaptez votre approche selon les situations. "
+                    "Vous combinez différentes méthodes d'apprentissage pour optimiser vos résultats.",
+                    "unknown": "Votre style d'apprentissage n'a pas encore été déterminé. "
+                    "Continuez à jouer pour que nous puissions l'analyser.",
                 }
 
                 message += f"📝 DESCRIPTION:\n{style_descriptions.get(learning_style, 'Style non reconnu')}\n\n"
@@ -428,7 +433,7 @@ class AnalyticsCommands:
                 "profile_updated": False,
             }
 
-    def cmd_engagement(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def cmd_engagement(self) -> Dict[str, Any]:
         """Affiche les métriques d'engagement"""
         try:
             response = requests.get(f"{self.base_url}/api/analytics/insights")
@@ -501,7 +506,7 @@ class AnalyticsCommands:
                 "profile_updated": False,
             }
 
-    def cmd_export_data(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def cmd_export_data(self) -> Dict[str, Any]:
         """Exporte les données analytics"""
         try:
             response = requests.get(f"{self.base_url}/api/analytics/export")

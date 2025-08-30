@@ -129,7 +129,8 @@ Tu as détruit le monde ! (Mais pas vraiment)
 • Extraction de données
 • Effacement de traces
 
-💡 Astuce : Les pirates ont leur propre code d'honneur ! Utilise tes pouvoirs avec sagesse !
+💡 Astuce : Les pirates ont leur propre code d'honneur ! Utilise tes pouvoirs avec
+sagesse !
 
 🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !""",
             "score_gagne": 75,
@@ -137,7 +138,7 @@ Tu as détruit le monde ! (Mais pas vraiment)
             "profile_updated": True,
         }
 
-    def handle_generer_meme(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_generer_meme(self) -> Dict[str, Any]:
         """Gère la génération de memes"""
         return {
             "réussite": True,
@@ -157,7 +158,8 @@ Tu as détruit le monde ! (Mais pas vraiment)
 • Mission Accomplished - Succès
 • Easter Eggs - Secrets cachés
 
-💡 Astuce : Les memes personnalisés sont les meilleurs ! Crée tes propres memes pour immortaliser tes exploits !
+💡 Astuce : Les memes personnalisés sont les meilleurs ! Crée tes propres memes pour
+immortaliser tes exploits !
 
 🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !""",
             "profile_updated": False,
@@ -186,7 +188,8 @@ Tu as détruit le monde ! (Mais pas vraiment)
 • Codes d'accès temporaires
 • Instructions d'infiltration
 
-💡 Astuce : Les messages secrets contiennent des indices précieux ! Utilise-les pour progresser dans tes missions !
+💡 Astuce : Les messages secrets contiennent des indices précieux ! Utilise-les pour
+progresser dans tes missions !
 
 🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !""",
             "score_gagne": 40,
@@ -218,7 +221,8 @@ Tu as détruit le monde ! (Mais pas vraiment)
 • Incinération de malwares
 • Régénération automatique
 
-💡 Astuce : Les dragons cyberniques sont des alliés puissants ! Utilise leur feu pour purifier les systèmes corrompus !
+💡 Astuce : Les dragons cyberniques sont des alliés puissants ! Utilise leur feu pour
+purifier les systèmes corrompus !
 
 🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !""",
             "score_gagne": 80,

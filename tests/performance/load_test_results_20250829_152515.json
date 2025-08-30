@@ -1,0 +1,7666 @@
+{
+  "timestamp": "20250829_152515",
+  "test_config": {
+    "concurrent_users": 50,
+    "requests_per_user": 20,
+    "timeout": 30
+  },
+  "summary": {
+    "total_requests": 850,
+    "successful_requests": 800,
+    "failed_requests": 50,
+    "total_time": 10.321197032928467
+  },
+  "detailed_results": [
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.04700016975402832,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 0,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.01310420036315918,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 0,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.005339145660400391,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 0,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.04018831253051758,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 0,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.005324840545654297,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 0,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.0037987232208251953,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 0,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.06129097938537598,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 0,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.012242794036865234,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 0,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.007946968078613281,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 0,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.1399848461151123,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 0,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0020589828491210938,
+      "content_length": 22,
+      "success": false,
+      "user_id": 0,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.0027971267700195312,
+      "content_length": 307,
+      "success": true,
+      "user_id": 0,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.002885103225708008,
+      "content_length": 253,
+      "success": true,
+      "user_id": 0,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.003883838653564453,
+      "content_length": 908,
+      "success": true,
+      "user_id": 0,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0021021366119384766,
+      "content_length": 717,
+      "success": true,
+      "user_id": 0,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0017859935760498047,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 0,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.001959085464477539,
+      "content_length": 164,
+      "success": true,
+      "user_id": 0,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.036157846450805664,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 1,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.0031821727752685547,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 1,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.002218008041381836,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 1,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.01302194595336914,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 1,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.006783008575439453,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 1,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.00739288330078125,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 1,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.014606237411499023,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 1,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.005628108978271484,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 1,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.0033757686614990234,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 1,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.10272479057312012,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 1,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0010309219360351562,
+      "content_length": 22,
+      "success": false,
+      "user_id": 1,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.006465911865234375,
+      "content_length": 307,
+      "success": true,
+      "user_id": 1,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.0035948753356933594,
+      "content_length": 253,
+      "success": true,
+      "user_id": 1,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0011868476867675781,
+      "content_length": 908,
+      "success": true,
+      "user_id": 1,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0014679431915283203,
+      "content_length": 717,
+      "success": true,
+      "user_id": 1,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.002412080764770508,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 1,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0014100074768066406,
+      "content_length": 164,
+      "success": true,
+      "user_id": 1,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.040219783782958984,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 2,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.009992122650146484,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 2,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0017337799072265625,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 2,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.03941202163696289,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 2,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.00692296028137207,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 2,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.006098031997680664,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 2,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.03867197036743164,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 2,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.01714468002319336,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 2,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.008641958236694336,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 2,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.06854391098022461,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 2,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0016069412231445312,
+      "content_length": 22,
+      "success": false,
+      "user_id": 2,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.004584789276123047,
+      "content_length": 307,
+      "success": true,
+      "user_id": 2,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.004806041717529297,
+      "content_length": 253,
+      "success": true,
+      "user_id": 2,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0027179718017578125,
+      "content_length": 908,
+      "success": true,
+      "user_id": 2,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0012631416320800781,
+      "content_length": 717,
+      "success": true,
+      "user_id": 2,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0033011436462402344,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 2,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0015568733215332031,
+      "content_length": 164,
+      "success": true,
+      "user_id": 2,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.04546213150024414,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 3,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.010784149169921875,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 3,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0074939727783203125,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 3,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.03590083122253418,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 3,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.005231142044067383,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 3,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.007134914398193359,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 3,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.05112004280090332,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 3,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.019381046295166016,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 3,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.00904703140258789,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 3,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.06769585609436035,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 3,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0010437965393066406,
+      "content_length": 22,
+      "success": false,
+      "user_id": 3,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.0030601024627685547,
+      "content_length": 307,
+      "success": true,
+      "user_id": 3,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.002902984619140625,
+      "content_length": 253,
+      "success": true,
+      "user_id": 3,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0017857551574707031,
+      "content_length": 908,
+      "success": true,
+      "user_id": 3,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0019211769104003906,
+      "content_length": 717,
+      "success": true,
+      "user_id": 3,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0012543201446533203,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 3,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0015223026275634766,
+      "content_length": 164,
+      "success": true,
+      "user_id": 3,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.03504514694213867,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 4,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.003134012222290039,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 4,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.003787994384765625,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 4,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.017339706420898438,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 4,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.006790876388549805,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 4,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.006223201751708984,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 4,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.007922887802124023,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 4,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.005373954772949219,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 4,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.0037949085235595703,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 4,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.06834602355957031,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 4,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0025899410247802734,
+      "content_length": 22,
+      "success": false,
+      "user_id": 4,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.005032777786254883,
+      "content_length": 307,
+      "success": true,
+      "user_id": 4,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.0025072097778320312,
+      "content_length": 253,
+      "success": true,
+      "user_id": 4,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0018999576568603516,
+      "content_length": 908,
+      "success": true,
+      "user_id": 4,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0031690597534179688,
+      "content_length": 717,
+      "success": true,
+      "user_id": 4,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.002307891845703125,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 4,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.002318143844604492,
+      "content_length": 164,
+      "success": true,
+      "user_id": 4,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.03786587715148926,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 5,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.004059791564941406,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 5,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0011479854583740234,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 5,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.019488096237182617,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 5,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.006042957305908203,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 5,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.0035140514373779297,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 5,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.01473689079284668,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 5,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.007589817047119141,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 5,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.004576921463012695,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 5,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.10668635368347168,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 5,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0010941028594970703,
+      "content_length": 22,
+      "success": false,
+      "user_id": 5,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.004187822341918945,
+      "content_length": 307,
+      "success": true,
+      "user_id": 5,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.003515005111694336,
+      "content_length": 253,
+      "success": true,
+      "user_id": 5,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0015192031860351562,
+      "content_length": 908,
+      "success": true,
+      "user_id": 5,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0009860992431640625,
+      "content_length": 717,
+      "success": true,
+      "user_id": 5,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0021910667419433594,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 5,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0018551349639892578,
+      "content_length": 164,
+      "success": true,
+      "user_id": 5,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.030597209930419922,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 6,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.002074003219604492,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 6,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.003119945526123047,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 6,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.014555215835571289,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 6,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.006261110305786133,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 6,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.004400968551635742,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 6,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.002936124801635742,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 6,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.004550933837890625,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 6,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.004585981369018555,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 6,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.02893805503845215,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 6,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0010139942169189453,
+      "content_length": 22,
+      "success": false,
+      "user_id": 6,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.005881071090698242,
+      "content_length": 307,
+      "success": true,
+      "user_id": 6,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.002863168716430664,
+      "content_length": 253,
+      "success": true,
+      "user_id": 6,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0012438297271728516,
+      "content_length": 908,
+      "success": true,
+      "user_id": 6,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.001146078109741211,
+      "content_length": 717,
+      "success": true,
+      "user_id": 6,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0021886825561523438,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 6,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0011639595031738281,
+      "content_length": 164,
+      "success": true,
+      "user_id": 6,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.040650129318237305,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 7,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.004069089889526367,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 7,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0032842159271240234,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 7,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.023752212524414062,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 7,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.004641056060791016,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 7,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.00620722770690918,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 7,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.015471935272216797,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 7,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.007539987564086914,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 7,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.0018029212951660156,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 7,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.10073494911193848,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 7,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0018742084503173828,
+      "content_length": 22,
+      "success": false,
+      "user_id": 7,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.003036022186279297,
+      "content_length": 307,
+      "success": true,
+      "user_id": 7,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.003075122833251953,
+      "content_length": 253,
+      "success": true,
+      "user_id": 7,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0019409656524658203,
+      "content_length": 908,
+      "success": true,
+      "user_id": 7,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0011970996856689453,
+      "content_length": 717,
+      "success": true,
+      "user_id": 7,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0026602745056152344,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 7,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.003526926040649414,
+      "content_length": 164,
+      "success": true,
+      "user_id": 7,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.04485607147216797,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 8,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.011263132095336914,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 8,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0076847076416015625,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 8,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.03546905517578125,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 8,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.006327152252197266,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 8,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.003034830093383789,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 8,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.04842090606689453,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 8,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.011363983154296875,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 8,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.00889897346496582,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 8,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.12427806854248047,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 8,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.002329111099243164,
+      "content_length": 22,
+      "success": false,
+      "user_id": 8,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.0043718814849853516,
+      "content_length": 307,
+      "success": true,
+      "user_id": 8,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.0039730072021484375,
+      "content_length": 253,
+      "success": true,
+      "user_id": 8,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.001837015151977539,
+      "content_length": 908,
+      "success": true,
+      "user_id": 8,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.001458883285522461,
+      "content_length": 717,
+      "success": true,
+      "user_id": 8,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.002293825149536133,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 8,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0011949539184570312,
+      "content_length": 164,
+      "success": true,
+      "user_id": 8,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.03484201431274414,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 9,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.0010929107666015625,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 9,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.00416111946105957,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 9,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.016390085220336914,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 9,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.004362344741821289,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 9,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.005156040191650391,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 9,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.008214950561523438,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 9,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.007144927978515625,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 9,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.0035479068756103516,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 9,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.06853985786437988,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 9,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0009238719940185547,
+      "content_length": 22,
+      "success": false,
+      "user_id": 9,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.004539012908935547,
+      "content_length": 307,
+      "success": true,
+      "user_id": 9,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.0020618438720703125,
+      "content_length": 253,
+      "success": true,
+      "user_id": 9,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0012123584747314453,
+      "content_length": 908,
+      "success": true,
+      "user_id": 9,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.003416776657104492,
+      "content_length": 717,
+      "success": true,
+      "user_id": 9,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0025839805603027344,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 9,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0014188289642333984,
+      "content_length": 164,
+      "success": true,
+      "user_id": 9,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.039939165115356445,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 10,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.010119915008544922,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 10,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0012159347534179688,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 10,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.03313589096069336,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 10,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.005323171615600586,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 10,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.003981113433837891,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 10,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.026925086975097656,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 10,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.015515327453613281,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 10,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.01096796989440918,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 10,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.08131194114685059,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 10,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0007619857788085938,
+      "content_length": 22,
+      "success": false,
+      "user_id": 10,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.002527952194213867,
+      "content_length": 307,
+      "success": true,
+      "user_id": 10,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.004861116409301758,
+      "content_length": 253,
+      "success": true,
+      "user_id": 10,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0021691322326660156,
+      "content_length": 908,
+      "success": true,
+      "user_id": 10,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0026972293853759766,
+      "content_length": 717,
+      "success": true,
+      "user_id": 10,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0023691654205322266,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 10,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.003281831741333008,
+      "content_length": 164,
+      "success": true,
+      "user_id": 10,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.0372772216796875,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 11,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.0041217803955078125,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 11,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0013599395751953125,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 11,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.01810312271118164,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 11,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.00665283203125,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 11,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.004488945007324219,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 11,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.005676984786987305,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 11,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.006512880325317383,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 11,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.005152702331542969,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 11,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.08170390129089355,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 11,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0008358955383300781,
+      "content_length": 22,
+      "success": false,
+      "user_id": 11,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.008241891860961914,
+      "content_length": 307,
+      "success": true,
+      "user_id": 11,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.0032291412353515625,
+      "content_length": 253,
+      "success": true,
+      "user_id": 11,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0015397071838378906,
+      "content_length": 908,
+      "success": true,
+      "user_id": 11,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0013408660888671875,
+      "content_length": 717,
+      "success": true,
+      "user_id": 11,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0028641223907470703,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 11,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0018110275268554688,
+      "content_length": 164,
+      "success": true,
+      "user_id": 11,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.027558326721191406,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 12,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.002527952194213867,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 12,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.001850128173828125,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 12,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.009904861450195312,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 12,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.004167079925537109,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 12,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.005777835845947266,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 12,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.003812074661254883,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 12,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.0058441162109375,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 12,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.005082845687866211,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 12,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.06372785568237305,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 12,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0014150142669677734,
+      "content_length": 22,
+      "success": false,
+      "user_id": 12,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.005227804183959961,
+      "content_length": 307,
+      "success": true,
+      "user_id": 12,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.008060216903686523,
+      "content_length": 253,
+      "success": true,
+      "user_id": 12,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0027358531951904297,
+      "content_length": 908,
+      "success": true,
+      "user_id": 12,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.006342172622680664,
+      "content_length": 717,
+      "success": true,
+      "user_id": 12,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0034198760986328125,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 12,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0013937950134277344,
+      "content_length": 164,
+      "success": true,
+      "user_id": 12,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.03351593017578125,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 13,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.0009291172027587891,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 13,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.00397491455078125,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 13,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.011192798614501953,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 13,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.008751869201660156,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 13,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.007207155227661133,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 13,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.004621982574462891,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 13,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.00472712516784668,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 13,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.003854036331176758,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 13,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.06113266944885254,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 13,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0015971660614013672,
+      "content_length": 22,
+      "success": false,
+      "user_id": 13,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.005753993988037109,
+      "content_length": 307,
+      "success": true,
+      "user_id": 13,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.0030829906463623047,
+      "content_length": 253,
+      "success": true,
+      "user_id": 13,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.003027200698852539,
+      "content_length": 908,
+      "success": true,
+      "user_id": 13,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.007340908050537109,
+      "content_length": 717,
+      "success": true,
+      "user_id": 13,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.002939939498901367,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 13,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.002269268035888672,
+      "content_length": 164,
+      "success": true,
+      "user_id": 13,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.04497790336608887,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 14,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.017882108688354492,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 14,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0057032108306884766,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 14,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.039784908294677734,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 14,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.0045871734619140625,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 14,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.0031828880310058594,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 14,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0696418285369873,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 14,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.012556791305541992,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 14,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.010393142700195312,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 14,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.17793703079223633,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 14,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.003055095672607422,
+      "content_length": 22,
+      "success": false,
+      "user_id": 14,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.0028498172760009766,
+      "content_length": 307,
+      "success": true,
+      "user_id": 14,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.0048999786376953125,
+      "content_length": 253,
+      "success": true,
+      "user_id": 14,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0012331008911132812,
+      "content_length": 908,
+      "success": true,
+      "user_id": 14,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0018010139465332031,
+      "content_length": 717,
+      "success": true,
+      "user_id": 14,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.003882884979248047,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 14,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.001680135726928711,
+      "content_length": 164,
+      "success": true,
+      "user_id": 14,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.041433095932006836,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 15,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.006745815277099609,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 15,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0009889602661132812,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 15,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.024251937866210938,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 15,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.002788066864013672,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 15,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.006502866744995117,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 15,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.011570215225219727,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 15,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.006944894790649414,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 15,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.0031430721282958984,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 15,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.09359526634216309,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 15,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0018391609191894531,
+      "content_length": 22,
+      "success": false,
+      "user_id": 15,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.008770227432250977,
+      "content_length": 307,
+      "success": true,
+      "user_id": 15,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.0023949146270751953,
+      "content_length": 253,
+      "success": true,
+      "user_id": 15,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0011990070343017578,
+      "content_length": 908,
+      "success": true,
+      "user_id": 15,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0011551380157470703,
+      "content_length": 717,
+      "success": true,
+      "user_id": 15,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.002911806106567383,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 15,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.001306295394897461,
+      "content_length": 164,
+      "success": true,
+      "user_id": 15,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.04237174987792969,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 16,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.013346195220947266,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 16,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0037870407104492188,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 16,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.03357195854187012,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 16,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.0066738128662109375,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 16,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.003949880599975586,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 16,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.032392024993896484,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 16,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.022245168685913086,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 16,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.006369113922119141,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 16,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.08092904090881348,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 16,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.001567840576171875,
+      "content_length": 22,
+      "success": false,
+      "user_id": 16,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.0026230812072753906,
+      "content_length": 307,
+      "success": true,
+      "user_id": 16,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.0020160675048828125,
+      "content_length": 253,
+      "success": true,
+      "user_id": 16,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0011131763458251953,
+      "content_length": 908,
+      "success": true,
+      "user_id": 16,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.001009225845336914,
+      "content_length": 717,
+      "success": true,
+      "user_id": 16,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0024900436401367188,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 16,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0018229484558105469,
+      "content_length": 164,
+      "success": true,
+      "user_id": 16,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.041657209396362305,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 17,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.013797760009765625,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 17,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.003899812698364258,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 17,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.03297734260559082,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 17,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.005094051361083984,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 17,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.004455089569091797,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 17,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.03985095024108887,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 17,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.020841121673583984,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 17,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.010879993438720703,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 17,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.06978487968444824,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 17,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0010540485382080078,
+      "content_length": 22,
+      "success": false,
+      "user_id": 17,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.0031299591064453125,
+      "content_length": 307,
+      "success": true,
+      "user_id": 17,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.0029871463775634766,
+      "content_length": 253,
+      "success": true,
+      "user_id": 17,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0017619132995605469,
+      "content_length": 908,
+      "success": true,
+      "user_id": 17,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.001135110855102539,
+      "content_length": 717,
+      "success": true,
+      "user_id": 17,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.003035306930541992,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 17,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0020248889923095703,
+      "content_length": 164,
+      "success": true,
+      "user_id": 17,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.04303574562072754,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 18,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.013290882110595703,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 18,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.00801396369934082,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 18,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.034716129302978516,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 18,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.005365848541259766,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 18,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.004151105880737305,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 18,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.04232978820800781,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 18,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.01361393928527832,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 18,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.008968114852905273,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 18,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.07471370697021484,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 18,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0009729862213134766,
+      "content_length": 22,
+      "success": false,
+      "user_id": 18,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.0034990310668945312,
+      "content_length": 307,
+      "success": true,
+      "user_id": 18,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.002817869186401367,
+      "content_length": 253,
+      "success": true,
+      "user_id": 18,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0019788742065429688,
+      "content_length": 908,
+      "success": true,
+      "user_id": 18,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0012290477752685547,
+      "content_length": 717,
+      "success": true,
+      "user_id": 18,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0010769367218017578,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 18,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0006959438323974609,
+      "content_length": 164,
+      "success": true,
+      "user_id": 18,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.03299212455749512,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 19,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.0011098384857177734,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 19,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.005812883377075195,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 19,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.009788990020751953,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 19,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.009041309356689453,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 19,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.005345821380615234,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 19,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.003021717071533203,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 19,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.004774332046508789,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 19,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.004250288009643555,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 19,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.06835508346557617,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 19,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0011861324310302734,
+      "content_length": 22,
+      "success": false,
+      "user_id": 19,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.006985902786254883,
+      "content_length": 307,
+      "success": true,
+      "user_id": 19,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.0025060176849365234,
+      "content_length": 253,
+      "success": true,
+      "user_id": 19,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.002971172332763672,
+      "content_length": 908,
+      "success": true,
+      "user_id": 19,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0075109004974365234,
+      "content_length": 717,
+      "success": true,
+      "user_id": 19,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0030488967895507812,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 19,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0024330615997314453,
+      "content_length": 164,
+      "success": true,
+      "user_id": 19,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.045558929443359375,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 20,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.017841100692749023,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 20,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0029070377349853516,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 20,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.041960954666137695,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 20,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.00678706169128418,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 20,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.007582187652587891,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 20,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.06295299530029297,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 20,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.014105796813964844,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 20,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.009809255599975586,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 20,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.17870306968688965,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 20,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.003509998321533203,
+      "content_length": 22,
+      "success": false,
+      "user_id": 20,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.00457310676574707,
+      "content_length": 307,
+      "success": true,
+      "user_id": 20,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.00558018684387207,
+      "content_length": 253,
+      "success": true,
+      "user_id": 20,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0019042491912841797,
+      "content_length": 908,
+      "success": true,
+      "user_id": 20,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.002062082290649414,
+      "content_length": 717,
+      "success": true,
+      "user_id": 20,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.001895904541015625,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 20,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0019278526306152344,
+      "content_length": 164,
+      "success": true,
+      "user_id": 20,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.04630780220031738,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 21,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.010614871978759766,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 21,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.007843017578125,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 21,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.04118609428405762,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 21,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.006102085113525391,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 21,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.0029358863830566406,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 21,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.06574702262878418,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 21,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.014793157577514648,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 21,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.009801864624023438,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 21,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.18016505241394043,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 21,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0030007362365722656,
+      "content_length": 22,
+      "success": false,
+      "user_id": 21,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.0037450790405273438,
+      "content_length": 307,
+      "success": true,
+      "user_id": 21,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.00548100471496582,
+      "content_length": 253,
+      "success": true,
+      "user_id": 21,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.001477956771850586,
+      "content_length": 908,
+      "success": true,
+      "user_id": 21,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0016870498657226562,
+      "content_length": 717,
+      "success": true,
+      "user_id": 21,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.003983020782470703,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 21,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0020012855529785156,
+      "content_length": 164,
+      "success": true,
+      "user_id": 21,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.03838515281677246,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 22,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.004148006439208984,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 22,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0012989044189453125,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 22,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.028194904327392578,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 22,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.0045871734619140625,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 22,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.0055348873138427734,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 22,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.012942075729370117,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 22,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.008522987365722656,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 22,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.004383087158203125,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 22,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.06982183456420898,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 22,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0011789798736572266,
+      "content_length": 22,
+      "success": false,
+      "user_id": 22,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.010061025619506836,
+      "content_length": 307,
+      "success": true,
+      "user_id": 22,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.004504203796386719,
+      "content_length": 253,
+      "success": true,
+      "user_id": 22,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0016372203826904297,
+      "content_length": 908,
+      "success": true,
+      "user_id": 22,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0012600421905517578,
+      "content_length": 717,
+      "success": true,
+      "user_id": 22,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0024530887603759766,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 22,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0017991065979003906,
+      "content_length": 164,
+      "success": true,
+      "user_id": 22,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.04069709777832031,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 23,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.010154962539672852,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 23,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.001249074935913086,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 23,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.026300907135009766,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 23,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.005671977996826172,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 23,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.004436969757080078,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 23,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.02326488494873047,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 23,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.01200103759765625,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 23,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.003186941146850586,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 23,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.08042001724243164,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 23,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0006489753723144531,
+      "content_length": 22,
+      "success": false,
+      "user_id": 23,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.0044307708740234375,
+      "content_length": 307,
+      "success": true,
+      "user_id": 23,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.003659963607788086,
+      "content_length": 253,
+      "success": true,
+      "user_id": 23,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0010712146759033203,
+      "content_length": 908,
+      "success": true,
+      "user_id": 23,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.001703023910522461,
+      "content_length": 717,
+      "success": true,
+      "user_id": 23,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0009760856628417969,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 23,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.001542806625366211,
+      "content_length": 164,
+      "success": true,
+      "user_id": 23,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.04275918006896973,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 24,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.01299285888671875,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 24,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.003815889358520508,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 24,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.037078142166137695,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 24,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.007133960723876953,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 24,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.0026612281799316406,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 24,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.053568124771118164,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 24,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.01760697364807129,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 24,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.007682085037231445,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 24,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.11833000183105469,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 24,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0018830299377441406,
+      "content_length": 22,
+      "success": false,
+      "user_id": 24,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.0024390220642089844,
+      "content_length": 307,
+      "success": true,
+      "user_id": 24,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.0035369396209716797,
+      "content_length": 253,
+      "success": true,
+      "user_id": 24,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0024309158325195312,
+      "content_length": 908,
+      "success": true,
+      "user_id": 24,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0014960765838623047,
+      "content_length": 717,
+      "success": true,
+      "user_id": 24,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0018508434295654297,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 24,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0014679431915283203,
+      "content_length": 164,
+      "success": true,
+      "user_id": 24,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.038436174392700195,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 25,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.004513978958129883,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 25,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.003698110580444336,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 25,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.02387714385986328,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 25,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.0030841827392578125,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 25,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.0041730403900146484,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 25,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.011868953704833984,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 25,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.006043195724487305,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 25,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.003984928131103516,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 25,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.09181690216064453,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 25,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.000965118408203125,
+      "content_length": 22,
+      "success": false,
+      "user_id": 25,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.005625724792480469,
+      "content_length": 307,
+      "success": true,
+      "user_id": 25,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.003538846969604492,
+      "content_length": 253,
+      "success": true,
+      "user_id": 25,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0016870498657226562,
+      "content_length": 908,
+      "success": true,
+      "user_id": 25,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0016911029815673828,
+      "content_length": 717,
+      "success": true,
+      "user_id": 25,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0032308101654052734,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 25,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0014481544494628906,
+      "content_length": 164,
+      "success": true,
+      "user_id": 25,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.04557085037231445,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 26,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.010469198226928711,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 26,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.007630109786987305,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 26,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.03612804412841797,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 26,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.006479024887084961,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 26,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.0052509307861328125,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 26,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.05776381492614746,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 26,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.018165111541748047,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 26,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.010500907897949219,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 26,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.1396961212158203,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 26,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.001992940902709961,
+      "content_length": 22,
+      "success": false,
+      "user_id": 26,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.003339052200317383,
+      "content_length": 307,
+      "success": true,
+      "user_id": 26,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.003718852996826172,
+      "content_length": 253,
+      "success": true,
+      "user_id": 26,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0032300949096679688,
+      "content_length": 908,
+      "success": true,
+      "user_id": 26,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0017919540405273438,
+      "content_length": 717,
+      "success": true,
+      "user_id": 26,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.001827239990234375,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 26,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0020112991333007812,
+      "content_length": 164,
+      "success": true,
+      "user_id": 26,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.022504091262817383,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 27,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.0037360191345214844,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 27,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.003325939178466797,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 27,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.012593269348144531,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 27,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.006746053695678711,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 27,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.008076190948486328,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 27,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.007575035095214844,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 27,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.007297992706298828,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 27,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.0023670196533203125,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 27,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.09730315208435059,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 27,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0010497570037841797,
+      "content_length": 22,
+      "success": false,
+      "user_id": 27,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.006107807159423828,
+      "content_length": 307,
+      "success": true,
+      "user_id": 27,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.0020711421966552734,
+      "content_length": 253,
+      "success": true,
+      "user_id": 27,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0011799335479736328,
+      "content_length": 908,
+      "success": true,
+      "user_id": 27,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.001390218734741211,
+      "content_length": 717,
+      "success": true,
+      "user_id": 27,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0013189315795898438,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 27,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0017621517181396484,
+      "content_length": 164,
+      "success": true,
+      "user_id": 27,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.04205799102783203,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 28,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.00922703742980957,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 28,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.002608776092529297,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 28,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.025604248046875,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 28,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.003159046173095703,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 28,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.0038750171661376953,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 28,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.015365123748779297,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 28,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.005172014236450195,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 28,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.0025429725646972656,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 28,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.09293508529663086,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 28,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0014767646789550781,
+      "content_length": 22,
+      "success": false,
+      "user_id": 28,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.003081083297729492,
+      "content_length": 307,
+      "success": true,
+      "user_id": 28,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.0052759647369384766,
+      "content_length": 253,
+      "success": true,
+      "user_id": 28,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.002199888229370117,
+      "content_length": 908,
+      "success": true,
+      "user_id": 28,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.002234935760498047,
+      "content_length": 717,
+      "success": true,
+      "user_id": 28,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0024199485778808594,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 28,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0044100284576416016,
+      "content_length": 164,
+      "success": true,
+      "user_id": 28,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.042372941970825195,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 29,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.011188983917236328,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 29,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.002692699432373047,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 29,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.03377890586853027,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 29,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.005038022994995117,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 29,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.0031061172485351562,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 29,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.033563852310180664,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 29,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.017112016677856445,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 29,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.0036809444427490234,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 29,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.0854790210723877,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 29,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0018548965454101562,
+      "content_length": 22,
+      "success": false,
+      "user_id": 29,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.0032608509063720703,
+      "content_length": 307,
+      "success": true,
+      "user_id": 29,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.003860950469970703,
+      "content_length": 253,
+      "success": true,
+      "user_id": 29,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.004228115081787109,
+      "content_length": 908,
+      "success": true,
+      "user_id": 29,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.001306295394897461,
+      "content_length": 717,
+      "success": true,
+      "user_id": 29,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0032639503479003906,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 29,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0021920204162597656,
+      "content_length": 164,
+      "success": true,
+      "user_id": 29,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.042912960052490234,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 30,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.01163482666015625,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 30,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0033981800079345703,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 30,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.033618927001953125,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 30,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.0051021575927734375,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 30,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.0024938583374023438,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 30,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.02598404884338379,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 30,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.012508153915405273,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 30,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.008540153503417969,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 30,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.08734989166259766,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 30,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0005958080291748047,
+      "content_length": 22,
+      "success": false,
+      "user_id": 30,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.0037910938262939453,
+      "content_length": 307,
+      "success": true,
+      "user_id": 30,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.003057718276977539,
+      "content_length": 253,
+      "success": true,
+      "user_id": 30,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0015239715576171875,
+      "content_length": 908,
+      "success": true,
+      "user_id": 30,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0010318756103515625,
+      "content_length": 717,
+      "success": true,
+      "user_id": 30,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0011332035064697266,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 30,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0026519298553466797,
+      "content_length": 164,
+      "success": true,
+      "user_id": 30,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.034674882888793945,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 31,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.0010988712310791016,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 31,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0046689510345458984,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 31,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.011424064636230469,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 31,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.007089138031005859,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 31,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.006814002990722656,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 31,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.006552934646606445,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 31,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.011381149291992188,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 31,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.004990816116333008,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 31,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.09748411178588867,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 31,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.001149892807006836,
+      "content_length": 22,
+      "success": false,
+      "user_id": 31,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.005569934844970703,
+      "content_length": 307,
+      "success": true,
+      "user_id": 31,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.0025169849395751953,
+      "content_length": 253,
+      "success": true,
+      "user_id": 31,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.002020120620727539,
+      "content_length": 908,
+      "success": true,
+      "user_id": 31,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0014231204986572266,
+      "content_length": 717,
+      "success": true,
+      "user_id": 31,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0020470619201660156,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 31,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0011608600616455078,
+      "content_length": 164,
+      "success": true,
+      "user_id": 31,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.045764923095703125,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 32,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.017408132553100586,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 32,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.005157947540283203,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 32,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.03743100166320801,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 32,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.005203962326049805,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 32,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.0041310787200927734,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 32,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0625767707824707,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 32,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.017606019973754883,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 32,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.00711512565612793,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 32,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.13557696342468262,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 32,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0018842220306396484,
+      "content_length": 22,
+      "success": false,
+      "user_id": 32,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.004209756851196289,
+      "content_length": 307,
+      "success": true,
+      "user_id": 32,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.002650022506713867,
+      "content_length": 253,
+      "success": true,
+      "user_id": 32,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.004117012023925781,
+      "content_length": 908,
+      "success": true,
+      "user_id": 32,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.001708984375,
+      "content_length": 717,
+      "success": true,
+      "user_id": 32,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0018129348754882812,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 32,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0018818378448486328,
+      "content_length": 164,
+      "success": true,
+      "user_id": 32,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.04041862487792969,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 33,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.0054662227630615234,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 33,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0017642974853515625,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 33,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.026645898818969727,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 33,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.003178119659423828,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 33,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.006232023239135742,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 33,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.018847942352294922,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 33,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.006631135940551758,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 33,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.004662990570068359,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 33,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.0709078311920166,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 33,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0008959770202636719,
+      "content_length": 22,
+      "success": false,
+      "user_id": 33,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.009245872497558594,
+      "content_length": 307,
+      "success": true,
+      "user_id": 33,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.0023670196533203125,
+      "content_length": 253,
+      "success": true,
+      "user_id": 33,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0029921531677246094,
+      "content_length": 908,
+      "success": true,
+      "user_id": 33,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0016853809356689453,
+      "content_length": 717,
+      "success": true,
+      "user_id": 33,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0027320384979248047,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 33,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0021820068359375,
+      "content_length": 164,
+      "success": true,
+      "user_id": 33,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.026108980178833008,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 34,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.002991199493408203,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 34,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0023429393768310547,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 34,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.01329183578491211,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 34,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.00568389892578125,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 34,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.0046749114990234375,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 34,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0036611557006835938,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 34,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.00368499755859375,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 34,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.005445003509521484,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 34,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.011683225631713867,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 34,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0013360977172851562,
+      "content_length": 22,
+      "success": false,
+      "user_id": 34,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.005059957504272461,
+      "content_length": 307,
+      "success": true,
+      "user_id": 34,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.004628181457519531,
+      "content_length": 253,
+      "success": true,
+      "user_id": 34,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0027658939361572266,
+      "content_length": 908,
+      "success": true,
+      "user_id": 34,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0014739036560058594,
+      "content_length": 717,
+      "success": true,
+      "user_id": 34,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.002498149871826172,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 34,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0016970634460449219,
+      "content_length": 164,
+      "success": true,
+      "user_id": 34,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.04158377647399902,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 35,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.008739948272705078,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 35,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0015468597412109375,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 35,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.03124380111694336,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 35,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.0063321590423583984,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 35,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.006936073303222656,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 35,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.03082132339477539,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 35,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.010133981704711914,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 35,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.008928060531616211,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 35,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.09129023551940918,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 35,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0007307529449462891,
+      "content_length": 22,
+      "success": false,
+      "user_id": 35,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.0029730796813964844,
+      "content_length": 307,
+      "success": true,
+      "user_id": 35,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.003710031509399414,
+      "content_length": 253,
+      "success": true,
+      "user_id": 35,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.001249074935913086,
+      "content_length": 908,
+      "success": true,
+      "user_id": 35,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0018591880798339844,
+      "content_length": 717,
+      "success": true,
+      "user_id": 35,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0012671947479248047,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 35,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0028688907623291016,
+      "content_length": 164,
+      "success": true,
+      "user_id": 35,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.04167342185974121,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 36,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.013775825500488281,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 36,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.004559993743896484,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 36,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.033856868743896484,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 36,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.0058498382568359375,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 36,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.005839824676513672,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 36,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.041728973388671875,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 36,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.02460789680480957,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 36,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.007592201232910156,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 36,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.10528182983398438,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 36,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0009369850158691406,
+      "content_length": 22,
+      "success": false,
+      "user_id": 36,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.0027799606323242188,
+      "content_length": 307,
+      "success": true,
+      "user_id": 36,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.0028340816497802734,
+      "content_length": 253,
+      "success": true,
+      "user_id": 36,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0013890266418457031,
+      "content_length": 908,
+      "success": true,
+      "user_id": 36,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0010707378387451172,
+      "content_length": 717,
+      "success": true,
+      "user_id": 36,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0014841556549072266,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 36,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0008950233459472656,
+      "content_length": 164,
+      "success": true,
+      "user_id": 36,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.044519901275634766,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 37,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.011248111724853516,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 37,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.007598161697387695,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 37,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.03534722328186035,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 37,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.007169008255004883,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 37,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.005049943923950195,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 37,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.05614018440246582,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 37,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.018152952194213867,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 37,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.013187885284423828,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 37,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.1582200527191162,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 37,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0015501976013183594,
+      "content_length": 22,
+      "success": false,
+      "user_id": 37,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.0035371780395507812,
+      "content_length": 307,
+      "success": true,
+      "user_id": 37,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.004621744155883789,
+      "content_length": 253,
+      "success": true,
+      "user_id": 37,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.001402139663696289,
+      "content_length": 908,
+      "success": true,
+      "user_id": 37,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0014262199401855469,
+      "content_length": 717,
+      "success": true,
+      "user_id": 37,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0024046897888183594,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 37,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0009989738464355469,
+      "content_length": 164,
+      "success": true,
+      "user_id": 37,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.03352785110473633,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 38,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.0011131763458251953,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 38,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.005066871643066406,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 38,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.016496896743774414,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 38,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.00586700439453125,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 38,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.005813121795654297,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 38,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0070688724517822266,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 38,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.007410287857055664,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 38,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.005171775817871094,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 38,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.07586097717285156,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 38,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0024890899658203125,
+      "content_length": 22,
+      "success": false,
+      "user_id": 38,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.007728099822998047,
+      "content_length": 307,
+      "success": true,
+      "user_id": 38,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.0023009777069091797,
+      "content_length": 253,
+      "success": true,
+      "user_id": 38,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0019459724426269531,
+      "content_length": 908,
+      "success": true,
+      "user_id": 38,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.002707958221435547,
+      "content_length": 717,
+      "success": true,
+      "user_id": 38,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0026319026947021484,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 38,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.002529144287109375,
+      "content_length": 164,
+      "success": true,
+      "user_id": 38,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.03747296333312988,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 39,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.005517005920410156,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 39,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0025300979614257812,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 39,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.0194091796875,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 39,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.005378007888793945,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 39,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.003984212875366211,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 39,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.012532949447631836,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 39,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.008852958679199219,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 39,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.0048482418060302734,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 39,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.11903095245361328,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 39,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0023479461669921875,
+      "content_length": 22,
+      "success": false,
+      "user_id": 39,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.004513978958129883,
+      "content_length": 307,
+      "success": true,
+      "user_id": 39,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.0036830902099609375,
+      "content_length": 253,
+      "success": true,
+      "user_id": 39,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0026998519897460938,
+      "content_length": 908,
+      "success": true,
+      "user_id": 39,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0025959014892578125,
+      "content_length": 717,
+      "success": true,
+      "user_id": 39,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.002696990966796875,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 39,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0032291412353515625,
+      "content_length": 164,
+      "success": true,
+      "user_id": 39,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.025625944137573242,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 40,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.003319978713989258,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 40,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0025680065155029297,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 40,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.014128923416137695,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 40,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.005707979202270508,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 40,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.004046916961669922,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 40,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0030732154846191406,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 40,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.0037801265716552734,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 40,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.004180908203125,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 40,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.05751919746398926,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 40,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0011239051818847656,
+      "content_length": 22,
+      "success": false,
+      "user_id": 40,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.005794048309326172,
+      "content_length": 307,
+      "success": true,
+      "user_id": 40,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.00698399543762207,
+      "content_length": 253,
+      "success": true,
+      "user_id": 40,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0036170482635498047,
+      "content_length": 908,
+      "success": true,
+      "user_id": 40,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.004220008850097656,
+      "content_length": 717,
+      "success": true,
+      "user_id": 40,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0028133392333984375,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 40,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0018889904022216797,
+      "content_length": 164,
+      "success": true,
+      "user_id": 40,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.042387962341308594,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 41,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.01105189323425293,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 41,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0025930404663085938,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 41,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.025937318801879883,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 41,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.006897926330566406,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 41,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.0039479732513427734,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 41,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.024773120880126953,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 41,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.012797117233276367,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 41,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.006639003753662109,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 41,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.1000514030456543,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 41,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0024881362915039062,
+      "content_length": 22,
+      "success": false,
+      "user_id": 41,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.004526853561401367,
+      "content_length": 307,
+      "success": true,
+      "user_id": 41,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.003751993179321289,
+      "content_length": 253,
+      "success": true,
+      "user_id": 41,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.002090930938720703,
+      "content_length": 908,
+      "success": true,
+      "user_id": 41,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0013189315795898438,
+      "content_length": 717,
+      "success": true,
+      "user_id": 41,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.004085063934326172,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 41,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0022339820861816406,
+      "content_length": 164,
+      "success": true,
+      "user_id": 41,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.0440671443939209,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 42,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.017499923706054688,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 42,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0047130584716796875,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 42,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.039605140686035156,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 42,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.008262872695922852,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 42,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.0020961761474609375,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 42,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0599062442779541,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 42,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.014763116836547852,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 42,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.00958108901977539,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 42,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.11534905433654785,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 42,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0013878345489501953,
+      "content_length": 22,
+      "success": false,
+      "user_id": 42,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.0038559436798095703,
+      "content_length": 307,
+      "success": true,
+      "user_id": 42,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.0033447742462158203,
+      "content_length": 253,
+      "success": true,
+      "user_id": 42,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0018279552459716797,
+      "content_length": 908,
+      "success": true,
+      "user_id": 42,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0016350746154785156,
+      "content_length": 717,
+      "success": true,
+      "user_id": 42,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.00115203857421875,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 42,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0010581016540527344,
+      "content_length": 164,
+      "success": true,
+      "user_id": 42,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.03835177421569824,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 43,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.005122661590576172,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 43,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.003304004669189453,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 43,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.021421194076538086,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 43,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.003523111343383789,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 43,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.002683877944946289,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 43,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.008377790451049805,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 43,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.006499052047729492,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 43,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.003889799118041992,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 43,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.06290626525878906,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 43,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0025637149810791016,
+      "content_length": 22,
+      "success": false,
+      "user_id": 43,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.00551915168762207,
+      "content_length": 307,
+      "success": true,
+      "user_id": 43,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.0025701522827148438,
+      "content_length": 253,
+      "success": true,
+      "user_id": 43,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0013461112976074219,
+      "content_length": 908,
+      "success": true,
+      "user_id": 43,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.003298044204711914,
+      "content_length": 717,
+      "success": true,
+      "user_id": 43,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0034470558166503906,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 43,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0018067359924316406,
+      "content_length": 164,
+      "success": true,
+      "user_id": 43,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.04601907730102539,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 44,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.01770496368408203,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 44,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0023000240325927734,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 44,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.04116702079772949,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 44,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.007673025131225586,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 44,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.007493734359741211,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 44,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.06345224380493164,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 44,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.01241612434387207,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 44,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.009521961212158203,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 44,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.17776203155517578,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 44,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0016720294952392578,
+      "content_length": 22,
+      "success": false,
+      "user_id": 44,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.002747058868408203,
+      "content_length": 307,
+      "success": true,
+      "user_id": 44,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.0039119720458984375,
+      "content_length": 253,
+      "success": true,
+      "user_id": 44,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0013401508331298828,
+      "content_length": 908,
+      "success": true,
+      "user_id": 44,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0018770694732666016,
+      "content_length": 717,
+      "success": true,
+      "user_id": 44,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0041997432708740234,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 44,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0015981197357177734,
+      "content_length": 164,
+      "success": true,
+      "user_id": 44,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.04028201103210449,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 45,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.008564949035644531,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 45,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0008928775787353516,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 45,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.032591819763183594,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 45,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.006314992904663086,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 45,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.003931283950805664,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 45,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.019968032836914062,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 45,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.008745908737182617,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 45,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.002846240997314453,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 45,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.09357595443725586,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 45,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0012369155883789062,
+      "content_length": 22,
+      "success": false,
+      "user_id": 45,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.002186298370361328,
+      "content_length": 307,
+      "success": true,
+      "user_id": 45,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.004174232482910156,
+      "content_length": 253,
+      "success": true,
+      "user_id": 45,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.002161741256713867,
+      "content_length": 908,
+      "success": true,
+      "user_id": 45,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.002870798110961914,
+      "content_length": 717,
+      "success": true,
+      "user_id": 45,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0029449462890625,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 45,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0030410289764404297,
+      "content_length": 164,
+      "success": true,
+      "user_id": 45,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.03163480758666992,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 46,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.0009419918060302734,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 46,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0047376155853271484,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 46,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.01293325424194336,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 46,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.005560159683227539,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 46,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.009099006652832031,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 46,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0033888816833496094,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 46,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.007801055908203125,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 46,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.004561901092529297,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 46,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.06648087501525879,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 46,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.002101898193359375,
+      "content_length": 22,
+      "success": false,
+      "user_id": 46,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.004683971405029297,
+      "content_length": 307,
+      "success": true,
+      "user_id": 46,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.003489971160888672,
+      "content_length": 253,
+      "success": true,
+      "user_id": 46,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0012311935424804688,
+      "content_length": 908,
+      "success": true,
+      "user_id": 46,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0030019283294677734,
+      "content_length": 717,
+      "success": true,
+      "user_id": 46,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.004171133041381836,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 46,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0018570423126220703,
+      "content_length": 164,
+      "success": true,
+      "user_id": 46,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.03465008735656738,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 47,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.003596067428588867,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 47,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0026590824127197266,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 47,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.015653133392333984,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 47,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.0027430057525634766,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 47,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.005263328552246094,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 47,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.006865739822387695,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 47,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.0059010982513427734,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 47,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.002785205841064453,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 47,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.08832573890686035,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 47,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0008950233459472656,
+      "content_length": 22,
+      "success": false,
+      "user_id": 47,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.0073320865631103516,
+      "content_length": 307,
+      "success": true,
+      "user_id": 47,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.0020978450775146484,
+      "content_length": 253,
+      "success": true,
+      "user_id": 47,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0023872852325439453,
+      "content_length": 908,
+      "success": true,
+      "user_id": 47,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0017588138580322266,
+      "content_length": 717,
+      "success": true,
+      "user_id": 47,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0031359195709228516,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 47,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0025472640991210938,
+      "content_length": 164,
+      "success": true,
+      "user_id": 47,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.042801856994628906,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 48,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.018696308135986328,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 48,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0046138763427734375,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 48,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.039853811264038086,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 48,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.0077571868896484375,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 48,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.007245779037475586,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 48,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.06457805633544922,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 48,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.01402902603149414,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 48,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.00732111930847168,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 48,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.1867079734802246,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 48,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.001993894577026367,
+      "content_length": 22,
+      "success": false,
+      "user_id": 48,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.0025320053100585938,
+      "content_length": 307,
+      "success": true,
+      "user_id": 48,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.003289937973022461,
+      "content_length": 253,
+      "success": true,
+      "user_id": 48,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.0017628669738769531,
+      "content_length": 908,
+      "success": true,
+      "user_id": 48,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.001130819320678711,
+      "content_length": 717,
+      "success": true,
+      "user_id": 48,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.0022072792053222656,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 48,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.001573801040649414,
+      "content_length": 164,
+      "success": true,
+      "user_id": 48,
+      "request_order": 16
+    },
+    {
+      "endpoint": "/",
+      "status_code": 200,
+      "response_time": 0.040683746337890625,
+      "content_length": 22637,
+      "success": true,
+      "user_id": 49,
+      "request_order": 0
+    },
+    {
+      "endpoint": "/tutorial",
+      "status_code": 200,
+      "response_time": 0.012434005737304688,
+      "content_length": 16366,
+      "success": true,
+      "user_id": 49,
+      "request_order": 1
+    },
+    {
+      "endpoint": "/terminal",
+      "status_code": 200,
+      "response_time": 0.0028710365295410156,
+      "content_length": 29058,
+      "success": true,
+      "user_id": 49,
+      "request_order": 2
+    },
+    {
+      "endpoint": "/profil",
+      "status_code": 200,
+      "response_time": 0.024857759475708008,
+      "content_length": 72750,
+      "success": true,
+      "user_id": 49,
+      "request_order": 3
+    },
+    {
+      "endpoint": "/dashboard",
+      "status_code": 200,
+      "response_time": 0.007922887802124023,
+      "content_length": 32440,
+      "success": true,
+      "user_id": 49,
+      "request_order": 4
+    },
+    {
+      "endpoint": "/monde",
+      "status_code": 200,
+      "response_time": 0.004172086715698242,
+      "content_length": 37584,
+      "success": true,
+      "user_id": 49,
+      "request_order": 5
+    },
+    {
+      "endpoint": "/leaderboard",
+      "status_code": 200,
+      "response_time": 0.030247926712036133,
+      "content_length": 46594,
+      "success": true,
+      "user_id": 49,
+      "request_order": 6
+    },
+    {
+      "endpoint": "/explorateur",
+      "status_code": 200,
+      "response_time": 0.009112834930419922,
+      "content_length": 20504,
+      "success": true,
+      "user_id": 49,
+      "request_order": 7
+    },
+    {
+      "endpoint": "/mail",
+      "status_code": 200,
+      "response_time": 0.009528160095214844,
+      "content_length": 24054,
+      "success": true,
+      "user_id": 49,
+      "request_order": 8
+    },
+    {
+      "endpoint": "/audio",
+      "status_code": 200,
+      "response_time": 0.08893013000488281,
+      "content_length": 28344,
+      "success": true,
+      "user_id": 49,
+      "request_order": 9
+    },
+    {
+      "endpoint": "/accessibility",
+      "status_code": 404,
+      "response_time": 0.0007801055908203125,
+      "content_length": 22,
+      "success": false,
+      "user_id": 49,
+      "request_order": 10
+    },
+    {
+      "endpoint": "/api/profile/summary",
+      "status_code": 200,
+      "response_time": 0.002671957015991211,
+      "content_length": 307,
+      "success": true,
+      "user_id": 49,
+      "request_order": 11
+    },
+    {
+      "endpoint": "/api/gamification/summary",
+      "status_code": 200,
+      "response_time": 0.003520965576171875,
+      "content_length": 253,
+      "success": true,
+      "user_id": 49,
+      "request_order": 12
+    },
+    {
+      "endpoint": "/api/tutorial/steps",
+      "status_code": 200,
+      "response_time": 0.001222848892211914,
+      "content_length": 908,
+      "success": true,
+      "user_id": 49,
+      "request_order": 13
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "status_code": 200,
+      "response_time": 0.0009012222290039062,
+      "content_length": 717,
+      "success": true,
+      "user_id": 49,
+      "request_order": 14
+    },
+    {
+      "endpoint": "/api/educational-games/list",
+      "status_code": 200,
+      "response_time": 0.002521038055419922,
+      "content_length": 4260,
+      "success": true,
+      "user_id": 49,
+      "request_order": 15
+    },
+    {
+      "endpoint": "/api/educational-games/stats",
+      "status_code": 200,
+      "response_time": 0.0037310123443603516,
+      "content_length": 164,
+      "success": true,
+      "user_id": 49,
+      "request_order": 16
+    }
+  ]
+}

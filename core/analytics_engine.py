@@ -202,8 +202,8 @@ class AnalyticsEngine:
         event_type: EventType,
         user_id: str,
         session_id: str,
-        data: Dict[str, Any] = None,
-        context: Dict[str, Any] = None,
+        data: Optional[Dict[str, Any]] = None,
+        context: Optional[Dict[str, Any]] = None,
     ):
         """Tracker un événement"""
         try:
@@ -263,7 +263,7 @@ class AnalyticsEngine:
                 session.commands_used.append(command)
 
     def start_session(
-        self, user_id: str, session_id: str, context: Dict[str, Any] = None
+        self, user_id: str, session_id: str, context: Optional[Dict[str, Any]] = None
     ):
         """Démarrer une session"""
         self.track_event(
@@ -419,7 +419,7 @@ class AnalyticsEngine:
                     cursor.execute(
                         """
                         INSERT INTO analytics_events
-                        (event_type, user_id, timestamp, session_id, data, context, anonymized)
+(event_type, user_id, timestamp, session_id, data, context, anonymized)
                         VALUES (?, ?, ?, ?, ?, ?, ?)
                     """,
                         (
@@ -720,18 +720,19 @@ class AnalyticsEngine:
                 conn.commit()
 
                 logger.info(
-                    f"Nettoyage des données antérieures à {self.retention_days} jours effectué"
+                    f"Nettoyage des données antérieures à {self.retention_days}"
+                    + "jours effectué"
                 )
 
         except Exception as e:
             logger.error(f"Erreur lors du nettoyage des données: {e}")
 
-    def export_data(self, user_id: str = None, format: str = "json") -> str:
+    def export_data(self, user_id: Optional[str] = None, format: str = "json") -> str:
         """Exporter les données analytics"""
         try:
             if user_id:
                 # Export pour un utilisateur spécifique
-                # anonymized_user_id = self._anonymize_user_id(user_id)  # Variable non utilisée
+                # anonymized_user_id = self._anonymize_user_id(user_id) # Variable non utilisée
                 data = self.get_user_insights(user_id)
 
                 if format == "json":

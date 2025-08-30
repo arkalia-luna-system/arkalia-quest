@@ -5,11 +5,15 @@
 Flask>=3.0.0
 Werkzeug>=3.0.0
 gunicorn>=21.0.0
+Flask-Compress>=1.14.0
 
 # WebSockets pour défis temps réel
 Flask-SocketIO>=5.3.0
 python-socketio>=5.9.0
 eventlet>=0.33.0
+
+# Tests de charge et performance
+aiohttp>=3.9.0
 
 # Utilitaires
 python-dotenv>=1.0.0

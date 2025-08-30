@@ -37,7 +37,7 @@ class ArkaliaVideoDemo:
     def log_info(self, message):
         """Enregistre une information"""
         timestamp = datetime.now().strftime("%H:%M:%S")
-        print(f"ℹ️  [{timestamp}] {message}")
+        print(f"i  [{timestamp}] {message}")
 
     def check_server(self):
         """Vérifie que le serveur fonctionne"""

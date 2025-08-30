@@ -111,7 +111,8 @@ def check_environment():
 
     if missing_packages:
         print(
-            f"\n{COLORS['yellow']}⚠️  Installez les packages manquants:{COLORS['reset']}"
+            f"\n{COLORS['yellow']}⚠️ Installez les packages"
+            + "manquants:{COLORS['reset']}"
         )
         print(f"pip install {' '.join(missing_packages)}")
         return False
@@ -147,7 +148,8 @@ def run_code_quality_checks():
             print(f"{COLORS['green']}✅ Code correctement formaté{COLORS['reset']}")
         else:
             print(
-                f"{COLORS['yellow']}⚠️  Code non formaté, application de Black...{COLORS['reset']}"
+                f"{COLORS['yellow']}⚠️ Code non formaté, application de"
+                + "Black...{COLORS['reset']}"
             )
             subprocess.run(["black", "."], check=True)
             print(f"{COLORS['green']}✅ Formatage appliqué{COLORS['reset']}")
@@ -191,7 +193,8 @@ def run_code_quality_checks():
 def run_test_category(category_name, category_info):
     """Exécute une catégorie de tests"""
     print(
-        f"{COLORS['blue']}{category_name} - {category_info['description']}{COLORS['reset']}"
+        f"{COLORS['blue']}{category_name} -"
+        + "{category_info['description']}{COLORS['reset']}"
     )
     print("-" * 60)
 
@@ -208,7 +211,8 @@ def run_test_category(category_name, category_info):
     for test_file in category_info["tests"]:
         if not os.path.exists(test_file):
             print(
-                f"{COLORS['yellow']}⚠️  Fichier de test manquant: {test_file}{COLORS['reset']}"
+                f"{COLORS['yellow']}⚠️ Fichier de test manquant:"
+                + "{test_file}{COLORS['reset']}"
             )
             continue
 
@@ -411,13 +415,15 @@ def main():
             f"{COLORS['green']}🎉 TOUS LES TESTS CRITIQUES ONT RÉUSSI !{COLORS['reset']}"
         )
         print(
-            f"{COLORS['green']}✅ Arkalia Quest est prêt pour la production{COLORS['reset']}"
+            f"{COLORS['green']}✅ Arkalia Quest est prêt pour la"
+            + "production{COLORS['reset']}"
         )
         sys.exit(0)
     else:
         print(f"{COLORS['red']}❌ CERTAINS TESTS CRITIQUES ONT ÉCHOUÉ{COLORS['reset']}")
         print(
-            f"{COLORS['yellow']}⚠️  Vérifiez les erreurs avant le déploiement{COLORS['reset']}"
+            f"{COLORS['yellow']}⚠️ Vérifiez les erreurs avant le"
+            + "déploiement{COLORS['reset']}"
         )
         sys.exit(1)
 

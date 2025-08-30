@@ -1,360 +1,354 @@
----
-**Statut : ACTIF**
-**Dernière mise à jour : Juillet 2025**
-**Résumé :** Guide de déploiement et configuration d'Arkalia Quest.
+# 🚀 **GUIDE DE DÉPLOIEMENT - ARKALIA QUEST**
 
-**Liens utiles :**
-- [Documentation principale](README.md)
-- [Statut projet](STATUT_PROJET_ACTUEL.md)
-- [Changelog documentation](CHANGELOG_DOCUMENTATION.md)
----
-
-## 📋 PRÉREQUIS
-
-### 🖥️ **Système**
-- **OS :** Linux, macOS, Windows
-- **Python :** 3.8 ou supérieur
-- **RAM :** 512 MB minimum
-- **Espace disque :** 100 MB
-
-### 📦 **Dépendances**
-- **Flask :** Framework web
-- **SQLite :** Base de données
-- **Gunicorn :** Serveur WSGI (production)
-- **WebSockets :** Communication temps réel
+> **Guide complet pour déployer Arkalia Quest en production**
 
 ---
 
-## 🛠️ INSTALLATION LOCALE
+## 📋 **Table des Matières**
 
-### 1️⃣ **Cloner le projet**
-```bash
-git clone https://github.com/votre-username/arkalia-quest.git
-cd arkalia-quest
-```
-
-### 2️⃣ **Créer l'environnement virtuel**
-```bash
-# Python 3.8+
-python -m venv venv
-
-# Activer l'environnement
-# Linux/macOS
-source venv/bin/activate
-
-# Windows
-venv\Scripts\activate
-```
-
-### 3️⃣ **Installer les dépendances**
-```bash
-pip install -r requirements.txt
-```
-
-### 4️⃣ **Initialiser la base de données**
-```bash
-python -c "from core.database import DatabaseManager; DatabaseManager().init_database()"
-```
-
-### 5️⃣ **Lancer le serveur**
-```bash
-# Mode développement
-python app.py
-
-# Mode production
-gunicorn -w 4 -b 0.0.0.0:5001 app:app
-```
-
-### 6️⃣ **Accéder à l'application**
-- **URL :** http://localhost:5001
-- **Terminal :** http://localhost:5001/terminal
-- **Profil :** http://localhost:5001/profil
+1. [🎯 Prérequis](#-prérequis)
+2. [🔧 Configuration](#-configuration)
+3. [🐳 Docker](#-docker)
+4. [☁️ Cloud](#️-cloud)
+5. [📊 Monitoring](#-monitoring)
+6. [🔄 CI/CD](#-cicd)
 
 ---
 
-## ☁️ DÉPLOIEMENT RENDER
+## 🎯 **Prérequis**
 
-### 1️⃣ **Préparer le projet**
+### **Système**
+
+| Composant | Version | Description |
+|-----------|---------|-------------|
+| **Python** | 3.10+ | Runtime principal |
+| **SQLite** | 3.x | Base de données |
+| **Nginx** | 1.18+ | Serveur web (optionnel) |
+| **Gunicorn** | 21.0+ | Serveur WSGI |
+
+### **Sécurité**
+
+- ✅ **HTTPS/TLS** : Certificat SSL valide
+- ✅ **Firewall** : Ports 80, 443, 5000
+- ✅ **Rate Limiting** : Protection DDoS
+- ✅ **Monitoring** : Logs et alertes
+
+---
+
+## 🔧 **Configuration**
+
+### **Variables d'Environnement**
+
 ```bash
-# Vérifier que tous les fichiers sont présents
-ls -la
-
-# Fichiers requis pour Render
-render.yaml          # Configuration Render
-Procfile            # Processus de démarrage
-requirements.txt    # Dépendances Python
-runtime.txt         # Version Python
-start_gunicorn.sh   # Script de démarrage
-```
-
-### 2️⃣ **Configuration Render (render.yaml)**
-```yaml
-services:
-  - type: web
-    name: arkalia-quest
-    env: python
-    plan: free
-    buildCommand: pip install -r requirements.txt
-    startCommand: ./start_gunicorn.sh
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.8.0
-      - key: PORT
-        value: 5001
-```
-
-### 3️⃣ **Script de démarrage (start_gunicorn.sh)**
-```bash
-#!/bin/bash
-gunicorn -w 4 -b 0.0.0.0:$PORT app:app
-```
-
-### 4️⃣ **Déployer sur Render**
-1. **Connecter le repository** GitHub à Render
-2. **Créer un nouveau service web**
-3. **Configurer les variables d'environnement**
-4. **Déployer automatiquement**
-
-### 5️⃣ **Variables d'environnement**
-```bash
-PYTHON_VERSION=3.8.0
-PORT=5001
+# .env.production
 FLASK_ENV=production
-DATABASE_URL=sqlite:///arkalia.db
+SECRET_KEY=your-super-secret-production-key
+DEBUG=False
+LOG_LEVEL=WARNING
+
+# Base de données
+DATABASE_URL=sqlite:///data/database/arkalia.db
+DATABASE_PATH=data/database/arkalia.db
+
+# Sécurité
+SECURITY_LEVEL=high
+MAX_FAILED_ATTEMPTS=3
+BLOCK_DURATION=7200
+
+# Performance
+ENABLE_COMPRESSION=true
+ENABLE_CACHING=true
+CACHE_TTL=600
+
+# Monitoring
+ENABLE_METRICS=true
+METRICS_PORT=9090
+```
+
+### **Configuration Gunicorn**
+
+```python
+# gunicorn.conf.py
+bind = "0.0.0.0:5000"
+workers = 4
+worker_class = "sync"
+worker_connections = 1000
+max_requests = 1000
+max_requests_jitter = 100
+timeout = 30
+keepalive = 2
+preload_app = True
 ```
 
 ---
 
-## 🔧 CONFIGURATION PRODUCTION
+## 🐳 **Docker**
 
-### 🛡️ **Sécurité**
-```python
-# app.py
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'your-secret-key')
-app.config['SESSION_COOKIE_SECURE'] = True
-app.config['SESSION_COOKIE_HTTPONLY'] = True
+### **Dockerfile**
+
+```dockerfile
+FROM python:3.10-slim
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+RUN mkdir -p logs data/database
+
+EXPOSE 5000
+
+ENV FLASK_ENV=production
+ENV PYTHONPATH=/app
+
+CMD ["gunicorn", "--config", "gunicorn.conf.py", "app:app"]
 ```
 
-### 📊 **Logs**
-```python
-import logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-```
+### **Docker Compose**
 
-### 🗄️ **Base de données**
-```python
-# Sauvegarde automatique
-def backup_database():
-    import shutil
-    shutil.copy2('arkalia.db', f'backup/arkalia_{datetime.now().strftime("%Y%m%d_%H%M%S")}.db')
+```yaml
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    restart: unless-stopped
+    
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./ssl:/etc/nginx/ssl
+    depends_on:
+      - app
+    restart: unless-stopped
 ```
 
 ---
 
-## 📱 DÉPLOIEMENT MOBILE (PWA)
+## ☁️ **Cloud**
 
-### 1️⃣ **Manifest (static/manifest.json)**
-```json
+### **Heroku**
+
+```bash
+# Procfile
+web: gunicorn app:app
+
+# Déploiement
+heroku create arkalia-quest
+git push heroku main
+heroku config:set FLASK_ENV=production
+heroku open
+```
+
+### **Railway**
+
+```bash
+# railway.json
 {
-  "name": "Arkalia Quest",
-  "short_name": "Arkalia",
-  "description": "Jeu éducatif hacker pour ados",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#00ff00",
-  "icons": [
-    {
-      "src": "/static/icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    }
-  ]
-}
-```
-
-### 2️⃣ **Service Worker (static/sw.js)**
-```javascript
-// Cache des ressources statiques
-const CACHE_NAME = 'arkalia-v3.0';
-const urlsToCache = [
-  '/',
-  '/static/css/style.css',
-  '/static/js/terminal.js',
-  '/static/icons/icon-192.png'
-];
-```
-
-### 3️⃣ **Installation PWA**
-```html
-<!-- templates/index.html -->
-<link rel="manifest" href="/static/manifest.json">
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/static/sw.js');
+  "build": {
+    "builder": "nixpacks"
+  },
+  "deploy": {
+    "startCommand": "gunicorn app:app"
   }
-</script>
+}
+
+# Déploiement
+railway login
+railway init
+railway up
+```
+
+### **DigitalOcean App Platform**
+
+```yaml
+# .do/app.yaml
+name: arkalia-quest
+services:
+- name: web
+  source_dir: /
+  github:
+    repo: arkalia-luna-system/arkalia-quest
+    branch: main
+  run_command: gunicorn app:app
+  environment_slug: python
+  instance_count: 2
+  instance_size_slug: basic-xxs
 ```
 
 ---
 
-## 🔍 MONITORING ET MAINTENANCE
+## 📊 **Monitoring**
 
-### 📊 **Métriques de performance**
+### **Métriques Clés**
+
+| Métrique | Seuil | Action |
+|----------|-------|---------|
+| **CPU** | >80% | Scale up |
+| **Mémoire** | >80% | Optimisation |
+| **Temps réponse** | >200ms | Investigation |
+| **Erreurs** | >1% | Debug immédiat |
+
+### **Logs Structurés**
+
 ```python
-# Monitoring des requêtes
-@app.before_request
-def before_request():
-    g.start = time.time()
+# Configuration des logs
+import logging
+import json
 
-@app.after_request
-def after_request(response):
-    diff = time.time() - g.start
-    if diff > 1.0:  # Log des requêtes lentes
-        app.logger.warning(f'Slow request: {request.path} took {diff:.2f}s')
-    return response
+def setup_logging():
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        handlers=[
+            logging.FileHandler('logs/app.log'),
+            logging.StreamHandler()
+        ]
+    )
+
+# Log structuré
+def log_event(event_type, details):
+    log_data = {
+        "timestamp": datetime.now().isoformat(),
+        "event_type": event_type,
+        "details": details
+    }
+    logging.info(json.dumps(log_data))
 ```
 
-### 🚨 **Alertes**
-```python
-# Surveillance de la base de données
-def check_database_health():
-    try:
-        db = DatabaseManager()
-        db.execute("SELECT 1")
-        return True
-    except Exception as e:
-        app.logger.error(f"Database error: {e}")
-        return False
+---
+
+## 🔄 **CI/CD**
+
+### **GitHub Actions**
+
+```yaml
+# .github/workflows/deploy.yml
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+    - name: Run tests
+      run: |
+        python -m pytest tests/ -v
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+    - name: Deploy to production
+      run: |
+        echo "Deploying to production..."
+        # Logique de déploiement
 ```
 
-### 🔄 **Sauvegarde automatique**
+### **Script de Déploiement**
+
 ```bash
 #!/bin/bash
-# backup.sh
-DATE=$(date +%Y%m%d_%H%M%S)
-cp arkalia.db backup/arkalia_$DATE.db
-find backup/ -name "*.db" -mtime +7 -delete
+# scripts/deploy.sh
+
+set -e
+
+echo "🚀 Déploiement en cours..."
+
+# Tests
+python -m pytest tests/ -v
+black . --check
+ruff check .
+
+# Déploiement
+case $1 in
+  "staging")
+    echo "Deploying to staging..."
+    ;;
+  "production")
+    echo "Deploying to production..."
+    ;;
+  *)
+    echo "Usage: $0 {staging|production}"
+    exit 1
+    ;;
+esac
+
+echo "✅ Déploiement terminé!"
 ```
 
 ---
 
-## 🧪 TESTS DE DÉPLOIEMENT
+## 🎯 **Checklist de Déploiement**
 
-### 1️⃣ **Tests de connectivité**
+- [ ] **🧪 Tests** : Tous les tests passent
+- [ ] **🔧 Qualité** : Code formaté et linté
+- [ ] **🔒 Sécurité** : Variables d'environnement sécurisées
+- [ ] **📊 Monitoring** : Logs et métriques configurés
+- [ ] **🔄 Rollback** : Plan de rollback préparé
+- [ ] **📚 Documentation** : Documentation mise à jour
+
+---
+
+## 🚨 **Troubleshooting**
+
+### **Problèmes Courants**
+
+| Problème | Cause | Solution |
+|----------|-------|----------|
+| **Port déjà utilisé** | Autre service | Changer le port |
+| **Permission denied** | Droits insuffisants | `chmod +x start.sh` |
+| **Module not found** | Dépendances manquantes | `pip install -r requirements.txt` |
+| **Database locked** | Concurrence SQLite | Vérifier les connexions |
+
+### **Commandes de Debug**
+
 ```bash
-# Test du serveur
-curl -I http://localhost:5001
+# Vérifier les processus
+ps aux | grep python
 
-# Test de l'API
-curl http://localhost:5001/api/status
+# Vérifier les ports
+netstat -tulpn | grep :5000
 
-# Test de la base de données
-curl http://localhost:5001/api/test/database
-```
+# Vérifier les logs
+tail -f logs/app.log
 
-### 2️⃣ **Tests de performance**
-```bash
-# Test de charge avec Apache Bench
-ab -n 100 -c 10 http://localhost:5001/
-
-# Test de stress
-python tests/stress_test.py
-```
-
-### 3️⃣ **Tests de sécurité**
-```bash
-# Test des headers de sécurité
-curl -I http://localhost:5001 | grep -E "(X-Frame-Options|X-Content-Type-Options|X-XSS-Protection)"
-
-# Test d'injection SQL
-curl "http://localhost:5001/commande?commande=test'; DROP TABLE users; --"
+# Vérifier la base de données
+sqlite3 data/database/arkalia.db ".tables"
 ```
 
 ---
 
-## 🚨 DÉPANNAGE
+## 🌟 **Conclusion**
 
-### ❌ **Problèmes courants**
+Ce guide couvre les aspects essentiels du déploiement d'Arkalia Quest. Pour plus de détails, consultez la [documentation complète](ARCHITECTURE_TECHNIQUE.md).
 
-#### **Erreur : Port déjà utilisé**
-```bash
-# Solution 1 : Changer le port
-python app.py --port 5002
-
-# Solution 2 : Tuer le processus
-lsof -ti:5001 | xargs kill -9
-```
-
-#### **Erreur : Base de données corrompue**
-```bash
-# Restaurer depuis une sauvegarde
-cp backup/arkalia_20250708_120000.db arkalia.db
-
-# Ou réinitialiser
-rm arkalia.db
-python -c "from core.database import DatabaseManager; DatabaseManager().init_database()"
-```
-
-#### **Erreur : Dépendances manquantes**
-```bash
-# Réinstaller les dépendances
-pip install --force-reinstall -r requirements.txt
-
-# Vérifier les versions
-pip list | grep -E "(Flask|SQLite|Gunicorn)"
-```
-
-### 📞 **Support**
-- **Logs :** `tail -f logs/app.log`
-- **Documentation :** `/docs/`
-- **Issues :** GitHub Issues
-- **Email :** support@arkalia-quest.com
-
----
-
-## 🎯 CHECKLIST DE DÉPLOIEMENT
-
-### ✅ **Pré-déploiement**
-- [ ] Tests unitaires passent
-- [ ] Tests d'intégration validés
-- [ ] Documentation mise à jour
-- [ ] Variables d'environnement configurées
-- [ ] Base de données initialisée
-
-### ✅ **Déploiement**
-- [ ] Code déployé sur Render
-- [ ] Service accessible
-- [ ] Base de données connectée
-- [ ] Logs fonctionnels
-- [ ] Monitoring actif
-
-### ✅ **Post-déploiement**
-- [ ] Tests de régression
-- [ ] Performance validée
-- [ ] Sécurité vérifiée
-- [ ] Sauvegarde configurée
-- [ ] Alertes configurées
-
----
-
-## 🏁 CONCLUSION
-
-### 🚀 **Déploiement réussi !**
-Arkalia Quest est maintenant accessible en production et prêt à accueillir les hackers rebelles de demain !
-
-### 📊 **Métriques de succès**
-- **Temps de déploiement :** < 5 minutes
-- **Disponibilité :** 99.9%
-- **Performance :** < 1s de réponse
-- **Sécurité :** Headers configurés
-
-### 🎮 **Prêt pour l'aventure !**
-Le jeu est maintenant **100% opérationnel** et peut être utilisé par des ados de 13 ans en toute sécurité.
-
----
-
-**🎯 Arkalia Quest - Déployé avec succès et prêt pour l'aventure ! 🚀** 
+**Bon déploiement !** 🚀✨ 

@@ -341,7 +341,7 @@ class SimpleIntelligentTester:
                     f"\n🧭 {result['personality_data']['name']} ({result['personality_data']['style']}):"
                 )
                 print(
-                    f"   • Succès: {stats['successful_commands']}/{stats['total_commands']} ({stats['success_rate']*100:.1f}%)"
+                    f"• Succès: {stats['successful_commands']}/{stats['total_commands']} ({stats['success_rate']*100:.1f}%)"
                 )
                 print(f"   • Score: {stats['total_score']} points")
                 print(f"   • Badges: {stats['badges_earned']}")

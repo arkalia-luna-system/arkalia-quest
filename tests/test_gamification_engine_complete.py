@@ -397,13 +397,13 @@ class TestGamificationEngineComplete(unittest.TestCase):
             "user_id_format": "uuid_or_string",
         }
 
-        for rule, constraint in data_validation_rules.items():
+        for rule, _constraint in data_validation_rules.items():
             with self.subTest(rule=rule):
                 self.assertIsInstance(rule, str)
                 self.assertGreater(len(rule), 0)
 
                 # Vérifier que la règle est valide
-                is_valid_rule = self.validate_data_rule(rule, constraint)
+                is_valid_rule = self.validate_data_rule(rule)
                 self.assertIsInstance(is_valid_rule, bool)
 
     def validate_data_rule(self, rule):
@@ -434,7 +434,7 @@ def run_gamification_tests():
     print("\n📊 Résumé des tests de gamification:")
     print(f"  Tests exécutés: {result.testsRun}")
     print(
-        f"  Tests réussis: {result.testsRun - len(result.failures) - len(result.errors)}"
+        f"Tests réussis: {result.testsRun - len(result.failures) - len(result.errors)}"
     )
     print(f"  Tests échoués: {len(result.failures)}")
     print(f"  Tests en erreur: {len(result.errors)}")

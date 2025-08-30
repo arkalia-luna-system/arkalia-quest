@@ -67,7 +67,7 @@ pip install -r requirements.txt
 python app.py
 ```
 
-**🌐 Application accessible sur :** `http://localhost:5000`
+**🌐 Application accessible sur :** `http://localhost:5001`
 
 ---
 

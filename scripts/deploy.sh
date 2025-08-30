@@ -60,12 +60,12 @@ case $PLATFORM in
         # Lancer le conteneur
         echo "🚀 Lancement du conteneur..."
         docker run -d \
-            -p 5000:5000 \
+            -p 5001:5001 \
             --name arkalia-quest \
             --restart unless-stopped \
             arkalia-quest:$VERSION
         
-        echo "✅ Déployé sur http://localhost:5000"
+        echo "✅ Déployé sur http://localhost:5001"
         echo "📋 Commandes utiles:"
         echo "   docker logs arkalia-quest          # Voir les logs"
         echo "   docker stop arkalia-quest          # Arrêter"

@@ -11,7 +11,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "your-secret-key-here")
 # Configuration Flask
 DEBUG = os.environ.get("DEBUG", "false").lower() == "true"
 HOST = os.environ.get("HOST", "0.0.0.0")
-PORT = int(os.environ.get("PORT", 5000))
+PORT = int(os.environ.get("PORT", 5001))
 
 # Configuration de la base de données
 DATABASE_URL = os.environ.get("DATABASE_URL", f"sqlite:///{BASE_DIR}/arkalia.db")

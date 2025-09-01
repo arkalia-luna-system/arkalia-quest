@@ -3,7 +3,9 @@ services:
     name: arkalia-quest
     runtime: python
     plan: free
-    buildCommand: pip install -r requirements.txt
+    buildCommand: |
+      chmod +x build.sh
+      ./build.sh
     startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120 --preload
     envVars:
       - key: PYTHON_VERSION
@@ -14,5 +16,13 @@ services:
         value: production
       - key: SECRET_KEY
         generateValue: true
+      - key: PIP_USE_PEP517
+        value: "0"
+      - key: POETRY_VENV_IN_PROJECT
+        value: "false"
+      - key: POETRY_NO_INTERACTION
+        value: "1"
+      - key: POETRY_DISABLE_VENV_CREATION
+        value: "1"
     healthCheckPath: /health
     autoDeploy: true

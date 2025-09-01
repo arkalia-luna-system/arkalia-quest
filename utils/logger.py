@@ -121,7 +121,9 @@ class ArkaliaLogger:
             extra = {}
 
         # Ajout d'informations contextuelles
-        extra.update({"timestamp": datetime.now().isoformat(), "module_name": self.name})
+        extra.update(
+            {"timestamp": datetime.now().isoformat(), "module_name": self.name}
+        )
 
         if self.logger is not None:
             if level == "INFO":

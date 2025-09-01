@@ -10,11 +10,12 @@ from typing import Any, Dict, List
 
 from core.database import DatabaseManager
 import logging
+
 try:
     from utils.logger import game_logger
 except ImportError:
     # Fallback si le module utils est en conflit
-    game_logger = logging.getLogger('arkalia_game')
+    game_logger = logging.getLogger("arkalia_game")
 
 
 class ProfileManager:
@@ -50,7 +51,9 @@ class ProfileManager:
                 )
                 return False
         if not isinstance(profile.get("badges", []), list):
-            game_logger.error("Erreur sauvegarde profil: 'badges' doit être une liste !")
+            game_logger.error(
+                "Erreur sauvegarde profil: 'badges' doit être une liste !"
+            )
             return False
         if not isinstance(profile.get("preferences", {}), dict):
             game_logger.error(

@@ -15,13 +15,14 @@ from core.security_manager import security_manager
 from core.tutorial_manager import tutorial_manager
 from core.websocket_manager import websocket_manager
 import logging
+
 try:
     from utils.logger import game_logger, security_logger, performance_logger
 except ImportError:
     # Fallback si le module utils est en conflit
-    game_logger = logging.getLogger('arkalia_game')
-    security_logger = logging.getLogger('arkalia_security')
-    performance_logger = logging.getLogger('arkalia_performance')
+    game_logger = logging.getLogger("arkalia_game")
+    security_logger = logging.getLogger("arkalia_security")
+    performance_logger = logging.getLogger("arkalia_performance")
 
 # from core.educational_games_engine import educational_games
 

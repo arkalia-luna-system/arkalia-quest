@@ -10,14 +10,14 @@ from datetime import datetime
 from typing import Any, Dict, List, Optional
 
 import sys
-import os
 import logging
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 try:
     from utils.logger import game_logger
 except ImportError:
     # Fallback si le module utils est en conflit
-    game_logger = logging.getLogger('arkalia_game')
+    game_logger = logging.getLogger("arkalia_game")
 
 
 @dataclass

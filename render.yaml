@@ -4,8 +4,8 @@ services:
     runtime: python
     plan: free
     buildCommand: |
-      chmod +x build.sh
-      ./build.sh
+      pip install --upgrade pip
+      pip install -r requirements.txt
     startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120 --preload
     envVars:
       - key: PYTHON_VERSION
@@ -19,6 +19,12 @@ services:
       - key: PIP_USE_PEP517
         value: "0"
       - key: PIP_NO_USE_PEP517
+        value: "1"
+      - key: POETRY_VENV_IN_PROJECT
+        value: "false"
+      - key: POETRY_NO_INTERACTION
+        value: "1"
+      - key: POETRY_DISABLE_VENV_CREATION
         value: "1"
     healthCheckPath: /health
     autoDeploy: true

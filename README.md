@@ -4,7 +4,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://python.org)
 [![Flask](https://img.shields.io/badge/Flask-3.1+-green.svg)](https://flask.palletsprojects.com)
-[![Tests](https://img.shields.io/badge/Tests-179%2F179%20COLLECTED-brightgreen.svg)](https://github.com/arkalia-luna-system/arkalia-quest)
+[![Tests](https://img.shields.io/badge/Tests-144%2F144%20COLLECTED-brightgreen.svg)](https://github.com/arkalia-luna-system/arkalia-quest)
 [![Sécurité](https://img.shields.io/badge/Sécurité-90%25-orange.svg)](https://github.com/arkalia-luna-system/arkalia-quest)
 [![Performance](https://img.shields.io/badge/Performance-95%25-yellow.svg)](https://github.com/arkalia-luna-system/arkalia-quest)
 

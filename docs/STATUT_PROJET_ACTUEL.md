@@ -34,7 +34,7 @@ Arkalia Quest est un jeu narratif éducatif de hacking pour adolescents, dévelo
 - **Responsive design** : Multi-appareils
 
 ### 🧪 Tests & Qualité
-- **Tests automatisés** : 179 tests avec 100% de réussite ✅
+- **Tests automatisés** : 179-225 tests avec 100% de réussite ✅
 - **Tests d'accessibilité** : Validation WCAG 2.1 AA complète
 - **Tests de performance** : Optimisation continue et métriques
 - **Tests d'intégration** : Validation des systèmes et composants
@@ -59,7 +59,7 @@ Arkalia Quest est un jeu narratif éducatif de hacking pour adolescents, dévelo
 - **Code nettoyé et optimisé** : Suppression des arguments inutilisés
 - **Logique simplifiée** : Conditions imbriquées optimisées
 - **Structure améliorée** : Organisation modulaire renforcée
-- **Tests étendus** : 179 tests avec validation complète
+- **Tests étendus** : 179-225 tests avec validation complète
 
 ## 🔄 En Cours de Développement
 
@@ -83,7 +83,7 @@ Arkalia Quest est un jeu narratif éducatif de hacking pour adolescents, dévelo
 - **Modes adaptatifs** : 8 modes disponibles
 
 ### 🧪 Qualité
-- **Tests automatisés** : 179 tests avec 100% de réussite ✅
+- **Tests automatisés** : 179-225 tests avec 100% de réussite ✅
 - **Performance** : Temps de chargement < 2s
 - **Stabilité** : 99.9% de disponibilité
 - **Code qualité** : Grade A+ (Black + Ruff appliqués)

@@ -7,6 +7,16 @@ from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List
 
+import sys
+import os
+import logging
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+try:
+    from utils.logger import game_logger
+except ImportError:
+    # Fallback si le module utils est en conflit
+    game_logger = logging.getLogger('arkalia_game')
+
 
 class GameType(Enum):
     """Types de jeux éducatifs disponibles"""
@@ -103,7 +113,7 @@ def calculer_moyenne(nombres):
 
 # Test
 resultat = calculer_moyenne([10, 20, 30])
-print("Moyenne:", resultat)
+game_logger.info(f"Moyenne: {resultat}")
 """,
                 "error": "Division par zéro si liste vide",
                 "solution": "Ajouter une vérification de liste vide",

@@ -9,6 +9,12 @@ from datetime import datetime
 from typing import Any, Dict, List
 
 from core.database import DatabaseManager
+import logging
+try:
+    from utils.logger import game_logger
+except ImportError:
+    # Fallback si le module utils est en conflit
+    game_logger = logging.getLogger('arkalia_game')
 
 
 class ProfileManager:
@@ -39,28 +45,28 @@ class ProfileManager:
         ]
         for key in required_keys:
             if key not in profile:
-                print(
-                    f"❌ Erreur sauvegarde profil: clé manquante '{key}' dans le profil !"
+                game_logger.error(
+                    f"Erreur sauvegarde profil: clé manquante '{key}' dans le profil !"
                 )
                 return False
         if not isinstance(profile.get("badges", []), list):
-            print("❌ Erreur sauvegarde profil: 'badges' doit être une liste !")
+            game_logger.error("Erreur sauvegarde profil: 'badges' doit être une liste !")
             return False
         if not isinstance(profile.get("preferences", {}), dict):
-            print(
-                "❌ Erreur sauvegarde profil: 'preferences' doit être un dictionnaire !"
+            game_logger.error(
+                "Erreur sauvegarde profil: 'preferences' doit être un dictionnaire !"
             )
             return False
         # Vérification de la sous-structure 'personnalite'
         if not isinstance(profile.get("personnalite", {}), dict):
-            print(
-                "❌ Erreur sauvegarde profil: 'personnalite' doit être un dictionnaire !"
+            game_logger.error(
+                "Erreur sauvegarde profil: 'personnalite' doit être un dictionnaire !"
             )
             return False
         # Vérification de la sous-structure 'progression'
         if not isinstance(profile.get("progression", {}), dict):
-            print(
-                "❌ Erreur sauvegarde profil: 'progression' doit être un dictionnaire !"
+            game_logger.error(
+                "Erreur sauvegarde profil: 'progression' doit être un dictionnaire !"
             )
             return False
         return self.db_manager.save_profile("main_user", profile)
@@ -113,7 +119,7 @@ class LunaAI:
                 "analyse_date": datetime.now().isoformat(),
             }
         except Exception as e:
-            print(f"❌ Erreur analyse personnalité: {e}")
+            game_logger.error(f"Erreur analyse personnalité: {e}")
             return {"type": "non_detecte", "traits": [], "confiance": 0.0}
 
 
@@ -150,7 +156,7 @@ class MissionEngine:
                 "generated_at": datetime.now().isoformat(),
             }
         except Exception as e:
-            print(f"❌ Erreur génération mission: {e}")
+            game_logger.error(f"Erreur génération mission: {e}")
             return {"id": "error", "type": "erreur", "title": "Erreur de génération"}
 
 
@@ -168,7 +174,7 @@ class ContentManager:
                 "updated_at": datetime.now().isoformat(),
             }
         except Exception as e:
-            print(f"❌ Erreur contenu disponible: {e}")
+            game_logger.error(f"Erreur contenu disponible: {e}")
             return {"error": str(e)}
 
     def get_mission_info(self, mission_name: str) -> Dict[str, Any]:
@@ -183,7 +189,7 @@ class ContentManager:
             else:
                 return {"error": f"Mission {mission_name} non trouvée"}
         except Exception as e:
-            print(f"❌ Erreur mission info: {e}")
+            game_logger.error(f"Erreur mission info: {e}")
             return {"error": str(e)}
 
     def get_profile_summary(self, profile: Dict[str, Any]) -> Dict[str, Any]:
@@ -202,7 +208,7 @@ class ContentManager:
                 "summary_date": datetime.now().isoformat(),
             }
         except Exception as e:
-            print(f"❌ Erreur résumé profil: {e}")
+            game_logger.error(f"Erreur résumé profil: {e}")
             return {"error": str(e)}
 
     def _get_available_missions(self) -> List[str]:

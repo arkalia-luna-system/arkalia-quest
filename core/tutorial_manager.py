@@ -9,6 +9,16 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
+import sys
+import os
+import logging
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+try:
+    from utils.logger import game_logger
+except ImportError:
+    # Fallback si le module utils est en conflit
+    game_logger = logging.getLogger('arkalia_game')
+
 
 @dataclass
 class TutorialStep:
@@ -69,7 +79,7 @@ class TutorialManager:
             with open(self.tutorial_data_path, encoding="utf-8") as f:
                 return json.load(f)
         except Exception as e:
-            print(f"❌ Erreur chargement tutoriel: {e}")
+            game_logger.error(f"Erreur chargement tutoriel: {e}")
             return {"tutoriel": {"etapes": []}}
 
     def get_user_progress(self, user_id: str) -> TutorialProgress:
@@ -82,7 +92,7 @@ class TutorialManager:
                     data = json.load(f)
                     return self._deserialize_progress(data)
             except Exception as e:
-                print(f"❌ Erreur chargement progression {user_id}: {e}")
+                game_logger.error(f"Erreur chargement progression {user_id}: {e}")
 
         # Créer une nouvelle progression
         return TutorialProgress(user_id=user_id)
@@ -97,7 +107,7 @@ class TutorialManager:
                 )
             return True
         except Exception as e:
-            print(f"❌ Erreur sauvegarde progression {user_id}: {e}")
+            game_logger.error(f"Erreur sauvegarde progression {user_id}: {e}")
             return False
 
     def _serialize_progress(self, progress: TutorialProgress) -> Dict[str, Any]:

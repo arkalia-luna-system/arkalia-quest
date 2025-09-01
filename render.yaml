@@ -18,11 +18,7 @@ services:
         generateValue: true
       - key: PIP_USE_PEP517
         value: "0"
-      - key: POETRY_VENV_IN_PROJECT
-        value: "false"
-      - key: POETRY_NO_INTERACTION
-        value: "1"
-      - key: POETRY_DISABLE_VENV_CREATION
+      - key: PIP_NO_USE_PEP517
         value: "1"
     healthCheckPath: /health
     autoDeploy: true

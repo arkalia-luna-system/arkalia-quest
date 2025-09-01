@@ -4,11 +4,13 @@ Setup script pour Arkalia Quest
 Force l'utilisation de pip au lieu de Poetry
 """
 
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 # Lire requirements.txt
-with open("requirements.txt", "r", encoding="utf-8") as f:
-    requirements = [line.strip() for line in f if line.strip() and not line.startswith("#")]
+with open("requirements.txt", encoding="utf-8") as f:
+    requirements = [
+        line.strip() for line in f if line.strip() and not line.startswith("#")
+    ]
 
 setup(
     name="arkalia-quest",

@@ -8,6 +8,20 @@ set -u  # Arrêter si variable non définie
 echo "🚀 DÉBUT DU BUILD ARKALIA QUEST"
 echo "================================"
 
+# Désactiver complètement Poetry
+echo "🚫 Désactivation de Poetry..."
+export POETRY_VENV_IN_PROJECT=false
+export POETRY_NO_INTERACTION=1
+export POETRY_DISABLE_VENV_CREATION=1
+export PIP_USE_PEP517=0
+unset PIP_NO_USE_PEP517
+
+# Supprimer les fichiers pyproject.toml s'ils existent pour éviter la détection automatique
+if [ -f "pyproject.toml" ]; then
+    echo "⚠️  Suppression de pyproject.toml pour éviter la détection Poetry"
+    rm -f pyproject.toml
+fi
+
 # Vérification de l'environnement Python
 echo "🐍 Vérification de la version Python..."
 python --version

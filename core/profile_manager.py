@@ -53,9 +53,9 @@ class ProfileManager:
                 "chapitres_completes": [],
                 "etape_actuelle": "tutorial_etape_1",
             },
-            "created_at": "2024-01-01T00:00:00",
-            "last_login": "2024-01-01T00:00:00",
-            "updated_at": "2024-01-01T00:00:00",
+            "created_at": "2025-01-01T00:00:00",
+            "last_login": "2025-01-01T00:00:00",
+            "updated_at": "2025-01-01T00:00:00",
         }
 
     def ensure_profile_structure(self, profile: Dict[str, Any]) -> Dict[str, Any]:

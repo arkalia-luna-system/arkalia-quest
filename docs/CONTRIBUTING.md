@@ -45,7 +45,7 @@ pip install -r requirements.txt
 # Démarrez l'application
 python app.py
 
-# Ouvrez http://localhost:5000
+# Ouvrez http://localhost:5001
 ```
 
 ---

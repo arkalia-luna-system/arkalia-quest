@@ -24,7 +24,7 @@ mkdir -p logs
 
 # Lancer l'application
 echo "🚀 Lancement d'Arkalia Quest..."
-echo "📍 Application accessible sur: http://localhost:5000"
+echo "📍 Application accessible sur: http://localhost:5001"
 echo "🛑 Appuyez sur Ctrl+C pour arrêter"
 echo ""
 

@@ -32,7 +32,7 @@ class TestGamificationEngineComplete(unittest.TestCase):
             "achievements": [],
             "experience": 0,
             "streak": 0,
-            "last_activity": "2024-08-17T10:00:00",
+            "last_activity": "2025-08-17T10:00:00",
         }
 
     def tearDown(self):

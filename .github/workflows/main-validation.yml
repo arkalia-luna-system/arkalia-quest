@@ -1,0 +1,83 @@
+name: 🔍 Validation de la Branche Main
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  validate-main:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 🚀 Checkout du code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🐍 Configuration Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 📦 Installation des dépendances
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: 🔍 Vérification Black
+        run: |
+          echo "🎨 Vérification du formatage Black..."
+          black --check . --diff
+
+      - name: 🔍 Vérification Ruff
+        run: |
+          echo "🔍 Vérification du linting Ruff..."
+          ruff check . --output-format=github
+
+      - name: 🧪 Exécution des tests
+        run: |
+          echo "🧪 Exécution des tests..."
+          python -m pytest tests/ -v --cov=core --cov=engines --cov=utils --cov-report=term-missing --cov-fail-under=10
+
+      - name: 🐳 Test de construction Docker
+        run: |
+          echo "🐳 Test de construction Docker..."
+          docker build -f config/Dockerfile -t arkalia-quest:test .
+
+      - name: 🔐 Vérification des secrets
+        run: |
+          echo "🔐 Vérification des secrets..."
+          if [ -n "${{ secrets.DOCKER_USERNAME }}" ]; then
+            echo "✅ DOCKER_USERNAME configuré"
+          else
+            echo "⚠️  DOCKER_USERNAME non configuré"
+          fi
+          
+          if [ -n "${{ secrets.DOCKER_PASSWORD }}" ]; then
+            echo "✅ DOCKER_PASSWORD configuré"
+          else
+            echo "⚠️  DOCKER_PASSWORD non configuré"
+          fi
+
+      - name: 📊 Vérification de la structure
+        run: |
+          echo "📊 Vérification de la structure du projet..."
+          echo "✅ Core modules: $(ls -la core/ | wc -l) fichiers"
+          echo "✅ Engines: $(ls -la engines/ | wc -l) fichiers"
+          echo "✅ Tests: $(ls -la tests/ | wc -l) fichiers"
+          echo "✅ Templates: $(ls -la templates/ | wc -l) fichiers"
+          echo "✅ Static: $(ls -la static/ | wc -l) fichiers"
+
+      - name: 🎉 Validation réussie
+        run: |
+          echo "🎉 VALIDATION DE LA BRANCHE MAIN RÉUSSIE !"
+          echo "✅ Tous les tests passent"
+          echo "✅ Code formaté et linté"
+          echo "✅ Docker construit avec succès"
+          echo "✅ Structure du projet valide"
+          echo "🚀 Main est prête pour la production !"

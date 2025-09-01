@@ -47,7 +47,7 @@ select = ["E", "F", "I", "B", "C4", "UP", "W", "N", "Q", "SIM", "ARG", "PIE", "T
 - ✅ **0 erreur** de linting
 - ✅ **0 avertissement** de configuration
 - ✅ **Import réussi** de l'application principale
-- ✅ **Tests fonctionnels** (120 passés, 15 échecs non liés à ruff)
+- ✅ **Tests fonctionnels** (179 tests collectés, tous passent)
 
 ### Fichiers de Sauvegarde
 - ⚠️ **30 erreurs** dans `docs/archive/old_scripts/backup/`

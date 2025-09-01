@@ -14,8 +14,8 @@ RUN pip install --no-cache-dir --upgrade pip && \
 # Copier le reste du code
 COPY . .
 
-# Exposer le port (Render utilise $PORT)
-EXPOSE $PORT
+# Exposer le port (Render utilise le port 10000 par défaut)
+EXPOSE 10000
 
 # Commande de démarrage
-CMD ["sh", "-c", "gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120 --preload"]
+CMD ["sh", "-c", "gunicorn app:app --bind 0.0.0.0:${PORT:-10000} --workers 2 --timeout 120 --preload"]

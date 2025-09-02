@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>📊 ARKALIA QUEST - DASHBOARD LUNA</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- PWA Meta Tags -->
-    <meta name="description" content="Dashboard de contrôle d'Arkalia Quest. Surveille ta progression et tes performances avec LUNA.">
+    <meta name="description"
+        content="Dashboard de contrôle d'Arkalia Quest. Surveille ta progression et tes performances avec LUNA.">
     <meta name="theme-color" content="#a78bfa">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    
+
     <!-- PWA Icons -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/icon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/icon-16x16.png">
     <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png">
-    
+
     <!-- CSS LUNA VISION -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
-    
+
     <style>
         /* Styles spécifiques au dashboard immersif */
         .dashboard-workspace {
@@ -30,37 +32,46 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .dashboard-background {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: 
+            background:
                 radial-gradient(circle at 20% 80%, rgba(167, 139, 250, 0.06) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(96, 165, 250, 0.06) 0%, transparent 50%),
                 radial-gradient(circle at 40% 40%, rgba(167, 139, 250, 0.04) 0%, transparent 50%);
             animation: dashboardAmbient 15s ease-in-out infinite;
         }
-        
+
         @keyframes dashboardAmbient {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(1.02); }
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: scale(1.02);
+            }
         }
-        
+
         .dashboard-container {
             padding: 30px 20px;
             position: relative;
             z-index: 2;
         }
-        
+
         .dashboard-header {
             text-align: center;
             margin-bottom: 40px;
             position: relative;
         }
-        
+
         .dashboard-title {
             font-family: 'Cormorant', serif;
             font-size: 3em;
@@ -71,7 +82,7 @@
             opacity: 0;
             animation: fadeInUp 1.5s ease-out 0.5s forwards;
         }
-        
+
         .dashboard-subtitle {
             font-family: 'Inter', sans-serif;
             font-size: 1.2em;
@@ -79,14 +90,14 @@
             opacity: 0;
             animation: fadeInUp 1.5s ease-out 1s forwards;
         }
-        
+
         .dashboard-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 25px;
             margin-bottom: 30px;
         }
-        
+
         .widget {
             background: rgba(9, 9, 11, 0.9);
             border: 2px solid rgba(167, 139, 250, 0.3);
@@ -98,7 +109,7 @@
             overflow: hidden;
             min-height: 200px;
         }
-        
+
         .widget::before {
             content: '';
             position: absolute;
@@ -110,24 +121,24 @@
             opacity: 0;
             transition: opacity 0.4s ease;
         }
-        
+
         .widget:hover::before {
             opacity: 1;
         }
-        
+
         .widget:hover {
             border-color: rgba(167, 139, 250, 0.6);
             box-shadow: 0 0 40px rgba(167, 139, 250, 0.3);
             transform: translateY(-5px);
         }
-        
+
         .widget-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-bottom: 20px;
         }
-        
+
         .widget-title {
             font-family: 'Cormorant', serif;
             font-size: 1.4em;
@@ -135,25 +146,25 @@
             color: var(--violet-lunaire);
             text-shadow: 0 0 15px rgba(167, 139, 250, 0.5);
         }
-        
+
         .widget-icon {
             font-size: 1.8em;
             color: var(--bleu-spectre);
             text-shadow: 0 0 15px rgba(96, 165, 250, 0.6);
         }
-        
+
         .widget-content {
             height: calc(100% - 60px);
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
-        
+
         .metric-display {
             text-align: center;
             margin-bottom: 20px;
         }
-        
+
         .metric-value {
             font-family: 'Cormorant', serif;
             font-size: 2.5em;
@@ -163,7 +174,7 @@
             margin-bottom: 10px;
             display: block;
         }
-        
+
         .metric-label {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 0.9em;
@@ -171,14 +182,14 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        
+
         .chart-container {
             width: 100%;
             height: 120px;
             position: relative;
             margin-top: 20px;
         }
-        
+
         .chart-bar {
             position: absolute;
             bottom: 0;
@@ -188,14 +199,37 @@
             transition: height 1s ease-out;
             box-shadow: 0 0 10px rgba(167, 139, 250, 0.4);
         }
-        
-        .chart-bar:nth-child(1) { left: 10%; animation-delay: 0.1s; }
-        .chart-bar:nth-child(2) { left: 25%; animation-delay: 0.2s; }
-        .chart-bar:nth-child(3) { left: 40%; animation-delay: 0.3s; }
-        .chart-bar:nth-child(4) { left: 55%; animation-delay: 0.4s; }
-        .chart-bar:nth-child(5) { left: 70%; animation-delay: 0.5s; }
-        .chart-bar:nth-child(6) { left: 85%; animation-delay: 0.6s; }
-        
+
+        .chart-bar:nth-child(1) {
+            left: 10%;
+            animation-delay: 0.1s;
+        }
+
+        .chart-bar:nth-child(2) {
+            left: 25%;
+            animation-delay: 0.2s;
+        }
+
+        .chart-bar:nth-child(3) {
+            left: 40%;
+            animation-delay: 0.3s;
+        }
+
+        .chart-bar:nth-child(4) {
+            left: 55%;
+            animation-delay: 0.4s;
+        }
+
+        .chart-bar:nth-child(5) {
+            left: 70%;
+            animation-delay: 0.5s;
+        }
+
+        .chart-bar:nth-child(6) {
+            left: 85%;
+            animation-delay: 0.6s;
+        }
+
         .chart-bar::after {
             content: '';
             position: absolute;
@@ -206,36 +240,44 @@
             background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             animation: chartShine 2s ease-in-out infinite;
         }
-        
+
         @keyframes chartShine {
-            0% { opacity: 0; }
-            50% { opacity: 1; }
-            100% { opacity: 0; }
+            0% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
         }
-        
+
         .progress-ring {
             width: 120px;
             height: 120px;
             margin: 0 auto;
             position: relative;
         }
-        
+
         .progress-ring svg {
             width: 100%;
             height: 100%;
             transform: rotate(-90deg);
         }
-        
+
         .progress-ring circle {
             fill: none;
             stroke-width: 8;
             stroke-linecap: round;
         }
-        
+
         .progress-ring .bg {
             stroke: rgba(167, 139, 250, 0.2);
         }
-        
+
         .progress-ring .progress {
             stroke: var(--violet-lunaire);
             stroke-dasharray: 283;
@@ -243,7 +285,7 @@
             transition: stroke-dashoffset 1.5s ease-out;
             filter: drop-shadow(0 0 10px rgba(167, 139, 250, 0.6));
         }
-        
+
         .progress-center {
             position: absolute;
             top: 50%;
@@ -251,7 +293,7 @@
             transform: translate(-50%, -50%);
             text-align: center;
         }
-        
+
         .progress-percentage {
             font-family: 'Cormorant', serif;
             font-size: 1.8em;
@@ -259,7 +301,7 @@
             color: var(--violet-lunaire);
             text-shadow: 0 0 15px rgba(167, 139, 250, 0.6);
         }
-        
+
         .notifications-panel {
             background: rgba(9, 9, 11, 0.9);
             border: 2px solid rgba(167, 139, 250, 0.3);
@@ -268,14 +310,14 @@
             backdrop-filter: blur(15px);
             margin-bottom: 30px;
         }
-        
+
         .notifications-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-bottom: 20px;
         }
-        
+
         .notifications-title {
             font-family: 'Cormorant', serif;
             font-size: 1.6em;
@@ -283,7 +325,7 @@
             color: var(--violet-lunaire);
             text-shadow: 0 0 15px rgba(167, 139, 250, 0.5);
         }
-        
+
         .notification-item {
             background: rgba(167, 139, 250, 0.1);
             border: 1px solid rgba(167, 139, 250, 0.2);
@@ -294,54 +336,69 @@
             opacity: 0;
             animation: notificationSlideIn 0.6s ease-out forwards;
         }
-        
-        .notification-item:nth-child(1) { animation-delay: 0.2s; }
-        .notification-item:nth-child(2) { animation-delay: 0.4s; }
-        .notification-item:nth-child(3) { animation-delay: 0.6s; }
-        
-        @keyframes notificationSlideIn {
-            from { opacity: 0; transform: translateX(-30px); }
-            to { opacity: 1; transform: translateX(0); }
+
+        .notification-item:nth-child(1) {
+            animation-delay: 0.2s;
         }
-        
+
+        .notification-item:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .notification-item:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes notificationSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
         .notification-item:hover {
             border-color: rgba(167, 139, 250, 0.4);
             box-shadow: 0 0 20px rgba(167, 139, 250, 0.2);
             transform: translateX(5px);
         }
-        
+
         .notification-header {
             display: flex;
             align-items: center;
             margin-bottom: 8px;
         }
-        
+
         .notification-icon {
             font-size: 1.2em;
             margin-right: 10px;
         }
-        
+
         .notification-title {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 0.9em;
             color: var(--violet-lunaire);
             font-weight: 600;
         }
-        
+
         .notification-time {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 0.7em;
             color: var(--argent-holographique);
             margin-left: auto;
         }
-        
+
         .notification-message {
             font-family: 'Inter', sans-serif;
             font-size: 0.9em;
             color: var(--argent-holographique);
             line-height: 1.4;
         }
-        
+
         .real-time-indicator {
             position: fixed;
             top: 20px;
@@ -358,7 +415,7 @@
             align-items: center;
             gap: 8px;
         }
-        
+
         .real-time-dot {
             width: 8px;
             height: 8px;
@@ -366,12 +423,21 @@
             border-radius: 50%;
             animation: realTimePulse 2s ease-in-out infinite;
         }
-        
+
         @keyframes realTimePulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.2); }
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
         }
-        
+
         .luna-insights {
             position: fixed;
             bottom: 20px;
@@ -388,34 +454,34 @@
             opacity: 0;
             animation: fadeIn 2s ease-out 3s forwards;
         }
-        
+
         .luna-insights::before {
             content: '🌙 LUNA:';
             font-weight: bold;
             color: var(--violet-lunaire);
             margin-right: 8px;
         }
-        
+
         @media (max-width: 768px) {
             .dashboard-title {
                 font-size: 2.2em;
             }
-            
+
             .dashboard-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
-            
+
             .widget {
                 min-height: 180px;
             }
-            
+
             .real-time-indicator {
                 position: static;
                 margin: 20px auto;
                 width: fit-content;
             }
-            
+
             .luna-insights {
                 position: static;
                 margin: 20px auto;
@@ -424,11 +490,11 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Skip Links pour accessibilité -->
     <a href="#main-content" class="skip-link">Aller au contenu principal</a>
     <a href="#navigation" class="skip-link">Aller à la navigation</a>
-    <a href="#accessibility-panel" class="skip-link">Paramètres d'accessibilité</a>
 
     <!-- Panneau d'accessibilité -->
     {% include 'accessibility_panel.html' %}
@@ -453,20 +519,20 @@
     <main id="main-content" class="dashboard-workspace">
         <!-- Fond animé du dashboard -->
         <div class="dashboard-background"></div>
-        
+
         <!-- Indicateur temps réel -->
         <div class="real-time-indicator">
             <div class="real-time-dot"></div>
             <span>LIVE DATA</span>
         </div>
-        
+
         <div class="dashboard-container">
             <!-- En-tête du dashboard -->
             <div class="dashboard-header">
                 <h1 class="dashboard-title" id="dashboard-title">DASHBOARD</h1>
                 <p class="dashboard-subtitle" id="dashboard-subtitle">Centre de contrôle de ta progression</p>
             </div>
-            
+
             <!-- Grille des widgets -->
             <div class="dashboard-grid">
                 <!-- Widget Score Total -->
@@ -482,7 +548,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Widget Niveau Actuel -->
                 <div class="widget">
                     <div class="widget-header">
@@ -501,7 +567,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Widget Missions -->
                 <div class="widget">
                     <div class="widget-header">
@@ -518,7 +584,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Widget Badges -->
                 <div class="widget">
                     <div class="widget-header">
@@ -532,7 +598,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Widget Performance -->
                 <div class="widget">
                     <div class="widget-header">
@@ -546,7 +612,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Widget Temps de Jeu -->
                 <div class="widget">
                     <div class="widget-header">
@@ -561,7 +627,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Panneau des notifications -->
             <div class="notifications-panel">
                 <div class="notifications-header">
@@ -572,7 +638,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Insights LUNA -->
         <div class="luna-insights" id="luna-insights">
             Analyse de tes performances en cours...
@@ -584,14 +650,14 @@
     <script src="{{ url_for('static', filename='js/audio-manager.js') }}"></script>
     <script src="{{ url_for('static', filename='js/effects.js') }}"></script>
     <script src="{{ url_for('static', filename='js/accessibility.js') }}"></script>
-    
+
     <script>
         // Charger les données du dashboard
         async function loadDashboardData() {
             try {
                 const response = await fetch('/api/gamification/summary');
                 const data = await response.json();
-                
+
                 if (data.success) {
                     updateDashboardMetrics(data);
                     updateProgressRing(data);
@@ -603,7 +669,7 @@
                 console.error('Erreur chargement dashboard:', error);
             }
         }
-        
+
         function updateDashboardMetrics(data) {
             document.getElementById('total-score').textContent = data.total_score || 0;
             document.getElementById('missions-completed').textContent = data.missions_completees || 0;
@@ -611,26 +677,26 @@
             document.getElementById('performance-score').textContent = Math.round((data.total_score || 0) / 10);
             document.getElementById('play-time').textContent = Math.round((data.total_score || 0) / 100);
         }
-        
+
         function updateProgressRing(data) {
             const levelProgress = data.level_progress || 0;
             const progressCircle = document.querySelector('.progress-ring .progress');
             const percentageText = document.getElementById('level-percentage');
-            
+
             const circumference = 2 * Math.PI * 45;
             const offset = circumference - (levelProgress / 100) * circumference;
-            
+
             progressCircle.style.strokeDashoffset = offset;
             percentageText.textContent = Math.round(levelProgress) + '%';
         }
-        
+
         function updateMissionsChart(data) {
             const chartContainer = document.getElementById('missions-chart');
             chartContainer.innerHTML = '';
-            
+
             // Données simulées pour le graphique
             const missionData = [65, 80, 45, 90, 70, 85];
-            
+
             missionData.forEach((value, index) => {
                 const bar = document.createElement('div');
                 bar.className = 'chart-bar';
@@ -639,32 +705,37 @@
                 chartContainer.appendChild(bar);
             });
         }
-        
+
         function updateNotifications(data) {
             const container = document.getElementById('notifications-container');
             container.innerHTML = '';
-            
-            const notifications = [
-                {
+
+            const notifications = [];
+            if ((data.missions_completees || 0) > 0) {
+                notifications.push({
                     icon: '🎯',
                     title: 'Mission Complétée',
-                    message: `Félicitations ! Tu as complété ta ${data.missions_completees || 0}e mission.`,
+                    message: `Félicitations ! Tu as complété ta ${data.missions_completees}e mission.`,
                     time: 'Il y a 2 min'
-                },
-                {
+                });
+            }
+            if ((data.current_level || 0) > 1) {
+                notifications.push({
                     icon: '⭐',
                     title: 'Niveau Atteint',
-                    message: `Tu as atteint le niveau ${data.current_level || 1}. Continue comme ça !`,
+                    message: `Tu as atteint le niveau ${data.current_level}. Continue comme ça !`,
                     time: 'Il y a 15 min'
-                },
-                {
+                });
+            }
+            if ((data.badges_count || 0) > 0) {
+                notifications.push({
                     icon: '🏅',
                     title: 'Badge Débloqué',
-                    message: `Nouveau badge obtenu ! Tu as maintenant ${data.badges_count || 0} badges.`,
+                    message: `Nouveau badge obtenu ! Tu as maintenant ${data.badges_count} badges.`,
                     time: 'Il y a 1h'
-                }
-            ];
-            
+                });
+            }
+
             notifications.forEach((notification, index) => {
                 const item = document.createElement('div');
                 item.className = 'notification-item';
@@ -679,10 +750,10 @@
                 container.appendChild(item);
             });
         }
-        
+
         function updateLunaInsights(data) {
             const insights = document.getElementById('luna-insights');
-            
+
             let message = '';
             if (data.total_score >= 1000) {
                 message = "Tes performances sont exceptionnelles ! Tu domines le classement.";
@@ -693,22 +764,22 @@
             } else {
                 message = "Bienvenue dans ton dashboard ! Je surveille tes progrès.";
             }
-            
+
             insights.textContent = message;
         }
-        
+
         // Mise à jour en temps réel
         function startRealTimeUpdates() {
             setInterval(() => {
                 loadDashboardData();
             }, 30000); // Mise à jour toutes les 30 secondes
         }
-        
+
         // Animation du titre
         document.addEventListener('DOMContentLoaded', () => {
             loadDashboardData();
             startRealTimeUpdates();
-            
+
             // Animation du titre
             setTimeout(() => {
                 const title = document.getElementById('dashboard-title');
@@ -716,7 +787,7 @@
                     window.lunaVision.typeText(title, "DASHBOARD", 80);
                 }
             }, 1000);
-            
+
             // Animation du sous-titre
             setTimeout(() => {
                 const subtitle = document.getElementById('dashboard-subtitle');
@@ -724,7 +795,7 @@
                     window.lunaVision.typeText(subtitle, "Centre de contrôle de ta progression", 40);
                 }
             }, 2000);
-            
+
             // Message de LUNA
             setTimeout(() => {
                 if (window.lunaVision) {
@@ -732,7 +803,7 @@
                     window.lunaVision.setEmotion('analytical');
                 }
             }, 3000);
-            
+
             // Interactions avec les widgets
             const widgets = document.querySelectorAll('.widget');
             widgets.forEach((widget, index) => {
@@ -746,4 +817,5 @@
         });
     </script>
 </body>
+
 </html>

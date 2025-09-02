@@ -1081,3 +1081,190 @@ a:focus,
     font-size: 1em;
     letter-spacing: 0.05em;
 }
+
+/* ===== AMÉLIORATIONS AUDIO ET ACCESSIBILITÉ ===== */
+
+/* Indicateurs visuels pour l'audio */
+.audio-indicator {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8em;
+    color: #00ff00;
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: none;
+}
+
+.audio-indicator.active {
+    display: block;
+    animation: audioPulse 1s ease-in-out infinite;
+}
+
+@keyframes audioPulse {
+
+    0%,
+    100% {
+        opacity: 0.7;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Amélioration du contraste pour les utilisateurs malvoyants */
+body.high-contrast-enhanced {
+    --text-color: #ffffff;
+    --background-color: #000000;
+    --border-color: #ffffff;
+    --focus-color: #ffff00;
+}
+
+body.high-contrast-enhanced * {
+    color: var(--text-color) !important;
+    background-color: var(--background-color) !important;
+    border-color: var(--border-color) !important;
+}
+
+body.high-contrast-enhanced *:focus {
+    outline: 3px solid var(--focus-color) !important;
+    outline-offset: 2px !important;
+    box-shadow: 0 0 10px var(--focus-color) !important;
+}
+
+/* Amélioration de la taille de police pour les utilisateurs malvoyants */
+body.large-text {
+    font-size: 1.2em;
+}
+
+body.large-text h1 {
+    font-size: 2.5em;
+}
+
+body.large-text h2 {
+    font-size: 2em;
+}
+
+body.large-text h3 {
+    font-size: 1.8em;
+}
+
+body.large-text button,
+body.large-text .btn {
+    font-size: 1.1em;
+    padding: 12px 20px;
+}
+
+/* Amélioration de l'espacement pour les utilisateurs avec des difficultés motrices */
+body.large-spacing {
+    --spacing-xs: 12px;
+    --spacing-sm: 18px;
+    --spacing-md: 24px;
+    --spacing-lg: 36px;
+    --spacing-xl: 48px;
+}
+
+body.large-spacing button,
+body.large-spacing .btn {
+    min-height: 56px;
+    min-width: 56px;
+    padding: 16px 24px;
+    margin: 12px 8px;
+}
+
+/* Amélioration de la navigation clavier */
+.keyboard-navigation *:focus {
+    outline: 3px solid #00ff00 !important;
+    outline-offset: 2px !important;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5) !important;
+}
+
+/* Amélioration des tooltips pour l'accessibilité */
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.9) transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext,
+.tooltip:focus .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Amélioration des notifications d'accessibilité */
+.accessibility-notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.95);
+    color: #00ff00;
+    border: 2px solid #00ff00;
+    border-radius: 10px;
+    padding: 20px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.1em;
+    z-index: 10000;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+    animation: accessibilityNotification 3s ease-in-out forwards;
+}
+
+@keyframes accessibilityNotification {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+
+    20% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    80% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+}

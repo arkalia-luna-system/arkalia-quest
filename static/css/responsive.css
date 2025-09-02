@@ -444,7 +444,7 @@ h6 {
         --spacing-lg: 40px;
         --spacing-xl: 60px;
     }
-    
+
     .portal-container,
     .terminal-container,
     .monde-container,
@@ -453,7 +453,7 @@ h6 {
         margin: 50px auto;
         padding: 50px;
     }
-    
+
     .main-action-btn,
     .nav-button,
     .secondary-btn,
@@ -465,16 +465,24 @@ h6 {
         font-size: 20px;
         margin: 15px 10px;
     }
-    
-    h1 { font-size: 4em; }
-    h2 { font-size: 3.2em; }
-    h3 { font-size: 2.5em; }
-    
+
+    h1 {
+        font-size: 4em;
+    }
+
+    h2 {
+        font-size: 3.2em;
+    }
+
+    h3 {
+        font-size: 2.5em;
+    }
+
     .monde-content {
         grid-template-columns: repeat(4, 1fr);
         gap: 40px;
     }
-    
+
     .features-grid {
         grid-template-columns: repeat(4, 1fr);
         gap: 40px;

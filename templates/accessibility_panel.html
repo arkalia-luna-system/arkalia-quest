@@ -311,6 +311,12 @@
                             </div>
                         </div>
                         <div class="control-group">
+                            <span class="control-label">Contraste renforcé</span>
+                            <div class="control-toggle" id="high-contrast-enhanced" role="switch" aria-checked="false"
+                                tabindex="0" onclick="toggleControl(this)" onkeydown="toggleControlKey(event, this)">
+                            </div>
+                        </div>
+                        <div class="control-group">
                             <span class="control-label">Taille du texte</span>
                             <select class="control-input" id="font-size">
                                 <option value="small">Petit</option>
@@ -318,6 +324,12 @@
                                 <option value="large">Grand</option>
                                 <option value="xlarge">Très grand</option>
                             </select>
+                        </div>
+                        <div class="control-group">
+                            <span class="control-label">Texte agrandi</span>
+                            <div class="control-toggle" id="large-text" role="switch" aria-checked="false" tabindex="0"
+                                onclick="toggleControl(this)" onkeydown="toggleControlKey(event, this)">
+                            </div>
                         </div>
                         <div class="control-group">
                             <span class="control-label">Animations réduites</span>
@@ -348,6 +360,12 @@
                         <div class="control-group">
                             <span class="control-label">Audio descriptif</span>
                             <div class="control-toggle" id="audio-description" role="switch" aria-checked="false"
+                                tabindex="0" onclick="toggleControl(this)" onkeydown="toggleControlKey(event, this)">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <span class="control-label">Indicateur audio</span>
+                            <div class="control-toggle" id="audio-indicator" role="switch" aria-checked="false"
                                 tabindex="0" onclick="toggleControl(this)" onkeydown="toggleControlKey(event, this)">
                             </div>
                         </div>
@@ -402,6 +420,12 @@
                                 <option value="normal" selected>Normal</option>
                                 <option value="spacious">Spacieux</option>
                             </select>
+                        </div>
+                        <div class="control-group">
+                            <span class="control-label">Espacement large</span>
+                            <div class="control-toggle" id="large-spacing" role="switch" aria-checked="false"
+                                tabindex="0" onclick="toggleControl(this)" onkeydown="toggleControlKey(event, this)">
+                            </div>
                         </div>
                         <div class="control-group">
                             <span class="control-label">Curseur personnalisé</span>
@@ -520,7 +544,7 @@
                 document.body.classList.remove('focus-visible-global');
             }
 
-            // Raccourcis clavier (placeholder d’activation globale)
+            // Raccourcis clavier (placeholder d'activation globale)
             if (settings.keyboardShortcuts) {
                 document.body.setAttribute('data-shortcuts', 'on');
             } else {
@@ -532,6 +556,36 @@
                 document.body.classList.add('custom-cursor');
             } else {
                 document.body.classList.remove('custom-cursor');
+            }
+
+            // Contraste renforcé
+            if (settings.highContrastEnhanced) {
+                document.body.classList.add('high-contrast-enhanced');
+            } else {
+                document.body.classList.remove('high-contrast-enhanced');
+            }
+
+            // Texte agrandi
+            if (settings.largeText) {
+                document.body.classList.add('large-text');
+            } else {
+                document.body.classList.remove('large-text');
+            }
+
+            // Espacement large
+            if (settings.largeSpacing) {
+                document.body.classList.add('large-spacing');
+            } else {
+                document.body.classList.remove('large-spacing');
+            }
+
+            // Indicateur audio
+            if (settings.audioIndicator) {
+                document.body.classList.add('keyboard-navigation');
+                showAudioIndicator();
+            } else {
+                document.body.classList.remove('keyboard-navigation');
+                hideAudioIndicator();
             }
         }
 
@@ -604,14 +658,18 @@
             };
 
             setActive('high-contrast', !!savedSettings.highContrast);
+            setActive('high-contrast-enhanced', !!savedSettings.highContrastEnhanced);
             setActive('reduced-motion', !!savedSettings.reducedMotion);
+            setActive('large-text', !!savedSettings.largeText);
             setActive('subtitles', !!savedSettings.subtitles);
             setActive('audio-description', !!savedSettings.audioDescription);
+            setActive('audio-indicator', !!savedSettings.audioIndicator);
             setActive('keyboard-nav', !!savedSettings.keyboardNav);
             setActive('focus-visible', !!savedSettings.focusVisible);
             setActive('keyboard-shortcuts', !!savedSettings.keyboardShortcuts);
             setActive('dark-mode', !!savedSettings.darkMode);
             setActive('custom-cursor', !!savedSettings.customCursor);
+            setActive('large-spacing', !!savedSettings.largeSpacing);
 
             if (savedSettings.fontSize) document.getElementById('font-size').value = savedSettings.fontSize;
             if (savedSettings.elementSpacing) document.getElementById('element-spacing').value = savedSettings.elementSpacing;
@@ -649,6 +707,43 @@
                 element.addEventListener('change', updateAccessibilitySettings);
             });
         });
+
+        // Fonctions pour l'indicateur audio
+        function showAudioIndicator() {
+            let indicator = document.getElementById('audio-indicator-element');
+            if (!indicator) {
+                indicator = document.createElement('div');
+                indicator.id = 'audio-indicator-element';
+                indicator.className = 'audio-indicator active';
+                indicator.innerHTML = '🔊 Audio activé';
+                document.body.appendChild(indicator);
+            }
+            indicator.classList.add('active');
+        }
+
+        function hideAudioIndicator() {
+            const indicator = document.getElementById('audio-indicator-element');
+            if (indicator) {
+                indicator.classList.remove('active');
+                setTimeout(() => {
+                    if (indicator && !indicator.classList.contains('active')) {
+                        indicator.remove();
+                    }
+                }, 1000);
+            }
+        }
+
+        // Fonction pour afficher les notifications d'accessibilité
+        function showAccessibilityNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'accessibility-notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
     </script>
 </body>
 

@@ -25,6 +25,13 @@ class BasicCommands:
             "commands": self.handle_aide,
             "liste": self.handle_aide,
             "menu": self.handle_aide,
+            # Commandes de progression
+            "unlock_universe": self.handle_unlock_universe,
+            "scan_persona": self.handle_scan_persona,
+            # Commandes de progression
+            "badges": self.handle_badges,
+            "leaderboard": self.handle_leaderboard,
+            "missions": self.handle_missions,
         }
 
     def handle_aide(self, profile: Dict[str, Any]) -> Dict[str, Any]:
@@ -270,4 +277,371 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
             "score_gagne": 100,
             "badge": "Tutoriel Maître",
             "profile_updated": True,
+        }
+
+    def handle_unlock_universe(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+        """Gère la commande unlock_universe - Débloque l'univers Arkalia"""
+        profile["score"] += 100
+        if "Univers Débloqué" not in profile["badges"]:
+            profile["badges"].append("Univers Débloqué")
+
+        # Débloquer l'univers dans le profil
+        if "progression" not in profile:
+            profile["progression"] = {}
+        if "univers_debloques" not in profile["progression"]:
+            profile["progression"]["univers_debloques"] = []
+
+        if "arkalia_base" not in profile["progression"]["univers_debloques"]:
+            profile["progression"]["univers_debloques"].append("arkalia_base")
+
+        return {
+            "réussite": True,
+            "ascii_art": "🌌",
+            "message": """🌌 UNIVERS ARKALIA DÉBLOQUÉ !
+
+🎉 FÉLICITATIONS ! Tu as débloqué l'univers Arkalia !
+
+🌟 NOUVELLES ZONES ACCESSIBLES :
+• arkalia_base → Zone de départ (débloquée)
+• nexus_station → Station NEXUS (prologue requis)
+• luna_workshop → Atelier LUNA (acte_1 requis)
+• pandora_core → Cœur de PANDORA (acte_6 requis)
+
+🔓 CAPACITÉS DÉBLOQUÉES :
+• Accès au monde complet d'Arkalia
+• Navigation entre les zones
+• Découverte de nouveaux secrets
+• Progression dans l'histoire
+
+💡 PROCHAINES ÉTAPES :
+• Utilise 'scan_persona' pour découvrir ton profil unique
+• Explore le monde avec 'monde' ou 'world'
+• Commence l'aventure avec 'start_tutorial'
+
+🌙 LUNA : "Bienvenue dans notre univers, hacker ! L'aventure commence maintenant !"
+
+🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !""",
+            "score_gagne": 100,
+            "badge": "Univers Débloqué",
+            "profile_updated": True,
+        }
+
+    def handle_scan_persona(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+        """Gère la commande scan_persona - Analyse la personnalité du joueur"""
+        profile["score"] += 75
+        if "Personnalité Analysée" not in profile["badges"]:
+            profile["badges"].append("Personnalité Analysée")
+
+        # Déterminer le type de hacker basé sur les actions
+        hacker_type = self._determine_hacker_type(profile)
+
+        return {
+            "réussite": True,
+            "ascii_art": "🔍",
+            "message": f"""🔍 ANALYSE DE PERSONNALITÉ TERMINÉE !
+
+🧠 PROFIL HACKER DÉTECTÉ :
+• Type : {hacker_type['type']}
+• Niveau : {hacker_type['level']}
+• Spécialité : {hacker_type['specialty']}
+• Style : {hacker_type['style']}
+
+📊 CARACTÉRISTIQUES DÉTECTÉES :
+• Curiosité : {hacker_type['curiosity']}%
+• Persévérance : {hacker_type['perseverance']}%
+• Créativité : {hacker_type['creativity']}%
+• Logique : {hacker_type['logic']}%
+
+🎯 RECOMMANDATIONS :
+• Missions adaptées à ton profil
+• Défis personnalisés
+• Progression optimisée
+• Badges spéciaux débloqués
+
+💡 Astuce : Ton profil évolue avec tes actions ! Plus tu explores, plus tu deviens expert !
+
+🌙 LUNA : "J'ai analysé ton potentiel, hacker ! Tu as un profil unique et prometteur !"
+
+🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !""",
+            "score_gagne": 75,
+            "badge": "Personnalité Analysée",
+            "profile_updated": True,
+        }
+
+    def _determine_hacker_type(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+        """Détermine le type de hacker basé sur le profil"""
+        score = profile.get("score", 0)
+        
+        # Logique simple pour déterminer le type
+        if score < 200:
+            return {
+                "type": "Hacker Débutant",
+                "level": "Novice",
+                "specialty": "Exploration",
+                "style": "Curieux",
+                "curiosity": 85,
+                "perseverance": 70,
+                "creativity": 60,
+                "logic": 65,
+            }
+        elif score < 500:
+            return {
+                "type": "Hacker Intermédiaire",
+                "level": "Confirmé",
+                "specialty": "Analyse",
+                "style": "Méthodique",
+                "curiosity": 75,
+                "perseverance": 85,
+                "creativity": 70,
+                "logic": 80,
+            }
+        else:
+            return {
+                "type": "Hacker Expert",
+                "level": "Maître",
+                "specialty": "Innovation",
+                "style": "Génie",
+                "curiosity": 90,
+                "perseverance": 95,
+                "creativity": 90,
+                "logic": 95,
+            }
+
+    def handle_badges(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+        """Gère la commande badges - Affiche tous les badges obtenus"""
+        badges = profile.get("badges", [])
+
+        if not badges:
+            return {
+                "réussite": True,
+                "ascii_art": "🏆",
+                "message": """🏆 TES BADGES ARKALIA QUEST
+
+📋 Aucun badge obtenu pour le moment.
+
+💡 CONSEILS POUR DÉBLOQUER DES BADGES :
+• Complète des missions avec 'start_tutorial'
+• Explore le monde avec 'monde'
+• Interagis avec LUNA avec 'luna_contact'
+• Utilise 'unlock_universe' pour débloquer l'univers
+• Analyse ta personnalité avec 'scan_persona'
+
+🎯 Chaque action peut te rapporter un badge unique !
+
+🌙 LUNA : "Continue à explorer, hacker ! Des badges t'attendent !"
+
+🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !""",
+                "profile_updated": False,
+            }
+
+        # Organiser les badges par catégorie
+        categories = {
+            "Débutant": [],
+            "Explorateur": [],
+            "Hacker": [],
+            "LUNA": [],
+            "Spécial": [],
+        }
+
+        for badge in badges:
+            if any(
+                word in badge.lower() for word in ["débutant", "contacté", "tutoriel"]
+            ):
+                categories["Débutant"].append(badge)
+            elif any(
+                word in badge.lower()
+                for word in ["explorateur", "navigateur", "univers"]
+            ):
+                categories["Explorateur"].append(badge)
+            elif any(
+                word in badge.lower()
+                for word in ["hacker", "system", "web", "log", "email"]
+            ):
+                categories["Hacker"].append(badge)
+            elif any(
+                word in badge.lower()
+                for word in ["luna", "émotion", "active", "analysé"]
+            ):
+                categories["LUNA"].append(badge)
+            else:
+                categories["Spécial"].append(badge)
+
+        message = f"""🏆 TES BADGES ARKALIA QUEST
+
+📊 RÉCAPITULATIF :
+• Total : {len(badges)} badges obtenus
+• Progression : {len(badges)}/50 badges
+
+📋 BADGES PAR CATÉGORIE :"""
+
+        for category, badge_list in categories.items():
+            if badge_list:
+                message += f"\n\n🎯 {category.upper()} :"
+                for badge in badge_list:
+                    message += f"\n• {badge}"
+
+        message += """
+
+💡 CONSEILS POUR DÉBLOQUER PLUS DE BADGES :
+• Complète toutes les missions d'histoire
+• Explore chaque zone du monde
+• Interagis régulièrement avec LUNA
+• Résous des mini-jeux éducatifs
+• Découvre des easter eggs secrets
+
+🌙 LUNA : "Excellent travail, hacker ! Continue à collectionner !"
+
+🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !"""
+
+        return {
+            "réussite": True,
+            "ascii_art": "🏆",
+            "message": message,
+            "profile_updated": False,
+        }
+
+    def handle_leaderboard(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+        """Gère la commande leaderboard - Affiche le classement des hackers"""
+        # Simuler un leaderboard
+        leaderboard_data = [
+            {"name": "Hacker_Elite", "score": 2500, "badges": 15, "level": 8},
+            {"name": "Cyber_Ninja", "score": 2200, "badges": 12, "level": 7},
+            {"name": "Code_Master", "score": 1800, "badges": 10, "level": 6},
+            {"name": "Luna_Friend", "score": 1500, "badges": 8, "level": 5},
+            {"name": "Arkalia_Explorer", "score": 1200, "badges": 6, "level": 4},
+        ]
+
+        # Ajouter le joueur actuel
+        current_score = profile.get("score", 0)
+        current_badges = len(profile.get("badges", []))
+        current_level = min(10, current_score // 1000 + 1)
+
+        # Trouver la position du joueur
+        player_position = 1
+        for i, player in enumerate(leaderboard_data):
+            if current_score > player["score"]:
+                player_position = i + 1
+                break
+            player_position = i + 2
+
+        message = f"""🏆 LEADERBOARD ARKALIA QUEST
+
+📊 CLASSEMENT DES HACKERS :
+
+🥇 1. {leaderboard_data[0]['name']} - {leaderboard_data[0]['score']} pts (Niveau {leaderboard_data[0]['level']})
+🥈 2. {leaderboard_data[1]['name']} - {leaderboard_data[1]['score']} pts (Niveau {leaderboard_data[1]['level']})
+🥉 3. {leaderboard_data[2]['name']} - {leaderboard_data[2]['score']} pts (Niveau {leaderboard_data[2]['level']})
+4. {leaderboard_data[3]['name']} - {leaderboard_data[3]['score']} pts (Niveau {leaderboard_data[3]['level']})
+5. {leaderboard_data[4]['name']} - {leaderboard_data[4]['score']} pts (Niveau {leaderboard_data[4]['level']})
+
+🎯 TON CLASSEMENT :
+• Position : #{player_position}
+• Score : {current_score} points
+• Badges : {current_badges}
+• Niveau : {current_level}
+
+💡 CONSEILS POUR MONTER AU CLASSEMENT :
+• Complète plus de missions
+• Débloque de nouveaux badges
+• Explore toutes les zones
+• Résous des défis quotidiens
+• Interagis avec LUNA
+
+🌙 LUNA : "Continue à progresser, hacker ! Tu peux monter au classement !"
+
+🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !"""
+
+        return {
+            "réussite": True,
+            "ascii_art": "🏆",
+            "message": message,
+            "profile_updated": False,
+        }
+
+    def handle_missions(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+        """Gère la commande missions - Affiche les missions disponibles"""
+        completed_missions = profile.get("missions_completed", [])
+
+        # Définir toutes les missions
+        all_missions = [
+            {
+                "id": "intro",
+                "name": "Bienvenue dans Arkalia",
+                "status": "✅" if "intro" in completed_missions else "⏳",
+            },
+            {
+                "id": "prologue",
+                "name": "Le SOS d'Althea",
+                "status": "✅" if "prologue" in completed_missions else "⏳",
+            },
+            {
+                "id": "acte_1",
+                "name": "Répare le site web de LUNA",
+                "status": "✅" if "acte_1" in completed_missions else "⏳",
+            },
+            {
+                "id": "acte_2",
+                "name": "Décrypte les logs de NEXUS",
+                "status": "✅" if "acte_2" in completed_missions else "⏳",
+            },
+            {
+                "id": "acte_3",
+                "name": "Analyse la berceuse d'Althea",
+                "status": "✅" if "acte_3" in completed_missions else "⏳",
+            },
+            {
+                "id": "acte_4",
+                "name": "Traque l'email piégé",
+                "status": "✅" if "acte_4" in completed_missions else "⏳",
+            },
+            {
+                "id": "acte_5",
+                "name": "Le choix final",
+                "status": "✅" if "acte_5" in completed_missions else "⏳",
+            },
+            {
+                "id": "acte_6",
+                "name": "Naissance d'Arkalia",
+                "status": "✅" if "acte_6" in completed_missions else "⏳",
+            },
+            {
+                "id": "epilogue",
+                "name": "L'aube de PANDORA",
+                "status": "✅" if "epilogue" in completed_missions else "⏳",
+            },
+        ]
+
+        completed_count = len(completed_missions)
+        total_count = len(all_missions)
+        progress_percent = (completed_count / total_count) * 100
+
+        message = f"""🎯 TES MISSIONS ARKALIA QUEST
+
+📊 PROGRESSION GLOBALE :
+• Missions complétées : {completed_count}/{total_count}
+• Pourcentage : {progress_percent:.1f}%
+
+📋 LISTE DES MISSIONS :"""
+
+        for mission in all_missions:
+            message += f"\n{mission['status']} {mission['name']}"
+
+        message += """
+
+💡 CONSEILS POUR PROGRESSER :
+• Commence par 'start_tutorial' si tu es nouveau
+• Utilise 'prologue' pour découvrir l'histoire
+• Suis l'ordre des actes (acte_1, acte_2, etc.)
+• Chaque mission débloque de nouveaux pouvoirs
+• Les missions complétées donnent des badges
+
+🌙 LUNA : "Continue tes missions, hacker ! L'aventure t'attend !"
+
+🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !"""
+
+        return {
+            "réussite": True,
+            "ascii_art": "🎯",
+            "message": message,
+            "profile_updated": False,
         }

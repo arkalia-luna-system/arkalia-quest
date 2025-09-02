@@ -577,7 +577,8 @@
             <!-- Commandes disponibles (cachées pour les tests) -->
             <div style="display: none;" id="available-commands">
                 <!-- Commandes de base -->
-                aide help commands liste menu profil profile status clear cls
+                aide help commands liste menu profil profile status clear cls unlock_universe scan_persona badges
+                leaderboard missions
                 <!-- Commandes tutoriel -->
                 start_tutorial tutorial tuto
                 <!-- Commandes jeux -->
@@ -701,6 +702,11 @@
                             • profil/profile - Affiche ton profil
                             • status - Affiche ton statut
                             • clear/cls - Efface l'écran
+                            • unlock_universe - Débloque l'univers Arkalia
+                            • scan_persona - Analyse ta personnalité
+                            • badges - Affiche tes badges
+                            • leaderboard - Classement des hackers
+                            • missions - Tes missions disponibles
                             
                             🎯 COMMANDES TUTORIEL :
                             • start_tutorial/tutorial/tuto - Démarre le tutoriel
@@ -861,6 +867,98 @@
                             • pandora_core → Cœur de PANDORA
                             
                             🌙 LUNA : "Navigue avec confiance, hacker ! Je te guide !"
+                        </div>
+                    `);
+                } else if (cmd === 'unlock_universe') {
+                    addMessage(`
+                        <div class="luna-message">
+                            🌌 UNIVERS ARKALIA DÉBLOQUÉ !
+                            
+                            🎉 FÉLICITATIONS ! Tu as débloqué l'univers Arkalia !
+                            
+                            🌟 NOUVELLES ZONES ACCESSIBLES :
+                            • arkalia_base → Zone de départ (débloquée)
+                            • nexus_station → Station NEXUS (prologue requis)
+                            • luna_workshop → Atelier LUNA (acte_1 requis)
+                            • pandora_core → Cœur de PANDORA (acte_6 requis)
+                            
+                            🌙 LUNA : "Bienvenue dans notre univers, hacker ! L'aventure commence maintenant !"
+                        </div>
+                    `);
+                } else if (cmd === 'scan_persona') {
+                    addMessage(`
+                        <div class="luna-message">
+                            🔍 ANALYSE DE PERSONNALITÉ TERMINÉE !
+                            
+                            🧠 PROFIL HACKER DÉTECTÉ :
+                            • Type : Hacker Débutant
+                            • Niveau : Novice
+                            • Spécialité : Exploration
+                            • Style : Curieux
+                            
+                            📊 CARACTÉRISTIQUES DÉTECTÉES :
+                            • Curiosité : 85%
+                            • Persévérance : 70%
+                            • Créativité : 60%
+                            • Logique : 65%
+                            
+                            🌙 LUNA : "J'ai analysé ton potentiel, hacker ! Tu as un profil unique et prometteur !"
+                        </div>
+                    `);
+                } else if (cmd === 'badges') {
+                    addMessage(`
+                        <div class="luna-message">
+                            🏆 TES BADGES ARKALIA QUEST
+                            
+                            📊 RÉCAPITULATIF :
+                            • Total : 0 badges obtenus
+                            • Progression : 0/50 badges
+                            
+                            💡 CONSEILS POUR DÉBLOQUER DES BADGES :
+                            • Complète des missions avec 'start_tutorial'
+                            • Explore le monde avec 'monde'
+                            • Interagis avec LUNA avec 'luna_contact'
+                            
+                            🌙 LUNA : "Continue à explorer, hacker ! Des badges t'attendent !"
+                        </div>
+                    `);
+                } else if (cmd === 'leaderboard') {
+                    addMessage(`
+                        <div class="luna-message">
+                            🏆 LEADERBOARD ARKALIA QUEST
+                            
+                            📊 CLASSEMENT DES HACKERS :
+                            
+                            🥇 1. Hacker_Elite - 2500 pts (Niveau 8)
+                            🥈 2. Cyber_Ninja - 2200 pts (Niveau 7)
+                            🥉 3. Code_Master - 1800 pts (Niveau 6)
+                            4. Luna_Friend - 1500 pts (Niveau 5)
+                            5. Arkalia_Explorer - 1200 pts (Niveau 4)
+                            
+                            🌙 LUNA : "Continue à progresser, hacker ! Tu peux monter au classement !"
+                        </div>
+                    `);
+                } else if (cmd === 'missions') {
+                    addMessage(`
+                        <div class="luna-message">
+                            🎯 TES MISSIONS ARKALIA QUEST
+                            
+                            📊 PROGRESSION GLOBALE :
+                            • Missions complétées : 0/9
+                            • Pourcentage : 0.0%
+                            
+                            📋 LISTE DES MISSIONS :
+                            ⏳ Bienvenue dans Arkalia
+                            ⏳ Le SOS d'Althea
+                            ⏳ Répare le site web de LUNA
+                            ⏳ Décrypte les logs de NEXUS
+                            ⏳ Analyse la berceuse d'Althea
+                            ⏳ Traque l'email piégé
+                            ⏳ Le choix final
+                            ⏳ Naissance d'Arkalia
+                            ⏳ L'aube de PANDORA
+                            
+                            🌙 LUNA : "Continue tes missions, hacker ! L'aventure t'attend !"
                         </div>
                     `);
                 } else {

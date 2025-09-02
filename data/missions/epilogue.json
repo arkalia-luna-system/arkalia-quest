@@ -1,0 +1,37 @@
+{
+    "id": "epilogue",
+    "title": "L'aube de PANDORA",
+    "description": "Découvre le nouveau monde créé par Arkalia et prépare-toi pour de nouvelles aventures",
+    "difficulty": "legendary",
+    "timer": 420,
+    "rewards": {
+        "score": 1000,
+        "badges": ["maitre_arkalia"],
+        "unlock": "pandora_universe"
+    },
+    "steps": [
+        {
+            "id": "step_1",
+            "title": "Exploration de PANDORA",
+            "description": "Utilise 'epilogue' pour explorer le nouveau monde",
+            "command": "epilogue",
+            "hint": "Commence par 'epilogue' pour explorer PANDORA"
+        },
+        {
+            "id": "step_2",
+            "title": "Découverte des nouveaux pouvoirs",
+            "description": "Découvre les nouveaux pouvoirs d'Arkalia",
+            "command": "hack_system",
+            "hint": "Utilise 'hack_system' pour analyser les nouveaux pouvoirs"
+        },
+        {
+            "id": "step_3",
+            "title": "Préparation pour l'avenir",
+            "description": "Prépare-toi pour de nouvelles aventures",
+            "command": "hacker_coffre",
+            "hint": "Utilise 'hacker_coffre' pour préparer l'avenir"
+        }
+    ],
+    "completed_by": [],
+    "created_at": "2025-01-17T12:00:00"
+}

@@ -833,6 +833,28 @@ function addHelpMessage() {
         </div>
         
         <div class="command-category">
+            <div class="category-title">🎮 MINI-JEUX ÉDUCATIFS</div>
+            <div class="command-list">
+                <div class="command-item">
+                    <span class="command-name">games</span>
+                    <span class="command-desc">Liste tous les mini-jeux disponibles</span>
+                </div>
+                <div class="command-item">
+                    <span class="command-name">play logic_1</span>
+                    <span class="command-desc">Joue au jeu de logique</span>
+                </div>
+                <div class="command-item">
+                    <span class="command-name">play code_1</span>
+                    <span class="command-desc">Joue au jeu de programmation</span>
+                </div>
+                <div class="command-item">
+                    <span class="command-name">play cyber_1</span>
+                    <span class="command-desc">Joue au jeu de cybersécurité</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="command-category">
             <div class="category-title">🏆 BADGES ET RÉCOMPENSES</div>
             <div class="command-list">
                 <div class="command-item">

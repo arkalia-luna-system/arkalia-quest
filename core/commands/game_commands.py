@@ -18,6 +18,7 @@ class GameCommands:
         self.commands = {
             "games": self.handle_games,
             "play_game": self.handle_play_game,
+            "play": self.handle_play,
             "game_stats": self.handle_game_stats,
             "daily_challenges": self.handle_daily_challenges,
             "random_events": self.handle_random_events,
@@ -64,8 +65,6 @@ class GameCommands:
 
     def handle_play_game(self, profile: Dict[str, Any]) -> Dict[str, Any]:
         """Démarre un mini-jeu éducatif"""
-        # Récupérer l'ID du jeu depuis le profil ou la commande
-        # Pour l'instant, on simule le démarrage d'un jeu
         return {
             "réussite": True,
             "ascii_art": "🎮",
@@ -85,6 +84,24 @@ class GameCommands:
 🌙 LUNA : "Les mini-jeux s'ouvrent dans une fenêtre interactive !"
 💻 Interface graphique avec animations et effets sonores !
 🎮 Continue l'aventure pour débloquer tous les secrets !""",
+            "profile_updated": False,
+        }
+
+    def handle_play(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+        """Lance un mini-jeu spécifique"""
+        # Récupérer l'ID du jeu depuis la commande
+        # Pour l'instant, on simule le lancement d'un jeu
+        return {
+            "réussite": True,
+            "ascii_art": "🎮",
+            "message": """🎮 LANCEMENT DU MINI-JEU
+
+🌙 LUNA : "Prépare-toi, hacker ! Un défi t'attend !"
+
+💻 Le mini-jeu s'ouvre dans une nouvelle fenêtre interactive...
+🎯 Résous le défi pour gagner des points et des badges !
+
+🚀 Bonne chance dans cette aventure éducative !""",
             "profile_updated": False,
         }
 

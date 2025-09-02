@@ -371,7 +371,7 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
     def _determine_hacker_type(self, profile: Dict[str, Any]) -> Dict[str, Any]:
         """Détermine le type de hacker basé sur le profil"""
         score = profile.get("score", 0)
-        
+
         # Logique simple pour déterminer le type
         if score < 200:
             return {

@@ -1,0 +1,39 @@
+{
+    "id": "acte_2",
+    "title": "Décrypte les logs de NEXUS",
+    "description": "Analyse les logs cryptés de NEXUS pour découvrir ses secrets",
+    "difficulty": "medium",
+    "timer": 240,
+    "rewards": {
+        "score": 400,
+        "badges": [
+            "decrypteur_nexus"
+        ],
+        "unlock": "nexus_lab"
+    },
+    "steps": [
+        {
+            "id": "step_1",
+            "title": "Accès aux logs",
+            "description": "Utilise 'acte_2' pour accéder aux logs de NEXUS",
+            "command": "acte_2",
+            "hint": "Commence par 'acte_2' pour analyser les logs"
+        },
+        {
+            "id": "step_2",
+            "title": "Décryptage des données",
+            "description": "Décrypte les données cryptées de NEXUS",
+            "command": "decode_portal",
+            "hint": "Utilise 'decode_portal' pour décrypter les données"
+        },
+        {
+            "id": "step_3",
+            "title": "Analyse des patterns",
+            "description": "Identifie les patterns dans les logs de NEXUS",
+            "command": "hack_system",
+            "hint": "Utilise 'hack_system' pour analyser les patterns"
+        }
+    ],
+    "completed_by": [],
+    "created_at": "2025-01-17T12:00:00"
+}

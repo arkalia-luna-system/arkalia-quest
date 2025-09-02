@@ -1,0 +1,339 @@
+{
+  "summary": {
+    "total_tests": 45,
+    "passed_tests": 14,
+    "failed_tests": 31,
+    "skipped_tests": 0,
+    "success_rate": 31.11111111111111,
+    "total_duration": 3.944124,
+    "start_time": "2025-09-02T13:03:21.174197",
+    "end_time": "2025-09-02T13:03:25.118321"
+  },
+  "results": [
+    {
+      "test": "Commande: help",
+      "status": "PASS",
+      "details": "Commande trouvée dans le terminal",
+      "duration": 0.28841328620910645,
+      "timestamp": "2025-09-02T13:03:21.463682"
+    },
+    {
+      "test": "Commande: aide",
+      "status": "PASS",
+      "details": "Commande trouvée dans le terminal",
+      "duration": 0.1888413429260254,
+      "timestamp": "2025-09-02T13:03:21.653076"
+    },
+    {
+      "test": "Commande: commands",
+      "status": "PASS",
+      "details": "Commande trouvée dans le terminal",
+      "duration": 0.07929706573486328,
+      "timestamp": "2025-09-02T13:03:21.733155"
+    },
+    {
+      "test": "Commande: liste",
+      "status": "PASS",
+      "details": "Commande trouvée dans le terminal",
+      "duration": 0.06880903244018555,
+      "timestamp": "2025-09-02T13:03:21.802215"
+    },
+    {
+      "test": "Commande: menu",
+      "status": "PASS",
+      "details": "Commande trouvée dans le terminal",
+      "duration": 0.07373404502868652,
+      "timestamp": "2025-09-02T13:03:21.876189"
+    },
+    {
+      "test": "Commande: profil",
+      "status": "PASS",
+      "details": "Commande trouvée dans le terminal",
+      "duration": 0.09027814865112305,
+      "timestamp": "2025-09-02T13:03:21.966665"
+    },
+    {
+      "test": "Commande: profile",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.06318163871765137,
+      "timestamp": "2025-09-02T13:03:22.030156"
+    },
+    {
+      "test": "Commande: status",
+      "status": "PASS",
+      "details": "Commande trouvée dans le terminal",
+      "duration": 0.05569577217102051,
+      "timestamp": "2025-09-02T13:03:22.086233"
+    },
+    {
+      "test": "Commande: clear",
+      "status": "PASS",
+      "details": "Commande trouvée dans le terminal",
+      "duration": 0.05950474739074707,
+      "timestamp": "2025-09-02T13:03:22.146484"
+    },
+    {
+      "test": "Commande: cls",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.05616402626037598,
+      "timestamp": "2025-09-02T13:03:22.203138"
+    },
+    {
+      "test": "Commande: start_tutorial",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.054116010665893555,
+      "timestamp": "2025-09-02T13:03:22.257767"
+    },
+    {
+      "test": "Commande: tutorial",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.056223154067993164,
+      "timestamp": "2025-09-02T13:03:22.314486"
+    },
+    {
+      "test": "Commande: tuto",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.16754698753356934,
+      "timestamp": "2025-09-02T13:03:22.495383"
+    },
+    {
+      "test": "Commande: games",
+      "status": "PASS",
+      "details": "Commande trouvée dans le terminal",
+      "duration": 0.05530905723571777,
+      "timestamp": "2025-09-02T13:03:22.551227"
+    },
+    {
+      "test": "Commande: play_game",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.07142496109008789,
+      "timestamp": "2025-09-02T13:03:22.623018"
+    },
+    {
+      "test": "Commande: game_stats",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.05726170539855957,
+      "timestamp": "2025-09-02T13:03:22.680743"
+    },
+    {
+      "test": "Commande: daily_challenges",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.09800601005554199,
+      "timestamp": "2025-09-02T13:03:22.779039"
+    },
+    {
+      "test": "Commande: prologue",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.058361053466796875,
+      "timestamp": "2025-09-02T13:03:22.837707"
+    },
+    {
+      "test": "Commande: acte_1",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.06331896781921387,
+      "timestamp": "2025-09-02T13:03:22.901260"
+    },
+    {
+      "test": "Commande: acte_2",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.06238389015197754,
+      "timestamp": "2025-09-02T13:03:22.963864"
+    },
+    {
+      "test": "Commande: acte_3",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.07512497901916504,
+      "timestamp": "2025-09-02T13:03:23.039322"
+    },
+    {
+      "test": "Commande: acte_4",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.06980180740356445,
+      "timestamp": "2025-09-02T13:03:23.109529"
+    },
+    {
+      "test": "Commande: acte_5",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.05718183517456055,
+      "timestamp": "2025-09-02T13:03:23.166913"
+    },
+    {
+      "test": "Commande: acte_6",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.04975008964538574,
+      "timestamp": "2025-09-02T13:03:23.217107"
+    },
+    {
+      "test": "Commande: epilogue",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.05561184883117676,
+      "timestamp": "2025-09-02T13:03:23.273032"
+    },
+    {
+      "test": "Commande: hack_system",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.05839991569519043,
+      "timestamp": "2025-09-02T13:03:23.331689"
+    },
+    {
+      "test": "Commande: kill_virus",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.06181025505065918,
+      "timestamp": "2025-09-02T13:03:23.393740"
+    },
+    {
+      "test": "Commande: find_shadow",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.05551481246948242,
+      "timestamp": "2025-09-02T13:03:23.449533"
+    },
+    {
+      "test": "Commande: challenge_corp",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.055670976638793945,
+      "timestamp": "2025-09-02T13:03:23.505409"
+    },
+    {
+      "test": "Commande: decode_portal",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.05831098556518555,
+      "timestamp": "2025-09-02T13:03:23.563946"
+    },
+    {
+      "test": "Commande: hacker_coffre",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.05183005332946777,
+      "timestamp": "2025-09-02T13:03:23.615957"
+    },
+    {
+      "test": "Commande: boss_final",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.05534100532531738,
+      "timestamp": "2025-09-02T13:03:23.671732"
+    },
+    {
+      "test": "Commande: luna_contact",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.05529499053955078,
+      "timestamp": "2025-09-02T13:03:23.727305"
+    },
+    {
+      "test": "Commande: luna_emotion",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.057431936264038086,
+      "timestamp": "2025-09-02T13:03:23.784931"
+    },
+    {
+      "test": "Commande: luna_help",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.07744407653808594,
+      "timestamp": "2025-09-02T13:03:23.864499"
+    },
+    {
+      "test": "Commande: luna_status",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.0830240249633789,
+      "timestamp": "2025-09-02T13:03:23.948122"
+    },
+    {
+      "test": "Commande: monde",
+      "status": "PASS",
+      "details": "Commande trouvée dans le terminal",
+      "duration": 0.06273984909057617,
+      "timestamp": "2025-09-02T13:03:24.011932"
+    },
+    {
+      "test": "Commande: world",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.06959795951843262,
+      "timestamp": "2025-09-02T13:03:24.082055"
+    },
+    {
+      "test": "Commande: explorer",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.05451011657714844,
+      "timestamp": "2025-09-02T13:03:24.136795"
+    },
+    {
+      "test": "Commande: naviguer",
+      "status": "FAIL",
+      "details": "Commande non trouvée dans le terminal",
+      "duration": 0.08855700492858887,
+      "timestamp": "2025-09-02T13:03:24.225818"
+    },
+    {
+      "test": "Progression Missions",
+      "status": "PASS",
+      "details": "Éléments progression trouvés: 5/5",
+      "duration": 0.09663581848144531,
+      "timestamp": "2025-09-02T13:03:24.325432"
+    },
+    {
+      "test": "Fonctionnalité Leaderboard",
+      "status": "PASS",
+      "details": "Éléments leaderboard trouvés: 4/4",
+      "duration": 0.07415390014648438,
+      "timestamp": "2025-09-02T13:03:24.411927"
+    },
+    {
+      "test": "Jeux Éducatifs",
+      "status": "FAIL",
+      "details": "Éléments jeux manquants: 2/5",
+      "duration": 0.09320306777954102,
+      "timestamp": "2025-09-02T13:03:24.593024"
+    },
+    {
+      "test": "Interaction LUNA IA",
+      "status": "PASS",
+      "details": "Éléments LUNA trouvés: 4/5",
+      "duration": 0.29623985290527344,
+      "timestamp": "2025-09-02T13:03:24.952543"
+    },
+    {
+      "test": "Objectifs du Jeu",
+      "status": "PASS",
+      "details": "Objectifs trouvés: 4/5",
+      "duration": 0.1647477149963379,
+      "timestamp": "2025-09-02T13:03:25.118192"
+    }
+  ],
+  "categories": {
+    "Commandes de Base": 12,
+    "Commandes Tutoriel": 3,
+    "Commandes Jeux": 4,
+    "Commandes Histoire": 8,
+    "Commandes Action": 7,
+    "Commandes LUNA": 4,
+    "Commandes Navigation": 4,
+    "Fonctionnalités": 5
+  }
+}

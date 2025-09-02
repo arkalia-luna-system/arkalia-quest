@@ -9,31 +9,32 @@
     --error-color: #f87171;
     --success-color: #4ade80;
     --warning-color: #fbbf24;
-    
+
     /* Couleurs texte avec contraste suffisant */
     --text-color: #ffffff;
     --text-secondary: #cccccc;
     --text-muted: #999999;
-    
+
     /* Couleurs fond */
     --background-color: #000000;
     --background-secondary: #111111;
     --background-tertiary: #1a1a1a;
-    
+
     /* Tailles accessibles */
-    --font-size-base: 16px; /* Minimum WCAG */
+    --font-size-base: 16px;
+    /* Minimum WCAG */
     --font-size-large: 18px;
     --font-size-small: 14px;
     --line-height-base: 1.6;
     --line-height-tight: 1.4;
-    
+
     /* Espacements accessibles */
     --spacing-xs: 4px;
     --spacing-sm: 8px;
     --spacing-md: 16px;
     --spacing-lg: 24px;
     --spacing-xl: 32px;
-    
+
     /* Focus visible */
     --focus-outline: 3px solid var(--secondary-color);
     --focus-offset: 3px;
@@ -44,11 +45,16 @@
 
 /* Mode Daltonien */
 body.daltonian {
-    --primary-color: #60a5fa; /* Bleu au lieu de violet */
-    --secondary-color: #f472b6; /* Rose */
-    --accent-color: #fbbf24; /* Jaune */
-    --error-color: #f87171; /* Rouge */
-    --success-color: #4ade80; /* Vert */
+    --primary-color: #60a5fa;
+    /* Bleu au lieu de violet */
+    --secondary-color: #f472b6;
+    /* Rose */
+    --accent-color: #fbbf24;
+    /* Jaune */
+    --error-color: #f87171;
+    /* Rouge */
+    --success-color: #4ade80;
+    /* Vert */
 }
 
 /* Mode Haute Visibilité */
@@ -59,12 +65,12 @@ body.high-contrast {
     --secondary-color: #60a5fa;
     --error-color: #f87171;
     --success-color: #4ade80;
-    
+
     /* Bordures visibles sur tous les éléments */
     * {
         border: 2px solid var(--text-color) !important;
     }
-    
+
     /* Focus ultra-visible */
     *:focus {
         outline: 4px solid var(--primary-color) !important;
@@ -84,6 +90,7 @@ body.dyslexia-friendly {
 
 /* Mode Animations Réduites */
 @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
@@ -96,6 +103,7 @@ body.dyslexia-friendly {
 
 /* Mode Animations Réduites Manuel */
 body.reduced-motion {
+
     *,
     *::before,
     *::after {
@@ -104,6 +112,18 @@ body.reduced-motion {
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
     }
+}
+
+/* Curseur personnalisé */
+body.custom-cursor {
+    cursor: url('/static/icons/icon-16x16.png'), auto;
+}
+
+/* Focus visible global (si activé) */
+body.focus-visible-global *:focus {
+    outline: 3px solid var(--secondary-color) !important;
+    outline-offset: 3px !important;
+    box-shadow: 0 0 10px var(--secondary-color) !important;
 }
 
 /* ===== NOUVEAUX MODES D'ACCESSIBILITÉ ===== */
@@ -327,10 +347,12 @@ button,
 .secondary-btn,
 .nav-btn,
 [role="button"] {
-    min-height: 44px; /* WCAG tactile */
+    min-height: 44px;
+    /* WCAG tactile */
     min-width: 44px;
     padding: var(--spacing-md) var(--spacing-lg);
-    touch-action: manipulation; /* Évite le zoom */
+    touch-action: manipulation;
+    /* Évite le zoom */
     cursor: pointer;
 }
 
@@ -344,15 +366,40 @@ body {
     background: var(--background-color);
 }
 
-h1 { font-size: 2.5em; line-height: 1.2; }
-h2 { font-size: 2em; line-height: 1.3; }
-h3 { font-size: 1.5em; line-height: 1.4; }
-h4 { font-size: 1.25em; line-height: 1.4; }
-h5 { font-size: 1.1em; line-height: 1.4; }
-h6 { font-size: 1em; line-height: 1.4; }
+h1 {
+    font-size: 2.5em;
+    line-height: 1.2;
+}
+
+h2 {
+    font-size: 2em;
+    line-height: 1.3;
+}
+
+h3 {
+    font-size: 1.5em;
+    line-height: 1.4;
+}
+
+h4 {
+    font-size: 1.25em;
+    line-height: 1.4;
+}
+
+h5 {
+    font-size: 1.1em;
+    line-height: 1.4;
+}
+
+h6 {
+    font-size: 1em;
+    line-height: 1.4;
+}
 
 /* Contraste amélioré pour texte */
-p, span, div {
+p,
+span,
+div {
     color: var(--text-color);
     line-height: var(--line-height-base);
 }
@@ -468,17 +515,19 @@ textarea:focus {
 /* Breakpoints accessibles */
 @media (max-width: 480px) {
     :root {
-        --font-size-base: 18px; /* Plus grand sur mobile */
+        --font-size-base: 18px;
+        /* Plus grand sur mobile */
         --spacing-md: 12px;
         --spacing-lg: 20px;
     }
-    
+
     button,
     .nav-button,
     .main-action-btn,
     .secondary-btn,
     .nav-btn {
-        min-height: 48px; /* Plus grand sur mobile */
+        min-height: 48px;
+        /* Plus grand sur mobile */
         padding: var(--spacing-md) var(--spacing-lg);
     }
 }
@@ -490,7 +539,7 @@ textarea:focus {
         padding: 12px;
         font-size: var(--font-size-large);
     }
-    
+
     .skip-link:focus {
         top: 10px;
     }
@@ -612,7 +661,9 @@ textarea:focus {
 }
 
 @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /* Indicateur de statut */
@@ -665,8 +716,15 @@ textarea:focus {
 
 /* Animation de focus */
 @keyframes focusPulse {
-    0%, 100% { box-shadow: 0 0 0 0 var(--secondary-color); }
-    50% { box-shadow: 0 0 0 4px var(--secondary-color); }
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 var(--secondary-color);
+    }
+
+    50% {
+        box-shadow: 0 0 0 4px var(--secondary-color);
+    }
 }
 
 .focus-pulse:focus {
@@ -825,7 +883,7 @@ body.low-performance * {
         width: 280px;
         right: 15px;
     }
-    
+
     .accessibility-toggle-btn {
         top: 15px;
         right: 15px;
@@ -842,7 +900,7 @@ body.low-performance * {
         left: 20px;
         top: 70px;
     }
-    
+
     .accessibility-toggle-btn {
         top: 10px;
         right: 10px;
@@ -850,26 +908,26 @@ body.low-performance * {
         height: 40px;
         font-size: 1em;
     }
-    
+
     .accessibility-controls {
         padding: 0 15px 15px 15px;
         gap: 10px;
     }
-    
+
     .accessibility-controls .accessibility-btn {
         padding: 10px 12px;
         font-size: 0.85em;
     }
-    
+
     .accessibility-shortcuts {
         margin: 0 15px 15px 15px;
         padding: 15px;
     }
-    
+
     .accessibility-shortcuts h4 {
         font-size: 0.9em;
     }
-    
+
     .accessibility-shortcuts li {
         font-size: 0.8em;
     }
@@ -879,12 +937,12 @@ body.low-performance * {
     .accessibility-controls {
         flex-direction: column;
     }
-    
+
     .accessibility-btn {
         padding: 8px 12px;
         font-size: 0.75em;
     }
-    
+
     .accessibility-panel {
         max-width: 200px;
         padding: 8px;
@@ -955,11 +1013,14 @@ body.low-performance * {
 /* ===== ANIMATIONS D'ACCESSIBILITÉ ===== */
 
 @keyframes accessibilityPulse {
-    0%, 100% { 
+
+    0%,
+    100% {
         transform: scale(1);
         opacity: 1;
     }
-    50% { 
+
+    50% {
         transform: scale(1.05);
         opacity: 0.8;
     }
@@ -972,6 +1033,7 @@ body.low-performance * {
 /* ===== SUPPORT TOUCH ÉTENDU ===== */
 
 @media (hover: none) and (pointer: coarse) {
+
     .accessibility-btn,
     .nav-btn,
     button,
@@ -980,7 +1042,7 @@ body.low-performance * {
         min-width: 48px;
         padding: var(--spacing-md) var(--spacing-lg);
     }
-    
+
     .accessibility-panel {
         bottom: 20px;
         top: auto;
@@ -988,17 +1050,22 @@ body.low-performance * {
         left: 20px;
         max-width: none;
     }
-} 
+}
 
 /* Contraste renforcé pour liens, boutons, navigation, footer */
-a, .nav-btn, .accessibility-btn, .footer-content span {
+a,
+.nav-btn,
+.accessibility-btn,
+.footer-content span {
     color: #ffffff !important;
     background: #1e1b4b !important;
     border-color: #a78bfa !important;
     text-shadow: 0 0 6px #a78bfa !important;
 }
 
-a:focus, .nav-btn:focus, .accessibility-btn:focus {
+a:focus,
+.nav-btn:focus,
+.accessibility-btn:focus {
     background: #a78bfa !important;
     color: #000 !important;
     outline: 3px solid #60a5fa !important;
@@ -1013,4 +1080,4 @@ a:focus, .nav-btn:focus, .accessibility-btn:focus {
     padding: 12px 0;
     font-size: 1em;
     letter-spacing: 0.05em;
-} 
+}

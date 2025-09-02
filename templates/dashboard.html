@@ -501,19 +501,8 @@
 
     <!-- Navigation LUNA -->
     <div id="navigation">
-        <nav class="main-nav">
-            <div class="nav-container">
-                <div class="nav-logo">ARKALIA QUEST</div>
-                <div class="nav-links">
-                    <a href="/" class="nav-link">🏠 ACCUEIL</a>
-                    <a href="/terminal" class="nav-link">⌨️ TERMINAL</a>
-                    <a href="/monde" class="nav-link">🌍 MONDE</a>
-                    <a href="/profil" class="nav-link">👤 PROFIL</a>
-                    <a href="/leaderboard" class="nav-link">🏆 CLASSEMENT</a>
-                    <a href="/dashboard" class="nav-link active">📊 DASHBOARD</a>
-                </div>
-            </div>
-        </nav>
+        {% set active_page = 'dashboard' %}
+        {% include 'components/navbar.html' with context %}
     </div>
 
     <main id="main-content" class="dashboard-workspace">
@@ -647,6 +636,7 @@
 
     <!-- Scripts LUNA VISION -->
     <script src="{{ url_for('static', filename='js/arkalia-luna-vision.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/navigation.js') }}"></script>
     <script src="{{ url_for('static', filename='js/audio-manager.js') }}"></script>
     <script src="{{ url_for('static', filename='js/effects.js') }}"></script>
     <script src="{{ url_for('static', filename='js/accessibility.js') }}"></script>

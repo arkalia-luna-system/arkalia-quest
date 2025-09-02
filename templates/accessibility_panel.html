@@ -281,20 +281,7 @@
 <body>
     <!-- Navigation principale -->
     <div class="nav-wrapper">
-        <nav class="main-nav">
-            <div class="nav-container">
-                <div class="nav-logo">ARKALIA QUEST</div>
-                <div class="nav-links">
-                    <a href="/" class="nav-link">🏠 ACCUEIL</a>
-                    <a href="/terminal" class="nav-link">⌨️ TERMINAL</a>
-                    <a href="/monde" class="nav-link">🌍 MONDE</a>
-                    <a href="/profil" class="nav-link">👤 PROFIL</a>
-                    <a href="/leaderboard" class="nav-link">🏆 CLASSEMENT</a>
-                    <a href="/dashboard" class="nav-link">📊 DASHBOARD</a>
-                    <a href="/accessibility" class="nav-link active">♿ ACCESSIBILITÉ</a>
-                </div>
-            </div>
-        </nav>
+        {% include 'components/navbar.html' with context %}
     </div>
 
     <main id="main-content" class="accessibility-workspace">
@@ -444,6 +431,7 @@
 
     <!-- Scripts LUNA VISION -->
     <script src="/static/js/arkalia-luna-vision.js"></script>
+    <script src="/static/js/navigation.js"></script>
     <script src="/static/js/accessibility.js"></script>
     <script src="/static/js/audio-manager.js"></script>
 
@@ -524,6 +512,27 @@
                 'spacious': '1.5'
             };
             document.body.style.setProperty('--element-spacing', spacingMap[settings.elementSpacing]);
+
+            // Focus global visible
+            if (settings.focusVisible) {
+                document.body.classList.add('focus-visible-global');
+            } else {
+                document.body.classList.remove('focus-visible-global');
+            }
+
+            // Raccourcis clavier (placeholder d’activation globale)
+            if (settings.keyboardShortcuts) {
+                document.body.setAttribute('data-shortcuts', 'on');
+            } else {
+                document.body.removeAttribute('data-shortcuts');
+            }
+
+            // Curseur personnalisé
+            if (settings.customCursor) {
+                document.body.classList.add('custom-cursor');
+            } else {
+                document.body.classList.remove('custom-cursor');
+            }
         }
 
         function saveAccessibilitySettings() {

@@ -6,21 +6,28 @@
 
 /* PALETTE LUNA VISION - THÈME MATRIX ADOLESCENT */
 :root {
-    --matrix-green: #00ff00;          /* Vert Matrix signature - Couleur principale */
-    --matrix-dark: #001100;           /* Noir Matrix profond - Fond principal */
-    --matrix-glow: #00ff88;           /* Vert Matrix brillant - Accents */
-    --matrix-accent: #00ffff;         /* Cyan Matrix - Émotions */
-    --matrix-highlight: #00ff44;      /* Vert Matrix vif - Highlights */
-    --argent-holographique: #e5e7eb;  /* Argent holographique - Interface */
-    --noir-silence: #09090b;          /* Noir silence - Fond profond */
-    
+    --matrix-green: #00ff00;
+    /* Vert Matrix signature - Couleur principale */
+    --matrix-dark: #001100;
+    /* Noir Matrix profond - Fond principal */
+    --matrix-glow: #00ff88;
+    /* Vert Matrix brillant - Accents */
+    --matrix-accent: #00ffff;
+    /* Cyan Matrix - Émotions */
+    --matrix-highlight: #00ff44;
+    /* Vert Matrix vif - Highlights */
+    --argent-holographique: #e5e7eb;
+    /* Argent holographique - Interface */
+    --noir-silence: #09090b;
+    /* Noir silence - Fond profond */
+
     /* Couleurs d'émotions LUNA - Thème Matrix */
     --luna-calm: var(--matrix-accent);
     --luna-excited: var(--matrix-green);
     --luna-concerned: var(--matrix-highlight);
     --luna-proud: var(--matrix-glow);
     --luna-mysterious: var(--matrix-accent);
-    
+
     /* Couleurs principales pour compatibilité */
     --violet-lunaire: var(--matrix-green);
     --bleu-spectre: var(--matrix-accent);
@@ -49,8 +56,15 @@ body {
 
 /* RESPIRATION DU FOND */
 @keyframes gradientBreath {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
 }
 
 /* BRUMES NUMÉRIQUES MATRIX */
@@ -61,7 +75,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: 
+    background:
         radial-gradient(circle at 20% 80%, rgba(0, 255, 0, 0.15) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
         radial-gradient(circle at 40% 40%, rgba(0, 255, 136, 0.08) 0%, transparent 50%);
@@ -71,8 +85,17 @@ body::before {
 }
 
 @keyframes mistFloat {
-    0%, 100% { opacity: 0.3; transform: translateY(0px); }
-    50% { opacity: 0.6; transform: translateY(-20px); }
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: translateY(0px);
+    }
+
+    50% {
+        opacity: 0.6;
+        transform: translateY(-20px);
+    }
 }
 
 /* ===== ANIMATIONS MATRIX ADOLESCENT ===== */
@@ -82,10 +105,12 @@ body::before {
         opacity: 1;
         transform: scale(1) translateY(0);
     }
+
     50% {
         opacity: 0.8;
         transform: scale(1.5) translateY(-20px);
     }
+
     100% {
         opacity: 0;
         transform: scale(0.1) translateY(-40px);
@@ -97,10 +122,12 @@ body::before {
         opacity: 0;
         transform: translate(-50%, -50%) scale(0.5);
     }
+
     50% {
         opacity: 1;
         transform: translate(-50%, -50%) scale(1.1);
     }
+
     100% {
         opacity: 1;
         transform: translate(-50%, -50%) scale(1);
@@ -108,80 +135,117 @@ body::before {
 }
 
 @keyframes matrixPulse {
-    0%, 100% {
+
+    0%,
+    100% {
         box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
     }
+
     50% {
         box-shadow: 0 0 40px rgba(0, 255, 0, 0.6);
     }
 }
 
 @keyframes matrixShake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
 }
 
 @keyframes matrixTyping {
-    0% { opacity: 0.5; }
-    50% { opacity: 1; }
-    100% { opacity: 0.5; }
+    0% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.5;
+    }
 }
 
 @keyframes matrix_excited {
-    0%, 100% { 
+
+    0%,
+    100% {
         box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
         transform: scale(1);
     }
-    50% { 
+
+    50% {
         box-shadow: 0 0 40px rgba(0, 255, 136, 0.8);
         transform: scale(1.1);
     }
 }
 
 @keyframes matrix_proud {
-    0%, 100% { 
+
+    0%,
+    100% {
         box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
         transform: rotate(0deg);
     }
-    50% { 
+
+    50% {
         box-shadow: 0 0 40px rgba(0, 255, 255, 0.8);
         transform: rotate(5deg);
     }
 }
 
 @keyframes matrix_worried {
-    0%, 100% { 
+
+    0%,
+    100% {
         box-shadow: 0 0 15px rgba(255, 136, 0, 0.3);
         transform: translateX(0);
     }
-    25% { 
+
+    25% {
         box-shadow: 0 0 25px rgba(255, 136, 0, 0.5);
         transform: translateX(-3px);
     }
-    75% { 
+
+    75% {
         box-shadow: 0 0 25px rgba(255, 136, 0, 0.5);
         transform: translateX(3px);
     }
 }
 
 @keyframes matrix_mysterious {
-    0%, 100% { 
+
+    0%,
+    100% {
         box-shadow: 0 0 20px rgba(136, 0, 255, 0.4);
         opacity: 0.8;
     }
-    50% { 
+
+    50% {
         box-shadow: 0 0 40px rgba(136, 0, 255, 0.8);
         opacity: 1;
     }
 }
 
 @keyframes matrix_determined {
-    0%, 100% { 
+
+    0%,
+    100% {
         box-shadow: 0 0 20px rgba(0, 255, 68, 0.4);
         transform: scale(1);
     }
-    50% { 
+
+    50% {
         box-shadow: 0 0 40px rgba(0, 255, 68, 0.8);
         transform: scale(1.05);
     }
@@ -229,8 +293,13 @@ body::before {
 }
 
 @keyframes progressShine {
-    0% { left: -100%; }
-    100% { left: 100%; }
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 100%;
+    }
 }
 
 .challenge-card {
@@ -262,8 +331,15 @@ body::before {
 }
 
 @keyframes challengeGlow {
-    0%, 100% { opacity: 0.6; }
-    50% { opacity: 1; }
+
+    0%,
+    100% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
 }
 
 .challenge-progress {
@@ -314,11 +390,14 @@ body::before {
 }
 
 @keyframes eventPulse {
-    0%, 100% { 
+
+    0%,
+    100% {
         box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
         transform: scale(1);
     }
-    50% { 
+
+    50% {
         box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
         transform: scale(1.02);
     }
@@ -392,6 +471,38 @@ body::before {
     align-items: center;
 }
 
+/* Burger menu */
+.burger-btn {
+    display: none;
+    background: rgba(167, 139, 250, 0.2);
+    border: 1px solid rgba(167, 139, 250, 0.4);
+    color: var(--argent-holographique);
+    border-radius: 6px;
+    padding: 8px 12px;
+}
+
+@media (max-width: 768px) {
+    .burger-btn {
+        display: inline-block;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 60px;
+        right: 10px;
+        flex-direction: column;
+        background: rgba(9, 9, 11, 0.95);
+        border: 1px solid rgba(167, 139, 250, 0.3);
+        border-radius: 8px;
+        padding: 10px;
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+}
+
 .nav-link {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.85em;
@@ -457,8 +568,15 @@ body::before {
 }
 
 @keyframes headerGlow {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 1; }
+
+    0%,
+    100% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 1;
+    }
 }
 
 .luna-header h1 {
@@ -485,6 +603,7 @@ body::before {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -606,11 +725,14 @@ body::before {
 }
 
 @keyframes pulsarFloat {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 0.3;
         transform: translateY(0px) scale(1);
         box-shadow: 0 0 10px var(--violet-lunaire);
     }
+
     50% {
         opacity: 1;
         transform: translateY(-20px) scale(1.5);
@@ -667,16 +789,16 @@ body::before {
         flex-direction: column;
         gap: 10px;
     }
-    
+
     .monde-grid {
         grid-template-columns: 1fr;
         gap: 20px;
     }
-    
+
     .luna-header h1 {
         font-size: 2em;
     }
-    
+
     .luna-message {
         bottom: 20px;
         right: 20px;
@@ -694,13 +816,25 @@ body::before {
 }
 
 @keyframes typing {
-    from { width: 0; }
-    to { width: 100%; }
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
 }
 
 @keyframes blink-caret {
-    from, to { border-color: transparent; }
-    50% { border-color: var(--violet-lunaire); }
+
+    from,
+    to {
+        border-color: transparent;
+    }
+
+    50% {
+        border-color: var(--violet-lunaire);
+    }
 }
 
 /* EFFETS DE RESPIRATION */
@@ -709,8 +843,15 @@ body::before {
 }
 
 @keyframes breathing {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.02); }
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.02);
+    }
 }
 
 /* GLOW EFFECTS */
@@ -720,4 +861,4 @@ body::before {
 
 .glow:hover {
     box-shadow: 0 0 30px rgba(167, 139, 250, 0.5);
-} 
+}

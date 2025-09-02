@@ -17,10 +17,10 @@ def test_imports():
         sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
         print("✅ Tous les imports fonctionnent")
-        return True
+        assert True
     except Exception as e:
         print(f"❌ Erreur d'import: {e}")
-        return False
+        assert False, f"Erreur d'import: {e}"
 
 
 def test_missions():
@@ -43,10 +43,10 @@ def test_missions():
         print(f"✅ {len(missions)} missions chargées")
         for mission in missions:
             print(f"  - {mission['title']} (difficulté: {mission['difficulty']})")
-        return True
+        assert len(missions) > 0, "Aucune mission trouvée"
     except Exception as e:
         print(f"❌ Erreur missions: {e}")
-        return False
+        assert False, f"Erreur missions: {e}"
 
 
 def test_mini_jeux():
@@ -61,10 +61,10 @@ def test_mini_jeux():
         print(f"✅ {len(games)} mini-jeux disponibles")
         for game in games:
             print(f"  - {game['title']} ({game['type']}) - {game['points']}pts")
-        return True
+        assert len(games) > 0, "Aucun mini-jeu disponible"
     except Exception as e:
         print(f"❌ Erreur mini-jeux: {e}")
-        return False
+        assert False, f"Erreur mini-jeux: {e}"
 
 
 def test_badges():
@@ -83,10 +83,10 @@ def test_badges():
         print(f"✅ {len(badges['badges_secrets'])} badges disponibles")
         for badge_id, badge in list(badges["badges_secrets"].items())[:5]:
             print(f"  - {badge['nom']} ({badge['rarete']})")
-        return True
+        assert len(badges['badges_secrets']) > 0, "Aucun badge trouvé"
     except Exception as e:
         print(f"❌ Erreur badges: {e}")
-        return False
+        assert False, f"Erreur badges: {e}"
 
 
 def test_commandes():
@@ -112,10 +112,10 @@ def test_commandes():
         if result["réussite"]:
             print("✅ Commande 'aide' fonctionne")
 
-        return True
+        assert True, "Commandes testées avec succès"
     except Exception as e:
         print(f"❌ Erreur commandes: {e}")
-        return False
+        assert False, f"Erreur commandes: {e}"
 
 
 def test_interface_js():
@@ -138,7 +138,7 @@ def test_interface_js():
                 print(f"✅ {js_file} existe")
             else:
                 print(f"❌ {js_file} manquant")
-                return False
+                assert False, f"Fichier manquant: {js_file}"
 
         # Vérifier que les fichiers CSS existent
         css_files = ["static/css/mini-games.css", "static/css/arkalia-luna-vision.css"]
@@ -149,12 +149,12 @@ def test_interface_js():
                 print(f"✅ {css_file} existe")
             else:
                 print(f"❌ {css_file} manquant")
-                return False
+                assert False, f"Fichier manquant: {css_file}"
 
-        return True
+        assert True, "Interface testée avec succès"
     except Exception as e:
         print(f"❌ Erreur interface: {e}")
-        return False
+        assert False, f"Erreur interface: {e}"
 
 
 def main():

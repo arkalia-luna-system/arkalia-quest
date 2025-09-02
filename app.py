@@ -38,6 +38,10 @@ app = Flask(__name__)
 # Configuration de la compression gzip
 Compress(app)
 
+# Instance globale du moteur de jeux éducatifs
+from core.educational_games_engine import EducationalGamesEngine
+games_engine = EducationalGamesEngine()
+
 
 # Middleware de sécurité et performance
 @app.before_request
@@ -55,9 +59,9 @@ def before_request():
     if not allowed:
         return jsonify({"error": message}), 429
 
-    # Valider les entrées
+    # Valider les entrées (sauf pour les routes des jeux éducatifs)
     if request.method in ["POST", "PUT", "PATCH"]:
-        if request.is_json:
+        if request.is_json and not request.path.startswith("/api/educational-games"):
             data = request.get_json()
             if data:
                 for key, value in data.items():
@@ -1628,10 +1632,6 @@ def api_educational_games_start():
         if not game_id:
             return jsonify({"success": False, "message": "ID de jeu requis"})
 
-        from core.educational_games_engine import EducationalGamesEngine
-
-        games_engine = EducationalGamesEngine()
-
         # Utiliser un user_id par défaut
         user_id = "main_user"
         result = games_engine.start_game(game_id, user_id)
@@ -1653,10 +1653,6 @@ def api_educational_games_submit():
             return jsonify(
                 {"success": False, "message": "Session ID et réponse requis"}
             )
-
-        from core.educational_games_engine import EducationalGamesEngine
-
-        games_engine = EducationalGamesEngine()
 
         # Utiliser le moteur de jeux pour valider la réponse
         result = games_engine.submit_answer(session_id, answer)

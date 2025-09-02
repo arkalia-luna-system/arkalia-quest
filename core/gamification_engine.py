@@ -338,7 +338,7 @@ class GamificationEngine:
         return False
 
     def calculate_xp_gain(self, action: str, **kwargs) -> int:
-        """Calcule le gain d'XP pour une action"""
+        """Calcule le gain d'XP pour une action avec récompenses instantanées"""
 
         xp_table = {
             "mission_complete": 100,
@@ -348,19 +348,105 @@ class GamificationEngine:
             "portal_decoded": 75,
             "coffre_hacked": 150,
             "social_interaction": 25,
+            "hack_success": 30,  # Nouveau : hacking réussi
+            "luna_interaction": 15,  # Nouveau : interaction avec LUNA
+            "exploration": 20,  # Nouveau : exploration
+            "discovery": 40,  # Nouveau : découverte
+            "perfect_execution": 60,  # Nouveau : exécution parfaite
         }
 
         base_xp = xp_table.get(action, 10)
 
-        # Bonus pour actions spéciales
+        # Bonus pour actions spéciales avec récompenses instantanées
         if kwargs.get("perfect", False):
             base_xp *= 2  # Bonus parfait
         if kwargs.get("speed", False):
             base_xp *= 1.5  # Bonus vitesse
         if kwargs.get("first_time", False):
             base_xp *= 1.2  # Bonus première fois
+        if kwargs.get("streak", False):
+            base_xp *= 1.3  # Bonus série
+        if kwargs.get("creative", False):
+            base_xp *= 1.4  # Bonus créativité
 
         return int(base_xp)
+
+    def generate_instant_rewards(
+        self, action: str, xp_gained: int, **kwargs
+    ) -> Dict[str, Any]:
+        """Génère des récompenses instantanées et visuelles"""
+
+        rewards = {
+            "xp": xp_gained,
+            "coins": int(xp_gained / 2),
+            "particles": True,
+            "sound_effect": "success",
+            "visual_effect": "glow",
+            "message": self._get_reward_message(action, xp_gained),
+        }
+
+        # Récompenses spéciales selon l'action
+        if action == "badge_unlocked":
+            rewards.update(
+                {
+                    "celebration": True,
+                    "badge_animation": True,
+                    "special_effect": "badge_glow",
+                    "message": "🏆 NOUVEAU BADGE DÉBLOQUÉ ! 🏆",
+                }
+            )
+        elif action == "mission_complete":
+            rewards.update(
+                {
+                    "celebration": True,
+                    "confetti": True,
+                    "special_effect": "mission_complete",
+                    "message": "🎉 MISSION ACCOMPLIE ! 🎉",
+                }
+            )
+        elif action == "hack_success":
+            rewards.update(
+                {
+                    "matrix_effect": True,
+                    "special_effect": "hack_success",
+                    "message": "💚 HACK RÉUSSI ! 💚",
+                }
+            )
+        elif action == "luna_interaction":
+            rewards.update(
+                {
+                    "luna_glow": True,
+                    "special_effect": "luna_happy",
+                    "message": "🌟 LUNA est contente ! 🌟",
+                }
+            )
+
+        # Bonus visuels pour les gros gains
+        if xp_gained >= 50:
+            rewards.update(
+                {
+                    "big_reward": True,
+                    "screen_flash": True,
+                    "vibration": True,
+                }
+            )
+
+        return rewards
+
+    def _get_reward_message(self, action: str, xp_gained: int) -> str:
+        """Génère un message de récompense contextuel"""
+
+        messages = {
+            "mission_complete": f"🎯 Mission accomplie ! +{xp_gained} XP",
+            "badge_unlocked": f"🏆 Badge débloqué ! +{xp_gained} XP",
+            "hack_success": f"💚 Hack réussi ! +{xp_gained} XP",
+            "luna_interaction": f"🌟 LUNA contente ! +{xp_gained} XP",
+            "exploration": f"🗺️ Exploration réussie ! +{xp_gained} XP",
+            "discovery": f"🔍 Découverte ! +{xp_gained} XP",
+            "perfect_execution": f"⭐ Exécution parfaite ! +{xp_gained} XP",
+        }
+
+        return messages.get(action, f"🎉 Action réussie ! +{xp_gained} XP")
 
     def calculate_level(self, xp: int) -> int:
         """Calcule le niveau basé sur l'XP"""

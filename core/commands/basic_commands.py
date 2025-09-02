@@ -156,26 +156,64 @@ la vérité sur NEXUS et la menace de PANDORA.
         }
 
     def handle_profil(self, profile: Dict[str, Any]) -> Dict[str, Any]:
-        """Gère la commande profil"""
+        """Gère la commande profil avec des réponses contextuelles engageantes"""
         badges = profile.get("badges", [])
-        badges_text = (
-            "\n".join(["• " + badge for badge in badges])
-            if badges
-            else "Aucun badge encore"
+        score = profile.get("score", 0)
+        level = profile.get("level", 1)
+
+        # Messages contextuels selon le niveau
+        if level == 1 and score == 0:
+            score_message = "🎯 Aucun point encore - Prêt à hacker le système ?"
+        elif level < 5:
+            score_message = f"💎 {score} points - Tu progresses bien !"
+        else:
+            score_message = f"🏆 {score} points - Impressionnant !"
+
+        # Messages pour les badges
+        if not badges:
+            badges_text = "🎖️ Aucun badge encore - Tes premiers exploits t'attendent !"
+        elif len(badges) < 3:
+            badges_text = (
+                f"🎖️ {len(badges)} badge(s) - Tu commences à te faire remarquer !\n"
+                + "\n".join(["• " + badge for badge in badges])
+            )
+        else:
+            badges_text = (
+                f"🎖️ {len(badges)} badges - Collection impressionnante !\n"
+                + "\n".join(["• " + badge for badge in badges])
+            )
+
+        # Messages pour la progression
+        univers_count = len(
+            profile.get("progression", {}).get("univers_debloques", ["arkalia_base"])
         )
+        portails_count = len(profile.get("progression", {}).get("portails_ouverts", []))
+
+        if univers_count == 1:
+            univers_message = "🌌 Base Arkalia - Ton point de départ !"
+        else:
+            univers_message = (
+                f"🌌 {univers_count} univers débloqués - Explorateur confirmé !"
+            )
+
+        if portails_count == 0:
+            portail_message = (
+                "🚪 Aucun portail ouvert - Tes premiers portails t'attendent !"
+            )
+        else:
+            portail_message = f"🚪 {portails_count} portail(s) ouvert(s) - Tu maîtrises les dimensions !"
 
         return {
             "réussite": True,
             "ascii_art": "👤",
             "message": f"""👤 TON PROFIL ARKALIA QUEST
 
-📊 INFORMATIONS PRINCIPALES :
-• Score : {profile.get("score", 0)} points
-• Badges : {len(badges)}
-• Univers débloqués : {len(profile.get("progression", {}).get("univers_debloques", []))}
-• Portails ouverts : {len(profile.get("progression", {}).get("portails_ouverts", []))}
+📊 TON STATUT :
+• {score_message}
+• {univers_message}
+• {portail_message}
 
-🏅 BADGES OBTENUS :
+🏅 TES ACCOMPLISSEMENTS :
 {badges_text}
 
 💡 Continue tes exploits pour débloquer plus de badges et de secrets !""",
@@ -183,35 +221,79 @@ la vérité sur NEXUS et la menace de PANDORA.
         }
 
     def handle_status(self, profile: Dict[str, Any]) -> Dict[str, Any]:
-        """Gère la commande status"""
+        """Gère la commande status avec des réponses contextuelles engageantes"""
         score = profile.get("score", 0)
         badges = profile.get("badges", [])
-        univers = profile.get("progression", {}).get("univers_debloques", [])
+        univers = profile.get("progression", {}).get(
+            "univers_debloques", ["arkalia_base"]
+        )
         portails = profile.get("progression", {}).get("portails_ouverts", [])
 
-        # Calcul du niveau
+        # Calcul du niveau avec messages contextuels
         niveau = min(10, score // 1000 + 1)
         progression = (score % 1000) / 10
+
+        # Messages contextuels pour le niveau
+        if niveau == 1:
+            level_message = (
+                f"🌟 Niveau {niveau} - Débutant (Progression : {progression:.1f}%)"
+            )
+        elif niveau < 5:
+            level_message = f"🚀 Niveau {niveau} - En progression (Progression : {progression:.1f}%)"
+        else:
+            level_message = (
+                f"🔥 Niveau {niveau} - Expert (Progression : {progression:.1f}%)"
+            )
+
+        # Messages pour les badges
+        if not badges:
+            badge_message = "🎖️ Aucun badge encore - Tes premiers exploits t'attendent !"
+        elif len(badges) < 5:
+            badge_message = (
+                f"🎖️ {len(badges)} badge(s) - Tu commences à te faire remarquer !"
+            )
+        else:
+            badge_message = f"🎖️ {len(badges)} badges - Collection impressionnante !"
+
+        # Messages pour les univers
+        if len(univers) == 1:
+            univers_message = "🌌 Base Arkalia - Ton point de départ !"
+        else:
+            univers_message = (
+                f"🌌 {len(univers)} univers débloqués - Explorateur confirmé !"
+            )
+
+        # Messages pour les portails
+        if not portails:
+            portail_message = (
+                "🚪 Aucun portail ouvert - Tes premiers portails t'attendent !"
+            )
+        elif len(portails) < 5:
+            portail_message = f"🚪 {len(portails)} portail(s) ouvert(s) - Tu maîtrises les dimensions !"
+        else:
+            portail_message = (
+                f"🚪 {len(portails)} portails ouverts - Maître des dimensions !"
+            )
 
         return {
             "réussite": True,
             "ascii_art": "🌟",
             "message": f"""🌟 STATUT DU SYSTÈME ARKALIA QUEST
 
-🎯 INFORMATIONS PRINCIPALES :
+🎯 TON AVANCEMENT :
 • Score actuel : {score} points
-• Niveau : {niveau}/10 (Progression : {progression:.1f}%)
-• Badges obtenus : {len(badges)}/50
-• Univers débloqués : {len(univers)}
-• Portails ouverts : {len(portails)}
+• {level_message}
+• {badge_message}
+• {univers_message}
+• {portail_message}
 
-🏆 BADGES RÉCENTS :
+🏆 TES DERNIERS ACCOMPLISSEMENTS :
 {chr(10).join(['• ' + badge for badge in badges[-5:]]) if len(badges) > 5 else
-chr(10).join(['• ' + badge for badge in badges])}
+chr(10).join(['• ' + badge for badge in badges]) if badges else '🎯 Aucun accomplissement encore - Continue à jouer !'}
 
-🌍 PROGRESSION :
-• Univers disponibles : {', '.join(univers) if univers else 'Aucun univers débloqué'}
-• Portails accessibles : {', '.join(portails[:5]) + '...' if len(portails) > 5 else ', '.join(portails)}
+🌍 TON EXPLORATION :
+• Univers disponibles : {', '.join(univers)}
+• Portails accessibles : {', '.join(portails[:5]) + '...' if len(portails) > 5 else ', '.join(portails) if portails else '🚪 Aucun portail encore - Explore pour les débloquer !'}
 
 💡 PROCHAINES ÉTAPES :
 • Complète des missions pour gagner des points

@@ -296,7 +296,7 @@ class MicroInteractionsEngine:
         target_element: str = None,
         context: Dict[str, Any] = None,
     ) -> Dict[str, Any]:
-        """Déclenche une interaction"""
+        """Déclenche une interaction avec feedback immédiat"""
         if interaction_type not in self.interaction_templates:
             return {"success": False, "error": "Type d'interaction non trouvé"}
 
@@ -310,6 +310,9 @@ class MicroInteractionsEngine:
         template = self.interaction_templates[interaction_type]
         interaction_id = str(uuid.uuid4())
 
+        # Générer des effets immédiats
+        immediate_effects = self._generate_immediate_effects(interaction_type, context)
+
         interaction = {
             "id": interaction_id,
             "type": interaction_type,
@@ -317,6 +320,7 @@ class MicroInteractionsEngine:
             "context": context or {},
             "timestamp": datetime.now().isoformat(),
             "template": template,
+            "immediate_effects": immediate_effects,
         }
 
         # Ajouter à la queue d'exécution
@@ -329,6 +333,115 @@ class MicroInteractionsEngine:
             "interaction_id": interaction_id,
             "interaction": interaction,
         }
+
+    def _generate_immediate_effects(
+        self, interaction_type: str, context: Dict[str, Any] = None
+    ) -> Dict[str, Any]:
+        """Génère des effets immédiats selon le type d'interaction"""
+
+        effects = {
+            "visual": True,
+            "audio": True,
+            "haptic": True,
+            "particles": True,
+            "animation": True,
+        }
+
+        # Effets spécifiques selon le type
+        if interaction_type == "button_click":
+            effects.update(
+                {
+                    "ripple_effect": True,
+                    "scale_animation": True,
+                    "sound": "click",
+                    "vibration": [50],
+                }
+            )
+        elif interaction_type == "success":
+            effects.update(
+                {
+                    "glow_effect": True,
+                    "particle_burst": True,
+                    "sound": "success",
+                    "vibration": [100, 50, 100],
+                    "screen_flash": True,
+                }
+            )
+        elif interaction_type == "error":
+            effects.update(
+                {
+                    "shake_effect": True,
+                    "red_flash": True,
+                    "sound": "error",
+                    "vibration": [200],
+                }
+            )
+        elif interaction_type == "hover":
+            effects.update(
+                {
+                    "glow_effect": True,
+                    "scale_animation": True,
+                    "sound": "hover",
+                }
+            )
+        elif interaction_type == "luna_interaction":
+            effects.update(
+                {
+                    "luna_glow": True,
+                    "sparkle_effect": True,
+                    "sound": "luna_chime",
+                    "vibration": [75, 25, 75],
+                }
+            )
+        elif interaction_type == "hack_success":
+            effects.update(
+                {
+                    "matrix_effect": True,
+                    "green_glow": True,
+                    "sound": "hack_success",
+                    "vibration": [100, 50, 100, 50, 100],
+                    "text_effect": "ACCESS GRANTED",
+                }
+            )
+        elif interaction_type == "badge_unlock":
+            effects.update(
+                {
+                    "badge_glow": True,
+                    "celebration": True,
+                    "confetti": True,
+                    "sound": "badge_unlock",
+                    "vibration": [150, 100, 150],
+                    "screen_flash": True,
+                }
+            )
+
+        # Intensité selon le contexte
+        if context and context.get("intensity") == "high":
+            effects.update(
+                {
+                    "intensity": "high",
+                    "duration": 2000,
+                    "screen_flash": True,
+                    "vibration": [200, 100, 200],
+                }
+            )
+        elif context and context.get("intensity") == "low":
+            effects.update(
+                {
+                    "intensity": "low",
+                    "duration": 500,
+                    "vibration": [50],
+                }
+            )
+        else:
+            effects.update(
+                {
+                    "intensity": "medium",
+                    "duration": 1000,
+                }
+            )
+
+        return effects
 
     def check_user_preferences(self, player_id: str, interaction_type: str) -> bool:
         """Vérifie les préférences utilisateur pour une interaction"""

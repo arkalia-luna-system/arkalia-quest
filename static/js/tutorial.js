@@ -101,10 +101,10 @@ class TutorialEngine {
         }
 
         // Créer la nouvelle interface
-        const interface = document.createElement('div');
-        interface.id = 'tutorialInterface';
-        interface.className = 'tutorial-interface';
-        interface.innerHTML = `
+        const tutorialInterface = document.createElement('div');
+        tutorialInterface.id = 'tutorialInterface';
+        tutorialInterface.className = 'tutorial-interface';
+        tutorialInterface.innerHTML = `
             <div class="tutorial-overlay">
                 <div class="tutorial-container">
                     <div class="tutorial-header">
@@ -138,7 +138,7 @@ class TutorialEngine {
             </div>
         `;
 
-        document.body.appendChild(interface);
+        document.body.appendChild(tutorialInterface);
         
         // Stocker les références
         this.timerElement = document.getElementById('timerValue');
@@ -148,19 +148,19 @@ class TutorialEngine {
     }
 
     applyVisualEffects(step) {
-        const interface = document.getElementById('tutorialInterface');
-        if (!interface) return;
+        const tutorialInterface = document.getElementById('tutorialInterface');
+        if (!tutorialInterface) return;
 
         // Appliquer les effets selon l'étape
         if (step.effets) {
             if (step.effets.shake) {
-                interface.classList.add('shake-effect');
-                setTimeout(() => interface.classList.remove('shake-effect'), 1000);
+                tutorialInterface.classList.add('shake-effect');
+                setTimeout(() => tutorialInterface.classList.remove('shake-effect'), 1000);
             }
             
             if (step.effets.flash) {
-                interface.classList.add('flash-effect');
-                setTimeout(() => interface.classList.remove('flash-effect'), 500);
+                tutorialInterface.classList.add('flash-effect');
+                setTimeout(() => tutorialInterface.classList.remove('flash-effect'), 500);
             }
 
             // Effet de particules
@@ -170,7 +170,7 @@ class TutorialEngine {
         }
 
         // Animation d'entrée
-        interface.classList.add('fade-in');
+        tutorialInterface.classList.add('fade-in');
     }
 
     createParticles(count, color) {
@@ -356,10 +356,10 @@ class TutorialEngine {
     }
 
     showGameOver() {
-        const interface = document.getElementById('tutorialInterface');
-        if (!interface) return;
+        const tutorialInterface = document.getElementById('tutorialInterface');
+        if (!tutorialInterface) return;
 
-        interface.innerHTML = `
+        tutorialInterface.innerHTML = `
             <div class="game-over">
                 <h2>💀 GAME OVER</h2>
                 <p>La Corp t'a repéré ! Tu dois recommencer !</p>
@@ -369,10 +369,10 @@ class TutorialEngine {
     }
 
     showTimerExpired() {
-        const interface = document.getElementById('tutorialInterface');
-        if (!interface) return;
+        const tutorialInterface = document.getElementById('tutorialInterface');
+        if (!tutorialInterface) return;
 
-        interface.innerHTML = `
+        tutorialInterface.innerHTML = `
             <div class="timer-expired">
                 <h2>⏰ TEMPS ÉCOULÉ</h2>
                 <p>Tu as été trop lent ! Mais on continue quand même...</p>
@@ -495,10 +495,10 @@ class TutorialEngine {
     completeTutorial() {
         console.log('🎉 Tutoriel terminé !');
         
-        const interface = document.getElementById('tutorialInterface');
-        if (!interface) return;
+        const tutorialInterface = document.getElementById('tutorialInterface');
+        if (!tutorialInterface) return;
 
-        interface.innerHTML = `
+        tutorialInterface.innerHTML = `
             <div class="tutorial-complete">
                 <h2>🏆 FÉLICITATIONS !</h2>
                 <p>Tu as terminé le tutoriel ! Tu es maintenant un vrai hacker !</p>
@@ -515,9 +515,9 @@ class TutorialEngine {
     }
 
     closeTutorial() {
-        const interface = document.getElementById('tutorialInterface');
-        if (interface) {
-            interface.remove();
+        const tutorialInterface = document.getElementById('tutorialInterface');
+        if (tutorialInterface) {
+            tutorialInterface.remove();
         }
         this.isActive = false;
         console.log('🎮 Tutoriel fermé');

@@ -17,6 +17,10 @@ from core.websocket_manager import websocket_manager
 from core.cache_manager import cache_manager
 from core.security_enhanced import security_enhanced
 from core.performance_optimizer import performance_optimizer
+from core.social_engine import social_engine
+from core.customization_engine import customization_engine
+from core.adaptive_storytelling import adaptive_storytelling
+from core.micro_interactions import micro_interactions
 import logging
 
 try:
@@ -2073,6 +2077,330 @@ def api_security_stats():
                 "timestamp": datetime.now().isoformat(),
             }
         )
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+# ===== ENDPOINTS SOCIAUX ET COMMUNAUTAIRES =====
+
+
+@app.route("/api/social/dashboard", methods=["GET"])
+@performance_optimizer.monitor_performance("social_dashboard")
+def api_social_dashboard():
+    """Retourne le tableau de bord social d'un joueur"""
+    try:
+        player_id = request.args.get("player_id", "default")
+        dashboard = social_engine.get_social_dashboard(player_id)
+
+        return jsonify({"success": True, "dashboard": dashboard})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/social/guilds", methods=["POST"])
+@performance_optimizer.monitor_performance("create_guild")
+def api_create_guild():
+    """Crée une nouvelle guilde"""
+    try:
+        data = request.get_json()
+        creator_id = data.get("creator_id", "default")
+        guild_name = data.get("name", "")
+        description = data.get("description", "")
+
+        if not guild_name:
+            return jsonify({"success": False, "error": "Nom de guilde requis"}), 400
+
+        result = social_engine.create_guild(creator_id, guild_name, description)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/social/guilds/<guild_id>/join", methods=["POST"])
+@performance_optimizer.monitor_performance("join_guild")
+def api_join_guild(guild_id):
+    """Rejoint une guilde"""
+    try:
+        data = request.get_json()
+        player_id = data.get("player_id", "default")
+
+        result = social_engine.join_guild(player_id, guild_id)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/social/challenges", methods=["POST"])
+@performance_optimizer.monitor_performance("create_challenge")
+def api_create_challenge():
+    """Crée un défi coopératif"""
+    try:
+        data = request.get_json()
+        creator_id = data.get("creator_id", "default")
+        challenge_data = data.get("challenge_data", {})
+
+        result = social_engine.create_coop_challenge(creator_id, challenge_data)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/social/chat/global", methods=["POST"])
+@performance_optimizer.monitor_performance("send_global_message")
+def api_send_global_message():
+    """Envoie un message dans le chat global"""
+    try:
+        data = request.get_json()
+        sender_id = data.get("sender_id", "default")
+        message = data.get("message", "")
+        message_type = data.get("type", "chat")
+
+        if not message:
+            return jsonify({"success": False, "error": "Message requis"}), 400
+
+        result = social_engine.send_global_message(sender_id, message, message_type)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/social/chat/recent", methods=["GET"])
+@performance_optimizer.monitor_performance("get_recent_messages")
+def api_get_recent_messages():
+    """Récupère les messages récents"""
+    try:
+        limit = request.args.get("limit", 50, type=int)
+        messages = social_engine.get_recent_messages(limit)
+
+        return jsonify({"success": True, "messages": messages})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+# ===== ENDPOINTS DE CUSTOMISATION =====
+
+
+@app.route("/api/customization/player", methods=["GET"])
+@performance_optimizer.monitor_performance("get_player_customization")
+def api_get_player_customization():
+    """Retourne la customisation d'un joueur"""
+    try:
+        player_id = request.args.get("player_id", "default")
+        customization = customization_engine.get_player_customization(player_id)
+
+        return jsonify({"success": True, "customization": customization})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/customization/themes", methods=["GET"])
+@performance_optimizer.monitor_performance("get_available_themes")
+def api_get_available_themes():
+    """Retourne les thèmes disponibles pour un joueur"""
+    try:
+        player_id = request.args.get("player_id", "default")
+        themes = customization_engine.get_available_themes(player_id)
+
+        return jsonify({"success": True, "themes": themes})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/customization/themes/<theme_id>/set", methods=["POST"])
+@performance_optimizer.monitor_performance("set_player_theme")
+def api_set_player_theme(theme_id):
+    """Définit le thème d'un joueur"""
+    try:
+        data = request.get_json()
+        player_id = data.get("player_id", "default")
+
+        result = customization_engine.set_player_theme(player_id, theme_id)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/customization/avatars", methods=["GET"])
+@performance_optimizer.monitor_performance("get_available_avatars")
+def api_get_available_avatars():
+    """Retourne les avatars disponibles pour un joueur"""
+    try:
+        player_id = request.args.get("player_id", "default")
+        avatars = customization_engine.get_available_avatars(player_id)
+
+        return jsonify({"success": True, "avatars": avatars})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/customization/avatars/<avatar_id>/set", methods=["POST"])
+@performance_optimizer.monitor_performance("set_player_avatar")
+def api_set_player_avatar(avatar_id):
+    """Définit l'avatar d'un joueur"""
+    try:
+        data = request.get_json()
+        player_id = data.get("player_id", "default")
+
+        result = customization_engine.set_player_avatar(player_id, avatar_id)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/customization/unlock/random", methods=["POST"])
+@performance_optimizer.monitor_performance("unlock_random_customization")
+def api_unlock_random_customization():
+    """Débloque une customisation aléatoire"""
+    try:
+        data = request.get_json()
+        player_id = data.get("player_id", "default")
+        category = data.get("category", "random")
+
+        result = customization_engine.unlock_random_customization(player_id, category)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+# ===== ENDPOINTS DE STORYTELLING ADAPTATIF =====
+
+
+@app.route("/api/story/progress", methods=["GET"])
+@performance_optimizer.monitor_performance("get_story_progress")
+def api_get_story_progress():
+    """Retourne le progrès de l'histoire d'un joueur"""
+    try:
+        player_id = request.args.get("player_id", "default")
+        progress = adaptive_storytelling.get_story_progress(player_id)
+
+        return jsonify({"success": True, "progress": progress})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/story/choices", methods=["POST"])
+@performance_optimizer.monitor_performance("record_player_choice")
+def api_record_player_choice():
+    """Enregistre un choix du joueur"""
+    try:
+        data = request.get_json()
+        player_id = data.get("player_id", "default")
+        story_arc = data.get("story_arc", "")
+        choice = data.get("choice", "")
+        context = data.get("context", {})
+
+        if not story_arc or not choice:
+            return (
+                jsonify({"success": False, "error": "Arc narratif et choix requis"}),
+                400,
+            )
+
+        result = adaptive_storytelling.record_player_choice(
+            player_id, story_arc, choice, context
+        )
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/story/choices/available", methods=["GET"])
+@performance_optimizer.monitor_performance("get_available_choices")
+def api_get_available_choices():
+    """Retourne les choix disponibles pour un arc narratif"""
+    try:
+        player_id = request.args.get("player_id", "default")
+        story_arc = request.args.get("story_arc", "")
+
+        if not story_arc:
+            return jsonify({"success": False, "error": "Arc narratif requis"}), 400
+
+        choices = adaptive_storytelling.get_available_choices(player_id, story_arc)
+        return jsonify({"success": True, "choices": choices})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/story/dialogue", methods=["POST"])
+@performance_optimizer.monitor_performance("generate_adaptive_dialogue")
+def api_generate_adaptive_dialogue():
+    """Génère un dialogue adaptatif"""
+    try:
+        data = request.get_json()
+        player_id = data.get("player_id", "default")
+        context = data.get("context", "")
+
+        if not context:
+            return jsonify({"success": False, "error": "Contexte requis"}), 400
+
+        result = adaptive_storytelling.generate_adaptive_dialogue(player_id, context)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+# ===== ENDPOINTS DE MICRO-INTERACTIONS =====
+
+
+@app.route("/api/interactions/trigger", methods=["POST"])
+@performance_optimizer.monitor_performance("trigger_interaction")
+def api_trigger_interaction():
+    """Déclenche une micro-interaction"""
+    try:
+        data = request.get_json()
+        player_id = data.get("player_id", "default")
+        interaction_type = data.get("type", "")
+        target_element = data.get("target_element")
+        context = data.get("context", {})
+
+        if not interaction_type:
+            return (
+                jsonify({"success": False, "error": "Type d'interaction requis"}),
+                400,
+            )
+
+        result = micro_interactions.trigger_interaction(
+            player_id, interaction_type, target_element, context
+        )
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/interactions/process", methods=["GET"])
+@performance_optimizer.monitor_performance("process_interactions")
+def api_process_interactions():
+    """Traite toutes les queues d'interactions"""
+    try:
+        result = micro_interactions.process_all_queues()
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/interactions/preferences", methods=["GET"])
+@performance_optimizer.monitor_performance("get_interaction_preferences")
+def api_get_interaction_preferences():
+    """Retourne les préférences d'interactions d'un joueur"""
+    try:
+        player_id = request.args.get("player_id", "default")
+        preferences = micro_interactions.get_user_preferences(player_id)
+
+        return jsonify({"success": True, "preferences": preferences})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/interactions/preferences", methods=["POST"])
+@performance_optimizer.monitor_performance("update_interaction_preferences")
+def api_update_interaction_preferences():
+    """Met à jour les préférences d'interactions d'un joueur"""
+    try:
+        data = request.get_json()
+        player_id = data.get("player_id", "default")
+        preferences = data.get("preferences", {})
+
+        result = micro_interactions.update_user_preferences(player_id, preferences)
+        return jsonify(result)
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
 

@@ -65,10 +65,10 @@
 - **Tests d'intégration** : Validation complète
 
 #### 🚀 **Déploiement**
-- **Configuration Render** : Déploiement automatique
-- **Poetry** : Gestion des dépendances
+- **Render (Blueprint Docker)** : `render.yaml` à la racine (runtime: docker)
+- **Dépendances** : `pip` via `requirements.txt`
 - **Gunicorn** : Serveur WSGI performant
-- **Variables d'environnement** : Configuration flexible
+- **Health Check** : `/health`
 
 ### 🐛 **CORRECTIONS**
 

@@ -14,6 +14,15 @@ from core.gamification_engine import GamificationEngine
 from core.security_manager import security_manager
 from core.tutorial_manager import tutorial_manager
 from core.websocket_manager import websocket_manager
+import logging
+
+try:
+    from utils.logger import game_logger, security_logger, performance_logger
+except ImportError:
+    # Fallback si le module utils est en conflit
+    game_logger = logging.getLogger("arkalia_game")
+    security_logger = logging.getLogger("arkalia_security")
+    performance_logger = logging.getLogger("arkalia_performance")
 
 # from core.educational_games_engine import educational_games
 
@@ -175,7 +184,7 @@ def charger_profil():
 
         return profil
     except Exception as e:
-        print(f"❌ Erreur chargement profil principal: {e}")
+        game_logger.error(f"Erreur chargement profil principal: {e}")
         # Retourner un profil par défaut en cas d'erreur
         return {
             "id": "default",
@@ -215,7 +224,7 @@ def sauvegarder_profil(profil):
 
         arkalia_engine.profiles.save_main_profile(profil)
     except Exception as e:
-        print(f"❌ Erreur sauvegarde profil: {e}")
+        game_logger.error(f"Erreur sauvegarde profil: {e}")
 
 
 def analyser_personnalite(profil):
@@ -424,6 +433,55 @@ def accessibility():
     return render_template("accessibility_panel.html", profil=profil)
 
 
+# ===== API ACCESSIBILITÉ =====
+@app.route("/api/accessibility/save", methods=["POST"])
+def api_accessibility_save():
+    """Enregistre les préférences d'accessibilité côté serveur (si profil dispo).
+
+    Stocke les préférences sous la clé 'accessibility' du profil utilisateur.
+    Retourne success True/False avec message.
+    """
+    try:
+        data = request.get_json(silent=True) or {}
+
+        # Validation basique
+        if not isinstance(data, dict):
+            return jsonify({"success": False, "message": "Données invalides"}), 400
+
+        profil = charger_profil()
+        # Conserver uniquement les clés attendues pour éviter l'injection inutile
+        allowed_keys = {
+            "highContrast",
+            "fontSize",
+            "reducedMotion",
+            "subtitles",
+            "effectsVolume",
+            "audioDescription",
+            "keyboardNav",
+            "focusVisible",
+            "keyboardShortcuts",
+            "darkMode",
+            "elementSpacing",
+            "customCursor",
+        }
+        accessibility_prefs = {k: v for k, v in data.items() if k in allowed_keys}
+
+        profil["accessibility"] = accessibility_prefs
+        sauvegarder_profil(profil)
+
+        return jsonify(
+            {"success": True, "message": "Préférences d'accessibilité sauvegardées"}
+        )
+    except Exception as e:
+        game_logger.error(f"Erreur sauvegarde accessibilité: {e}")
+        return (
+            jsonify(
+                {"success": False, "message": "Erreur interne lors de l'enregistrement"}
+            ),
+            500,
+        )
+
+
 # Routes pour servir les fichiers JSON
 
 
@@ -581,13 +639,13 @@ def commande():
     profil = charger_profil()
 
     # Log de la commande reçue
-    print(f"[API] Commande reçue: {cmd}")
+    game_logger.info(f"Commande reçue: {cmd}")
 
     try:
         reponse = command_handler.handle_command(cmd, profil)
-        print(f"[DEBUG] Réponse du handler: {reponse}")
+        game_logger.debug(f"Réponse du handler: {reponse}")
     except Exception as e:
-        print(f"[ERROR] Erreur lors du traitement de la commande: {e}")
+        game_logger.error(f"Erreur lors du traitement de la commande: {e}")
         return (
             jsonify(
                 {
@@ -633,7 +691,7 @@ def commande():
 
             sauvegarder_profil(profil)
         except Exception as e:
-            print(f"[ERROR] Erreur lors de la mise à jour du profil: {e}")
+            game_logger.error(f"Erreur lors de la mise à jour du profil: {e}")
 
     return jsonify({"reponse": reponse})
 
@@ -682,7 +740,7 @@ def get_profile_summary():
 
         return jsonify(summary)
     except Exception as e:
-        print(f"❌ Erreur dans get_profile_summary: {e}")
+        game_logger.error(f"Erreur dans get_profile_summary: {e}")
         return jsonify(
             {
                 "success": True,
@@ -749,7 +807,7 @@ except ImportError:
     DATABASE_AVAILABLE = False
     WEBSOCKET_AVAILABLE = False
     TUTORIAL_AVAILABLE = False
-    print("⚠️ Modules avancés non disponibles, utilisation du mode dégradé")
+    game_logger.warning("Modules avancés non disponibles, utilisation du mode dégradé")
 
 
 @app.route("/api/database/migrate", methods=["POST"])
@@ -1410,7 +1468,7 @@ try:
     ANALYTICS_AVAILABLE = True
 except ImportError:
     ANALYTICS_AVAILABLE = False
-    print("⚠️ Module analytics non disponible")
+    game_logger.warning("Module analytics non disponible")
 
 
 # Routes API pour les mini-jeux éducatifs
@@ -1803,10 +1861,10 @@ if __name__ == "__main__":
     if not os.path.exists("data/missions"):
         os.makedirs("data/missions")
 
-    print("🚀 Démarrage d'Arkalia Quest v2.0")
-    print("🌙 IA LUNA initialisée")
-    print("🎮 Moteur de jeu prêt")
-    print("🎨 Effets visuels activés")
-    print("🌐 Serveur sur http://0.0.0.0:5001 (port configuré)")
+    game_logger.info("🚀 Démarrage d'Arkalia Quest v2.0")
+    game_logger.info("🌙 IA LUNA initialisée")
+    game_logger.info("🎮 Moteur de jeu prêt")
+    game_logger.info("🎨 Effets visuels activés")
+    game_logger.info("🌐 Serveur sur http://0.0.0.0:5001 (port configuré)")
 
     app.run(host="0.0.0.0", port=5001, debug=False)

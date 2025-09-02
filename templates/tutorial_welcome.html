@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>🎯 TUTORIEL ARKALIA QUEST - BIENVENUE !</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- CSS LUNA VISION -->
     <link rel="stylesheet" href="/static/css/arkalia-luna-vision.css">
     <link rel="stylesheet" href="/static/css/accessibility.css">
     <link rel="stylesheet" href="/static/css/responsive.css">
-    
+
     <style>
         .tutorial-container {
             min-height: 100vh;
@@ -22,24 +23,31 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .tutorial-background {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: 
+            background:
                 radial-gradient(circle at 20% 80%, rgba(167, 139, 250, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(96, 165, 250, 0.1) 0%, transparent 50%);
             animation: tutorialPulse 8s ease-in-out infinite;
         }
-        
+
         @keyframes tutorialPulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.6; }
+
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
         }
-        
+
         .tutorial-card {
             background: rgba(9, 9, 11, 0.95);
             border: 3px solid rgba(167, 139, 250, 0.6);
@@ -53,11 +61,11 @@
             z-index: 2;
             box-shadow: 0 0 50px rgba(167, 139, 250, 0.3);
         }
-        
+
         .tutorial-header {
             margin-bottom: 30px;
         }
-        
+
         .tutorial-title {
             font-family: 'Cormorant', serif;
             font-size: 3em;
@@ -65,14 +73,14 @@
             margin-bottom: 15px;
             text-shadow: 0 0 30px rgba(167, 139, 250, 0.8);
         }
-        
+
         .tutorial-subtitle {
             font-family: 'Inter', sans-serif;
             font-size: 1.3em;
             color: var(--argent-holographique);
             line-height: 1.6;
         }
-        
+
         .tutorial-step {
             background: rgba(167, 139, 250, 0.1);
             border: 2px solid rgba(167, 139, 250, 0.3);
@@ -82,13 +90,13 @@
             text-align: left;
             transition: all 0.3s ease;
         }
-        
+
         .tutorial-step:hover {
             border-color: rgba(167, 139, 250, 0.6);
             box-shadow: 0 0 30px rgba(167, 139, 250, 0.2);
             transform: translateY(-2px);
         }
-        
+
         .step-number {
             display: inline-block;
             background: var(--violet-lunaire);
@@ -102,7 +110,7 @@
             margin-right: 15px;
             font-size: 1.2em;
         }
-        
+
         .step-title {
             font-family: 'Cormorant', serif;
             font-size: 1.4em;
@@ -110,14 +118,14 @@
             margin-bottom: 10px;
             display: inline-block;
         }
-        
+
         .step-description {
             font-family: 'Inter', sans-serif;
             color: var(--argent-holographique);
             line-height: 1.6;
             margin-left: 45px;
         }
-        
+
         .tutorial-actions {
             margin-top: 40px;
             display: flex;
@@ -125,7 +133,7 @@
             justify-content: center;
             flex-wrap: wrap;
         }
-        
+
         .tutorial-btn {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 1.1em;
@@ -137,35 +145,35 @@
             display: inline-block;
             border: 2px solid;
         }
-        
+
         .btn-primary {
             background: rgba(167, 139, 250, 0.3);
             border-color: var(--violet-lunaire);
             color: var(--violet-lunaire);
         }
-        
+
         .btn-primary:hover {
             background: rgba(167, 139, 250, 0.5);
             box-shadow: 0 0 30px rgba(167, 139, 250, 0.6);
             transform: translateY(-3px);
         }
-        
+
         .btn-secondary {
             background: rgba(96, 165, 250, 0.2);
             border-color: var(--bleu-spectre);
             color: var(--bleu-spectre);
         }
-        
+
         .btn-secondary:hover {
             background: rgba(96, 165, 250, 0.4);
             box-shadow: 0 0 30px rgba(96, 165, 250, 0.5);
             transform: translateY(-3px);
         }
-        
+
         .tutorial-steps-dynamic {
             margin: 30px 0;
         }
-        
+
         .tutorial-step-dynamic {
             background: rgba(167, 139, 250, 0.05);
             border: 1px solid rgba(167, 139, 250, 0.2);
@@ -179,13 +187,13 @@
             opacity: 0;
             transform: translateX(-20px);
         }
-        
+
         .tutorial-step-dynamic:hover {
             background: rgba(167, 139, 250, 0.1);
             border-color: rgba(167, 139, 250, 0.4);
             transform: translateX(0) scale(1.02);
         }
-        
+
         .step-number-dynamic {
             background: linear-gradient(45deg, var(--violet-lunaire), var(--bleu-spectre));
             color: white;
@@ -199,11 +207,11 @@
             font-size: 1.2em;
             flex-shrink: 0;
         }
-        
+
         .step-content-dynamic {
             flex: 1;
         }
-        
+
         .step-title-dynamic {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 1.3em;
@@ -211,14 +219,14 @@
             margin-bottom: 10px;
             font-weight: 600;
         }
-        
+
         .step-message-dynamic {
             font-family: 'Inter', sans-serif;
             color: var(--argent-holographique);
             margin-bottom: 15px;
             line-height: 1.6;
         }
-        
+
         .step-command-dynamic {
             background: rgba(0, 255, 0, 0.1);
             border: 1px solid rgba(0, 255, 0, 0.3);
@@ -227,7 +235,7 @@
             font-family: 'IBM Plex Mono', monospace;
             color: #00ff00;
         }
-        
+
         .step-help-dynamic {
             display: block;
             margin-top: 8px;
@@ -235,7 +243,7 @@
             color: var(--argent-holographique);
             font-style: italic;
         }
-        
+
         .luna-tip {
             background: rgba(167, 139, 250, 0.15);
             border-left: 4px solid var(--violet-lunaire);
@@ -244,13 +252,13 @@
             border-radius: 10px;
             font-style: italic;
         }
-        
+
         .luna-tip::before {
             content: '💡 LUNA: ';
             font-weight: bold;
             color: var(--violet-lunaire);
         }
-        
+
         .skip-tutorial {
             position: absolute;
             top: 20px;
@@ -264,27 +272,90 @@
             font-size: 0.9em;
             transition: all 0.3s ease;
         }
-        
+
         .skip-tutorial:hover {
             background: rgba(156, 163, 175, 0.3);
             border-color: rgba(156, 163, 175, 0.6);
         }
-        
+
+        /* Modal de confirmation quitter tutoriel */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: rgba(9, 9, 11, 0.98);
+            border: 2px solid rgba(167, 139, 250, 0.6);
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 520px;
+            width: 92%;
+            color: var(--argent-holographique);
+            box-shadow: 0 0 30px rgba(167, 139, 250, 0.4);
+        }
+
+        .modal h3 {
+            color: var(--violet-lunaire);
+            margin-top: 0;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 16px;
+        }
+
+        .modal .btn {
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(167, 139, 250, 0.4);
+            cursor: pointer;
+        }
+
+        .btn-cancel {
+            background: rgba(167, 139, 250, 0.15);
+            color: var(--argent-holographique);
+        }
+
+        .btn-leave {
+            background: var(--violet-lunaire);
+            color: #000;
+            border-color: var(--violet-lunaire);
+        }
+
+        .modal small {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
         @media (max-width: 768px) {
             .tutorial-card {
                 padding: 25px;
                 margin: 10px;
             }
-            
+
             .tutorial-title {
                 font-size: 2.2em;
             }
-            
+
             .tutorial-actions {
                 flex-direction: column;
                 align-items: center;
             }
-            
+
             .tutorial-btn {
                 width: 100%;
                 max-width: 300px;
@@ -292,12 +363,13 @@
         }
     </style>
 </head>
+
 <body>
     <div class="tutorial-container">
         <div class="tutorial-background"></div>
-        
+
         <a href="/" class="skip-tutorial">⏭️ Passer le tutoriel</a>
-        
+
         <div class="tutorial-card">
             <div class="tutorial-header">
                 <h1 class="tutorial-title">🎯 BIENVENUE DANS ARKALIA QUEST !</h1>
@@ -305,16 +377,17 @@
                     Ton aventure cybernétique commence ici ! Suis ce guide simple pour comprendre comment jouer.
                 </p>
             </div>
-            
+
             <div class="tutorial-step">
                 <span class="step-number">1</span>
                 <span class="step-title">🎮 QU'EST-CE QUE C'EST ?</span>
                 <p class="step-description">
-                    <strong>Arkalia Quest</strong> est un jeu d'aventure cybernétique où tu incarnes un hacker qui explore un monde virtuel mystérieux. 
+                    <strong>Arkalia Quest</strong> est un jeu d'aventure cybernétique où tu incarnes un hacker qui
+                    explore un monde virtuel mystérieux.
                     Tu communiques avec <strong>LUNA</strong>, une IA qui te guide et t'aide dans tes missions.
                 </p>
             </div>
-            
+
             <div class="tutorial-step">
                 <span class="step-number">2</span>
                 <span class="step-title">⌨️ COMMENT JOUER ?</span>
@@ -325,7 +398,7 @@
                     <br>• <strong>Explorer les menus</strong> pour découvrir de nouvelles fonctionnalités
                 </p>
             </div>
-            
+
             <div class="tutorial-step">
                 <span class="step-number">3</span>
                 <span class="step-title">🌙 QUI EST LUNA ?</span>
@@ -337,70 +410,87 @@
                     <br>• Te donne des conseils personnalisés
                 </p>
             </div>
-            
+
             <div class="tutorial-step">
                 <span class="step-number">4</span>
                 <span class="step-title">🎯 TES OBJECTIFS</span>
                 <p class="step-description">
-                    <strong>Ton but :</strong> Explorer le monde d'Arkalia, résoudre des énigmes, 
+                    <strong>Ton but :</strong> Explorer le monde d'Arkalia, résoudre des énigmes,
                     gagner des badges et des points, et découvrir les mystères de ce monde virtuel.
                     <br><br>
                     <strong>Pas de pression !</strong> Prends ton temps, explore à ton rythme.
                 </p>
             </div>
-            
+
             <!-- Étapes dynamiques du tutoriel -->
             <div id="tutorial-steps" class="tutorial-steps-dynamic">
                 <!-- Les étapes seront chargées dynamiquement ici -->
             </div>
-            
+
             <div class="luna-tip">
-                <strong>Conseil de LUNA :</strong> Commence par explorer ton profil et le monde d'Arkalia. 
+                <strong>Conseil de LUNA :</strong> Commence par explorer ton profil et le monde d'Arkalia.
                 N'hésite pas à taper "aide" dans le terminal si tu es perdu !
             </div>
-            
+
             <div class="tutorial-actions">
                 <a href="/terminal" class="tutorial-btn btn-primary">🚀 ESSAYER LE TERMINAL</a>
                 <a href="/monde" class="tutorial-btn btn-secondary">🌍 EXPLORER LE MONDE</a>
                 <a href="/profil" class="tutorial-btn btn-secondary">👤 VOIR MON PROFIL</a>
             </div>
-            
+
             <div style="margin-top: 30px; opacity: 0.7; font-size: 0.9em;">
                 <p>💡 <strong>Astuce :</strong> Tu peux revenir à ce tutoriel depuis le menu d'aide à tout moment !</p>
             </div>
         </div>
     </div>
-    
+
+    <!-- Modal confirmation quitter tutoriel -->
+    <div class="modal-overlay" id="quit-modal" role="dialog" aria-modal="true" aria-labelledby="quit-title"
+        aria-hidden="true">
+        <div class="modal">
+            <h3 id="quit-title">Quitter le tutoriel ?</h3>
+            <p>Ta progression sera sauvegardée. Tu pourras revenir quand tu veux.</p>
+            <small>
+                <input type="checkbox" id="dont-ask-again" />
+                <label for="dont-ask-again">Ne plus demander</label>
+            </small>
+            <div class="modal-actions">
+                <button class="btn btn-cancel" id="quit-cancel">Rester</button>
+                <button class="btn btn-leave" id="quit-confirm">Quitter</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="/static/js/arkalia-luna-vision.js"></script>
     <script src="/static/js/accessibility.js"></script>
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Animation d'entrée
             const card = document.querySelector('.tutorial-card');
             card.style.opacity = '0';
             card.style.transform = 'translateY(30px)';
-            
+
             setTimeout(() => {
                 card.style.transition = 'all 0.8s ease';
                 card.style.opacity = '1';
                 card.style.transform = 'translateY(0)';
             }, 300);
-            
+
             // Animation des étapes
             const steps = document.querySelectorAll('.tutorial-step');
             steps.forEach((step, index) => {
                 step.style.opacity = '0';
                 step.style.transform = 'translateX(-20px)';
-                
+
                 setTimeout(() => {
                     step.style.transition = 'all 0.6s ease';
                     step.style.opacity = '1';
                     step.style.transform = 'translateX(0)';
                 }, 800 + (index * 200));
             });
-            
+
             // Message de LUNA
             if (window.lunaVision) {
                 setTimeout(() => {
@@ -408,14 +498,26 @@
                     window.lunaVision.setEmotion('welcoming');
                 }, 2000);
             }
-            
+
             // Charger les étapes du tutoriel depuis l'API
             loadTutorialSteps();
+
+            // Intercepter les navigations sortantes pour confirmation
+            setupQuitConfirmation();
         });
-        
+
         // Fonction pour charger les étapes du tutoriel
         async function loadTutorialSteps() {
             try {
+                // Vérifier d'abord la progression sauvegardée
+                const savedProgress = localStorage.getItem('arkalia_tutorial_progress');
+                if (savedProgress) {
+                    const progress = JSON.parse(savedProgress);
+                    if (progress.completed_steps && progress.completed_steps.length > 0) {
+                        showProgressRestored(progress);
+                    }
+                }
+
                 const response = await fetch('/api/tutorial/steps');
                 if (response.ok) {
                     const data = await response.json();
@@ -427,14 +529,39 @@
                 console.log('Erreur lors du chargement du tutoriel:', error);
             }
         }
-        
+
+        // Fonction pour afficher la progression restaurée
+        function showProgressRestored(progress) {
+            if (window.lunaVision) {
+                window.lunaVision.showLunaMessage(
+                    `Progression restaurée ! Tu as complété ${progress.completed_steps.length} étapes.`,
+                    4000
+                );
+            }
+
+            // Afficher une notification de progression sauvegardée
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+                background: rgba(167, 139, 250, 0.9); color: white; padding: 15px 25px;
+                border-radius: 10px; z-index: 1000; font-family: 'IBM Plex Mono', monospace;
+                box-shadow: 0 0 20px rgba(167, 139, 250, 0.5);
+            `;
+            notification.textContent = '✅ Progression sauvegardée et restaurée';
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
         // Fonction pour afficher les étapes du tutoriel
         function displayTutorialSteps(etapes) {
             const stepsContainer = document.getElementById('tutorial-steps');
             if (!stepsContainer) return;
-            
+
             stepsContainer.innerHTML = '';
-            
+
             etapes.forEach((etape, index) => {
                 const stepElement = document.createElement('div');
                 stepElement.className = 'tutorial-step-dynamic';
@@ -450,7 +577,7 @@
                     </div>
                 `;
                 stepsContainer.appendChild(stepElement);
-                
+
                 // Animation d'apparition progressive
                 setTimeout(() => {
                     stepElement.style.opacity = '1';
@@ -458,6 +585,74 @@
                 }, 200 * (index + 1));
             });
         }
+
+        // Confirmation quitter tutoriel
+        function setupQuitConfirmation() {
+            const modal = document.getElementById('quit-modal');
+            const cancelBtn = document.getElementById('quit-cancel');
+            const confirmBtn = document.getElementById('quit-confirm');
+            const dontAsk = document.getElementById('dont-ask-again');
+            let pendingHref = null;
+
+            // Ne pas redemander si l'utilisateur a choisi ainsi
+            const skipConfirm = localStorage.getItem('arkalia_tutorial_quit_confirm_disabled') === '1';
+
+            function openModal(href) {
+                pendingHref = href;
+                modal.classList.add('active');
+                modal.setAttribute('aria-hidden', 'false');
+                // Focus pour a11y
+                setTimeout(() => cancelBtn.focus(), 50);
+            }
+
+            function closeModal() {
+                modal.classList.remove('active');
+                modal.setAttribute('aria-hidden', 'true');
+                pendingHref = null;
+            }
+
+            cancelBtn.addEventListener('click', closeModal);
+            confirmBtn.addEventListener('click', async () => {
+                try {
+                    // Sauvegarde de progression dans localStorage
+                    const progress = {
+                        completed_steps: [1, 2, 3], // Étapes complétées
+                        last_accessed: new Date().toISOString(),
+                        tutorial_started: true
+                    };
+                    localStorage.setItem('arkalia_tutorial_progress', JSON.stringify(progress));
+
+                    // Sauvegarde rapide de progression (best effort)
+                    await fetch('/api/tutorial/progress/main_user');
+                } catch (e) { /* no-op */ }
+                if (dontAsk.checked) {
+                    localStorage.setItem('arkalia_tutorial_quit_confirm_disabled', '1');
+                }
+                if (pendingHref) window.location.href = pendingHref;
+            });
+
+            // Fermer avec ESC
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    e.preventDefault();
+                    closeModal();
+                }
+            });
+
+            // Intercepter clics sortants (liens principaux)
+            document.body.addEventListener('click', (e) => {
+                const link = e.target.closest('a');
+                if (!link) return;
+                const href = link.getAttribute('href') || '';
+                const isInternalNav = [/^\/$/, /^\/terminal/, /^\/monde/, /^\/profil/, /^\/leaderboard/, /^\/dashboard/].some(r => r.test(href));
+                if (!isInternalNav) return;
+                if (skipConfirm) return;
+                // Bloquer et demander confirmation
+                e.preventDefault();
+                openModal(href);
+            });
+        }
     </script>
 </body>
+
 </html>

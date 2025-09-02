@@ -7,6 +7,7 @@ class AccessibilityManager {
     constructor() {
         this.currentMode = 'default';
         this.accessibilitySettings = this.loadSettings();
+        this.menuAutoOpened = false; // Empêcher l'ouverture automatique
         this.init();
     }
 
@@ -20,12 +21,15 @@ class AccessibilityManager {
         this.setupResponsiveAccessibility();
         this.setupAdvancedModes();
         this.applySettings();
-        
+
+        // S'assurer que le menu d'accessibilité est fermé au démarrage
+        this.ensureMenuClosed();
+
         console.log('♿ Système d\'accessibilité Arkalia Quest initialisé');
     }
 
     // ===== GESTION DES PARAMÈTRES =====
-    
+
     loadSettings() {
         const saved = localStorage.getItem('arkalia_accessibility');
         return saved ? JSON.parse(saved) : {
@@ -46,16 +50,16 @@ class AccessibilityManager {
     }
 
     // ===== SKIP LINKS =====
-    
+
     setupSkipLinks() {
         const skipLinks = `
             <a href="#main-content" class="skip-link">Aller au contenu principal</a>
             <a href="#navigation" class="skip-link">Aller à la navigation</a>
             <a href="#accessibility-panel" class="skip-link">Paramètres d'accessibilité</a>
         `;
-        
+
         document.body.insertAdjacentHTML('afterbegin', skipLinks);
-        
+
         // Gestion des skip links
         document.querySelectorAll('.skip-link').forEach(link => {
             link.addEventListener('click', (e) => {
@@ -70,7 +74,7 @@ class AccessibilityManager {
     }
 
     // ===== NAVIGATION CLAVIER =====
-    
+
     setupKeyboardNavigation() {
         // Indicateur de navigation clavier
         const navIndicator = document.createElement('div');
@@ -79,7 +83,7 @@ class AccessibilityManager {
 
         // Détection de navigation clavier
         let isKeyboardNavigation = false;
-        
+
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Tab') {
                 isKeyboardNavigation = true;
@@ -98,13 +102,13 @@ class AccessibilityManager {
             if (e.key === 'Escape') {
                 this.closeModals();
             }
-            
+
             // Alt + A pour ouvrir le panneau d'accessibilité
             if (e.altKey && e.key === 'a') {
                 e.preventDefault();
-                this.toggleAccessibilityPanel();
+                this.toggleAccessibilityMenu(true); // Force l'ouverture intentionnelle
             }
-            
+
             // Alt + 1-8 pour modes d'accessibilité rapides
             if (e.altKey && ['1', '2', '3', '4', '5', '6', '7', '8'].includes(e.key)) {
                 e.preventDefault();
@@ -114,11 +118,11 @@ class AccessibilityManager {
     }
 
     // ===== GESTION DU FOCUS =====
-    
+
     setupFocusManagement() {
         // Focus trap pour modales
         this.setupFocusTrap();
-        
+
         // Focus visible renforcé
         document.addEventListener('focusin', (e) => {
             if (e.target.matches('button, input, select, textarea, a, [tabindex]')) {
@@ -134,7 +138,7 @@ class AccessibilityManager {
     setupFocusTrap() {
         // Focus trap pour les modales (à implémenter selon les besoins)
         const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
-        
+
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Tab') {
                 const modal = document.querySelector('.modal.active');
@@ -160,25 +164,25 @@ class AccessibilityManager {
     }
 
     // ===== MENU D'ACCESSIBILITÉ =====
-    
+
     setupAccessibilityPanel() {
         // Le menu d'accessibilité est maintenant dans le template HTML
         // On gère juste les interactions
-        
+
         // Gestion du bouton toggle
         const toggleBtn = document.getElementById('accessibility-toggle');
         if (toggleBtn) {
             toggleBtn.addEventListener('click', () => {
-                this.toggleAccessibilityMenu();
+                this.toggleAccessibilityMenu(true); // Force l'ouverture intentionnelle
             });
         }
-        
+
         // Gestion des boutons du menu
         document.querySelectorAll('.accessibility-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const mode = btn.dataset.mode;
                 const action = btn.dataset.action;
-                
+
                 if (mode) {
                     this.toggleMode(mode, btn);
                 } else if (action) {
@@ -190,7 +194,7 @@ class AccessibilityManager {
 
     toggleMode(mode, button) {
         const isActive = button.getAttribute('aria-pressed') === 'true';
-        
+
         if (isActive) {
             this.disableMode(mode);
             button.setAttribute('aria-pressed', 'false');
@@ -200,7 +204,7 @@ class AccessibilityManager {
             button.setAttribute('aria-pressed', 'true');
             button.classList.add('active');
         }
-        
+
         this.accessibilitySettings[mode] = !isActive;
         this.saveSettings();
     }
@@ -272,11 +276,11 @@ class AccessibilityManager {
         const currentIndex = sizes.indexOf(this.accessibilitySettings.fontSize);
         const nextIndex = (currentIndex + 1) % sizes.length;
         const newSize = sizes[nextIndex];
-        
+
         this.setFontSize(newSize);
         this.accessibilitySettings.fontSize = newSize;
         this.saveSettings();
-        
+
         button.textContent = `🔤 ${newSize.charAt(0).toUpperCase() + newSize.slice(1)}`;
         this.announceToScreenReader(`Taille de police : ${newSize}`);
     }
@@ -286,11 +290,11 @@ class AccessibilityManager {
         const currentIndex = zooms.indexOf(this.accessibilitySettings.zoom);
         const nextIndex = (currentIndex + 1) % zooms.length;
         const newZoom = zooms[nextIndex];
-        
+
         this.setZoom(newZoom);
         this.accessibilitySettings.zoom = newZoom;
         this.saveSettings();
-        
+
         button.textContent = `🔍 ${newZoom === 'normal' ? 'Normal' : newZoom + '%'}`;
         this.announceToScreenReader(`Zoom : ${newZoom === 'normal' ? 'normal' : newZoom + '%'}`);
     }
@@ -300,11 +304,11 @@ class AccessibilityManager {
         const currentIndex = spacings.indexOf(this.accessibilitySettings.spacing);
         const nextIndex = (currentIndex + 1) % spacings.length;
         const newSpacing = spacings[nextIndex];
-        
+
         this.setSpacing(newSpacing);
         this.accessibilitySettings.spacing = newSpacing;
         this.saveSettings();
-        
+
         button.textContent = `📏 ${newSpacing.charAt(0).toUpperCase() + newSpacing.slice(1)}`;
         this.announceToScreenReader(`Espacement : ${newSpacing}`);
     }
@@ -312,17 +316,17 @@ class AccessibilityManager {
     toggleHighlight(button) {
         this.accessibilitySettings.highlight = !this.accessibilitySettings.highlight;
         const isActive = this.accessibilitySettings.highlight;
-        
+
         if (isActive) {
             document.body.classList.add('highlight-focus', 'highlight-links', 'highlight-buttons');
         } else {
             document.body.classList.remove('highlight-focus', 'highlight-links', 'highlight-buttons');
         }
-        
+
         button.setAttribute('aria-pressed', isActive.toString());
         button.classList.toggle('active', isActive);
         this.saveSettings();
-        
+
         this.announceToScreenReader(
             isActive ? 'Surbrillance activée' : 'Surbrillance désactivée'
         );
@@ -335,14 +339,14 @@ class AccessibilityManager {
             large: '18px',
             xlarge: '20px'
         };
-        
+
         document.documentElement.style.setProperty('--font-size-base', sizes[size]);
     }
 
     setZoom(zoom) {
         // Retirer les classes de zoom existantes
         document.body.classList.remove('zoom-200', 'zoom-300', 'zoom-400');
-        
+
         if (zoom !== 'normal') {
             document.body.classList.add(`zoom-${zoom}`);
         }
@@ -351,7 +355,7 @@ class AccessibilityManager {
     setSpacing(spacing) {
         // Retirer les classes d'espacement existantes
         document.body.classList.remove('spacing-large', 'spacing-extra-large');
-        
+
         if (spacing !== 'normal') {
             document.body.classList.add(`spacing-${spacing}`);
         }
@@ -360,18 +364,18 @@ class AccessibilityManager {
     toggleHapticFeedback(button) {
         this.accessibilitySettings.hapticFeedback = !this.accessibilitySettings.hapticFeedback;
         const isActive = this.accessibilitySettings.hapticFeedback;
-        
+
         button.setAttribute('aria-pressed', isActive.toString());
         button.classList.toggle('active', isActive);
         this.saveSettings();
-        
+
         this.announceToScreenReader(
             isActive ? 'Feedback haptique activé' : 'Feedback haptique désactivé'
         );
     }
 
     // ===== SUPPORT LECTEURS D'ÉCRAN =====
-    
+
     setupScreenReaderSupport() {
         // Créer une région pour les annonces
         const announcementRegion = document.createElement('div');
@@ -380,7 +384,7 @@ class AccessibilityManager {
         announcementRegion.setAttribute('aria-live', 'polite');
         announcementRegion.setAttribute('aria-atomic', 'true');
         document.body.appendChild(announcementRegion);
-        
+
         // Améliorer les descriptions ARIA
         this.enhanceAriaDescriptions();
     }
@@ -406,7 +410,7 @@ class AccessibilityManager {
             { selector: '.badge', description: 'Badge de réussite' },
             { selector: '.stats-grid', description: 'Statistiques du joueur' }
         ];
-        
+
         elementsToEnhance.forEach(({ selector, description }) => {
             const elements = document.querySelectorAll(selector);
             elements.forEach(element => {
@@ -418,7 +422,7 @@ class AccessibilityManager {
     }
 
     // ===== FEEDBACK HAPTIQUE =====
-    
+
     setupHapticFeedback() {
         // Feedback haptique pour les actions importantes
         this.setupHapticTriggers();
@@ -434,7 +438,7 @@ class AccessibilityManager {
             'a',
             'input[type="submit"]'
         ];
-        
+
         hapticTriggers.forEach(selector => {
             document.addEventListener('click', (e) => {
                 if (e.target.matches(selector) && this.accessibilitySettings.hapticFeedback) {
@@ -453,7 +457,7 @@ class AccessibilityManager {
 
     triggerHapticFeedback(type = 'light') {
         if (!this.accessibilitySettings.hapticFeedback) return;
-        
+
         if ('vibrate' in navigator) {
             const patterns = {
                 light: 50,
@@ -463,20 +467,20 @@ class AccessibilityManager {
                 error: [200, 100, 200],
                 warning: [150, 100, 150]
             };
-            
+
             navigator.vibrate(patterns[type]);
         }
     }
 
     // ===== ACCESSIBILITÉ RESPONSIVE =====
-    
+
     setupResponsiveAccessibility() {
         // Détecter les préférences utilisateur
         this.detectUserPreferences();
-        
+
         // Optimiser pour les appareils tactiles
         this.optimizeForTouch();
-        
+
         // Gérer les changements d'orientation
         this.handleOrientationChange();
     }
@@ -486,12 +490,12 @@ class AccessibilityManager {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
             document.body.classList.add('reduced-motion');
         }
-        
+
         // Détecter prefers-color-scheme
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
             document.body.classList.add('dark-theme');
         }
-        
+
         // Détecter les appareils tactiles
         if ('ontouchstart' in window) {
             document.body.classList.add('touch-device');
@@ -506,7 +510,7 @@ class AccessibilityManager {
                 element.style.minHeight = '44px';
                 element.style.minWidth = '44px';
             });
-            
+
             // Ajouter touch-action: manipulation
             const interactiveElements = document.querySelectorAll('button, a, input');
             interactiveElements.forEach(element => {
@@ -525,24 +529,24 @@ class AccessibilityManager {
     }
 
     // ===== MODES AVANCÉS =====
-    
+
     setupAdvancedModes() {
         // Mode performance réduite
         this.detectLowPerformance();
-        
+
         // Mode contraste automatique
         this.setupAutoContrast();
-        
+
         // Mode focus avancé
         this.setupAdvancedFocus();
     }
 
     detectLowPerformance() {
         // Détecter les appareils moins puissants
-        const isLowPerformance = navigator.hardwareConcurrency < 4 || 
-                                navigator.deviceMemory < 4 ||
-                                window.innerWidth < 768;
-        
+        const isLowPerformance = navigator.hardwareConcurrency < 4 ||
+            navigator.deviceMemory < 4 ||
+            window.innerWidth < 768;
+
         if (isLowPerformance) {
             document.body.classList.add('low-performance');
         }
@@ -570,11 +574,11 @@ class AccessibilityManager {
     }
 
     // ===== MODES RAPIDES =====
-    
+
     quickAccessibilityMode(key) {
         const modes = {
             '1': 'daltonian',
-            '2': 'highContrast', 
+            '2': 'highContrast',
             '3': 'dyslexia',
             '4': 'reducedMotion',
             '5': 'zoom',
@@ -582,7 +586,7 @@ class AccessibilityManager {
             '7': 'highlight',
             '8': 'hapticFeedback'
         };
-        
+
         const mode = modes[key];
         if (mode) {
             if (mode === 'zoom' || mode === 'spacing' || mode === 'highlight' || mode === 'hapticFeedback') {
@@ -600,7 +604,7 @@ class AccessibilityManager {
     }
 
     // ===== UTILITAIRES =====
-    
+
     closeModals() {
         const modals = document.querySelectorAll('.modal.active');
         modals.forEach(modal => {
@@ -608,14 +612,24 @@ class AccessibilityManager {
         });
     }
 
-    toggleAccessibilityMenu() {
+    toggleAccessibilityMenu(forceOpen = false) {
         const menu = document.getElementById('accessibility-menu');
         const overlay = document.getElementById('accessibility-overlay');
         const toggleBtn = document.getElementById('accessibility-toggle');
-        
+
         if (menu && overlay && toggleBtn) {
             const isActive = menu.classList.contains('active');
-            
+
+            // Empêcher l'ouverture automatique non désirée
+            if (!forceOpen && !isActive && !this.menuAutoOpened) {
+                // S'assurer que le menu reste fermé par défaut
+                menu.classList.remove('active');
+                overlay.classList.remove('active');
+                menu.setAttribute('aria-hidden', 'true');
+                toggleBtn.setAttribute('aria-expanded', 'false');
+                return;
+            }
+
             if (isActive) {
                 // Fermer le menu
                 menu.classList.remove('active');
@@ -623,14 +637,16 @@ class AccessibilityManager {
                 menu.setAttribute('aria-hidden', 'true');
                 toggleBtn.setAttribute('aria-expanded', 'false');
                 this.announceToScreenReader('Menu d\'accessibilité fermé');
+                this.menuAutoOpened = false;
             } else {
-                // Ouvrir le menu
+                // Ouvrir le menu (seulement si intentionnel)
                 menu.classList.add('active');
                 overlay.classList.add('active');
                 menu.setAttribute('aria-hidden', 'false');
                 toggleBtn.setAttribute('aria-expanded', 'true');
                 this.announceToScreenReader('Menu d\'accessibilité ouvert');
-                
+                this.menuAutoOpened = true;
+
                 // Focus sur le premier bouton du menu
                 const firstButton = menu.querySelector('.accessibility-btn');
                 if (firstButton) {
@@ -639,10 +655,25 @@ class AccessibilityManager {
             }
         }
     }
-    
+
     toggleAccessibilityPanel() {
         // Alias pour compatibilité
-        this.toggleAccessibilityMenu();
+        this.toggleAccessibilityMenu(true);
+    }
+
+    ensureMenuClosed() {
+        // S'assurer que le menu d'accessibilité est fermé au démarrage
+        const menu = document.getElementById('accessibility-menu');
+        const overlay = document.getElementById('accessibility-overlay');
+        const toggleBtn = document.getElementById('accessibility-toggle');
+
+        if (menu && overlay && toggleBtn) {
+            menu.classList.remove('active');
+            overlay.classList.remove('active');
+            menu.setAttribute('aria-hidden', 'true');
+            toggleBtn.setAttribute('aria-expanded', 'false');
+            this.menuAutoOpened = false;
+        }
     }
 
     applySettings() {
@@ -657,12 +688,12 @@ class AccessibilityManager {
                 }
             }
         });
-        
+
         // Appliquer les paramètres spéciaux
         this.setFontSize(this.accessibilitySettings.fontSize);
         this.setZoom(this.accessibilitySettings.zoom);
         this.setSpacing(this.accessibilitySettings.spacing);
-        
+
         if (this.accessibilitySettings.highlight) {
             document.body.classList.add('highlight-focus', 'highlight-links', 'highlight-buttons');
             const button = document.querySelector('[data-action="highlight"]');
@@ -674,7 +705,7 @@ class AccessibilityManager {
     }
 
     // ===== API PUBLIQUE =====
-    
+
     // Méthodes publiques pour les autres modules
     announce(message) {
         this.announceToScreenReader(message);
@@ -699,9 +730,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Fonction globale pour le bouton de fermeture
-window.toggleAccessibilityMenu = function() {
+window.toggleAccessibilityMenu = function (forceOpen = true) {
     if (window.accessibilityManager) {
-        window.accessibilityManager.toggleAccessibilityMenu();
+        window.accessibilityManager.toggleAccessibilityMenu(forceOpen);
     }
 };
 

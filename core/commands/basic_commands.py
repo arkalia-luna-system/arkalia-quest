@@ -20,6 +20,10 @@ class BasicCommands:
             "cls": self.handle_clear,
             "start_tutorial": self.handle_start_tutorial,
             "tutorial": self.handle_start_tutorial,
+            # Alias supplémentaires pour faciliter la découverte
+            "commands": self.handle_aide,
+            "liste": self.handle_aide,
+            "menu": self.handle_aide,
         }
 
     def handle_aide(self, profile: Dict[str, Any]) -> Dict[str, Any]:
@@ -47,6 +51,15 @@ LUNA, une IA émotionnelle, s'est éveillée dans ton terminal.
 • hack_system → Hack le système de La Corp
 • kill_virus → Tue le virus de La Corp
 • games → Mini-jeux éducatifs
+
+📋 COMMANDES DISPONIBLES :
+• aide/help/commands → Cette aide
+• profil/profile → Ton profil détaillé
+• status → Statut du système
+• clear/cls → Nettoyer le terminal
+• monde → Accéder au monde Arkalia
+• badges → Tes badges obtenus
+• leaderboard → Classement des hackers
 
 🌙 LUNA t'attend pour commencer l'aventure !"""
 

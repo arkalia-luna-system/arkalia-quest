@@ -1,28 +1,18 @@
 services:
   - type: web
     name: arkalia-quest
-    runtime: python
+    runtime: docker
     plan: free
-    buildCommand: |
-      chmod +x build.sh
-      ./build.sh
-    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120 --preload
     envVars:
-      - key: PYTHON_VERSION
-        value: "3.10.14"
       - key: FLASK_APP
         value: app.py
       - key: FLASK_ENV
         value: production
       - key: SECRET_KEY
         generateValue: true
-      - key: PIP_USE_PEP517
-        value: "0"
-      - key: POETRY_VENV_IN_PROJECT
-        value: "false"
-      - key: POETRY_NO_INTERACTION
-        value: "1"
-      - key: POETRY_DISABLE_VENV_CREATION
-        value: "1"
+      - key: GUNICORN_PRELOAD
+        value: "true"
+      - key: GUNICORN_WORKERS
+        value: "2"
     healthCheckPath: /health
     autoDeploy: true

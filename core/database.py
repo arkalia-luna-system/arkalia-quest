@@ -9,6 +9,16 @@ import time
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
+import sys
+import logging
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+try:
+    from utils.logger import game_logger
+except ImportError:
+    # Fallback si le module utils est en conflit
+    game_logger = logging.getLogger("arkalia_game")
+
 
 class DatabaseManager:
     """Gestionnaire de base de données SQLite pour Arkalia Quest"""
@@ -163,9 +173,9 @@ class DatabaseManager:
                     profile_data = json.load(f)
 
                 self.save_profile("main_user", profile_data)
-                print("✅ Migration du profil principal réussie")
+                game_logger.info("Migration du profil principal réussie")
         except Exception as e:
-            print(f"⚠️ Erreur migration profil: {e}")
+            game_logger.warning(f"Erreur migration profil: {e}")
 
         # Migrer les missions
         try:
@@ -176,9 +186,9 @@ class DatabaseManager:
                         with open(f"{missions_dir}/{filename}", encoding="utf-8") as f:
                             mission_data = json.load(f)
                             self.save_mission(mission_data)
-                print("✅ Migration des missions réussie")
+                game_logger.info("Migration des missions réussie")
         except Exception as e:
-            print(f"⚠️ Erreur migration missions: {e}")
+            game_logger.warning(f"Erreur migration missions: {e}")
 
     def save_profile(self, username: str, profile_data: Dict[str, Any]) -> bool:
         """Sauvegarde un profil utilisateur"""
@@ -231,7 +241,7 @@ class DatabaseManager:
                 conn.commit()
                 return True
         except Exception as e:
-            print(f"❌ Erreur sauvegarde profil: {e}")
+            game_logger.error(f"Erreur sauvegarde profil: {e}")
             return False
 
     def load_profile(self, username: str) -> Optional[Dict[str, Any]]:
@@ -266,7 +276,7 @@ class DatabaseManager:
                     return profile_data
                 return None
         except Exception as e:
-            print(f"❌ Erreur chargement profil: {e}")
+            game_logger.error(f"Erreur chargement profil: {e}")
             return None
 
     def save_mission(self, mission_data: Dict[str, Any]) -> bool:
@@ -294,7 +304,7 @@ class DatabaseManager:
                 conn.commit()
                 return True
         except Exception as e:
-            print(f"❌ Erreur sauvegarde mission: {e}")
+            game_logger.error(f"Erreur sauvegarde mission: {e}")
             return False
 
     def create_challenge(self, challenge_data: Dict[str, Any]) -> Optional[int]:
@@ -323,7 +333,7 @@ class DatabaseManager:
                 conn.commit()
                 return cursor.lastrowid
         except Exception as e:
-            print(f"❌ Erreur création défi: {e}")
+            game_logger.error(f"Erreur création défi: {e}")
             return None
 
     def log_luna_learning(
@@ -350,7 +360,7 @@ class DatabaseManager:
 
                 conn.commit()
         except Exception as e:
-            print(f"❌ Erreur log apprentissage: {e}")
+            game_logger.error(f"Erreur log apprentissage: {e}")
 
     def get_leaderboard(self, limit: int = 10) -> List[Dict[str, Any]]:
         """Récupère le classement des joueurs"""
@@ -378,7 +388,7 @@ class DatabaseManager:
                     for row in cursor.fetchall()
                 ]
         except Exception as e:
-            print(f"❌ Erreur classement: {e}")
+            game_logger.error(f"Erreur classement: {e}")
             return []
 
     def load_all_missions(self) -> List[Dict[str, Any]]:
@@ -406,7 +416,7 @@ class DatabaseManager:
                     )
                 return missions
         except Exception as e:
-            print(f"❌ Erreur chargement missions: {e}")
+            game_logger.error(f"Erreur chargement missions: {e}")
             return []
 
     def load_mission(self, mission_id: str) -> Optional[Dict[str, Any]]:
@@ -433,7 +443,7 @@ class DatabaseManager:
                     }
                 return None
         except Exception as e:
-            print(f"❌ Erreur chargement mission {mission_id}: {e}")
+            game_logger.error(f"Erreur chargement mission {mission_id}: {e}")
             return None
 
     def load_all_profiles(self) -> List[Dict[str, Any]]:
@@ -461,7 +471,7 @@ class DatabaseManager:
                     )
                 return profiles
         except Exception as e:
-            print(f"❌ Erreur chargement profils: {e}")
+            game_logger.error(f"Erreur chargement profils: {e}")
             return []
 
 

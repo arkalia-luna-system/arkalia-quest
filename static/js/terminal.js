@@ -18,9 +18,9 @@ function detectDevicePerformance() {
     const isOldBrowser = /msie|trident/.test(userAgent);
     const hasLowMemory = navigator.deviceMemory && navigator.deviceMemory < 4;
     const hasLowCores = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4;
-    
+
     isLowPerformanceDevice = isMobile || isOldBrowser || hasLowMemory || hasLowCores;
-    
+
     if (isLowPerformanceDevice) {
         console.log('🔧 Mode performance réduite activé');
         disableHeavyEffects();
@@ -109,7 +109,7 @@ function playMatrixSuccessEffect() {
     } catch (e) {
         // Mode silencieux
     }
-    
+
     // Effet visuel Matrix
     showMatrixParticles();
 }
@@ -137,7 +137,7 @@ function playMatrixErrorEffect() {
 function showMatrixParticles() {
     const container = document.querySelector('.terminal-container');
     if (!container) return;
-    
+
     // Créer des particules Matrix
     for (let i = 0; i < 20; i++) {
         const particle = document.createElement('div');
@@ -154,9 +154,9 @@ function showMatrixParticles() {
             top: ${Math.random() * 100}%;
             animation: matrixParticle 2s ease-out forwards;
         `;
-        
+
         container.appendChild(particle);
-        
+
         // Supprimer après animation
         setTimeout(() => {
             if (particle.parentNode) {
@@ -168,7 +168,7 @@ function showMatrixParticles() {
 
 function showMatrixRewards(rewards) {
     if (!rewards) return;
-    
+
     const rewardContainer = document.createElement('div');
     rewardContainer.className = 'matrix-rewards';
     rewardContainer.style.cssText = `
@@ -188,9 +188,9 @@ function showMatrixRewards(rewards) {
         box-shadow: 0 0 30px rgba(0, 255, 0, 0.6);
         animation: matrixRewardShow 0.5s ease-out;
     `;
-    
+
     let rewardHTML = '<h3>🎉 RÉCOMPENSES MATRIX !</h3>';
-    
+
     if (rewards.badge) {
         rewardHTML += `<div class="reward-item">🏆 ${rewards.badge}</div>`;
     }
@@ -200,10 +200,10 @@ function showMatrixRewards(rewards) {
     if (rewards.xp) {
         rewardHTML += `<div class="reward-item">⭐ +${rewards.xp} XP</div>`;
     }
-    
+
     rewardContainer.innerHTML = rewardHTML;
     document.body.appendChild(rewardContainer);
-    
+
     // Supprimer après 3 secondes
     setTimeout(() => {
         if (rewardContainer.parentNode) {
@@ -247,7 +247,7 @@ function provideIntelligentFeedback(command, response) {
     const now = Date.now();
     const timeSinceLastCommand = now - lastCommandTime;
     lastCommandTime = now;
-    
+
     // Détecter le niveau utilisateur basé sur l'usage
     if (commandHistory.length < 5) {
         userLevel = 'beginner';
@@ -256,7 +256,7 @@ function provideIntelligentFeedback(command, response) {
     } else {
         userLevel = 'advanced';
     }
-    
+
     // Feedback contextuel selon le niveau
     if (userLevel === 'beginner') {
         if (!response.réussite) {
@@ -265,7 +265,7 @@ function provideIntelligentFeedback(command, response) {
             showEncouragement();
         }
     }
-    
+
     // Détecter les patterns d'erreur
     if (timeSinceLastCommand < 2000 && !response.réussite) {
         showQuickHelp();
@@ -281,10 +281,10 @@ function showContextualHelp(command) {
         'prologue': '📖 Lance "prologue" pour commencer l\'aventure !',
         'acte': '🎮 Utilise "acte_1", "acte_2", etc. pour progresser !'
     };
-    
-    const suggestion = helpMessages[command] || 
+
+    const suggestion = helpMessages[command] ||
         '💡 Essaie "aide" pour voir toutes les commandes disponibles !';
-    
+
     setTimeout(() => {
         addContextualMessage(suggestion, 'help');
     }, 1000);
@@ -298,9 +298,9 @@ function showEncouragement() {
         '💪 Tu maîtrises de mieux en mieux !',
         '🎯 Parfait ! Tu es sur la bonne voie !'
     ];
-    
+
     const random = encouragements[Math.floor(Math.random() * encouragements.length)];
-    
+
     setTimeout(() => {
         addContextualMessage(random, 'encouragement');
     }, 500);
@@ -313,9 +313,9 @@ function showQuickHelp() {
         '⚡ Astuce : Utilise les flèches ↑↓ pour naviguer dans l\'historique !',
         '⚡ Astuce : Appuie sur Entrée pour exécuter une commande !'
     ];
-    
+
     const random = quickTips[Math.floor(Math.random() * quickTips.length)];
-    
+
     setTimeout(() => {
         addContextualMessage(random, 'tip');
     }, 1500);
@@ -325,27 +325,27 @@ function showQuickHelp() {
 function addContextualMessage(message, type = 'info') {
     const messagesContainer = document.getElementById('messagesContainer');
     if (!messagesContainer) return;
-    
+
     const messageDiv = document.createElement('div');
     messageDiv.className = `contextual-message ${type}`;
     messageDiv.innerHTML = `
         <span class="contextual-icon">${getContextualIcon(type)}</span>
         <span class="contextual-text">${message}</span>
     `;
-    
+
     // Animation d'entrée
     messageDiv.style.opacity = '0';
     messageDiv.style.transform = 'translateY(-10px)';
-    
+
     messagesContainer.appendChild(messageDiv);
-    
+
     // Animation fluide
     setTimeout(() => {
         messageDiv.style.transition = 'all 0.3s ease';
         messageDiv.style.opacity = '1';
         messageDiv.style.transform = 'translateY(0)';
     }, 10);
-    
+
     // Auto-suppression après 5 secondes
     setTimeout(() => {
         messageDiv.style.opacity = '0';
@@ -372,17 +372,17 @@ function getContextualIcon(type) {
 }
 
 // Initialisation
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     detectDevicePerformance();
     initAudio();
     initTerminal();
     initHackingEffects();
     updateTime();
     lazyLoadResources();
-    
+
     // AMÉLIORATION : Meilleure accessibilité
     // setupAccessibility(); // Fonction à implémenter plus tard
-    
+
     // Debounce sur le scroll du terminal
     const messagesContainer = document.getElementById('messagesContainer');
     if (messagesContainer) {
@@ -390,16 +390,16 @@ document.addEventListener('DOMContentLoaded', function() {
             // Action possible sur scroll (ex: lazy loading)
         }, 100));
     }
-    
+
     // Forcer la classe low-performance pour le testeur si device faible
     if (isLowPerformanceDevice) {
         document.body.classList.add('low-performance');
     }
-    
+
     // Slider volume
     const audioVolume = document.getElementById('audioVolume');
     if (audioVolume && audioContext) {
-        audioVolume.addEventListener('input', function() {
+        audioVolume.addEventListener('input', function () {
             if (audioContext) {
                 const gain = Math.max(0.01, parseFloat(this.value));
                 // Appliquer le volume à tous les sons (simple, pour testeur)
@@ -411,7 +411,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const savedVol = localStorage.getItem('arkalia_volume');
         if (savedVol) audioVolume.value = savedVol;
     }
-    
+
     // Déclencher le lazy loading de l'image de test
     const testImg = document.getElementById('testLazyImg');
     if (testImg && testImg.dataset.src) {
@@ -419,27 +419,27 @@ document.addEventListener('DOMContentLoaded', function() {
         testImg.removeAttribute('data-src');
         testImg.style.display = 'block'; // Pour que le testeur la voie
     }
-    
+
     // Gestion du bouton audio
     const audioToggle = document.getElementById('audioToggle');
     if (audioToggle) {
         // Charger l'état depuis localStorage
         audioEnabled = localStorage.getItem('arkalia_audio') !== 'off';
         updateAudioToggle(audioEnabled);
-        audioToggle.addEventListener('click', function() {
+        audioToggle.addEventListener('click', function () {
             audioEnabled = !audioEnabled;
             localStorage.setItem('arkalia_audio', audioEnabled ? 'on' : 'off');
             updateAudioToggle(audioEnabled);
             if (window.audioManager) {
                 try {
                     window.audioManager.setEnabled(audioEnabled);
-                } catch (e) {}
+                } catch (e) { }
             }
             // Feedback sonore immédiat
             if (audioEnabled) playSuccessSound(); else playErrorSound();
         });
     }
-    
+
     // Démarrer l'ambiance sonore (avec fallback)
     setTimeout(() => {
         if (window.audioManager && !isLowPerformanceDevice) {
@@ -451,7 +451,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }, 1000);
-    
+
     // AMÉLIORATION : Message de bienvenue adaptatif
     setTimeout(() => {
         if (userLevel === 'beginner') {
@@ -477,25 +477,25 @@ function initTerminal() {
     const input = document.getElementById('commandInput');
     const sendBtn = document.getElementById('sendButton');
     const messagesContainer = document.getElementById('messagesContainer');
-    
+
     if (!input || !sendBtn || !messagesContainer) {
         console.error('❌ Éléments du terminal non trouvés');
         return;
     }
-    
+
     // Focus sur l'input
     input.focus();
-    
+
     // Gestion de la soumission
     sendBtn.addEventListener('click', executeCommand);
-    input.addEventListener('keypress', function(e) {
+    input.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
             executeCommand();
         }
     });
-    
+
     // Gestion de l'historique avec flèches
-    input.addEventListener('keydown', function(e) {
+    input.addEventListener('keydown', function (e) {
         if (e.key === 'ArrowUp') {
             e.preventDefault();
             navigateHistory('up');
@@ -504,9 +504,9 @@ function initTerminal() {
             navigateHistory('down');
         }
     });
-    
+
     // Effet de frappe (avec fallback)
-    input.addEventListener('input', function() {
+    input.addEventListener('input', function () {
         if (audioEnabled && window.audioManager && !isLowPerformanceDevice) {
             try {
                 window.audioManager.playSound('typing');
@@ -517,7 +517,7 @@ function initTerminal() {
             playTypingSound();
         }
     });
-    
+
     // Feedback visuel des boutons
     setupButtonFeedback();
 }
@@ -526,18 +526,18 @@ function initTerminal() {
 function setupButtonFeedback() {
     const buttons = document.querySelectorAll('button');
     buttons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             this.style.transform = 'scale(0.95)';
             setTimeout(() => {
                 this.style.transform = 'scale(1)';
             }, 100);
         });
-        
-        button.addEventListener('mouseenter', function() {
+
+        button.addEventListener('mouseenter', function () {
             this.style.boxShadow = '0 0 10px rgba(0, 255, 0, 0.5)';
         });
-        
-        button.addEventListener('mouseleave', function() {
+
+        button.addEventListener('mouseleave', function () {
             this.style.boxShadow = '';
         });
     });
@@ -556,7 +556,7 @@ function executeQuickCommand(command, event) {
     if (window.audioManager) {
         try {
             window.audioManager.playSound('buttonSound');
-        } catch (e) {}
+        } catch (e) { }
     }
     // Afficher la barre de progression selon la commande
     const progressTimes = {
@@ -578,7 +578,7 @@ function executeQuickCommand(command, event) {
 function executeCommand(cmdOverride) {
     const input = document.getElementById('commandInput');
     let command = cmdOverride !== undefined ? cmdOverride : (input ? input.value.trim() : '');
-    
+
     // Empêcher l'envoi de commandes vides
     if (!command || command.length === 0) {
         console.log('⚠️ Commande vide ignorée');
@@ -595,6 +595,16 @@ function executeCommand(cmdOverride) {
     if (isHackingCommand(command)) {
         showHackingProgress();
     }
+    // Afficher un indicateur de chargement
+    const messagesContainer = document.getElementById('messagesContainer');
+    let loadingDiv = document.createElement('div');
+    loadingDiv.className = 'system-message';
+    loadingDiv.innerHTML = `<div class="command-output">⌛ Exécution en cours...</div>`;
+    if (messagesContainer) {
+        messagesContainer.appendChild(loadingDiv);
+        scrollToBottom();
+    }
+
     // Envoyer la commande au serveur
     fetch('/commande', {
         method: 'POST',
@@ -603,60 +613,63 @@ function executeCommand(cmdOverride) {
         },
         body: JSON.stringify({ cmd: command })
     })
-    .then(response => {
-        if (!response.ok) {
-            addErrorMessage('Erreur système : commande non reconnue.');
-            return;
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (!data) return;
-        // Mettre à jour le header si le backend renvoie les infos
-        if (data.profil) {
-            updatePlayerHeader({
-                niveau: data.profil.progression ? data.profil.progression.niveau : undefined,
-                score: data.profil.score,
-                badges: data.profil.badges
-            });
-        }
-        const reponse = data.reponse || data; // fallback pour compatibilité
-        if (reponse.réussite || reponse.reussite) {
-            playMatrixSuccessEffect();
-            addMatrixSuccessMessage(reponse.message || 'Succès !');
-            
-            // Système de récompenses Matrix amélioré
-            if (reponse.instant_rewards) {
-                showMatrixRewards(reponse.instant_rewards);
+        .then(response => {
+            if (!response.ok) {
+                if (loadingDiv && loadingDiv.parentNode) loadingDiv.parentNode.removeChild(loadingDiv);
+                addErrorMessage('Erreur système : commande non reconnue.');
+                return;
             }
-            if (reponse.badge) celebrate('badge', reponse.badge);
-            if (reponse.niveau_gagne) celebrate('level', reponse.niveau_gagne);
-            if (reponse.urgent) showUrgentProgressBar(reponse.urgent);
-            
-            // Feedback haptique pour mobile
-            if ('vibrate' in navigator) {
-                navigator.vibrate([100, 50, 100]);
+            return response.json();
+        })
+        .then(data => {
+            if (!data) return;
+            if (loadingDiv && loadingDiv.parentNode) loadingDiv.parentNode.removeChild(loadingDiv);
+            // Mettre à jour le header si le backend renvoie les infos
+            if (data.profil) {
+                updatePlayerHeader({
+                    niveau: data.profil.progression ? data.profil.progression.niveau : undefined,
+                    score: data.profil.score,
+                    badges: data.profil.badges
+                });
             }
-        } else {
-            playMatrixErrorEffect();
-            addMatrixErrorMessage(reponse.message || 'Erreur inconnue.');
-            
-            // Encouragement personnalisé
-            if (reponse.encouragement) {
-                addEncouragementMessage(reponse.encouragement);
+            const reponse = data.reponse || data; // fallback pour compatibilité
+            if (reponse.réussite || reponse.reussite) {
+                playMatrixSuccessEffect();
+                addMatrixSuccessMessage(reponse.message || 'Succès !');
+
+                // Système de récompenses Matrix amélioré
+                if (reponse.instant_rewards) {
+                    showMatrixRewards(reponse.instant_rewards);
+                }
+                if (reponse.badge) celebrate('badge', reponse.badge);
+                if (reponse.niveau_gagne) celebrate('level', reponse.niveau_gagne);
+                if (reponse.urgent) showUrgentProgressBar(reponse.urgent);
+
+                // Feedback haptique pour mobile
+                if ('vibrate' in navigator) {
+                    navigator.vibrate([100, 50, 100]);
+                }
+            } else {
+                playMatrixErrorEffect();
+                addMatrixErrorMessage(reponse.message || 'Erreur inconnue.');
+
+                // Encouragement personnalisé
+                if (reponse.encouragement) {
+                    addEncouragementMessage(reponse.encouragement);
+                }
             }
-        }
-        if (reponse.badge) {
-            addSuccessMessage('🏆 Badge : ' + reponse.badge);
-        }
-        if (reponse.ascii_art) {
-            addAsciiArt(reponse.ascii_art);
-        }
-        provideIntelligentFeedback(command, reponse); // Feedback intelligent
-    })
-    .catch(err => {
-        addErrorMessage('Erreur système : ' + err.message);
-    });
+            if (reponse.badge) {
+                addSuccessMessage('🏆 Badge : ' + reponse.badge);
+            }
+            if (reponse.ascii_art) {
+                addAsciiArt(reponse.ascii_art);
+            }
+            provideIntelligentFeedback(command, reponse); // Feedback intelligent
+        })
+        .catch(err => {
+            if (loadingDiv && loadingDiv.parentNode) loadingDiv.parentNode.removeChild(loadingDiv);
+            addErrorMessage('Erreur système : ' + err.message);
+        });
 }
 
 // Détecter les commandes de hacking
@@ -713,13 +726,13 @@ function playErrorEffect() {
 function addCommandMessage(command) {
     const messagesContainer = document.getElementById('messagesContainer');
     if (!messagesContainer) return;
-    
+
     const messageDiv = document.createElement('div');
     messageDiv.className = 'command-message';
     messageDiv.innerHTML = `
         <div class="command-input">[ARKALIA]> ${command}</div>
     `;
-    
+
     messagesContainer.appendChild(messageDiv);
     scrollToBottom();
 }
@@ -727,16 +740,16 @@ function addCommandMessage(command) {
 function addSuccessMessage(message) {
     const messagesContainer = document.getElementById('messagesContainer');
     if (!messagesContainer) return;
-    
+
     const messageDiv = document.createElement('div');
     messageDiv.className = 'success-message';
     messageDiv.innerHTML = `
         <div class="command-output">${message}</div>
     `;
-    
+
     messagesContainer.appendChild(messageDiv);
     scrollToBottom();
-    
+
     // Effet de succès
     messageDiv.style.animation = 'messageSuccess 0.3s ease-in-out';
 }
@@ -744,16 +757,16 @@ function addSuccessMessage(message) {
 function addErrorMessage(message) {
     const messagesContainer = document.getElementById('messagesContainer');
     if (!messagesContainer) return;
-    
+
     const messageDiv = document.createElement('div');
     messageDiv.className = 'error-message';
     messageDiv.innerHTML = `
         <div class="command-output">${message}</div>
     `;
-    
+
     messagesContainer.appendChild(messageDiv);
     scrollToBottom();
-    
+
     // Effet d'erreur
     messageDiv.style.animation = 'messageError 0.3s ease-in-out';
 }
@@ -761,14 +774,14 @@ function addErrorMessage(message) {
 function addLunaMessage(title, message) {
     const messagesContainer = document.getElementById('messagesContainer');
     if (!messagesContainer) return;
-    
+
     const messageDiv = document.createElement('div');
     messageDiv.className = 'luna-message';
     messageDiv.innerHTML = `
         <div class="luna-title">${title}</div>
         <div class="luna-text">${message}</div>
     `;
-    
+
     messagesContainer.appendChild(messageDiv);
     scrollToBottom();
 }
@@ -777,7 +790,7 @@ function addLunaMessage(title, message) {
 function addHelpMessage() {
     const messagesContainer = document.getElementById('messagesContainer');
     if (!messagesContainer) return;
-    
+
     const helpDiv = document.createElement('div');
     helpDiv.className = 'help-section';
     helpDiv.innerHTML = `
@@ -837,7 +850,7 @@ function addHelpMessage() {
             💡 <strong>Astuce :</strong> Tu peux parler naturellement en français ! LUNA comprend tout.
         </div>
     `;
-    
+
     messagesContainer.appendChild(helpDiv);
     scrollToBottom();
 }
@@ -845,11 +858,11 @@ function addHelpMessage() {
 function addAsciiArt(ascii) {
     const messagesContainer = document.getElementById('messagesContainer');
     if (!messagesContainer) return;
-    
+
     const asciiDiv = document.createElement('div');
     asciiDiv.className = 'ascii-art';
     asciiDiv.textContent = ascii;
-    
+
     messagesContainer.appendChild(asciiDiv);
     scrollToBottom();
 }
@@ -858,7 +871,7 @@ function clearMessages() {
     const messagesContainer = document.getElementById('messagesContainer');
     if (messagesContainer) {
         messagesContainer.innerHTML = '';
-        
+
         // Remettre le message de bienvenue
         const welcomeDiv = document.createElement('div');
         welcomeDiv.className = 'welcome-message';
@@ -877,7 +890,7 @@ function clearMessages() {
 function navigateHistory(direction) {
     const input = document.getElementById('commandInput');
     if (!input) return;
-    
+
     if (direction === 'up' && historyIndex > 0) {
         historyIndex--;
         input.value = commandHistory[historyIndex];
@@ -888,7 +901,7 @@ function navigateHistory(direction) {
         historyIndex = commandHistory.length;
         input.value = '';
     }
-    
+
     // Placer le curseur à la fin
     input.setSelectionRange(input.value.length, input.value.length);
 }
@@ -896,7 +909,7 @@ function navigateHistory(direction) {
 function updateTime() {
     const timeElement = document.getElementById('currentTime');
     if (!timeElement) return;
-    
+
     function update() {
         const now = new Date();
         const timeString = now.toLocaleTimeString('fr-FR', {
@@ -906,7 +919,7 @@ function updateTime() {
         });
         timeElement.textContent = timeString;
     }
-    
+
     update();
     setInterval(update, 1000);
 }
@@ -916,13 +929,13 @@ function showHackingProgress(command, duration) {
     const progressContainer = document.getElementById('hackingProgress');
     const progressText = document.getElementById('progressText');
     const progressFill = document.getElementById('progressFill');
-    
+
     if (!progressContainer || !progressText || !progressFill) return;
-    
+
     // Afficher la barre
     progressContainer.style.display = 'block';
     progressContainer.style.opacity = '1';
-    
+
     // Texte selon la commande
     const commandTexts = {
         'kill_virus': '🦠 ÉLIMINATION DE VIRUS...',
@@ -932,15 +945,15 @@ function showHackingProgress(command, duration) {
         'save_pc': '💾 SAUVEGARDE PC...',
         'speed_hack': '⚡ HACK RAPIDE...'
     };
-    
+
     progressText.textContent = commandTexts[command] || 'HACKING EN COURS...';
-    
+
     // Animation de progression
     let progress = 0;
     const interval = setInterval(() => {
         progress += 100 / (duration * 10); // 10 FPS
         progressFill.style.width = Math.min(progress, 100) + '%';
-        
+
         if (progress >= 100) {
             clearInterval(interval);
             setTimeout(() => {
@@ -952,7 +965,7 @@ function showHackingProgress(command, duration) {
             }, 500);
         }
     }, 100);
-    
+
     // Jouer le son de hacking
     if (window.audioManager) {
         window.audioManager.playSound('hack');
@@ -987,7 +1000,7 @@ function lazyLoadResources() {
             }
         });
     });
-    
+
     images.forEach(img => {
         const src = img.dataset.src;
         // Vérifier que l'URL n'est pas undefined avant d'observer
@@ -1018,7 +1031,7 @@ const debouncedScrollToBottom = debounce(scrollToBottom, 100);
 // Effets visuels améliorés
 function addGlitchEffect(element) {
     if (!element) return;
-    
+
     element.classList.add('glitch');
     setTimeout(() => {
         element.classList.remove('glitch');
@@ -1027,7 +1040,7 @@ function addGlitchEffect(element) {
 
 function addHackEffect(element) {
     if (!element) return;
-    
+
     element.classList.add('hack-effect');
     setTimeout(() => {
         element.classList.remove('hack-effect');
@@ -1035,7 +1048,7 @@ function addHackEffect(element) {
 }
 
 // Gestion des erreurs globales
-window.addEventListener('error', function(e) {
+window.addEventListener('error', function (e) {
     console.error('❌ Erreur JavaScript:', e.error);
     if (e.error && e.error.message) {
         addErrorMessage(`❌ Erreur système: ${e.error.message}`);
@@ -1043,11 +1056,11 @@ window.addEventListener('error', function(e) {
 });
 
 // Gestion des erreurs de réseau
-window.addEventListener('offline', function() {
+window.addEventListener('offline', function () {
     addErrorMessage('❌ Connexion internet perdue ! Vérifie ta connexion.');
 });
 
-window.addEventListener('online', function() {
+window.addEventListener('online', function () {
     addSuccessMessage('✅ Connexion internet rétablie !');
 });
 
@@ -1113,28 +1126,28 @@ function celebrate(type, value) {
     if (type === 'badge') {
         addSuccessMessage('🏆 Nouveau badge : ' + value);
         if (window.audioManager) {
-            try { window.audioManager.playSound('success'); } catch (e) {}
+            try { window.audioManager.playSound('success'); } catch (e) { }
         }
     }
     if (type === 'level') {
         addSuccessMessage('🌟 Niveau supérieur : ' + value + ' !');
         if (window.audioManager) {
-            try { window.audioManager.playSound('success'); } catch (e) {}
+            try { window.audioManager.playSound('success'); } catch (e) { }
         }
     }
-} 
+}
 
 // Fonction pour traiter la réponse avec émotions LUNA
 function processCommandResponse(response) {
     if (response.réussite) {
         // Succès
         displaySuccess(response);
-        
+
         // Afficher l'émotion LUNA
         if (response.luna_emotion) {
             displayLunaEmotion(response);
         }
-        
+
         // Jouer les effets immersifs Émotecno-Oniriques
         if (window.emotecnoEngine) {
             window.emotecnoEngine.updateLunaEmotion({
@@ -1145,16 +1158,16 @@ function processCommandResponse(response) {
                 sound: response.luna_sound || 'luna_calm'
             });
         }
-        
+
     } else {
         // Échec
         displayError(response);
-        
+
         // Afficher l'émotion LUNA (inquiète)
         if (response.luna_emotion) {
             displayLunaEmotion(response);
         }
-        
+
         // Jouer les effets immersifs d'échec Émotecno-Oniriques
         if (window.emotecnoEngine) {
             window.emotecnoEngine.updateLunaEmotion({
@@ -1166,7 +1179,7 @@ function processCommandResponse(response) {
             });
         }
     }
-    
+
     // Mettre à jour le profil si nécessaire
     if (response.profile_updated) {
         updateProfileDisplay(response);
@@ -1176,7 +1189,7 @@ function processCommandResponse(response) {
 // Fonction pour afficher l'émotion LUNA
 function displayLunaEmotion(response) {
     const terminalOutput = document.getElementById('terminalOutput');
-    
+
     // Créer le conteneur d'émotion LUNA
     const lunaContainer = document.createElement('div');
     lunaContainer.className = 'luna-emotion-container';
@@ -1189,7 +1202,7 @@ function displayLunaEmotion(response) {
         animation: lunaEmotionFadeIn 0.5s ease-out;
         box-shadow: 0 0 20px ${response.luna_color || '#00ff00'}40;
     `;
-    
+
     // Avatar LUNA avec émotion
     const lunaAvatar = document.createElement('div');
     lunaAvatar.className = 'luna-avatar';
@@ -1200,7 +1213,7 @@ function displayLunaEmotion(response) {
         margin-bottom: 10px;
         animation: lunaAvatarPulse 2s ease-in-out infinite;
     `;
-    
+
     // Message LUNA
     const lunaMessage = document.createElement('div');
     lunaMessage.className = 'luna-message';
@@ -1212,17 +1225,17 @@ function displayLunaEmotion(response) {
         line-height: 1.4;
         text-shadow: 0 0 10px ${response.luna_color || '#00ff00'};
     `;
-    
+
     // Assembler le conteneur
     lunaContainer.appendChild(lunaAvatar);
     lunaContainer.appendChild(lunaMessage);
-    
+
     // Ajouter au terminal
     terminalOutput.appendChild(lunaContainer);
-    
+
     // Scroll vers le bas
     terminalOutput.scrollTop = terminalOutput.scrollHeight;
-    
+
     // Supprimer après 5 secondes
     setTimeout(() => {
         if (lunaContainer.parentNode) {
@@ -1250,7 +1263,7 @@ function getLunaEmotionAvatar(emotion) {
         'calm': '😌',
         'energetic': '⚡'
     };
-    
+
     return avatars[emotion] || '🌙';
 }
 

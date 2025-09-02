@@ -1,0 +1,46 @@
+# Fichiers à ignorer lors du déploiement Render
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.git/
+.mypy_cache/
+.pytest_cache/
+.hypothesis/
+
+# Fichiers de développement
+docs/archive/
+htmlcov/
+reports/
+tests/
+scripts/
+k8s/
+*.md
+LICENSE
+env.example
+pyproject.toml.backup
+pyproject.toml.disabled
+
+# Fichiers de base de données locaux
+*.db-shm
+*.db-wal
+data/database/
+logs/
+
+# Fichiers de configuration de développement
+config/dev_tools.py
+config/test_config.py
+config/systemd/

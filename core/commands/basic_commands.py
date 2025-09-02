@@ -20,6 +20,7 @@ class BasicCommands:
             "cls": self.handle_clear,
             "start_tutorial": self.handle_start_tutorial,
             "tutorial": self.handle_start_tutorial,
+            "tuto": self.handle_start_tutorial,
             # Alias supplémentaires pour faciliter la découverte
             "commands": self.handle_aide,
             "liste": self.handle_aide,

@@ -62,7 +62,7 @@ class GameCommands:
 
         return {"réussite": True, "ascii_art": "🎮", "message": message}
 
-    def handle_play_game(self) -> Dict[str, Any]:
+    def handle_play_game(self, profile: Dict[str, Any]) -> Dict[str, Any]:
         """Démarre un mini-jeu éducatif"""
         # Récupérer l'ID du jeu depuis le profil ou la commande
         # Pour l'instant, on simule le démarrage d'un jeu
@@ -88,7 +88,7 @@ class GameCommands:
             "profile_updated": False,
         }
 
-    def handle_game_stats(self) -> Dict[str, Any]:
+    def handle_game_stats(self, profile: Dict[str, Any]) -> Dict[str, Any]:
         """Affiche les statistiques des jeux"""
         # Simuler des stats pour l'instant
         message = "📊 STATISTIQUES DES MINI-JEUX\n\n"
@@ -105,7 +105,7 @@ class GameCommands:
 
         return {"réussite": True, "ascii_art": "📊", "message": message}
 
-    def handle_daily_challenges(self) -> Dict[str, Any]:
+    def handle_daily_challenges(self, profile: Dict[str, Any]) -> Dict[str, Any]:
         """Affiche les défis quotidiens engageants pour les ados"""
         # Simuler des défis quotidiens
         challenges = {

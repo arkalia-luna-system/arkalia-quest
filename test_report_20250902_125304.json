@@ -1,0 +1,231 @@
+{
+  "summary": {
+    "total_tests": 31,
+    "passed_tests": 31,
+    "failed_tests": 0,
+    "skipped_tests": 0,
+    "success_rate": 100.0,
+    "total_duration": 2.676212,
+    "start_time": "2025-09-02T12:53:01.469528",
+    "end_time": "2025-09-02T12:53:04.145740"
+  },
+  "results": [
+    {
+      "test": "Health Check",
+      "status": "PASS",
+      "details": "Status: healthy",
+      "duration": 0.16666889190673828,
+      "timestamp": "2025-09-02T12:53:01.636309"
+    },
+    {
+      "test": "Metrics Endpoint",
+      "status": "PASS",
+      "details": "Metrics accessibles",
+      "duration": 0.08406209945678711,
+      "timestamp": "2025-09-02T12:53:01.720411"
+    },
+    {
+      "test": "Chargement /",
+      "status": "PASS",
+      "details": "Status: 200, Temps: 0.06s",
+      "duration": 0.06247210502624512,
+      "timestamp": "2025-09-02T12:53:01.782960"
+    },
+    {
+      "test": "Chargement /tutorial",
+      "status": "PASS",
+      "details": "Status: 200, Temps: 0.07s",
+      "duration": 0.07008886337280273,
+      "timestamp": "2025-09-02T12:53:01.853099"
+    },
+    {
+      "test": "Chargement /terminal",
+      "status": "PASS",
+      "details": "Status: 200, Temps: 0.19s",
+      "duration": 0.18680787086486816,
+      "timestamp": "2025-09-02T12:53:02.039968"
+    },
+    {
+      "test": "Chargement /monde",
+      "status": "PASS",
+      "details": "Status: 200, Temps: 0.10s",
+      "duration": 0.09641885757446289,
+      "timestamp": "2025-09-02T12:53:02.136453"
+    },
+    {
+      "test": "Chargement /profil",
+      "status": "PASS",
+      "details": "Status: 200, Temps: 0.20s",
+      "duration": 0.20447587966918945,
+      "timestamp": "2025-09-02T12:53:02.341016"
+    },
+    {
+      "test": "Chargement /leaderboard",
+      "status": "PASS",
+      "details": "Status: 200, Temps: 0.11s",
+      "duration": 0.10620689392089844,
+      "timestamp": "2025-09-02T12:53:02.447261"
+    },
+    {
+      "test": "Chargement /dashboard",
+      "status": "PASS",
+      "details": "Status: 200, Temps: 0.11s",
+      "duration": 0.11196494102478027,
+      "timestamp": "2025-09-02T12:53:02.559260"
+    },
+    {
+      "test": "Commande terminal: help",
+      "status": "PASS",
+      "details": "Page terminal accessible",
+      "duration": 0.08106017112731934,
+      "timestamp": "2025-09-02T12:53:02.640358"
+    },
+    {
+      "test": "Commande terminal: aide",
+      "status": "PASS",
+      "details": "Page terminal accessible",
+      "duration": 0.05337691307067871,
+      "timestamp": "2025-09-02T12:53:02.693773"
+    },
+    {
+      "test": "Commande terminal: commands",
+      "status": "PASS",
+      "details": "Page terminal accessible",
+      "duration": 0.07343697547912598,
+      "timestamp": "2025-09-02T12:53:02.767248"
+    },
+    {
+      "test": "Commande terminal: liste",
+      "status": "PASS",
+      "details": "Page terminal accessible",
+      "duration": 0.07045221328735352,
+      "timestamp": "2025-09-02T12:53:02.837776"
+    },
+    {
+      "test": "Commande terminal: menu",
+      "status": "PASS",
+      "details": "Page terminal accessible",
+      "duration": 0.05186200141906738,
+      "timestamp": "2025-09-02T12:53:02.889670"
+    },
+    {
+      "test": "Commande terminal: profil",
+      "status": "PASS",
+      "details": "Page terminal accessible",
+      "duration": 0.06455707550048828,
+      "timestamp": "2025-09-02T12:53:02.954260"
+    },
+    {
+      "test": "Commande terminal: profile",
+      "status": "PASS",
+      "details": "Page terminal accessible",
+      "duration": 0.06905388832092285,
+      "timestamp": "2025-09-02T12:53:03.023344"
+    },
+    {
+      "test": "Commande terminal: status",
+      "status": "PASS",
+      "details": "Page terminal accessible",
+      "duration": 0.08961701393127441,
+      "timestamp": "2025-09-02T12:53:03.112996"
+    },
+    {
+      "test": "Commande terminal: clear",
+      "status": "PASS",
+      "details": "Page terminal accessible",
+      "duration": 0.06001996994018555,
+      "timestamp": "2025-09-02T12:53:03.173047"
+    },
+    {
+      "test": "Commande terminal: cls",
+      "status": "PASS",
+      "details": "Page terminal accessible",
+      "duration": 0.06902670860290527,
+      "timestamp": "2025-09-02T12:53:03.242111"
+    },
+    {
+      "test": "Commande terminal: start_tutorial",
+      "status": "PASS",
+      "details": "Page terminal accessible",
+      "duration": 0.05112195014953613,
+      "timestamp": "2025-09-02T12:53:03.293265"
+    },
+    {
+      "test": "Commande terminal: tutorial",
+      "status": "PASS",
+      "details": "Page terminal accessible",
+      "duration": 0.0541539192199707,
+      "timestamp": "2025-09-02T12:53:03.347453"
+    },
+    {
+      "test": "Commande terminal: games",
+      "status": "PASS",
+      "details": "Page terminal accessible",
+      "duration": 0.08760714530944824,
+      "timestamp": "2025-09-02T12:53:03.435129"
+    },
+    {
+      "test": "Commande terminal: monde",
+      "status": "PASS",
+      "details": "Page terminal accessible",
+      "duration": 0.07868695259094238,
+      "timestamp": "2025-09-02T12:53:03.513859"
+    },
+    {
+      "test": "Commande terminal: prologue",
+      "status": "PASS",
+      "details": "Page terminal accessible",
+      "duration": 0.10379481315612793,
+      "timestamp": "2025-09-02T12:53:03.617822"
+    },
+    {
+      "test": "Commande terminal: hack_system",
+      "status": "PASS",
+      "details": "Page terminal accessible",
+      "duration": 0.0636129379272461,
+      "timestamp": "2025-09-02T12:53:03.681635"
+    },
+    {
+      "test": "Commande terminal: kill_virus",
+      "status": "PASS",
+      "details": "Page terminal accessible",
+      "duration": 0.08499407768249512,
+      "timestamp": "2025-09-02T12:53:03.766662"
+    },
+    {
+      "test": "Commande terminal: decode_portal",
+      "status": "PASS",
+      "details": "Page terminal accessible",
+      "duration": 0.06679081916809082,
+      "timestamp": "2025-09-02T12:53:03.833496"
+    },
+    {
+      "test": "Design Responsive",
+      "status": "PASS",
+      "details": "Tous les user agents supportés (3/3)",
+      "duration": 0,
+      "timestamp": "2025-09-02T12:53:04.013455"
+    },
+    {
+      "test": "Performance Page Accueil",
+      "status": "PASS",
+      "details": "Temps de chargement: 0.06s (≤ 2.0s)",
+      "duration": 0.057257890701293945,
+      "timestamp": "2025-09-02T12:53:04.070766"
+    },
+    {
+      "test": "Skip Links",
+      "status": "PASS",
+      "details": "Skip links présents dans le HTML",
+      "duration": 0,
+      "timestamp": "2025-09-02T12:53:04.145699"
+    },
+    {
+      "test": "Attributs ARIA",
+      "status": "PASS",
+      "details": "Attributs ARIA présents",
+      "duration": 0,
+      "timestamp": "2025-09-02T12:53:04.145728"
+    }
+  ]
+}

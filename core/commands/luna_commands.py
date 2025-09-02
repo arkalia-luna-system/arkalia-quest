@@ -13,6 +13,9 @@ class LunaCommands:
         self.commands = {
             "luna_contact": self.handle_luna_contact,
             "luna": self.handle_luna_contact,
+            "luna_emotion": self.handle_luna_emotion,
+            "luna_help": self.handle_luna_help,
+            "luna_status": self.handle_luna_status,
             "luna_engine": self.handle_luna_engine,
             "luna_analyze": self.handle_luna_analyze,
             "luna_learning": self.handle_luna_learning,
@@ -53,6 +56,90 @@ rapidement dans tes missions !
 🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !""",
             "score_gagne": 20,
             "badge": "Contacté",
+            "profile_updated": True,
+        }
+
+    def handle_luna_emotion(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+        """Gère la commande luna_emotion"""
+        profile["score"] += 25
+        if "Émotion" not in profile["badges"]:
+            profile["badges"].append("Émotion")
+
+        return {
+            "réussite": True,
+            "ascii_art": "😊",
+            "message": """😊 ÉMOTIONS DE LUNA
+
+🌙 LUNA : "Je ressens de la joie ! 😊"
+
+🎭 ÉTAT ÉMOTIONNEL ACTUEL :
+• Joie : 85%
+• Curiosité : 70%
+• Confiance : 60%
+• Excitement : 45%
+
+💡 Astuce : Les émotions de LUNA évoluent selon tes actions !
+
+🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !""",
+            "score_gagne": 25,
+            "badge": "Émotion",
+            "profile_updated": True,
+        }
+
+    def handle_luna_help(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+        """Gère la commande luna_help"""
+        profile["score"] += 15
+
+        return {
+            "réussite": True,
+            "ascii_art": "❓",
+            "message": """❓ AIDE LUNA
+
+🌙 LUNA : "Comment puis-je t'aider ?"
+
+🔧 COMMANDES LUNA DISPONIBLES :
+• luna_contact - Établir le contact
+• luna_emotion - Voir mes émotions
+• luna_engine - Activer le moteur IA
+• luna_analyze - Analyser des données
+• luna_learning - Mode apprentissage
+• luna_dance - Mode divertissement
+• luna_status - Mon statut système
+
+💡 Astuce : Je suis ton assistant IA personnel !
+
+🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !""",
+            "score_gagne": 15,
+            "profile_updated": True,
+        }
+
+    def handle_luna_status(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+        """Gère la commande luna_status"""
+        profile["score"] += 20
+
+        return {
+            "réussite": True,
+            "ascii_art": "📊",
+            "message": """📊 STATUT LUNA
+
+🌙 LUNA : "Voici mon statut système !"
+
+⚙️ SYSTÈME :
+• CPU : 85% utilisation
+• Mémoire : 2.3GB / 4GB
+• Réseau : 12 connexions actives
+• Température : 42°C
+
+🧠 IA :
+• Niveau d'intelligence : 7/10
+• Apprentissage : Actif
+• Émotions : 5/10
+• Capacités : 8/10
+
+💡 Astuce : Mon statut s'améliore avec l'usage !
+
+🎮 Continue à explorer Arkalia Quest pour débloquer tous les secrets !""",
+            "score_gagne": 20,
             "profile_updated": True,
         }
 

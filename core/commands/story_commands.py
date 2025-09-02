@@ -27,6 +27,9 @@ class StoryCommands:
             "hacker_coffre": self.handle_hacker_coffre,
             "boss_final": self.handle_boss_final,
             "monde": self.handle_monde,
+            "world": self.handle_monde,
+            "explorer": self.handle_explorer,
+            "naviguer": self.handle_naviguer,
         }
 
     def handle_prologue(self, profile: Dict[str, Any]) -> Dict[str, Any]:
@@ -693,7 +696,7 @@ La Corp a été vaincue et ses systèmes détruits.
             "profile_updated": True,
         }
 
-    def handle_monde(self) -> Dict[str, Any]:
+    def handle_monde(self, profile: Dict[str, Any]) -> Dict[str, Any]:
         """Gère la commande monde - Accès au monde Arkalia"""
         return {
             "réussite": True,
@@ -718,4 +721,70 @@ La Corp a été vaincue et ses systèmes détruits.
 
 💡 Utilise les commandes d'histoire pour débloquer de nouvelles zones !""",
             "profile_updated": False,
+        }
+
+    def handle_explorer(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+        """Gère la commande explorer - Mode exploration"""
+        profile["score"] += 30
+        if "Explorateur" not in profile["badges"]:
+            profile["badges"].append("Explorateur")
+
+        return {
+            "réussite": True,
+            "ascii_art": "🔍",
+            "message": """🔍 MODE EXPLORATION ACTIVÉ
+
+🌟 EXPLORATION DU MONDE ARKALIA
+
+🎯 ZONES À EXPLORER :
+• arkalia_base → Zone de départ
+• nexus_station → Station NEXUS
+• luna_workshop → Atelier LUNA
+• pandora_core → Cœur de PANDORA
+
+🗺️ OUTILS D'EXPLORATION :
+• Scanner de zones
+• Détecteur de secrets
+• Carte interactive
+• Journal d'exploration
+
+🌙 LUNA : "Explore chaque recoin, hacker ! Des trésors t'attendent !"
+
+💡 Plus tu explores, plus tu découvres de secrets !""",
+            "score_gagne": 30,
+            "badge": "Explorateur",
+            "profile_updated": True,
+        }
+
+    def handle_naviguer(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+        """Gère la commande naviguer - Navigation dans le monde"""
+        profile["score"] += 25
+        if "Navigateur" not in profile["badges"]:
+            profile["badges"].append("Navigateur")
+
+        return {
+            "réussite": True,
+            "ascii_art": "🧭",
+            "message": """🧭 NAVIGATION ARKALIA
+
+🌟 SYSTÈME DE NAVIGATION ACTIVÉ
+
+🎯 DESTINATIONS DISPONIBLES :
+• arkalia_base → Zone de départ
+• nexus_station → Station NEXUS
+• luna_workshop → Atelier LUNA
+• pandora_core → Cœur de PANDORA
+
+🗺️ FONCTIONNALITÉS :
+• Calcul d'itinéraire
+• Navigation GPS
+• Points d'intérêt
+• Historique de navigation
+
+🌙 LUNA : "Navigue avec confiance, hacker ! Je te guide !"
+
+💡 Utilise la navigation pour découvrir de nouveaux endroits !""",
+            "score_gagne": 25,
+            "badge": "Navigateur",
+            "profile_updated": True,
         }

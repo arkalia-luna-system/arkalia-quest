@@ -152,7 +152,7 @@ def main():
     # Sauvegarder les résultats
     output_file = f"reports/test_reports/test_utilisateur_automated_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
-    
+
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump(results, f, indent=2, ensure_ascii=False)
 

@@ -83,7 +83,7 @@ def test_badges():
         print(f"✅ {len(badges['badges_secrets'])} badges disponibles")
         for badge_id, badge in list(badges["badges_secrets"].items())[:5]:
             print(f"  - {badge['nom']} ({badge['rarete']})")
-        assert len(badges['badges_secrets']) > 0, "Aucun badge trouvé"
+        assert len(badges["badges_secrets"]) > 0, "Aucun badge trouvé"
     except Exception as e:
         print(f"❌ Erreur badges: {e}")
         assert False, f"Erreur badges: {e}"

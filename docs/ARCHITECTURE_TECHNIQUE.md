@@ -1,4 +1,5 @@
 
+
 # 🏗️ **ARCHITECTURE TECHNIQUE - ARKALIA QUEST**
 
 
@@ -52,6 +53,7 @@ Arkalia Quest suit une **architecture modulaire en couches** avec séparation cl
 
 
 ```mermaid
+
 
 graph TB
     subgraph "🌐 Frontend Layer"
@@ -134,7 +136,8 @@ graph TB
     style I fill:#9c27b0
     style Q fill:#2196f3
 
-```
+
+```text
 
 
 
@@ -165,6 +168,7 @@ Le cœur intelligent du système, responsable de l'adaptation et de l'apprentiss
 
 ```mermaid
 
+
 classDiagram
     class LunaAIEngine {
         +emotion_colors: Dict
@@ -194,7 +198,8 @@ classDiagram
     LunaAIEngine --> EmotionManager
     LunaAIEngine --> LearningEngine
 
-```
+
+```text
 
 
 
@@ -216,6 +221,7 @@ Gère tous les aspects de motivation et de progression du joueur.
 
 
 ```mermaid
+
 
 classDiagram
     class GamificationEngine {
@@ -254,7 +260,8 @@ classDiagram
     GamificationEngine --> BadgeSystem
     GamificationEngine --> AchievementSystem
 
-```
+
+```text
 
 
 
@@ -277,6 +284,7 @@ Protection avancée contre les menaces et monitoring en temps réel.
 
 
 ```mermaid
+
 
 flowchart TD
     A[🌐 Requête HTTP] --> B{🛡️ Security Check}
@@ -309,7 +317,8 @@ flowchart TD
     style E fill:#f44336
     style K fill:#d32f2f
 
-```
+
+```text
 
 
 
@@ -336,6 +345,7 @@ flowchart TD
 
 
 ```mermaid
+
 
 sequenceDiagram
     participant U as 🌐 User
@@ -368,7 +378,8 @@ sequenceDiagram
         F->>U: Error Response
     end
 
-```
+
+```text
 
 
 
@@ -377,6 +388,7 @@ sequenceDiagram
 
 
 ```mermaid
+
 
 graph LR
     subgraph "📊 Data Sources"
@@ -429,7 +441,8 @@ graph LR
     I --> N
     J --> N
 
-```
+
+```text
 
 
 ---
@@ -444,6 +457,7 @@ graph LR
 
 
 ```mermaid
+
 
 erDiagram
     USERS {
@@ -521,7 +535,8 @@ erDiagram
     BADGES ||--o{ USER_BADGES : earned_by
     USERS ||--o{ SECURITY_EVENTS : generates
 
-```
+
+```text
 
 
 
@@ -548,6 +563,7 @@ erDiagram
 
 
 ```mermaid
+
 
 graph TB
     subgraph "🌐 Network Layer"
@@ -594,7 +610,8 @@ graph TB
     style H fill:#ffebee
     style L fill:#e3f2fd
 
-```
+
+```text
 
 
 
@@ -622,6 +639,7 @@ graph TB
 
 
 ```mermaid
+
 
 graph TB
     subgraph "📥 Input Layer"
@@ -669,7 +687,8 @@ graph TB
     style H fill:#e3f2fd
     style L fill:#fff3e0
 
-```
+
+```text
 
 
 
@@ -697,6 +716,7 @@ graph TB
 
 
 ```mermaid
+
 
 graph TB
     subgraph "🧪 Test Types"
@@ -749,7 +769,8 @@ graph TB
     style K fill:#e3f2fd
     style O fill:#fff3e0
 
-```
+
+```text
 
 
 
@@ -777,6 +798,7 @@ graph TB
 
 
 ```mermaid
+
 
 graph TB
     subgraph "👨‍💻 Development"
@@ -831,7 +853,8 @@ graph TB
     style I fill:#fff3e0
     style M fill:#ffebee
 
-```
+
+```text
 
 
 
@@ -857,6 +880,7 @@ graph TB
 
 
 ```mermaid
+
 
 graph TB
     subgraph "📊 Metrics Collection"
@@ -906,7 +930,8 @@ graph TB
     style I fill:#e8f5e8
     style M fill:#fff3e0
 
-```
+
+```text
 
 
 
@@ -933,6 +958,7 @@ graph TB
 
 ```mermaid
 
+
 gantt
     title Roadmap Technique Arkalia Quest
     dateFormat  YYYY-MM-DD
@@ -951,7 +977,8 @@ gantt
     IA avancée                   :         ai, 2025-06-01, 2025-11-30
     Cloud native                 :         cloud, 2025-07-01, 2025-12-31
 
-```
+
+```text
 
 
 
@@ -1007,16 +1034,21 @@ L'architecture d'Arkalia Quest est conçue pour être :
 - **🏗️ Modulaire** : Facilement extensible et maintenable
 
 
+
 - **🛡️ Sécurisée** : Protection multi-niveaux contre les menaces
+
 
 
 - **⚡ Performante** : Optimisée pour la vitesse et l'efficacité
 
 
+
 - **🧪 Testable** : Couverture complète des tests
 
 
+
 - **📊 Observable** : Monitoring et métriques en temps réel
+
 
 
 - **🚀 Scalable** : Prête pour la croissance et l'évolution
@@ -1026,8 +1058,4 @@ Cette architecture permet à Arkalia Quest de fournir une expérience utilisateu
 
 ---
 
-
-
-**🌟 Architecture conçue avec ❤️ par l'équipe Arkalia Luna 🌟**
-
-
+# **🌟 Architecture conçue avec ❤️ par l'équipe Arkalia Luna 🌟**

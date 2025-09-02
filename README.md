@@ -1,4 +1,5 @@
 
+
 # 🌟 **ARKALIA QUEST** - Jeu Éducatif Intelligent
 
 
@@ -20,6 +21,7 @@ Arkalia Quest est un jeu éducatif intelligent conçu pour les adolescents, comb
 
 
 ```mermaid
+
 
 graph TB
     A[🎮 Interface Utilisateur] --> B[🧠 Moteur LUNA AI]
@@ -44,7 +46,8 @@ graph TB
     style G fill:#ffebee
     style H fill:#e8f5e8
 
-```
+
+```text
 
 
 ---
@@ -57,21 +60,27 @@ graph TB
 ### **Option 1 : Démarrage Automatique (Recommandé)**
 
 
+
 ```bash
+
 
 ./start.sh
 
-```
+
+```text
 
 
 
 ### **Option 2 : Démarrage Manuel**
 
 
+
 ```bash
 
 
+
 # Cloner le projet
+
 
 git clone https://github.com/arkalia-luna-system/arkalia-quest.git
 cd arkalia-quest
@@ -79,24 +88,30 @@ cd arkalia-quest
 
 # Créer l'environnement virtuel
 
+
 python3 -m venv venv
 source venv/bin/activate  # Linux/Mac
 
+
 # ou
+
 
 venv\Scripts\activate     # Windows
 
 
 # Installer les dépendances
 
+
 pip install -r requirements.txt
 
 
 # Lancer l'application
 
+
 python app.py
 
-```
+
+```text
 
 
 **🌐 Application accessible sur :** `http://localhost:5001`
@@ -113,6 +128,7 @@ python app.py
 
 
 ```mermaid
+
 
 graph LR
     subgraph "Frontend"
@@ -155,7 +171,8 @@ graph LR
     style E fill:#f44336
     style G fill:#9c27b0
 
-```
+
+```text
 
 
 
@@ -197,6 +214,7 @@ graph LR
 
 ```mermaid
 
+
 flowchart TD
     A[🌐 Requête HTTP] --> B{🛡️ Security Check}
     B -->|✅ Valide| C[🚀 Application]
@@ -215,7 +233,8 @@ flowchart TD
     style E fill:#f44336
     style K fill:#d32f2f
 
-```
+
+```text
 
 
 ---
@@ -244,6 +263,7 @@ flowchart TD
 
 
 ```mermaid
+
 
 graph TB
     subgraph "Compression"
@@ -277,7 +297,8 @@ graph TB
 
     style M fill:#4caf50
 
-```
+
+```text
 
 
 ---
@@ -293,6 +314,7 @@ graph TB
 
 ```mermaid
 
+
 pie title Couverture des Tests par Module
     "Core Engine" : 12
     "Security" : 0
@@ -301,7 +323,8 @@ pie title Couverture des Tests par Module
     "Analytics" : 0
     "UI/UX" : 0
 
-```
+
+```text
 
 
 
@@ -348,6 +371,7 @@ pie title Couverture des Tests par Module
 
 ```mermaid
 
+
 stateDiagram-v2
     [*] --> Idle
     Idle --> Mission_Selection
@@ -359,7 +383,8 @@ stateDiagram-v2
     Reward_System --> Idle
     Retry_Option --> Mission_Active
 
-```
+
+```text
 
 
 
@@ -388,31 +413,38 @@ stateDiagram-v2
 ```bash
 
 
+
 # Formatage automatique
+
 
 black . --line-length 88
 
 
 # Linting et corrections
 
+
 ruff check . --fix
 
 
 # Tests complets
+
 
 python -m pytest tests/ -v
 
 
 # Tests de charge
 
+
 python tests/performance/test_load_testing.py
 
 
 # Couverture des tests
 
+
 python -m pytest --cov=core --cov-report=html
 
-```
+
+```text
 
 
 
@@ -420,7 +452,8 @@ python -m pytest --cov=core --cov-report=html
 
 
 
-```
+```text
+
 
 arkalia-quest/
 ├── 📁 core/                 # Logique métier principale
@@ -435,7 +468,8 @@ arkalia-quest/
 ├── 📁 config/               # Configuration
 └── 🚀 start.sh              # Script de démarrage
 
-```
+
+```text
 
 
 ---
@@ -473,16 +507,21 @@ arkalia-quest/
 - **🛡️ Sécurité de niveau entreprise** avec monitoring avancé
 
 
+
 - **⚡ Performance optimisée** avec compression et cache
+
 
 
 - **🧪 Tests complets** avec 100% de réussite
 
 
+
 - **📚 Documentation exhaustive** avec guides détaillés
 
 
+
 - **🔧 Architecture modulaire** facilement extensible
+
 
 
 - **📊 Métriques en temps réel** pour le monitoring
@@ -535,10 +574,13 @@ Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de 
 - **📧 Issues** : [GitHub Issues](https://github.com/arkalia-luna-system/arkalia-quest/issues)
 
 
+
 - **📚 Documentation** : [docs/](docs/)
 
 
+
 - **🚀 Déploiement** : [Guide de Déploiement](docs/DEPLOYMENT_GUIDE.md)
+
 
 
 - **🔧 Développement** : [Guide Technique](docs/GUIDE_TECHNIQUE_DEVELOPPEUR.md)
@@ -552,13 +594,17 @@ Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de 
 
 Vous avez choisi **Arkalia Quest**, un projet qui combine :
 
+
 - 🎮 **Divertissement éducatif** pour les adolescents
+
 
 
 - 🛡️ **Sécurité professionnelle** pour les entreprises
 
 
+
 - ⚡ **Performance optimisée** pour la production
+
 
 
 - 📚 **Documentation complète** pour les développeurs
@@ -568,11 +614,7 @@ Vous avez choisi **Arkalia Quest**, un projet qui combine :
 
 ---
 
-
-
-**🌟 Fait avec ❤️ par l'équipe Arkalia Luna 🌟**
+# **🌟 Fait avec ❤️ par l'équipe Arkalia Luna 🌟**
 
 [![GitHub](https://img.shields.io/badge/GitHub-Arkalia%20Quest-181717?style=for-the-badge&logo=github)](https://github.com/arkalia-luna-system/arkalia-quest)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
-
-

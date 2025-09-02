@@ -1,4 +1,5 @@
 
+
 # 🚀 **GUIDE DE DÉPLOIEMENT - ARKALIA QUEST**
 
 
@@ -42,10 +43,13 @@
 - ✅ **HTTPS/TLS** : Certificat SSL valide
 
 
+
 - ✅ **Firewall** : Ports 80, 443, 5000
 
 
+
 - ✅ **Rate Limiting** : Protection DDoS
+
 
 
 - ✅ **Monitoring** : Logs et alertes
@@ -65,7 +69,9 @@
 ```bash
 
 
+
 # .env.production
+
 
 FLASK_ENV=production
 SECRET_KEY=your-super-secret-production-key
@@ -75,11 +81,13 @@ LOG_LEVEL=WARNING
 
 # Base de données
 
+
 DATABASE_URL=sqlite:///data/database/arkalia.db
 DATABASE_PATH=data/database/arkalia.db
 
 
 # Sécurité
+
 
 SECURITY_LEVEL=high
 MAX_FAILED_ATTEMPTS=3
@@ -88,6 +96,7 @@ BLOCK_DURATION=7200
 
 # Performance
 
+
 ENABLE_COMPRESSION=true
 ENABLE_CACHING=true
 CACHE_TTL=600
@@ -95,10 +104,12 @@ CACHE_TTL=600
 
 # Monitoring
 
+
 ENABLE_METRICS=true
 METRICS_PORT=9090
 
-```
+
+```text
 
 
 
@@ -109,7 +120,9 @@ METRICS_PORT=9090
 ```python
 
 
+
 # gunicorn.conf.py
+
 
 bind = "0.0.0.0:5000"
 workers = 4
@@ -121,7 +134,8 @@ timeout = 30
 keepalive = 2
 preload_app = True
 
-```
+
+```text
 
 
 ---
@@ -136,6 +150,7 @@ preload_app = True
 
 
 ```dockerfile
+
 
 FROM python:3.10-slim
 
@@ -158,7 +173,8 @@ ENV PYTHONPATH=/app
 
 CMD ["gunicorn", "--config", "gunicorn.conf.py", "app:app"]
 
-```
+
+```text
 
 
 
@@ -167,6 +183,7 @@ CMD ["gunicorn", "--config", "gunicorn.conf.py", "app:app"]
 
 
 ```yaml
+
 
 version: '3.8'
 
@@ -194,7 +211,8 @@ services:
       - app
     restart: unless-stopped
 
-```
+
+```text
 
 
 ---
@@ -211,19 +229,23 @@ services:
 ```bash
 
 
+
 # Procfile
+
 
 web: gunicorn app:app
 
 
 # Déploiement
 
+
 heroku create arkalia-quest
 git push heroku main
 heroku config:set FLASK_ENV=production
 heroku open
 
-```
+
+```text
 
 
 
@@ -234,7 +256,9 @@ heroku open
 ```bash
 
 
+
 # railway.json
+
 
 {
   "build": {
@@ -248,11 +272,13 @@ heroku open
 
 # Déploiement
 
+
 railway login
 railway init
 railway up
 
-```
+
+```text
 
 
 
@@ -263,12 +289,16 @@ railway up
 ```yaml
 
 
+
 # .do/app.yaml
+
 
 name: arkalia-quest
 services:
 
+
 - name: web
+
 
   source_dir: /
   github:
@@ -279,7 +309,8 @@ services:
   instance_count: 2
   instance_size_slug: basic-xxs
 
-```
+
+```text
 
 
 ---
@@ -307,7 +338,9 @@ services:
 ```python
 
 
+
 # Configuration des logs
+
 
 import logging
 import json
@@ -325,6 +358,7 @@ def setup_logging():
 
 # Log structuré
 
+
 def log_event(event_type, details):
     log_data = {
         "timestamp": datetime.now().isoformat(),
@@ -333,7 +367,8 @@ def log_event(event_type, details):
     }
     logging.info(json.dumps(log_data))
 
-```
+
+```text
 
 
 ---
@@ -350,7 +385,9 @@ def log_event(event_type, details):
 ```yaml
 
 
+
 # .github/workflows/deploy.yml
+
 
 name: Deploy
 
@@ -384,7 +421,8 @@ jobs:
         echo "Deploying to production..."
         # Logique de déploiement
 
-```
+
+```text
 
 
 
@@ -394,7 +432,9 @@ jobs:
 
 ```bash
 
+
 #!/bin/bash
+
 
 # scripts/deploy.sh
 
@@ -406,12 +446,14 @@ echo "🚀 Déploiement en cours..."
 
 # Tests
 
+
 python -m pytest tests/ -v
 black . --check
 ruff check .
 
 
 # Déploiement
+
 
 case $1 in
   "staging")
@@ -428,7 +470,8 @@ esac
 
 echo "✅ Déploiement terminé!"
 
-```
+
+```text
 
 
 ---
@@ -441,16 +484,21 @@ echo "✅ Déploiement terminé!"
 - [ ] **🧪 Tests** : Tous les tests passent
 
 
+
 - [ ] **🔧 Qualité** : Code formaté et linté
+
 
 
 - [ ] **🔒 Sécurité** : Variables d'environnement sécurisées
 
 
+
 - [ ] **📊 Monitoring** : Logs et métriques configurés
 
 
+
 - [ ] **🔄 Rollback** : Plan de rollback préparé
+
 
 
 - [ ] **📚 Documentation** : Documentation mise à jour
@@ -481,26 +529,32 @@ echo "✅ Déploiement terminé!"
 ```bash
 
 
+
 # Vérifier les processus
+
 
 ps aux | grep python
 
 
 # Vérifier les ports
 
+
 netstat -tulpn | grep :5000
 
 
 # Vérifier les logs
+
 
 tail -f logs/app.log
 
 
 # Vérifier la base de données
 
+
 sqlite3 data/database/arkalia.db ".tables"
 
-```
+
+```text
 
 
 ---

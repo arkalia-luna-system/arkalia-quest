@@ -1,4 +1,5 @@
 
+
 # 🚀 Guide d'Utilisation - Arkalia Quest
 
 
@@ -10,21 +11,29 @@
 ### 1. **Démarrage Automatique (Recommandé)**
 
 
+
 ```bash
+
 
 ./start.sh
 
-```
+
+```text
+
 
 Ce script :
 
+
 - ✅ Crée l'environnement virtuel si nécessaire
+
 
 
 - ✅ Installe les dépendances automatiquement
 
 
+
 - ✅ Lance l'application Flask
+
 
 
 - ✅ Crée les dossiers nécessaires (logs, etc.)
@@ -34,33 +43,42 @@ Ce script :
 ### 2. **Démarrage Manuel**
 
 
+
 ```bash
 
 
+
 # Créer l'environnement virtuel
+
 
 python3 -m venv venv
 
 
 # L'activer
 
+
 source venv/bin/activate  # Linux/Mac
 
+
 # ou
+
 
 venv\Scripts\activate     # Windows
 
 
 # Installer les dépendances
 
+
 pip install -r requirements.txt
 
 
 # Lancer l'application
 
+
 python app.py
 
-```
+
+```text
 
 
 **🌐 Application accessible sur :** `http://localhost:5000`
@@ -75,13 +93,17 @@ python app.py
 ### 🔒 **Sécurité Avancée**
 
 
+
 - **Rate Limiting** : 100 requêtes/minute par IP
+
 
 
 - **Validation des entrées** : Protection contre les injections
 
 
+
 - **Headers de sécurité** : CSP, HSTS, XSS Protection
+
 
 
 - **Monitoring** : Logs de sécurité en temps réel
@@ -91,13 +113,17 @@ python app.py
 ### ⚡ **Performance Optimisée**
 
 
+
 - **Compression gzip** : Réduction automatique de la taille
+
 
 
 - **Cache HTTP intelligent** : Headers de cache appropriés
 
 
+
 - **Base de données optimisée** : Index et cache mémoire
+
 
 
 - **Tests de charge** : Validation de la scalabilité
@@ -113,11 +139,15 @@ python app.py
 ### **Lancer tous les tests :**
 
 
+
 ```bash
+
 
 python -m pytest tests/ -v
 
-```
+
+```text
+
 
 **📊 Résultat actuel :** 179 tests collectés sur 179 ✅
 
@@ -125,44 +155,57 @@ python -m pytest tests/ -v
 ### **Tests de charge :**
 
 
+
 ```bash
+
 
 python tests/performance/test_load_testing.py
 
-```
+
+```text
 
 
 
 ### **Formatage du code :**
 
 
+
 ```bash
+
 
 black . --line-length 88
 
-```
+
+```text
 
 
 
 ### **Linting et corrections :**
 
 
+
 ```bash
+
 
 ruff check . --fix
 
-```
+
+```text
 
 
 
 ### **Couverture des tests :**
 
 
+
 ```bash
+
 
 python -m pytest --cov=core --cov-report=html
 
-```
+
+```text
+
 
 **📈 Couverture actuelle :** 11.55% (seuil minimum : 10%)
 
@@ -173,7 +216,8 @@ python -m pytest --cov=core --cov-report=html
 
 
 
-```
+```text
+
 
 arkalia-quest/
 ├── app.py                 # Application Flask principale
@@ -189,7 +233,8 @@ arkalia-quest/
 ├── templates/            # Templates HTML
 └── start.sh             # Script de démarrage
 
-```
+
+```text
 
 
 ---
@@ -202,7 +247,9 @@ arkalia-quest/
 ### **Sécurité (`config/security.json`)**
 
 
+
 ```json
+
 
 {
   "max_failed_attempts": 5,
@@ -211,20 +258,24 @@ arkalia-quest/
   "enable_logging": true
 }
 
-```
+
+```text
 
 
 
 ### **Variables d'environnement**
 
 
+
 ```bash
+
 
 export FLASK_ENV=development
 export SECRET_KEY=your-secret-key
 export DATABASE_URL=sqlite:///arkalia.db
 
-```
+
+```text
 
 
 ---
@@ -237,33 +288,42 @@ export DATABASE_URL=sqlite:///arkalia.db
 ### **Logs de sécurité :**
 
 
+
 ```bash
+
 
 tail -f logs/security.log
 
-```
+
+```text
 
 
 
 ### **Statut de sécurité :**
 
 
+
 ```bash
+
 
 curl http://localhost:5000/api/security/status
 
-```
+
+```text
 
 
 
 ### **Métriques de performance :**
 
 
+
 ```bash
+
 
 curl http://localhost:5000/api/performance/metrics
 
-```
+
+```text
 
 
 ---
@@ -276,35 +336,44 @@ curl http://localhost:5000/api/performance/metrics
 ### **Problème de dépendances :**
 
 
+
 ```bash
+
 
 pip install --upgrade -r requirements.txt
 
-```
+
+```text
 
 
 
 ### **Problème de base de données :**
 
 
+
 ```bash
+
 
 rm arkalia.db  # Supprimer la base corrompue
 python -c "from core.database import init_database; init_database()"
 
-```
+
+```text
 
 
 
 ### **Problème de permissions :**
 
 
+
 ```bash
+
 
 chmod +x start.sh
 chmod -R 755 logs/
 
-```
+
+```text
 
 
 ---
@@ -317,23 +386,29 @@ chmod -R 755 logs/
 ### **Heroku :**
 
 
+
 ```bash
+
 
 git push heroku main
 
-```
+
+```text
 
 
 
 ### **Docker :**
 
 
+
 ```bash
+
 
 docker build -t arkalia-quest .
 docker run -p 5000:5000 arkalia-quest
 
-```
+
+```text
 
 
 ---
@@ -346,7 +421,9 @@ docker run -p 5000:5000 arkalia-quest
 - **Documentation** : Voir `docs/` pour plus de détails
 
 
+
 - **Issues** : Utiliser GitHub Issues pour les bugs
+
 
 
 - **Tests** : Vérifier que tous les tests passent avant de signaler un problème

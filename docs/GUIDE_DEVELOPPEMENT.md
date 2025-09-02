@@ -1,4 +1,5 @@
 
+
 # 🔧 **GUIDE DE DÉVELOPPEMENT - ARKALIA QUEST**
 
 
@@ -45,7 +46,9 @@
 ```bash
 
 
+
 # 1. Cloner le projet
+
 
 git clone https://github.com/arkalia-luna-system/arkalia-quest.git
 cd arkalia-quest
@@ -53,28 +56,35 @@ cd arkalia-quest
 
 # 2. Créer l'environnement virtuel
 
+
 python3 -m venv venv
 
 
 # 3. Activer l'environnement
 
+
 source venv/bin/activate  # Linux/Mac
 
+
 # ou
+
 
 venv\Scripts\activate     # Windows
 
 
 # 4. Installer les dépendances
 
+
 pip install -r requirements.txt
 
 
 # 5. Lancer l'application
 
+
 python app.py
 
-```
+
+```text
 
 
 
@@ -87,25 +97,31 @@ Créer un fichier `.env` basé sur `env.example` :
 ```bash
 
 
+
 # Copier le fichier d'exemple
+
 
 cp env.example .env
 
 
 # Éditer les variables
 
+
 nano .env
 
-```
+
+```text
 
 
-**Variables d'environnement principales :**
+# **Variables d'environnement principales :**
 
 
 ```env
 
 
+
 # Application
+
 
 FLASK_ENV=development
 SECRET_KEY=your-super-secret-key-here
@@ -114,11 +130,13 @@ DEBUG=True
 
 # Base de données
 
+
 DATABASE_URL=sqlite:///arkalia.db
 DATABASE_PATH=data/database/arkalia.db
 
 
 # Sécurité
+
 
 SECURITY_LEVEL=high
 MAX_FAILED_ATTEMPTS=5
@@ -127,6 +145,7 @@ BLOCK_DURATION=3600
 
 # Performance
 
+
 ENABLE_COMPRESSION=true
 ENABLE_CACHING=true
 CACHE_TTL=300
@@ -134,11 +153,13 @@ CACHE_TTL=300
 
 # Monitoring
 
+
 ENABLE_METRICS=true
 METRICS_PORT=9090
 LOG_LEVEL=INFO
 
-```
+
+```text
 
 
 ---
@@ -153,6 +174,7 @@ LOG_LEVEL=INFO
 
 
 ```mermaid
+
 
 graph TB
     subgraph "📁 Root"
@@ -207,7 +229,8 @@ graph TB
     style N fill:#e8f5e8
     style Q fill:#fff3e0
 
-```
+
+```text
 
 
 
@@ -238,6 +261,7 @@ graph TB
 
 ```mermaid
 
+
 gitgraph
     commit
     branch develop
@@ -258,7 +282,8 @@ gitgraph
     checkout develop
     merge hotfix/security-fix
 
-```
+
+```text
 
 
 
@@ -296,12 +321,15 @@ gitgraph
 ```bash
 
 
+
 # Format recommandé
+
 
 <type>(<scope>): <description>
 
 
 # Exemples
+
 
 feat(security): add rate limiting for login attempts
 fix(database): resolve connection pool memory leak
@@ -311,10 +339,11 @@ refactor(core): simplify emotion engine logic
 style(ui): improve button accessibility
 perf(database): optimize user profile queries
 
-```
+
+```text
 
 
-**Types de commits :**
+# **Types de commits :**
 
 | Type | Description | Exemple |
 |------|-------------|---------|
@@ -338,6 +367,7 @@ perf(database): optimize user profile queries
 
 
 ```mermaid
+
 
 graph TB
     subgraph "🧪 Test Types"
@@ -378,7 +408,8 @@ graph TB
     style F fill:#e8f5e8
     style K fill:#e3f2fd
 
-```
+
+```text
 
 
 
@@ -393,26 +424,32 @@ graph TB
 ```bash
 
 
+
 # Lancer tous les tests
+
 
 python -m pytest tests/ -v
 
 
 # Tests avec couverture
 
+
 python -m pytest --cov=core --cov-report=html
 
 
 # Tests de performance
+
 
 python -m pytest tests/performance/ -v
 
 
 # Tests spécifiques
 
+
 python -m pytest tests/core/test_security_manager.py -v
 
-```
+
+```text
 
 
 
@@ -423,26 +460,32 @@ python -m pytest tests/core/test_security_manager.py -v
 ```bash
 
 
+
 # Tests unitaires uniquement
+
 
 python -m pytest tests/ -m "unit" -v
 
 
 # Tests d'intégration
 
+
 python -m pytest tests/ -m "integration" -v
 
 
 # Tests de sécurité
+
 
 python -m pytest tests/ -m "security" -v
 
 
 # Tests de performance
 
+
 python -m pytest tests/ -m "performance" -v
 
-```
+
+```text
 
 
 
@@ -453,7 +496,9 @@ python -m pytest tests/ -m "performance" -v
 ```python
 
 
+
 # tests/core/test_security_manager.py
+
 
 import pytest
 from unittest.mock import Mock, patch
@@ -497,17 +542,19 @@ class TestSecurityManager:
 
         mock_logging.getLogger.return_value.info.assert_called_once()
 
-```
+
+```text
 
 
 
 ### **Configuration des Tests**
 
 
-**`pyproject.toml` :**
+# **`pyproject.toml` :**
 
 
 ```toml
+
 
 [tool.pytest.ini_options]
 minversion = "7.0"
@@ -535,7 +582,8 @@ markers = [
     "security: marks tests as security tests",
 ]
 
-```
+
+```text
 
 
 ---
@@ -556,13 +604,16 @@ markers = [
 ```python
 
 
+
 # ❌ MAUVAIS - Pas de validation
+
 
 def process_user_input(user_input):
     return f"Hello {user_input}"
 
 
 # ✅ BON - Validation complète
+
 
 def process_user_input(user_input: str) -> str:
     if not user_input:
@@ -582,7 +633,8 @@ def process_user_input(user_input: str) -> str:
     safe_input = html.escape(user_input)
     return f"Hello {safe_input}"
 
-```
+
+```text
 
 
 
@@ -593,7 +645,9 @@ def process_user_input(user_input: str) -> str:
 ```python
 
 
+
 # Configuration sécurisée des sessions
+
 
 app.config.update(
     SESSION_COOKIE_SECURE=True,      # HTTPS uniquement
@@ -605,6 +659,7 @@ app.config.update(
 
 
 # Gestion sécurisée des sessions
+
 
 @app.before_request
 def before_request():
@@ -619,7 +674,8 @@ def before_request():
         # Mettre à jour l'activité
         session['last_activity'] = datetime.now().isoformat()
 
-```
+
+```text
 
 
 
@@ -629,12 +685,14 @@ def before_request():
 
 ```python
 
+
 from flask_wtf.csrf import CSRFProtect
 
 csrf = CSRFProtect(app)
 
 
 # Dans les templates
+
 
 <form method="POST">
     {{ csrf_token() }}
@@ -644,6 +702,7 @@ csrf = CSRFProtect(app)
 
 
 # Dans les routes
+
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -655,7 +714,8 @@ def login():
     password = request.form.get('password')
     # ... validation et authentification
 
-```
+
+```text
 
 
 
@@ -666,7 +726,9 @@ def login():
 ```python
 
 
+
 # tests/security/test_security_manager.py
+
 
 import pytest
 from core.security_manager import SecurityManager
@@ -717,7 +779,8 @@ class TestSecurityManager:
             mock_time.return_value = time.time() + 3600  # +1 heure
             assert self.security_manager.check_rate_limit(test_ip) is True
 
-```
+
+```text
 
 
 ---
@@ -738,7 +801,9 @@ class TestSecurityManager:
 ```python
 
 
+
 # Cache en mémoire avec TTL
+
 
 from functools import wraps
 import time
@@ -770,6 +835,7 @@ def cache_with_ttl(ttl_seconds=300):
 
 # Utilisation
 
+
 @cache_with_ttl(ttl_seconds=600)  # 10 minutes
 def get_user_profile(user_id: int):
     """Récupère le profil utilisateur avec cache"""
@@ -777,7 +843,8 @@ def get_user_profile(user_id: int):
     time.sleep(0.1)
     return {"user_id": user_id, "name": f"User {user_id}"}
 
-```
+
+```text
 
 
 
@@ -788,7 +855,9 @@ def get_user_profile(user_id: int):
 ```python
 
 
+
 # Optimisation avec index et requêtes préparées
+
 
 class DatabaseManager:
     def __init__(self):
@@ -820,7 +889,8 @@ class DatabaseManager:
         cursor = self.connection.execute(query, (user_id,))
         return cursor.fetchone()
 
-```
+
+```text
 
 
 
@@ -831,7 +901,9 @@ class DatabaseManager:
 ```python
 
 
+
 # Configuration de compression
+
 
 from flask_compress import Compress
 
@@ -840,6 +912,7 @@ compress.init_app(app)
 
 
 # Headers de cache optimisés
+
 
 @app.after_request
 def add_cache_headers(response):
@@ -859,7 +932,8 @@ def add_cache_headers(response):
 
     return response
 
-```
+
+```text
 
 
 
@@ -870,7 +944,9 @@ def add_cache_headers(response):
 ```python
 
 
+
 # tests/performance/test_performance.py
+
 
 import pytest
 import time
@@ -920,7 +996,8 @@ class TestDatabasePerformance:
         result = benchmark(query_function)
         assert result is not None
 
-```
+
+```text
 
 
 ---
@@ -939,6 +1016,7 @@ class TestDatabasePerformance:
 
 
 ```python
+
 
 class SecurityManager:
     """
@@ -999,7 +1077,8 @@ class SecurityManager:
         # Logique de vérification du rate limiting
         return self._check_ip_rate_limit(ip_address)
 
-```
+
+```text
 
 
 
@@ -1010,7 +1089,9 @@ class SecurityManager:
 ```python
 
 
+
 # Documentation des endpoints avec docstrings
+
 
 @app.route('/api/security/status', methods=['GET'])
 def get_security_status():
@@ -1065,7 +1146,8 @@ def get_security_status():
         app.logger.error(f"Error getting security status: {e}")
         return jsonify({"error": "Internal server error"}), 500
 
-```
+
+```text
 
 
 
@@ -1076,17 +1158,21 @@ def get_security_status():
 ```bash
 
 
+
 # Génération de la documentation avec Sphinx
+
 
 pip install sphinx sphinx-rtd-theme
 
 
 # Initialisation du projet Sphinx
 
+
 sphinx-quickstart docs/sphinx
 
 
 # Génération de la documentation
+
 
 cd docs/sphinx
 make html
@@ -1095,7 +1181,8 @@ make html
 # Documentation disponible dans docs/sphinx/_build/html/
 
 
-```
+
+```text
 
 
 ---
@@ -1110,6 +1197,7 @@ make html
 
 
 ```mermaid
+
 
 graph TB
     subgraph "👨‍💻 Development"
@@ -1164,7 +1252,8 @@ graph TB
     style I fill:#fff3e0
     style M fill:#ffebee
 
-```
+
+```text
 
 
 
@@ -1178,7 +1267,9 @@ graph TB
 
 ```bash
 
+
 #!/bin/bash
+
 
 # scripts/deploy.sh
 
@@ -1190,6 +1281,7 @@ echo "🚀 Démarrage du déploiement..."
 
 # Variables d'environnement
 
+
 ENVIRONMENT=${1:-staging}
 BRANCH=${2:-develop}
 
@@ -1198,6 +1290,7 @@ echo "🌿 Branche: $BRANCH"
 
 
 # 1. Vérification de l'état du code
+
 
 echo "🔍 Vérification de l'état du code..."
 git status --porcelain
@@ -1209,6 +1302,7 @@ fi
 
 # 2. Tests automatisés
 
+
 echo "🧪 Exécution des tests..."
 python -m pytest tests/ -v --tb=no
 if [ $? -ne 0 ]; then
@@ -1218,6 +1312,7 @@ fi
 
 
 # 3. Vérification de la qualité du code
+
 
 echo "🔧 Vérification de la qualité du code..."
 black . --check
@@ -1229,6 +1324,7 @@ fi
 
 
 # 4. Déploiement selon l'environnement
+
 
 case $ENVIRONMENT in
     "staging")
@@ -1247,7 +1343,8 @@ esac
 
 echo "✅ Déploiement terminé avec succès!"
 
-```
+
+```text
 
 
 
@@ -1258,17 +1355,21 @@ echo "✅ Déploiement terminé avec succès!"
 ```dockerfile
 
 
+
 # Dockerfile
+
 
 FROM python:3.10-slim
 
 
 # Définir le répertoire de travail
 
+
 WORKDIR /app
 
 
 # Installer les dépendances système
+
 
 RUN apt-get update && apt-get install -y \
     gcc \
@@ -1277,30 +1378,36 @@ RUN apt-get update && apt-get install -y \
 
 # Copier les fichiers de dépendances
 
+
 COPY requirements.txt .
 
 
 # Installer les dépendances Python
+
 
 RUN pip install --no-cache-dir -r requirements.txt
 
 
 # Copier le code source
 
+
 COPY . .
 
 
 # Créer les répertoires nécessaires
+
 
 RUN mkdir -p logs data/database
 
 
 # Exposer le port
 
+
 EXPOSE 5000
 
 
 # Variables d'environnement
+
 
 ENV FLASK_ENV=production
 ENV PYTHONPATH=/app
@@ -1308,9 +1415,11 @@ ENV PYTHONPATH=/app
 
 # Commande de démarrage
 
+
 CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "4", "app:app"]
 
-```
+
+```text
 
 
 
@@ -1321,7 +1430,9 @@ CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "4", "app:app"]
 ```yaml
 
 
+
 # docker-compose.yml
+
 
 version: '3.8'
 
@@ -1350,7 +1461,8 @@ services:
       - app
     restart: unless-stopped
 
-```
+
+```text
 
 
 ---
@@ -1365,6 +1477,7 @@ services:
 
 
 ```mermaid
+
 
 flowchart TD
     A[🔍 Identifier un problème] --> B[📝 Créer une issue]
@@ -1383,7 +1496,8 @@ flowchart TD
     M --> K
     L -->|✅ Oui| N[🚀 Merge en main]
 
-```
+
+```text
 
 
 
@@ -1398,16 +1512,21 @@ flowchart TD
 - [ ] **🧪 Tests** : Tous les tests passent
 
 
+
 - [ ] **🔧 Qualité** : Code formaté avec Black et Ruff
+
 
 
 - [ ] **📚 Documentation** : Docstrings et README mis à jour
 
 
+
 - [ ] **🔒 Sécurité** : Aucune vulnérabilité introduite
 
 
+
 - [ ] **⚡ Performance** : Aucune régression de performance
+
 
 
 - [ ] **📝 Commit** : Message de commit descriptif
@@ -1419,6 +1538,7 @@ flowchart TD
 
 
 ```markdown
+
 
 
 ## 🎯 Description
@@ -1434,13 +1554,17 @@ Description claire et concise des changements apportés.
 - [ ] Bug fix
 
 
+
 - [ ] Nouvelle fonctionnalité
+
 
 
 - [ ] Amélioration de performance
 
 
+
 - [ ] Documentation
+
 
 
 - [ ] Refactoring
@@ -1454,10 +1578,13 @@ Description claire et concise des changements apportés.
 - [ ] Tests unitaires ajoutés/mis à jour
 
 
+
 - [ ] Tests d'intégration ajoutés/mis à jour
 
 
+
 - [ ] Tests de performance ajoutés/mis à jour
+
 
 
 - [ ] Tous les tests passent
@@ -1471,7 +1598,9 @@ Description claire et concise des changements apportés.
 - [ ] Docstrings mises à jour
 
 
+
 - [ ] README mis à jour si nécessaire
+
 
 
 - [ ] Changelog mis à jour
@@ -1483,6 +1612,7 @@ Description claire et concise des changements apportés.
 
 
 - [ ] Aucune vulnérabilité introduite
+
 
 
 - [ ] Tests de sécurité ajoutés si nécessaire
@@ -1502,7 +1632,8 @@ Description claire et concise des changements apportés.
 Fixes #123
 Relates to #456
 
-```
+
+```text
 
 
 ---
@@ -1517,6 +1648,7 @@ Relates to #456
 
 
 ```python
+
 
 import logging
 import json
@@ -1562,6 +1694,7 @@ class StructuredLogger:
 
 # Utilisation
 
+
 logger = StructuredLogger("security")
 logger.log_event("login_attempt", {
     "user_id": 123,
@@ -1569,7 +1702,8 @@ logger.log_event("login_attempt", {
     "success": True
 }, "info")
 
-```
+
+```text
 
 
 
@@ -1578,6 +1712,7 @@ logger.log_event("login_attempt", {
 
 
 ```python
+
 
 import pdb
 import traceback
@@ -1605,13 +1740,15 @@ def debug_on_error(func):
 
 # Utilisation
 
+
 @debug_on_error
 def risky_function():
     """Fonction qui peut échouer"""
     result = 1 / 0  # Division par zéro
     return result
 
-```
+
+```text
 
 
 ---
@@ -1630,16 +1767,21 @@ Ce guide de développement fournit toutes les informations nécessaires pour con
 - **🧪 Tests** : Écrivez des tests pour chaque nouvelle fonctionnalité
 
 
+
 - **🔒 Sécurité** : Validez toujours les entrées et suivez les bonnes pratiques
+
 
 
 - **⚡ Performance** : Optimisez le code et surveillez les métriques
 
 
+
 - **📚 Documentation** : Documentez votre code et mettez à jour la documentation
 
 
+
 - **🔧 Qualité** : Utilisez Black et Ruff pour maintenir la qualité du code
+
 
 
 - **🚀 Déploiement** : Testez toujours en staging avant la production
@@ -1653,10 +1795,13 @@ Ce guide de développement fournit toutes les informations nécessaires pour con
 - [Architecture Technique](ARCHITECTURE_TECHNIQUE.md)
 
 
+
 - [Guide de Déploiement](DEPLOYMENT_GUIDE.md)
 
 
+
 - [API Reference](API_REFERENCE.md)
+
 
 
 - [Troubleshooting](TROUBLESHOOTING.md)
@@ -1664,10 +1809,6 @@ Ce guide de développement fournit toutes les informations nécessaires pour con
 
 ---
 
-
-
-**🌟 Guide conçu avec ❤️ par l'équipe Arkalia Luna 🌟**
+# **🌟 Guide conçu avec ❤️ par l'équipe Arkalia Luna 🌟**
 
 **Bonne contribution !** 🚀✨
-
-

@@ -1,17 +1,22 @@
+# Document
 ---
-**Statut : ACTIF**
-**Dernière mise à jour : Août 2025**
+# **Statut : ACTIF**
+# **Dernière mise à jour : Août 2025**
 **Résumé :** Guide technique pour les développeurs Arkalia Quest (architecture, bonnes pratiques, outils).
 
-**Liens utiles :**
+# **Liens utiles :**
+
 
 - [Documentation principale](README.md)
+
 
 
 - [Statut projet](STATUT_PROJET_ACTUEL.md)
 
 
+
 - [Changelog documentation](CHANGELOG_DOCUMENTATION.md)
+
 
 ---
 
@@ -27,7 +32,9 @@
 ### Exemple de requête
 
 
+
 ```http
+
 
 POST /commande
 Content-Type: application/json
@@ -36,14 +43,17 @@ Content-Type: application/json
   "commande": "hack_system"
 }
 
-```
+
+```text
 
 
 
 ### Réponse JSON (format 2025+)
 
 
+
 ```json
+
 
 {
   "reponse": {
@@ -65,11 +75,13 @@ Content-Type: application/json
   }
 }
 
-```
+
+```text
 
 
 
 ### Détail des champs d'émotion LUNA
+
 
 | Champ              | Type    | Exemple         | Description |
 |--------------------|---------|----------------|-------------|
@@ -83,6 +95,7 @@ Content-Type: application/json
 
 
 #### Valeurs possibles pour `luna_emotion`
+
 
 | Valeur        | Emoji | Description |
 |---------------|-------|-------------|
@@ -101,6 +114,7 @@ Content-Type: application/json
 #### Valeurs typiques pour `luna_effect` et `luna_sound`
 
 
+
 - Voir le mapping dans `core/luna_emotions_engine.py` et `static/js/immersive_effects.js`
 
 
@@ -108,13 +122,17 @@ Content-Type: application/json
 ### Bonnes pratiques d'intégration
 
 
+
 - Toujours parser la clé `reponse` dans les retours API.
+
 
 
 - Les champs d'émotion sont toujours présents pour toutes les commandes reconnues.
 
 
+
 - Pour les commandes inconnues, LUNA réagit avec une émotion adaptée (souvent "worried" ou "calm").
+
 
 
 - Les effets visuels et sonores côté front doivent utiliser les champs `luna_color`, `luna_effect`, `luna_sound` et `luna_intensity` pour une expérience cohérente.
@@ -126,10 +144,13 @@ Content-Type: application/json
 ## 🔧 Maintenance et évolutions
 
 
+
 - Toute évolution du format de réponse doit être documentée ici et testée dans `tests/test_immersive_system_complete.py`.
 
 
+
 - Pour ajouter une nouvelle émotion ou effet, mettre à jour :
+
 
   - `core/luna_emotions_engine.py` (backend)
   - `static/js/immersive_effects.js` (frontend)

@@ -1,4 +1,5 @@
 
+
 # 🚀 Guide de Déploiement Complet - Arkalia Quest v3.0.0
 
 
@@ -33,15 +34,19 @@ Ce guide couvre le déploiement d'Arkalia Quest sur **toutes les plateformes clo
 ### **Option 1: Heroku (Gratuit)**
 
 
+
 ```bash
 
 
+
 # Installation Heroku CLI
+
 
 curl https://cli-assets.heroku.com/install.sh | sh
 
 
 # Login et création
+
 
 heroku login
 heroku create arkalia-quest-demo
@@ -49,18 +54,22 @@ heroku create arkalia-quest-demo
 
 # Déploiement
 
+
 git push heroku main
 
 
 # Ouverture
 
+
 heroku open
 
-```
+
+```text
 
 
 
 ### **Option 2: Render (Gratuit, Docker recommandé)**
+
 
 1. **Connectez** votre repo GitHub sur [render.com](https://render.com)
 2. **Créez** un service via **Blueprint** (utilise `render.yaml` à la racine)
@@ -71,20 +80,25 @@ heroku open
 ### **Option 3: Railway (Gratuit)**
 
 
+
 ```bash
 
 
+
 # Installation Railway CLI
+
 
 npm install -g @railway/cli
 
 
 # Login et déploiement
 
+
 railway login
 railway up
 
-```
+
+```text
 
 
 ---
@@ -97,34 +111,43 @@ railway up
 ### **Local**
 
 
+
 ```bash
 
 
+
 # Construction
+
 
 docker build -t arkalia-quest .
 
 
 # Lancement
 
+
 docker run -p 10000:10000 arkalia-quest
 
 
 # Avec docker compose (si présent)
 
+
 docker compose up --build
 
-```
+
+```text
 
 
 
 ### **Serveur VPS**
 
 
+
 ```bash
 
 
+
 # Sur votre serveur
+
 
 git clone https://github.com/arkalia-luna-system/arkalia-quest.git
 cd arkalia-quest
@@ -132,15 +155,18 @@ cd arkalia-quest
 
 # Construction et lancement
 
+
 docker build -t arkalia-quest .
 docker run -d -p 80:10000 --name arkalia-quest arkalia-quest
 
 
 # Avec Nginx (reverse proxy)
 
+
 docker run -d -p 80:80 nginx:alpine
 
-```
+
+```text
 
 
 ---
@@ -153,10 +179,13 @@ docker run -d -p 80:80 nginx:alpine
 ### **Variables d'Environnement**
 
 
+
 ```bash
 
 
+
 # Production
+
 
 FLASK_ENV=production
 DEBUG=false
@@ -165,26 +194,32 @@ SECRET_KEY=your-secure-secret-key
 
 # Base de données
 
+
 DATABASE_URL=sqlite:///arkalia.db
 
 
 # Performance
 
+
 WORKERS=2
 TIMEOUT=120
 MAX_REQUESTS=1000
 
-```
+
+```text
 
 
 
 ### **Gunicorn Configuration**
 
 
+
 ```python
 
 
+
 # gunicorn.conf.py
+
 
 bind = "0.0.0.0:5000"
 workers = 2
@@ -193,7 +228,8 @@ max_requests = 1000
 max_requests_jitter = 100
 preload_app = True
 
-```
+
+```text
 
 
 ---
@@ -206,7 +242,9 @@ preload_app = True
 ### **Endpoints de Santé**
 
 
+
 - **`/health`** : Statut des services (utilisé par Render Health Check)
+
 
 
 - **`/metrics`** : Métriques de performance
@@ -216,7 +254,9 @@ preload_app = True
 ### **Exemple de Réponse Health**
 
 
+
 ```json
+
 
 {
   "status": "healthy",
@@ -230,7 +270,8 @@ preload_app = True
   "uptime": 3600
 }
 
-```
+
+```text
 
 
 ---
@@ -243,13 +284,17 @@ preload_app = True
 ### **Headers de Sécurité**
 
 
+
 - **CSP** : Content Security Policy
+
 
 
 - **HSTS** : HTTP Strict Transport Security
 
 
+
 - **XSS Protection** : Protection contre les attaques XSS
+
 
 
 - **Frame Options** : Protection contre le clickjacking
@@ -259,7 +304,9 @@ preload_app = True
 ### **Rate Limiting**
 
 
+
 ```python
+
 
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -270,7 +317,8 @@ limiter = Limiter(
     default_limits=["200 per day", "50 per hour"]
 )
 
-```
+
+```text
 
 
 ---
@@ -282,15 +330,20 @@ limiter = Limiter(
 
 ### **GitHub Actions**
 
+
 Le projet inclut des workflows GitHub Actions pour :
 
+
 - **Tests automatiques** sur chaque push
+
 
 
 - **Déploiement automatique** sur main
 
 
+
 - **Qualité du code** avec Black et Ruff
+
 
 
 - **Construction Docker** et push
@@ -300,10 +353,13 @@ Le projet inclut des workflows GitHub Actions pour :
 ### **Déploiement Automatique**
 
 
+
 ```yaml
 
 
+
 # .github/workflows/deploy.yml
+
 
 name: 🚀 Déploiement Automatique
 on:
@@ -318,7 +374,8 @@ jobs:
         uses: actions/checkout@v4
       # ... autres étapes
 
-```
+
+```text
 
 
 ---
@@ -331,13 +388,17 @@ jobs:
 ### **Métriques Actuelles**
 
 
+
 - **Tests** : 76/76 passent (100%)
+
 
 
 - **Qualité** : Grade A+ (Black + Ruff)
 
 
+
 - **CI/CD** : GitHub Actions automatisé
+
 
 
 - **Documentation** : Complète et maintenue
@@ -347,13 +408,17 @@ jobs:
 ### **Optimisations**
 
 
+
 - **Workers Gunicorn** : 2-4 selon la charge
+
 
 
 - **Preload** : Application préchargée
 
 
+
 - **Cache** : Headers de cache optimisés
+
 
 
 - **Compression** : Gzip automatique
@@ -369,15 +434,19 @@ jobs:
 ### **Script Automatisé**
 
 
+
 ```bash
 
 
+
 # Déploiement sur différentes plateformes
+
 
 ./scripts/deploy.sh [platform]
 
 
 # Plateformes supportées
+
 
 ./scripts/deploy.sh local      # Local
 ./scripts/deploy.sh docker     # Docker
@@ -386,21 +455,27 @@ jobs:
 ./scripts/deploy.sh railway    # Railway
 ./scripts/deploy.sh vps        # VPS
 
-```
+
+```text
 
 
 
 ### **Vérifications Pré-déploiement**
 
+
 Le script vérifie automatiquement :
 
+
 - ✅ **Tests** : 76/76 passent
+
 
 
 - ✅ **Black** : Formatage correct
 
 
+
 - ✅ **Ruff** : Qualité du code
+
 
 
 - ✅ **Dépendances** : Toutes installées
@@ -416,16 +491,21 @@ Le script vérifie automatiquement :
 ### **🎮 Système de Jeu Complet**
 
 
+
 - **IA émotionnelle LUNA** avec apprentissage
+
 
 
 - **Mini-jeux éducatifs** (Math, Logique, Sciences)
 
 
+
 - **Système de gamification** (Points, Badges, Niveaux)
 
 
+
 - **Missions personnalisées** avec progression
+
 
 
 - **Interface PWA** installable sur mobile
@@ -435,13 +515,17 @@ Le script vérifie automatiquement :
 ### **♿ Accessibilité WCAG 2.1 AA**
 
 
+
 - **Navigation clavier** complète
+
 
 
 - **Support lecteurs d'écran**
 
 
+
 - **Contraste élevé** et modes daltoniens
+
 
 
 - **Design responsive** mobile-first
@@ -451,16 +535,21 @@ Le script vérifie automatiquement :
 ### **🌐 Technologies Modernes**
 
 
+
 - **Backend** : Python 3.11 + Flask 3.0
+
 
 
 - **Frontend** : HTML5/CSS3 + JavaScript ES6+
 
 
+
 - **Base de données** : SQLite3
 
 
+
 - **WebSockets** : Communication temps réel
+
 
 
 - **Tests** : Pytest avec 100% de passage
@@ -476,37 +565,47 @@ Le script vérifie automatiquement :
 ### **Logs et Debugging**
 
 
+
 ```bash
 
 
+
 # Heroku
+
 
 heroku logs --tail
 
 
 # Docker
 
+
 docker logs arkalia-quest
 
 
 # Local
 
+
 tail -f logs/arkalia.log
 
-```
+
+```text
 
 
 
 ### **Problèmes Courants**
 
 
+
 - **Port binding** : Vérifiez la variable `$PORT`
+
 
 
 - **Dépendances** : Vérifiez `requirements.txt`
 
 
+
 - **Permissions** : Vérifiez les droits d'écriture
+
 
 
 - **Mémoire** : Ajustez le nombre de workers
@@ -522,10 +621,13 @@ tail -f logs/arkalia.log
 ### **Immédiat (v3.0.0)**
 
 
+
 - ✅ **Déploiement** sur plateforme de choix
 
 
+
 - ✅ **Tests** de production
+
 
 
 - ✅ **Monitoring** des performances
@@ -535,10 +637,13 @@ tail -f logs/arkalia.log
 ### **Court terme (v3.1.0)**
 
 
+
 - [ ] **Support multilingue**
 
 
+
 - [ ] **API REST complète**
+
 
 
 - [ ] **Intégration OAuth**
@@ -548,10 +653,13 @@ tail -f logs/arkalia.log
 ### **Moyen terme (v3.2.0)**
 
 
+
 - [ ] **Mode hors ligne**
 
 
+
 - [ ] **Synchronisation cloud**
+
 
 
 - [ ] **Analytics avancés**
@@ -563,25 +671,31 @@ tail -f logs/arkalia.log
 ## 🌟 **Conclusion**
 
 
-**Arkalia Quest v3.0.0 est maintenant 100% prêt pour la production !**
+# **Arkalia Quest v3.0.0 est maintenant 100% prêt pour la production !**
 
 
 - ✅ **Code** : Qualité professionnelle A+
 
 
+
 - ✅ **Tests** : 76/76 passent
+
 
 
 - ✅ **CI/CD** : GitHub Actions automatisé
 
 
+
 - ✅ **Déploiement** : Multi-plateforme supporté
+
 
 
 - ✅ **Documentation** : Complète et maintenue
 
 
+
 - ✅ **Sécurité** : Headers et protection
+
 
 
 - ✅ **Performance** : Optimisé et scalable
@@ -591,4 +705,4 @@ tail -f logs/arkalia.log
 
 ---
 
-*Ce guide est maintenu par l'équipe Arkalia Quest.*
+## *Ce guide est maintenu par l'équipe Arkalia Quest.*

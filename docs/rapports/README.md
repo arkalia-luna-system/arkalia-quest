@@ -1,4 +1,5 @@
 
+
 # 🎵 Système Audio - Arkalia Quest
 
 
@@ -12,16 +13,21 @@ Ce dossier contient les fichiers audio pour l'immersion du jeu.
 ### 🎯 Sons Principaux
 
 
+
 - `success.mp3` - Son de succès
+
 
 
 - `error.mp3` - Son d'erreur
 
 
+
 - `level_up.mp3` - Son de montée de niveau
 
 
+
 - `hack_start.mp3` - Début d'un hack
+
 
 
 - `hack_complete.mp3` - Fin d'un hack
@@ -31,10 +37,13 @@ Ce dossier contient les fichiers audio pour l'immersion du jeu.
 ### 🔧 Format Supporté
 
 
+
 - MP3 (recommandé)
 
 
+
 - WAV (qualité maximale)
+
 
 
 - OGG (taille réduite)
@@ -44,10 +53,13 @@ Ce dossier contient les fichiers audio pour l'immersion du jeu.
 ### 📏 Spécifications
 
 
+
 - **Taille max** : 2MB par fichier
 
 
+
 - **Durée** : 1-5 secondes
+
 
 
 - **Qualité** : 128kbps minimum
@@ -62,4 +74,4 @@ Ce dossier contient les fichiers audio pour l'immersion du jeu.
 3. Testez l'intégration
 
 ---
-*Dernière mise à jour : Janvier 2025*
+## *Dernière mise à jour : Janvier 2025*

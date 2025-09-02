@@ -1,4 +1,5 @@
 
+
 # 🔐 Authentification Docker - Guide de résolution des erreurs
 
 
@@ -20,16 +21,20 @@ Cette erreur se produit quand Docker essaie de faire un login interactif dans un
 ```bash
 
 
+
 # ✅ Correct - Utilise stdin pour le mot de passe
+
 
 echo "votre_mot_de_passe" | docker login -u "votre_username" --password-stdin
 
 
 # ❌ Incorrect - Peut causer des problèmes de TTY
 
+
 docker login -u "votre_username" -p "votre_mot_de_passe"
 
-```
+
+```text
 
 
 
@@ -42,16 +47,20 @@ Utilisez le script fourni :
 ```bash
 
 
+
 # Rendre le script exécutable
+
 
 chmod +x scripts/docker-auth.sh
 
 
 # Exécuter l'authentification
 
+
 ./scripts/docker-auth.sh
 
-```
+
+```text
 
 
 
@@ -63,15 +72,18 @@ Définissez vos credentials dans l'environnement :
 
 ```bash
 
+
 export DOCKER_USERNAME="votre_username"
 export DOCKER_PASSWORD="votre_mot_de_passe"
 
 
 # Puis exécutez le script
 
+
 ./scripts/docker-auth.sh
 
-```
+
+```text
 
 
 
@@ -84,13 +96,16 @@ Créez un fichier `.env` à la racine du projet :
 ```bash
 
 
+
 # .env
+
 
 DOCKER_USERNAME=votre_username
 DOCKER_PASSWORD=votre_mot_de_passe
 DOCKER_REGISTRY=docker.io
 
-```
+
+```text
 
 
 
@@ -105,16 +120,20 @@ DOCKER_REGISTRY=docker.io
 ```bash
 
 
+
 # Déploiement Docker local (sans authentification)
+
 
 ./scripts/deploy.sh docker
 
 
 # Construction Docker uniquement
 
+
 ./scripts/deploy.sh docker-build
 
-```
+
+```text
 
 
 
@@ -125,11 +144,14 @@ DOCKER_REGISTRY=docker.io
 ```bash
 
 
+
 # Déploiement avec authentification
+
 
 ./scripts/deploiement/deploy.sh
 
-```
+
+```text
 
 
 
@@ -150,36 +172,44 @@ Avant d'exécuter les scripts, vérifiez que :
 ```bash
 
 
+
 # Voir les images locales
+
 
 docker images
 
 
 # Voir les conteneurs en cours
 
+
 docker ps
 
 
 # Voir les logs d'un conteneur
+
 
 docker logs arkalia-quest
 
 
 # Arrêter un conteneur
 
+
 docker stop arkalia-quest
 
 
 # Supprimer un conteneur
+
 
 docker rm arkalia-quest
 
 
 # Nettoyer les images non utilisées
 
+
 docker image prune
 
-```
+
+```text
 
 
 
@@ -194,16 +224,20 @@ docker image prune
 ```bash
 
 
+
 # Ajouter votre utilisateur au groupe docker
+
 
 sudo usermod -aG docker $USER
 
 
 # Redémarrer la session ou exécuter
 
+
 newgrp docker
 
-```
+
+```text
 
 
 
@@ -214,16 +248,20 @@ newgrp docker
 ```bash
 
 
+
 # Démarrer Docker
+
 
 sudo systemctl start docker
 
 
 # Vérifier le statut
 
+
 sudo systemctl status docker
 
-```
+
+```text
 
 
 
@@ -234,16 +272,20 @@ sudo systemctl status docker
 ```bash
 
 
+
 # Vérifier que vous êtes connecté
+
 
 docker login
 
 
 # Ou utiliser le script sécurisé
 
+
 ./scripts/docker-auth.sh
 
-```
+
+```text
 
 
 
@@ -263,10 +305,13 @@ docker login
 - ⚠️ **Ne jamais commiter** le fichier `.env` avec des credentials
 
 
+
 - ✅ **Utiliser** des variables d'environnement en production
 
 
+
 - 🔐 **Rotater** régulièrement les mots de passe
+
 
 
 - 📝 **Logger** les tentatives d'authentification

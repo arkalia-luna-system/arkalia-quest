@@ -58,16 +58,13 @@ class TestDatabaseCoverage(unittest.TestCase):
 
     def test_get_connection_error(self):
         """Test la gestion d'erreur de connexion"""
-        # Créer un chemin de DB invalide
+        # Créer un DatabaseManager avec un chemin invalide
         invalid_db = DatabaseManager("/invalid/path/database.db")
-
-        # Mock pour simuler une erreur de connexion
-        with patch("sqlite3.connect") as mock_connect:
-            mock_connect.side_effect = Exception("Connection failed")
-
-            with self.assertRaises(Exception):
-                with invalid_db.get_connection():
-                    pass
+        
+        # Tester la connexion avec un chemin invalide
+        with self.assertRaises(Exception):
+            with invalid_db.get_connection():
+                pass
 
     def test_save_profile_success(self):
         """Test la sauvegarde réussie d'un profil"""

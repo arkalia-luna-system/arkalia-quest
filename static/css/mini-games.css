@@ -1,0 +1,624 @@
+/* ===== STYLES POUR LES MINI-JEUX INTERACTIFS - ARKALIA QUEST ===== */
+
+.mini-games-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Courier New', monospace;
+}
+
+.mini-games-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.mini-games-modal {
+    position: relative;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    border: 2px solid #00ff00;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+    max-width: 90vw;
+    max-height: 90vh;
+    width: 800px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    animation: gameModalAppear 0.3s ease-out;
+}
+
+@keyframes gameModalAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.mini-games-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: linear-gradient(90deg, #00ff00 0%, #00cc00 100%);
+    color: #000;
+    border-radius: 8px 8px 0 0;
+}
+
+.mini-games-header h2 {
+    margin: 0;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.close-game-btn {
+    background: none;
+    border: none;
+    color: #000;
+    font-size: 2em;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.close-game-btn:hover {
+    background: rgba(0, 0, 0, 0.2);
+    transform: scale(1.1);
+}
+
+.mini-games-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    color: #00ff00;
+}
+
+.game-description {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(0, 255, 0, 0.1);
+    border-left: 4px solid #00ff00;
+    border-radius: 5px;
+    font-size: 1.1em;
+    line-height: 1.5;
+}
+
+.game-area {
+    margin-bottom: 20px;
+    min-height: 300px;
+}
+
+.game-controls {
+    margin-bottom: 20px;
+}
+
+.game-feedback {
+    padding: 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.game-feedback.success {
+    background: rgba(0, 255, 0, 0.2);
+    border: 2px solid #00ff00;
+    color: #00ff00;
+    animation: successPulse 0.5s ease-in-out;
+}
+
+.game-feedback.error {
+    background: rgba(255, 0, 0, 0.2);
+    border: 2px solid #ff0000;
+    color: #ff0000;
+    animation: errorShake 0.5s ease-in-out;
+}
+
+@keyframes successPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes errorShake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+.mini-games-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: rgba(0, 255, 0, 0.1);
+    border-top: 1px solid #00ff00;
+    border-radius: 0 0 8px 8px;
+}
+
+.game-progress {
+    color: #00ff00;
+    font-weight: bold;
+}
+
+.game-score {
+    color: #00ff00;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+/* ===== STYLES SPÉCIFIQUES AUX JEUX ===== */
+
+/* Jeux de Logique */
+.logic-game h3 {
+    color: #00ff00;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.3em;
+}
+
+.logic-game .hints,
+.logic-game .rules {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(0, 255, 0, 0.05);
+    border-radius: 5px;
+}
+
+.logic-game .hints h4,
+.logic-game .rules h4 {
+    color: #00ff00;
+    margin-bottom: 10px;
+}
+
+.logic-game .hints ul,
+.logic-game .rules ul {
+    list-style: none;
+    padding: 0;
+}
+
+.logic-game .hints li,
+.logic-game .rules li {
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+}
+
+.logic-game .hints li:last-child,
+.logic-game .rules li:last-child {
+    border-bottom: none;
+}
+
+.input-area {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.input-area input {
+    flex: 1;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid #00ff00;
+    border-radius: 5px;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    font-size: 1em;
+}
+
+.input-area input:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.input-area button {
+    padding: 10px 20px;
+    background: #00ff00;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.input-area button:hover {
+    background: #00cc00;
+    transform: scale(1.05);
+}
+
+.number-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.number-item {
+    padding: 15px;
+    background: rgba(0, 255, 0, 0.1);
+    border: 2px solid #00ff00;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.number-item:hover {
+    background: rgba(0, 255, 0, 0.2);
+    transform: scale(1.05);
+}
+
+.door-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.door-btn {
+    padding: 15px;
+    background: rgba(0, 255, 0, 0.1);
+    border: 2px solid #00ff00;
+    border-radius: 5px;
+    color: #00ff00;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.door-btn:hover {
+    background: rgba(0, 255, 0, 0.2);
+    transform: scale(1.05);
+}
+
+.door-btn.selected {
+    background: #00ff00;
+    color: #000;
+    transform: scale(1.1);
+}
+
+/* Jeux de Code */
+.code-game h3 {
+    color: #00ff00;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.3em;
+}
+
+.code-display {
+    margin-bottom: 20px;
+}
+
+.code-display pre {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #00ff00;
+    border-radius: 5px;
+    padding: 15px;
+    overflow-x: auto;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+}
+
+.code-editor textarea {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #00ff00;
+    border-radius: 5px;
+    padding: 15px;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    resize: vertical;
+}
+
+.code-editor textarea:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+/* Jeux de Cybersécurité */
+.cybersecurity-game h3 {
+    color: #00ff00;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.3em;
+}
+
+.logs-display {
+    margin-bottom: 20px;
+}
+
+.logs {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #00ff00;
+    border-radius: 5px;
+    padding: 15px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.log-entry {
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+.log-entry:last-child {
+    border-bottom: none;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.attack-option {
+    padding: 15px;
+    background: rgba(0, 255, 0, 0.1);
+    border: 2px solid #00ff00;
+    border-radius: 5px;
+    color: #00ff00;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.attack-option:hover {
+    background: rgba(0, 255, 0, 0.2);
+    transform: scale(1.05);
+}
+
+/* Jeux de Cryptographie */
+.cryptography-game h3 {
+    color: #00ff00;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.3em;
+}
+
+.encoded-message {
+    margin-bottom: 20px;
+}
+
+.encoded-text {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #00ff00;
+    border-radius: 5px;
+    padding: 15px;
+    font-family: 'Courier New', monospace;
+    font-size: 1.1em;
+    word-break: break-all;
+}
+
+.decode-area {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.decode-area input {
+    flex: 1;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid #00ff00;
+    border-radius: 5px;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    font-size: 1em;
+}
+
+.decode-area input:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.decode-area button {
+    padding: 10px 20px;
+    background: #00ff00;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.decode-area button:hover {
+    background: #00cc00;
+    transform: scale(1.05);
+}
+
+/* Jeux de Réseau */
+.network-game h3 {
+    color: #00ff00;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.3em;
+}
+
+.ip-display {
+    margin-bottom: 20px;
+}
+
+.ip-list {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #00ff00;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.ip-item {
+    padding: 10px;
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid #00ff00;
+    border-radius: 3px;
+    margin: 5px 0;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+}
+
+.analysis-options {
+    margin: 15px 0;
+}
+
+.analysis-options label {
+    display: block;
+    padding: 10px;
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid #00ff00;
+    border-radius: 5px;
+    margin: 5px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.analysis-options label:hover {
+    background: rgba(0, 255, 0, 0.2);
+}
+
+.analysis-options input[type="radio"] {
+    margin-right: 10px;
+    accent-color: #00ff00;
+}
+
+/* Badge Notification */
+.badge-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10001;
+    background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%);
+    color: #000;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+    transform: translateX(400px);
+    transition: all 0.5s ease;
+    font-weight: bold;
+}
+
+.badge-notification.show {
+    transform: translateX(0);
+}
+
+.badge-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.badge-icon {
+    font-size: 1.5em;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .mini-games-modal {
+        width: 95vw;
+        height: 90vh;
+        margin: 5vh auto;
+    }
+
+    .mini-games-header h2 {
+        font-size: 1.2em;
+    }
+
+    .door-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .options-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .decode-area {
+        flex-direction: column;
+    }
+
+    .input-area {
+        flex-direction: column;
+    }
+}
+
+/* Animations d'entrée */
+.mini-games-container.show {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Effets de survol améliorés */
+button:hover,
+.door-btn:hover,
+.attack-option:hover {
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+}
+
+/* Scrollbar personnalisée */
+.mini-games-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.mini-games-content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}
+
+.mini-games-content::-webkit-scrollbar-thumb {
+    background: #00ff00;
+    border-radius: 4px;
+}
+
+.mini-games-content::-webkit-scrollbar-thumb:hover {
+    background: #00cc00;
+}

@@ -873,13 +873,26 @@
             return true;
         }
 
+        // Protection anti-spam pour les clics
+        let lastRefreshTime = 0;
+        const MIN_REFRESH_INTERVAL = 2000; // 2 secondes minimum entre les rafraîchissements
+
         // Charger le leaderboard avec gestion d'erreurs améliorée
         async function loadLeaderboard() {
+            const currentTime = Date.now();
+
+            // Vérifier l'intervalle minimum
+            if (currentTime - lastRefreshTime < MIN_REFRESH_INTERVAL) {
+                showMessage('Veuillez patienter avant de rafraîchir à nouveau', 'warning');
+                return;
+            }
+
             if (isLoading) {
                 return; // Éviter les requêtes multiples
             }
 
             isLoading = true;
+            lastRefreshTime = currentTime;
             const refreshButton = document.getElementById('refresh-button');
             refreshButton.disabled = true;
 
@@ -912,8 +925,20 @@
                 }
 
             } catch (error) {
-                console.error('Erreur chargement leaderboard:', error);
-                showMessage(`Erreur: ${error.message}`, 'error');
+                // Gestion d'erreurs améliorée
+                let errorMessage = 'Erreur lors du chargement du classement';
+
+                if (error.message.includes('429')) {
+                    errorMessage = 'Trop de requêtes. Veuillez patienter quelques secondes.';
+                } else if (error.message.includes('500')) {
+                    errorMessage = 'Erreur temporaire du serveur. Réessayez dans quelques instants.';
+                } else if (error.message.includes('502')) {
+                    errorMessage = 'Service temporairement indisponible. Réessayez plus tard.';
+                } else if (error.message) {
+                    errorMessage = error.message;
+                }
+
+                showMessage(errorMessage, 'error');
 
                 // Afficher des données de fallback
                 updateStats({

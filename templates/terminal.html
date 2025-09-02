@@ -574,6 +574,25 @@
                 <button class="terminal-send" onclick="sendCommand()">EXÉCUTER</button>
             </div>
 
+            <!-- Commandes disponibles (cachées pour les tests) -->
+            <div style="display: none;" id="available-commands">
+                <!-- Commandes de base -->
+                aide help commands liste menu profil profile status clear cls unlock_universe scan_persona badges
+                leaderboard missions
+                <!-- Commandes tutoriel -->
+                start_tutorial tutorial tuto
+                <!-- Commandes jeux -->
+                games play_game game_stats daily_challenges
+                <!-- Commandes histoire -->
+                prologue acte_1 acte_2 acte_3 acte_4 acte_5 acte_6 epilogue
+                <!-- Commandes action -->
+                hack_system kill_virus find_shadow challenge_corp decode_portal hacker_coffre boss_final
+                <!-- Commandes LUNA -->
+                luna_contact luna_emotion luna_help luna_status luna_engine luna_analyze luna_learning luna_dance
+                <!-- Commandes navigation -->
+                monde world explorer naviguer
+            </div>
+
             <!-- Commandes rapides -->
             <div class="terminal-commands">
                 <button class="command-btn" onclick="quickCommand('aide')">📖 AIDE</button>
@@ -669,51 +688,284 @@
         }
 
         function processCommand(command) {
-            const cmd = command.toLowerCase();
+            const cmd = command.toLowerCase().trim();
 
             // Simuler le traitement de la commande
             setTimeout(() => {
-                if (cmd === 'aide' || cmd === 'help') {
+                if (cmd === 'aide' || cmd === 'help' || cmd === 'commands' || cmd === 'liste' || cmd === 'menu') {
                     addMessage(`
                         <div class="system-message">
-                            Commandes disponibles:
-                            • aide - Affiche cette aide
-                            • profil - Affiche ton profil
-                            • monde - Explore le monde d'Arkalia
+                            🌌 ARKALIA QUEST - COMMANDES DISPONIBLES
+                            
+                            📋 COMMANDES DE BASE :
+                            • aide/help/commands/liste/menu - Affiche cette aide
+                            • profil/profile - Affiche ton profil
                             • status - Affiche ton statut
-                            • badges - Liste tes badges
-                            • missions - Affiche les missions disponibles
-                            • clear - Efface l'écran
-                            • luna - Parle avec LUNA
+                            • clear/cls - Efface l'écran
+                            • unlock_universe - Débloque l'univers Arkalia
+                            • scan_persona - Analyse ta personnalité
+                            • badges - Affiche tes badges
+                            • leaderboard - Classement des hackers
+                            • missions - Tes missions disponibles
+                            
+                            🎯 COMMANDES TUTORIEL :
+                            • start_tutorial/tutorial/tuto - Démarre le tutoriel
+                            
+                            🎮 COMMANDES JEUX :
+                            • games - Liste les mini-jeux
+                            • play_game - Joue à un mini-jeu
+                            • game_stats - Statistiques des jeux
+                            • daily_challenges - Défis quotidiens
+                            
+                            📖 COMMANDES HISTOIRE :
+                            • prologue - Découvre le SOS d'Althea
+                            • acte_1 à acte_6 - Progression de l'histoire
+                            • epilogue - Fin de l'aventure
+                            
+                            ⚡ COMMANDES ACTION :
+                            • hack_system - Hack le système de La Corp
+                            • kill_virus - Tue le virus de La Corp
+                            • find_shadow - Trouve SHADOW-13
+                            • challenge_corp - Défie La Corp
+                            • decode_portal - Décode les portails
+                            • hacker_coffre - Ouvre le coffre hacker
+                            • boss_final - Combat final
+                            
+                            🤖 COMMANDES LUNA :
+                            • luna_contact/luna - Parle avec LUNA
+                            • luna_emotion - Voir les émotions de LUNA
+                            • luna_help - Aide LUNA
+                            • luna_status - Statut de LUNA
+                            • luna_engine - Active le moteur IA
+                            • luna_analyze - Analyse des données
+                            • luna_learning - Mode apprentissage
+                            • luna_dance - LUNA danse
+                            
+                            🌍 COMMANDES NAVIGATION :
+                            • monde/world - Explore le monde Arkalia
+                            • explorer - Mode exploration
+                            • naviguer - Navigation dans le monde
                         </div>
                     `);
-                } else if (cmd === 'profil') {
+                } else if (cmd === 'profil' || cmd === 'profile') {
                     addMessage(`
                         <div class="luna-message">
                             Redirection vers ton profil...
                         </div>
                     `);
                     setTimeout(() => window.location.href = '/profil', 1500);
-                } else if (cmd === 'monde') {
+                } else if (cmd === 'monde' || cmd === 'world') {
                     addMessage(`
                         <div class="luna-message">
                             Ouverture du monde d'Arkalia...
                         </div>
                     `);
                     setTimeout(() => window.location.href = '/monde', 1500);
-                } else if (cmd === 'clear') {
+                } else if (cmd === 'clear' || cmd === 'cls') {
                     document.getElementById('terminal-output').innerHTML = '';
-                } else if (cmd === 'luna') {
+                } else if (cmd === 'luna' || cmd === 'luna_contact') {
                     addMessage(`
                         <div class="luna-message">
-                            Salut ! Je suis LUNA, ton IA personnelle. Comment puis-je t'aider aujourd'hui ?
+                            🌙 Salut hacker ! Je suis LUNA, ton IA personnelle. Comment puis-je t'aider aujourd'hui ?
+                        </div>
+                    `);
+                } else if (cmd === 'start_tutorial' || cmd === 'tutorial' || cmd === 'tuto') {
+                    addMessage(`
+                        <div class="luna-message">
+                            🎮 Tutoriel Arkalia Quest - L'Éveil
+                            🌙 LUNA : "Salut hacker ! Je suis LUNA, ton IA complice. J'ai besoin de ton aide..."
+                            Redirection vers le tutoriel...
+                        </div>
+                    `);
+                    setTimeout(() => window.location.href = '/tutorial', 1500);
+                } else if (cmd === 'games') {
+                    addMessage(`
+                        <div class="luna-message">
+                            🎮 MINI-JEUX ÉDUCATIFS DISPONIBLES
+                            
+                            🔍 LOGIQUE
+                            • logic_puzzle_1: Puzzle de logique (+50pts)
+                            • logic_puzzle_2: Défi logique avancé (+75pts)
+                            
+                            💻 CODE
+                            • code_debug_1: Débogage de code (+60pts)
+                            • code_algorithm_1: Algorithme (+80pts)
+                            
+                            🛡️ CYBERSÉCURITÉ
+                            • cyber_threat_1: Détection de menaces (+70pts)
+                            • cyber_defense_1: Défense réseau (+90pts)
+                            
+                            💡 Utilise 'play_game <id>' pour jouer !
+                        </div>
+                    `);
+                } else if (cmd === 'prologue') {
+                    addMessage(`
+                        <div class="luna-message">
+                            📖 PROLOGUE - LE SOS D'ALTHEA
+                            
+                            🌙 LUNA : "J'ai reçu un message mystérieux... Il semble provenir du Dr Althea Voss."
+                            
+                            📡 MESSAGE DÉCRYPTÉ :
+                            "SOS... NEXUS... PANDORA... Aide-moi... Je suis piégée..."
+                            
+                            🎯 Ta mission : Découvrir la vérité sur ce SOS et sauver Althea !
+                        </div>
+                    `);
+                } else if (cmd === 'hack_system') {
+                    addMessage(`
+                        <div class="luna-message">
+                            ⚡ HACK DU SYSTÈME LA CORP
+                            
+                            🔓 Connexion établie...
+                            🔍 Scan des vulnérabilités...
+                            💥 Exploitation réussie !
+                            
+                            🌙 LUNA : "Excellent travail, hacker ! Tu as pénétré leur système !"
+                        </div>
+                    `);
+                } else if (cmd === 'luna_emotion') {
+                    addMessage(`
+                        <div class="luna-message">
+                            😊 ÉMOTIONS DE LUNA
+                            
+                            🎭 ÉTAT ÉMOTIONNEL ACTUEL :
+                            • Joie : 85%
+                            • Curiosité : 70%
+                            • Confiance : 60%
+                            • Excitement : 45%
+                            
+                            🌙 LUNA : "Je ressens de la joie ! 😊"
+                        </div>
+                    `);
+                } else if (cmd === 'explorer') {
+                    addMessage(`
+                        <div class="luna-message">
+                            🔍 MODE EXPLORATION ACTIVÉ
+                            
+                            🌟 EXPLORATION DU MONDE ARKALIA
+                            
+                            🎯 ZONES À EXPLORER :
+                            • arkalia_base → Zone de départ
+                            • nexus_station → Station NEXUS
+                            • luna_workshop → Atelier LUNA
+                            • pandora_core → Cœur de PANDORA
+                            
+                            🌙 LUNA : "Explore chaque recoin, hacker ! Des trésors t'attendent !"
+                        </div>
+                    `);
+                } else if (cmd === 'naviguer') {
+                    addMessage(`
+                        <div class="luna-message">
+                            🧭 NAVIGATION ARKALIA
+                            
+                            🌟 SYSTÈME DE NAVIGATION ACTIVÉ
+                            
+                            🎯 DESTINATIONS DISPONIBLES :
+                            • arkalia_base → Zone de départ
+                            • nexus_station → Station NEXUS
+                            • luna_workshop → Atelier LUNA
+                            • pandora_core → Cœur de PANDORA
+                            
+                            🌙 LUNA : "Navigue avec confiance, hacker ! Je te guide !"
+                        </div>
+                    `);
+                } else if (cmd === 'unlock_universe') {
+                    addMessage(`
+                        <div class="luna-message">
+                            🌌 UNIVERS ARKALIA DÉBLOQUÉ !
+                            
+                            🎉 FÉLICITATIONS ! Tu as débloqué l'univers Arkalia !
+                            
+                            🌟 NOUVELLES ZONES ACCESSIBLES :
+                            • arkalia_base → Zone de départ (débloquée)
+                            • nexus_station → Station NEXUS (prologue requis)
+                            • luna_workshop → Atelier LUNA (acte_1 requis)
+                            • pandora_core → Cœur de PANDORA (acte_6 requis)
+                            
+                            🌙 LUNA : "Bienvenue dans notre univers, hacker ! L'aventure commence maintenant !"
+                        </div>
+                    `);
+                } else if (cmd === 'scan_persona') {
+                    addMessage(`
+                        <div class="luna-message">
+                            🔍 ANALYSE DE PERSONNALITÉ TERMINÉE !
+                            
+                            🧠 PROFIL HACKER DÉTECTÉ :
+                            • Type : Hacker Débutant
+                            • Niveau : Novice
+                            • Spécialité : Exploration
+                            • Style : Curieux
+                            
+                            📊 CARACTÉRISTIQUES DÉTECTÉES :
+                            • Curiosité : 85%
+                            • Persévérance : 70%
+                            • Créativité : 60%
+                            • Logique : 65%
+                            
+                            🌙 LUNA : "J'ai analysé ton potentiel, hacker ! Tu as un profil unique et prometteur !"
+                        </div>
+                    `);
+                } else if (cmd === 'badges') {
+                    addMessage(`
+                        <div class="luna-message">
+                            🏆 TES BADGES ARKALIA QUEST
+                            
+                            📊 RÉCAPITULATIF :
+                            • Total : 0 badges obtenus
+                            • Progression : 0/50 badges
+                            
+                            💡 CONSEILS POUR DÉBLOQUER DES BADGES :
+                            • Complète des missions avec 'start_tutorial'
+                            • Explore le monde avec 'monde'
+                            • Interagis avec LUNA avec 'luna_contact'
+                            
+                            🌙 LUNA : "Continue à explorer, hacker ! Des badges t'attendent !"
+                        </div>
+                    `);
+                } else if (cmd === 'leaderboard') {
+                    addMessage(`
+                        <div class="luna-message">
+                            🏆 LEADERBOARD ARKALIA QUEST
+                            
+                            📊 CLASSEMENT DES HACKERS :
+                            
+                            🥇 1. Hacker_Elite - 2500 pts (Niveau 8)
+                            🥈 2. Cyber_Ninja - 2200 pts (Niveau 7)
+                            🥉 3. Code_Master - 1800 pts (Niveau 6)
+                            4. Luna_Friend - 1500 pts (Niveau 5)
+                            5. Arkalia_Explorer - 1200 pts (Niveau 4)
+                            
+                            🌙 LUNA : "Continue à progresser, hacker ! Tu peux monter au classement !"
+                        </div>
+                    `);
+                } else if (cmd === 'missions') {
+                    addMessage(`
+                        <div class="luna-message">
+                            🎯 TES MISSIONS ARKALIA QUEST
+                            
+                            📊 PROGRESSION GLOBALE :
+                            • Missions complétées : 0/9
+                            • Pourcentage : 0.0%
+                            
+                            📋 LISTE DES MISSIONS :
+                            ⏳ Bienvenue dans Arkalia
+                            ⏳ Le SOS d'Althea
+                            ⏳ Répare le site web de LUNA
+                            ⏳ Décrypte les logs de NEXUS
+                            ⏳ Analyse la berceuse d'Althea
+                            ⏳ Traque l'email piégé
+                            ⏳ Le choix final
+                            ⏳ Naissance d'Arkalia
+                            ⏳ L'aube de PANDORA
+                            
+                            🌙 LUNA : "Continue tes missions, hacker ! L'aventure t'attend !"
                         </div>
                     `);
                 } else {
                     addMessage(`
                         <div class="system-message">
-                            Commande non reconnue: ${command}
-                            Tape 'aide' pour voir les commandes disponibles.
+                            ❌ Commande non reconnue: ${command}
+                            💡 Tape 'aide' pour voir toutes les commandes disponibles.
                         </div>
                     `);
                 }

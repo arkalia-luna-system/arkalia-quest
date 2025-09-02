@@ -1,0 +1,31 @@
+{
+  "timestamp": "2025-09-02T13:45:36.863611",
+  "tests": {
+    "responsive": {
+      "status": "fail",
+      "details": "Fichiers CSS manquants"
+    },
+    "accessibility": {
+      "status": "fail",
+      "details": "Fonctionnalités d'accessibilité manquantes"
+    },
+    "performance": {
+      "status": "fail",
+      "details": "Problèmes de taille de fichiers"
+    },
+    "content_quality": {
+      "status": "fail",
+      "details": "Problèmes de contenu"
+    },
+    "educational_value": {
+      "status": "pass",
+      "details": "Valeur éducative élevée"
+    }
+  },
+  "summary": {
+    "total_tests": 5,
+    "passed_tests": 1,
+    "failed_tests": 4,
+    "success_rate": 20.0
+  }
+}

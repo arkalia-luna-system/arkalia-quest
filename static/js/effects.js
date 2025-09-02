@@ -16,11 +16,11 @@ class UltraProEffects {
         this.setupConfettiSystem();
         this.setupParticleEffects();
         this.setupSoundEffects();
-        console.log('🎮 Système d\'effets ultra-pro initialisé');
+        // Système d'effets ultra-pro initialisé
     }
 
     // ===== EFFETS DE BOUTONS ULTRA-PRO =====
-    
+
     setupButtonEffects() {
         // Effet de ripple sur tous les boutons
         document.addEventListener('click', (e) => {
@@ -71,14 +71,14 @@ class UltraProEffects {
             0 8px 25px rgba(0, 102, 255, 0.6),
             inset 0 1px 0 rgba(255, 255, 255, 0.3)
         `;
-        
+
         setTimeout(() => {
             element.style.boxShadow = '';
         }, 300);
     }
 
     // ===== ANIMATIONS DE SUCCÈS ULTRA-PRO =====
-    
+
     setupSuccessAnimations() {
         // Observer pour détecter les messages de succès
         const observer = new MutationObserver((mutations) => {
@@ -99,16 +99,16 @@ class UltraProEffects {
     triggerSuccessAnimation(element) {
         // Animation de succès
         element.style.animation = 'successPulse 0.6s ease-out';
-        
+
         // Effet de brillance
         this.createSuccessGlow(element);
-        
+
         // Confettis
         this.createConfetti(element);
-        
+
         // Son de succès
         this.playSuccessSound();
-        
+
         // Message de félicitations
         this.showCongratulations(element);
     }
@@ -127,10 +127,10 @@ class UltraProEffects {
             pointer-events: none;
             z-index: -1;
         `;
-        
+
         element.style.position = 'relative';
         element.appendChild(glow);
-        
+
         setTimeout(() => glow.remove(), 1000);
     }
 
@@ -150,13 +150,13 @@ class UltraProEffects {
             animation: congratsFloat 2s ease-out;
             z-index: 1000;
         `;
-        
+
         element.appendChild(congrats);
         setTimeout(() => congrats.remove(), 2000);
     }
 
     // ===== ANIMATIONS D'ERREUR ULTRA-PRO =====
-    
+
     setupErrorAnimations() {
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
@@ -176,13 +176,13 @@ class UltraProEffects {
     triggerErrorAnimation(element) {
         // Animation d'erreur
         element.style.animation = 'errorShake 0.6s ease-out';
-        
+
         // Effet de rougeoiement
         this.createErrorGlow(element);
-        
+
         // Son d'erreur
         this.playErrorSound();
-        
+
         // Message d'encouragement
         this.showEncouragement(element);
     }
@@ -201,10 +201,10 @@ class UltraProEffects {
             pointer-events: none;
             z-index: -1;
         `;
-        
+
         element.style.position = 'relative';
         element.appendChild(glow);
-        
+
         setTimeout(() => glow.remove(), 1000);
     }
 
@@ -224,13 +224,13 @@ class UltraProEffects {
             animation: encouragementFloat 2s ease-out;
             z-index: 1000;
         `;
-        
+
         element.appendChild(encouragement);
         setTimeout(() => encouragement.remove(), 2000);
     }
 
     // ===== ÉTATS DE CHARGEMENT ULTRA-PRO =====
-    
+
     setupLoadingStates() {
         // Loading spinner pour les boutons
         document.addEventListener('click', (e) => {
@@ -244,7 +244,7 @@ class UltraProEffects {
         const originalText = button.innerHTML;
         button.innerHTML = '<span class="loading-spinner"></span> Chargement...';
         button.disabled = true;
-        
+
         setTimeout(() => {
             button.innerHTML = originalText;
             button.disabled = false;
@@ -252,7 +252,7 @@ class UltraProEffects {
     }
 
     // ===== SYSTÈME DE CONFETTIS ULTRA-PRO =====
-    
+
     setupConfettiSystem() {
         this.confettiColors = ['#00ff88', '#0066ff', '#ff6600', '#ff0044', '#00ffff'];
     }
@@ -260,7 +260,7 @@ class UltraProEffects {
     createConfetti(element) {
         const rect = element.getBoundingClientRect();
         const colors = this.confettiColors;
-        
+
         for (let i = 0; i < 20; i++) {
             setTimeout(() => {
                 this.createConfettiPiece(rect, colors[Math.floor(Math.random() * colors.length)]);
@@ -273,7 +273,7 @@ class UltraProEffects {
         const size = Math.random() * 8 + 4;
         const startX = rect.left + Math.random() * rect.width;
         const startY = rect.top;
-        
+
         confetti.style.cssText = `
             position: fixed;
             width: ${size}px;
@@ -286,18 +286,18 @@ class UltraProEffects {
             z-index: 10000;
             pointer-events: none;
         `;
-        
+
         document.body.appendChild(confetti);
-        
+
         setTimeout(() => confetti.remove(), 2000);
     }
 
     // ===== EFFETS DE PARTICULES ULTRA-PRO =====
-    
+
     setupParticleEffects() {
         // Particules de fond
         this.createBackgroundParticles();
-        
+
         // Particules interactives
         this.setupInteractiveParticles();
     }
@@ -314,9 +314,9 @@ class UltraProEffects {
             pointer-events: none;
             z-index: 1;
         `;
-        
+
         document.body.appendChild(particleContainer);
-        
+
         for (let i = 0; i < 50; i++) {
             this.createParticle(particleContainer);
         }
@@ -328,7 +328,7 @@ class UltraProEffects {
         const x = Math.random() * window.innerWidth;
         const y = Math.random() * window.innerHeight;
         const duration = Math.random() * 20 + 10;
-        
+
         particle.style.cssText = `
             position: absolute;
             width: ${size}px;
@@ -339,7 +339,7 @@ class UltraProEffects {
             top: ${y}px;
             animation: particleFloat ${duration}s linear infinite;
         `;
-        
+
         container.appendChild(particle);
     }
 
@@ -365,13 +365,13 @@ class UltraProEffects {
             pointer-events: none;
             z-index: 1000;
         `;
-        
+
         document.body.appendChild(particle);
         setTimeout(() => particle.remove(), 1000);
     }
 
     // ===== EFFETS SONORES ULTRA-PRO =====
-    
+
     setupSoundEffects() {
         this.audioContext = null;
         this.initAudioContext();
@@ -381,64 +381,64 @@ class UltraProEffects {
         try {
             this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
         } catch (e) {
-            console.log('Audio context non supporté');
+            // Audio context non supporté
         }
     }
 
     playButtonSound() {
         if (!this.audioContext) return;
-        
+
         const oscillator = this.audioContext.createOscillator();
         const gainNode = this.audioContext.createGain();
-        
+
         oscillator.connect(gainNode);
         gainNode.connect(this.audioContext.destination);
-        
+
         oscillator.frequency.setValueAtTime(800, this.audioContext.currentTime);
         oscillator.frequency.exponentialRampToValueAtTime(600, this.audioContext.currentTime + 0.1);
-        
+
         gainNode.gain.setValueAtTime(0.1, this.audioContext.currentTime);
         gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.1);
-        
+
         oscillator.start(this.audioContext.currentTime);
         oscillator.stop(this.audioContext.currentTime + 0.1);
     }
 
     playSuccessSound() {
         if (!this.audioContext) return;
-        
+
         const oscillator = this.audioContext.createOscillator();
         const gainNode = this.audioContext.createGain();
-        
+
         oscillator.connect(gainNode);
         gainNode.connect(this.audioContext.destination);
-        
+
         oscillator.frequency.setValueAtTime(523, this.audioContext.currentTime);
         oscillator.frequency.setValueAtTime(659, this.audioContext.currentTime + 0.1);
         oscillator.frequency.setValueAtTime(784, this.audioContext.currentTime + 0.2);
-        
+
         gainNode.gain.setValueAtTime(0.1, this.audioContext.currentTime);
         gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.3);
-        
+
         oscillator.start(this.audioContext.currentTime);
         oscillator.stop(this.audioContext.currentTime + 0.3);
     }
 
     playErrorSound() {
         if (!this.audioContext) return;
-        
+
         const oscillator = this.audioContext.createOscillator();
         const gainNode = this.audioContext.createGain();
-        
+
         oscillator.connect(gainNode);
         gainNode.connect(this.audioContext.destination);
-        
+
         oscillator.frequency.setValueAtTime(200, this.audioContext.currentTime);
         oscillator.frequency.exponentialRampToValueAtTime(150, this.audioContext.currentTime + 0.2);
-        
+
         gainNode.gain.setValueAtTime(0.1, this.audioContext.currentTime);
         gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.2);
-        
+
         oscillator.start(this.audioContext.currentTime);
         oscillator.stop(this.audioContext.currentTime + 0.2);
     }

@@ -10,33 +10,33 @@ class AIEngine {
         this.learningData = [];
         this.personalityModel = null;
         this.responsePatterns = {};
-        
+
         // Initialiser l'IA
         this.init();
     }
-    
+
     async init() {
         try {
-            console.log("🤖 Initialisation de l'IA LUNA v3.0...");
-            
+            // Initialisation de l'IA LUNA v3.0
+
             // Charger les données d'apprentissage
             await this.loadLearningData();
-            
+
             // Initialiser le modèle de personnalité
             this.initPersonalityModel();
-            
+
             // Charger les patterns de réponse
             this.loadResponsePatterns();
-            
+
             this.isInitialized = true;
-            console.log("✅ IA LUNA v3.0 initialisée avec succès");
-            
+            // IA LUNA v3.0 initialisée avec succès
+
         } catch (error) {
             console.error("❌ Erreur initialisation IA:", error);
             this.isInitialized = false;
         }
     }
-    
+
     async loadLearningData() {
         try {
             // Charger les données d'apprentissage depuis le serveur
@@ -52,7 +52,7 @@ class AIEngine {
             this.learningData = this.getDefaultLearningData();
         }
     }
-    
+
     getDefaultLearningData() {
         return {
             "user_patterns": [
@@ -83,7 +83,7 @@ class AIEngine {
             }
         };
     }
-    
+
     initPersonalityModel() {
         // Modèle de personnalité basé sur les actions du joueur
         this.personalityModel = {
@@ -98,7 +98,7 @@ class AIEngine {
             "adaptation_factor": 0.8
         };
     }
-    
+
     loadResponsePatterns() {
         this.responsePatterns = {
             "success": {
@@ -154,22 +154,22 @@ class AIEngine {
             }
         };
     }
-    
+
     analyzeUserAction(action, context = {}) {
         if (!this.isInitialized) {
             return this.getDefaultResponse();
         }
-        
+
         // Analyser l'action de l'utilisateur
         const analysis = this.analyzeAction(action, context);
-        
+
         // Mettre à jour le modèle de personnalité
         this.updatePersonalityModel(analysis);
-        
+
         // Générer une réponse personnalisée
         return this.generatePersonalizedResponse(analysis);
     }
-    
+
     analyzeAction(action, context) {
         const analysis = {
             "action_type": this.categorizeAction(action),
@@ -178,10 +178,10 @@ class AIEngine {
             "personality_insights": this.extractPersonalityInsights(action),
             "learning_opportunity": this.identifyLearningOpportunity(action)
         };
-        
+
         return analysis;
     }
-    
+
     categorizeAction(action) {
         const actionPatterns = {
             "speed": ["kill_virus", "speed_hack", "turbo_hack", "flash_execute"],
@@ -190,16 +190,16 @@ class AIEngine {
             "analytical": ["hack_system", "decode_portal", "analyze_virus"],
             "competitive": ["challenge_corp", "boss_final", "rebel_proof"]
         };
-        
+
         for (const [category, patterns] of Object.entries(actionPatterns)) {
             if (patterns.includes(action)) {
                 return category;
             }
         }
-        
+
         return "general";
     }
-    
+
     assessDifficulty(action, context) {
         const difficultyScores = {
             "kill_virus": 0.3,
@@ -209,19 +209,19 @@ class AIEngine {
             "boss_final": 0.9,
             "easter_egg_1337": 0.2
         };
-        
+
         return difficultyScores[action] || 0.5;
     }
-    
+
     predictSuccess(action, context) {
         // Basé sur l'historique et la difficulté
         const baseSuccessRate = 0.7;
         const difficultyFactor = this.assessDifficulty(action, context);
         const userLevel = context.userLevel || 1;
-        
+
         return Math.min(0.95, baseSuccessRate + (userLevel * 0.05) - (difficultyFactor * 0.2));
     }
-    
+
     extractPersonalityInsights(action) {
         const insights = {
             "risk_tolerance": 0.5,
@@ -229,7 +229,7 @@ class AIEngine {
             "social_preference": 0.5,
             "competitiveness": 0.5
         };
-        
+
         // Ajuster selon l'action
         switch (this.categorizeAction(action)) {
             case "speed":
@@ -253,17 +253,17 @@ class AIEngine {
                 insights.risk_tolerance += 0.2;
                 break;
         }
-        
+
         return insights;
     }
-    
+
     identifyLearningOpportunity(action) {
         const opportunities = {
             "skill_development": [],
             "knowledge_gap": [],
             "strategy_improvement": []
         };
-        
+
         // Identifier les opportunités d'apprentissage
         if (action.includes("hack")) {
             opportunities.skill_development.push("technique_hacking");
@@ -274,47 +274,47 @@ class AIEngine {
         if (action.includes("creative")) {
             opportunities.skill_development.push("innovation");
         }
-        
+
         return opportunities;
     }
-    
+
     updatePersonalityModel(analysis) {
         const insights = analysis.personality_insights;
         const learningRate = this.personalityModel.learning_rate;
-        
+
         // Mettre à jour les traits de personnalité
         this.personalityModel.traits.competitive = this.updateTrait(
             this.personalityModel.traits.competitive,
             insights.competitiveness,
             learningRate
         );
-        
+
         this.personalityModel.traits.collaborative = this.updateTrait(
             this.personalityModel.traits.collaborative,
             insights.social_preference,
             learningRate
         );
-        
+
         this.personalityModel.traits.innovative = this.updateTrait(
             this.personalityModel.traits.innovative,
             insights.creativity_level,
             learningRate
         );
     }
-    
+
     updateTrait(currentValue, newValue, learningRate) {
         return currentValue + (learningRate * (newValue - currentValue));
     }
-    
+
     generatePersonalizedResponse(analysis) {
         const dominantTrait = this.getDominantTrait();
         const responseType = this.determineResponseType(analysis);
-        const responsePool = this.responsePatterns[responseType][dominantTrait] || 
-                           this.responsePatterns[responseType]["competitive"];
-        
+        const responsePool = this.responsePatterns[responseType][dominantTrait] ||
+            this.responsePatterns[responseType]["competitive"];
+
         // Sélectionner une réponse aléatoire
         const response = responsePool[Math.floor(Math.random() * responsePool.length)];
-        
+
         return {
             "message": response,
             "personality_trait": dominantTrait,
@@ -323,22 +323,22 @@ class AIEngine {
             "next_recommendation": this.generateRecommendation(analysis)
         };
     }
-    
+
     getDominantTrait() {
         const traits = this.personalityModel.traits;
         let dominantTrait = "competitive";
         let maxValue = traits.competitive;
-        
+
         for (const [trait, value] of Object.entries(traits)) {
             if (value > maxValue) {
                 maxValue = value;
                 dominantTrait = trait;
             }
         }
-        
+
         return dominantTrait;
     }
-    
+
     determineResponseType(analysis) {
         if (analysis.success_probability > 0.8) {
             return "success";
@@ -348,7 +348,7 @@ class AIEngine {
             return "encouragement";
         }
     }
-    
+
     generateRecommendation(analysis) {
         const recommendations = {
             "speed": "Essaie une mission plus difficile pour tester tes limites !",
@@ -357,10 +357,10 @@ class AIEngine {
             "analytical": "Analyse les patterns pour optimiser tes stratégies !",
             "competitive": "Défie le boss final pour prouver ta valeur !"
         };
-        
+
         return recommendations[analysis.action_type] || "Continue d'explorer et d'apprendre !";
     }
-    
+
     getDefaultResponse() {
         return {
             "message": "🌙 LUNA : Salut rebelle ! Prêt à casser du code ?",
@@ -370,18 +370,18 @@ class AIEngine {
             "next_recommendation": "Commence par explorer les commandes de base !"
         };
     }
-    
+
     // Méthodes pour l'apprentissage automatique avancé
     async trainModel(trainingData) {
-        console.log("🤖 Entraînement du modèle IA...");
-        
+        // Entraînement du modèle IA
+
         // Simulation d'entraînement
         await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        console.log("✅ Modèle entraîné avec succès");
+
+        // Modèle entraîné avec succès
         return true;
     }
-    
+
     async predictUserBehavior(userActions) {
         // Prédire le comportement futur de l'utilisateur
         const predictions = {
@@ -389,50 +389,50 @@ class AIEngine {
             "success_probability": this.calculateSuccessProbability(userActions),
             "engagement_level": this.assessEngagement(userActions)
         };
-        
+
         return predictions;
     }
-    
+
     predictNextAction(userActions) {
         const actionCounts = {};
         userActions.forEach(action => {
             actionCounts[action] = (actionCounts[action] || 0) + 1;
         });
-        
+
         // Trouver l'action la plus fréquente
         let mostLikelyAction = "aide";
         let maxCount = 0;
-        
+
         for (const [action, count] of Object.entries(actionCounts)) {
             if (count > maxCount) {
                 maxCount = count;
                 mostLikelyAction = action;
             }
         }
-        
+
         return mostLikelyAction;
     }
-    
+
     calculateSuccessProbability(userActions) {
         // Calculer la probabilité de succès basée sur l'historique
         const recentActions = userActions.slice(-5);
-        const successRate = recentActions.filter(action => 
+        const successRate = recentActions.filter(action =>
             ["kill_virus", "hack_system", "easter_egg_1337"].includes(action)
         ).length / recentActions.length;
-        
+
         return Math.max(0.1, Math.min(0.9, successRate));
     }
-    
+
     assessEngagement(userActions) {
         // Évaluer le niveau d'engagement de l'utilisateur
         const uniqueActions = new Set(userActions).size;
         const totalActions = userActions.length;
-        
+
         if (totalActions === 0) return 0.5;
-        
+
         const diversityScore = uniqueActions / totalActions;
         const frequencyScore = Math.min(1, totalActions / 10);
-        
+
         return (diversityScore + frequencyScore) / 2;
     }
 }

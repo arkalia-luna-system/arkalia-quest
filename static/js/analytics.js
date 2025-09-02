@@ -12,20 +12,20 @@ class AnalyticsInterface {
         this.isEnabled = true;
         this.flushInterval = 30000; // 30 secondes
         this.maxQueueSize = 50;
-        
+
         // Démarrer le flush automatique
         this.startAutoFlush();
-        
+
         // Écouter les événements du terminal
         this.setupEventListeners();
-        
-        console.log('🔍 Analytics Interface initialisée');
+
+        // Analytics Interface initialisée
     }
-    
+
     generateSessionId() {
         return 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
     }
-    
+
     setUserId(userId) {
         this.userId = userId;
         this.trackEvent('session_start', {
@@ -33,10 +33,10 @@ class AnalyticsInterface {
             user_id: userId
         });
     }
-    
+
     trackEvent(eventType, data = {}, context = {}) {
         if (!this.isEnabled || !this.userId) return;
-        
+
         const event = {
             event_type: eventType,
             user_id: this.userId,
@@ -50,21 +50,21 @@ class AnalyticsInterface {
                 timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
             }
         };
-        
+
         this.eventQueue.push(event);
-        
+
         // Flush si la queue est pleine
         if (this.eventQueue.length >= this.maxQueueSize) {
             this.flushEvents();
         }
     }
-    
+
     async flushEvents() {
         if (this.eventQueue.length === 0) return;
-        
+
         const events = [...this.eventQueue];
         this.eventQueue = [];
-        
+
         try {
             const response = await fetch('/api/analytics/track', {
                 method: 'POST',
@@ -75,7 +75,7 @@ class AnalyticsInterface {
                     events: events
                 })
             });
-            
+
             if (!response.ok) {
                 console.warn('⚠️ Erreur lors de l\'envoi des événements analytics');
                 // Remettre les événements dans la queue en cas d'échec
@@ -87,13 +87,13 @@ class AnalyticsInterface {
             this.eventQueue.unshift(...events);
         }
     }
-    
+
     startAutoFlush() {
         setInterval(() => {
             this.flushEvents();
         }, this.flushInterval);
     }
-    
+
     setupEventListeners() {
         // Écouter les événements du terminal
         document.addEventListener('arkalia:command_executed', (e) => {
@@ -103,7 +103,7 @@ class AnalyticsInterface {
                 execution_time: e.detail.executionTime
             });
         });
-        
+
         // Écouter les événements de mission
         document.addEventListener('arkalia:mission_start', (e) => {
             this.trackEvent('mission_start', {
@@ -112,7 +112,7 @@ class AnalyticsInterface {
                 difficulty: e.detail.difficulty
             });
         });
-        
+
         document.addEventListener('arkalia:mission_complete', (e) => {
             this.trackEvent('mission_complete', {
                 mission_id: e.detail.missionId,
@@ -121,7 +121,7 @@ class AnalyticsInterface {
                 hints_used: e.detail.hintsUsed
             });
         });
-        
+
         document.addEventListener('arkalia:mission_fail', (e) => {
             this.trackEvent('mission_fail', {
                 mission_id: e.detail.missionId,
@@ -129,7 +129,7 @@ class AnalyticsInterface {
                 attempts: e.detail.attempts
             });
         });
-        
+
         // Écouter les événements de jeu éducatif
         document.addEventListener('arkalia:game_start', (e) => {
             this.trackEvent('game_start', {
@@ -138,7 +138,7 @@ class AnalyticsInterface {
                 difficulty: e.detail.difficulty
             });
         });
-        
+
         document.addEventListener('arkalia:game_complete', (e) => {
             this.trackEvent('game_complete', {
                 game_type: e.detail.gameType,
@@ -148,7 +148,7 @@ class AnalyticsInterface {
                 perfect_score: e.detail.perfectScore
             });
         });
-        
+
         document.addEventListener('arkalia:game_fail', (e) => {
             this.trackEvent('game_fail', {
                 game_type: e.detail.gameType,
@@ -157,7 +157,7 @@ class AnalyticsInterface {
                 attempts: e.detail.attempts
             });
         });
-        
+
         // Écouter les événements de tutoriel
         document.addEventListener('arkalia:tutorial_start', (e) => {
             this.trackEvent('tutorial_start', {
@@ -165,14 +165,14 @@ class AnalyticsInterface {
                 tutorial_name: e.detail.tutorialName
             });
         });
-        
+
         document.addEventListener('arkalia:tutorial_complete', (e) => {
             this.trackEvent('tutorial_complete', {
                 tutorial_id: e.detail.tutorialId,
                 completion_time: e.detail.completionTime
             });
         });
-        
+
         // Écouter les événements de badge
         document.addEventListener('arkalia:badge_earned', (e) => {
             this.trackEvent('badge_earned', {
@@ -181,7 +181,7 @@ class AnalyticsInterface {
                 badge_category: e.detail.badgeCategory
             });
         });
-        
+
         // Écouter les événements d'émotion
         document.addEventListener('arkalia:emotion_triggered', (e) => {
             this.trackEvent('emotion_triggered', {
@@ -190,7 +190,7 @@ class AnalyticsInterface {
                 trigger: e.detail.trigger
             });
         });
-        
+
         // Écouter les événements d'aide
         document.addEventListener('arkalia:help_requested', (e) => {
             this.trackEvent('help_requested', {
@@ -198,7 +198,7 @@ class AnalyticsInterface {
                 context: e.detail.context
             });
         });
-        
+
         document.addEventListener('arkalia:hint_used', (e) => {
             this.trackEvent('hint_used', {
                 hint_id: e.detail.hintId,
@@ -206,7 +206,7 @@ class AnalyticsInterface {
                 mission_id: e.detail.missionId
             });
         });
-        
+
         // Écouter les erreurs
         document.addEventListener('arkalia:error_occurred', (e) => {
             this.trackEvent('error_occurred', {
@@ -215,7 +215,7 @@ class AnalyticsInterface {
                 context: e.detail.context
             });
         });
-        
+
         // Écouter les interactions
         document.addEventListener('arkalia:interaction', (e) => {
             this.trackEvent('interaction', {
@@ -224,7 +224,7 @@ class AnalyticsInterface {
                 value: e.detail.value
             });
         });
-        
+
         // Écouter les événements de temps passé
         document.addEventListener('arkalia:time_spent', (e) => {
             this.trackEvent('time_spent', {
@@ -234,7 +234,7 @@ class AnalyticsInterface {
             });
         });
     }
-    
+
     // Méthodes utilitaires pour tracker des événements spécifiques
     trackCommand(command, success = true, executionTime = 0) {
         this.trackEvent('command_executed', {
@@ -243,7 +243,7 @@ class AnalyticsInterface {
             execution_time: executionTime
         });
     }
-    
+
     trackMissionStart(missionId, missionName, difficulty) {
         this.trackEvent('mission_start', {
             mission_id: missionId,
@@ -251,7 +251,7 @@ class AnalyticsInterface {
             difficulty: difficulty
         });
     }
-    
+
     trackMissionComplete(missionId, completionTime, score, hintsUsed = 0) {
         this.trackEvent('mission_complete', {
             mission_id: missionId,
@@ -260,7 +260,7 @@ class AnalyticsInterface {
             hints_used: hintsUsed
         });
     }
-    
+
     trackGameStart(gameType, gameId, difficulty) {
         this.trackEvent('game_start', {
             game_type: gameType,
@@ -268,7 +268,7 @@ class AnalyticsInterface {
             difficulty: difficulty
         });
     }
-    
+
     trackGameComplete(gameType, gameId, score, completionTime, perfectScore = false) {
         this.trackEvent('game_complete', {
             game_type: gameType,
@@ -278,7 +278,7 @@ class AnalyticsInterface {
             perfect_score: perfectScore
         });
     }
-    
+
     trackBadgeEarned(badgeId, badgeName, badgeCategory) {
         this.trackEvent('badge_earned', {
             badge_id: badgeId,
@@ -286,7 +286,7 @@ class AnalyticsInterface {
             badge_category: badgeCategory
         });
     }
-    
+
     trackEmotion(emotion, intensity, trigger) {
         this.trackEvent('emotion_triggered', {
             emotion: emotion,
@@ -294,7 +294,7 @@ class AnalyticsInterface {
             trigger: trigger
         });
     }
-    
+
     trackError(errorType, errorMessage, context = {}) {
         this.trackEvent('error_occurred', {
             error_type: errorType,
@@ -302,7 +302,7 @@ class AnalyticsInterface {
             context: context
         });
     }
-    
+
     trackInteraction(interactionType, element, value = null) {
         this.trackEvent('interaction', {
             interaction_type: interactionType,
@@ -310,7 +310,7 @@ class AnalyticsInterface {
             value: value
         });
     }
-    
+
     trackTimeSpent(activity, duration) {
         this.trackEvent('time_spent', {
             activity: activity,
@@ -318,7 +318,7 @@ class AnalyticsInterface {
             session_duration: Date.now() - this.sessionStartTime
         });
     }
-    
+
     // Méthodes pour obtenir des insights
     async getUserInsights() {
         try {
@@ -332,7 +332,7 @@ class AnalyticsInterface {
             return null;
         }
     }
-    
+
     async getGlobalAnalytics() {
         try {
             const response = await fetch('/api/analytics/global');
@@ -345,29 +345,29 @@ class AnalyticsInterface {
             return null;
         }
     }
-    
+
     // Méthodes de contrôle
     enable() {
         this.isEnabled = true;
-        console.log('🔍 Analytics activé');
+        // Analytics activé
     }
-    
+
     disable() {
         this.isEnabled = false;
-        console.log('🔍 Analytics désactivé');
+        // Analytics désactivé
     }
-    
+
     // Nettoyer à la fin de session
     endSession() {
         this.trackEvent('session_end', {
             session_id: this.sessionId,
             session_duration: Date.now() - this.sessionStartTime
         });
-        
+
         // Flush final
         this.flushEvents();
-        
-        console.log('🔍 Session analytics terminée');
+
+        // Session analytics terminée
     }
 }
 
@@ -377,39 +377,39 @@ class AnalyticsDisplay {
         this.analytics = analyticsInterface;
         this.terminal = window.terminal;
     }
-    
+
     async showUserInsights() {
         const insights = await this.analytics.getUserInsights();
         if (!insights) {
             this.terminal.print('❌ Impossible de récupérer vos insights analytics', 'error');
             return;
         }
-        
+
         this.terminal.print('\n📊 VOS INSIGHTS PERSONNALISÉS', 'info');
         this.terminal.print('=' * 50, 'info');
-        
+
         // Statistiques générales
         this.terminal.print(`🎮 Sessions totales: ${insights.total_sessions}`, 'success');
         this.terminal.print(`⏱️ Temps de jeu total: ${insights.total_playtime_hours}h`, 'success');
         this.terminal.print(`📈 Taux d'engagement: ${insights.engagement_rate}%`, 'success');
         this.terminal.print(`🏆 Niveau actuel: ${insights.current_level}`, 'success');
-        
+
         // Missions et jeux
         this.terminal.print(`🎯 Missions complétées: ${insights.missions_completed}`, 'info');
         this.terminal.print(`🎲 Jeux complétés: ${insights.games_completed}`, 'info');
         this.terminal.print(`🏅 Badges gagnés: ${insights.badges_earned}`, 'info');
-        
+
         // Style d'apprentissage
         this.terminal.print(`🧠 Style d'apprentissage: ${this.formatLearningStyle(insights.learning_style)}`, 'warning');
-        
+
         // Jeux préférés
         if (insights.preferred_games && insights.preferred_games.length > 0) {
             this.terminal.print(`🎮 Jeux préférés: ${insights.preferred_games.join(', ')}`, 'info');
         }
-        
+
         // Dernière activité
         this.terminal.print(`🕐 Dernière activité: il y a ${insights.last_active_days} jours`, 'info');
-        
+
         // Recommandations
         if (insights.recommendations && insights.recommendations.length > 0) {
             this.terminal.print('\n💡 RECOMMANDATIONS PERSONNALISÉES:', 'warning');
@@ -417,29 +417,29 @@ class AnalyticsDisplay {
                 this.terminal.print(`${index + 1}. ${rec}`, 'info');
             });
         }
-        
+
         this.terminal.print('=' * 50, 'info');
     }
-    
+
     async showGlobalAnalytics() {
         const analytics = await this.analytics.getGlobalAnalytics();
         if (!analytics) {
             this.terminal.print('❌ Impossible de récupérer les analytics globaux', 'error');
             return;
         }
-        
+
         this.terminal.print('\n🌍 ANALYTICS GLOBAUX ARKALIA QUEST', 'info');
         this.terminal.print('=' * 50, 'info');
-        
+
         // Statistiques générales
         this.terminal.print(`👥 Utilisateurs totaux: ${analytics.total_users}`, 'success');
         this.terminal.print(`🎮 Sessions totales: ${analytics.total_sessions}`, 'success');
         this.terminal.print(`⏱️ Temps de jeu total: ${analytics.total_playtime_hours}h`, 'success');
         this.terminal.print(`📊 Temps moyen par utilisateur: ${analytics.avg_playtime_per_user}h`, 'success');
-        
+
         // Sessions récentes
         this.terminal.print(`📈 Sessions (7 derniers jours): ${analytics.recent_sessions_7_days}`, 'info');
-        
+
         // Métriques d'engagement
         if (analytics.engagement_metrics) {
             this.terminal.print('\n📊 MÉTRIQUES D\'ENGAGEMENT:', 'warning');
@@ -447,7 +447,7 @@ class AnalyticsDisplay {
             this.terminal.print(`✅ Taux de complétion missions: ${analytics.engagement_metrics.mission_completion_rate}%`, 'info');
             this.terminal.print(`⭐ Score d'engagement moyen: ${analytics.engagement_metrics.avg_engagement_score}/100`, 'info');
         }
-        
+
         // Événements populaires
         if (analytics.popular_events) {
             this.terminal.print('\n🔥 ÉVÉNEMENTS POPULAIRES:', 'warning');
@@ -455,10 +455,10 @@ class AnalyticsDisplay {
                 this.terminal.print(`• ${this.formatEventName(event)}: ${count}`, 'info');
             });
         }
-        
+
         this.terminal.print('=' * 50, 'info');
     }
-    
+
     formatLearningStyle(style) {
         const styles = {
             'guided_learner': 'Apprenant guidé (préfère les tutoriels)',
@@ -469,7 +469,7 @@ class AnalyticsDisplay {
         };
         return styles[style] || style;
     }
-    
+
     formatEventName(event) {
         const names = {
             'command_executed': 'Commandes exécutées',
@@ -498,4 +498,4 @@ window.analytics = {
     disable: () => window.analyticsInterface.disable()
 };
 
-console.log('🔍 Analytics Interface chargée et prête'); 
+// Analytics Interface chargée et prête 

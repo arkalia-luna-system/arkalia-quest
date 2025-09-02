@@ -1,0 +1,37 @@
+{
+    "id": "acte_3",
+    "title": "Analyse la berceuse d'Althea",
+    "description": "Décrypte la berceuse mystérieuse d'Althea pour découvrir son message caché",
+    "difficulty": "hard",
+    "timer": 300,
+    "rewards": {
+        "score": 500,
+        "badges": ["analyste_musical"],
+        "unlock": "althea_archive"
+    },
+    "steps": [
+        {
+            "id": "step_1",
+            "title": "Écoute de la berceuse",
+            "description": "Utilise 'acte_3' pour écouter la berceuse d'Althea",
+            "command": "acte_3",
+            "hint": "Commence par 'acte_3' pour accéder à la berceuse"
+        },
+        {
+            "id": "step_2",
+            "title": "Analyse spectrale",
+            "description": "Analyse le spectre audio pour trouver des anomalies",
+            "command": "hack_system",
+            "hint": "Utilise 'hack_system' pour analyser le spectre"
+        },
+        {
+            "id": "step_3",
+            "title": "Extraction du message",
+            "description": "Extrais le message caché dans la berceuse",
+            "command": "decode_portal",
+            "hint": "Utilise 'decode_portal' pour extraire le message"
+        }
+    ],
+    "completed_by": [],
+    "created_at": "2025-01-17T12:00:00"
+}

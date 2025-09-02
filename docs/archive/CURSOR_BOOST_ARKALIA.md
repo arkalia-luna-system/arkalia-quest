@@ -1,41 +1,88 @@
+# Document
 ---
-**Statut : ARCHIVÉ**
-**Date d'archivage : Juillet 2025**
+# **Statut : ARCHIVÉ**
+# **Date d'archivage : Juillet 2025**
 **Résumé :** Fichier d'optimisation Cursor, non utilisé dans la documentation active.
 
-**Liens utiles :**
+# **Liens utiles :**
+
+
 - [Documentation principale](../docs/README.md)
+
+
+
 - [README archive](README_ARCHIVE.md)
+
+
 ---
 
+
 # 🚀 CURSOR BOOST – RÈGLES D’AMÉLIORATION ARKALIA QUEST
+
 
 > Fichier de référence pour booster, structurer et maintenir le projet *Arkalia Quest* dans Cursor, avec cohérence, clarté, et immersion. À lire en priorité avant toute modification importante.
 
 ---
 
+
 ## ✅ 1. COMPORTEMENTS ATTENDUS
 
+
+
 - Toujours vérifier les fichiers existants avant de créer de nouveaux.
+
+
+
 - Ne jamais surcharger un fichier unique (diviser logique, fonctions, UI, data).
+
+
+
 - Éviter les hacks non testés ou les effets magiques implicites.
+
+
+
 - Si un test est manquant : signaler, créer ou au moins documenter.
+
+
+
 - Si un fichier devient trop long (700+ lignes) : proposer un refactor automatique.
+
+
+
 - Préserver la **cohérence narrative** : LUNA n’agit pas comme un chatbot banal.
 
+
 ---
+
 
 ## 🧠 2. RÈGLES D’ÉCRITURE DU CODE
 
+
+
 - **Langage :** Python 3.10+
+
+
+
 - **Framework principal :** Flask + HTML minimal
+
+
+
 - **Modularité :** tout nouveau composant doit être testable seul
+
+
+
 - **Mémoire IA :** stockée sous forme de JSON ou TOML dans un dossier `/data/` clair
+
+
+
 - **Logs :** toujours lisibles pour un ado (éviter les `Traceback` internes non gérés)
+
 
 ---
 
+
 ## 📜 3. STRUCTURE DES FICHIERS RECOMMANDÉE
+
 
 arkalia-quest/
 ├── app.py
@@ -55,29 +102,66 @@ arkalia-quest/
 
 ---
 
+
 ## 🧪 4. TESTS À PRIORISER
 
+
+
 - Chargement profil joueur
+
+
+
 - Affichage mission / dialogues
+
+
+
 - Récupération fragments de mémoire
+
+
+
 - Calcul du score / progression
+
+
+
 - Choix utilisateur dans un chapitre
 
+
 ---
+
 
 ## 🎮 5. IMMERSION POUR ADO DE 13–15 ANS
 
+
+
 - Pas de terminal au début.
+
+
+
 - Interface web immersive (faux OS, mails, alertes).
+
+
+
 - Mission = toujours un défi symbolique + une compétence réelle.
+
+
+
 - Interface stylée, animations légères mais percutantes.
+
+
+
 - LUNA doit rester intrigante, bienveillante mais mystérieuse.
+
 
 ---
 
+
 ## 🛠️ 6. PRÉFÉRENCES & ALIAS DEV
 
+
+
 - `ark-clean` = suppression des fichiers indésirables :
+
+
   ```bash
   find . -name "__pycache__" -exec rm -rf {} +;
   find . -name "*.DS_Store" -delete;

@@ -1,0 +1,37 @@
+{
+    "id": "acte_6",
+    "title": "Naissance d'Arkalia",
+    "description": "Assiste à la naissance de la nouvelle IA Arkalia et découvre ses pouvoirs",
+    "difficulty": "expert",
+    "timer": 300,
+    "rewards": {
+        "score": 700,
+        "badges": ["createur_arkalia"],
+        "unlock": "arkalia_core"
+    },
+    "steps": [
+        {
+            "id": "step_1",
+            "title": "Activation de la fusion",
+            "description": "Utilise 'acte_6' pour activer le processus de fusion",
+            "command": "acte_6",
+            "hint": "Commence par 'acte_6' pour activer la fusion"
+        },
+        {
+            "id": "step_2",
+            "title": "Surveillance du processus",
+            "description": "Surveille le processus de fusion en temps réel",
+            "command": "hack_system",
+            "hint": "Utilise 'hack_system' pour surveiller le processus"
+        },
+        {
+            "id": "step_3",
+            "title": "Naissance d'Arkalia",
+            "description": "Assiste à la naissance de la nouvelle IA",
+            "command": "boss_final",
+            "hint": "Utilise 'boss_final' pour finaliser la naissance"
+        }
+    ],
+    "completed_by": [],
+    "created_at": "2025-01-17T12:00:00"
+}

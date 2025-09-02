@@ -21,7 +21,7 @@ class TutorialEngine {
         try {
             const response = await fetch('/api/tutorial/data');
             this.tutorialData = await response.json();
-            console.log('🎮 Tutoriel chargé:', this.tutorialData);
+            // Tutoriel chargé
         } catch (error) {
             console.error('❌ Erreur chargement tutoriel:', error);
         }
@@ -36,7 +36,7 @@ class TutorialEngine {
         this.isActive = true;
         this.currentStep = 0;
         this.showStep(0);
-        console.log('🚀 Tutoriel démarré !');
+        // Tutoriel démarré
     }
 
     showStep(stepIndex) {
@@ -59,7 +59,7 @@ class TutorialEngine {
     displayStep(step) {
         // Créer l'interface du tutoriel
         this.createTutorialInterface();
-        
+
         // Afficher le titre et la description
         const titleElement = document.getElementById('tutorialTitle');
         const descElement = document.getElementById('tutorialDescription');
@@ -139,7 +139,7 @@ class TutorialEngine {
         `;
 
         document.body.appendChild(tutorialInterface);
-        
+
         // Stocker les références
         this.timerElement = document.getElementById('timerValue');
         this.choiceContainer = document.getElementById('tutorialChoices');
@@ -157,7 +157,7 @@ class TutorialEngine {
                 tutorialInterface.classList.add('shake-effect');
                 setTimeout(() => tutorialInterface.classList.remove('shake-effect'), 1000);
             }
-            
+
             if (step.effets.flash) {
                 tutorialInterface.classList.add('flash-effect');
                 setTimeout(() => tutorialInterface.classList.remove('flash-effect'), 500);
@@ -192,7 +192,7 @@ class TutorialEngine {
                 top: ${Math.random() * 100}%;
             `;
             container.appendChild(particle);
-            
+
             setTimeout(() => particle.remove(), 2000);
         }
     }
@@ -211,12 +211,12 @@ class TutorialEngine {
                 <div class="choice-description">${choice.description}</div>
                 <div class="choice-effect">${this.getChoiceEffectIcon(choice.effet)}</div>
             `;
-            
+
             // Ajouter des effets Matrix
             choiceButton.style.background = 'linear-gradient(45deg, #00ff00, #00ff88)';
             choiceButton.style.border = '2px solid #00ff00';
             choiceButton.style.boxShadow = '0 0 15px rgba(0, 255, 0, 0.4)';
-            
+
             choiceButton.addEventListener('click', () => {
                 this.handleChoice(choice, index);
             });
@@ -246,8 +246,8 @@ class TutorialEngine {
     }
 
     handleChoice(choice, index) {
-        console.log('🎯 Choix sélectionné:', choice.action);
-        
+        // Choix sélectionné
+
         // Effet visuel du choix
         const buttons = this.choiceContainer.querySelectorAll('.tutorial-choice');
         buttons.forEach((btn, i) => {
@@ -294,7 +294,7 @@ class TutorialEngine {
 
         // Afficher le message initial
         messageElement.innerHTML = dialogue.avant;
-        
+
         // Appliquer la personnalité
         this.applyLunaPersonality(dialogue.personnalite);
     }
@@ -307,7 +307,7 @@ class TutorialEngine {
 
         // Changer la couleur
         this.lunaDialogue.style.setProperty('--luna-color', personalityData.couleur);
-        
+
         // Ajouter des emojis aléatoires
         const emoji = personalityData.emojis[Math.floor(Math.random() * personalityData.emojis.length)];
         const avatar = this.lunaDialogue.querySelector('.luna-avatar');
@@ -345,7 +345,7 @@ class TutorialEngine {
 
     handleTimerExpired(type) {
         clearInterval(this.timer);
-        
+
         if (type === 'survie') {
             // Game Over
             this.showGameOver();
@@ -393,7 +393,7 @@ class TutorialEngine {
     async executeStepCommand(step) {
         if (!step.commande) return;
 
-        console.log('🚀 Exécution commande tutoriel:', step.commande);
+        // Exécution commande tutoriel
 
         try {
             const response = await fetch('/commande', {
@@ -405,7 +405,7 @@ class TutorialEngine {
             });
 
             const data = await response.json();
-            
+
             if (data.reponse && data.reponse.réussite) {
                 this.handleStepSuccess(step, data.reponse);
             } else {
@@ -418,7 +418,7 @@ class TutorialEngine {
     }
 
     handleStepSuccess(step, response) {
-        console.log('✅ Étape réussie:', step.id);
+        // Étape réussie
 
         // Jouer le son de succès
         if (window.audioManager) {
@@ -445,7 +445,7 @@ class TutorialEngine {
     }
 
     handleStepError(step) {
-        console.log('❌ Étape échouée:', step.id);
+        // Étape échouée
 
         // Jouer le son d'erreur
         if (window.audioManager) {
@@ -475,7 +475,7 @@ class TutorialEngine {
         `;
 
         document.body.appendChild(rewardElement);
-        
+
         setTimeout(() => {
             rewardElement.remove();
         }, 3000);
@@ -493,8 +493,8 @@ class TutorialEngine {
     }
 
     completeTutorial() {
-        console.log('🎉 Tutoriel terminé !');
-        
+        // Tutoriel terminé
+
         const tutorialInterface = document.getElementById('tutorialInterface');
         if (!tutorialInterface) return;
 
@@ -520,7 +520,7 @@ class TutorialEngine {
             tutorialInterface.remove();
         }
         this.isActive = false;
-        console.log('🎮 Tutoriel fermé');
+        // Tutoriel fermé
     }
 
     restartTutorial() {
@@ -541,7 +541,7 @@ class TutorialEngine {
 window.tutorialEngine = new TutorialEngine();
 
 // Fonction pour démarrer le tutoriel depuis l'interface
-window.startTutorial = function() {
+window.startTutorial = function () {
     if (window.tutorialEngine) {
         window.tutorialEngine.startTutorial();
     }
@@ -907,4 +907,4 @@ const tutorialStyles = `
 // Injecter les styles
 document.head.insertAdjacentHTML('beforeend', tutorialStyles);
 
-console.log('🎮 Moteur de tutoriel ultra-immersif chargé !'); 
+// Moteur de tutoriel ultra-immersif chargé 

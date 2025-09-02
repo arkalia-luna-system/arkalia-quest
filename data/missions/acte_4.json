@@ -1,0 +1,39 @@
+{
+    "id": "acte_4",
+    "title": "Traque l'email piégé",
+    "description": "Identifie et neutralise l'email piégé envoyé par La Corp",
+    "difficulty": "hard",
+    "timer": 180,
+    "rewards": {
+        "score": 450,
+        "badges": [
+            "chasseur_email"
+        ],
+        "unlock": "corp_network"
+    },
+    "steps": [
+        {
+            "id": "step_1",
+            "title": "Détection de l'email",
+            "description": "Utilise 'acte_4' pour détecter l'email piégé",
+            "command": "acte_4",
+            "hint": "Commence par 'acte_4' pour analyser les emails"
+        },
+        {
+            "id": "step_2",
+            "title": "Analyse des headers",
+            "description": "Analyse les headers de l'email pour identifier la source",
+            "command": "hack_system",
+            "hint": "Utilise 'hack_system' pour analyser les headers"
+        },
+        {
+            "id": "step_3",
+            "title": "Neutralisation",
+            "description": "Neutralise l'email piégé avant qu'il ne cause des dégâts",
+            "command": "kill_virus",
+            "hint": "Utilise 'kill_virus' pour neutraliser la menace"
+        }
+    ],
+    "completed_by": [],
+    "created_at": "2025-01-17T12:00:00"
+}

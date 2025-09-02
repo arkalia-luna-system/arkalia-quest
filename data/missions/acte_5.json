@@ -1,0 +1,37 @@
+{
+    "id": "acte_5",
+    "title": "Le choix final : fusion ou destruction",
+    "description": "Prends la décision cruciale : fusionner LUNA et NEXUS ou détruire NEXUS",
+    "difficulty": "expert",
+    "timer": 360,
+    "rewards": {
+        "score": 600,
+        "badges": ["decideur_final"],
+        "unlock": "fusion_chamber"
+    },
+    "steps": [
+        {
+            "id": "step_1",
+            "title": "Préparation de la fusion",
+            "description": "Utilise 'acte_5' pour accéder à la chambre de fusion",
+            "command": "acte_5",
+            "hint": "Commence par 'acte_5' pour accéder à la chambre"
+        },
+        {
+            "id": "step_2",
+            "title": "Analyse des risques",
+            "description": "Analyse les risques de la fusion vs destruction",
+            "command": "hack_system",
+            "hint": "Utilise 'hack_system' pour analyser les risques"
+        },
+        {
+            "id": "step_3",
+            "title": "Exécution du choix",
+            "description": "Exécute ton choix final",
+            "command": "challenge_corp",
+            "hint": "Utilise 'challenge_corp' pour exécuter ton choix"
+        }
+    ],
+    "completed_by": [],
+    "created_at": "2025-01-17T12:00:00"
+}

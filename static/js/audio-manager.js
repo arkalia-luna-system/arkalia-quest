@@ -15,7 +15,7 @@ class AudioManager {
         // Initialiser le contexte audio
         try {
             this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            console.log('✅ AudioManager initialisé');
+            // AudioManager initialisé
         } catch (e) {
             console.warn('⚠️ AudioContext non supporté:', e);
         }
@@ -26,16 +26,16 @@ class AudioManager {
      * @param {string} soundId - ID du son à jouer
      */
     playSound(soundId) {
-        console.log('🔊 Tentative de lecture son:', soundId);
-        
+        // Tentative de lecture son
+
         // Débloquer l'audio au premier clic
         if (!this.audioUnlocked) {
             this.audioUnlocked = true;
-            console.log('🔓 Audio débloqué');
+            // Audio débloqué
         }
-        
+
         // Sons différents selon le type
-        switch(soundId) {
+        switch (soundId) {
             case 'buttonSound':
                 this.createSoundEffect(800, 0.15, 'square');
                 break;
@@ -77,20 +77,20 @@ class AudioManager {
         try {
             const oscillator = this.audioContext.createOscillator();
             const gainNode = this.audioContext.createGain();
-            
+
             oscillator.connect(gainNode);
             gainNode.connect(this.audioContext.destination);
-            
+
             oscillator.frequency.setValueAtTime(frequency, this.audioContext.currentTime);
             oscillator.type = type;
-            
+
             gainNode.gain.setValueAtTime(this.volume, this.audioContext.currentTime);
             gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + duration);
-            
+
             oscillator.start(this.audioContext.currentTime);
             oscillator.stop(this.audioContext.currentTime + duration);
-            
-            console.log('🔊 Son joué:', frequency, 'Hz,', duration, 's,', type);
+
+            // Son joué
         } catch (e) {
             console.warn('⚠️ Erreur création son:', e);
         }
@@ -102,7 +102,7 @@ class AudioManager {
      */
     setVolume(volume) {
         this.volume = Math.max(0, Math.min(1, volume));
-        console.log('🔊 Volume défini:', this.volume);
+        // Volume défini
     }
 
     /**
@@ -111,7 +111,7 @@ class AudioManager {
      */
     setEnabled(enabled) {
         this.audioUnlocked = enabled;
-        console.log('🔊 Audio', enabled ? 'activé' : 'désactivé');
+        // Audio état modifié
     }
 
     /**
@@ -147,26 +147,26 @@ class AudioManager {
 window.audioManager = new AudioManager();
 
 // Fonction globale pour compatibilité
-window.playSound = function(soundId) {
+window.playSound = function (soundId) {
     window.audioManager.playSound(soundId);
 };
 
 // Fonction globale pour compatibilité avec l'ancien code
-window.createSoundEffect = function(frequency = 800, duration = 0.2) {
+window.createSoundEffect = function (frequency = 800, duration = 0.2) {
     window.audioManager.createSoundEffect(frequency, duration, 'sine');
 };
 
 // Initialisation automatique
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🎵 AudioManager chargé et prêt');
-    
+document.addEventListener('DOMContentLoaded', function () {
+    // AudioManager chargé et prêt
+
     // Débloquer l'audio au premier clic
-    document.addEventListener('click', function() {
+    document.addEventListener('click', function () {
         if (!window.audioManager.audioUnlocked) {
             window.audioManager.audioUnlocked = true;
-            console.log('🔓 Audio débloqué au premier clic');
+            // Audio débloqué au premier clic
         }
     }, { once: true });
 });
 
-console.log('🎵 AudioManager.js chargé'); 
+// AudioManager.js chargé 

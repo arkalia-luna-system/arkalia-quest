@@ -1,6 +1,7 @@
-# 🌌 ARKALIA QUEST — Plan de test utilisateur poussé  
+# 🌌 ARKALIA QUEST — Plan de test utilisateur ULTRA-PERFORMANT  
 **URL du jeu** : https://arkalia-quest.onrender.com/  
-**Cible** : toute personne ou IA souhaitant couvrir chaque fonctionnalité et vérifier la qualité, la cohérence et la robustesse du jeu, sur tous les aspects importants.
+**Cible** : Test complet UX/UI, design, accessibilité, performance et robustesse  
+**Version** : 3.0.0 - Test post-améliorations utilisateur
 
 ***
 
@@ -12,9 +13,12 @@
 - **Son activé**, mode privé désactivé, zoom à 100%
 - **Session propre** (vider cache/cookies si possible)
 - **Durée cible** : 25–40 min (hors tests avancés)
-- **Outils :** chronomètre, capture d'écran, devtools, simulateur débit (si possible)
+- **Outils :** chronomètre, capture d'écran, devtools, simulateur débit, Lighthouse, axe-core
 - **Objectifs :**  
-  - Détecter tout bug, ralentissement, incohérence UX/UI, souci accessibilité, données inexactes, edge case et problème d'immersion.
+  - Détecter tout bug, ralentissement, incohérence UX/UI, souci accessibilité, données inexactes, edge case et problème d'immersion
+  - **NOUVEAU** : Tester les améliorations récentes (persistance tutoriel, valeurs N/A, progression visible, test audio)
+  - **NOUVEAU** : Validation design Matrix/terminal avec couleurs #00ff00
+  - **NOUVEAU** : Tests d'accessibilité WCAG 2.1 AA complets
 
 ***
 
@@ -26,52 +30,67 @@
 - **Impression générale** : fluidité, facilité, fun, bugs rencontrés
 - **Temps perçu pour chaque étape/page**
 - **Tout bug, message inattendu ou ressenti à noter pendant le test**
+- **NOUVEAU** : Score Lighthouse (Performance, Accessibilité, Bonnes pratiques, SEO)
+- **NOUVEAU** : Temps de chargement First Contentful Paint (FCP), Largest Contentful Paint (LCP)
+- **NOUVEAU** : Validation couleurs Matrix (#00ff00) et cohérence visuelle
 
 ***
 
 ## 🔍 Scénarios & Checklist avancée à cocher (scénario par scénario)
 
-### 1. Première visite — Accueil
+### 1. Première visite — Accueil & Design Matrix
 
 - [ ] L'URL s'ouvre sans bug, chargement <2s
 - [ ] Page d'accueil : rien de cassé, pas de "None/undefined"
+- [ ] **NOUVEAU** : Validation couleurs Matrix (#00ff00) présentes et cohérentes
+- [ ] **NOUVEAU** : Test Lighthouse Performance > 90, Accessibilité > 95
 - [ ] Les CTA/nav sont immédiatement visibles
 - [ ] Test : resize la fenêtre (desktop/mobile) → pas de bug
 - [ ] Zoom 150%+ → contenu lisible, rien qui déborde/casse
 - [ ] Navigation clavier possible, tabulation/focus logique
 - [ ] Aucun flickering, layout shift fort ou bug visuel
 - [ ] Focus initial logique pour accessibilité
+- [ ] **NOUVEAU** : Test axe-core : 0 erreur d'accessibilité
 - [ ] Screenshot avant/après resize/zoom
 
-### 2. Tutoriel — Parcours complet
+### 2. Tutoriel — Parcours complet & Persistance
 
 - [ ] Ouverture tutoriel par le menu/lien direct OK
 - [ ] 5 à 10 étapes parcourues : "suivant", choix, feedback
-- [ ] Reload à mi-parcours > progression conservée
+- [ ] **NOUVEAU** : Reload à mi-parcours > progression conservée (localStorage)
+- [ ] **NOUVEAU** : Notification "Progression sauvegardée" visible
+- [ ] **NOUVEAU** : Confirmation avant quitter tutoriel fonctionne
 - [ ] Feedback immédiat : animation/son/visuel à chaque étape
 - [ ] Spam clics successifs sur "suivant" → stabilité
 - [ ] Aucun placeholder "..." ou incohérent
 - [ ] Erreur logique affichée si mauvaise action (compréhensible)
 - [ ] Changement langue (si dispo) à la volée
 - [ ] Responsive mobile validé
+- [ ] **NOUVEAU** : Test accessibilité tutoriel (navigation clavier, ARIA)
 - [ ] Screenshot étape clé
 
-### 3. Terminal — Noyau du gameplay
+### 3. Terminal — Noyau du gameplay & Design Matrix
 
 - [ ] Commande help/profile/mission intro/decode_portal → réponses rapides
+- [ ] **NOUVEAU** : Validation design Matrix (#00ff00) dans terminal
+- [ ] **NOUVEAU** : Test commandes "aide", "commands", "liste", "menu" (nouveaux alias)
 - [ ] Commande inconnue → erreur propre, jamais de blocage/crash
 - [ ] Commandes répétées/spam → aucune instabilité (anti-flood)
 - [ ] Typo ou commande mal saisie → message d'erreur adapté
 - [ ] Test copier/coller et navigation clavier
 - [ ] UI résistante : zoom fort, vieux navigateur, fenêtrage maximal, dark mode
+- [ ] **NOUVEAU** : Test accessibilité terminal (focus visible, navigation clavier)
 - [ ] Transitions vers autres modules fluides (pas de reload sauvage)
 
-### 4. Monde — Navigation & immersion
+### 4. Monde — Navigation & Progression Visible
 
 - [ ] /monde affiche tous les éléments interactifs
+- [ ] **NOUVEAU** : Barre de progression visible avec pourcentage animé
+- [ ] **NOUVEAU** : Animation de brillance sur barre de progression
 - [ ] Feedback dynamique lié à la progression (après tutoriel : monde évolue ?)
 - [ ] Pas de zone vide, lien mort ni incohérence 
 - [ ] Reload/retour arrière/déconnexion à tester
+- [ ] **NOUVEAU** : Test responsive barre de progression mobile
 - [ ] Immersion et ambiance notées
 
 ### 5. Profil — XP, badges, stats
@@ -81,11 +100,14 @@
 - [ ] Refresh/remontée UI ok
 - [ ] Copier/coller+responsive mobile validé
 
-### 6. Dashboard — Synthèse
+### 6. Dashboard — Synthèse & Valeurs N/A
 
 - [ ] Missions, badges, leaderboard visibles, pas de chargement infini
+- [ ] **NOUVEAU** : Valeurs par défaut affichent "N/A" au lieu de "0" ou "--"
+- [ ] **NOUVEAU** : Test persistance valeurs N/A après reload
 - [ ] Graphes affichés, données cohérentes avec profil/leaderboard
 - [ ] Impossible de casser l'affichage en resize/zoom
+- [ ] **NOUVEAU** : Test responsive dashboard avec valeurs N/A
 
 ### 7. Leaderboard
 

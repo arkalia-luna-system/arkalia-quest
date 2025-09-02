@@ -21,6 +21,7 @@ from core.social_engine import social_engine
 from core.customization_engine import customization_engine
 from core.adaptive_storytelling import adaptive_storytelling
 from core.micro_interactions import micro_interactions
+from core.educational_games_engine import EducationalGamesEngine
 import logging
 
 try:
@@ -39,7 +40,6 @@ app = Flask(__name__)
 Compress(app)
 
 # Instance globale du moteur de jeux éducatifs
-from core.educational_games_engine import EducationalGamesEngine
 games_engine = EducationalGamesEngine()
 
 

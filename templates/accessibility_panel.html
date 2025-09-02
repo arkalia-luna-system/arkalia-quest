@@ -319,7 +319,7 @@
                     <div class="accessibility-controls">
                         <div class="control-group">
                             <span class="control-label">Contraste élevé</span>
-                            <div class="control-toggle" id="high-contrast" onclick="toggleControl(this)"></div>
+                            <div class="control-toggle" id="high-contrast" role="switch" aria-checked="false" tabindex="0" onclick="toggleControl(this)" onkeydown="toggleControlKey(event, this)"></div>
                         </div>
                         <div class="control-group">
                             <span class="control-label">Taille du texte</span>
@@ -332,7 +332,7 @@
                         </div>
                         <div class="control-group">
                             <span class="control-label">Animations réduites</span>
-                            <div class="control-toggle" id="reduced-motion" onclick="toggleControl(this)"></div>
+                            <div class="control-toggle" id="reduced-motion" role="switch" aria-checked="false" tabindex="0" onclick="toggleControl(this)" onkeydown="toggleControlKey(event, this)"></div>
                         </div>
                     </div>
                 </div>
@@ -346,7 +346,7 @@
                     <div class="accessibility-controls">
                         <div class="control-group">
                             <span class="control-label">Sous-titres</span>
-                            <div class="control-toggle active" id="subtitles" onclick="toggleControl(this)"></div>
+                            <div class="control-toggle active" id="subtitles" role="switch" aria-checked="true" tabindex="0" onclick="toggleControl(this)" onkeydown="toggleControlKey(event, this)"></div>
                         </div>
                         <div class="control-group">
                             <span class="control-label">Volume des effets</span>
@@ -354,7 +354,7 @@
                         </div>
                         <div class="control-group">
                             <span class="control-label">Audio descriptif</span>
-                            <div class="control-toggle" id="audio-description" onclick="toggleControl(this)"></div>
+                            <div class="control-toggle" id="audio-description" role="switch" aria-checked="false" tabindex="0" onclick="toggleControl(this)" onkeydown="toggleControlKey(event, this)"></div>
                         </div>
                     </div>
                 </div>
@@ -368,15 +368,15 @@
                     <div class="accessibility-controls">
                         <div class="control-group">
                             <span class="control-label">Navigation clavier</span>
-                            <div class="control-toggle active" id="keyboard-nav" onclick="toggleControl(this)"></div>
+                            <div class="control-toggle active" id="keyboard-nav" role="switch" aria-checked="true" tabindex="0" onclick="toggleControl(this)" onkeydown="toggleControlKey(event, this)"></div>
                         </div>
                         <div class="control-group">
                             <span class="control-label">Focus visible</span>
-                            <div class="control-toggle active" id="focus-visible" onclick="toggleControl(this)"></div>
+                            <div class="control-toggle active" id="focus-visible" role="switch" aria-checked="true" tabindex="0" onclick="toggleControl(this)" onkeydown="toggleControlKey(event, this)"></div>
                         </div>
                         <div class="control-group">
                             <span class="control-label">Raccourcis clavier</span>
-                            <div class="control-toggle" id="keyboard-shortcuts" onclick="toggleControl(this)"></div>
+                            <div class="control-toggle" id="keyboard-shortcuts" role="switch" aria-checked="false" tabindex="0" onclick="toggleControl(this)" onkeydown="toggleControlKey(event, this)"></div>
                         </div>
                     </div>
                 </div>
@@ -390,7 +390,7 @@
                     <div class="accessibility-controls">
                         <div class="control-group">
                             <span class="control-label">Mode sombre</span>
-                            <div class="control-toggle active" id="dark-mode" onclick="toggleControl(this)"></div>
+                            <div class="control-toggle active" id="dark-mode" role="switch" aria-checked="true" tabindex="0" onclick="toggleControl(this)" onkeydown="toggleControlKey(event, this)"></div>
                         </div>
                         <div class="control-group">
                             <span class="control-label">Espacement des éléments</span>
@@ -402,7 +402,7 @@
                         </div>
                         <div class="control-group">
                             <span class="control-label">Curseur personnalisé</span>
-                            <div class="control-toggle" id="custom-cursor" onclick="toggleControl(this)"></div>
+                            <div class="control-toggle" id="custom-cursor" role="switch" aria-checked="false" tabindex="0" onclick="toggleControl(this)" onkeydown="toggleControlKey(event, this)"></div>
                         </div>
                     </div>
                 </div>
@@ -433,7 +433,16 @@
         // Gestion des contrôles d'accessibilité
         function toggleControl(element) {
             element.classList.toggle('active');
+            const isActive = element.classList.contains('active');
+            element.setAttribute('aria-checked', isActive ? 'true' : 'false');
             updateAccessibilitySettings();
+        }
+
+        function toggleControlKey(event, element) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                toggleControl(element);
+            }
         }
 
         function updateAccessibilitySettings() {
@@ -504,7 +513,7 @@
 
             // Message de confirmation
             if (window.lunaVision) {
-                window.lunaVision.showLunaMessage("Paramètres d'accessibilité sauvegardés !", 3000);
+                window.lunaVision.showLunaMessage("Paramètres d'accessibilité sauvegardés !", 8000);
             }
 
             // Sauvegarder sur le serveur (si API disponible)
@@ -534,7 +543,7 @@
             updateAccessibilitySettings();
 
             if (window.lunaVision) {
-                window.lunaVision.showLunaMessage("Paramètres réinitialisés !", 3000);
+                window.lunaVision.showLunaMessage("Paramètres réinitialisés !", 8000);
             }
         }
 
@@ -560,15 +569,22 @@
             const savedSettings = JSON.parse(localStorage.getItem('arkalia-accessibility') || '{}');
 
             // Appliquer les paramètres sauvegardés
-            if (savedSettings.highContrast) document.getElementById('high-contrast').classList.add('active');
-            if (savedSettings.reducedMotion) document.getElementById('reduced-motion').classList.add('active');
-            if (savedSettings.subtitles) document.getElementById('subtitles').classList.add('active');
-            if (savedSettings.audioDescription) document.getElementById('audio-description').classList.add('active');
-            if (savedSettings.keyboardNav) document.getElementById('keyboard-nav').classList.add('active');
-            if (savedSettings.focusVisible) document.getElementById('focus-visible').classList.add('active');
-            if (savedSettings.keyboardShortcuts) document.getElementById('keyboard-shortcuts').classList.add('active');
-            if (savedSettings.darkMode) document.getElementById('dark-mode').classList.add('active');
-            if (savedSettings.customCursor) document.getElementById('custom-cursor').classList.add('active');
+            const setActive = (id, active) => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                if (active) el.classList.add('active'); else el.classList.remove('active');
+                el.setAttribute('aria-checked', active ? 'true' : 'false');
+            };
+
+            setActive('high-contrast', !!savedSettings.highContrast);
+            setActive('reduced-motion', !!savedSettings.reducedMotion);
+            setActive('subtitles', !!savedSettings.subtitles);
+            setActive('audio-description', !!savedSettings.audioDescription);
+            setActive('keyboard-nav', !!savedSettings.keyboardNav);
+            setActive('focus-visible', !!savedSettings.focusVisible);
+            setActive('keyboard-shortcuts', !!savedSettings.keyboardShortcuts);
+            setActive('dark-mode', !!savedSettings.darkMode);
+            setActive('custom-cursor', !!savedSettings.customCursor);
 
             if (savedSettings.fontSize) document.getElementById('font-size').value = savedSettings.fontSize;
             if (savedSettings.elementSpacing) document.getElementById('element-spacing').value = savedSettings.elementSpacing;

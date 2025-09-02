@@ -47,12 +47,14 @@ heroku open
 
 ## 🌐 **Render**
 
-### **Déploiement via Git**
+### **Déploiement via Blueprint (Docker recommandé)**
 1. **Connectez** votre repo GitHub
-2. **Créez** un nouveau Web Service
+2. **Créez** un service via **Blueprint**
 3. **Configuration** :
-   - **Build Command** : `pip install -r requirements.txt`
-   - **Start Command** : `gunicorn app:app --bind 0.0.0.0:$PORT --workers 2`
+   - **Fichier** : `render.yaml` (à la racine)
+   - **Runtime** : `docker`
+   - **Build/Start Command** : laissés vides (gérés par le `Dockerfile`)
+   - **Health Check** : `/health`
 
 ### **Variables d'Environnement**
 ```bash
@@ -94,8 +96,8 @@ railway up
 3. **Configuration** :
    - **Source** : GitHub
    - **Branch** : main
-   - **Build Command** : `pip install -r requirements.txt`
-   - **Run Command** : `gunicorn app:app --bind 0.0.0.0:$PORT`
+   - **Runtime** : Docker via `render.yaml` (racine)
+   - **Health Check** : `/health`
 
 ---
 
@@ -157,14 +159,13 @@ gcloud run deploy arkalia-quest \
 ### **Construction Locale**
 ```bash
 # Build de l'image
-docker build -f config/Dockerfile -t arkalia-quest .
+docker build -t arkalia-quest .
 
-# Lancement
-docker run -p 5001:5001 arkalia-quest
+# Lancement (port par défaut 10000 si $PORT non défini)
+docker run -p 10000:10000 arkalia-quest
 
-# Avec docker-compose
-cd config
-docker-compose up --build
+# Avec docker-compose (si vous avez un compose)
+docker compose up --build
 ```
 
 ### **Déploiement sur Serveur**
@@ -174,8 +175,8 @@ git clone https://github.com/arkalia-luna-system/arkalia-quest.git
 cd arkalia-quest
 
 # Construction et lancement
-docker build -f config/Dockerfile -t arkalia-quest .
-docker run -d -p 80:5001 --name arkalia-quest arkalia-quest
+docker build -t arkalia-quest .
+docker run -d -p 80:10000 --name arkalia-quest arkalia-quest
 
 # Avec Nginx (reverse proxy)
 docker run -d -p 80:80 nginx:alpine

@@ -433,6 +433,55 @@ def accessibility():
     return render_template("accessibility_panel.html", profil=profil)
 
 
+# ===== API ACCESSIBILITÉ =====
+@app.route("/api/accessibility/save", methods=["POST"])
+def api_accessibility_save():
+    """Enregistre les préférences d'accessibilité côté serveur (si profil dispo).
+
+    Stocke les préférences sous la clé 'accessibility' du profil utilisateur.
+    Retourne success True/False avec message.
+    """
+    try:
+        data = request.get_json(silent=True) or {}
+
+        # Validation basique
+        if not isinstance(data, dict):
+            return jsonify({"success": False, "message": "Données invalides"}), 400
+
+        profil = charger_profil()
+        # Conserver uniquement les clés attendues pour éviter l'injection inutile
+        allowed_keys = {
+            "highContrast",
+            "fontSize",
+            "reducedMotion",
+            "subtitles",
+            "effectsVolume",
+            "audioDescription",
+            "keyboardNav",
+            "focusVisible",
+            "keyboardShortcuts",
+            "darkMode",
+            "elementSpacing",
+            "customCursor",
+        }
+        accessibility_prefs = {k: v for k, v in data.items() if k in allowed_keys}
+
+        profil["accessibility"] = accessibility_prefs
+        sauvegarder_profil(profil)
+
+        return jsonify(
+            {"success": True, "message": "Préférences d'accessibilité sauvegardées"}
+        )
+    except Exception as e:
+        game_logger.error(f"Erreur sauvegarde accessibilité: {e}")
+        return (
+            jsonify(
+                {"success": False, "message": "Erreur interne lors de l'enregistrement"}
+            ),
+            500,
+        )
+
+
 # Routes pour servir les fichiers JSON
 
 

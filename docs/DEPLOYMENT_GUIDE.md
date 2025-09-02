@@ -9,7 +9,7 @@ Ce guide couvre le déploiement d'Arkalia Quest sur **toutes les plateformes clo
 | Plateforme | Statut | Configuration | Déploiement |
 |------------|--------|---------------|-------------|
 | **Heroku** | ✅ Prêt | `config/Procfile` + `config/app.json` | Automatique |
-| **Render** | ✅ Prêt | `config/render.yaml` | Via Git |
+| **Render** | ✅ Prêt | `render.yaml` (racine, runtime: docker) | Blueprint |
 | **Railway** | ✅ Prêt | `config/railway.json` | Via CLI |
 | **DigitalOcean** | ✅ Prêt | `config/digitalocean.yaml` | Via Dashboard |
 | **AWS EB** | ✅ Prêt | `config/.ebextensions/` | Via CLI |
@@ -37,10 +37,11 @@ git push heroku main
 heroku open
 ```
 
-### **Option 2: Render (Gratuit)**
+### **Option 2: Render (Gratuit, Docker recommandé)**
 1. **Connectez** votre repo GitHub sur [render.com](https://render.com)
-2. **Créez** un nouveau Web Service
-3. **Configuration automatique** via `config/render.yaml`
+2. **Créez** un service via **Blueprint** (utilise `render.yaml` à la racine)
+3. **Runtime** : Docker (les commandes Build/Start sont gérées par le `Dockerfile`)
+4. **Health Check** : `/health`
 
 ### **Option 3: Railway (Gratuit)**
 ```bash
@@ -59,14 +60,13 @@ railway up
 ### **Local**
 ```bash
 # Construction
-docker build -f config/Dockerfile -t arkalia-quest .
+docker build -t arkalia-quest .
 
 # Lancement
-docker run -p 5000:5000 arkalia-quest
+docker run -p 10000:10000 arkalia-quest
 
-# Avec docker-compose
-cd config
-docker-compose up --build
+# Avec docker compose (si présent)
+docker compose up --build
 ```
 
 ### **Serveur VPS**
@@ -76,8 +76,8 @@ git clone https://github.com/arkalia-luna-system/arkalia-quest.git
 cd arkalia-quest
 
 # Construction et lancement
-docker build -f config/Dockerfile -t arkalia-quest .
-docker run -d -p 80:5000 --name arkalia-quest arkalia-quest
+docker build -t arkalia-quest .
+docker run -d -p 80:10000 --name arkalia-quest arkalia-quest
 
 # Avec Nginx (reverse proxy)
 docker run -d -p 80:80 nginx:alpine
@@ -119,7 +119,7 @@ preload_app = True
 ## 📊 **Monitoring et Santé**
 
 ### **Endpoints de Santé**
-- **`/health`** : Statut des services
+- **`/health`** : Statut des services (utilisé par Render Health Check)
 - **`/metrics`** : Métriques de performance
 
 ### **Exemple de Réponse Health**

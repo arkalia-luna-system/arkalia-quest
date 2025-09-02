@@ -8,27 +8,27 @@ class EducationalGamesManager {
         this.isGameActive = false;
         this.audioManager = window.audioManager;
         this.terminal = window.terminal;
-        
+
         this.init();
     }
-    
+
     init() {
         // Créer le conteneur de jeu
         this.createGameContainer();
-        
+
         // Ajouter les commandes de jeu au terminal
         this.addGameCommands();
-        
-        console.log('🎮 Moteur de mini-jeux éducatifs initialisé');
+
+        // Moteur de mini-jeux éducatifs initialisé
     }
-    
+
     createGameContainer() {
         // Créer le conteneur principal
         this.gameContainer = document.createElement('div');
         this.gameContainer.id = 'educational-games-container';
         this.gameContainer.className = 'game-overlay';
         this.gameContainer.style.display = 'none';
-        
+
         // Structure du conteneur
         this.gameContainer.innerHTML = `
             <div class="game-backdrop"></div>
@@ -58,14 +58,14 @@ class EducationalGamesManager {
                 </div>
             </div>
         `;
-        
+
         // Ajouter au body
         document.body.appendChild(this.gameContainer);
-        
+
         // Ajouter les styles CSS
         this.addGameStyles();
     }
-    
+
     addGameStyles() {
         const styles = `
             .game-overlay {
@@ -376,12 +376,12 @@ class EducationalGamesManager {
                 box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
             }
         `;
-        
+
         const styleSheet = document.createElement('style');
         styleSheet.textContent = styles;
         document.head.appendChild(styleSheet);
     }
-    
+
     addGameCommands() {
         // Ajouter les commandes de jeu au terminal
         if (this.terminal && this.terminal.addCommand) {
@@ -391,7 +391,7 @@ class EducationalGamesManager {
             this.terminal.addCommand('game_leaderboard', this.handleGameLeaderboardCommand.bind(this));
         }
     }
-    
+
     async handlePlayGameCommand(args) {
         if (this.isGameActive) {
             return {
@@ -399,16 +399,16 @@ class EducationalGamesManager {
                 message: "❌ Un jeu est déjà en cours. Termine-le d'abord !"
             };
         }
-        
+
         if (!args || args.length === 0) {
             return {
                 success: false,
                 message: "❌ Usage: play_game <game_id> ou play_game random"
             };
         }
-        
+
         const gameId = args[0];
-        
+
         try {
             const response = await fetch('/api/educational-games/start', {
                 method: 'POST',
@@ -419,9 +419,9 @@ class EducationalGamesManager {
                     game_id: gameId === 'random' ? null : gameId
                 })
             });
-            
+
             const data = await response.json();
-            
+
             if (data.success) {
                 this.startGame(data.game, data.session_id);
                 return {
@@ -442,15 +442,15 @@ class EducationalGamesManager {
             };
         }
     }
-    
+
     async handleGamesListCommand() {
         try {
             const response = await fetch('/api/educational-games/list');
             const data = await response.json();
-            
+
             if (data.success) {
                 let message = "🎮 MINI-JEUX ÉDUCATIFS DISPONIBLES\n\n";
-                
+
                 const gamesByType = {};
                 data.games.forEach(game => {
                     if (!gamesByType[game.type]) {
@@ -458,21 +458,21 @@ class EducationalGamesManager {
                     }
                     gamesByType[game.type].push(game);
                 });
-                
+
                 for (const [type, games] of Object.entries(gamesByType)) {
                     const typeEmoji = this.getTypeEmoji(type);
                     const typeName = this.getTypeName(type);
                     message += `${typeEmoji} ${typeName.toUpperCase()}\n`;
-                    
+
                     games.forEach(game => {
                         const difficultyEmoji = this.getDifficultyEmoji(game.difficulty);
                         message += `  • ${game.id}: ${game.title} ${difficultyEmoji} (+${game.points}pts)\n`;
                     });
                     message += "\n";
                 }
-                
+
                 message += "💡 Utilise 'play_game <id>' pour jouer !";
-                
+
                 return {
                     success: true,
                     message: message
@@ -491,26 +491,26 @@ class EducationalGamesManager {
             };
         }
     }
-    
+
     async handleGameStatsCommand() {
         try {
             const response = await fetch('/api/educational-games/stats');
             const data = await response.json();
-            
+
             if (data.success) {
                 const stats = data.stats;
                 let message = "📊 STATISTIQUES DES MINI-JEUX\n\n";
                 message += `🎮 Total de jeux: ${stats.total_games}\n`;
                 message += `👥 Joueurs actifs: ${stats.total_players}\n`;
                 message += `🎯 Sessions jouées: ${stats.total_sessions}\n\n`;
-                
+
                 message += "📈 RÉPARTITION PAR TYPE:\n";
                 for (const [type, count] of Object.entries(stats.games_by_type)) {
                     const typeEmoji = this.getTypeEmoji(type);
                     const typeName = this.getTypeName(type);
                     message += `  ${typeEmoji} ${typeName}: ${count} jeux\n`;
                 }
-                
+
                 return {
                     success: true,
                     message: message
@@ -529,21 +529,21 @@ class EducationalGamesManager {
             };
         }
     }
-    
+
     async handleGameLeaderboardCommand() {
         try {
             const response = await fetch('/api/educational-games/leaderboard');
             const data = await response.json();
-            
+
             if (data.success) {
                 const leaderboard = data.leaderboard;
                 let message = "🏆 CLASSEMENT DES MINI-JEUX\n\n";
-                
+
                 leaderboard.forEach((player, index) => {
                     const medal = index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : "🏅";
                     message += `${medal} ${player.user_id}: ${player.total_score}pts (${player.games_completed} jeux, ${player.badges_count} badges)\n`;
                 });
-                
+
                 return {
                     success: true,
                     message: message
@@ -562,45 +562,45 @@ class EducationalGamesManager {
             };
         }
     }
-    
+
     startGame(game, sessionId) {
         this.currentGame = game;
         this.currentSession = sessionId;
         this.isGameActive = true;
-        
+
         // Afficher le conteneur de jeu
         this.gameContainer.style.display = 'flex';
-        
+
         // Remplir les informations du jeu
         this.gameContainer.querySelector('.game-title').textContent = game.title;
         this.gameContainer.querySelector('.game-description').textContent = game.description;
         this.gameContainer.querySelector('.game-difficulty').textContent = `🎯 Difficulté: ${this.getDifficultyName(game.difficulty)}`;
         this.gameContainer.querySelector('.game-points').textContent = `🏆 Points: ${game.points}`;
-        
+
         // Préparer l'interface selon le type de jeu
         this.prepareGameInterface(game);
-        
+
         // Effet sonore
         if (this.audioManager) {
             this.audioManager.playSound('game_start');
         }
-        
+
         // Animation d'entrée
         this.gameContainer.querySelector('.game-modal').style.animation = 'gameModalSlideIn 0.5s ease-out';
     }
-    
+
     prepareGameInterface(game) {
         const questionArea = this.gameContainer.querySelector('.game-question');
         const optionsArea = this.gameContainer.querySelector('.game-options');
         const inputArea = this.gameContainer.querySelector('.game-input-area');
         const codeArea = this.gameContainer.querySelector('.game-code-editor');
-        
+
         // Nettoyer les zones
         questionArea.innerHTML = '';
         optionsArea.innerHTML = '';
         inputArea.innerHTML = '';
         codeArea.innerHTML = '';
-        
+
         // Préparer selon le type de jeu
         switch (game.type) {
             case 'logic':
@@ -620,7 +620,7 @@ class EducationalGamesManager {
                 break;
         }
     }
-    
+
     prepareLogicGame(game, questionArea, optionsArea) {
         if (game.hints) {
             questionArea.innerHTML = `
@@ -629,7 +629,7 @@ class EducationalGamesManager {
                     ${game.hints.map(hint => `<li>${hint}</li>`).join('')}
                 </ul>
             `;
-            
+
             // Zone de saisie pour la réponse
             const inputArea = this.gameContainer.querySelector('.game-input-area');
             inputArea.innerHTML = `
@@ -644,7 +644,7 @@ class EducationalGamesManager {
                 </ul>
                 <h4>📊 Nombres: ${game.numbers.join(', ')}</h4>
             `;
-            
+
             // Options pour les portes
             optionsArea.innerHTML = `
                 <label>🚪 Sélectionne les portes à ouvrir:</label>
@@ -656,7 +656,7 @@ class EducationalGamesManager {
                     `).join('')}
                 </div>
             `;
-            
+
             // Gestion des clics sur les options
             optionsArea.querySelectorAll('.game-option').forEach(option => {
                 option.addEventListener('click', () => {
@@ -665,7 +665,7 @@ class EducationalGamesManager {
             });
         }
     }
-    
+
     prepareCodeGame(game, questionArea, codeArea) {
         if (game.code) {
             questionArea.innerHTML = `
@@ -675,7 +675,7 @@ class EducationalGamesManager {
                 </div>
                 <p><strong>❌ Problème:</strong> ${game.error}</p>
             `;
-            
+
             codeArea.innerHTML = `
                 <label>🔧 Ta correction:</label>
                 <textarea class="game-code-input" placeholder="Écris ta correction ici...">${game.code}</textarea>
@@ -686,14 +686,14 @@ class EducationalGamesManager {
                 <p>${game.challenge}</p>
                 <p><strong>Test:</strong> Input: "${game.test_input}" → Expected: "${game.expected_output}"</p>
             `;
-            
+
             codeArea.innerHTML = `
                 <label>💻 Ton code:</label>
                 <textarea class="game-code-input" placeholder="Écris ta fonction ici..."></textarea>
             `;
         }
     }
-    
+
     prepareCybersecurityGame(game, questionArea, optionsArea) {
         if (game.logs) {
             questionArea.innerHTML = `
@@ -703,7 +703,7 @@ class EducationalGamesManager {
                 </div>
                 <p><strong>❓ Question:</strong> Quel type d'attaque observe-t-on ?</p>
             `;
-            
+
             optionsArea.innerHTML = `
                 <div class="game-options">
                     ${game.options.map(option => `
@@ -718,7 +718,7 @@ class EducationalGamesManager {
                 <h3>🔒 Sécurité des mots de passe:</h3>
                 <p>Choisis le mot de passe le plus sécurisé parmi ceux-ci:</p>
             `;
-            
+
             optionsArea.innerHTML = `
                 <div class="game-passwords">
                     ${game.passwords.map((password, index) => `
@@ -729,7 +729,7 @@ class EducationalGamesManager {
                 </div>
             `;
         }
-        
+
         // Gestion des clics sur les options
         optionsArea.querySelectorAll('.game-option, .game-password').forEach(option => {
             option.addEventListener('click', () => {
@@ -742,7 +742,7 @@ class EducationalGamesManager {
             });
         });
     }
-    
+
     prepareCryptographyGame(game, questionArea, inputArea) {
         if (game.encoded_message) {
             questionArea.innerHTML = `
@@ -761,13 +761,13 @@ class EducationalGamesManager {
                 <p><strong>💡 Indice:</strong> Chaque lettre est décalée de ${game.shift} positions</p>
             `;
         }
-        
+
         inputArea.innerHTML = `
             <label>🔓 Ta réponse:</label>
             <input type="text" class="game-input" placeholder="Entre le message décodé..." maxlength="100">
         `;
     }
-    
+
     prepareNetworkGame(game, questionArea, optionsArea) {
         questionArea.innerHTML = `
             <h3>🌐 Analyse réseau:</h3>
@@ -776,7 +776,7 @@ class EducationalGamesManager {
                 ${game.ip_addresses.map(ip => `<div class="log-entry">${ip}</div>`).join('')}
             </div>
         `;
-        
+
         optionsArea.innerHTML = `
             <div class="game-options">
                 ${game.options.map(option => `
@@ -786,7 +786,7 @@ class EducationalGamesManager {
                 `).join('')}
             </div>
         `;
-        
+
         // Gestion des clics sur les options
         optionsArea.querySelectorAll('.game-option').forEach(option => {
             option.addEventListener('click', () => {
@@ -794,20 +794,20 @@ class EducationalGamesManager {
             });
         });
     }
-    
+
     async submitAnswer() {
         if (!this.currentGame || !this.currentSession) {
             return;
         }
-        
+
         // Récupérer la réponse selon le type de jeu
         let answer = this.getCurrentAnswer();
-        
+
         if (answer === null) {
             this.showFeedback("❌ Veuillez fournir une réponse", 'error');
             return;
         }
-        
+
         try {
             const response = await fetch('/api/educational-games/submit', {
                 method: 'POST',
@@ -819,30 +819,30 @@ class EducationalGamesManager {
                     answer: answer
                 })
             });
-            
+
             const data = await response.json();
-            
+
             if (data.success) {
                 if (data.correct) {
                     this.showFeedback(`🎉 ${data.message} +${data.score} points !`, 'success');
-                    
+
                     // Effet sonore de succès
                     if (this.audioManager) {
                         this.audioManager.playSound('success');
                     }
-                    
+
                     // Fermer le jeu après 3 secondes
                     setTimeout(() => {
                         this.closeGame();
                     }, 3000);
                 } else {
                     this.showFeedback(data.message, 'error');
-                    
+
                     // Effet sonore d'erreur
                     if (this.audioManager) {
                         this.audioManager.playSound('error');
                     }
-                    
+
                     // Afficher l'indice si disponible
                     if (data.hint) {
                         setTimeout(() => {
@@ -858,10 +858,10 @@ class EducationalGamesManager {
             this.showFeedback("❌ Erreur de connexion", 'error');
         }
     }
-    
+
     getCurrentAnswer() {
         const game = this.currentGame;
-        
+
         switch (game.type) {
             case 'logic':
                 if (game.hints) {
@@ -872,11 +872,11 @@ class EducationalGamesManager {
                     return selected.length > 0 ? Array.from(selected).map(opt => parseInt(opt.dataset.value)) : null;
                 }
                 break;
-                
+
             case 'code':
                 const textarea = this.gameContainer.querySelector('.game-code-input');
                 return textarea ? textarea.value.trim() : null;
-                
+
             case 'cybersecurity':
                 if (game.logs) {
                     const selected = this.gameContainer.querySelector('.game-option.selected');
@@ -886,22 +886,22 @@ class EducationalGamesManager {
                     return selected ? parseInt(selected.dataset.value) : null;
                 }
                 break;
-                
+
             case 'cryptography':
                 const input = this.gameContainer.querySelector('.game-input');
                 return input ? input.value.trim() : null;
-                
+
             case 'network':
                 const selected = this.gameContainer.querySelectorAll('.game-option.selected');
                 return selected.length > 0 ? Array.from(selected).map(opt => opt.dataset.value) : null;
         }
-        
+
         return null;
     }
-    
+
     showHint() {
         if (!this.currentGame) return;
-        
+
         const hints = this.currentGame.hints;
         if (hints && hints.length > 0) {
             const randomHint = hints[Math.floor(Math.random() * hints.length)];
@@ -910,39 +910,39 @@ class EducationalGamesManager {
             this.showFeedback("💡 Pas d'indice disponible pour ce jeu", 'hint');
         }
     }
-    
+
     skipGame() {
         this.showFeedback("⏭️ Jeu passé", 'hint');
         setTimeout(() => {
             this.closeGame();
         }, 2000);
     }
-    
+
     showFeedback(message, type) {
         const feedback = this.gameContainer.querySelector('.game-feedback');
         feedback.textContent = message;
         feedback.className = `game-feedback ${type}`;
-        
+
         // Effet visuel
         feedback.style.animation = 'none';
         setTimeout(() => {
-            feedback.style.animation = type === 'success' ? 'successPulse 0.5s ease-out' : 
-                                      type === 'error' ? 'errorShake 0.5s ease-out' : '';
+            feedback.style.animation = type === 'success' ? 'successPulse 0.5s ease-out' :
+                type === 'error' ? 'errorShake 0.5s ease-out' : '';
         }, 10);
     }
-    
+
     closeGame() {
         this.gameContainer.style.display = 'none';
         this.currentGame = null;
         this.currentSession = null;
         this.isGameActive = false;
-        
+
         // Effet sonore
         if (this.audioManager) {
             this.audioManager.playSound('game_end');
         }
     }
-    
+
     getTypeEmoji(type) {
         const emojis = {
             'logic': '🧩',
@@ -953,7 +953,7 @@ class EducationalGamesManager {
         };
         return emojis[type] || '🎮';
     }
-    
+
     getTypeName(type) {
         const names = {
             'logic': 'Logique',
@@ -964,7 +964,7 @@ class EducationalGamesManager {
         };
         return names[type] || type;
     }
-    
+
     getDifficultyEmoji(difficulty) {
         const emojis = {
             'beginner': '🟢',
@@ -974,7 +974,7 @@ class EducationalGamesManager {
         };
         return emojis[difficulty] || '⚪';
     }
-    
+
     getDifficultyName(difficulty) {
         const names = {
             'beginner': 'Débutant',

@@ -25,7 +25,7 @@ class AccessibilityManager {
         // S'assurer que le menu d'accessibilité est fermé au démarrage
         this.ensureMenuClosed();
 
-        console.log('♿ Système d\'accessibilité Arkalia Quest initialisé');
+        // Système d'accessibilité Arkalia Quest initialisé
     }
 
     // ===== GESTION DES PARAMÈTRES =====

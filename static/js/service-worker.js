@@ -18,7 +18,7 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
-        console.log('🌙 Cache ouvert pour Arkalia Quest');
+        // Cache ouvert pour Arkalia Quest
         return cache.addAll(urlsToCache);
       })
   );
@@ -31,7 +31,7 @@ self.addEventListener('activate', (event) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
           if (cacheName !== CACHE_NAME) {
-            console.log('🗑️ Suppression de l\'ancien cache:', cacheName);
+            // Suppression de l'ancien cache
             return caches.delete(cacheName);
           }
         })
@@ -49,7 +49,7 @@ self.addEventListener('fetch', (event) => {
         if (response) {
           return response;
         }
-        
+
         // Sinon, faire la requête réseau
         return fetch(event.request)
           .then((response) => {
@@ -57,15 +57,15 @@ self.addEventListener('fetch', (event) => {
             if (!response || response.status !== 200 || response.type !== 'basic') {
               return response;
             }
-            
+
             // Cloner la réponse pour la mettre en cache
             const responseToCache = response.clone();
-            
+
             caches.open(CACHE_NAME)
               .then((cache) => {
                 cache.put(event.request, responseToCache);
               });
-            
+
             return response;
           })
           .catch(() => {
@@ -102,7 +102,7 @@ self.addEventListener('push', (event) => {
       }
     ]
   };
-  
+
   event.waitUntil(
     self.registration.showNotification('🌙 Arkalia Quest', options)
   );
@@ -111,7 +111,7 @@ self.addEventListener('push', (event) => {
 // Gestion des clics sur les notifications
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
-  
+
   if (event.action === 'explore') {
     event.waitUntil(
       clients.openWindow('/')

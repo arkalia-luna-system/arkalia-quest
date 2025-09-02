@@ -4,10 +4,8 @@ Script de lancement pour les tests utilisateur d'Arkalia Quest
 Lance les tests automatisés et guide vers les tests manuels
 """
 
-import os
 import sys
 import subprocess
-from datetime import datetime
 
 
 def print_banner():

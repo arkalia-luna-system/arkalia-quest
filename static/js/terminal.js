@@ -22,7 +22,6 @@ function detectDevicePerformance() {
     isLowPerformanceDevice = isMobile || isOldBrowser || hasLowMemory || hasLowCores;
 
     if (isLowPerformanceDevice) {
-        console.log('🔧 Mode performance réduite activé');
         disableHeavyEffects();
         document.body.classList.add('low-performance');
     }
@@ -44,9 +43,8 @@ function initAudio() {
     if (window.AudioContext || window.webkitAudioContext) {
         try {
             audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            console.log('🔊 Audio Context initialisé');
         } catch (e) {
-            console.log('🔇 Audio Context non supporté');
+            // Audio non supporté, mode silencieux
         }
     }
 }
@@ -446,7 +444,6 @@ document.addEventListener('DOMContentLoaded', function () {
             try {
                 window.audioManager.playSound('ambientSound');
             } catch (error) {
-                console.log('🔇 Audio non supporté, mode silencieux activé');
                 audioEnabled = false;
             }
         }
@@ -465,10 +462,9 @@ function initHackingEffects() {
     try {
         if (window.HackingEffects) {
             hackingEffects = new window.HackingEffects();
-            console.log('🎮 Effets de hacking initialisés');
         }
     } catch (error) {
-        console.log('⚠️ Effets de hacking non disponibles');
+        // Effets de hacking non disponibles
     }
 }
 
@@ -545,7 +541,7 @@ function setupButtonFeedback() {
 
 // Fonction unifiée pour les commandes rapides
 function executeQuickCommand(command, event) {
-    console.log('🚀 Commande rapide exécutée:', command);
+    // Commande rapide exécutée
     // Effet visuel du bouton
     if (event && event.target) {
         const button = event.target;
@@ -581,7 +577,7 @@ function executeCommand(cmdOverride) {
 
     // Empêcher l'envoi de commandes vides
     if (!command || command.length === 0) {
-        console.log('⚠️ Commande vide ignorée');
+        // Commande vide ignorée
         return;
     }
     // Ajouter à l'historique

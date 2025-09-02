@@ -14,6 +14,9 @@ from core.gamification_engine import GamificationEngine
 from core.security_manager import security_manager
 from core.tutorial_manager import tutorial_manager
 from core.websocket_manager import websocket_manager
+from core.cache_manager import cache_manager
+from core.security_enhanced import security_enhanced
+from core.performance_optimizer import performance_optimizer
 import logging
 
 try:
@@ -30,6 +33,58 @@ app = Flask(__name__)
 
 # Configuration de la compression gzip
 Compress(app)
+
+
+# Middleware de sécurité et performance
+@app.before_request
+def before_request():
+    """Middleware exécuté avant chaque requête"""
+    # Vérifier la sécurité
+    client_ip = request.environ.get("HTTP_X_FORWARDED_FOR", request.remote_addr)
+
+    # Vérifier si l'IP est bloquée
+    if security_enhanced.is_ip_blocked(client_ip):
+        return jsonify({"error": "Accès refusé"}), 403
+
+    # Vérifier le rate limiting
+    allowed, message = security_enhanced.check_rate_limit(client_ip)
+    if not allowed:
+        return jsonify({"error": message}), 429
+
+    # Valider les entrées
+    if request.method in ["POST", "PUT", "PATCH"]:
+        if request.is_json:
+            data = request.get_json()
+            if data:
+                for key, value in data.items():
+                    if isinstance(value, str):
+                        is_valid, error_msg = security_enhanced.validate_input(
+                            "command", value
+                        )
+                        if not is_valid:
+                            return (
+                                jsonify({"error": f"Entrée invalide: {error_msg}"}),
+                                400,
+                            )
+
+
+@app.after_request
+def after_request(response):
+    """Middleware exécuté après chaque requête"""
+    # Ajouter des headers de sécurité
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["X-XSS-Protection"] = "1; mode=block"
+    response.headers["Strict-Transport-Security"] = (
+        "max-age=31536000; includeSubDomains"
+    )
+
+    # Ajouter des headers de cache pour les assets statiques
+    if request.endpoint and request.endpoint.startswith("static"):
+        response.headers["Cache-Control"] = "public, max-age=31536000"  # 1 an
+
+    return response
+
 
 # Instances des modules
 gamification = GamificationEngine()
@@ -872,17 +927,61 @@ def get_leaderboard():
 
 @app.route("/api/leaderboard", methods=["GET"])
 def get_gamification_leaderboard():
-    """Récupère le leaderboard de gamification"""
+    """Récupère le leaderboard de gamification avec protection anti-spam"""
     try:
-        limit = request.args.get("limit", 10, type=int)
+        # Protection anti-spam - vérifier le rate limiting
+        client_ip = request.remote_addr
+        current_time = time.time()
 
-        # Charger directement depuis le fichier JSON
-        leaderboard_file = os.path.join("data", "leaderboard.json")
-        if os.path.exists(leaderboard_file):
-            with open(leaderboard_file, encoding="utf-8") as f:
-                leaderboard_data = json.load(f)
+        # Nettoyer les anciennes entrées
+        if client_ip in request_counts:
+            request_counts[client_ip] = [
+                req_time
+                for req_time in request_counts[client_ip]
+                if current_time - req_time < RATE_LIMIT_WINDOW
+            ]
         else:
-            # Données par défaut si le fichier n'existe pas
+            request_counts[client_ip] = []
+
+        # Vérifier la limite
+        if len(request_counts[client_ip]) >= RATE_LIMIT:
+            return (
+                jsonify(
+                    {"success": False, "error": "Trop de requêtes. Veuillez patienter."}
+                ),
+                429,
+            )
+
+        # Ajouter cette requête
+        request_counts[client_ip].append(current_time)
+
+        # Validation des paramètres
+        limit = request.args.get("limit", 10, type=int)
+        if limit > 100:  # Limite maximale
+            limit = 100
+        if limit < 1:
+            limit = 10
+
+        # Charger directement depuis le fichier JSON avec gestion d'erreurs robuste
+        leaderboard_file = os.path.join("data", "leaderboard.json")
+        leaderboard_data = None
+
+        try:
+            if os.path.exists(leaderboard_file):
+                with open(leaderboard_file, encoding="utf-8") as f:
+                    leaderboard_data = json.load(f)
+
+                # Validation des données
+                if not isinstance(leaderboard_data, dict):
+                    raise ValueError("Format de données invalide")
+
+        except (json.JSONDecodeError, ValueError, IOError) as e:
+            # Log l'erreur mais continue avec des données par défaut
+            game_logger.warning(f"Erreur lecture leaderboard: {e}")
+            leaderboard_data = None
+
+        # Données par défaut si le fichier n'existe pas ou est corrompu
+        if not leaderboard_data:
             leaderboard_data = {
                 "players": [],
                 "statistics": {
@@ -892,32 +991,50 @@ def get_gamification_leaderboard():
                 },
             }
 
-        # Format attendu par le frontend
+        # Format attendu par le frontend avec validation
         formatted_leaderboard = []
-        for _i, player in enumerate(leaderboard_data.get("players", [])[:limit]):
-            formatted_leaderboard.append(
-                {
-                    "username": player.get("name", "Hacker"),
-                    "score": player.get("score", 0),
-                    "level": player.get("level", 1),
-                    "badges_count": player.get("badges_count", 0),
-                    "is_current": player.get("is_current", False),
-                }
-            )
+        players = leaderboard_data.get("players", [])
 
-        # Statistiques globales
+        if isinstance(players, list):
+            for _i, player in enumerate(players[:limit]):
+                if isinstance(player, dict):
+                    formatted_leaderboard.append(
+                        {
+                            "username": str(player.get("name", "Hacker")),
+                            "score": int(player.get("score", 0)),
+                            "level": int(player.get("level", 1)),
+                            "badges_count": int(player.get("badges_count", 0)),
+                            "is_current": bool(player.get("is_current", False)),
+                        }
+                    )
+
+        # Statistiques globales avec protection contre division par zéro
         stats = leaderboard_data.get("statistics", {})
+        players_list = leaderboard_data.get("players", [])
+
+        if not isinstance(players_list, list):
+            players_list = []
+
+        total_players = len(players_list)
+        avg_level = 1
+
+        if total_players > 0:
+            try:
+                level_sum = sum(
+                    int(p.get("level", 1)) for p in players_list if isinstance(p, dict)
+                )
+                avg_level = level_sum / total_players
+            except (ValueError, TypeError):
+                avg_level = 1
+
         formatted_stats = {
-            "total_players": stats.get("total_players", 0),
-            "total_score": stats.get("total_score", 0),
-            "avg_level": (
-                sum(p.get("level", 1) for p in leaderboard_data.get("players", []))
-                / len(leaderboard_data.get("players", []))
-                if leaderboard_data.get("players")
-                else 1
-            ),
+            "total_players": total_players,
+            "total_score": int(stats.get("total_score", 0)),
+            "avg_level": round(avg_level, 1),
             "total_badges": sum(
-                p.get("badges_count", 0) for p in leaderboard_data.get("players", [])
+                int(p.get("badges_count", 0))
+                for p in players_list
+                if isinstance(p, dict)
             ),
         }
 
@@ -928,8 +1045,19 @@ def get_gamification_leaderboard():
                 "stats": formatted_stats,
             }
         )
+
     except Exception as e:
-        return jsonify({"success": False, "error": str(e)}), 500
+        # Log l'erreur pour debugging
+        game_logger.error(f"Erreur leaderboard: {e}")
+        return (
+            jsonify(
+                {
+                    "success": False,
+                    "error": "Erreur temporaire du serveur. Veuillez réessayer.",
+                }
+            ),
+            500,
+        )
 
 
 @app.route("/leaderboard")
@@ -1522,33 +1650,15 @@ def api_educational_games_submit():
                 {"success": False, "message": "Session ID et réponse requis"}
             )
 
-        # from core.educational_games_engine import EducationalGamesEngine
-        # games_engine = EducationalGamesEngine()  # Variable non utilisée
+        from core.educational_games_engine import EducationalGamesEngine
 
-        # Simuler une validation de réponse
-        # En réalité, il faudrait implémenter la logique de validation
-        is_correct = True  # Pour l'instant, toutes les réponses sont correctes
+        games_engine = EducationalGamesEngine()
 
-        if is_correct:
-            return jsonify(
-                {
-                    "success": True,
-                    "correct": True,
-                    "message": "🎉 Réponse correcte !",
-                    "score": 50,
-                    "hint": None,
-                }
-            )
-        else:
-            return jsonify(
-                {
-                    "success": True,
-                    "correct": False,
-                    "message": "❌ Réponse incorrecte. Essaie encore !",
-                    "score": 0,
-                    "hint": "💡 Pense à vérifier tes calculs...",
-                }
-            )
+        # Utiliser le moteur de jeux pour valider la réponse
+        result = games_engine.submit_answer(session_id, answer)
+
+        # Retourner le résultat du moteur de jeux
+        return jsonify(result)
     except Exception as e:
         return jsonify({"success": False, "message": f"Erreur: {e!s}"})
 
@@ -1861,10 +1971,109 @@ if __name__ == "__main__":
     if not os.path.exists("data/missions"):
         os.makedirs("data/missions")
 
-    game_logger.info("🚀 Démarrage d'Arkalia Quest v2.0")
+    game_logger.info("🚀 Démarrage d'Arkalia Quest v3.1.0")
     game_logger.info("🌙 IA LUNA initialisée")
     game_logger.info("🎮 Moteur de jeu prêt")
     game_logger.info("🎨 Effets visuels activés")
+    game_logger.info("⚡ Optimisations de performance activées")
+    game_logger.info("🛡️ Sécurité renforcée")
     game_logger.info("🌐 Serveur sur http://0.0.0.0:5001 (port configuré)")
+
+
+# ===== ENDPOINTS DE MONITORING ET PERFORMANCE =====
+
+
+@app.route("/api/performance/stats", methods=["GET"])
+@performance_optimizer.monitor_performance("performance_stats")
+def api_performance_stats():
+    """Retourne les statistiques de performance"""
+    try:
+        stats = performance_optimizer.get_performance_stats()
+        cache_stats = cache_manager.get_stats()
+        security_stats = security_enhanced.get_security_stats()
+
+        return jsonify(
+            {
+                "success": True,
+                "performance": stats,
+                "cache": cache_stats,
+                "security": security_stats,
+                "timestamp": datetime.now().isoformat(),
+            }
+        )
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/performance/slow-queries", methods=["GET"])
+@performance_optimizer.monitor_performance("slow_queries")
+def api_slow_queries():
+    """Retourne les requêtes les plus lentes"""
+    try:
+        limit = request.args.get("limit", 10, type=int)
+        slow_queries = performance_optimizer.get_slow_queries(limit)
+
+        return jsonify(
+            {"success": True, "slow_queries": slow_queries, "count": len(slow_queries)}
+        )
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/performance/errors", methods=["GET"])
+@performance_optimizer.monitor_performance("recent_errors")
+def api_recent_errors():
+    """Retourne les erreurs récentes"""
+    try:
+        limit = request.args.get("limit", 10, type=int)
+        errors = performance_optimizer.get_recent_errors(limit)
+
+        return jsonify({"success": True, "errors": errors, "count": len(errors)})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/performance/optimizations", methods=["GET"])
+@performance_optimizer.monitor_performance("optimization_suggestions")
+def api_optimization_suggestions():
+    """Retourne les suggestions d'optimisation"""
+    try:
+        suggestions = performance_optimizer.suggest_optimizations()
+
+        return jsonify(
+            {"success": True, "suggestions": suggestions, "count": len(suggestions)}
+        )
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/cache/clear", methods=["POST"])
+@performance_optimizer.monitor_performance("cache_clear")
+def api_cache_clear():
+    """Vide le cache"""
+    try:
+        cache_manager.clear()
+
+        return jsonify({"success": True, "message": "Cache vidé avec succès"})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/security/stats", methods=["GET"])
+@performance_optimizer.monitor_performance("security_stats")
+def api_security_stats():
+    """Retourne les statistiques de sécurité"""
+    try:
+        stats = security_enhanced.get_security_stats()
+
+        return jsonify(
+            {
+                "success": True,
+                "security_stats": stats,
+                "timestamp": datetime.now().isoformat(),
+            }
+        )
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
 
     app.run(host="0.0.0.0", port=5001, debug=False)

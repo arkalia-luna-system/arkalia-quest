@@ -13,6 +13,8 @@ def test_imports():
     """Test des imports principaux"""
     print("🔧 Test des imports...")
     try:
+        # Ajouter le répertoire parent au path pour les imports
+        sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
         print("✅ Tous les imports fonctionnent")
         return True
@@ -25,10 +27,16 @@ def test_missions():
     """Test des missions"""
     print("\n🎯 Test des missions...")
     try:
+        # Chemin relatif depuis le dossier tests/
+        missions_dir = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+            "data",
+            "missions",
+        )
         missions = []
-        for file in os.listdir("data/missions"):
+        for file in os.listdir(missions_dir):
             if file.endswith(".json"):
-                with open(f"data/missions/{file}", "r", encoding="utf-8") as f:
+                with open(os.path.join(missions_dir, file), "r", encoding="utf-8") as f:
                     mission = json.load(f)
                     missions.append(mission)
 
@@ -63,7 +71,13 @@ def test_badges():
     """Test des badges"""
     print("\n🏆 Test des badges...")
     try:
-        with open("data/badges_secrets.json", "r", encoding="utf-8") as f:
+        # Chemin relatif depuis le dossier tests/
+        badges_file = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+            "data",
+            "badges_secrets.json",
+        )
+        with open(badges_file, "r", encoding="utf-8") as f:
             badges = json.load(f)
 
         print(f"✅ {len(badges['badges_secrets'])} badges disponibles")
@@ -108,6 +122,9 @@ def test_interface_js():
     """Test de l'interface JavaScript"""
     print("\n🌐 Test de l'interface JavaScript...")
     try:
+        # Chemin relatif depuis le dossier tests/
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
         # Vérifier que les fichiers JS existent
         js_files = [
             "static/js/mini-games-interface.js",
@@ -116,7 +133,8 @@ def test_interface_js():
         ]
 
         for js_file in js_files:
-            if os.path.exists(js_file):
+            full_path = os.path.join(base_dir, js_file)
+            if os.path.exists(full_path):
                 print(f"✅ {js_file} existe")
             else:
                 print(f"❌ {js_file} manquant")
@@ -126,7 +144,8 @@ def test_interface_js():
         css_files = ["static/css/mini-games.css", "static/css/arkalia-luna-vision.css"]
 
         for css_file in css_files:
-            if os.path.exists(css_file):
+            full_path = os.path.join(base_dir, css_file)
+            if os.path.exists(full_path):
                 print(f"✅ {css_file} existe")
             else:
                 print(f"❌ {css_file} manquant")

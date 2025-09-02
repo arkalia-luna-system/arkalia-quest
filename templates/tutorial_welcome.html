@@ -509,6 +509,15 @@
         // Fonction pour charger les étapes du tutoriel
         async function loadTutorialSteps() {
             try {
+                // Vérifier d'abord la progression sauvegardée
+                const savedProgress = localStorage.getItem('arkalia_tutorial_progress');
+                if (savedProgress) {
+                    const progress = JSON.parse(savedProgress);
+                    if (progress.completed_steps && progress.completed_steps.length > 0) {
+                        showProgressRestored(progress);
+                    }
+                }
+
                 const response = await fetch('/api/tutorial/steps');
                 if (response.ok) {
                     const data = await response.json();
@@ -519,6 +528,31 @@
             } catch (error) {
                 console.log('Erreur lors du chargement du tutoriel:', error);
             }
+        }
+
+        // Fonction pour afficher la progression restaurée
+        function showProgressRestored(progress) {
+            if (window.lunaVision) {
+                window.lunaVision.showLunaMessage(
+                    `Progression restaurée ! Tu as complété ${progress.completed_steps.length} étapes.`,
+                    4000
+                );
+            }
+
+            // Afficher une notification de progression sauvegardée
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+                background: rgba(167, 139, 250, 0.9); color: white; padding: 15px 25px;
+                border-radius: 10px; z-index: 1000; font-family: 'IBM Plex Mono', monospace;
+                box-shadow: 0 0 20px rgba(167, 139, 250, 0.5);
+            `;
+            notification.textContent = '✅ Progression sauvegardée et restaurée';
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
         }
 
         // Fonction pour afficher les étapes du tutoriel
@@ -580,6 +614,14 @@
             cancelBtn.addEventListener('click', closeModal);
             confirmBtn.addEventListener('click', async () => {
                 try {
+                    // Sauvegarde de progression dans localStorage
+                    const progress = {
+                        completed_steps: [1, 2, 3], // Étapes complétées
+                        last_accessed: new Date().toISOString(),
+                        tutorial_started: true
+                    };
+                    localStorage.setItem('arkalia_tutorial_progress', JSON.stringify(progress));
+
                     // Sauvegarde rapide de progression (best effort)
                     await fetch('/api/tutorial/progress/main_user');
                 } catch (e) { /* no-op */ }

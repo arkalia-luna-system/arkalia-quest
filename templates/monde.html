@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>🌍 ARKALIA QUEST - MONDE LUNA</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- PWA Meta Tags -->
-    <meta name="description" content="Explore le monde d'Arkalia Quest. Découvre des missions et des zones mystérieuses avec LUNA.">
+    <meta name="description"
+        content="Explore le monde d'Arkalia Quest. Découvre des missions et des zones mystérieuses avec LUNA.">
     <meta name="theme-color" content="#a78bfa">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    
+
     <!-- PWA Icons -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/icon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/icon-16x16.png">
     <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png">
-    
+
     <!-- CSS LUNA VISION -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
-    
+
     <style>
         /* Styles spécifiques au monde immersif */
         .world-workspace {
@@ -30,37 +32,46 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .world-background {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: 
+            background:
                 radial-gradient(circle at 25% 75%, rgba(167, 139, 250, 0.08) 0%, transparent 50%),
                 radial-gradient(circle at 75% 25%, rgba(96, 165, 250, 0.08) 0%, transparent 50%),
                 radial-gradient(circle at 50% 50%, rgba(167, 139, 250, 0.06) 0%, transparent 50%);
             animation: worldAmbient 18s ease-in-out infinite;
         }
-        
+
         @keyframes worldAmbient {
-            0%, 100% { opacity: 0.4; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(1.05); }
+
+            0%,
+            100% {
+                opacity: 0.4;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.7;
+                transform: scale(1.05);
+            }
         }
-        
+
         .world-container {
             padding: 30px 20px;
             position: relative;
             z-index: 2;
         }
-        
+
         .world-header {
             text-align: center;
             margin-bottom: 40px;
             position: relative;
         }
-        
+
         .world-title {
             font-family: 'Cormorant', serif;
             font-size: 3em;
@@ -71,7 +82,7 @@
             opacity: 0;
             animation: fadeInUp 1.5s ease-out 0.5s forwards;
         }
-        
+
         .world-subtitle {
             font-family: 'Inter', sans-serif;
             font-size: 1.2em;
@@ -79,14 +90,14 @@
             opacity: 0;
             animation: fadeInUp 1.5s ease-out 1s forwards;
         }
-        
+
         .world-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 30px;
             margin-bottom: 30px;
         }
-        
+
         .map-section {
             background: rgba(9, 9, 11, 0.9);
             border: 2px solid rgba(167, 139, 250, 0.3);
@@ -96,7 +107,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .map-container {
             position: relative;
             width: 100%;
@@ -106,29 +117,36 @@
             overflow: hidden;
             cursor: grab;
         }
-        
+
         .map-container:active {
             cursor: grabbing;
         }
-        
+
         .map-grid {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
+            background-image:
                 linear-gradient(rgba(167, 139, 250, 0.1) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(167, 139, 250, 0.1) 1px, transparent 1px);
             background-size: 50px 50px;
             animation: gridPulse 4s ease-in-out infinite;
         }
-        
+
         @keyframes gridPulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.6; }
+
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
         }
-        
+
         .zone {
             position: absolute;
             width: 120px;
@@ -147,7 +165,7 @@
             text-align: center;
             backdrop-filter: blur(5px);
         }
-        
+
         .zone::before {
             content: '';
             position: absolute;
@@ -159,12 +177,21 @@
             border-radius: 50%;
             animation: zonePulse 3s ease-in-out infinite;
         }
-        
+
         @keyframes zonePulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 1; }
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
         }
-        
+
         .zone:hover {
             border-color: rgba(167, 139, 250, 0.8);
             background: rgba(167, 139, 250, 0.2);
@@ -172,42 +199,42 @@
             transform: scale(1.1);
             color: var(--violet-lunaire);
         }
-        
+
         .zone.active {
             border-color: var(--violet-lunaire);
             background: rgba(167, 139, 250, 0.3);
             box-shadow: 0 0 40px rgba(167, 139, 250, 0.6);
             color: var(--violet-lunaire);
         }
-        
+
         .zone.completed {
             border-color: var(--bleu-spectre);
             background: rgba(96, 165, 250, 0.2);
         }
-        
+
         .zone.locked {
             border-color: rgba(255, 255, 255, 0.2);
             background: rgba(0, 0, 0, 0.5);
             color: rgba(255, 255, 255, 0.3);
             cursor: not-allowed;
         }
-        
+
         .zone.locked:hover {
             transform: none;
             box-shadow: none;
         }
-        
+
         .zone-icon {
             font-size: 1.5em;
             margin-bottom: 5px;
             display: block;
         }
-        
+
         .zone-name {
             font-size: 0.7em;
             line-height: 1.2;
         }
-        
+
         .player-position {
             position: absolute;
             width: 20px;
@@ -218,12 +245,19 @@
             animation: playerPulse 2s ease-in-out infinite;
             z-index: 10;
         }
-        
+
         @keyframes playerPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.3); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.3);
+            }
         }
-        
+
         .info-panel {
             background: rgba(9, 9, 11, 0.9);
             border: 2px solid rgba(167, 139, 250, 0.3);
@@ -232,14 +266,14 @@
             backdrop-filter: blur(15px);
             height: fit-content;
         }
-        
+
         .info-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-bottom: 20px;
         }
-        
+
         .info-title {
             font-family: 'Cormorant', serif;
             font-size: 1.6em;
@@ -247,11 +281,11 @@
             color: var(--violet-lunaire);
             text-shadow: 0 0 15px rgba(167, 139, 250, 0.5);
         }
-        
+
         .zone-details {
             margin-bottom: 25px;
         }
-        
+
         .zone-detail-item {
             background: rgba(167, 139, 250, 0.1);
             border: 1px solid rgba(167, 139, 250, 0.2);
@@ -260,42 +294,42 @@
             margin-bottom: 15px;
             transition: all 0.3s ease;
         }
-        
+
         .zone-detail-item:hover {
             border-color: rgba(167, 139, 250, 0.4);
             box-shadow: 0 0 15px rgba(167, 139, 250, 0.2);
         }
-        
+
         .zone-detail-header {
             display: flex;
             align-items: center;
             margin-bottom: 10px;
         }
-        
+
         .zone-detail-icon {
             font-size: 1.2em;
             margin-right: 10px;
         }
-        
+
         .zone-detail-title {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 0.9em;
             color: var(--violet-lunaire);
             font-weight: 600;
         }
-        
+
         .zone-detail-description {
             font-family: 'Inter', sans-serif;
             font-size: 0.85em;
             color: var(--argent-holographique);
             line-height: 1.4;
         }
-        
+
         .mission-list {
             max-height: 300px;
             overflow-y: auto;
         }
-        
+
         .mission-item {
             background: rgba(167, 139, 250, 0.1);
             border: 1px solid rgba(167, 139, 250, 0.2);
@@ -305,68 +339,68 @@
             transition: all 0.3s ease;
             cursor: pointer;
         }
-        
+
         .mission-item:hover {
             border-color: rgba(167, 139, 250, 0.4);
             box-shadow: 0 0 15px rgba(167, 139, 250, 0.2);
             transform: translateX(5px);
         }
-        
+
         .mission-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-bottom: 8px;
         }
-        
+
         .mission-icon {
             font-size: 1.1em;
             margin-right: 8px;
         }
-        
+
         .mission-title {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 0.85em;
             color: var(--violet-lunaire);
             font-weight: 600;
         }
-        
+
         .mission-status {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 0.7em;
             padding: 2px 6px;
             border-radius: 4px;
         }
-        
+
         .mission-status.available {
             background: rgba(96, 165, 250, 0.2);
             color: var(--bleu-spectre);
         }
-        
+
         .mission-status.completed {
             background: rgba(34, 197, 94, 0.2);
             color: #22c55e;
         }
-        
+
         .mission-status.locked {
             background: rgba(255, 255, 255, 0.1);
             color: rgba(255, 255, 255, 0.5);
         }
-        
+
         .mission-description {
             font-family: 'Inter', sans-serif;
             font-size: 0.8em;
             color: var(--argent-holographique);
             line-height: 1.3;
         }
-        
+
         .navigation-controls {
             display: flex;
             justify-content: center;
             gap: 15px;
             margin-top: 20px;
         }
-        
+
         .nav-button {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 0.9em;
@@ -378,14 +412,14 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .nav-button:hover {
             color: var(--violet-lunaire);
             border-color: rgba(167, 139, 250, 0.7);
             box-shadow: 0 0 15px rgba(167, 139, 250, 0.3);
             transform: translateY(-2px);
         }
-        
+
         .luna-world-guide {
             position: fixed;
             bottom: 20px;
@@ -402,34 +436,94 @@
             opacity: 0;
             animation: fadeIn 2s ease-out 2s forwards;
         }
-        
+
         .luna-world-guide::before {
             content: '🌙 LUNA:';
             font-weight: bold;
             color: var(--violet-lunaire);
             margin-right: 8px;
         }
-        
+
+        /* Styles pour la barre de progression */
+        .progress-bar-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .progress-bar-bg {
+            flex: 1;
+            height: 12px;
+            background: rgba(167, 139, 250, 0.2);
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid rgba(167, 139, 250, 0.3);
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--violet-lunaire), var(--bleu-spectre));
+            border-radius: 6px;
+            transition: width 0.8s ease;
+            position: relative;
+            box-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+        }
+
+        .progress-bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: progressShine 2s ease-in-out infinite;
+        }
+
+        @keyframes progressShine {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            50% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .progress-text {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9em;
+            color: var(--violet-lunaire);
+            font-weight: 600;
+            min-width: 50px;
+            text-align: right;
+        }
+
         @media (max-width: 768px) {
             .world-title {
                 font-size: 2.2em;
             }
-            
+
             .world-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
-            
+
             .map-container {
                 height: 350px;
             }
-            
+
             .zone {
                 width: 80px;
                 height: 80px;
                 font-size: 0.7em;
             }
-            
+
             .luna-world-guide {
                 position: static;
                 margin: 20px auto;
@@ -438,6 +532,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Skip Links pour accessibilité -->
     <a href="#main-content" class="skip-link">Aller au contenu principal</a>
@@ -467,56 +562,57 @@
     <main id="main-content" class="world-workspace">
         <!-- Fond animé du monde -->
         <div class="world-background"></div>
-        
+
         <div class="world-container">
             <!-- En-tête du monde -->
             <div class="world-header">
                 <h1 class="world-title" id="world-title">MONDE D'ARKALIA</h1>
-                <p class="world-subtitle" id="world-subtitle">Explore les zones mystérieuses et découvre des missions</p>
+                <p class="world-subtitle" id="world-subtitle">Explore les zones mystérieuses et découvre des missions
+                </p>
             </div>
-            
+
             <!-- Grille principale -->
             <div class="world-grid">
                 <!-- Section Carte -->
                 <div class="map-section">
                     <div class="map-container" id="world-map">
                         <div class="map-grid"></div>
-                        
+
                         <!-- Zones du monde -->
                         <div class="zone" data-zone="terminal" style="top: 20%; left: 20%;">
                             <span class="zone-icon">⌨️</span>
                             <div class="zone-name">TERMINAL</div>
                         </div>
-                        
+
                         <div class="zone" data-zone="cyber-city" style="top: 30%; left: 60%;">
                             <span class="zone-icon">🏙️</span>
                             <div class="zone-name">CYBER CITY</div>
                         </div>
-                        
+
                         <div class="zone" data-zone="data-center" style="top: 60%; left: 30%;">
                             <span class="zone-icon">🏢</span>
                             <div class="zone-name">DATA CENTER</div>
                         </div>
-                        
+
                         <div class="zone" data-zone="underground" style="top: 70%; left: 70%;">
                             <span class="zone-icon">🕳️</span>
                             <div class="zone-name">UNDERGROUND</div>
                         </div>
-                        
+
                         <div class="zone completed" data-zone="training" style="top: 45%; left: 45%;">
                             <span class="zone-icon">🎯</span>
                             <div class="zone-name">TRAINING</div>
                         </div>
-                        
+
                         <div class="zone locked" data-zone="quantum" style="top: 15%; left: 80%;">
                             <span class="zone-icon">⚛️</span>
                             <div class="zone-name">QUANTUM</div>
                         </div>
-                        
+
                         <!-- Position du joueur -->
                         <div class="player-position" id="player-position" style="top: 45%; left: 45%;"></div>
                     </div>
-                    
+
                     <!-- Contrôles de navigation -->
                     <div class="navigation-controls">
                         <button class="nav-button" onclick="movePlayer('up')">⬆️ NORD</button>
@@ -525,13 +621,13 @@
                         <button class="nav-button" onclick="movePlayer('right')">➡️ EST</button>
                     </div>
                 </div>
-                
+
                 <!-- Panneau d'information -->
                 <div class="info-panel">
                     <div class="info-header">
                         <h3 class="info-title">INFORMATIONS</h3>
                     </div>
-                    
+
                     <!-- Détails de la zone -->
                     <div class="zone-details" id="zone-details">
                         <div class="zone-detail-item">
@@ -539,9 +635,10 @@
                                 <span class="zone-detail-icon">📍</span>
                                 <span class="zone-detail-title">Zone Actuelle</span>
                             </div>
-                            <div class="zone-detail-description" id="current-zone">Sélectionne une zone sur la carte</div>
+                            <div class="zone-detail-description" id="current-zone">Sélectionne une zone sur la carte
+                            </div>
                         </div>
-                        
+
                         <div class="zone-detail-item">
                             <div class="zone-detail-header">
                                 <span class="zone-detail-icon">🎯</span>
@@ -549,16 +646,23 @@
                             </div>
                             <div class="zone-detail-description" id="available-missions">--</div>
                         </div>
-                        
+
                         <div class="zone-detail-item">
                             <div class="zone-detail-header">
                                 <span class="zone-detail-icon">🏆</span>
                                 <span class="zone-detail-title">Progression</span>
                             </div>
-                            <div class="zone-detail-description" id="zone-progress">--</div>
+                            <div class="zone-detail-description" id="zone-progress">
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-bg">
+                                        <div class="progress-bar-fill" id="zone-progress-bar"></div>
+                                    </div>
+                                    <span class="progress-text" id="zone-progress-text">--</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    
+
                     <!-- Liste des missions -->
                     <div class="mission-list" id="mission-list">
                         <!-- Missions seront chargées dynamiquement -->
@@ -566,7 +670,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Guide LUNA -->
         <div class="luna-world-guide" id="luna-world-guide">
             Explore le monde d'Arkalia pour découvrir de nouvelles missions...
@@ -578,7 +682,7 @@
     <script src="{{ url_for('static', filename='js/audio-manager.js') }}"></script>
     <script src="{{ url_for('static', filename='js/effects.js') }}"></script>
     <script src="{{ url_for('static', filename='js/accessibility.js') }}"></script>
-    
+
     <script>
         // Données des zones
         const zones = {
@@ -648,10 +752,10 @@
                 locked: true
             }
         };
-        
+
         let currentZone = 'training';
         let playerPosition = { x: 45, y: 45 };
-        
+
         // Initialiser la carte
         function initWorldMap() {
             const zones = document.querySelectorAll('.zone');
@@ -660,18 +764,18 @@
                     selectZone(zone.dataset.zone);
                 });
             });
-            
+
             // Sélectionner la zone par défaut
             selectZone(currentZone);
         }
-        
+
         // Sélectionner une zone
         function selectZone(zoneId) {
             // Retirer la sélection active
             document.querySelectorAll('.zone').forEach(zone => {
                 zone.classList.remove('active');
             });
-            
+
             // Ajouter la sélection à la zone cliquée
             const selectedZone = document.querySelector(`[data-zone="${zoneId}"]`);
             if (selectedZone && !selectedZone.classList.contains('locked')) {
@@ -681,29 +785,36 @@
                 movePlayerToZone(zoneId);
             }
         }
-        
+
         // Mettre à jour les informations de la zone
         function updateZoneInfo(zoneId) {
             const zone = zones[zoneId];
             if (!zone) return;
-            
+
             document.getElementById('current-zone').textContent = zone.name;
             document.getElementById('available-missions').textContent = `${zone.missions} missions disponibles`;
-            document.getElementById('zone-progress').textContent = `${zone.progress}% complété`;
-            
+
+            // Mettre à jour la barre de progression
+            const progressBar = document.getElementById('zone-progress-bar');
+            const progressText = document.getElementById('zone-progress-text');
+            if (progressBar && progressText) {
+                progressBar.style.width = `${zone.progress}%`;
+                progressText.textContent = `${zone.progress}%`;
+            }
+
             updateMissionList(zone.missions_list);
         }
-        
+
         // Mettre à jour la liste des missions
         function updateMissionList(missions) {
             const missionList = document.getElementById('mission-list');
             missionList.innerHTML = '';
-            
+
             if (missions.length === 0) {
                 missionList.innerHTML = '<p style="text-align: center; color: var(--argent-holographique);">Aucune mission disponible</p>';
                 return;
             }
-            
+
             missions.forEach(mission => {
                 const missionItem = document.createElement('div');
                 missionItem.className = 'mission-item';
@@ -717,35 +828,35 @@
                     </div>
                     <div class="mission-description">${mission.description}</div>
                 `;
-                
+
                 if (mission.status === 'available') {
                     missionItem.addEventListener('click', () => {
                         startMission(mission.title);
                     });
                 }
-                
+
                 missionList.appendChild(missionItem);
             });
         }
-        
+
         // Démarrer une mission
         function startMission(missionTitle) {
             if (window.lunaVision) {
                 window.lunaVision.showLunaMessage(`Mission "${missionTitle}" lancée...`, 3000);
                 window.lunaVision.setEmotion('excited');
             }
-            
+
             // Rediriger vers le terminal pour la mission
             setTimeout(() => {
                 window.location.href = '/terminal';
             }, 2000);
         }
-        
+
         // Déplacer le joueur
         function movePlayer(direction) {
             const step = 5;
             const player = document.getElementById('player-position');
-            
+
             switch (direction) {
                 case 'up':
                     playerPosition.y = Math.max(10, playerPosition.y - step);
@@ -760,30 +871,30 @@
                     playerPosition.x = Math.min(80, playerPosition.x + step);
                     break;
             }
-            
+
             player.style.top = playerPosition.y + '%';
             player.style.left = playerPosition.x + '%';
-            
+
             // Vérifier si le joueur entre dans une zone
             checkZoneProximity();
         }
-        
+
         // Déplacer le joueur vers une zone
         function movePlayerToZone(zoneId) {
             const zone = document.querySelector(`[data-zone="${zoneId}"]`);
             if (zone) {
                 const rect = zone.getBoundingClientRect();
                 const mapRect = document.getElementById('world-map').getBoundingClientRect();
-                
-                playerPosition.x = ((rect.left + rect.width/2 - mapRect.left) / mapRect.width) * 100;
-                playerPosition.y = ((rect.top + rect.height/2 - mapRect.top) / mapRect.height) * 100;
-                
+
+                playerPosition.x = ((rect.left + rect.width / 2 - mapRect.left) / mapRect.width) * 100;
+                playerPosition.y = ((rect.top + rect.height / 2 - mapRect.top) / mapRect.height) * 100;
+
                 const player = document.getElementById('player-position');
                 player.style.left = playerPosition.x + '%';
                 player.style.top = playerPosition.y + '%';
             }
         }
-        
+
         // Vérifier la proximité avec les zones
         function checkZoneProximity() {
             const zones = document.querySelectorAll('.zone');
@@ -791,32 +902,32 @@
                 const zoneRect = zone.getBoundingClientRect();
                 const mapRect = document.getElementById('world-map').getBoundingClientRect();
                 const playerRect = document.getElementById('player-position').getBoundingClientRect();
-                
+
                 const zoneCenter = {
-                    x: zoneRect.left + zoneRect.width/2,
-                    y: zoneRect.top + zoneRect.height/2
+                    x: zoneRect.left + zoneRect.width / 2,
+                    y: zoneRect.top + zoneRect.height / 2
                 };
-                
+
                 const playerCenter = {
-                    x: playerRect.left + playerRect.width/2,
-                    y: playerRect.top + playerRect.height/2
+                    x: playerRect.left + playerRect.width / 2,
+                    y: playerRect.top + playerRect.height / 2
                 };
-                
+
                 const distance = Math.sqrt(
-                    Math.pow(zoneCenter.x - playerCenter.x, 2) + 
+                    Math.pow(zoneCenter.x - playerCenter.x, 2) +
                     Math.pow(zoneCenter.y - playerCenter.y, 2)
                 );
-                
+
                 if (distance < 60 && !zone.classList.contains('locked')) {
                     selectZone(zone.dataset.zone);
                 }
             });
         }
-        
+
         // Animation du titre
         document.addEventListener('DOMContentLoaded', () => {
             initWorldMap();
-            
+
             // Animation du titre
             setTimeout(() => {
                 const title = document.getElementById('world-title');
@@ -824,7 +935,7 @@
                     window.lunaVision.typeText(title, "MONDE D'ARKALIA", 80);
                 }
             }, 1000);
-            
+
             // Animation du sous-titre
             setTimeout(() => {
                 const subtitle = document.getElementById('world-subtitle');
@@ -832,7 +943,7 @@
                     window.lunaVision.typeText(subtitle, "Explore les zones mystérieuses et découvre des missions", 40);
                 }
             }, 2000);
-            
+
             // Message de LUNA
             setTimeout(() => {
                 if (window.lunaVision) {
@@ -840,7 +951,7 @@
                     window.lunaVision.setEmotion('curious');
                 }
             }, 3000);
-            
+
             // Interactions avec les zones
             const zones = document.querySelectorAll('.zone');
             zones.forEach(zone => {
@@ -854,4 +965,5 @@
         });
     </script>
 </body>
-</html> 
+
+</html>

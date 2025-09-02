@@ -532,7 +532,7 @@
                     </div>
                     <div class="widget-content">
                         <div class="metric-display">
-                            <span class="metric-value" id="total-score">--</span>
+                            <span class="metric-value" id="total-score">N/A</span>
                             <div class="metric-label">Points Accumulés</div>
                         </div>
                     </div>
@@ -551,7 +551,7 @@
                                 <circle class="progress" cx="60" cy="60" r="45"></circle>
                             </svg>
                             <div class="progress-center">
-                                <div class="progress-percentage" id="level-percentage">--</div>
+                                <div class="progress-percentage" id="level-percentage">N/A</div>
                             </div>
                         </div>
                     </div>
@@ -565,7 +565,7 @@
                     </div>
                     <div class="widget-content">
                         <div class="metric-display">
-                            <span class="metric-value" id="missions-completed">--</span>
+                            <span class="metric-value" id="missions-completed">N/A</span>
                             <div class="metric-label">Missions Complétées</div>
                         </div>
                         <div class="chart-container" id="missions-chart">
@@ -582,7 +582,7 @@
                     </div>
                     <div class="widget-content">
                         <div class="metric-display">
-                            <span class="metric-value" id="badges-count">--</span>
+                            <span class="metric-value" id="badges-count">N/A</span>
                             <div class="metric-label">Badges Obtenus</div>
                         </div>
                     </div>
@@ -596,7 +596,7 @@
                     </div>
                     <div class="widget-content">
                         <div class="metric-display">
-                            <span class="metric-value" id="performance-score">--</span>
+                            <span class="metric-value" id="performance-score">N/A</span>
                             <div class="metric-label">Score de Performance</div>
                         </div>
                     </div>
@@ -610,7 +610,7 @@
                     </div>
                     <div class="widget-content">
                         <div class="metric-display">
-                            <span class="metric-value" id="play-time">--</span>
+                            <span class="metric-value" id="play-time">N/A</span>
                             <div class="metric-label">Heures Jouées</div>
                         </div>
                     </div>
@@ -661,11 +661,12 @@
         }
 
         function updateDashboardMetrics(data) {
-            document.getElementById('total-score').textContent = data.total_score || 0;
-            document.getElementById('missions-completed').textContent = data.missions_completees || 0;
-            document.getElementById('badges-count').textContent = data.badges_count || 0;
-            document.getElementById('performance-score').textContent = Math.round((data.total_score || 0) / 10);
-            document.getElementById('play-time').textContent = Math.round((data.total_score || 0) / 100);
+            // Améliorer l'affichage des valeurs par défaut
+            document.getElementById('total-score').textContent = data.total_score > 0 ? data.total_score : 'N/A';
+            document.getElementById('missions-completed').textContent = data.missions_completees > 0 ? data.missions_completees : 'N/A';
+            document.getElementById('badges-count').textContent = data.badges_count > 0 ? data.badges_count : 'N/A';
+            document.getElementById('performance-score').textContent = data.total_score > 0 ? Math.round(data.total_score / 10) : 'N/A';
+            document.getElementById('play-time').textContent = data.total_score > 0 ? Math.round(data.total_score / 100) : 'N/A';
         }
 
         function updateProgressRing(data) {

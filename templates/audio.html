@@ -636,6 +636,7 @@
                     <div class="player-actions">
                         <button class="action-btn" onclick="toggleShuffle()">🔀 Shuffle</button>
                         <button class="action-btn" onclick="toggleLoop()">🔁 Loop</button>
+                        <button class="action-btn" onclick="testAudio()" id="test-audio-btn">🔊 Test Audio</button>
                     </div>
                 </div>
 
@@ -854,10 +855,75 @@
             alert('Mode loop activé !');
         }
 
+        // Fonction de test audio avec persistance
+        function testAudio() {
+            const btn = document.getElementById('test-audio-btn');
+            const audioEnabled = localStorage.getItem('arkalia_audio_enabled') === 'true';
+
+            if (audioEnabled) {
+                // Tester l'audio
+                try {
+                    // Créer un contexte audio simple pour le test
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+
+                    oscillator.frequency.setValueAtTime(440, audioContext.currentTime); // Note A4
+                    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+
+                    oscillator.start();
+                    oscillator.stop(audioContext.currentTime + 0.2);
+
+                    // Feedback visuel
+                    btn.textContent = '✅ Audio OK';
+                    btn.style.background = 'linear-gradient(45deg, #00ff00, #00ffff)';
+
+                    setTimeout(() => {
+                        btn.textContent = '🔊 Test Audio';
+                        btn.style.background = 'linear-gradient(45deg, #00ff00, #00ffff)';
+                    }, 2000);
+
+                } catch (error) {
+                    // Audio désactivé ou erreur
+                    btn.textContent = '❌ Audio Désactivé';
+                    btn.style.background = 'linear-gradient(45deg, #ff0000, #ff6666)';
+
+                    setTimeout(() => {
+                        btn.textContent = '🔊 Test Audio';
+                        btn.style.background = 'linear-gradient(45deg, #00ff00, #00ffff)';
+                    }, 2000);
+                }
+            } else {
+                // Activer l'audio
+                localStorage.setItem('arkalia_audio_enabled', 'true');
+                btn.textContent = '✅ Audio Activé';
+                btn.style.background = 'linear-gradient(45deg, #00ff00, #00ffff)';
+
+                setTimeout(() => {
+                    btn.textContent = '🔊 Test Audio';
+                    btn.style.background = 'linear-gradient(45deg, #00ff00, #00ffff)';
+                }, 2000);
+            }
+        }
+
         // Initialisation
         document.addEventListener('DOMContentLoaded', function () {
             // Charger la playlist initiale
             loadPlaylist('ambient');
+
+            // Initialiser l'état audio
+            const audioEnabled = localStorage.getItem('arkalia_audio_enabled') === 'true';
+            const testBtn = document.getElementById('test-audio-btn');
+            if (testBtn) {
+                if (audioEnabled) {
+                    testBtn.textContent = '🔊 Test Audio';
+                } else {
+                    testBtn.textContent = '🔇 Activer Audio';
+                }
+            }
 
             // Gestion des clics sur les playlists
             document.querySelectorAll('.playlist-link').forEach(link => {

@@ -2,19 +2,67 @@
 
 /* APPROCHE MOBILE FIRST */
 
+/* ===== CORRECTION TRONCATURE DE TEXTE ===== */
+/* Éviter la troncature de texte sur tous les éléments */
+* {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+/* Correction spécifique pour les blocs de texte */
+.text-block,
+.message-content,
+.description,
+.badge-description,
+.hero-subtitle,
+.luna-greeting,
+.track-description {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    line-height: 1.6;
+    max-width: 100%;
+}
+
+/* Correction pour les titres */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.3;
+}
+
+/* Correction pour les boutons et liens */
+.btn,
+.nav-link,
+.cta-btn {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
 /* ===== BREAKPOINTS PROFESSIONNELS ===== */
 
 /* Mobile Portrait (320px - 480px) - OPTIMISÉ ADOLESCENT */
 @media (max-width: 480px) {
     :root {
-        --font-size-base: 20px;  /* Plus grand pour les ados */
-        --spacing-xs: 8px;       /* Plus d'espace */
+        --font-size-base: 20px;
+        /* Plus grand pour les ados */
+        --spacing-xs: 8px;
+        /* Plus d'espace */
         --spacing-sm: 12px;
         --spacing-md: 16px;
-        --spacing-lg: 24px;      /* Plus d'espace entre éléments */
+        --spacing-lg: 24px;
+        /* Plus d'espace entre éléments */
         --spacing-xl: 32px;
     }
-    
+
     /* Containers principaux */
     .portal-container,
     .terminal-container,
@@ -25,7 +73,7 @@
         padding: 15px;
         border-radius: 12px;
     }
-    
+
     /* Headers */
     .portal-container h1,
     .terminal-container h1,
@@ -34,39 +82,45 @@
         font-size: 2em;
         margin-bottom: 20px;
     }
-    
+
     /* Boutons tactiles optimisés ADOLESCENT */
     .main-action-btn,
     .nav-button,
     .secondary-btn,
     .nav-btn,
     button {
-        min-height: 56px;        /* Plus grand pour les doigts d'ados */
+        min-height: 56px;
+        /* Plus grand pour les doigts d'ados */
         min-width: 56px;
-        padding: 16px 20px;      /* Plus de padding */
-        font-size: 18px;         /* Texte plus grand */
-        margin: 10px 6px;        /* Plus d'espace entre boutons */
-        border-radius: 12px;     /* Plus arrondi, style moderne */
-        font-weight: 600;        /* Plus visible */
+        padding: 16px 20px;
+        /* Plus de padding */
+        font-size: 18px;
+        /* Texte plus grand */
+        margin: 10px 6px;
+        /* Plus d'espace entre boutons */
+        border-radius: 12px;
+        /* Plus arrondi, style moderne */
+        font-weight: 600;
+        /* Plus visible */
     }
-    
+
     /* Navigation */
     .navigation {
         flex-direction: column;
         gap: 10px;
         padding: 10px;
     }
-    
+
     .nav-buttons {
         flex-direction: column;
         gap: 12px;
     }
-    
+
     .secondary-nav {
         flex-direction: column;
         gap: 10px;
     }
-    
+
     /* Terminal */
     .terminal-output {
         min-height: 200px;
@@ -74,51 +128,51 @@
         font-size: 14px;
         padding: 10px;
     }
-    
+
     .terminal-input {
         width: 100%;
         font-size: 16px;
         padding: 12px;
         margin: 8px 0;
     }
-    
+
     .input-wrapper {
         flex-direction: column;
         gap: 8px;
     }
-    
+
     .command-prompt {
         font-size: 14px;
         padding: 8px;
     }
-    
+
     /* Profil */
     .profil-grid {
         grid-template-columns: 1fr;
         gap: 20px;
     }
-    
+
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
     }
-    
+
     .badge {
         font-size: 12px;
         padding: 8px 12px;
     }
-    
+
     /* Monde */
     .monde-content {
         grid-template-columns: 1fr;
         gap: 20px;
     }
-    
+
     .portail {
         padding: 20px;
         margin: 10px 0;
     }
-    
+
     /* Panneau d'accessibilité */
     .accessibility-panel {
         position: fixed;
@@ -129,14 +183,14 @@
         max-width: none;
         z-index: 1000;
     }
-    
+
     /* Messages contextuels */
     .contextual-message {
         font-size: 14px;
         padding: 10px 12px;
         margin: 6px 0;
     }
-    
+
     .contextual-icon {
         font-size: 1.2em;
     }
@@ -149,7 +203,7 @@
         --spacing-md: 16px;
         --spacing-lg: 24px;
     }
-    
+
     /* Containers */
     .portal-container,
     .terminal-container,
@@ -159,7 +213,7 @@
         margin: 20px auto;
         padding: 25px;
     }
-    
+
     /* Headers */
     .portal-container h1,
     .terminal-container h1,
@@ -167,53 +221,53 @@
     .profil-container h1 {
         font-size: 2.5em;
     }
-    
+
     /* Navigation */
     .navigation {
         flex-wrap: wrap;
         gap: 15px;
         justify-content: center;
     }
-    
+
     .nav-buttons {
         flex-direction: column;
         gap: 15px;
     }
-    
+
     .secondary-nav {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
     }
-    
+
     /* Terminal */
     .terminal-output {
         min-height: 250px;
         max-height: 350px;
     }
-    
+
     .input-wrapper {
         flex-direction: row;
         gap: 10px;
     }
-    
+
     /* Profil */
     .profil-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 25px;
     }
-    
+
     .stats-grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 15px;
     }
-    
+
     /* Monde */
     .monde-content {
         grid-template-columns: repeat(2, 1fr);
         gap: 25px;
     }
-    
+
     /* Panneau d'accessibilité */
     .accessibility-panel {
         right: 15px;
@@ -227,7 +281,7 @@
     :root {
         --font-size-base: 16px;
     }
-    
+
     /* Containers */
     .portal-container,
     .terminal-container,
@@ -237,7 +291,7 @@
         margin: 30px auto;
         padding: 30px;
     }
-    
+
     /* Headers */
     .portal-container h1,
     .terminal-container h1,
@@ -245,37 +299,37 @@
     .profil-container h1 {
         font-size: 2.8em;
     }
-    
+
     /* Navigation */
     .nav-buttons {
         flex-direction: row;
         gap: 20px;
     }
-    
+
     .secondary-nav {
         display: flex;
         flex-wrap: wrap;
         gap: 15px;
         justify-content: center;
     }
-    
+
     /* Terminal */
     .terminal-output {
         min-height: 300px;
         max-height: 400px;
     }
-    
+
     /* Profil */
     .profil-grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 30px;
     }
-    
+
     .stats-grid {
         grid-template-columns: repeat(4, 1fr);
         gap: 20px;
     }
-    
+
     /* Monde */
     .monde-content {
         grid-template-columns: repeat(3, 1fr);
@@ -285,6 +339,7 @@
 
 /* Desktop (1025px+) */
 @media (min-width: 1025px) {
+
     /* Containers */
     .portal-container,
     .terminal-container,
@@ -294,7 +349,7 @@
         margin: 40px auto;
         padding: 40px;
     }
-    
+
     /* Headers */
     .portal-container h1,
     .terminal-container h1,
@@ -302,36 +357,36 @@
     .profil-container h1 {
         font-size: 3em;
     }
-    
+
     /* Navigation */
     .nav-buttons {
         flex-direction: row;
         gap: 25px;
     }
-    
+
     .secondary-nav {
         display: flex;
         gap: 20px;
         justify-content: center;
     }
-    
+
     /* Terminal */
     .terminal-output {
         min-height: 350px;
         max-height: 500px;
     }
-    
+
     /* Profil */
     .profil-grid {
         grid-template-columns: repeat(4, 1fr);
         gap: 35px;
     }
-    
+
     .stats-grid {
         grid-template-columns: repeat(5, 1fr);
         gap: 25px;
     }
-    
+
     /* Monde */
     .monde-content {
         grid-template-columns: repeat(4, 1fr);
@@ -348,7 +403,7 @@
         display: flex;
         flex-direction: column;
     }
-    
+
     .terminal-output {
         flex: 1;
         min-height: 200px;
@@ -360,11 +415,11 @@
     .terminal-container {
         height: 100vh;
     }
-    
+
     .terminal-output {
         max-height: 60vh;
     }
-    
+
     .terminal-header {
         padding: 8px 16px;
         font-size: 0.8em;
@@ -374,13 +429,15 @@
 /* ===== DENSITÉ D'ÉCRAN ===== */
 
 /* Écrans haute densité */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+
     .badge,
     .stat-item,
     .portail {
         border-width: 1px;
     }
-    
+
     .main-action-btn,
     .nav-button,
     .secondary-btn {
@@ -391,6 +448,7 @@
 /* ===== PREFERS-REDUCED-MOTION ===== */
 
 @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
@@ -423,6 +481,7 @@
 
 /* Optimisation pour les gestes tactiles */
 @media (pointer: coarse) {
+
     /* Éléments tactiles plus grands */
     button,
     .nav-button,
@@ -433,16 +492,16 @@
         min-width: 44px;
         padding: 12px 20px;
     }
-    
+
     /* Espacement pour éviter les clics accidentels */
     .nav-buttons {
         gap: 15px;
     }
-    
+
     .secondary-nav {
         gap: 12px;
     }
-    
+
     /* Scroll tactile optimisé */
     .terminal-output {
         -webkit-overflow-scrolling: touch;
@@ -454,12 +513,13 @@
 
 /* Optimisations pour appareils moins puissants */
 @media (max-width: 768px) {
+
     /* Réduire les animations sur mobile */
     body::before,
     body::after {
         animation-duration: 30s;
     }
-    
+
     /* Optimiser les effets visuels */
     .portal-container,
     .terminal-container,
@@ -468,7 +528,7 @@
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
     }
-    
+
     /* Réduire les ombres */
     .main-action-btn,
     .nav-button,
@@ -481,6 +541,7 @@
 
 /* Focus visible sur tous les appareils */
 @media (any-hover: none) {
+
     /* Sur les appareils tactiles, toujours montrer le focus */
     button:focus,
     input:focus,
@@ -501,7 +562,7 @@
     .hide-mobile {
         display: block;
     }
-    
+
     .show-mobile {
         display: none;
     }
@@ -527,4 +588,4 @@
     .spacing-responsive {
         margin: var(--spacing-lg);
     }
-} 
+}

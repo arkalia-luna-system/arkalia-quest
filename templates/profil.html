@@ -1,30 +1,32 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>👤 ARKALIA QUEST - PROFIL LUNA</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- PWA Meta Tags -->
-    <meta name="description" content="Ton profil personnel dans Arkalia Quest. Découvre tes accomplissements et ta progression avec LUNA.">
+    <meta name="description"
+        content="Ton profil personnel dans Arkalia Quest. Découvre tes accomplissements et ta progression avec LUNA.">
     <meta name="theme-color" content="#a78bfa">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    
+
     <!-- PWA Icons -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/icon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/icon-16x16.png">
     <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png">
-    
+
     <!-- CSS LUNA VISION -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
-    
+
     <!-- Composants modernes pour ado -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/teen-modern-components.css') }}">
-    
+
     <style>
         /* Styles spécifiques au profil immersif */
         .profile-workspace {
@@ -33,37 +35,46 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .profile-background {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: 
+            background:
                 radial-gradient(circle at 30% 70%, rgba(167, 139, 250, 0.08) 0%, transparent 50%),
                 radial-gradient(circle at 70% 30%, rgba(96, 165, 250, 0.08) 0%, transparent 50%),
                 radial-gradient(circle at 50% 50%, rgba(167, 139, 250, 0.05) 0%, transparent 50%);
             animation: profileAmbient 12s ease-in-out infinite;
         }
-        
+
         @keyframes profileAmbient {
-            0%, 100% { opacity: 0.4; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(1.03); }
+
+            0%,
+            100% {
+                opacity: 0.4;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.7;
+                transform: scale(1.03);
+            }
         }
-        
+
         .profile-container {
             padding: 30px 20px;
             position: relative;
             z-index: 2;
         }
-        
+
         .profile-header {
             text-align: center;
             margin-bottom: 40px;
             position: relative;
         }
-        
+
         .profile-title {
             font-family: 'Cormorant', serif;
             font-size: 3em;
@@ -74,7 +85,7 @@
             opacity: 0;
             animation: fadeInUp 1.5s ease-out 0.5s forwards;
         }
-        
+
         .profile-subtitle {
             font-family: 'Inter', sans-serif;
             font-size: 1.2em;
@@ -82,7 +93,7 @@
             opacity: 0;
             animation: fadeInUp 1.5s ease-out 1s forwards;
         }
-        
+
         .avatar-section {
             display: flex;
             justify-content: center;
@@ -90,7 +101,7 @@
             margin-bottom: 40px;
             position: relative;
         }
-        
+
         .avatar-3d {
             width: 150px;
             height: 150px;
@@ -106,7 +117,7 @@
             cursor: pointer;
             transition: all 0.5s ease;
         }
-        
+
         .avatar-3d::before {
             content: '';
             position: absolute;
@@ -120,7 +131,7 @@
             animation: avatarGlow 4s ease-in-out infinite;
             z-index: -1;
         }
-        
+
         .avatar-3d::after {
             content: '';
             position: absolute;
@@ -137,34 +148,55 @@
             mask-composite: exclude;
             animation: avatarRotate 10s linear infinite;
         }
-        
+
         @keyframes avatarFloat {
-            0%, 100% { transform: translateY(0px) rotateY(0deg); }
-            50% { transform: translateY(-15px) rotateY(10deg); }
+
+            0%,
+            100% {
+                transform: translateY(0px) rotateY(0deg);
+            }
+
+            50% {
+                transform: translateY(-15px) rotateY(10deg);
+            }
         }
-        
+
         @keyframes avatarGlow {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(1.1); }
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: scale(1.1);
+            }
         }
-        
+
         @keyframes avatarRotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
-        
+
         .avatar-3d:hover {
             transform: scale(1.1) rotateY(15deg);
             box-shadow: 0 0 80px rgba(167, 139, 250, 0.6);
         }
-        
+
         .profile-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 25px;
             margin-bottom: 40px;
         }
-        
+
         .stat-card {
             background: rgba(9, 9, 11, 0.9);
             border: 2px solid rgba(167, 139, 250, 0.3);
@@ -176,7 +208,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .stat-card::before {
             content: '';
             position: absolute;
@@ -188,24 +220,24 @@
             opacity: 0;
             transition: opacity 0.4s ease;
         }
-        
+
         .stat-card:hover::before {
             opacity: 1;
         }
-        
+
         .stat-card:hover {
             border-color: rgba(167, 139, 250, 0.6);
             box-shadow: 0 0 40px rgba(167, 139, 250, 0.4);
             transform: translateY(-5px);
         }
-        
+
         .stat-icon {
             font-size: 2.5em;
             margin-bottom: 15px;
             display: block;
             text-shadow: 0 0 20px rgba(167, 139, 250, 0.6);
         }
-        
+
         .stat-value {
             font-family: 'Cormorant', serif;
             font-size: 2.2em;
@@ -215,7 +247,7 @@
             margin-bottom: 10px;
             display: block;
         }
-        
+
         .stat-label {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 0.9em;
@@ -223,7 +255,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        
+
         .progress-section {
             background: rgba(9, 9, 11, 0.9);
             border: 2px solid rgba(167, 139, 250, 0.3);
@@ -232,7 +264,7 @@
             margin-bottom: 40px;
             backdrop-filter: blur(15px);
         }
-        
+
         .progress-title {
             font-family: 'Cormorant', serif;
             font-size: 1.8em;
@@ -242,7 +274,7 @@
             margin-bottom: 25px;
             text-shadow: 0 0 15px rgba(167, 139, 250, 0.5);
         }
-        
+
         .progress-bar {
             background: rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(167, 139, 250, 0.3);
@@ -252,7 +284,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--violet-lunaire), var(--bleu-spectre));
@@ -261,7 +293,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .progress-fill::after {
             content: '';
             position: absolute;
@@ -272,12 +304,17 @@
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             animation: progressShine 2s ease-in-out infinite;
         }
-        
+
         @keyframes progressShine {
-            0% { left: -100%; }
-            100% { left: 100%; }
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 100%;
+            }
         }
-        
+
         .progress-label {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 0.9em;
@@ -286,7 +323,7 @@
             justify-content: space-between;
             margin-bottom: 5px;
         }
-        
+
         .badges-section {
             background: rgba(9, 9, 11, 0.9);
             border: 2px solid rgba(167, 139, 250, 0.3);
@@ -295,7 +332,7 @@
             margin-bottom: 40px;
             backdrop-filter: blur(15px);
         }
-        
+
         .badges-title {
             font-family: 'Cormorant', serif;
             font-size: 1.8em;
@@ -305,13 +342,13 @@
             margin-bottom: 25px;
             text-shadow: 0 0 15px rgba(167, 139, 250, 0.5);
         }
-        
+
         .badges-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 20px;
         }
-        
+
         .badge-item {
             background: rgba(167, 139, 250, 0.1);
             border: 2px solid rgba(167, 139, 250, 0.3);
@@ -323,7 +360,7 @@
             overflow: hidden;
             cursor: pointer;
         }
-        
+
         .badge-item::before {
             content: '';
             position: absolute;
@@ -335,29 +372,36 @@
             opacity: 0;
             transition: opacity 0.4s ease;
         }
-        
+
         .badge-item:hover::before {
             opacity: 1;
         }
-        
+
         .badge-item:hover {
             border-color: rgba(167, 139, 250, 0.7);
             box-shadow: 0 0 30px rgba(167, 139, 250, 0.4);
             transform: translateY(-5px) scale(1.05);
         }
-        
+
         .badge-icon {
             font-size: 2.5em;
             margin-bottom: 10px;
             display: block;
             animation: badgePulse 3s ease-in-out infinite;
         }
-        
+
         @keyframes badgePulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
         }
-        
+
         .badge-name {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 0.8em;
@@ -365,7 +409,7 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        
+
         .timeline-section {
             background: rgba(9, 9, 11, 0.9);
             border: 2px solid rgba(167, 139, 250, 0.3);
@@ -373,7 +417,7 @@
             padding: 30px;
             backdrop-filter: blur(15px);
         }
-        
+
         .timeline-title {
             font-family: 'Cormorant', serif;
             font-size: 1.8em;
@@ -383,12 +427,12 @@
             margin-bottom: 25px;
             text-shadow: 0 0 15px rgba(167, 139, 250, 0.5);
         }
-        
+
         .timeline {
             position: relative;
             padding-left: 30px;
         }
-        
+
         .timeline::before {
             content: '';
             position: absolute;
@@ -398,7 +442,7 @@
             width: 2px;
             background: linear-gradient(180deg, var(--violet-lunaire), var(--bleu-spectre));
         }
-        
+
         .timeline-item {
             position: relative;
             margin-bottom: 25px;
@@ -406,17 +450,35 @@
             opacity: 0;
             animation: timelineSlideIn 0.8s ease-out forwards;
         }
-        
-        .timeline-item:nth-child(1) { animation-delay: 0.2s; }
-        .timeline-item:nth-child(2) { animation-delay: 0.4s; }
-        .timeline-item:nth-child(3) { animation-delay: 0.6s; }
-        .timeline-item:nth-child(4) { animation-delay: 0.8s; }
-        
-        @keyframes timelineSlideIn {
-            from { opacity: 0; transform: translateX(-30px); }
-            to { opacity: 1; transform: translateX(0); }
+
+        .timeline-item:nth-child(1) {
+            animation-delay: 0.2s;
         }
-        
+
+        .timeline-item:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .timeline-item:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .timeline-item:nth-child(4) {
+            animation-delay: 0.8s;
+        }
+
+        @keyframes timelineSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
         .timeline-item::before {
             content: '';
             position: absolute;
@@ -428,21 +490,21 @@
             border-radius: 50%;
             box-shadow: 0 0 15px rgba(167, 139, 250, 0.6);
         }
-        
+
         .timeline-date {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 0.8em;
             color: var(--bleu-spectre);
             margin-bottom: 5px;
         }
-        
+
         .timeline-event {
             font-family: 'Inter', sans-serif;
             font-size: 1em;
             color: var(--argent-holographique);
             line-height: 1.5;
         }
-        
+
         .luna-personality {
             position: fixed;
             bottom: 20px;
@@ -459,35 +521,35 @@
             opacity: 0;
             animation: fadeIn 2s ease-out 2s forwards;
         }
-        
+
         .luna-personality::before {
             content: '🌙 LUNA:';
             font-weight: bold;
             color: var(--violet-lunaire);
             margin-right: 8px;
         }
-        
+
         @media (max-width: 768px) {
             .profile-title {
                 font-size: 2.2em;
             }
-            
+
             .avatar-3d {
                 width: 120px;
                 height: 120px;
                 font-size: 3em;
             }
-            
+
             .profile-stats {
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
-            
+
             .badges-grid {
                 grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
                 gap: 15px;
             }
-            
+
             .luna-personality {
                 position: static;
                 margin: 20px auto;
@@ -496,6 +558,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Skip Links pour accessibilité -->
     <a href="#main-content" class="skip-link">Aller au contenu principal</a>
@@ -503,7 +566,7 @@
     <a href="#accessibility-panel" class="skip-link">Paramètres d'accessibilité</a>
 
     <!-- Panneau d'accessibilité -->
-    {% include 'accessibility_panel.html' %}
+    {% include 'components/accessibility_toggle.html' %}
 
     <!-- Navigation LUNA -->
     <div id="navigation">
@@ -525,21 +588,21 @@
     <main id="main-content" class="profile-workspace">
         <!-- Fond animé du profil -->
         <div class="profile-background"></div>
-        
+
         <div class="profile-container">
             <!-- En-tête du profil -->
             <div class="profile-header">
                 <h1 class="profile-title" id="profile-title">MON PROFIL</h1>
                 <p class="profile-subtitle" id="profile-subtitle">Découvre ton parcours et tes accomplissements</p>
             </div>
-            
+
             <!-- Section Avatar 3D -->
             <div class="avatar-section">
                 <div class="avatar-3d" id="avatar-3d" onclick="interactWithAvatar()">
                     👤
                 </div>
             </div>
-            
+
             <!-- Statistiques du profil -->
             <div class="profile-stats">
                 <div class="stat-card">
@@ -547,33 +610,33 @@
                     <span class="stat-value" id="total-score">--</span>
                     <div class="stat-label">Score Total</div>
                 </div>
-                
+
                 <div class="stat-card">
                     <span class="stat-icon">⭐</span>
                     <span class="stat-value" id="current-level">--</span>
                     <div class="stat-label">Niveau Actuel</div>
                 </div>
-                
+
                 <div class="stat-card">
                     <span class="stat-icon">🎯</span>
                     <span class="stat-value" id="missions-completed">--</span>
                     <div class="stat-label">Missions Complétées</div>
                 </div>
-                
+
                 <div class="stat-card">
                     <span class="stat-icon">🏅</span>
                     <span class="stat-value" id="badges-count">--</span>
                     <div class="stat-label">Badges Obtenus</div>
                 </div>
             </div>
-            
+
             <!-- Section Progression Moderne -->
             <div class="progress-section-modern">
                 <h2 class="progress-title-modern">🚀 PROGRESSION AVANCÉE</h2>
-                
+
                 <!-- Composant de progression moderne -->
                 {% include 'components/progress_bar.html' %}
-                
+
                 <!-- Statistiques avancées -->
                 <div class="advanced-stats">
                     <div class="stat-modern">
@@ -583,7 +646,7 @@
                             <div class="stat-label-modern">Jours de Streak</div>
                         </div>
                     </div>
-                    
+
                     <div class="stat-modern">
                         <div class="stat-icon-modern">🎯</div>
                         <div class="stat-content">
@@ -591,7 +654,7 @@
                             <div class="stat-label-modern">Taux de Réussite</div>
                         </div>
                     </div>
-                    
+
                     <div class="stat-modern">
                         <div class="stat-icon-modern">🏆</div>
                         <div class="stat-content">
@@ -601,15 +664,15 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Section Badges Moderne -->
             <div class="badges-section-modern">
                 <h2 class="badges-title-modern">🏆 COLLECTION DE BADGES</h2>
-                
+
                 <!-- Composant de badges moderne -->
                 {% include 'components/badges_display.html' %}
             </div>
-            
+
             <!-- Timeline des accomplissements -->
             <div class="timeline-section">
                 <h2 class="timeline-title">Timeline des Accomplissements</h2>
@@ -618,13 +681,13 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Personnalité LUNA adaptative -->
         <div class="luna-personality" id="luna-personality">
             Chargement de ta personnalité...
         </div>
     </main>
-    
+
     <!-- Composant de notifications d'achievement -->
     {% include 'components/achievement_notification.html' %}
 
@@ -633,14 +696,14 @@
     <script src="{{ url_for('static', filename='js/audio-manager.js') }}"></script>
     <script src="{{ url_for('static', filename='js/effects.js') }}"></script>
     <script src="{{ url_for('static', filename='js/accessibility.js') }}"></script>
-    
+
     <script>
         // Charger les données du profil
         async function loadProfileData() {
             try {
                 const response = await fetch('/api/profile/summary');
                 const data = await response.json();
-                
+
                 if (data.success) {
                     updateProfileStats(data);
                     updateProgressBars(data);
@@ -652,53 +715,53 @@
                 console.error('Erreur chargement profil:', error);
             }
         }
-        
+
         function updateProfileStats(data) {
             document.getElementById('total_score').textContent = data.total_score || 0;
             document.getElementById('current_level').textContent = data.current_level || 1;
             document.getElementById('missions_completees').textContent = data.missions_completees || 0;
             document.getElementById('badges_count').textContent = data.badges_count || 0;
         }
-        
+
         function updateProgressBars(data) {
             const levelProgress = data.level_progress || 0;
             const levelFill = document.getElementById('level-fill');
             const levelCurrent = document.getElementById('level-current');
             const levelProgressText = document.getElementById('level-progress');
-            
+
             levelCurrent.textContent = data.current_level || 1;
             levelProgressText.textContent = Math.round(levelProgress);
-            
+
             setTimeout(() => {
                 levelFill.style.width = levelProgress + '%';
             }, 500);
-            
+
             // XP progress
             const xpCurrent = document.getElementById('xp-current');
             const xpNeeded = document.getElementById('xp-needed');
             const xpFill = document.getElementById('xp-fill');
-            
+
             const currentXP = data.total_experience || 0;
             const neededXP = Math.pow((data.current_level || 1), 2) * 100;
-            
+
             xpCurrent.textContent = currentXP;
             xpNeeded.textContent = neededXP;
-            
+
             const xpProgress = (currentXP / neededXP) * 100;
             setTimeout(() => {
                 xpFill.style.width = Math.min(xpProgress, 100) + '%';
             }, 800);
         }
-        
+
         function updateBadges(badges) {
             const badgesGrid = document.getElementById('badges-grid');
             badgesGrid.innerHTML = '';
-            
+
             if (badges.length === 0) {
                 badgesGrid.innerHTML = '<p style="text-align: center; color: var(--argent-holographique); grid-column: 1 / -1;">Aucun badge obtenu pour le moment...</p>';
                 return;
             }
-            
+
             badges.forEach(badge => {
                 const badgeItem = document.createElement('div');
                 badgeItem.className = 'badge-item';
@@ -709,11 +772,11 @@
                 badgesGrid.appendChild(badgeItem);
             });
         }
-        
+
         function updateTimeline(data) {
             const timeline = document.getElementById('accomplishments-timeline');
             timeline.innerHTML = '';
-            
+
             const accomplishments = [
                 {
                     date: 'Aujourd\'hui',
@@ -732,7 +795,7 @@
                     event: 'Première connexion à Arkalia Quest'
                 }
             ];
-            
+
             accomplishments.forEach((item, index) => {
                 const timelineItem = document.createElement('div');
                 timelineItem.className = 'timeline-item';
@@ -743,10 +806,10 @@
                 timeline.appendChild(timelineItem);
             });
         }
-        
+
         function updateLunaPersonality(data) {
             const personality = document.getElementById('luna-personality');
-            
+
             let message = '';
             if (data.current_level >= 5) {
                 message = "Tu progresses remarquablement ! Ton dévouement m'impressionne.";
@@ -757,21 +820,21 @@
             } else {
                 message = "Bienvenue dans ton profil ! Je suis là pour t'accompagner.";
             }
-            
+
             personality.textContent = message;
         }
-        
+
         function interactWithAvatar() {
             if (window.lunaVision) {
                 window.lunaVision.showLunaMessage("Ton avatar reflète ta personnalité unique...", 3000);
                 window.lunaVision.setEmotion('curious');
             }
         }
-        
+
         // Animation du titre
         document.addEventListener('DOMContentLoaded', () => {
             loadProfileData();
-            
+
             // Animation du titre
             setTimeout(() => {
                 const title = document.getElementById('profile-title');
@@ -779,7 +842,7 @@
                     window.lunaVision.typeText(title, "MON PROFIL", 80);
                 }
             }, 1000);
-            
+
             // Animation du sous-titre
             setTimeout(() => {
                 const subtitle = document.getElementById('profile-subtitle');
@@ -787,7 +850,7 @@
                     window.lunaVision.typeText(subtitle, "Découvre ton parcours et tes accomplissements", 40);
                 }
             }, 2000);
-            
+
             // Message de LUNA
             setTimeout(() => {
                 if (window.lunaVision) {
@@ -795,7 +858,7 @@
                     window.lunaVision.setEmotion('proud');
                 }
             }, 3000);
-            
+
             // Interactions avec les cartes de stats
             const statCards = document.querySelectorAll('.stat-card');
             statCards.forEach((card, index) => {
@@ -809,4 +872,5 @@
         });
     </script>
 </body>
-</html> 
+
+</html>

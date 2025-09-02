@@ -473,6 +473,9 @@
 </head>
 
 <body>
+    <!-- Panneau d'accessibilité -->
+    {% include 'components/accessibility_toggle.html' %}
+
     <!-- Navigation Luna -->
     {% set active_page = 'mail' %}
     {% include 'components/navbar.html' with context %}

@@ -2,7 +2,7 @@
 Configuration des outils de développement d'Arkalia Quest
 """
 
-from typing import Any, Dict
+from typing import Any
 
 
 class DevToolsConfig:
@@ -168,32 +168,32 @@ class DevToolsConfig:
     }
 
     @classmethod
-    def get_black_config(cls) -> Dict[str, Any]:
+    def get_black_config(cls) -> dict[str, Any]:
         """Retourne la configuration Black"""
         return cls.BLACK_CONFIG
 
     @classmethod
-    def get_ruff_config(cls) -> Dict[str, Any]:
+    def get_ruff_config(cls) -> dict[str, Any]:
         """Retourne la configuration Ruff"""
         return cls.RUFF_CONFIG
 
     @classmethod
-    def get_pytest_config(cls) -> Dict[str, Any]:
+    def get_pytest_config(cls) -> dict[str, Any]:
         """Retourne la configuration Pytest"""
         return cls.PYTEST_CONFIG
 
     @classmethod
-    def get_coverage_config(cls) -> Dict[str, Any]:
+    def get_coverage_config(cls) -> dict[str, Any]:
         """Retourne la configuration Coverage"""
         return cls.COVERAGE_CONFIG
 
     @classmethod
-    def get_pre_commit_config(cls) -> Dict[str, Any]:
+    def get_pre_commit_config(cls) -> dict[str, Any]:
         """Retourne la configuration Pre-commit"""
         return cls.PRE_COMMIT_CONFIG
 
     @classmethod
-    def get_quality_tools(cls) -> Dict[str, Any]:
+    def get_quality_tools(cls) -> dict[str, Any]:
         """Retourne la configuration des outils de qualité"""
         return cls.QUALITY_TOOLS
 

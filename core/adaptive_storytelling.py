@@ -15,7 +15,7 @@ import logging
 import os
 import uuid
 from datetime import datetime
-from typing import Any, Dict, List
+from typing import Any
 
 # Configuration du logging
 logger = logging.getLogger(__name__)
@@ -227,8 +227,8 @@ class AdaptiveStorytelling:
         player_id: str,
         story_arc: str,
         choice: str,
-        context: Dict[str, Any] = None,
-    ) -> Dict[str, Any]:
+        context: dict[str, Any] = None,
+    ) -> dict[str, Any]:
         """Enregistre un choix du joueur"""
         if player_id not in self.player_choices:
             self.player_choices[player_id] = {
@@ -270,7 +270,7 @@ class AdaptiveStorytelling:
             "consequences": choice_record["consequences"],
         }
 
-    def get_choice_consequences(self, story_arc: str, choice: str) -> List[str]:
+    def get_choice_consequences(self, story_arc: str, choice: str) -> list[str]:
         """Retourne les conséquences d'un choix"""
         if story_arc not in self.story_arcs:
             return []
@@ -281,7 +281,7 @@ class AdaptiveStorytelling:
 
         return arc["branches"][choice].get("consequences", [])
 
-    def apply_choice_consequences(self, player_id: str, choice_record: Dict[str, Any]):
+    def apply_choice_consequences(self, player_id: str, choice_record: dict[str, Any]):
         """Applique les conséquences d'un choix"""
         consequences = choice_record["consequences"]
 
@@ -301,7 +301,7 @@ class AdaptiveStorytelling:
             # Ajouter au journal
             self.add_journal_entry(player_id, choice_record)
 
-    def add_journal_entry(self, player_id: str, choice_record: Dict[str, Any]):
+    def add_journal_entry(self, player_id: str, choice_record: dict[str, Any]):
         """Ajoute une entrée au journal du joueur"""
         if player_id not in self.player_journals:
             self.player_journals[player_id] = {
@@ -342,7 +342,7 @@ class AdaptiveStorytelling:
                 self.trigger_easter_egg(player_id, egg_id)
 
     def check_easter_egg_conditions(
-        self, player_id: str, egg: Dict[str, Any], choices: List[Dict[str, Any]]
+        self, player_id: str, egg: dict[str, Any], choices: list[dict[str, Any]]
     ) -> bool:
         """Vérifie les conditions d'un Easter egg"""
         conditions = egg["trigger_conditions"]
@@ -354,7 +354,7 @@ class AdaptiveStorytelling:
         return True
 
     def evaluate_condition(
-        self, player_id: str, condition: str, choices: List[Dict[str, Any]]
+        self, player_id: str, condition: str, choices: list[dict[str, Any]]
     ) -> bool:
         """Évalue une condition d'Easter egg"""
         if condition == "luna_mentioned_10_times":
@@ -428,7 +428,7 @@ class AdaptiveStorytelling:
 
     # ===== GESTION DES ÉVÉNEMENTS DYNAMIQUES =====
 
-    def create_dynamic_event(self, event_data: Dict[str, Any]) -> Dict[str, Any]:
+    def create_dynamic_event(self, event_data: dict[str, Any]) -> dict[str, Any]:
         """Crée un événement dynamique basé sur les choix des joueurs"""
         event_id = str(uuid.uuid4())
 
@@ -452,11 +452,11 @@ class AdaptiveStorytelling:
             "message": "Événement dynamique créé !",
         }
 
-    def check_dynamic_events(self, player_id: str) -> List[Dict[str, Any]]:
+    def check_dynamic_events(self, player_id: str) -> list[dict[str, Any]]:
         """Vérifie les événements dynamiques pour un joueur"""
         active_events = []
 
-        for event_id, event in self.dynamic_events.items():
+        for _event_id, event in self.dynamic_events.items():
             if event["status"] != "active":
                 continue
 
@@ -465,7 +465,7 @@ class AdaptiveStorytelling:
 
         return active_events
 
-    def check_event_conditions(self, player_id: str, event: Dict[str, Any]) -> bool:
+    def check_event_conditions(self, player_id: str, event: dict[str, Any]) -> bool:
         """Vérifie les conditions d'un événement dynamique"""
         conditions = event["trigger_conditions"]
 
@@ -496,7 +496,7 @@ class AdaptiveStorytelling:
 
     def generate_adaptive_dialogue(
         self, player_id: str, context: str
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Génère un dialogue adaptatif basé sur l'historique du joueur"""
         player_data = self.player_choices.get(player_id, {})
         choices = player_data.get("choices", [])
@@ -509,7 +509,7 @@ class AdaptiveStorytelling:
 
         return {"success": True, "dialogue": dialogue, "playstyle": playstyle}
 
-    def analyze_playstyle(self, choices: List[Dict[str, Any]]) -> Dict[str, Any]:
+    def analyze_playstyle(self, choices: list[dict[str, Any]]) -> dict[str, Any]:
         """Analyse le style de jeu d'un joueur"""
         if not choices:
             return {"type": "neutral", "traits": []}
@@ -553,7 +553,7 @@ class AdaptiveStorytelling:
         }
 
     def create_contextual_dialogue(
-        self, context: str, playstyle: Dict[str, Any], choices: List[Dict[str, Any]]
+        self, context: str, playstyle: dict[str, Any], choices: list[dict[str, Any]]
     ) -> str:
         """Crée un dialogue contextuel"""
         # Templates de dialogue adaptatifs
@@ -590,7 +590,7 @@ class AdaptiveStorytelling:
 
     # ===== API PUBLIQUE =====
 
-    def get_story_progress(self, player_id: str) -> Dict[str, Any]:
+    def get_story_progress(self, player_id: str) -> dict[str, Any]:
         """Retourne le progrès de l'histoire d'un joueur"""
         player_data = self.player_choices.get(player_id, {})
         journal = self.player_journals.get(player_id, {})
@@ -608,7 +608,7 @@ class AdaptiveStorytelling:
 
     def get_available_choices(
         self, player_id: str, story_arc: str
-    ) -> List[Dict[str, Any]]:
+    ) -> list[dict[str, Any]]:
         """Retourne les choix disponibles pour un arc narratif"""
         if story_arc not in self.story_arcs:
             return []
@@ -632,7 +632,7 @@ class AdaptiveStorytelling:
 
         return available_choices
 
-    def check_choice_conditions(self, player_id: str, conditions: List[str]) -> bool:
+    def check_choice_conditions(self, player_id: str, conditions: list[str]) -> bool:
         """Vérifie les conditions de déverrouillage d'un choix"""
         if not conditions:
             return True

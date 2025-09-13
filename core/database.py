@@ -9,7 +9,7 @@ import sqlite3
 import sys
 import time
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 try:
@@ -189,7 +189,7 @@ class DatabaseManager:
         except Exception as e:
             game_logger.warning(f"Erreur migration missions: {e}")
 
-    def save_profile(self, username: str, profile_data: Dict[str, Any]) -> bool:
+    def save_profile(self, username: str, profile_data: dict[str, Any]) -> bool:
         """Sauvegarde un profil utilisateur"""
         try:
             with self.get_connection() as conn:
@@ -243,7 +243,7 @@ class DatabaseManager:
             game_logger.error(f"Erreur sauvegarde profil: {e}")
             return False
 
-    def load_profile(self, username: str) -> Optional[Dict[str, Any]]:
+    def load_profile(self, username: str) -> Optional[dict[str, Any]]:
         """Charge un profil utilisateur"""
         # Vérifier le cache d'abord
         cached_profile = self._get_from_cache("profile", username)
@@ -278,7 +278,7 @@ class DatabaseManager:
             game_logger.error(f"Erreur chargement profil: {e}")
             return None
 
-    def save_mission(self, mission_data: Dict[str, Any]) -> bool:
+    def save_mission(self, mission_data: dict[str, Any]) -> bool:
         """Sauvegarde une mission"""
         try:
             with sqlite3.connect(self.db_path) as conn:
@@ -306,7 +306,7 @@ class DatabaseManager:
             game_logger.error(f"Erreur sauvegarde mission: {e}")
             return False
 
-    def create_challenge(self, challenge_data: Dict[str, Any]) -> Optional[int]:
+    def create_challenge(self, challenge_data: dict[str, Any]) -> Optional[int]:
         """Crée un nouveau défi social"""
         try:
             with sqlite3.connect(self.db_path) as conn:
@@ -339,7 +339,7 @@ class DatabaseManager:
         self,
         user_id: int,
         action_type: str,
-        action_data: Dict[str, Any],
+        action_data: dict[str, Any],
         response: str,
         success: bool = True,
     ):
@@ -361,7 +361,7 @@ class DatabaseManager:
         except Exception as e:
             game_logger.error(f"Erreur log apprentissage: {e}")
 
-    def get_leaderboard(self, limit: int = 10) -> List[Dict[str, Any]]:
+    def get_leaderboard(self, limit: int = 10) -> list[dict[str, Any]]:
         """Récupère le classement des joueurs"""
         try:
             with sqlite3.connect(self.db_path) as conn:
@@ -390,7 +390,7 @@ class DatabaseManager:
             game_logger.error(f"Erreur classement: {e}")
             return []
 
-    def load_all_missions(self) -> List[Dict[str, Any]]:
+    def load_all_missions(self) -> list[dict[str, Any]]:
         """Charge toutes les missions depuis la base de données"""
         try:
             with sqlite3.connect(self.db_path) as conn:
@@ -418,7 +418,7 @@ class DatabaseManager:
             game_logger.error(f"Erreur chargement missions: {e}")
             return []
 
-    def load_mission(self, mission_id: str) -> Optional[Dict[str, Any]]:
+    def load_mission(self, mission_id: str) -> Optional[dict[str, Any]]:
         """Charge une mission spécifique par son ID"""
         try:
             with sqlite3.connect(self.db_path) as conn:
@@ -445,7 +445,7 @@ class DatabaseManager:
             game_logger.error(f"Erreur chargement mission {mission_id}: {e}")
             return None
 
-    def load_all_profiles(self) -> List[Dict[str, Any]]:
+    def load_all_profiles(self) -> list[dict[str, Any]]:
         """Charge tous les profils utilisateur"""
         try:
             with sqlite3.connect(self.db_path) as conn:

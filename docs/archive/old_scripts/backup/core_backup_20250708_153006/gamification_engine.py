@@ -6,7 +6,7 @@ import json
 import math
 import os
 from datetime import datetime
-from typing import Any, Dict, List
+from typing import Any
 
 
 class GamificationEngine:
@@ -138,37 +138,37 @@ class GamificationEngine:
                 }
             )
 
-    def _load_leaderboard(self) -> Dict[str, Any]:
+    def _load_leaderboard(self) -> dict[str, Any]:
         """Charge le leaderboard"""
         with open(self.leaderboard_file, encoding="utf-8") as f:
             return json.load(f)
 
-    def _save_leaderboard(self, data: Dict[str, Any]):
+    def _save_leaderboard(self, data: dict[str, Any]):
         """Sauvegarde le leaderboard"""
         with open(self.leaderboard_file, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
 
-    def _load_badges_secrets(self) -> Dict[str, Any]:
+    def _load_badges_secrets(self) -> dict[str, Any]:
         """Charge les badges secrets"""
         with open(self.badges_secrets_file, encoding="utf-8") as f:
             return json.load(f)
 
-    def _save_badges_secrets(self, data: Dict[str, Any]):
+    def _save_badges_secrets(self, data: dict[str, Any]):
         """Sauvegarde les badges secrets"""
         with open(self.badges_secrets_file, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
 
-    def _load_achievements(self) -> Dict[str, Any]:
+    def _load_achievements(self) -> dict[str, Any]:
         """Charge les achievements"""
         with open(self.achievements_file, encoding="utf-8") as f:
             return json.load(f)
 
-    def _save_achievements(self, data: Dict[str, Any]):
+    def _save_achievements(self, data: dict[str, Any]):
         """Sauvegarde les achievements"""
         with open(self.achievements_file, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
 
-    def update_leaderboard(self, user_id: str, profile: Dict[str, Any]):
+    def update_leaderboard(self, user_id: str, profile: dict[str, Any]):
         """Met à jour le leaderboard avec un profil"""
 
         leaderboard = self._load_leaderboard()
@@ -230,7 +230,7 @@ class GamificationEngine:
 
         return player_entry
 
-    def get_leaderboard(self, limit: int = 10) -> Dict[str, Any]:
+    def get_leaderboard(self, limit: int = 10) -> dict[str, Any]:
         """Récupère le leaderboard"""
         leaderboard = self._load_leaderboard()
         return {
@@ -240,8 +240,8 @@ class GamificationEngine:
         }
 
     def check_badges_secrets(
-        self, profile: Dict[str, Any], action: str, **kwargs
-    ) -> List[str]:
+        self, profile: dict[str, Any], action: str, **kwargs
+    ) -> list[str]:
         """Vérifie et débloque les badges secrets"""
 
         badges_secrets = self._load_badges_secrets()
@@ -256,7 +256,7 @@ class GamificationEngine:
         return unlocked_badges
 
     def _check_badge_condition(
-        self, badge_data: Dict[str, Any], profile: Dict[str, Any], action: str, **kwargs
+        self, badge_data: dict[str, Any], profile: dict[str, Any], action: str, **kwargs
     ) -> bool:
         """Vérifie si une condition de badge est remplie"""
 
@@ -298,8 +298,8 @@ class GamificationEngine:
         return False
 
     def check_achievements(
-        self, profile: Dict[str, Any], action: str, **kwargs
-    ) -> List[str]:
+        self, profile: dict[str, Any], action: str, **kwargs
+    ) -> list[str]:
         """Vérifie et débloque les achievements"""
 
         achievements = self._load_achievements()
@@ -316,7 +316,7 @@ class GamificationEngine:
         return unlocked_achievements
 
     def _check_achievement_condition(
-        self, achievement_id: str, profile: Dict[str, Any], _action: str, **_kwargs
+        self, achievement_id: str, profile: dict[str, Any], _action: str, **_kwargs
     ) -> bool:
         """Vérifie si une condition d'achievement est remplie"""
 
@@ -370,7 +370,7 @@ class GamificationEngine:
         """Calcule le niveau basé sur l'XP"""
         return int(math.sqrt(xp / 100)) + 1
 
-    def get_level_progress(self, xp: int) -> Dict[str, Any]:
+    def get_level_progress(self, xp: int) -> dict[str, Any]:
         """Calcule la progression du niveau"""
 
         current_level = self.calculate_level(xp)
@@ -390,8 +390,8 @@ class GamificationEngine:
         }
 
     def get_gamification_summary(
-        self, user_id: str, profile: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, user_id: str, profile: dict[str, Any]
+    ) -> dict[str, Any]:
         """Récupère un résumé complet de la gamification"""
 
         leaderboard = self.get_leaderboard()

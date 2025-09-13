@@ -3,7 +3,7 @@ Commandes LUNA Arkalia Quest
 Commandes liées à LUNA : luna_contact, luna_engine, etc.
 """
 
-from typing import Any, Dict
+from typing import Any
 
 
 class LunaCommands:
@@ -24,7 +24,7 @@ class LunaCommands:
             "save_luna": self.handle_save_luna,
         }
 
-    def handle_luna_contact(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_luna_contact(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande luna_contact"""
         profile["score"] += 20
         if "Contacté" not in profile["badges"]:
@@ -59,7 +59,7 @@ rapidement dans tes missions !
             "profile_updated": True,
         }
 
-    def handle_luna_emotion(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_luna_emotion(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande luna_emotion"""
         profile["score"] += 25
         if "Émotion" not in profile["badges"]:
@@ -86,7 +86,7 @@ rapidement dans tes missions !
             "profile_updated": True,
         }
 
-    def handle_luna_help(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_luna_help(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande luna_help"""
         profile["score"] += 15
 
@@ -113,7 +113,7 @@ rapidement dans tes missions !
             "profile_updated": True,
         }
 
-    def handle_luna_status(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_luna_status(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande luna_status"""
         profile["score"] += 20
 
@@ -143,7 +143,7 @@ rapidement dans tes missions !
             "profile_updated": True,
         }
 
-    def handle_luna_engine(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_luna_engine(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande luna_engine"""
         profile["score"] += 30
         if "Active" not in profile["badges"]:
@@ -176,7 +176,7 @@ les meilleures décisions !
             "profile_updated": True,
         }
 
-    def handle_luna_analyze(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_luna_analyze(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande luna_analyze"""
         profile["score"] += 25
         if "Analysé" not in profile["badges"]:
@@ -208,7 +208,7 @@ peux exploiter !
             "profile_updated": True,
         }
 
-    def handle_luna_learning(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_luna_learning(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande luna_learning"""
         profile["score"] += 30
         if "Appris" not in profile["badges"]:
@@ -240,7 +240,7 @@ pour tes missions !
             "profile_updated": True,
         }
 
-    def handle_luna_dance(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_luna_dance(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande luna_dance"""
         profile["score"] += 15
 
@@ -262,7 +262,7 @@ pour tes missions !
             "profile_updated": True,
         }
 
-    def handle_luna_rage(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_luna_rage(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande luna_rage"""
         profile["score"] += 20
         if "Rage" not in profile["badges"]:
@@ -283,7 +283,7 @@ pour tes missions !
             "profile_updated": True,
         }
 
-    def handle_save_luna(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_save_luna(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande save_luna"""
         profile["score"] += 40
         if "Sauvegardé" not in profile["badges"]:

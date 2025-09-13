@@ -8,7 +8,7 @@ import logging
 import logging.config
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 # Configuration de logging simplifiée
 LOGS_DIR = Path("logs")
@@ -88,24 +88,24 @@ class ArkaliaLogger:
         logging.config.dictConfig(LOGGING_CONFIG)
         self.logger = logging.getLogger(self.name)
 
-    def info(self, message: str, extra: Optional[Dict[str, Any]] = None):
+    def info(self, message: str, extra: Optional[dict[str, Any]] = None):
         """Log un message d'information"""
         self._log("INFO", message, extra)
 
-    def warning(self, message: str, extra: Optional[Dict[str, Any]] = None):
+    def warning(self, message: str, extra: Optional[dict[str, Any]] = None):
         """Log un avertissement"""
         self._log("WARNING", message, extra)
 
     def error(
         self,
         message: str,
-        extra: Optional[Dict[str, Any]] = None,
+        extra: Optional[dict[str, Any]] = None,
         exc_info: bool = False,
     ):
         """Log une erreur"""
         self._log("ERROR", message, extra, exc_info)
 
-    def debug(self, message: str, extra: Optional[Dict[str, Any]] = None):
+    def debug(self, message: str, extra: Optional[dict[str, Any]] = None):
         """Log un message de debug"""
         self._log("DEBUG", message, extra)
 
@@ -113,7 +113,7 @@ class ArkaliaLogger:
         self,
         level: str,
         message: str,
-        extra: Optional[Dict[str, Any]] = None,
+        extra: Optional[dict[str, Any]] = None,
         exc_info: bool = False,
     ):
         """Méthode interne de logging"""

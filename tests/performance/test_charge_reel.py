@@ -8,7 +8,6 @@ import asyncio
 import json
 import statistics
 import time
-from typing import Dict, List
 
 import aiohttp
 
@@ -30,7 +29,7 @@ class TestChargeReel:
 
     async def _test_endpoint(
         self, session: aiohttp.ClientSession, endpoint: str
-    ) -> Dict:
+    ) -> dict:
         """Test un endpoint spécifique (méthode privée)"""
         start_time = time.time()
 
@@ -65,7 +64,7 @@ class TestChargeReel:
 
     async def simulate_user_session(
         self, session: aiohttp.ClientSession, user_id: int
-    ) -> List[Dict]:
+    ) -> list[dict]:
         """Simule une session utilisateur complète"""
         user_results = []
 

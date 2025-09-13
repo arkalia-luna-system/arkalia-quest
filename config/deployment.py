@@ -3,7 +3,7 @@ Configuration de déploiement d'Arkalia Quest
 """
 
 import os
-from typing import Any, Dict
+from typing import Any
 
 
 class DeploymentConfig:
@@ -75,12 +75,12 @@ class DeploymentConfig:
     }
 
     @classmethod
-    def get_environment_config(cls, env: str) -> Dict[str, Any]:
+    def get_environment_config(cls, env: str) -> dict[str, Any]:
         """Retourne la configuration pour un environnement spécifique"""
         return cls.ENVIRONMENTS.get(env, cls.ENVIRONMENTS["development"])
 
     @classmethod
-    def get_docker_config(cls) -> Dict[str, Any]:
+    def get_docker_config(cls) -> dict[str, Any]:
         """Retourne la configuration Docker"""
         return {
             "image_name": cls.DOCKER_IMAGE_NAME,
@@ -89,7 +89,7 @@ class DeploymentConfig:
         }
 
     @classmethod
-    def get_k8s_config(cls) -> Dict[str, Any]:
+    def get_k8s_config(cls) -> dict[str, Any]:
         """Retourne la configuration Kubernetes"""
         return {
             "namespace": cls.K8S_NAMESPACE,

@@ -8,7 +8,7 @@ import os
 import sys
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List
+from typing import Any
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 try:
@@ -45,7 +45,7 @@ class EducationalGamesEngine:
         self.user_progress = {}
         self.game_sessions = {}
 
-    def _load_games_data(self) -> Dict[str, Any]:
+    def _load_games_data(self) -> dict[str, Any]:
         """Charge les données des jeux depuis les fichiers JSON"""
         games = {
             "logic": self._get_logic_games(),
@@ -56,7 +56,7 @@ class EducationalGamesEngine:
         }
         return games
 
-    def _get_logic_games(self) -> List[Dict[str, Any]]:
+    def _get_logic_games(self) -> list[dict[str, Any]]:
         """Jeux de logique et déduction"""
         return [
             {
@@ -95,7 +95,7 @@ class EducationalGamesEngine:
             },
         ]
 
-    def _get_code_games(self) -> List[Dict[str, Any]]:
+    def _get_code_games(self) -> list[dict[str, Any]]:
         """Jeux de programmation et code"""
         return [
             {
@@ -149,7 +149,7 @@ def create_md5_hash(text):
             },
         ]
 
-    def _get_cybersecurity_games(self) -> List[Dict[str, Any]]:
+    def _get_cybersecurity_games(self) -> list[dict[str, Any]]:
         """Jeux de cybersécurité"""
         return [
             {
@@ -194,7 +194,7 @@ def create_md5_hash(text):
             },
         ]
 
-    def _get_cryptography_games(self) -> List[Dict[str, Any]]:
+    def _get_cryptography_games(self) -> list[dict[str, Any]]:
         """Jeux de cryptographie"""
         return [
             {
@@ -224,7 +224,7 @@ def create_md5_hash(text):
             },
         ]
 
-    def _get_network_games(self) -> List[Dict[str, Any]]:
+    def _get_network_games(self) -> list[dict[str, Any]]:
         """Jeux de réseaux"""
         return [
             {
@@ -242,7 +242,7 @@ def create_md5_hash(text):
             }
         ]
 
-    def get_available_games(self, user_level: int = 1) -> List[Dict[str, Any]]:
+    def get_available_games(self, user_level: int = 1) -> list[dict[str, Any]]:
         """Récupère les jeux disponibles selon le niveau de l'utilisateur"""
         available_games = []
 
@@ -268,7 +268,7 @@ def create_md5_hash(text):
 
         return available_games
 
-    def start_game(self, game_id: str, user_id: str) -> Dict[str, Any]:
+    def start_game(self, game_id: str, user_id: str) -> dict[str, Any]:
         """Démarre un jeu éducatif"""
         # Trouver le jeu
         game = None
@@ -304,7 +304,7 @@ def create_md5_hash(text):
             "message": f"🎮 {game['title']} démarré !",
         }
 
-    def _prepare_game(self, game: Dict[str, Any]) -> Dict[str, Any]:
+    def _prepare_game(self, game: dict[str, Any]) -> dict[str, Any]:
         """Prépare les données du jeu pour l'affichage"""
         game_data = {
             "id": game["id"],
@@ -348,7 +348,7 @@ def create_md5_hash(text):
 
         return game_data
 
-    def submit_answer(self, session_id: str, answer: Any) -> Dict[str, Any]:
+    def submit_answer(self, session_id: str, answer: Any) -> dict[str, Any]:
         """Soumet une réponse pour un jeu"""
         if session_id not in self.game_sessions:
             return {"success": False, "message": "❌ Session de jeu non trouvée"}
@@ -420,7 +420,7 @@ def create_md5_hash(text):
                 "message": "❌ Incorrect. Essaie encore !",
             }
 
-    def _check_answer(self, game: Dict[str, Any], answer: Any) -> bool:
+    def _check_answer(self, game: dict[str, Any], answer: Any) -> bool:
         """Vérifie si la réponse est correcte"""
         solution = game["solution"]
 
@@ -452,7 +452,7 @@ def create_md5_hash(text):
 
         return False
 
-    def get_user_progress(self, user_id: str) -> Dict[str, Any]:
+    def get_user_progress(self, user_id: str) -> dict[str, Any]:
         """Récupère la progression d'un utilisateur"""
         if user_id not in self.user_progress:
             self.user_progress[user_id] = {
@@ -465,7 +465,7 @@ def create_md5_hash(text):
 
         return self.user_progress[user_id]
 
-    def get_leaderboard(self) -> List[Dict[str, Any]]:
+    def get_leaderboard(self) -> list[dict[str, Any]]:
         """Récupère le classement des joueurs"""
         leaderboard = []
 
@@ -484,7 +484,7 @@ def create_md5_hash(text):
 
         return leaderboard[:10]  # Top 10
 
-    def get_game_statistics(self) -> Dict[str, Any]:
+    def get_game_statistics(self) -> dict[str, Any]:
         """Récupère les statistiques globales des jeux"""
         total_games = sum(len(games) for games in self.games_data.values())
         total_players = len(self.user_progress)
@@ -504,8 +504,8 @@ def create_md5_hash(text):
         }
 
     def _calculate_matrix_bonus(
-        self, user_id: str, game: Dict[str, Any], attempts: int
-    ) -> Dict[str, Any]:
+        self, user_id: str, game: dict[str, Any], attempts: int
+    ) -> dict[str, Any]:
         """Calcule les bonus Matrix pour l'engagement adolescent"""
         base_bonus = 10
         streak_bonus = 0

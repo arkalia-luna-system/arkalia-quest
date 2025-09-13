@@ -64,7 +64,7 @@ def before_request():
         if request.is_json and not request.path.startswith("/api/educational-games"):
             data = request.get_json()
             if data:
-                for key, value in data.items():
+                for _key, value in data.items():
                     if isinstance(value, str):
                         is_valid, error_msg = security_enhanced.validate_input(
                             "command", value

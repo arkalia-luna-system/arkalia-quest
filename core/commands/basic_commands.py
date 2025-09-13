@@ -3,7 +3,7 @@ Commandes de base Arkalia Quest
 Commandes essentielles : aide, profil, status, clear, etc.
 """
 
-from typing import Any, Dict
+from typing import Any
 
 
 class BasicCommands:
@@ -34,7 +34,7 @@ class BasicCommands:
             "missions": self.handle_missions,
         }
 
-    def handle_aide(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_aide(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande aide - Version optimisée et performante"""
 
         # Déterminer le niveau du joueur pour adapter l'aide
@@ -155,7 +155,7 @@ la vérité sur NEXUS et la menace de PANDORA.
             "profile_updated": False,
         }
 
-    def handle_profil(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_profil(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande profil avec des réponses contextuelles engageantes"""
         badges = profile.get("badges", [])
         score = profile.get("score", 0)
@@ -220,7 +220,7 @@ la vérité sur NEXUS et la menace de PANDORA.
             "profile_updated": False,
         }
 
-    def handle_status(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_status(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande status avec des réponses contextuelles engageantes"""
         score = profile.get("score", 0)
         badges = profile.get("badges", [])
@@ -305,7 +305,7 @@ chr(10).join(['• ' + badge for badge in badges]) if badges else '🎯 Aucun ac
             "profile_updated": False,
         }
 
-    def handle_clear(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_clear(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande clear"""
         profile["score"] += 50
 
@@ -325,7 +325,7 @@ chr(10).join(['• ' + badge for badge in badges]) if badges else '🎯 Aucun ac
             "profile_updated": True,
         }
 
-    def handle_start_tutorial(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_start_tutorial(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande start_tutorial"""
         profile["score"] += 100
         if "Tutoriel Maître" not in profile.get("badges", []):
@@ -361,7 +361,7 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
             "profile_updated": True,
         }
 
-    def handle_unlock_universe(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_unlock_universe(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande unlock_universe - Débloque l'univers Arkalia"""
         profile["score"] += 100
         if "Univers Débloqué" not in profile["badges"]:
@@ -408,7 +408,7 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
             "profile_updated": True,
         }
 
-    def handle_scan_persona(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_scan_persona(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande scan_persona - Analyse la personnalité du joueur"""
         profile["score"] += 75
         if "Personnalité Analysée" not in profile["badges"]:
@@ -450,7 +450,7 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
             "profile_updated": True,
         }
 
-    def _determine_hacker_type(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def _determine_hacker_type(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Détermine le type de hacker basé sur le profil"""
         score = profile.get("score", 0)
 
@@ -489,7 +489,7 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
                 "logic": 95,
             }
 
-    def handle_badges(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_badges(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande badges - Affiche tous les badges obtenus"""
         badges = profile.get("badges", [])
 
@@ -582,7 +582,7 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
             "profile_updated": False,
         }
 
-    def handle_leaderboard(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_leaderboard(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande leaderboard - Affiche le classement des hackers"""
         # Simuler un leaderboard
         leaderboard_data = [
@@ -640,7 +640,7 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
             "profile_updated": False,
         }
 
-    def handle_missions(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_missions(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande missions - Affiche les missions disponibles"""
         completed_missions = profile.get("missions_completed", [])
 

@@ -9,7 +9,7 @@ import secrets
 import time
 from collections import defaultdict, deque
 from datetime import datetime
-from typing import Dict, Optional, Tuple
+from typing import Optional
 
 
 class SecurityEnhanced:
@@ -43,7 +43,7 @@ class SecurityEnhanced:
             "command": re.compile(r"^[a-zA-Z0-9_\s-]+$"),
         }
 
-    def validate_input(self, input_type: str, value: str) -> Tuple[bool, str]:
+    def validate_input(self, input_type: str, value: str) -> tuple[bool, str]:
         """
         Valide une entrée utilisateur
 
@@ -74,7 +74,7 @@ class SecurityEnhanced:
 
         return True, ""
 
-    def check_rate_limit(self, ip_address: str) -> Tuple[bool, str]:
+    def check_rate_limit(self, ip_address: str) -> tuple[bool, str]:
         """
         Vérifie si une IP respecte les limites de taux
 
@@ -103,7 +103,7 @@ class SecurityEnhanced:
 
         return True, ""
 
-    def check_login_attempts(self, ip_address: str, username: str) -> Tuple[bool, str]:
+    def check_login_attempts(self, ip_address: str, username: str) -> tuple[bool, str]:
         """
         Vérifie les tentatives de connexion
 
@@ -233,7 +233,7 @@ class SecurityEnhanced:
             },
         )
 
-    def _log_security_event(self, event_type: str, data: Dict):
+    def _log_security_event(self, event_type: str, data: dict):
         """
         Enregistre un événement de sécurité
 
@@ -292,7 +292,7 @@ class SecurityEnhanced:
         except (ValueError, AttributeError):
             return False
 
-    def get_security_stats(self) -> Dict:
+    def get_security_stats(self) -> dict:
         """
         Retourne les statistiques de sécurité
 

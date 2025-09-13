@@ -2,7 +2,7 @@
 Profile Manager - Gestion des profils utilisateur
 """
 
-from typing import Any, Dict
+from typing import Any
 
 from core.database import DatabaseManager
 
@@ -13,7 +13,7 @@ class ProfileManager:
     def __init__(self):
         self.db_manager = DatabaseManager()
 
-    def load_profile(self, user_id: str) -> Dict[str, Any]:
+    def load_profile(self, user_id: str) -> dict[str, Any]:
         profile = self.db_manager.load_profile(user_id)
         if profile:
             # S'assurer que le profil a toutes les clés nécessaires
@@ -21,12 +21,12 @@ class ProfileManager:
         else:
             return self.create_default_profile()
 
-    def save_profile(self, user_id: str, profile: Dict[str, Any]):
+    def save_profile(self, user_id: str, profile: dict[str, Any]):
         # S'assurer que le profil a la structure complète avant sauvegarde
         complete_profile = self.ensure_profile_structure(profile)
         self.db_manager.save_profile(user_id, complete_profile)
 
-    def create_default_profile(self) -> Dict[str, Any]:
+    def create_default_profile(self) -> dict[str, Any]:
         """Crée un profil par défaut avec toutes les clés nécessaires"""
 
         return {
@@ -58,7 +58,7 @@ class ProfileManager:
             "updated_at": "2025-01-01T00:00:00",
         }
 
-    def ensure_profile_structure(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def ensure_profile_structure(self, profile: dict[str, Any]) -> dict[str, Any]:
         """S'assure que le profil a toutes les clés nécessaires"""
 
         default_profile = self.create_default_profile()
@@ -89,7 +89,7 @@ class ProfileManager:
 
         return complete_profile
 
-    def update_profile(self, user_id: str, updates: Dict[str, Any]):
+    def update_profile(self, user_id: str, updates: dict[str, Any]):
         """Met à jour le profil d'un utilisateur"""
 
         profile = self.load_profile(user_id)
@@ -116,7 +116,7 @@ class ProfileManager:
 
         self.save_profile(user_id, profile)
 
-    def get_all_profiles(self) -> Dict[str, Dict[str, Any]]:
+    def get_all_profiles(self) -> dict[str, dict[str, Any]]:
         """Retourne tous les profils"""
 
         profiles = {}

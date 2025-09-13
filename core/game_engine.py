@@ -7,7 +7,7 @@ import json
 import os
 import random
 from datetime import datetime
-from typing import Any, Dict, List
+from typing import Any
 
 from core.database import DatabaseManager
 
@@ -34,7 +34,7 @@ class GameEngine:
         self.random_events = self._init_random_events()
         self.last_challenge_reset = datetime.now().date()
 
-    def _init_daily_challenges(self) -> Dict[str, Any]:
+    def _init_daily_challenges(self) -> dict[str, Any]:
         """Initialise les défis quotidiens engageants pour les ados"""
         return {
             "speed_hacker": {
@@ -72,7 +72,7 @@ class GameEngine:
             },
         }
 
-    def _init_random_events(self) -> List[Dict[str, Any]]:
+    def _init_random_events(self) -> list[dict[str, Any]]:
         """Initialise les événements aléatoires pour surprendre les ados"""
         return [
             {
@@ -107,7 +107,7 @@ class GameEngine:
             },
         ]
 
-    def get_daily_challenges(self, user_id: str = "default") -> Dict[str, Any]:
+    def get_daily_challenges(self, user_id: str = "default") -> dict[str, Any]:
         """Récupère les défis quotidiens pour l'utilisateur"""
         # Vérifier si on doit réinitialiser les défis
         current_date = datetime.now().date()
@@ -137,8 +137,8 @@ class GameEngine:
         return len([c for c in completed if c.get("date") == today])
 
     def check_random_event(
-        self, action_type: str, profile: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, action_type: str, profile: dict[str, Any]
+    ) -> dict[str, Any]:
         """Vérifie si un événement aléatoire doit se déclencher"""
         for event in self.random_events:
             if event["trigger"] == action_type and random.random() < event["chance"]:
@@ -146,8 +146,8 @@ class GameEngine:
         return {}
 
     def _execute_random_event(
-        self, event: Dict[str, Any], profile: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, event: dict[str, Any], profile: dict[str, Any]
+    ) -> dict[str, Any]:
         """Exécute un événement aléatoire"""
         effect = event["effect"]
 
@@ -169,7 +169,7 @@ class GameEngine:
             "profile_updated": True,
         }
 
-    def process_command(self, command: str, user_id: str = "default") -> Dict[str, Any]:
+    def process_command(self, command: str, user_id: str = "default") -> dict[str, Any]:
         """
         Traite une commande utilisateur et retourne la réponse
 
@@ -198,8 +198,8 @@ class GameEngine:
         return result
 
     def add_effects(
-        self, result: Dict[str, Any], profile: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, result: dict[str, Any], profile: dict[str, Any]
+    ) -> dict[str, Any]:
         """Ajoute des effets visuels et audio à la réponse - OPTIMISÉ ADOLESCENT"""
 
         # Effet de base selon le type de réponse - THÈME MATRIX
@@ -237,8 +237,8 @@ class GameEngine:
         return result
 
     def _calculate_reward(
-        self, profile: Dict[str, Any], result: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, profile: dict[str, Any], result: dict[str, Any]
+    ) -> dict[str, Any]:
         """Calcule les récompenses pour l'engagement adolescent"""
         base_xp = 10
         bonus_multiplier = 1.0
@@ -273,7 +273,7 @@ class GameEngine:
         ]
         return random.choice(encouragements)
 
-    def _generate_instant_rewards(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def _generate_instant_rewards(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Génère des récompenses instantanées visuelles"""
         rewards = {"badge": None, "achievement": None, "special_effect": None}
 
@@ -297,7 +297,7 @@ class GameEngine:
 
         return rewards
 
-    def _check_streak_bonus(self, profile: Dict[str, Any]) -> int:
+    def _check_streak_bonus(self, profile: dict[str, Any]) -> int:
         """Vérifie les bonus de série"""
         current_streak = profile.get("current_streak", 0)
         if current_streak >= 7:
@@ -307,8 +307,8 @@ class GameEngine:
         return 0
 
     def _calculate_level_progress(
-        self, profile: Dict[str, Any], xp_gained: int
-    ) -> Dict[str, Any]:
+        self, profile: dict[str, Any], xp_gained: int
+    ) -> dict[str, Any]:
         """Calcule la progression de niveau"""
         current_xp = profile.get("xp", 0) + xp_gained
         current_level = profile.get("level", 1)
@@ -331,7 +331,7 @@ class GameEngine:
 
     def start_mission(
         self, mission_id: str, user_id: str = "default"
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Démarre une mission pour un utilisateur"""
 
         profile = self.profile_manager.load_profile(user_id)
@@ -402,10 +402,10 @@ class GameEngine:
 
         return available_missions
 
-    def get_game_state(self) -> Dict[str, Any]:
+    def get_game_state(self) -> dict[str, Any]:
         """Retourne l'état actuel du jeu"""
         return self.game_state.copy()
 
-    def update_game_state(self, updates: Dict[str, Any]):
+    def update_game_state(self, updates: dict[str, Any]):
         """Met à jour l'état du jeu"""
         self.game_state.update(updates)

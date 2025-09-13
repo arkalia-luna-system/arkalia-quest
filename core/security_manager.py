@@ -8,7 +8,7 @@ import logging
 import time
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 # Configuration du logger de sécurité
 security_logger = logging.getLogger("arkalia_security")
@@ -81,7 +81,7 @@ class SecurityManager:
     def log_security_event(
         self,
         event_type: str,
-        details: Dict[str, Any],
+        details: dict[str, Any],
         ip_address: str = "unknown",
         severity: str = "info",
     ):
@@ -116,7 +116,7 @@ class SecurityManager:
 
     def check_input_security(
         self, input_data: str, ip_address: str = "unknown"
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Vérifie la sécurité d'une entrée utilisateur"""
         result = {"is_safe": True, "threats_detected": [], "risk_level": "low"}
 
@@ -230,7 +230,7 @@ class SecurityManager:
 
         return is_allowed
 
-    def get_security_report(self) -> Dict[str, Any]:
+    def get_security_report(self) -> dict[str, Any]:
         """Génère un rapport de sécurité"""
         now = datetime.now()
 

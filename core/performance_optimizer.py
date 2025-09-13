@@ -9,7 +9,7 @@ import json
 import threading
 import time
 from datetime import datetime, timedelta
-from typing import Any, Callable, Dict, List
+from typing import Any, Callable
 
 
 class PerformanceOptimizer:
@@ -147,8 +147,8 @@ class PerformanceOptimizer:
         return query
 
     def batch_process(
-        self, items: List[Any], batch_size: int = 100, process_func: Callable = None
-    ) -> List[Any]:
+        self, items: list[Any], batch_size: int = 100, process_func: Callable = None
+    ) -> list[Any]:
         """
         Traite une liste d'éléments par lots pour optimiser les performances
 
@@ -173,7 +173,7 @@ class PerformanceOptimizer:
 
         return results
 
-    def get_performance_stats(self) -> Dict[str, Any]:
+    def get_performance_stats(self) -> dict[str, Any]:
         """
         Retourne les statistiques de performance
 
@@ -222,7 +222,7 @@ class PerformanceOptimizer:
                 ),
             }
 
-    def get_slow_queries(self, limit: int = 10) -> List[Dict[str, Any]]:
+    def get_slow_queries(self, limit: int = 10) -> list[dict[str, Any]]:
         """
         Retourne les requêtes les plus lentes
 
@@ -237,7 +237,7 @@ class PerformanceOptimizer:
                 self.slow_queries, key=lambda x: x["execution_time"], reverse=True
             )[:limit]
 
-    def get_recent_errors(self, limit: int = 10) -> List[Dict[str, Any]]:
+    def get_recent_errors(self, limit: int = 10) -> list[dict[str, Any]]:
         """
         Retourne les erreurs récentes
 
@@ -266,7 +266,7 @@ class PerformanceOptimizer:
             self.slow_queries.clear()
             self.error_log.clear()
 
-    def suggest_optimizations(self) -> List[str]:
+    def suggest_optimizations(self) -> list[str]:
         """
         Suggère des optimisations basées sur les métriques
 

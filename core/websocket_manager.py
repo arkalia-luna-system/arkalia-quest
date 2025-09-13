@@ -3,7 +3,7 @@ WebSocket Manager - Gestionnaire de WebSockets pour défis temps réel
 """
 
 import time
-from typing import Any, Callable, Dict, Optional
+from typing import Any, Callable, Optional
 
 
 class WebSocketManager:
@@ -31,8 +31,8 @@ class WebSocketManager:
         self.message_handlers[event_type] = handler
 
     def handle_join_challenge(
-        self, session_id: str, data: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, session_id: str, data: dict[str, Any]
+    ) -> dict[str, Any]:
         """Gère l'arrivée d'un joueur dans un défi"""
         room_id = data.get("room_id")
         if not room_id:
@@ -65,8 +65,8 @@ class WebSocketManager:
         }
 
     def handle_leave_challenge(
-        self, session_id: str, data: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, session_id: str, data: dict[str, Any]
+    ) -> dict[str, Any]:
         """Gère le départ d'un joueur d'un défi"""
         room_id = data.get("room_id")
         if not room_id:
@@ -90,8 +90,8 @@ class WebSocketManager:
         return {"type": "leave_success"}
 
     def handle_challenge_action(
-        self, session_id: str, data: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, session_id: str, data: dict[str, Any]
+    ) -> dict[str, Any]:
         """Gère une action dans un défi"""
         room_id = data.get("room_id")
         if not room_id:
@@ -122,7 +122,7 @@ class WebSocketManager:
 
         return {"type": "action_processed"}
 
-    def handle_chat_message(self, data: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_chat_message(self, data: dict[str, Any]) -> dict[str, Any]:
         """Gère un message de chat"""
         room_id = data.get("room_id")
         if not room_id:
@@ -144,11 +144,11 @@ class WebSocketManager:
 
         return {"type": "message_sent"}
 
-    def handle_ping(self) -> Dict[str, Any]:
+    def handle_ping(self) -> dict[str, Any]:
         """Gère un ping pour maintenir la connexion"""
         return {"type": "pong", "timestamp": time.time()}
 
-    def start_challenge(self, room_id: str) -> Dict[str, Any]:
+    def start_challenge(self, room_id: str) -> dict[str, Any]:
         """Démarre un défi"""
         if room_id in self.challenge_data:
             challenge = self.challenge_data[room_id]
@@ -175,8 +175,8 @@ class WebSocketManager:
         return {"type": "error", "message": "Challenge not found"}
 
     def complete_mission(
-        self, room_id: str, session_id: str, data: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, room_id: str, session_id: str, data: dict[str, Any]
+    ) -> dict[str, Any]:
         """Marque une mission comme complétée"""
         player_name = data.get("player_name", "Anonymous")
         completion_time = data.get("completion_time", 0)
@@ -214,7 +214,7 @@ class WebSocketManager:
 
         return {"type": "mission_completed"}
 
-    def handle_timeout(self, room_id: str, session_id: str) -> Dict[str, Any]:
+    def handle_timeout(self, room_id: str, session_id: str) -> dict[str, Any]:
         """Gère un timeout dans un défi"""
         player_name = self.get_player_name(session_id)
 
@@ -239,7 +239,7 @@ class WebSocketManager:
 
         return {"type": "timeout_processed"}
 
-    def end_challenge(self, room_id: str) -> Dict[str, Any]:
+    def end_challenge(self, room_id: str) -> dict[str, Any]:
         """Termine un défi et calcule les résultats"""
         results = self.challenge_data[room_id].get("results", {})
 
@@ -277,7 +277,7 @@ class WebSocketManager:
     def broadcast_to_room(
         self,
         room_id: str,
-        message: Dict[str, Any],
+        message: dict[str, Any],
         exclude_session: Optional[str] = None,
     ):
         """Diffuse un message à tous les joueurs d'une room"""
@@ -296,14 +296,14 @@ class WebSocketManager:
             return self.active_connections[session_id].get("player_name", "Anonymous")
         return "Anonymous"
 
-    def create_challenge_room(self, challenge_data: Dict[str, Any]) -> str:
+    def create_challenge_room(self, challenge_data: dict[str, Any]) -> str:
         """Crée une nouvelle room de défi"""
         room_id = f"challenge_{int(time.time())}"
         self.challenge_data[room_id] = challenge_data
         self.challenge_rooms[room_id] = []
         return room_id
 
-    def get_room_info(self, room_id: str) -> Optional[Dict[str, Any]]:
+    def get_room_info(self, room_id: str) -> Optional[dict[str, Any]]:
         """Récupère les informations d'une room"""
         if room_id in self.challenge_data:
             return {

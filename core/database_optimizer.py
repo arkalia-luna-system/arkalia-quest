@@ -8,7 +8,7 @@ import sqlite3
 import threading
 import time
 from contextlib import contextmanager
-from typing import Dict, List, Optional
+from typing import Optional
 
 
 class DatabaseOptimizer:
@@ -124,7 +124,7 @@ class DatabaseOptimizer:
 
     def execute_query(
         self, query: str, params: tuple = None, cache_key: str = None
-    ) -> List[Dict]:
+    ) -> list[dict]:
         """
         Exécute une requête avec cache et monitoring
 
@@ -233,12 +233,12 @@ class DatabaseOptimizer:
         """Invalide le cache des requêtes"""
         self.query_cache.clear()
 
-    def get_user_profile(self, user_id: str) -> Optional[Dict]:
+    def get_user_profile(self, user_id: str) -> Optional[dict]:
         """Récupère le profil utilisateur avec cache"""
         cache_key = f"user_profile:{user_id}"
 
         query = """
-            SELECT u.*, 
+            SELECT u.*,
                    COUNT(DISTINCT g.id) as games_played,
                    COUNT(DISTINCT b.id) as badges_earned,
                    COUNT(DISTINCT m.id) as missions_completed
@@ -253,7 +253,7 @@ class DatabaseOptimizer:
         results = self.execute_query(query, (user_id,), cache_key)
         return results[0] if results else None
 
-    def get_leaderboard(self, limit: int = 10) -> List[Dict]:
+    def get_leaderboard(self, limit: int = 10) -> list[dict]:
         """Récupère le classement avec cache"""
         cache_key = f"leaderboard:{limit}"
 
@@ -271,13 +271,13 @@ class DatabaseOptimizer:
 
         return self.execute_query(query, (limit,), cache_key)
 
-    def get_game_stats(self, user_id: str = None) -> Dict:
+    def get_game_stats(self, user_id: str = None) -> dict:
         """Récupère les statistiques des jeux"""
         cache_key = f"game_stats:{user_id or 'global'}"
 
         if user_id:
             query = """
-                SELECT 
+                SELECT
                     type,
                     COUNT(*) as count,
                     AVG(score) as avg_score,
@@ -290,7 +290,7 @@ class DatabaseOptimizer:
             params = (user_id,)
         else:
             query = """
-                SELECT 
+                SELECT
                     type,
                     COUNT(*) as count,
                     AVG(score) as avg_score,
@@ -314,7 +314,7 @@ class DatabaseOptimizer:
 
         return stats
 
-    def get_performance_stats(self) -> Dict:
+    def get_performance_stats(self) -> dict:
         """Retourne les statistiques de performance de la base de données"""
         with self.get_connection() as conn:
             # Statistiques SQLite

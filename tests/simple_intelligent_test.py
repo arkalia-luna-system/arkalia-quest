@@ -7,7 +7,6 @@ Version adaptée pour macOS et tests rapides
 import json
 import time
 from datetime import datetime
-from typing import Dict, List
 
 import requests
 
@@ -82,7 +81,7 @@ class SimpleIntelligentTester:
             },
         }
 
-    def test_command(self, personality: str, command: str) -> Dict:
+    def test_command(self, personality: str, command: str) -> dict:
         """Teste une commande et retourne le résultat"""
         try:
             print(f"🎮 {self.personalities[personality]['name']} essaie: '{command}'")
@@ -143,7 +142,7 @@ class SimpleIntelligentTester:
                 "timestamp": datetime.now().isoformat(),
             }
 
-    def test_tutorial(self, personality: str) -> List[Dict]:
+    def test_tutorial(self, personality: str) -> list[dict]:
         """Teste le tutoriel avec une personnalité"""
         print(f"\n🎓 {self.personalities[personality]['name']} teste le tutoriel...")
 
@@ -201,7 +200,7 @@ class SimpleIntelligentTester:
 
         return results
 
-    def test_edge_cases(self, personality: str) -> List[Dict]:
+    def test_edge_cases(self, personality: str) -> list[dict]:
         """Teste des cas limites selon la personnalité"""
         print(
             f"\n🔧 {self.personalities[personality]['name']} teste les cas limites..."
@@ -234,7 +233,7 @@ class SimpleIntelligentTester:
 
         return results
 
-    def test_personality(self, personality: str) -> Dict:
+    def test_personality(self, personality: str) -> dict:
         """Teste complètement une personnalité"""
         print(f"\n🎮 TEST DE {self.personalities[personality]['name'].upper()}")
         print("=" * 50)
@@ -283,7 +282,7 @@ class SimpleIntelligentTester:
             "timestamp": datetime.now().isoformat(),
         }
 
-    def run_all_tests(self) -> Dict:
+    def run_all_tests(self) -> dict:
         """Lance tous les tests avec toutes les personnalités"""
         print("🎮" + "=" * 60 + "🎮")
         print("🧠 TESTEUR INTELLIGENT SIMPLIFIÉ - ARKALIA QUEST")
@@ -319,7 +318,7 @@ class SimpleIntelligentTester:
 
         return all_results
 
-    def generate_final_report(self, all_results: Dict):
+    def generate_final_report(self, all_results: dict):
         """Génère un rapport final"""
         print("\n🎉 RAPPORT FINAL")
         print("=" * 50)

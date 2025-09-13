@@ -4,7 +4,7 @@ Effects Engine - Moteur d'effets visuels et audio
 
 import os
 import random
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 
 class EffectsEngine:
@@ -55,7 +55,7 @@ class EffectsEngine:
             },
         }
 
-    def load_ascii_arts(self) -> Dict[str, str]:
+    def load_ascii_arts(self) -> dict[str, str]:
         """Charge tous les ASCII arts depuis les fichiers"""
 
         ascii_arts = {}
@@ -75,7 +75,7 @@ class EffectsEngine:
 
         return ascii_arts
 
-    def load_sounds(self) -> Dict[str, str]:
+    def load_sounds(self) -> dict[str, str]:
         """Charge la liste des sons disponibles"""
 
         sounds = {}
@@ -89,7 +89,7 @@ class EffectsEngine:
 
         return sounds
 
-    def load_animations(self) -> Dict[str, Dict[str, Any]]:
+    def load_animations(self) -> dict[str, dict[str, Any]]:
         """Charge les définitions d'animations"""
 
         return {
@@ -132,8 +132,8 @@ class EffectsEngine:
         }
 
     def generate_effect(
-        self, effect_type: str, context: Optional[Dict[str, Any]] = None
-    ) -> Dict[str, Any]:
+        self, effect_type: str, context: Optional[dict[str, Any]] = None
+    ) -> dict[str, Any]:
         """
         Génère un effet selon le type et le contexte
 
@@ -165,8 +165,8 @@ class EffectsEngine:
         return base_effect
 
     def personalize_effect(
-        self, effect: Dict[str, Any], personality: str
-    ) -> Dict[str, Any]:
+        self, effect: dict[str, Any], personality: str
+    ) -> dict[str, Any]:
         """Personnalise un effet selon la personnalité de l'utilisateur"""
 
         personality_colors = {
@@ -182,7 +182,7 @@ class EffectsEngine:
 
         return effect
 
-    def add_random_variations(self, effect: Dict[str, Any]) -> Dict[str, Any]:
+    def add_random_variations(self, effect: dict[str, Any]) -> dict[str, Any]:
         """Ajoute des variations aléatoires à un effet"""
 
         # Variation de durée (±20%)
@@ -268,7 +268,7 @@ class EffectsEngine:
 
         return default_ascii.get(name, "🎮")
 
-    def get_animation_config(self, animation_name: str) -> Dict[str, Any]:
+    def get_animation_config(self, animation_name: str) -> dict[str, Any]:
         """Récupère la configuration d'une animation"""
 
         return self.animations.get(
@@ -282,7 +282,7 @@ class EffectsEngine:
             return os.path.join(self.effects_dir, "sounds", self.sounds[sound_name])
         return None
 
-    def create_custom_effect(self, effect_config: Dict[str, Any]) -> Dict[str, Any]:
+    def create_custom_effect(self, effect_config: dict[str, Any]) -> dict[str, Any]:
         """Crée un effet personnalisé"""
 
         # Fusionner avec les valeurs par défaut

@@ -7,7 +7,7 @@ import json
 import logging
 import os
 from datetime import datetime
-from typing import Any, Dict, List
+from typing import Any
 
 from core.database import DatabaseManager
 
@@ -24,7 +24,7 @@ class ProfileManager:
     def __init__(self):
         self.db_manager = DatabaseManager()
 
-    def load_main_profile(self) -> Dict[str, Any]:
+    def load_main_profile(self) -> dict[str, Any]:
         """Charge le profil principal du joueur depuis SQLite"""
         profile = self.db_manager.load_profile("main_user")
         if profile:
@@ -32,7 +32,7 @@ class ProfileManager:
         else:
             return self._create_default_profile()
 
-    def save_main_profile(self, profile: Dict[str, Any]) -> bool:
+    def save_main_profile(self, profile: dict[str, Any]) -> bool:
         """Sauvegarde le profil principal dans SQLite avec vérification de structure"""
         # Vérification de structure minimale
         required_keys = [
@@ -74,7 +74,7 @@ class ProfileManager:
             return False
         return self.db_manager.save_profile("main_user", profile)
 
-    def _create_default_profile(self) -> Dict[str, Any]:
+    def _create_default_profile(self) -> dict[str, Any]:
         """Crée un profil par défaut"""
         return {
             "id": "default",
@@ -103,7 +103,7 @@ class ProfileManager:
 class LunaAI:
     """IA LUNA pour analyse de personnalité"""
 
-    def analyze_personality(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def analyze_personality(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Analyse la personnalité du joueur"""
         try:
             # Analyse basée sur les actions et préférences
@@ -129,7 +129,7 @@ class LunaAI:
 class MissionEngine:
     """Moteur de génération de missions"""
 
-    def generate_personalized_mission(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def generate_personalized_mission(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Génère une mission personnalisée"""
         try:
             level = profile.get("level", 1)
@@ -166,7 +166,7 @@ class MissionEngine:
 class ContentManager:
     """Gestionnaire de contenu disponible"""
 
-    def get_available_content(self) -> Dict[str, Any]:
+    def get_available_content(self) -> dict[str, Any]:
         """Retourne le contenu disponible"""
         try:
             return {
@@ -180,7 +180,7 @@ class ContentManager:
             game_logger.error(f"Erreur contenu disponible: {e}")
             return {"error": str(e)}
 
-    def get_mission_info(self, mission_name: str) -> Dict[str, Any]:
+    def get_mission_info(self, mission_name: str) -> dict[str, Any]:
         """Récupère les infos d'une mission depuis SQLite"""
         try:
             from core.database import DatabaseManager
@@ -195,7 +195,7 @@ class ContentManager:
             game_logger.error(f"Erreur mission info: {e}")
             return {"error": str(e)}
 
-    def get_profile_summary(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def get_profile_summary(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Résumé du profil pour l'API"""
         try:
             return {
@@ -214,7 +214,7 @@ class ContentManager:
             game_logger.error(f"Erreur résumé profil: {e}")
             return {"error": str(e)}
 
-    def _get_available_missions(self) -> List[str]:
+    def _get_available_missions(self) -> list[str]:
         """Liste des missions disponibles"""
         try:
             missions_dir = "data/missions"
@@ -228,7 +228,7 @@ class ContentManager:
         except Exception:
             return []
 
-    def _get_available_badges(self) -> List[str]:
+    def _get_available_badges(self) -> list[str]:
         """Liste des badges disponibles"""
         try:
             badges_path = "data/badges.json"
@@ -240,7 +240,7 @@ class ContentManager:
         except Exception:
             return []
 
-    def _get_available_avatars(self) -> List[str]:
+    def _get_available_avatars(self) -> list[str]:
         """Liste des avatars disponibles"""
         try:
             avatars_path = "data/avatars.json"
@@ -252,7 +252,7 @@ class ContentManager:
         except Exception:
             return []
 
-    def _get_available_themes(self) -> List[str]:
+    def _get_available_themes(self) -> list[str]:
         """Liste des thèmes disponibles"""
         return ["default", "dark", "hacker", "neon", "retro"]
 

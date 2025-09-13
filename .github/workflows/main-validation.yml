@@ -47,7 +47,7 @@ jobs:
       - name: 🐳 Test de construction Docker
         run: |
           echo "🐳 Test de construction Docker..."
-          docker build -f config/Dockerfile -t arkalia-quest:test .
+          docker build -t arkalia-quest:test .
 
       - name: 🔐 Vérification des secrets
         run: |

@@ -45,7 +45,7 @@ jobs:
 
       - name: 🐳 Construction Docker
         run: |
-          docker build -f config/Dockerfile -t arkalia-quest:${{ github.sha }} .
+          docker build -t arkalia-quest:${{ github.sha }} .
           docker tag arkalia-quest:${{ github.sha }} arkalia-quest:latest
 
       - name: 📊 Push Docker Hub

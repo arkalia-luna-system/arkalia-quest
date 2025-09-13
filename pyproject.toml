@@ -89,7 +89,10 @@ arkalia-quest = "app:main"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["core*", "engines*", "utils*"]
-exclude = ["tests*", "docs*", "scripts*"]
+exclude = ["tests*", "docs*", "scripts*", "venv*", "__pycache__*"]
+
+[tool.setuptools.package-data]
+"*" = ["*.txt", "*.json", "*.md", "*.yml", "*.yaml"]
 
 # === PYTEST ===
 [tool.pytest.ini_options]
@@ -138,20 +141,6 @@ extend-exclude = '''
 [tool.ruff]
 target-version = "py39"
 line-length = 88
-select = [
-    "E",   # pycodestyle errors
-    "W",   # pycodestyle warnings
-    "F",   # pyflakes
-    "I",   # isort
-    "C",   # flake8-comprehensions
-    "B",   # flake8-bugbear
-    "UP",  # pyupgrade
-]
-ignore = [
-    "E501",  # line too long, handled by black
-    "B008",  # do not perform function calls in argument defaults
-    "C901",  # too complex
-]
 exclude = [
     ".bzr",
     ".direnv",
@@ -175,10 +164,27 @@ exclude = [
     "venv",
 ]
 
-[tool.ruff.mccabe]
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "C",   # flake8-comprehensions
+    "B",   # flake8-bugbear
+    "UP",  # pyupgrade
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+    "B904",  # Within an `except` clause, raise exceptions with `raise ... from err`
+]
+
+[tool.ruff.lint.mccabe]
 max-complexity = 10
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 known-first-party = ["core", "engines", "utils"]
 
 # === MYPY ===

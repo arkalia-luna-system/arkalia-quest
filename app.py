@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 import random
 import time
@@ -8,24 +9,23 @@ from flask import Flask, jsonify, render_template, request, send_from_directory
 from flask_compress import Compress
 
 from arkalia_engine import arkalia_engine
+from core.adaptive_storytelling import adaptive_storytelling
+from core.cache_manager import cache_manager
 from core.command_handler_v2 import CommandHandlerV2 as CommandHandler
+from core.customization_engine import customization_engine
 from core.database import DatabaseManager
+from core.educational_games_engine import EducationalGamesEngine
 from core.gamification_engine import GamificationEngine
+from core.micro_interactions import micro_interactions
+from core.performance_optimizer import performance_optimizer
+from core.security_enhanced import security_enhanced
 from core.security_manager import security_manager
+from core.social_engine import social_engine
 from core.tutorial_manager import tutorial_manager
 from core.websocket_manager import websocket_manager
-from core.cache_manager import cache_manager
-from core.security_enhanced import security_enhanced
-from core.performance_optimizer import performance_optimizer
-from core.social_engine import social_engine
-from core.customization_engine import customization_engine
-from core.adaptive_storytelling import adaptive_storytelling
-from core.micro_interactions import micro_interactions
-from core.educational_games_engine import EducationalGamesEngine
-import logging
 
 try:
-    from utils.logger import game_logger, security_logger, performance_logger
+    from utils.logger import game_logger, performance_logger, security_logger
 except ImportError:
     # Fallback si le module utils est en conflit
     game_logger = logging.getLogger("arkalia_game")
@@ -983,7 +983,7 @@ def get_gamification_leaderboard():
                 if not isinstance(leaderboard_data, dict):
                     raise ValueError("Format de données invalide")
 
-        except (json.JSONDecodeError, ValueError, IOError) as e:
+        except (OSError, json.JSONDecodeError, ValueError) as e:
             # Log l'erreur mais continue avec des données par défaut
             game_logger.warning(f"Erreur lecture leaderboard: {e}")
             leaderboard_data = None

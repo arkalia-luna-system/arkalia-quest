@@ -1364,7 +1364,7 @@ document.head.insertAdjacentHTML('beforeend', lunaStyles);
 function triggerImmediateFeedback(command, response) {
     const commandType = detectCommandType(command);
     const isSuccess = response.réussite || response.reussite;
-    
+
     // Réaction immédiate selon le type de commande
     switch (commandType) {
         case 'hack':
@@ -1414,10 +1414,10 @@ function triggerSuccessAnimations() {
     setTimeout(() => {
         document.body.classList.remove('success-pulse');
     }, 1000);
-    
+
     // Particules de succès
     createSuccessParticles();
-    
+
     // Son de succès
     playSuccessSound();
 }
@@ -1429,7 +1429,7 @@ function triggerErrorAnimations() {
     setTimeout(() => {
         document.body.classList.remove('error-shake');
     }, 500);
-    
+
     // Particules d'encouragement
     createEncouragementParticles();
 }
@@ -1444,7 +1444,7 @@ function triggerHackSuccessEffect() {
             terminal.style.boxShadow = '';
         }, 2000);
     }
-    
+
     // Animation de texte Matrix
     addMatrixTextEffect('ACCESS GRANTED');
 }
@@ -1458,7 +1458,7 @@ function triggerHackErrorEffect() {
             terminal.style.boxShadow = '';
         }, 1500);
     }
-    
+
     addMatrixTextEffect('ACCESS DENIED - TRY AGAIN');
 }
 
@@ -1523,7 +1523,7 @@ function createSuccessParticles() {
             animation: particleFloat 2s ease-out forwards;
         `;
         document.body.appendChild(particle);
-        
+
         setTimeout(() => {
             if (particle.parentNode) {
                 particle.parentNode.removeChild(particle);
@@ -1550,7 +1550,7 @@ function createEncouragementParticles() {
             animation: particleFloat 2s ease-out forwards;
         `;
         document.body.appendChild(particle);
-        
+
         setTimeout(() => {
             if (particle.parentNode) {
                 particle.parentNode.removeChild(particle);
@@ -1579,7 +1579,7 @@ function addMatrixTextEffect(text) {
         pointer-events: none;
     `;
     document.body.appendChild(effect);
-    
+
     setTimeout(() => {
         if (effect.parentNode) {
             effect.parentNode.removeChild(effect);
@@ -1593,16 +1593,16 @@ function playSuccessSound() {
         try {
             const oscillator = audioContext.createOscillator();
             const gainNode = audioContext.createGain();
-            
+
             oscillator.connect(gainNode);
             gainNode.connect(audioContext.destination);
-            
+
             oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
             oscillator.frequency.exponentialRampToValueAtTime(1200, audioContext.currentTime + 0.1);
-            
+
             gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
             gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-            
+
             oscillator.start(audioContext.currentTime);
             oscillator.stop(audioContext.currentTime + 0.3);
         } catch (e) {

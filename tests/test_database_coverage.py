@@ -4,10 +4,10 @@ Améliore la couverture des lignes manquantes
 """
 
 import os
+import sys
 import tempfile
 import unittest
 from unittest.mock import patch
-import sys
 
 # Ajouter le chemin du projet
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

@@ -311,9 +311,10 @@ async def main():
 
     # Vérifier que l'application est accessible
     try:
-        async with aiohttp.ClientSession() as session, session.get(
-            f"{BASE_URL}/health", timeout=5
-        ) as response:
+        async with (
+            aiohttp.ClientSession() as session,
+            session.get(f"{BASE_URL}/health", timeout=5) as response,
+        ):
             if response.status != 200:
                 print(
                     f"❌ L'application n'est pas accessible (status: {response.status})"

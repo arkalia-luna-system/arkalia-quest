@@ -3,11 +3,11 @@ Tests simplifiés pour core/tutorial_manager.py
 Tests basés sur les vraies méthodes disponibles
 """
 
+import json
 import os
+import sys
 import tempfile
 import unittest
-import sys
-import json
 
 # Ajouter le chemin du projet
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

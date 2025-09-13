@@ -5,8 +5,8 @@ Teste toutes les fonctionnalités principales du jeu
 """
 
 import json
-import sys
 import os
+import sys
 
 
 def test_imports():
@@ -36,7 +36,7 @@ def test_missions():
         missions = []
         for file in os.listdir(missions_dir):
             if file.endswith(".json"):
-                with open(os.path.join(missions_dir, file), "r", encoding="utf-8") as f:
+                with open(os.path.join(missions_dir, file), encoding="utf-8") as f:
                     mission = json.load(f)
                     missions.append(mission)
 
@@ -77,7 +77,7 @@ def test_badges():
             "data",
             "badges_secrets.json",
         )
-        with open(badges_file, "r", encoding="utf-8") as f:
+        with open(badges_file, encoding="utf-8") as f:
             badges = json.load(f)
 
         print(f"✅ {len(badges['badges_secrets'])} badges disponibles")
@@ -93,8 +93,8 @@ def test_commandes():
     """Test des commandes"""
     print("\n💻 Test des commandes...")
     try:
-        from core.commands.game_commands import GameCommands
         from core.commands.basic_commands import BasicCommands
+        from core.commands.game_commands import GameCommands
 
         gc = GameCommands()
         bc = BasicCommands()

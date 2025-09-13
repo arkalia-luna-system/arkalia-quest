@@ -11,11 +11,11 @@ Version: 1.0
 """
 
 import json
+import logging
 import os
 import uuid
 from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Any
-import logging
+from typing import Any, Dict, List, Optional
 
 # Configuration du logging
 logger = logging.getLogger(__name__)

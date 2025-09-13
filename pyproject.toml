@@ -1,0 +1,242 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "arkalia-quest"
+version = "3.0.0"
+description = "Jeu éducatif intelligent pour adolescents - Architecture Flask/Python/IA modulaire, sécurité avancée, gamification"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Arkalia Luna System", email = "arkalia.luna.system@gmail.com"}
+]
+maintainers = [
+    {name = "Arkalia Luna System", email = "arkalia.luna.system@gmail.com"}
+]
+keywords = ["education", "game", "ai", "flask", "gamification", "security", "performance", "luna"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Education",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Education :: Computer Aided Instruction (CAI)",
+    "Topic :: Games/Entertainment :: Educational",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "License :: OSI Approved :: MIT License",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "Flask>=3.0.0",
+    "Werkzeug>=3.0.0",
+    "gunicorn>=21.0.0",
+    "Flask-Compress>=1.14.0",
+    "Flask-SocketIO>=5.3.0",
+    "python-socketio>=5.9.0",
+    "eventlet>=0.33.0",
+    "aiohttp>=3.9.0",
+    "python-dotenv>=1.0.0",
+    "click>=8.0.0",
+    "colorama>=0.4.0",
+    "requests>=2.31.0",
+    "cryptography>=41.0.0",
+    "psutil>=5.9.0",
+    "beautifulsoup4>=4.12.0",
+    "lxml>=4.9.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0.0",
+    "isort>=5.12.0",
+    "bandit>=1.7.0",
+    "pytest>=8.2.0,<9.0.0",
+    "pytest-cov>=4.1.0",
+    "pytest-mock>=3.14.1",
+    "pytest-asyncio>=0.24.0",
+    "pytest-timeout>=2.4.0",
+    "pytest-benchmark>=5.1.0",
+    "coverage>=7.4.0",
+]
+docs = [
+    "mkdocs>=1.5.0",
+    "mkdocs-material>=9.0.0",
+    "mkdocs-mermaid2-plugin>=1.1.0",
+]
+security = [
+    "bandit>=1.7.0",
+    "safety>=3.0.0",
+    "semgrep>=1.45.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/arkalia-luna-system/arkalia-quest"
+Repository = "https://github.com/arkalia-luna-system/arkalia-quest.git"
+Documentation = "https://github.com/arkalia-luna-system/arkalia-quest/tree/main/docs"
+Issues = "https://github.com/arkalia-luna-system/arkalia-quest/issues"
+Changelog = "https://github.com/arkalia-luna-system/arkalia-quest/blob/main/docs/CHANGELOG.md"
+
+[project.scripts]
+arkalia-quest = "app:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["core*", "engines*", "utils*"]
+exclude = ["tests*", "docs*", "scripts*"]
+
+# === PYTEST ===
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-ra -q --strict-markers --strict-config"
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "security: marks tests as security tests",
+    "performance: marks tests as performance tests",
+    "unit: marks tests as unit tests",
+]
+filterwarnings = [
+    "error",
+    "ignore::UserWarning",
+    "ignore::DeprecationWarning",
+]
+
+# === BLACK ===
+[tool.black]
+line-length = 88
+target-version = ['py39', 'py310', 'py311', 'py312']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+  | venv
+  | node_modules
+)/
+'''
+
+# === RUFF ===
+[tool.ruff]
+target-version = "py39"
+line-length = 88
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "C",   # flake8-comprehensions
+    "B",   # flake8-bugbear
+    "UP",  # pyupgrade
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+]
+
+[tool.ruff.mccabe]
+max-complexity = 10
+
+[tool.ruff.isort]
+known-first-party = ["core", "engines", "utils"]
+
+# === MYPY ===
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+exclude = [
+    "venv/",
+    "build/",
+    "dist/",
+]
+
+# === ISORT ===
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+known_first_party = ["core", "engines", "utils"]
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+
+# === BANDIT ===
+[tool.bandit]
+exclude_dirs = ["tests", "venv", "build", "dist"]
+tests = ["B201", "B301", "B401", "B501", "B601", "B701"]
+skips = ["B101", "B601"]
+
+# === COVERAGE ===
+[tool.coverage.run]
+source = ["core", "engines", "utils"]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "*/venv/*",
+    "*/build/*",
+    "*/dist/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]

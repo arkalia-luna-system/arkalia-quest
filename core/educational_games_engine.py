@@ -3,13 +3,12 @@ Educational Games Engine - Moteur de mini-jeux éducatifs pour Arkalia Quest
 Jeux de logique, code et cybersécurité pour apprendre en s'amusant
 """
 
+import logging
+import os
+import sys
 from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List
-
-import sys
-import os
-import logging
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 try:

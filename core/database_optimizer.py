@@ -3,12 +3,12 @@
 Optimiseur de base de données pour Arkalia Quest
 """
 
-import sqlite3
-import time
-import threading
-from typing import Dict, List, Optional
-from contextlib import contextmanager
 import logging
+import sqlite3
+import threading
+import time
+from contextlib import contextmanager
+from typing import Dict, List, Optional
 
 
 class DatabaseOptimizer:

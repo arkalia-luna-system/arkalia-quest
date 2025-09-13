@@ -4,13 +4,13 @@ Tests basés sur les vraies méthodes disponibles
 """
 
 import os
-import unittest
 import sys
+import unittest
 
 # Ajouter le chemin du projet
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from core.educational_games_engine import EducationalGamesEngine, GameType, Difficulty
+from core.educational_games_engine import Difficulty, EducationalGamesEngine, GameType
 
 
 class TestEducationalGamesSimple(unittest.TestCase):

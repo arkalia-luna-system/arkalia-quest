@@ -7,8 +7,11 @@
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://python.org)
 [![Flask](https://img.shields.io/badge/Flask-3.1+-green.svg)](https://flask.palletsprojects.com)
-[![Tests](https://img.shields.io/badge/Tests-144%2F144%20COLLECTED-brightgreen.svg)](https://github.com/arkalia-luna-system/arkalia-quest)
-[![Sécurité](https://img.shields.io/badge/Sécurité-90%25-orange.svg)](https://github.com/arkalia-luna-system/arkalia-quest)
+[![Release](https://img.shields.io/github/v/release/arkalia-luna-system/arkalia-quest?include_prereleases)](https://github.com/arkalia-luna-system/arkalia-quest/releases)
+[![CI Status](https://img.shields.io/github/actions/workflow/status/arkalia-luna-system/arkalia-quest/ci.yml?branch=main)](https://github.com/arkalia-luna-system/arkalia-quest/actions)
+[![Tests](https://img.shields.io/badge/Tests-179%2F179%20PASS-brightgreen.svg)](https://github.com/arkalia-luna-system/arkalia-quest/actions)
+[![Coverage](https://img.shields.io/codecov/c/github/arkalia-luna-system/arkalia-quest)](https://codecov.io/gh/arkalia-luna-system/arkalia-quest)
+[![Security](https://img.shields.io/badge/Security-Bandit%20✓-green)](https://github.com/arkalia-luna-system/arkalia-quest/actions)
 [![Performance](https://img.shields.io/badge/Performance-95%25-yellow.svg)](https://github.com/arkalia-luna-system/arkalia-quest)
 
 ---

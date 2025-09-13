@@ -80,7 +80,7 @@ class LunaAI:
         response = self.generate_response(context)
 
         # Ajouter des effets émotionnels
-        response = self.add_emotional_effects(response, context)
+        response = self.add_emotional_effects(response)
 
         # Mettre à jour l'historique
         self.update_conversation_history(message, response)
@@ -154,7 +154,7 @@ class LunaAI:
         elif message_type == "identity_question":
             return self.generate_identity_response(context)
         else:
-            return self.generate_general_response(context)
+            return self.generate_general_response()
 
     def generate_greeting(self, context: dict[str, Any]) -> str:
         """Salutations personnalisées"""

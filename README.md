@@ -1,9 +1,10 @@
 
 
-# 🌟 **ARKALIA QUEST** - Jeu Éducatif Intelligent
+# 🎮🛡️📊 **ARKALIA QUEST** - Le Serious Game 100% Python
 
+> **🌍 English**: The only open-source educational game built with enterprise-grade security, real-time analytics, and AI-powered learning for teenagers - fully testable and gamified.
 
-> **Un projet de jeu éducatif avec une architecture professionnelle, une sécurité avancée et des performances optimisées**
+> **🇫🇷 Français**: Le seul serious game open-source 100% Python, sécurisé niveau entreprise, avec analytics temps réel et IA éducative pour ados - entièrement testable et gamifié.
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://python.org)
 [![Flask](https://img.shields.io/badge/Flask-3.1+-green.svg)](https://flask.palletsprojects.com)

@@ -27,9 +27,15 @@ class TestDatabaseCoverage(unittest.TestCase):
     def tearDown(self):
         """Nettoyage après les tests"""
         try:
-            # Fermer la connexion avant de supprimer le fichier
+            # DatabaseManager utilise un context manager, pas besoin de close_connection()
+            # Vérifier que la connexion est fermée en testant une opération
             if hasattr(self, "db_manager") and self.db_manager:
-                self.db_manager.close_connection()
+                # Tester une opération simple pour s'assurer que la DB est accessible
+                try:
+                    with self.db_manager.get_connection() as conn:
+                        conn.execute("SELECT 1")
+                except Exception:
+                    pass  # Ignorer les erreurs de connexion lors du nettoyage
 
             if os.path.exists(self.temp_db.name):
                 # Attendre un peu pour que le processus libère le fichier

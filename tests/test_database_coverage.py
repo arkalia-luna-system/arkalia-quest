@@ -26,8 +26,21 @@ class TestDatabaseCoverage(unittest.TestCase):
 
     def tearDown(self):
         """Nettoyage après les tests"""
-        if os.path.exists(self.temp_db.name):
-            os.unlink(self.temp_db.name)
+        try:
+            # Fermer la connexion avant de supprimer le fichier
+            if hasattr(self, "db_manager") and self.db_manager:
+                self.db_manager.close_connection()
+
+            if os.path.exists(self.temp_db.name):
+                # Attendre un peu pour que le processus libère le fichier
+                import time
+
+                time.sleep(0.1)
+                os.unlink(self.temp_db.name)
+        except (PermissionError, OSError) as e:
+            # Ignorer les erreurs de permission sur Windows
+            print(f"⚠️ Impossible de supprimer {self.temp_db.name}: {e}")
+            pass
 
     def test_database_initialization(self):
         """Test l'initialisation de la base de données"""

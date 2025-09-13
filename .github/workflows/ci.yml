@@ -48,18 +48,15 @@ jobs:
 
     - name: 🛡️ Security check (Bandit)
       run: |
-        mkdir -p artifacts
+        python -c "import os; os.makedirs('artifacts', exist_ok=True)"
         bandit -r core engines utils -f json -o artifacts/bandit-report.json || true
         bandit -r core engines utils -f txt -o artifacts/bandit-report.txt || true
       continue-on-error: true
 
     - name: 🧪 Run tests with pytest
       run: |
-        mkdir -p junit artifacts
-        python -m pytest tests/ -v --cov=core --cov=engines --cov=utils \
-          --cov-report=xml --cov-report=term-missing \
-          --junitxml=junit/test-results-${{ matrix.python-version }}.xml \
-          --maxfail=5 --tb=short
+        python -c "import os; os.makedirs('junit', exist_ok=True); os.makedirs('artifacts', exist_ok=True)"
+        python -m pytest tests/ -v --cov=core --cov=engines --cov=utils --cov-report=xml --cov-report=term-missing --junitxml=junit/test-results-${{ matrix.python-version }}.xml --maxfail=5 --tb=short
 
     - name: 📊 Upload coverage to Codecov
       if: matrix.python-version == '3.10' && matrix.os == 'ubuntu-latest'
@@ -137,13 +134,13 @@ jobs:
 
     - name: 🔒 Check dependencies for vulnerabilities
       run: |
-        mkdir -p artifacts
-        safety check --json | tee artifacts/safety-report.json || true
+        python -c "import os; os.makedirs('artifacts', exist_ok=True)"
+        safety check --json > artifacts/safety-report.json || true
       continue-on-error: true
 
     - name: 🛡️ Run Bandit security linter
       run: |
-        mkdir -p artifacts
+        python -c "import os; os.makedirs('artifacts', exist_ok=True)"
         bandit -r core engines utils -f json -o artifacts/bandit-report.json || true
         bandit -r core engines utils -f txt -o artifacts/bandit-report.txt || true
       continue-on-error: true

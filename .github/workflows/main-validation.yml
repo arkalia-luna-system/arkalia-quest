@@ -42,11 +42,8 @@ jobs:
       - name: 🧪 Exécution des tests
         run: |
           echo "🧪 Exécution des tests..."
-          mkdir -p artifacts
-          python -m pytest tests/ -v --cov=core --cov=engines --cov=utils \
-            --cov-report=term-missing --cov-report=xml \
-            --cov-fail-under=10 --maxfail=10 --tb=short \
-            --junitxml=artifacts/test-results.xml
+          python -c "import os; os.makedirs('artifacts', exist_ok=True)"
+          python -m pytest tests/ -v --cov=core --cov=engines --cov=utils --cov-report=term-missing --cov-report=xml --cov-fail-under=10 --maxfail=10 --tb=short --junitxml=artifacts/test-results.xml
 
       - name: 🐳 Test de construction Docker
         run: |

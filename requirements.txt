@@ -46,3 +46,7 @@ coverage>=7.4.0
 # Tests d'accessibilité
 beautifulsoup4>=4.12.0
 lxml>=4.9.0
+
+# Outils de sécurité et validation
+bandit>=1.7.5
+safety>=3.0.0

@@ -42,12 +42,22 @@ jobs:
       - name: 🧪 Exécution des tests
         run: |
           echo "🧪 Exécution des tests..."
-          python -m pytest tests/ -v --cov=core --cov=engines --cov=utils --cov-report=term-missing --cov-fail-under=10
+          mkdir -p artifacts
+          python -m pytest tests/ -v --cov=core --cov=engines --cov=utils \
+            --cov-report=term-missing --cov-report=xml \
+            --cov-fail-under=10 --maxfail=10 --tb=short \
+            --junitxml=artifacts/test-results.xml
 
       - name: 🐳 Test de construction Docker
         run: |
           echo "🐳 Test de construction Docker..."
-          docker build -t arkalia-quest:test .
+          if docker build -t arkalia-quest:test .; then
+            echo "✅ Construction Docker réussie"
+            docker images arkalia-quest:test
+          else
+            echo "❌ Échec de la construction Docker"
+            exit 1
+          fi
 
       - name: 🔐 Vérification des secrets
         run: |

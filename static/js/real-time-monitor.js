@@ -192,20 +192,20 @@ class RealTimeMonitor {
         toggleStyles.textContent = `
             .monitor-toggle-btn {
                 position: fixed;
-                bottom: 80px;
+                bottom: 140px;
                 right: 20px;
                 width: 50px;
                 height: 50px;
-                background: rgba(0, 255, 0, 0.2);
+                background: rgba(0, 255, 0, 0.3);
                 border: 2px solid #00ff00;
                 border-radius: 50%;
                 color: #00ff00;
                 font-size: 20px;
                 cursor: pointer;
-                z-index: 9999;
+                z-index: 9998;
                 transition: all 0.3s ease;
-                backdrop-filter: blur(10px);
-                box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+                backdrop-filter: blur(15px);
+                box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
             }
             
             .monitor-toggle-btn:hover {

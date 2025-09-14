@@ -1,0 +1,414 @@
+/* ===== ARKALIA QUEST - AMÉLIORATIONS INTERFACE ===== */
+/* 🌙✨ Corrections professionnelles pour une expérience utilisateur optimale */
+
+/* CORRECTIONS BOUTONS TACTILES */
+.luna-btn,
+.cta-btn,
+.nav-button,
+.command-btn,
+.terminal-send,
+.accessibility-btn,
+button {
+    min-height: 44px !important;
+    min-width: 44px !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: pointer !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+/* AMÉLIORATIONS FOCUS VISIBLE */
+.luna-btn:focus,
+.cta-btn:focus,
+.nav-button:focus,
+.command-btn:focus,
+.terminal-send:focus,
+.accessibility-btn:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus,
+a:focus {
+    outline: 3px solid var(--matrix-accent) !important;
+    outline-offset: 2px !important;
+    box-shadow: 0 0 0 6px rgba(0, 255, 255, 0.2) !important;
+    z-index: 10 !important;
+}
+
+/* ÉTATS HOVER AMÉLIORÉS */
+.luna-btn:hover,
+.cta-btn:hover,
+.nav-button:hover,
+.command-btn:hover,
+.terminal-send:hover,
+.accessibility-btn:hover,
+button:hover {
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 8px 25px rgba(0, 255, 0, 0.3) !important;
+    filter: brightness(1.1) !important;
+}
+
+/* ANIMATIONS LOADING */
+.loading {
+    position: relative !important;
+}
+
+.loading::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.3), transparent) !important;
+    animation: loadingShine 1.5s ease-in-out infinite !important;
+    z-index: 1 !important;
+}
+
+@keyframes loadingShine {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* CORRECTIONS ALIGNEMENT GRILLES */
+.features-grid,
+.monde-grid,
+.stats-grid,
+.profil-grid {
+    display: grid !important;
+    gap: clamp(15px, 3vw, 30px) !important;
+    align-items: start !important;
+    justify-content: center !important;
+}
+
+.features-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)) !important;
+}
+
+.monde-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)) !important;
+}
+
+.stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)) !important;
+}
+
+/* CORRECTIONS DÉBORDEMENT TEXTE */
+.hero-title,
+.world-title,
+.terminal-title,
+.feature-title,
+.zone-detail-title,
+.mission-title,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+    line-height: 1.3 !important;
+    max-width: 100% !important;
+}
+
+.hero-subtitle,
+.world-subtitle,
+.luna-greeting,
+.feature-description,
+.zone-detail-description,
+.mission-description,
+p,
+span,
+div {
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    line-height: 1.6 !important;
+    max-width: 100% !important;
+}
+
+/* CORRECTIONS CONTRASTE RENFORCÉ */
+.system-message,
+.luna-message,
+.user-message,
+.message {
+    background: rgba(0, 0, 0, 0.9) !important;
+    border: 2px solid var(--matrix-green) !important;
+    color: var(--matrix-green) !important;
+    padding: 16px 20px !important;
+    border-radius: 8px !important;
+    margin: 12px 0 !important;
+    box-shadow: 0 4px 20px rgba(0, 255, 0, 0.2) !important;
+}
+
+.luna-message {
+    border-color: var(--matrix-accent) !important;
+    color: var(--matrix-accent) !important;
+    box-shadow: 0 4px 20px rgba(0, 255, 255, 0.2) !important;
+}
+
+.user-message {
+    border-color: var(--matrix-highlight) !important;
+    color: var(--matrix-highlight) !important;
+    box-shadow: 0 4px 20px rgba(0, 255, 68, 0.2) !important;
+}
+
+/* CORRECTIONS ESPACEMENT COHÉRENT */
+.container,
+.portal-container,
+.terminal-container,
+.world-container,
+.profil-container {
+    padding: clamp(15px, 4vw, 40px) !important;
+    margin: clamp(10px, 2vw, 20px) auto !important;
+    max-width: min(1200px, 95vw) !important;
+}
+
+/* CORRECTIONS NAVIGATION MOBILE */
+@media (max-width: 768px) {
+    .nav-links {
+        position: fixed !important;
+        top: 70px !important;
+        left: 10px !important;
+        right: 10px !important;
+        background: rgba(0, 0, 0, 0.98) !important;
+        border: 2px solid var(--matrix-green) !important;
+        border-radius: 12px !important;
+        padding: 20px !important;
+        backdrop-filter: blur(20px) !important;
+        box-shadow: 0 10px 50px rgba(0, 0, 0, 0.9) !important;
+        z-index: 1000 !important;
+    }
+
+    .nav-link {
+        display: block !important;
+        padding: 15px 20px !important;
+        margin: 8px 0 !important;
+        background: rgba(0, 255, 0, 0.1) !important;
+        border: 1px solid rgba(0, 255, 0, 0.3) !important;
+        border-radius: 8px !important;
+        text-align: center !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+        background: rgba(0, 255, 0, 0.2) !important;
+        border-color: var(--matrix-green) !important;
+        color: var(--matrix-green) !important;
+        transform: translateX(5px) !important;
+    }
+}
+
+/* CORRECTIONS POSITIONNEMENT ÉLÉMENTS FIXES */
+.accessibility-toggle-btn {
+    position: fixed !important;
+    top: 80px !important;
+    right: 20px !important;
+    z-index: 1001 !important;
+}
+
+.monitor-toggle-btn {
+    position: fixed !important;
+    bottom: 140px !important;
+    right: 20px !important;
+    z-index: 1000 !important;
+}
+
+.luna-message {
+    position: fixed !important;
+    bottom: 120px !important;
+    right: 30px !important;
+    z-index: 999 !important;
+    max-width: clamp(250px, 40vw, 350px) !important;
+}
+
+/* CORRECTIONS RESPONSIVE AVANCÉES */
+@media (max-width: 480px) {
+    .accessibility-toggle-btn {
+        top: 75px !important;
+        right: 15px !important;
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 1em !important;
+    }
+
+    .monitor-toggle-btn {
+        bottom: 120px !important;
+        right: 15px !important;
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 16px !important;
+    }
+
+    .luna-message {
+        bottom: 100px !important;
+        right: 15px !important;
+        left: 15px !important;
+        max-width: none !important;
+        font-size: 0.85em !important;
+    }
+
+    .container,
+    .portal-container,
+    .terminal-container,
+    .world-container,
+    .profil-container {
+        padding: 10px !important;
+        margin: 5px auto !important;
+    }
+}
+
+/* AMÉLIORATIONS ANIMATIONS */
+@media (prefers-reduced-motion: no-preference) {
+
+    .zone,
+    .feature-card,
+    .mission-item,
+    .badge,
+    .stat-item {
+        animation: subtleFloat 6s ease-in-out infinite !important;
+    }
+
+    .zone:nth-child(odd) {
+        animation-delay: 0s !important;
+    }
+
+    .zone:nth-child(even) {
+        animation-delay: 3s !important;
+    }
+}
+
+@keyframes subtleFloat {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
+/* CORRECTIONS SCROLLBARS PERSONNALISÉES */
+.terminal-output::-webkit-scrollbar,
+.mission-list::-webkit-scrollbar,
+.zone-details::-webkit-scrollbar {
+    width: 8px !important;
+}
+
+.terminal-output::-webkit-scrollbar-track,
+.mission-list::-webkit-scrollbar-track,
+.zone-details::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border-radius: 4px !important;
+}
+
+.terminal-output::-webkit-scrollbar-thumb,
+.mission-list::-webkit-scrollbar-thumb,
+.zone-details::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--matrix-green), var(--matrix-accent)) !important;
+    border-radius: 4px !important;
+    border: 1px solid rgba(0, 255, 0, 0.3) !important;
+}
+
+.terminal-output::-webkit-scrollbar-thumb:hover,
+.mission-list::-webkit-scrollbar-thumb:hover,
+.zone-details::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--matrix-accent), var(--matrix-green)) !important;
+}
+
+/* ÉTAT DISABLED COHÉRENT */
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled,
+.luna-btn.disabled,
+.cta-btn.disabled {
+    opacity: 0.4 !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+    box-shadow: none !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: rgba(255, 255, 255, 0.4) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* CORRECTIONS SUPERPOSITION Z-INDEX */
+.main-nav {
+    z-index: 100 !important;
+}
+
+.accessibility-menu {
+    z-index: 1002 !important;
+}
+
+.accessibility-toggle-btn {
+    z-index: 1001 !important;
+}
+
+.monitor-toggle-btn {
+    z-index: 1000 !important;
+}
+
+.luna-message {
+    z-index: 999 !important;
+}
+
+.modal,
+.dialog {
+    z-index: 1010 !important;
+}
+
+.tooltip {
+    z-index: 1005 !important;
+}
+
+/* AMÉLIORATIONS TYPOGRAPHIE */
+body {
+    font-feature-settings: "liga" 1, "kern" 1 !important;
+    text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+}
+
+/* PRINT STYLES */
+@media print {
+
+    .main-nav,
+    .accessibility-toggle-btn,
+    .monitor-toggle-btn,
+    .luna-message,
+    .portal-background,
+    .world-background,
+    .terminal-background {
+        display: none !important;
+    }
+
+    body {
+        background: white !important;
+        color: black !important;
+    }
+
+    .container,
+    .portal-container,
+    .terminal-container,
+    .world-container {
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 20px !important;
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+    }
+}

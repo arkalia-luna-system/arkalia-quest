@@ -1,0 +1,285 @@
+/* ===== ARKALIA QUEST - EMPTY STATES ===== */
+
+/* EMPTY STATE GÉNÉRAL */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 17, 0, 0.6));
+    border: 2px solid rgba(0, 255, 0, 0.3);
+    border-radius: 15px;
+    margin: 20px 0;
+    position: relative;
+    overflow: hidden;
+    min-height: 300px;
+}
+
+.empty-state::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(circle at 20% 80%, rgba(0, 255, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 50%);
+    animation: emptyStateGlow 4s ease-in-out infinite;
+}
+
+@keyframes emptyStateGlow {
+
+    0%,
+    100% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.empty-state-icon {
+    font-size: 4em;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 20px rgba(0, 255, 0, 0.6));
+    animation: emptyStateFloat 3s ease-in-out infinite;
+}
+
+@keyframes emptyStateFloat {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.empty-state-title {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--matrix-green);
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    letter-spacing: 2px;
+}
+
+.empty-state-description {
+    font-size: 1.1em;
+    color: var(--matrix-accent);
+    margin-bottom: 25px;
+    line-height: 1.6;
+    max-width: 500px;
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+}
+
+.empty-state-action {
+    background: linear-gradient(135deg, rgba(0, 255, 0, 0.2), rgba(0, 255, 255, 0.1));
+    border: 2px solid var(--matrix-green);
+    border-radius: 10px;
+    padding: 12px 24px;
+    color: var(--matrix-green);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.empty-state-action:hover {
+    background: linear-gradient(135deg, rgba(0, 255, 0, 0.3), rgba(0, 255, 255, 0.2));
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 255, 0, 0.4);
+    color: var(--matrix-accent);
+}
+
+/* EMPTY STATE DASHBOARD */
+.dashboard-empty {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(0, 17, 0, 0.7));
+    border: 3px solid rgba(0, 255, 0, 0.4);
+    box-shadow:
+        0 0 40px rgba(0, 255, 0, 0.2),
+        inset 0 2px 10px rgba(0, 255, 0, 0.1);
+}
+
+.dashboard-empty .empty-state-icon {
+    font-size: 5em;
+}
+
+.dashboard-empty .empty-state-title {
+    font-size: 2.2em;
+}
+
+/* EMPTY STATE PROFIL */
+.profil-empty {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(0, 17, 0, 0.7));
+    border: 3px solid rgba(0, 255, 255, 0.4);
+    box-shadow:
+        0 0 40px rgba(0, 255, 255, 0.2),
+        inset 0 2px 10px rgba(0, 255, 255, 0.1);
+}
+
+.profil-empty .empty-state-icon {
+    font-size: 5em;
+    filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.6));
+}
+
+.profil-empty .empty-state-title {
+    color: var(--matrix-accent);
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+/* EMPTY STATE MISSIONS */
+.missions-empty {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(0, 17, 0, 0.7));
+    border: 3px solid rgba(255, 255, 0, 0.4);
+    box-shadow:
+        0 0 40px rgba(255, 255, 0, 0.2),
+        inset 0 2px 10px rgba(255, 255, 0, 0.1);
+}
+
+.missions-empty .empty-state-icon {
+    font-size: 5em;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 0, 0.6));
+}
+
+.missions-empty .empty-state-title {
+    color: #ffff00;
+    text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+}
+
+/* EMPTY STATE BADGES */
+.badges-empty {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(0, 17, 0, 0.7));
+    border: 3px solid rgba(255, 165, 0, 0.4);
+    box-shadow:
+        0 0 40px rgba(255, 165, 0, 0.2),
+        inset 0 2px 10px rgba(255, 165, 0, 0.1);
+}
+
+.badges-empty .empty-state-icon {
+    font-size: 5em;
+    filter: drop-shadow(0 0 20px rgba(255, 165, 0, 0.6));
+}
+
+.badges-empty .empty-state-title {
+    color: #ffa500;
+    text-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
+}
+
+/* EMPTY STATE LEADERBOARD */
+.leaderboard-empty {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(0, 17, 0, 0.7));
+    border: 3px solid rgba(255, 0, 255, 0.4);
+    box-shadow:
+        0 0 40px rgba(255, 0, 255, 0.2),
+        inset 0 2px 10px rgba(255, 0, 255, 0.1);
+}
+
+.leaderboard-empty .empty-state-icon {
+    font-size: 5em;
+    filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.6));
+}
+
+.leaderboard-empty .empty-state-title {
+    color: #ff00ff;
+    text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+/* RESPONSIVE EMPTY STATES */
+@media (max-width: 768px) {
+    .empty-state {
+        padding: 40px 15px;
+        min-height: 250px;
+    }
+
+    .empty-state-icon {
+        font-size: 3em;
+    }
+
+    .empty-state-title {
+        font-size: 1.5em;
+    }
+
+    .empty-state-description {
+        font-size: 1em;
+    }
+
+    .dashboard-empty .empty-state-icon,
+    .profil-empty .empty-state-icon,
+    .missions-empty .empty-state-icon,
+    .badges-empty .empty-state-icon,
+    .leaderboard-empty .empty-state-icon {
+        font-size: 4em;
+    }
+
+    .dashboard-empty .empty-state-title,
+    .profil-empty .empty-state-title,
+    .missions-empty .empty-state-title,
+    .badges-empty .empty-state-title,
+    .leaderboard-empty .empty-state-title {
+        font-size: 1.8em;
+    }
+}
+
+/* ANIMATIONS D'ENTRÉE */
+.empty-state {
+    animation: emptyStateSlideIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes emptyStateSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* PARTICULES DÉCORATIVES */
+.empty-state::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 4px;
+    height: 4px;
+    background: var(--matrix-green);
+    border-radius: 50%;
+    animation: particleFloat 6s ease-in-out infinite;
+}
+
+.empty-state::before {
+    content: '';
+    position: absolute;
+    top: 60px;
+    right: 30px;
+    width: 3px;
+    height: 3px;
+    background: var(--matrix-accent);
+    border-radius: 50%;
+    animation: particleFloat 8s ease-in-out infinite 2s;
+}
+
+@keyframes particleFloat {
+
+    0%,
+    100% {
+        transform: translateY(0px) scale(1);
+        opacity: 0.6;
+    }
+
+    50% {
+        transform: translateY(-20px) scale(1.2);
+        opacity: 1;
+    }
+}

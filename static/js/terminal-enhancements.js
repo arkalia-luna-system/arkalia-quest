@@ -92,13 +92,26 @@ class TerminalEnhancer {
     }
 
     getCommandResponse(command) {
+        // Déléguer au moteur de jeu si disponible
+        if (window.gameEngine) {
+            // Déclencher l'événement pour le moteur de jeu
+            const event = new CustomEvent('terminalCommand', {
+                detail: { command: command, args: [] }
+            });
+            document.dispatchEvent(event);
+            return null; // Le moteur de jeu gère l'affichage
+        }
+
+        // Fallback pour les commandes de base
         const responses = {
-            'aide': this.createMessage('info', '📖 Commandes disponibles: profil, monde, status, badges, missions, clear, luna'),
+            'aide': this.createMessage('info', '📖 Commandes disponibles: profil, monde, status, badges, missions, games, play_game, clear, luna'),
             'profil': this.createMessage('success', '👤 Profil chargé. Niveau: 1, XP: 0/100, Badges: 0'),
             'monde': this.createMessage('success', '🌍 Monde ouvert. Zones disponibles: Terminal, Cyber City, Data Center'),
             'status': this.createMessage('info', '📊 Status: Connecté, Système: Opérationnel, LUNA: Active'),
             'badges': this.createMessage('warning', '🏆 Aucun badge obtenu. Complétez des missions pour débloquer des récompenses!'),
             'missions': this.createMessage('info', '🎯 Missions disponibles: Tutoriel (En cours), Première mission (Verrouillée)'),
+            'games': this.createMessage('info', '🎮 Mini-jeux disponibles: logic_puzzle_1, code_debug_1 (niveau 2+)'),
+            'play_game': this.createMessage('info', '🎮 Utilisez: play_game [nom_du_jeu] pour jouer'),
             'clear': () => {
                 this.clearTerminal();
                 return null;

@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/interface-improvements.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/empty-states.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game-interface.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mission-interface.css') }}">
 
     <style>
         /* Styles spécifiques au terminal immersif */
@@ -841,6 +843,9 @@
     <script src="{{ url_for('static', filename='js/navigation.js') }}"></script>
     <script src="{{ url_for('static', filename='js/terminal-enhancements.js') }}"></script>
     <script src="{{ url_for('static', filename='js/personalized-messages.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/game-engine.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/mission-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/luna-personality.js') }}"></script>
     <script src="{{ url_for('static', filename='js/terminal.js') }}"></script>
     <script src="{{ url_for('static', filename='js/educational_games.js') }}"></script>
     <script src="{{ url_for('static', filename='js/accessibility.js') }}"></script>
@@ -869,12 +874,27 @@
                 }
             }, 2000);
 
+            // Initialiser les systèmes de jeu
+            if (window.gameEngine) {
+                // Initialiser le système de missions
+                window.missionSystem = new MissionSystem(window.gameEngine);
+
+                // Initialiser la personnalité de LUNA
+                window.lunaPersonality = new LunaPersonality(window.gameEngine);
+
+                // Connecter les systèmes
+                window.gameEngine.missionSystem = window.missionSystem;
+                window.gameEngine.lunaPersonality = window.lunaPersonality;
+            }
+
             // Suggestions de commandes contextuelles
             const suggestions = [
                 "Tape 'aide' pour voir toutes les commandes",
                 "Utilise 'profil' pour voir tes statistiques",
                 "Explore le 'monde' pour découvrir de nouvelles missions",
-                "Vérifie ton 'status' pour voir ta progression"
+                "Vérifie ton 'status' pour voir ta progression",
+                "Joue à 'games' pour voir les mini-jeux disponibles",
+                "Utilise 'missions' pour voir tes missions"
             ];
 
             let suggestionIndex = 0;

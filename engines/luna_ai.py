@@ -6,7 +6,7 @@ Companion IA pour Arkalia Quest
 import json
 import random
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 
 class LunaAI:
@@ -59,9 +59,9 @@ class LunaAI:
     def respond(
         self,
         message: str,
-        user_profile: Dict[str, Any],
-        game_context: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+        user_profile: dict[str, Any],
+        game_context: Optional[dict[str, Any]] = None,
+    ) -> dict[str, Any]:
         """
         Réponse contextuelle de LUNA
 
@@ -80,7 +80,7 @@ class LunaAI:
         response = self.generate_response(context)
 
         # Ajouter des effets émotionnels
-        response = self.add_emotional_effects(response, context)
+        response = self.add_emotional_effects(response)
 
         # Mettre à jour l'historique
         self.update_conversation_history(message, response)
@@ -93,8 +93,8 @@ class LunaAI:
         }
 
     def analyze_context(
-        self, message: str, user_profile: Dict[str, Any], game_context: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, message: str, user_profile: dict[str, Any], game_context: dict[str, Any]
+    ) -> dict[str, Any]:
         """Analyse le contexte pour personnaliser la réponse"""
 
         context = {
@@ -138,7 +138,7 @@ class LunaAI:
         else:
             return "general"
 
-    def generate_response(self, context: Dict[str, Any]) -> str:
+    def generate_response(self, context: dict[str, Any]) -> str:
         """Génère une réponse selon le contexte"""
 
         message_type = context["message_type"]
@@ -154,9 +154,9 @@ class LunaAI:
         elif message_type == "identity_question":
             return self.generate_identity_response(context)
         else:
-            return self.generate_general_response(context)
+            return self.generate_general_response()
 
-    def generate_greeting(self, context: Dict[str, Any]) -> str:
+    def generate_greeting(self, context: dict[str, Any]) -> str:
         """Salutations personnalisées"""
 
         greetings = {

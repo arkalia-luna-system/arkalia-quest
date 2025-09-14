@@ -3,7 +3,7 @@ Commandes de jeux éducatifs pour Arkalia Quest
 Active les mini-jeux interactifs avec interface graphique
 """
 
-from typing import Any, Dict
+from typing import Any
 
 from core.educational_games_engine import EducationalGamesEngine
 
@@ -24,7 +24,7 @@ class GameCommands:
             "random_events": self.handle_random_events,
         }
 
-    def handle_games(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_games(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Liste tous les mini-jeux disponibles"""
         user_level = profile.get("level", 1)
         available_games = self.games_engine.get_available_games(user_level)
@@ -63,7 +63,7 @@ class GameCommands:
 
         return {"réussite": True, "ascii_art": "🎮", "message": message}
 
-    def handle_play_game(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_play_game(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Démarre un mini-jeu éducatif"""
         return {
             "réussite": True,
@@ -87,7 +87,7 @@ class GameCommands:
             "profile_updated": False,
         }
 
-    def handle_play(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_play(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Lance un mini-jeu spécifique"""
         # Récupérer l'ID du jeu depuis la commande
         # Pour l'instant, on simule le lancement d'un jeu
@@ -105,7 +105,7 @@ class GameCommands:
             "profile_updated": False,
         }
 
-    def handle_game_stats(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_game_stats(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Affiche les statistiques des jeux"""
         # Simuler des stats pour l'instant
         message = "📊 STATISTIQUES DES MINI-JEUX\n\n"
@@ -122,7 +122,7 @@ class GameCommands:
 
         return {"réussite": True, "ascii_art": "📊", "message": message}
 
-    def handle_daily_challenges(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_daily_challenges(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Affiche les défis quotidiens engageants pour les ados"""
         # Simuler des défis quotidiens
         challenges = {
@@ -178,7 +178,7 @@ class GameCommands:
 
         return {"réussite": True, "ascii_art": "🎯", "message": message}
 
-    def handle_random_events(self) -> Dict[str, Any]:
+    def handle_random_events(self) -> dict[str, Any]:
         """Affiche les événements aléatoires et leurs déclencheurs"""
         events = {
             "luna_surprise": {

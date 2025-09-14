@@ -39,14 +39,33 @@ jobs:
       - name: 🔍 Vérification finale
         run: |
           echo "=== VÉRIFICATION FINALE ==="
-          black --check . --quiet && echo "✅ Black: PASS"
-          ruff check . --quiet && echo "✅ Ruff: PASS"
-          python -m pytest tests/ --tb=no -q | tail -1 && echo "✅ Tests: PASS"
+          if black --check . --quiet; then
+            echo "✅ Black: PASS"
+          else
+            echo "❌ Black: FAIL" && exit 1
+          fi
+          if ruff check . --quiet; then
+            echo "✅ Ruff: PASS"
+          else
+            echo "❌ Ruff: FAIL" && exit 1
+          fi
+          if python -m pytest tests/ --tb=no -q --maxfail=1; then
+            echo "✅ Tests: PASS"
+          else
+            echo "❌ Tests: FAIL" && exit 1
+          fi
 
       - name: 🐳 Construction Docker
         run: |
-          docker build -f config/Dockerfile -t arkalia-quest:${{ github.sha }} .
-          docker tag arkalia-quest:${{ github.sha }} arkalia-quest:latest
+          echo "🐳 Construction de l'image Docker..."
+          if docker build -t arkalia-quest:${{ github.sha }} .; then
+            echo "✅ Construction Docker réussie"
+            docker tag arkalia-quest:${{ github.sha }} arkalia-quest:latest
+            echo "✅ Tag latest appliqué"
+          else
+            echo "❌ Échec de la construction Docker"
+            exit 1
+          fi
 
       - name: 📊 Push Docker Hub
         if: github.ref == 'refs/heads/main'

@@ -4,7 +4,7 @@ Utilise les modules séparés pour une meilleure organisation
 """
 
 from datetime import datetime
-from typing import Any, Dict
+from typing import Any
 
 from .commands.analytics_commands import AnalyticsCommands
 
@@ -51,7 +51,7 @@ class CommandHandlerV2:
         """Normalise une commande"""
         return command.lower().strip()
 
-    def handle_command(self, command: str, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_command(self, command: str, profile: dict[str, Any]) -> dict[str, Any]:
         """
         Traite une commande avec émotions LUNA
 
@@ -93,8 +93,8 @@ class CommandHandlerV2:
         return result
 
     def _handle_unknown_command(
-        self, command: str, profile: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, command: str, profile: dict[str, Any]
+    ) -> dict[str, Any]:
         """Gère une commande inconnue avec émotion LUNA"""
         result = {
             "réussite": False,
@@ -123,7 +123,7 @@ class CommandHandlerV2:
 
         return result
 
-    def _process_command(self, command: str, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def _process_command(self, command: str, profile: dict[str, Any]) -> dict[str, Any]:
         """
         Traite une commande spécifique
 
@@ -166,7 +166,7 @@ class CommandHandlerV2:
                 "profile_updated": False,
             }
 
-    def format_response(self, result: Dict[str, Any]) -> Dict[str, Any]:
+    def format_response(self, result: dict[str, Any]) -> dict[str, Any]:
         """Formate la réponse"""
         # Ajout de timestamp si pas présent
         if "timestamp" not in result:

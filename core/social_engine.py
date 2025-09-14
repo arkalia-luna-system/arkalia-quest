@@ -11,11 +11,11 @@ Version: 1.0
 """
 
 import json
+import logging
 import os
 import uuid
 from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Any
-import logging
+from typing import Any, Optional
 
 # Configuration du logging
 logger = logging.getLogger(__name__)
@@ -124,7 +124,7 @@ class SocialEngine:
 
     def create_guild(
         self, creator_id: str, guild_name: str, description: str = ""
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Crée une nouvelle guilde"""
         guild_id = str(uuid.uuid4())
 
@@ -155,7 +155,7 @@ class SocialEngine:
             "message": f"Guilde '{guild_name}' créée avec succès !",
         }
 
-    def join_guild(self, player_id: str, guild_id: str) -> Dict[str, Any]:
+    def join_guild(self, player_id: str, guild_id: str) -> dict[str, Any]:
         """Rejoint une guilde"""
         if guild_id not in self.guilds:
             return {"success": False, "error": "Guilde introuvable"}
@@ -181,7 +181,7 @@ class SocialEngine:
             "message": f"Bienvenue dans la guilde {guild['name']} !",
         }
 
-    def leave_guild(self, player_id: str, guild_id: str) -> Dict[str, Any]:
+    def leave_guild(self, player_id: str, guild_id: str) -> dict[str, Any]:
         """Quitte une guilde"""
         if guild_id not in self.guilds:
             return {"success": False, "error": "Guilde introuvable"}
@@ -230,11 +230,11 @@ class SocialEngine:
 
         self.save_social_data()
 
-    def get_guild_info(self, guild_id: str) -> Optional[Dict[str, Any]]:
+    def get_guild_info(self, guild_id: str) -> Optional[dict[str, Any]]:
         """Retourne les informations d'une guilde"""
         return self.guilds.get(guild_id)
 
-    def get_player_guilds(self, player_id: str) -> List[Dict[str, Any]]:
+    def get_player_guilds(self, player_id: str) -> list[dict[str, Any]]:
         """Retourne les guildes d'un joueur"""
         player_guilds = []
 
@@ -263,8 +263,8 @@ class SocialEngine:
     # ===== SYSTÈME DE DÉFIS COOPÉRATIFS =====
 
     def create_coop_challenge(
-        self, creator_id: str, challenge_data: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, creator_id: str, challenge_data: dict[str, Any]
+    ) -> dict[str, Any]:
         """Crée un défi coopératif"""
         challenge_id = str(uuid.uuid4())
 
@@ -294,7 +294,7 @@ class SocialEngine:
             "message": "Défi coopératif créé !",
         }
 
-    def join_challenge(self, player_id: str, challenge_id: str) -> Dict[str, Any]:
+    def join_challenge(self, player_id: str, challenge_id: str) -> dict[str, Any]:
         """Rejoint un défi coopératif"""
         if challenge_id not in self.challenges:
             return {"success": False, "error": "Défi introuvable"}
@@ -345,8 +345,8 @@ class SocialEngine:
         self.save_social_data()
 
     def update_challenge_progress(
-        self, challenge_id: str, player_id: str, progress_data: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, challenge_id: str, player_id: str, progress_data: dict[str, Any]
+    ) -> dict[str, Any]:
         """Met à jour le progrès d'un joueur dans un défi"""
         if challenge_id not in self.challenges:
             return {"success": False, "error": "Défi introuvable"}
@@ -375,7 +375,7 @@ class SocialEngine:
 
         return {"success": True, "message": "Progrès mis à jour !"}
 
-    def distribute_challenge_rewards(self, challenge: Dict[str, Any]):
+    def distribute_challenge_rewards(self, challenge: dict[str, Any]):
         """Distribue les récompenses d'un défi terminé"""
         # rewards = challenge.get("rewards", {})  # TODO: Implémenter la distribution des récompenses
 
@@ -388,7 +388,7 @@ class SocialEngine:
 
     # ===== SYSTÈME D'ÉVÉNEMENTS COLLECTIFS =====
 
-    def create_seasonal_event(self, event_data: Dict[str, Any]) -> Dict[str, Any]:
+    def create_seasonal_event(self, event_data: dict[str, Any]) -> dict[str, Any]:
         """Crée un événement saisonnier"""
         event_id = str(uuid.uuid4())
         current_season = self.get_current_season()
@@ -424,7 +424,7 @@ class SocialEngine:
             "message": "Événement saisonnier créé !",
         }
 
-    def join_seasonal_event(self, player_id: str, event_id: str) -> Dict[str, Any]:
+    def join_seasonal_event(self, player_id: str, event_id: str) -> dict[str, Any]:
         """Rejoint un événement saisonnier"""
         current_season = self.get_current_season()
 
@@ -449,7 +449,7 @@ class SocialEngine:
 
     def update_event_progress(
         self, event_id: str, player_id: str, contribution: int
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Met à jour le progrès d'un joueur dans un événement"""
         current_season = self.get_current_season()
 
@@ -486,7 +486,7 @@ class SocialEngine:
             "target": event["target"],
         }
 
-    def complete_seasonal_event(self, event: Dict[str, Any]):
+    def complete_seasonal_event(self, event: dict[str, Any]):
         """Marque un événement comme terminé et distribue les récompenses"""
         event["status"] = "completed"
         event["completed_at"] = datetime.now().isoformat()
@@ -501,7 +501,7 @@ class SocialEngine:
 
     def send_global_message(
         self, sender_id: str, message: str, message_type: str = "chat"
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Envoie un message dans le chat global"""
         # Validation du message
         if not self.validate_message(message):
@@ -543,13 +543,13 @@ class SocialEngine:
 
         return True
 
-    def get_recent_messages(self, limit: int = 50) -> List[Dict[str, Any]]:
+    def get_recent_messages(self, limit: int = 50) -> list[dict[str, Any]]:
         """Retourne les messages récents"""
         return self.chat_messages[-limit:] if self.chat_messages else []
 
     # ===== SYSTÈME DE RELATIONS =====
 
-    def add_friend(self, player_id: str, friend_id: str) -> Dict[str, Any]:
+    def add_friend(self, player_id: str, friend_id: str) -> dict[str, Any]:
         """Ajoute un ami"""
         if player_id not in self.player_relationships:
             self.player_relationships[player_id] = {
@@ -566,7 +566,7 @@ class SocialEngine:
 
         return {"success": False, "error": "Déjà ami avec ce joueur"}
 
-    def add_rival(self, player_id: str, rival_id: str) -> Dict[str, Any]:
+    def add_rival(self, player_id: str, rival_id: str) -> dict[str, Any]:
         """Ajoute un rival"""
         if player_id not in self.player_relationships:
             self.player_relationships[player_id] = {
@@ -583,7 +583,7 @@ class SocialEngine:
 
         return {"success": False, "error": "Déjà rival avec ce joueur"}
 
-    def get_player_relationships(self, player_id: str) -> Dict[str, Any]:
+    def get_player_relationships(self, player_id: str) -> dict[str, Any]:
         """Retourne les relations d'un joueur"""
         return self.player_relationships.get(
             player_id, {"friends": [], "blocked": [], "rivals": []}
@@ -591,7 +591,7 @@ class SocialEngine:
 
     # ===== API PUBLIQUE =====
 
-    def get_social_dashboard(self, player_id: str) -> Dict[str, Any]:
+    def get_social_dashboard(self, player_id: str) -> dict[str, Any]:
         """Retourne le tableau de bord social d'un joueur"""
         current_season = self.get_current_season()
 

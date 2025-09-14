@@ -4,8 +4,8 @@ Script principal pour exécuter les tests de validation d'Arkalia Quest
 Utilise le test de validation complet pour vérifier que tout fonctionne
 """
 
-import sys
 import os
+import sys
 
 # Ajouter le répertoire parent au path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

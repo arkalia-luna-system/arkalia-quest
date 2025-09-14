@@ -1,0 +1,17 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 🎮 Arkalia Quest Community
+    url: https://github.com/arkalia-luna-system/arkalia-quest/discussions
+    about: 💬 Posez vos questions et partagez vos idées avec la communauté
+  - name: 📚 Documentation
+    url: https://github.com/arkalia-luna-system/arkalia-quest/tree/main/docs
+    about: 📖 Consultez la documentation complète du projet
+  - name: 🐛 Bug Report (Alternative)
+    url: https://github.com/arkalia-luna-system/arkalia-quest/issues/new?template=bug_report.yml
+    about: 🐛 Signaler un bug avec le template dédié
+  - name: ✨ Feature Request (Alternative)
+    url: https://github.com/arkalia-luna-system/arkalia-quest/issues/new?template=feature_request.yml
+    about: ✨ Proposer une nouvelle fonctionnalité
+  - name: 🤝 Help Wanted (Alternative)
+    url: https://github.com/arkalia-luna-system/arkalia-quest/issues/new?template=help_wanted.yml
+    about: 🤝 Trouver des tâches pour contribuer

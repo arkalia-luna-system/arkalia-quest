@@ -1,0 +1,138 @@
+name: 🤝 Help Wanted
+description: Tâches où l'aide de la communauté est bienvenue
+title: "[HELP] "
+labels: ["help wanted", "good first issue", "needs-triage"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Merci de votre intérêt pour contribuer à Arkalia Quest ! 🤝
+        
+        **Cette issue est marquée comme "Help Wanted" - parfait pour les nouveaux contributeurs !**
+        
+        **Avant de commencer :**
+        - [ ] Lisez le [Guide de Contribution](docs/CONTRIBUTING.md)
+        - [ ] Vérifiez que personne ne travaille déjà dessus
+        - [ ] Commentez pour indiquer que vous prenez en charge cette tâche
+
+  - type: textarea
+    id: task-description
+    attributes:
+      label: 📝 Description de la tâche
+      description: Décrivez clairement ce qui doit être fait
+      placeholder: "Ex: Améliorer la documentation de l'API REST"
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: ✅ Critères d'acceptation
+      description: Comment savoir que la tâche est terminée ?
+      placeholder: |
+        - [ ] Critère 1
+        - [ ] Critère 2
+        - [ ] Critère 3
+    validations:
+      required: true
+
+  - type: dropdown
+    id: difficulty
+    attributes:
+      label: 🎯 Niveau de difficulté
+      description: Quel niveau de compétence est requis ?
+      options:
+        - "🟢 Débutant - Première contribution"
+        - "🟡 Intermédiaire - Quelques compétences"
+        - "🟠 Avancé - Compétences techniques solides"
+        - "🔴 Expert - Compétences spécialisées"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: time-estimate
+    attributes:
+      label: ⏱️ Temps estimé
+      description: Combien de temps cette tâche prendra-t-elle ?
+      options:
+        - "🟢 1-2 heures"
+        - "🟡 1-2 jours"
+        - "🟠 1-2 semaines"
+        - "🔴 Plus de 2 semaines"
+
+  - type: textarea
+    id: skills-needed
+    attributes:
+      label: 🛠️ Compétences nécessaires
+      description: Quelles compétences sont requises ?
+      placeholder: |
+        - Python (niveau débutant/intermédiaire)
+        - HTML/CSS (niveau débutant)
+        - Git (niveau débutant)
+        - Documentation (niveau débutant)
+    validations:
+      required: true
+
+  - type: textarea
+    id: getting-started
+    attributes:
+      label: 🚀 Comment commencer
+      description: Étapes pour démarrer cette tâche
+      placeholder: |
+        1. Fork le repository
+        2. Créer une branche feature/help-[nom-tâche]
+        3. Lire le fichier [chemin/vers/fichier]
+        4. Modifier [fichier spécifique]
+        5. Tester avec [commande de test]
+    validations:
+      required: true
+
+  - type: textarea
+    id: resources
+    attributes:
+      label: 📚 Ressources utiles
+      description: Liens et ressources pour aider
+      placeholder: |
+        - [Guide de Contribution](docs/CONTRIBUTING.md)
+        - [Documentation API](docs/API.md)
+        - [Exemple similaire](lien)
+        - [Documentation externe](lien)
+
+  - type: textarea
+    id: testing
+    attributes:
+      label: 🧪 Comment tester
+      description: Comment vérifier que la solution fonctionne ?
+      placeholder: |
+        - Exécuter les tests : `python -m pytest tests/`
+        - Tester manuellement : [étapes]
+        - Vérifier la documentation : [étapes]
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: 📎 Informations supplémentaires
+      description: Autres détails utiles
+      placeholder: |
+        - Fichiers à modifier
+        - Dépendances à installer
+        - Configuration requise
+        - Notes spéciales
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: ✅ Engagement
+      description: En prenant cette tâche, je m'engage à :
+      options:
+        - label: Respecter les standards de code du projet
+          required: true
+        - label: Écrire des tests si nécessaire
+          required: true
+        - label: Mettre à jour la documentation
+          required: true
+        - label: Communiquer régulièrement sur l'avancement
+          required: true
+        - label: Demander de l'aide si je suis bloqué
+          required: true

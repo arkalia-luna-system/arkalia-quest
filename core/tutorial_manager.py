@@ -4,13 +4,12 @@ Gère la progression, les choix, et l'état du tutoriel pour chaque utilisateur
 """
 
 import json
+import logging
 import os
+import sys
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Any, Dict, List, Optional
-
-import sys
-import logging
+from typing import Any, Optional
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 try:
@@ -46,8 +45,8 @@ class TutorialProgress:
         started_at: Optional[datetime] = None,
         completed_at: Optional[datetime] = None,
         skipped: bool = False,
-        user_choices: Optional[Dict[str, Any]] = None,
-        analytics: Optional[Dict[str, Any]] = None,
+        user_choices: Optional[dict[str, Any]] = None,
+        analytics: Optional[dict[str, Any]] = None,
     ):
         self.user_id = user_id
         self.current_step = current_step
@@ -73,7 +72,7 @@ class TutorialManager:
         self.progress_dir = "data/tutorial_progress"
         os.makedirs(self.progress_dir, exist_ok=True)
 
-    def _load_tutorial_data(self) -> Dict[str, Any]:
+    def _load_tutorial_data(self) -> dict[str, Any]:
         """Charge les données du tutoriel depuis le JSON"""
         try:
             with open(self.tutorial_data_path, encoding="utf-8") as f:
@@ -110,7 +109,7 @@ class TutorialManager:
             game_logger.error(f"Erreur sauvegarde progression {user_id}: {e}")
             return False
 
-    def _serialize_progress(self, progress: TutorialProgress) -> Dict[str, Any]:
+    def _serialize_progress(self, progress: TutorialProgress) -> dict[str, Any]:
         """Sérialise un objet TutorialProgress pour JSON"""
         data = {
             "user_id": progress.user_id,
@@ -128,7 +127,7 @@ class TutorialManager:
         }
         return data
 
-    def _deserialize_progress(self, data: Dict[str, Any]) -> TutorialProgress:
+    def _deserialize_progress(self, data: dict[str, Any]) -> TutorialProgress:
         """Désérialise un dictionnaire en TutorialProgress"""
         # Convertir les string en datetime
         if data.get("started_at"):
@@ -137,7 +136,7 @@ class TutorialManager:
             data["completed_at"] = datetime.fromisoformat(data["completed_at"])
         return TutorialProgress(**data)
 
-    def start_tutorial(self, user_id: str) -> Dict[str, Any]:
+    def start_tutorial(self, user_id: str) -> dict[str, Any]:
         """Démarre le tutoriel pour un utilisateur"""
         progress = self.get_user_progress(user_id)
 
@@ -161,12 +160,12 @@ class TutorialManager:
             },
         }
 
-    def get_current_step(self, user_id: str) -> Optional[Dict[str, Any]]:
+    def get_current_step(self, user_id: str) -> Optional[dict[str, Any]]:
         """Récupère l'étape actuelle du tutoriel"""
         progress = self.get_user_progress(user_id)
         return self.get_step(progress.current_step)
 
-    def get_step(self, step_id: int) -> Optional[Dict[str, Any]]:
+    def get_step(self, step_id: int) -> Optional[dict[str, Any]]:
         """Récupère une étape spécifique"""
         steps = self.tutorial_data.get("tutoriel", {}).get("etapes", [])
         for step in steps:
@@ -176,7 +175,7 @@ class TutorialManager:
 
     def execute_step(
         self, user_id: str, step_id: int, choice: Optional[str] = None
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Exécute une étape du tutoriel"""
         progress = self.get_user_progress(user_id)
         step = self.get_step(step_id)
@@ -226,7 +225,7 @@ class TutorialManager:
             "choice": choice,
         }
 
-    def skip_tutorial(self, user_id: str) -> Dict[str, Any]:
+    def skip_tutorial(self, user_id: str) -> dict[str, Any]:
         """Permet de sauter le tutoriel"""
         progress = self.get_user_progress(user_id)
         progress.skipped = True
@@ -246,7 +245,7 @@ class TutorialManager:
             },
         }
 
-    def restart_tutorial(self, user_id: str) -> Dict[str, Any]:
+    def restart_tutorial(self, user_id: str) -> dict[str, Any]:
         """Relance le tutoriel depuis le début"""
         # Supprimer le fichier de progression
         progress_path = os.path.join(self.progress_dir, f"{user_id}_progress.json")
@@ -256,7 +255,7 @@ class TutorialManager:
         # Redémarrer le tutoriel
         return self.start_tutorial(user_id)
 
-    def get_tutorial_analytics(self, user_id: str) -> Dict[str, Any]:
+    def get_tutorial_analytics(self, user_id: str) -> dict[str, Any]:
         """Récupère les analytics du tutoriel pour un utilisateur"""
         progress = self.get_user_progress(user_id)
 
@@ -279,9 +278,9 @@ class TutorialManager:
 
         return analytics
 
-    def get_all_analytics(self) -> Dict[str, Any]:
+    def get_all_analytics(self) -> dict[str, Any]:
         """Récupère les analytics de tous les utilisateurs"""
-        analytics: Dict[str, Any] = {
+        analytics: dict[str, Any] = {
             "total_users": 0,
             "completed_tutorials": 0,
             "skipped_tutorials": 0,
@@ -330,7 +329,7 @@ class TutorialManager:
 
         return analytics
 
-    def get_step_effects(self, step_id: int) -> Dict[str, Any]:
+    def get_step_effects(self, step_id: int) -> dict[str, Any]:
         """Récupère les effets d'une étape"""
         step = self.get_step(step_id)
         if not step:
@@ -347,7 +346,7 @@ class TutorialManager:
         luna_dialogue = step.get("luna_dialogue", {})
         return luna_dialogue.get(context)
 
-    def get_user_choice_options(self, step_id: int) -> List[Dict[str, Any]]:
+    def get_user_choice_options(self, step_id: int) -> list[dict[str, Any]]:
         """Récupère les options de choix pour une étape"""
         step = self.get_step(step_id)
         if not step:

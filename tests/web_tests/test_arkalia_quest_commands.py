@@ -4,11 +4,12 @@ Script de test des commandes et missions d'Arkalia Quest
 Teste spécifiquement les commandes du terminal et les missions du jeu
 """
 
-import requests
-import time
 import json
 import sys
+import time
 from datetime import datetime
+
+import requests
 
 
 class ArkaliaQuestCommandsTester:

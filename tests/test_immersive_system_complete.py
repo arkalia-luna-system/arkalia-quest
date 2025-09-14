@@ -8,7 +8,7 @@ import json
 import random
 import time
 from datetime import datetime
-from typing import Any, Dict
+from typing import Any
 
 import requests
 
@@ -38,7 +38,7 @@ class ImmersiveSystemTester:
             "commande_inexistante_test",
         ]
 
-    def run_complete_test(self) -> Dict[str, Any]:
+    def run_complete_test(self) -> dict[str, Any]:
         """Lance le test complet du système immersif"""
         print("🌟 TEST COMPLET DU SYSTÈME IMMERSIF ARKALIA QUEST")
         print("=" * 60)
@@ -85,7 +85,7 @@ class ImmersiveSystemTester:
 
         return results
 
-    def test_luna_emotions(self) -> Dict[str, Any]:
+    def test_luna_emotions(self) -> dict[str, Any]:
         """Test du système d'émotions LUNA"""
         print("  🧪 Test des émotions LUNA...")
 
@@ -166,7 +166,7 @@ class ImmersiveSystemTester:
 
         return emotions_test
 
-    def test_visual_effects(self) -> Dict[str, Any]:
+    def test_visual_effects(self) -> dict[str, Any]:
         """Test des effets visuels"""
         print("  🎨 Test des effets visuels...")
 
@@ -226,7 +226,7 @@ class ImmersiveSystemTester:
 
         return effects_test
 
-    def test_integration(self) -> Dict[str, Any]:
+    def test_integration(self) -> dict[str, Any]:
         """Test d'intégration complète"""
         print("  🔗 Test d'intégration...")
 
@@ -296,7 +296,7 @@ class ImmersiveSystemTester:
 
         return integration_test
 
-    def test_performance(self) -> Dict[str, Any]:
+    def test_performance(self) -> dict[str, Any]:
         """Test de performance"""
         print("  ⚡ Test de performance...")
 
@@ -411,7 +411,7 @@ class ImmersiveSystemTester:
 
         return performance_test
 
-    def validate_emotion_data(self, data: Dict[str, Any]) -> bool:
+    def validate_emotion_data(self, data: dict[str, Any]) -> bool:
         """Valide les données d'émotion"""
         required_fields = [
             "luna_emotion",
@@ -440,7 +440,7 @@ class ImmersiveSystemTester:
         # Vérifier les bornes
         return 0.0 <= data["luna_intensity"] <= 1.0
 
-    def check_emotion_effect_coherence(self, data: Dict[str, Any]) -> bool:
+    def check_emotion_effect_coherence(self, data: dict[str, Any]) -> bool:
         """Vérifie la cohérence émotion-effet"""
         if "luna_emotion" not in data or "luna_effect" not in data:
             return False
@@ -464,7 +464,7 @@ class ImmersiveSystemTester:
 
         return expected_mapping.get(emotion) == effect
 
-    def validate_response_structure(self, data: Dict[str, Any]) -> bool:
+    def validate_response_structure(self, data: dict[str, Any]) -> bool:
         """Valide la structure de la réponse"""
         required_fields = ["réussite", "message"]
 
@@ -472,11 +472,11 @@ class ImmersiveSystemTester:
 
     def generate_summary(
         self,
-        luna_results: Dict,
-        visual_results: Dict,
-        integration_results: Dict,
-        performance_results: Dict,
-    ) -> Dict[str, Any]:
+        luna_results: dict,
+        visual_results: dict,
+        integration_results: dict,
+        performance_results: dict,
+    ) -> dict[str, Any]:
         """Génère un résumé des tests"""
         total_tests = (
             luna_results.get("total_commands", 0)
@@ -514,7 +514,7 @@ class ImmersiveSystemTester:
             ),
         }
 
-    def save_results(self, results: Dict[str, Any]):
+    def save_results(self, results: dict[str, Any]):
         """Sauvegarde les résultats"""
         filename = f"tests/results/immersive_system_test_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
 
@@ -528,7 +528,7 @@ class ImmersiveSystemTester:
 
         print(f"\n💾 Résultats sauvegardés dans: {filename}")
 
-    def display_summary(self, results: Dict[str, Any]):
+    def display_summary(self, results: dict[str, Any]):
         """Affiche le résumé des tests"""
         summary = results["summary"]
 

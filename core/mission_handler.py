@@ -5,7 +5,7 @@ Intègre les missions des 7 actes avec le moteur de jeu existant
 """
 
 import random
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 from core.database import DatabaseManager
 
@@ -24,11 +24,11 @@ class MissionHandler:
         for mission in missions:
             self.missions[mission["mission_id"]] = mission
 
-    def get_mission(self, mission_id: str) -> Optional[Dict[str, Any]]:
+    def get_mission(self, mission_id: str) -> Optional[dict[str, Any]]:
         """Récupère une mission par son ID"""
         return self.missions.get(mission_id)
 
-    def get_current_acte(self, profil: Dict[str, Any]) -> str:
+    def get_current_acte(self, profil: dict[str, Any]) -> str:
         """Détermine l'acte actuel selon la progression du joueur"""
         # Logique pour déterminer l'acte actuel
         # Basé sur les missions complétées, les objets débloqués, etc.
@@ -80,8 +80,8 @@ class MissionHandler:
             return "..."
 
     def execute_mission_step(
-        self, mission_id: str, step_id: str, profil: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, mission_id: str, step_id: str, profil: dict[str, Any]
+    ) -> dict[str, Any]:
         """Exécute une étape de mission"""
         mission = self.get_mission(mission_id)
         if not mission:
@@ -120,7 +120,7 @@ class MissionHandler:
 
         return result
 
-    def execute_commande(self, commande: str) -> Dict[str, Any]:
+    def execute_commande(self, commande: str) -> dict[str, Any]:
         """Exécute une commande de mission"""
         # Simulation des commandes selon le type
         if commande.startswith("luna_"):
@@ -144,7 +144,7 @@ class MissionHandler:
         else:
             return {"success": True, "message": f"Commande {commande} exécutée"}
 
-    def is_mission_completed(self, mission_id: str, profil: Dict[str, Any]) -> bool:
+    def is_mission_completed(self, mission_id: str, profil: dict[str, Any]) -> bool:
         """Vérifie si une mission est complétée"""
         mission = self.get_mission(mission_id)
         if not mission:
@@ -153,7 +153,7 @@ class MissionHandler:
         etapes_completed = profil.get("etapes_completed", {}).get(mission_id, [])
         return len(etapes_completed) >= len(mission["etapes"])
 
-    def complete_mission(self, mission_id: str, profil: Dict[str, Any]):
+    def complete_mission(self, mission_id: str, profil: dict[str, Any]):
         """Marque une mission comme complétée"""
         mission = self.get_mission(mission_id)
         if not mission:
@@ -176,7 +176,7 @@ class MissionHandler:
             if objet not in profil["objets_debloques"]:
                 profil["objets_debloques"].append(objet)
 
-    def get_available_missions(self, profil: Dict[str, Any]) -> List[Dict[str, Any]]:
+    def get_available_missions(self, profil: dict[str, Any]) -> list[dict[str, Any]]:
         """Récupère les missions disponibles pour le joueur"""
         current_acte = self.get_current_acte(profil)
         acte_order = [
@@ -201,8 +201,8 @@ class MissionHandler:
         return available
 
     def get_mission_progress(
-        self, mission_id: str, profil: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, mission_id: str, profil: dict[str, Any]
+    ) -> dict[str, Any]:
         """Récupère la progression d'une mission"""
         mission = self.get_mission(mission_id)
         if not mission:

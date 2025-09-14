@@ -11,11 +11,11 @@ Version: 1.0
 """
 
 import json
+import logging
 import os
 import uuid
 from datetime import datetime
-from typing import Dict, List, Any
-import logging
+from typing import Any
 
 # Configuration du logging
 logger = logging.getLogger(__name__)
@@ -275,7 +275,7 @@ class CustomizationEngine:
 
     # ===== GESTION DES THÈMES =====
 
-    def get_available_themes(self, player_id: str) -> List[Dict[str, Any]]:
+    def get_available_themes(self, player_id: str) -> list[dict[str, Any]]:
         """Retourne les thèmes disponibles pour un joueur"""
         available_themes = []
 
@@ -295,7 +295,7 @@ class CustomizationEngine:
         )
         return theme_id in unlocked_themes
 
-    def unlock_theme(self, player_id: str, theme_id: str) -> Dict[str, Any]:
+    def unlock_theme(self, player_id: str, theme_id: str) -> dict[str, Any]:
         """Débloque un thème pour un joueur"""
         if theme_id not in self.themes:
             return {"success": False, "error": "Thème introuvable"}
@@ -323,7 +323,7 @@ class CustomizationEngine:
             "message": f"Thème '{self.themes[theme_id]['name']}' débloqué !",
         }
 
-    def set_player_theme(self, player_id: str, theme_id: str) -> Dict[str, Any]:
+    def set_player_theme(self, player_id: str, theme_id: str) -> dict[str, Any]:
         """Définit le thème d'un joueur"""
         if theme_id not in self.themes:
             return {"success": False, "error": "Thème introuvable"}
@@ -353,7 +353,7 @@ class CustomizationEngine:
 
     # ===== GESTION DES AVATARS =====
 
-    def get_available_avatars(self, player_id: str) -> List[Dict[str, Any]]:
+    def get_available_avatars(self, player_id: str) -> list[dict[str, Any]]:
         """Retourne les avatars disponibles pour un joueur"""
         available_avatars = []
 
@@ -373,7 +373,7 @@ class CustomizationEngine:
         )
         return avatar_id in unlocked_avatars
 
-    def unlock_avatar(self, player_id: str, avatar_id: str) -> Dict[str, Any]:
+    def unlock_avatar(self, player_id: str, avatar_id: str) -> dict[str, Any]:
         """Débloque un avatar pour un joueur"""
         if avatar_id not in self.avatars:
             return {"success": False, "error": "Avatar introuvable"}
@@ -401,7 +401,7 @@ class CustomizationEngine:
             "message": f"Avatar '{self.avatars[avatar_id]['name']}' débloqué !",
         }
 
-    def set_player_avatar(self, player_id: str, avatar_id: str) -> Dict[str, Any]:
+    def set_player_avatar(self, player_id: str, avatar_id: str) -> dict[str, Any]:
         """Définit l'avatar d'un joueur"""
         if avatar_id not in self.avatars:
             return {"success": False, "error": "Avatar introuvable"}
@@ -433,7 +433,7 @@ class CustomizationEngine:
 
     def get_available_skins(
         self, player_id: str, skin_type: str = None
-    ) -> List[Dict[str, Any]]:
+    ) -> list[dict[str, Any]]:
         """Retourne les skins disponibles pour un joueur"""
         available_skins = []
 
@@ -454,7 +454,7 @@ class CustomizationEngine:
         unlocked_skins = self.player_customizations[player_id].get("unlocked_skins", [])
         return skin_id in unlocked_skins
 
-    def unlock_skin(self, player_id: str, skin_id: str) -> Dict[str, Any]:
+    def unlock_skin(self, player_id: str, skin_id: str) -> dict[str, Any]:
         """Débloque un skin pour un joueur"""
         if skin_id not in self.skins:
             return {"success": False, "error": "Skin introuvable"}
@@ -482,7 +482,7 @@ class CustomizationEngine:
             "message": f"Skin '{self.skins[skin_id]['name']}' débloqué !",
         }
 
-    def set_player_skin(self, player_id: str, skin_id: str) -> Dict[str, Any]:
+    def set_player_skin(self, player_id: str, skin_id: str) -> dict[str, Any]:
         """Définit le skin d'un joueur"""
         if skin_id not in self.skins:
             return {"success": False, "error": "Skin introuvable"}
@@ -512,7 +512,7 @@ class CustomizationEngine:
 
     # ===== GESTION DES VOIX =====
 
-    def get_available_voices(self, player_id: str) -> List[Dict[str, Any]]:
+    def get_available_voices(self, player_id: str) -> list[dict[str, Any]]:
         """Retourne les voix disponibles pour un joueur"""
         available_voices = []
 
@@ -532,7 +532,7 @@ class CustomizationEngine:
         )
         return voice_id in unlocked_voices
 
-    def unlock_voice(self, player_id: str, voice_id: str) -> Dict[str, Any]:
+    def unlock_voice(self, player_id: str, voice_id: str) -> dict[str, Any]:
         """Débloque une voix pour un joueur"""
         if voice_id not in self.voice_profiles:
             return {"success": False, "error": "Voix introuvable"}
@@ -560,7 +560,7 @@ class CustomizationEngine:
             "message": f"Voix '{self.voice_profiles[voice_id]['name']}' débloquée !",
         }
 
-    def set_player_voice(self, player_id: str, voice_id: str) -> Dict[str, Any]:
+    def set_player_voice(self, player_id: str, voice_id: str) -> dict[str, Any]:
         """Définit la voix d'un joueur"""
         if voice_id not in self.voice_profiles:
             return {"success": False, "error": "Voix introuvable"}
@@ -591,8 +591,8 @@ class CustomizationEngine:
     # ===== CUSTOMISATION AVANCÉE =====
 
     def create_custom_theme(
-        self, player_id: str, theme_data: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, player_id: str, theme_data: dict[str, Any]
+    ) -> dict[str, Any]:
         """Crée un thème personnalisé"""
         theme_id = f"custom_{player_id}_{uuid.uuid4().hex[:8]}"
 
@@ -624,7 +624,7 @@ class CustomizationEngine:
             "message": "Thème personnalisé créé !",
         }
 
-    def get_player_customization(self, player_id: str) -> Dict[str, Any]:
+    def get_player_customization(self, player_id: str) -> dict[str, Any]:
         """Retourne la customisation complète d'un joueur"""
         if player_id not in self.player_customizations:
             # Créer une customisation par défaut
@@ -672,7 +672,7 @@ class CustomizationEngine:
             ],
         }
 
-    def apply_customization(self, player_id: str) -> Dict[str, Any]:
+    def apply_customization(self, player_id: str) -> dict[str, Any]:
         """Applique la customisation d'un joueur"""
         customization = self.get_player_customization(player_id)
 
@@ -685,7 +685,7 @@ class CustomizationEngine:
             "message": "Customisation appliquée !",
         }
 
-    def generate_css_variables(self, theme: Dict[str, Any]) -> Dict[str, str]:
+    def generate_css_variables(self, theme: dict[str, Any]) -> dict[str, str]:
         """Génère les variables CSS pour un thème"""
         if not theme:
             return {}
@@ -708,7 +708,7 @@ class CustomizationEngine:
 
     def unlock_random_customization(
         self, player_id: str, category: str = "random"
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Débloque une customisation aléatoire"""
         if category == "random":
             categories = ["themes", "avatars", "skins", "voices"]

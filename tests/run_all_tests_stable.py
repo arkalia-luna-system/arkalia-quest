@@ -20,7 +20,7 @@ import subprocess
 import sys
 import time
 from datetime import datetime
-from typing import Any, Dict, List
+from typing import Any
 
 
 class StableVersionTestRunner:
@@ -81,7 +81,7 @@ class StableVersionTestRunner:
             self.log(f"❌ Serveur inaccessible: {e}", "ERROR")
             return False
 
-    def run_test_module(self, module: Dict[str, str]) -> Dict[str, Any]:
+    def run_test_module(self, module: dict[str, str]) -> dict[str, Any]:
         """Exécute un module de test"""
         self.log(f"🚀 Lancement du test: {module['name']}")
 
@@ -149,7 +149,7 @@ class StableVersionTestRunner:
                 "error": str(e),
             }
 
-    def generate_summary(self) -> Dict[str, Any]:
+    def generate_summary(self) -> dict[str, Any]:
         """Génère un résumé des résultats"""
         total_tests = len(self.test_modules)
         successful_tests = sum(
@@ -172,7 +172,7 @@ class StableVersionTestRunner:
             "timestamp": self.results["timestamp"],
         }
 
-    def generate_recommendations(self) -> List[str]:
+    def generate_recommendations(self) -> list[str]:
         """Génère des recommandations basées sur les résultats"""
         recommendations = []
         summary = self.results["summary"]

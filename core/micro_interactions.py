@@ -11,11 +11,11 @@ Version: 1.0
 """
 
 import json
+import logging
 import os
 import uuid
 from datetime import datetime
-from typing import Dict, List, Any
-import logging
+from typing import Any
 
 # Configuration du logging
 logger = logging.getLogger(__name__)
@@ -294,9 +294,9 @@ class MicroInteractionsEngine:
         player_id: str,
         interaction_type: str,
         target_element: str = None,
-        context: Dict[str, Any] = None,
-    ) -> Dict[str, Any]:
-        """Déclenche une interaction"""
+        context: dict[str, Any] = None,
+    ) -> dict[str, Any]:
+        """Déclenche une interaction avec feedback immédiat"""
         if interaction_type not in self.interaction_templates:
             return {"success": False, "error": "Type d'interaction non trouvé"}
 
@@ -310,6 +310,9 @@ class MicroInteractionsEngine:
         template = self.interaction_templates[interaction_type]
         interaction_id = str(uuid.uuid4())
 
+        # Générer des effets immédiats
+        immediate_effects = self._generate_immediate_effects(interaction_type, context)
+
         interaction = {
             "id": interaction_id,
             "type": interaction_type,
@@ -317,6 +320,7 @@ class MicroInteractionsEngine:
             "context": context or {},
             "timestamp": datetime.now().isoformat(),
             "template": template,
+            "immediate_effects": immediate_effects,
         }
 
         # Ajouter à la queue d'exécution
@@ -329,6 +333,115 @@ class MicroInteractionsEngine:
             "interaction_id": interaction_id,
             "interaction": interaction,
         }
+
+    def _generate_immediate_effects(
+        self, interaction_type: str, context: dict[str, Any] = None
+    ) -> dict[str, Any]:
+        """Génère des effets immédiats selon le type d'interaction"""
+
+        effects = {
+            "visual": True,
+            "audio": True,
+            "haptic": True,
+            "particles": True,
+            "animation": True,
+        }
+
+        # Effets spécifiques selon le type
+        if interaction_type == "button_click":
+            effects.update(
+                {
+                    "ripple_effect": True,
+                    "scale_animation": True,
+                    "sound": "click",
+                    "vibration": [50],
+                }
+            )
+        elif interaction_type == "success":
+            effects.update(
+                {
+                    "glow_effect": True,
+                    "particle_burst": True,
+                    "sound": "success",
+                    "vibration": [100, 50, 100],
+                    "screen_flash": True,
+                }
+            )
+        elif interaction_type == "error":
+            effects.update(
+                {
+                    "shake_effect": True,
+                    "red_flash": True,
+                    "sound": "error",
+                    "vibration": [200],
+                }
+            )
+        elif interaction_type == "hover":
+            effects.update(
+                {
+                    "glow_effect": True,
+                    "scale_animation": True,
+                    "sound": "hover",
+                }
+            )
+        elif interaction_type == "luna_interaction":
+            effects.update(
+                {
+                    "luna_glow": True,
+                    "sparkle_effect": True,
+                    "sound": "luna_chime",
+                    "vibration": [75, 25, 75],
+                }
+            )
+        elif interaction_type == "hack_success":
+            effects.update(
+                {
+                    "matrix_effect": True,
+                    "green_glow": True,
+                    "sound": "hack_success",
+                    "vibration": [100, 50, 100, 50, 100],
+                    "text_effect": "ACCESS GRANTED",
+                }
+            )
+        elif interaction_type == "badge_unlock":
+            effects.update(
+                {
+                    "badge_glow": True,
+                    "celebration": True,
+                    "confetti": True,
+                    "sound": "badge_unlock",
+                    "vibration": [150, 100, 150],
+                    "screen_flash": True,
+                }
+            )
+
+        # Intensité selon le contexte
+        if context and context.get("intensity") == "high":
+            effects.update(
+                {
+                    "intensity": "high",
+                    "duration": 2000,
+                    "screen_flash": True,
+                    "vibration": [200, 100, 200],
+                }
+            )
+        elif context and context.get("intensity") == "low":
+            effects.update(
+                {
+                    "intensity": "low",
+                    "duration": 500,
+                    "vibration": [50],
+                }
+            )
+        else:
+            effects.update(
+                {
+                    "intensity": "medium",
+                    "duration": 1000,
+                }
+            )
+
+        return effects
 
     def check_user_preferences(self, player_id: str, interaction_type: str) -> bool:
         """Vérifie les préférences utilisateur pour une interaction"""
@@ -348,7 +461,7 @@ class MicroInteractionsEngine:
 
         return True
 
-    def add_to_animation_queue(self, interaction: Dict[str, Any]):
+    def add_to_animation_queue(self, interaction: dict[str, Any]):
         """Ajoute une interaction à la queue d'animations"""
         if len(self.animation_queue) >= self.max_queue_size:
             self.animation_queue.pop(0)  # Supprimer le plus ancien
@@ -361,7 +474,7 @@ class MicroInteractionsEngine:
             }
         )
 
-    def add_to_sound_queue(self, interaction: Dict[str, Any]):
+    def add_to_sound_queue(self, interaction: dict[str, Any]):
         """Ajoute une interaction à la queue de sons"""
         if len(self.sound_queue) >= self.max_queue_size:
             self.sound_queue.pop(0)
@@ -374,7 +487,7 @@ class MicroInteractionsEngine:
             }
         )
 
-    def add_to_notification_queue(self, interaction: Dict[str, Any]):
+    def add_to_notification_queue(self, interaction: dict[str, Any]):
         """Ajoute une interaction à la queue de notifications"""
         if len(self.notification_queue) >= self.max_queue_size:
             self.notification_queue.pop(0)
@@ -425,7 +538,7 @@ class MicroInteractionsEngine:
 
     # ===== GESTION DES ANIMATIONS =====
 
-    def process_animation_queue(self) -> List[Dict[str, Any]]:
+    def process_animation_queue(self) -> list[dict[str, Any]]:
         """Traite la queue d'animations"""
         if not self.animation_queue:
             return []
@@ -444,7 +557,7 @@ class MicroInteractionsEngine:
 
         return processed_animations
 
-    def generate_animation_data(self, interaction: Dict[str, Any]) -> Dict[str, Any]:
+    def generate_animation_data(self, interaction: dict[str, Any]) -> dict[str, Any]:
         """Génère les données d'animation pour une interaction"""
         template = interaction["template"]
         animations = template.get("animations", [])
@@ -471,7 +584,7 @@ class MicroInteractionsEngine:
 
     # ===== GESTION DES SONS =====
 
-    def process_sound_queue(self) -> List[Dict[str, Any]]:
+    def process_sound_queue(self) -> list[dict[str, Any]]:
         """Traite la queue de sons"""
         if not self.sound_queue:
             return []
@@ -490,7 +603,7 @@ class MicroInteractionsEngine:
 
         return processed_sounds
 
-    def generate_sound_data(self, interaction: Dict[str, Any]) -> Dict[str, Any]:
+    def generate_sound_data(self, interaction: dict[str, Any]) -> dict[str, Any]:
         """Génère les données de son pour une interaction"""
         template = interaction["template"]
         sounds = template.get("sounds", [])
@@ -511,7 +624,7 @@ class MicroInteractionsEngine:
 
     # ===== GESTION DES NOTIFICATIONS =====
 
-    def process_notification_queue(self) -> List[Dict[str, Any]]:
+    def process_notification_queue(self) -> list[dict[str, Any]]:
         """Traite la queue de notifications"""
         if not self.notification_queue:
             return []
@@ -532,7 +645,7 @@ class MicroInteractionsEngine:
 
         return processed_notifications
 
-    def generate_notification_data(self, interaction: Dict[str, Any]) -> Dict[str, Any]:
+    def generate_notification_data(self, interaction: dict[str, Any]) -> dict[str, Any]:
         """Génère les données de notification pour une interaction"""
         template = interaction["template"]
         notifications = template.get("notifications", [])
@@ -557,8 +670,8 @@ class MicroInteractionsEngine:
     # ===== GESTION DES PRÉFÉRENCES =====
 
     def update_user_preferences(
-        self, player_id: str, preferences: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, player_id: str, preferences: dict[str, Any]
+    ) -> dict[str, Any]:
         """Met à jour les préférences d'un utilisateur"""
         if player_id not in self.user_preferences:
             self.user_preferences[player_id] = {}
@@ -568,7 +681,7 @@ class MicroInteractionsEngine:
 
         return {"success": True, "message": "Préférences mises à jour !"}
 
-    def get_user_preferences(self, player_id: str) -> Dict[str, Any]:
+    def get_user_preferences(self, player_id: str) -> dict[str, Any]:
         """Retourne les préférences d'un utilisateur"""
         if player_id not in self.user_preferences:
             # Créer des préférences par défaut
@@ -588,7 +701,7 @@ class MicroInteractionsEngine:
 
     def create_contextual_interaction(
         self, player_id: str, context: str, target_element: str = None
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Crée une interaction contextuelle basée sur la situation"""
         contextual_templates = {
             "first_mission": "success_action",
@@ -609,8 +722,8 @@ class MicroInteractionsEngine:
         )
 
     def create_custom_interaction(
-        self, player_id: str, interaction_data: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, player_id: str, interaction_data: dict[str, Any]
+    ) -> dict[str, Any]:
         """Crée une interaction personnalisée"""
         interaction_id = str(uuid.uuid4())
 
@@ -641,7 +754,7 @@ class MicroInteractionsEngine:
 
     # ===== SYSTÈME DE FEEDBACK ADAPTATIF =====
 
-    def analyze_user_behavior(self, player_id: str) -> Dict[str, Any]:
+    def analyze_user_behavior(self, player_id: str) -> dict[str, Any]:
         """Analyse le comportement de l'utilisateur pour adapter les interactions"""
         # Cette fonction pourrait analyser les interactions passées
         # et adapter les préférences automatiquement
@@ -656,7 +769,7 @@ class MicroInteractionsEngine:
 
         return behavior_analysis
 
-    def adapt_interactions_to_user(self, player_id: str) -> Dict[str, Any]:
+    def adapt_interactions_to_user(self, player_id: str) -> dict[str, Any]:
         """Adapte les interactions aux préférences de l'utilisateur"""
         behavior = self.analyze_user_behavior(player_id)
 
@@ -678,7 +791,7 @@ class MicroInteractionsEngine:
 
     # ===== API PUBLIQUE =====
 
-    def get_interaction_status(self, player_id: str) -> Dict[str, Any]:
+    def get_interaction_status(self, player_id: str) -> dict[str, Any]:
         """Retourne le statut des interactions pour un joueur"""
         preferences = self.get_user_preferences(player_id)
         behavior = self.analyze_user_behavior(player_id)
@@ -695,7 +808,7 @@ class MicroInteractionsEngine:
             "available_interactions": list(self.interaction_templates.keys()),
         }
 
-    def process_all_queues(self) -> Dict[str, Any]:
+    def process_all_queues(self) -> dict[str, Any]:
         """Traite toutes les queues d'interactions"""
         animations = self.process_animation_queue()
         sounds = self.process_sound_queue()

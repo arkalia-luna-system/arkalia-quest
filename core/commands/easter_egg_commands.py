@@ -3,7 +3,7 @@ Easter eggs Arkalia Quest
 Commandes secrètes et easter eggs
 """
 
-from typing import Any, Dict
+from typing import Any
 
 
 class EasterEggCommands:
@@ -21,7 +21,7 @@ class EasterEggCommands:
             "invoquer_dragon": self.handle_invoquer_dragon,
         }
 
-    def handle_easter_egg_1337(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_easter_egg_1337(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère l'easter egg 1337"""
         profile["score"] += 1337
         if "Easter Egg 1337" not in profile["badges"]:
@@ -42,7 +42,7 @@ LEET HACKER DÉTECTÉ ! Tu as trouvé le secret 1337 !
             "profile_updated": True,
         }
 
-    def handle_boss_final(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_boss_final(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère le boss final"""
         profile["score"] += 500
         if "Boss Slayer" not in profile["badges"]:
@@ -63,7 +63,7 @@ Affronte le boss final d'Arkalia Quest !
             "profile_updated": True,
         }
 
-    def handle_meme_war(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_meme_war(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la guerre des memes"""
         profile["score"] += 50
         if "Guerre des Memes" not in profile["badges"]:
@@ -84,7 +84,7 @@ La guerre des memes fait rage dans Arkalia Quest !
             "profile_updated": True,
         }
 
-    def handle_nuke_world(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_nuke_world(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la destruction du monde"""
         profile["score"] += 100
         if "Détruit" not in profile["badges"]:
@@ -105,7 +105,7 @@ Tu as détruit le monde ! (Mais pas vraiment)
             "profile_updated": True,
         }
 
-    def handle_assistant_pirate(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_assistant_pirate(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère l'assistant pirate"""
         profile["score"] += 75
         if "Pirate visuel" not in profile["badges"]:
@@ -138,7 +138,7 @@ sagesse !
             "profile_updated": True,
         }
 
-    def handle_generer_meme(self) -> Dict[str, Any]:
+    def handle_generer_meme(self) -> dict[str, Any]:
         """Gère la génération de memes"""
         return {
             "réussite": True,
@@ -165,7 +165,7 @@ immortaliser tes exploits !
             "profile_updated": False,
         }
 
-    def handle_decoder_message(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_decoder_message(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère le décodage de messages"""
         profile["score"] += 40
         if "Espion confirmé" not in profile["badges"]:
@@ -197,7 +197,7 @@ progresser dans tes missions !
             "profile_updated": True,
         }
 
-    def handle_invoquer_dragon(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_invoquer_dragon(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère l'invocation de dragon"""
         profile["score"] += 80
         if "Maître du feu" not in profile["badges"]:

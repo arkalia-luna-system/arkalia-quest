@@ -1,21 +1,47 @@
 
 
-# 🌟 **ARKALIA QUEST** - Jeu Éducatif Intelligent
+# 🎮🛡️📊 **ARKALIA QUEST** - Le Serious Game 100% Python
 
+> **🌍 English**: The only open-source educational game built with enterprise-grade security, real-time analytics, and AI-powered learning for teenagers - fully testable and gamified.
 
-> **Un projet de jeu éducatif avec une architecture professionnelle, une sécurité avancée et des performances optimisées**
+> **🇫🇷 Français**: Le seul serious game open-source 100% Python, sécurisé niveau entreprise, avec analytics temps réel et IA éducative pour ados - entièrement testable et gamifié.
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://python.org)
 [![Flask](https://img.shields.io/badge/Flask-3.1+-green.svg)](https://flask.palletsprojects.com)
-[![Tests](https://img.shields.io/badge/Tests-144%2F144%20COLLECTED-brightgreen.svg)](https://github.com/arkalia-luna-system/arkalia-quest)
-[![Sécurité](https://img.shields.io/badge/Sécurité-90%25-orange.svg)](https://github.com/arkalia-luna-system/arkalia-quest)
+[![Release](https://img.shields.io/github/v/release/arkalia-luna-system/arkalia-quest?include_prereleases)](https://github.com/arkalia-luna-system/arkalia-quest/releases)
+[![CI Status](https://img.shields.io/github/actions/workflow/status/arkalia-luna-system/arkalia-quest/ci.yml?branch=main)](https://github.com/arkalia-luna-system/arkalia-quest/actions)
+[![Tests](https://img.shields.io/badge/Tests-179%2F179%20PASS-brightgreen.svg)](https://github.com/arkalia-luna-system/arkalia-quest/actions)
+[![Coverage](https://img.shields.io/codecov/c/github/arkalia-luna-system/arkalia-quest)](https://codecov.io/gh/arkalia-luna-system/arkalia-quest)
+[![Security](https://img.shields.io/badge/Security-Bandit%20✓-green)](https://github.com/arkalia-luna-system/arkalia-quest/actions)
 [![Performance](https://img.shields.io/badge/Performance-95%25-yellow.svg)](https://github.com/arkalia-luna-system/arkalia-quest)
+[![Changelog](https://img.shields.io/badge/Changelog-v3.1.0-blue.svg)](CHANGELOG.md)
+[![Good First Issue](https://img.shields.io/badge/Good%20First-Issue-green.svg)](https://github.com/arkalia-luna-system/arkalia-quest/labels/good%20first%20issue)
+[![Help Wanted](https://img.shields.io/badge/Help-Wanted-orange.svg)](https://github.com/arkalia-luna-system/arkalia-quest/labels/help%20wanted)
 
 ---
 
 
+## 📋 **Table of Contents**
+
+- [🎯 Vue d'Ensemble](#-vue-densemble)
+- [🏗️ Architecture](#️-architecture)
+- [🚀 Démarrage Rapide](#-démarrage-rapide)
+- [⚙️ Installation](#️-installation)
+- [🎮 Utilisation](#-utilisation)
+- [🧪 Tests](#-tests)
+- [🔒 Sécurité](#-sécurité)
+- [📊 Performance](#-performance)
+- [🤝 Contribution](#-contribution)
+- [📚 Documentation](#-documentation)
+- [🛠️ Dépannage](#️-dépannage)
+- [📋 Roadmap](#-roadmap)
+- [📄 Licence](#-licence)
+
+---
+
 ## 🎯 **Vue d'Ensemble**
 
+> **🌍 English**: Arkalia Quest is an intelligent educational game for teenagers, combining learning, gamification, and AI in a modern, secure architecture. Perfect for cybersecurity education and ethical hacking training.
 
 Arkalia Quest est un jeu éducatif intelligent conçu pour les adolescents, combinant apprentissage, gamification et intelligence artificielle dans une architecture moderne et sécurisée.
 
@@ -541,8 +567,26 @@ arkalia-quest/
 ---
 
 
+## 🌐 **Écosystème Arkalia Luna System**
+
+### **🔗 Projets Connexes**
+
+| Composant | Usage dans Quest | Intégration |
+|-----------|------------------|-------------|
+| **🎨 [Arkalia Luna Logo](https://github.com/arkalia-luna-system/arkalia-luna-logo)** | Génération logos dynamiques | API SVG pour badges |
+| **📊 [Metrics Collector](https://github.com/arkalia-luna-system/arkalia-metrics-collector)** | Analytics de jeu | Collecte métriques performance |
+| **🔧 [Athalia DevOps](https://github.com/arkalia-luna-system/athalia-dev-setup)** | Infrastructure CI/CD | Déploiement automatisé |
+| **⚙️ [Base Template](https://github.com/arkalia-luna-system/base-template)** | Structure initiale | Architecture Flask |
+
+### **🔄 Utilisé Par**
+- **🤖 BBIA Reachy Sim** : Intégration modules apprentissage
+- **📱 Arkalia CIA** : Système de notifications éducatives
+
+---
+
 ## 🤝 **Contribution**
 
+> **🌍 English**: We welcome contributions! Check our [Contributing Guide](docs/CONTRIBUTING.md) and look for **🏷️ good first issue** labels.
 
 Nous accueillons les contributions ! Consultez notre [Guide de Contribution](docs/CONTRIBUTING.md) pour commencer.
 

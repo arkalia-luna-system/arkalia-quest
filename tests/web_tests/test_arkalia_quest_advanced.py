@@ -4,12 +4,13 @@ Script de test avancé pour Arkalia Quest
 Teste les fonctionnalités spécifiques du jeu selon le plan de test utilisateur
 """
 
-import requests
-import time
 import json
-import sys
 import re
+import sys
+import time
 from datetime import datetime
+
+import requests
 
 
 class ArkaliaQuestAdvancedTester:

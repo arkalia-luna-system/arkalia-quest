@@ -3,14 +3,14 @@
 Script de correction manuelle des erreurs Markdown les plus critiques
 """
 
-import re
 import glob
+import re
 
 
 def fix_markdown_file(file_path):
     """Corrige les erreurs Markdown les plus importantes dans un fichier"""
     try:
-        with open(file_path, "r", encoding="utf-8") as f:
+        with open(file_path, encoding="utf-8") as f:
             content = f.read()
 
         original_content = content

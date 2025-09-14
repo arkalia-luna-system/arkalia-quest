@@ -3,9 +3,9 @@
 Gestionnaire de cache pour optimiser les performances d'Arkalia Quest
 """
 
-import time
 import threading
-from typing import Any, Dict, Optional
+import time
+from typing import Any, Optional
 
 
 class CacheManager:
@@ -18,12 +18,12 @@ class CacheManager:
         Args:
             default_ttl: Durée de vie par défaut en secondes (5 minutes)
         """
-        self.cache: Dict[str, Dict[str, Any]] = {}
+        self.cache: dict[str, dict[str, Any]] = {}
         self.default_ttl = default_ttl
         self.lock = threading.RLock()
         self.stats = {"hits": 0, "misses": 0, "sets": 0, "deletes": 0, "expired": 0}
 
-    def _is_expired(self, cache_entry: Dict[str, Any]) -> bool:
+    def _is_expired(self, cache_entry: dict[str, Any]) -> bool:
         """Vérifie si une entrée de cache est expirée"""
         return time.time() > cache_entry.get("expires_at", 0)
 
@@ -108,7 +108,7 @@ class CacheManager:
             self.cache.clear()
             self.stats["deletes"] += len(self.cache)
 
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """
         Retourne les statistiques du cache
 
@@ -132,7 +132,7 @@ class CacheManager:
                 "expired": self.stats["expired"],
             }
 
-    def get_user_profile(self, user_id: str) -> Optional[Dict[str, Any]]:
+    def get_user_profile(self, user_id: str) -> Optional[dict[str, Any]]:
         """
         Récupère le profil utilisateur depuis le cache
 
@@ -145,7 +145,7 @@ class CacheManager:
         return self.get(f"user_profile:{user_id}")
 
     def set_user_profile(
-        self, user_id: str, profile: Dict[str, Any], ttl: int = 600
+        self, user_id: str, profile: dict[str, Any], ttl: int = 600
     ) -> None:
         """
         Met en cache le profil utilisateur
@@ -157,7 +157,7 @@ class CacheManager:
         """
         self.set(f"user_profile:{user_id}", profile, ttl)
 
-    def get_game_data(self, game_id: str) -> Optional[Dict[str, Any]]:
+    def get_game_data(self, game_id: str) -> Optional[dict[str, Any]]:
         """
         Récupère les données d'un jeu depuis le cache
 
@@ -170,7 +170,7 @@ class CacheManager:
         return self.get(f"game_data:{game_id}")
 
     def set_game_data(
-        self, game_id: str, game_data: Dict[str, Any], ttl: int = 1800
+        self, game_id: str, game_data: dict[str, Any], ttl: int = 1800
     ) -> None:
         """
         Met en cache les données d'un jeu
@@ -184,7 +184,7 @@ class CacheManager:
 
     def get_leaderboard(
         self, leaderboard_type: str = "global"
-    ) -> Optional[Dict[str, Any]]:
+    ) -> Optional[dict[str, Any]]:
         """
         Récupère le classement depuis le cache
 
@@ -197,7 +197,7 @@ class CacheManager:
         return self.get(f"leaderboard:{leaderboard_type}")
 
     def set_leaderboard(
-        self, leaderboard_type: str, data: Dict[str, Any], ttl: int = 300
+        self, leaderboard_type: str, data: dict[str, Any], ttl: int = 300
     ) -> None:
         """
         Met en cache le classement

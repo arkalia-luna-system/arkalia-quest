@@ -8,7 +8,7 @@ import statistics
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 import requests
 
@@ -30,8 +30,8 @@ class LoadTester:
         self.lock = threading.Lock()
 
     def make_request(
-        self, endpoint: str, method: str = "GET", data: Optional[Dict[str, Any]] = None
-    ) -> Dict[str, Any]:
+        self, endpoint: str, method: str = "GET", data: Optional[dict[str, Any]] = None
+    ) -> dict[str, Any]:
         """Effectue une requête et mesure le temps de réponse"""
         start_time = time.time()
 
@@ -82,10 +82,10 @@ class LoadTester:
 
     def run_load_test(
         self,
-        endpoints: List[Dict[str, Any]],
+        endpoints: list[dict[str, Any]],
         concurrent_users: int = 10,
         duration: int = 60,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Lance un test de charge"""
         print(
             f"🚀 Démarrage du test de charge: {concurrent_users} utilisateurs, {duration}s"
@@ -121,7 +121,7 @@ class LoadTester:
         self.results["end_time"] = time.time()
         return self.generate_report()
 
-    def generate_report(self) -> Dict[str, Any]:
+    def generate_report(self) -> dict[str, Any]:
         """Génère un rapport de test de charge"""
         if not self.results["response_times"]:
             return {"error": "Aucune requête effectuée"}
@@ -159,7 +159,7 @@ class LoadTester:
 
         return report
 
-    def _generate_recommendations(self) -> List[str]:
+    def _generate_recommendations(self) -> list[str]:
         """Génère des recommandations basées sur les résultats"""
         recommendations = []
 

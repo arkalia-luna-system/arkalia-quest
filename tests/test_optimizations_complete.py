@@ -51,7 +51,7 @@ def test_performance_optimizations():
     syntax_ok = True
     for file_path in python_files:
         try:
-            with open(file_path, "r") as f:
+            with open(file_path, encoding="utf-8") as f:
                 compile(f.read(), file_path, "exec")
         except SyntaxError as e:
             print(f"❌ Erreur de syntaxe dans {file_path}: {e}")

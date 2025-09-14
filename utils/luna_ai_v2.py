@@ -7,7 +7,6 @@ Version améliorée avec apprentissage et personnalité dynamique
 import random
 import time
 from datetime import datetime
-from typing import Dict
 
 
 class LunaAI:
@@ -48,7 +47,7 @@ class LunaAI:
             ],
         }
 
-    def analyser_contexte(self, profil_joueur: Dict) -> Dict:
+    def analyser_contexte(self, profil_joueur: dict) -> dict:
         """Analyse le contexte de la commande pour adapter la réponse"""
         contexte = {
             "heure": datetime.now().hour,
@@ -83,8 +82,8 @@ class LunaAI:
         return contexte
 
     def generer_reponse(
-        self, commande: str, profil_joueur: Dict, resultat: Dict
-    ) -> Dict:
+        self, commande: str, profil_joueur: dict, resultat: dict
+    ) -> dict:
         """Génère une réponse personnalisée de LUNA"""
         contexte = self.analyser_contexte(commande, profil_joueur)
         type_personnalite = contexte["type_personnalite"]
@@ -145,7 +144,7 @@ class LunaAI:
 
         return reponse
 
-    def analyser_progression(self, profil_joueur: Dict) -> Dict:
+    def analyser_progression(self, profil_joueur: dict) -> dict:
         """Analyse la progression du joueur et donne des conseils"""
         progression = profil_joueur.get("progression", {})
         personnalite = profil_joueur.get("personnalite", {})
@@ -185,7 +184,7 @@ class LunaAI:
 
         return analyse
 
-    def generer_mission_personnalisee(self, profil_joueur: Dict) -> Dict:
+    def generer_mission_personnalisee(self, profil_joueur: dict) -> dict:
         """Génère une mission personnalisée selon le profil"""
         type_personnalite = profil_joueur.get("personnalite", {}).get(
             "type", "hacker_equilibre"
@@ -240,7 +239,7 @@ class LunaAI:
             },
         }
 
-    def get_statut(self) -> Dict:
+    def get_statut(self) -> dict:
         """Retourne le statut actuel de LUNA"""
         return {
             "nom": self.personnalite["nom"],

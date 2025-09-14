@@ -4,7 +4,7 @@ Profile Manager - Gestion des profils utilisateur
 
 import json
 import os
-from typing import Any, Dict
+from typing import Any
 
 
 class ProfileManager:
@@ -14,7 +14,7 @@ class ProfileManager:
         self.profiles_dir = profiles_dir
         os.makedirs(profiles_dir, exist_ok=True)
 
-    def load_profile(self, user_id: str) -> Dict[str, Any]:
+    def load_profile(self, user_id: str) -> dict[str, Any]:
         """Charge le profil d'un utilisateur"""
 
         profile_path = os.path.join(self.profiles_dir, f"{user_id}.json")
@@ -30,7 +30,7 @@ class ProfileManager:
 
         return profile
 
-    def save_profile(self, user_id: str, profile: Dict[str, Any]):
+    def save_profile(self, user_id: str, profile: dict[str, Any]):
         """Sauvegarde le profil d'un utilisateur"""
 
         profile_path = os.path.join(self.profiles_dir, f"{user_id}.json")
@@ -38,7 +38,7 @@ class ProfileManager:
         with open(profile_path, "w", encoding="utf-8") as f:
             json.dump(profile, f, indent=2, ensure_ascii=False)
 
-    def create_default_profile(self) -> Dict[str, Any]:
+    def create_default_profile(self) -> dict[str, Any]:
         """Crée un profil par défaut"""
 
         return {
@@ -64,7 +64,7 @@ class ProfileManager:
             "last_login": "2024-01-01T00:00:00",
         }
 
-    def ensure_profile_structure(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def ensure_profile_structure(self, profile: dict[str, Any]) -> dict[str, Any]:
         """S'assure que le profil a toutes les clés nécessaires"""
 
         default_profile = self.create_default_profile()
@@ -87,7 +87,7 @@ class ProfileManager:
 
         return profile
 
-    def update_profile(self, user_id: str, updates: Dict[str, Any]):
+    def update_profile(self, user_id: str, updates: dict[str, Any]):
         """Met à jour le profil d'un utilisateur"""
 
         profile = self.load_profile(user_id)
@@ -113,7 +113,7 @@ class ProfileManager:
 
         self.save_profile(user_id, profile)
 
-    def get_all_profiles(self) -> Dict[str, Dict[str, Any]]:
+    def get_all_profiles(self) -> dict[str, dict[str, Any]]:
         """Retourne tous les profils"""
 
         profiles = {}

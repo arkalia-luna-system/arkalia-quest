@@ -629,6 +629,10 @@ function executeCommand(cmdOverride) {
                 });
             }
             const reponse = data.reponse || data; // fallback pour compatibilité
+
+            // FEEDBACK IMMÉDIAT ET VIVANT - Réaction instantanée
+            triggerImmediateFeedback(command, reponse);
+
             if (reponse.réussite || reponse.reussite) {
                 playMatrixSuccessEffect();
                 addMatrixSuccessMessage(reponse.message || 'Succès !');
@@ -645,6 +649,9 @@ function executeCommand(cmdOverride) {
                 if ('vibrate' in navigator) {
                     navigator.vibrate([100, 50, 100]);
                 }
+
+                // Effets visuels instantanés
+                triggerSuccessAnimations();
             } else {
                 playMatrixErrorEffect();
                 addMatrixErrorMessage(reponse.message || 'Erreur inconnue.');
@@ -653,6 +660,9 @@ function executeCommand(cmdOverride) {
                 if (reponse.encouragement) {
                     addEncouragementMessage(reponse.encouragement);
                 }
+
+                // Effets visuels d'erreur avec encouragement
+                triggerErrorAnimations();
             }
             if (reponse.badge) {
                 addSuccessMessage('🏆 Badge : ' + reponse.badge);
@@ -1346,4 +1356,336 @@ const lunaStyles = `
 `;
 
 // Ajouter les styles au document
-document.head.insertAdjacentHTML('beforeend', lunaStyles); 
+document.head.insertAdjacentHTML('beforeend', lunaStyles);
+
+// ===== SYSTÈME DE FEEDBACK IMMÉDIAT ET VIVANT =====
+
+// Feedback instantané basé sur la commande
+function triggerImmediateFeedback(command, response) {
+    const commandType = detectCommandType(command);
+    const isSuccess = response.réussite || response.reussite;
+
+    // Réaction immédiate selon le type de commande
+    switch (commandType) {
+        case 'hack':
+            if (isSuccess) {
+                triggerHackSuccessEffect();
+            } else {
+                triggerHackErrorEffect();
+            }
+            break;
+        case 'luna':
+            triggerLunaInteractionEffect();
+            break;
+        case 'mission':
+            if (isSuccess) {
+                triggerMissionProgressEffect();
+            }
+            break;
+        case 'game':
+            triggerGameInteractionEffect();
+            break;
+        default:
+            if (isSuccess) {
+                triggerGenericSuccessEffect();
+            }
+    }
+}
+
+// Détecter le type de commande
+function detectCommandType(command) {
+    const cmd = command.toLowerCase();
+    if (cmd.includes('hack') || cmd.includes('decode') || cmd.includes('crack')) {
+        return 'hack';
+    } else if (cmd.includes('luna') || cmd.includes('aide') || cmd.includes('help')) {
+        return 'luna';
+    } else if (cmd.includes('mission') || cmd.includes('objectif') || cmd.includes('quest')) {
+        return 'mission';
+    } else if (cmd.includes('jeu') || cmd.includes('game') || cmd.includes('play')) {
+        return 'game';
+    }
+    return 'generic';
+}
+
+// Effets de succès instantanés
+function triggerSuccessAnimations() {
+    // Animation de l'interface
+    document.body.classList.add('success-pulse');
+    setTimeout(() => {
+        document.body.classList.remove('success-pulse');
+    }, 1000);
+
+    // Particules de succès
+    createSuccessParticles();
+
+    // Son de succès
+    playSuccessSound();
+}
+
+// Effets d'erreur avec encouragement
+function triggerErrorAnimations() {
+    // Animation d'erreur douce
+    document.body.classList.add('error-shake');
+    setTimeout(() => {
+        document.body.classList.remove('error-shake');
+    }, 500);
+
+    // Particules d'encouragement
+    createEncouragementParticles();
+}
+
+// Effets spécifiques par type de commande
+function triggerHackSuccessEffect() {
+    // Effet de hacking réussi
+    const terminal = document.getElementById('terminalOutput');
+    if (terminal) {
+        terminal.style.boxShadow = '0 0 30px #00ff00, inset 0 0 30px rgba(0, 255, 0, 0.1)';
+        setTimeout(() => {
+            terminal.style.boxShadow = '';
+        }, 2000);
+    }
+
+    // Animation de texte Matrix
+    addMatrixTextEffect('ACCESS GRANTED');
+}
+
+function triggerHackErrorEffect() {
+    // Effet d'erreur de hacking avec encouragement
+    const terminal = document.getElementById('terminalOutput');
+    if (terminal) {
+        terminal.style.boxShadow = '0 0 20px #ff6600, inset 0 0 20px rgba(255, 102, 0, 0.1)';
+        setTimeout(() => {
+            terminal.style.boxShadow = '';
+        }, 1500);
+    }
+
+    addMatrixTextEffect('ACCESS DENIED - TRY AGAIN');
+}
+
+function triggerLunaInteractionEffect() {
+    // Effet d'interaction avec LUNA
+    const lunaElements = document.querySelectorAll('.luna-avatar, .luna-message');
+    lunaElements.forEach(el => {
+        el.style.animation = 'lunaGlow 1s ease-in-out';
+        setTimeout(() => {
+            el.style.animation = '';
+        }, 1000);
+    });
+}
+
+function triggerMissionProgressEffect() {
+    // Effet de progression de mission
+    const progressBars = document.querySelectorAll('.progress-bar, .progress-fill');
+    progressBars.forEach(bar => {
+        bar.style.animation = 'progressPulse 1s ease-in-out';
+        setTimeout(() => {
+            bar.style.animation = '';
+        }, 1000);
+    });
+}
+
+function triggerGameInteractionEffect() {
+    // Effet d'interaction de jeu
+    document.body.style.background = 'linear-gradient(45deg, #001a00, #003300, #001a00)';
+    setTimeout(() => {
+        document.body.style.background = '';
+    }, 1000);
+}
+
+function triggerGenericSuccessEffect() {
+    // Effet générique de succès
+    const buttons = document.querySelectorAll('button, .btn');
+    buttons.forEach(btn => {
+        btn.style.transform = 'scale(1.05)';
+        btn.style.boxShadow = '0 0 15px rgba(0, 255, 0, 0.5)';
+        setTimeout(() => {
+            btn.style.transform = '';
+            btn.style.boxShadow = '';
+        }, 300);
+    });
+}
+
+// Créer des particules de succès
+function createSuccessParticles() {
+    for (let i = 0; i < 10; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'success-particle';
+        particle.style.cssText = `
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: #00ff00;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            left: ${Math.random() * window.innerWidth}px;
+            top: ${Math.random() * window.innerHeight}px;
+            animation: particleFloat 2s ease-out forwards;
+        `;
+        document.body.appendChild(particle);
+
+        setTimeout(() => {
+            if (particle.parentNode) {
+                particle.parentNode.removeChild(particle);
+            }
+        }, 2000);
+    }
+}
+
+// Créer des particules d'encouragement
+function createEncouragementParticles() {
+    for (let i = 0; i < 5; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'encouragement-particle';
+        particle.style.cssText = `
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: #ffaa00;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            left: ${Math.random() * window.innerWidth}px;
+            top: ${Math.random() * window.innerHeight}px;
+            animation: particleFloat 2s ease-out forwards;
+        `;
+        document.body.appendChild(particle);
+
+        setTimeout(() => {
+            if (particle.parentNode) {
+                particle.parentNode.removeChild(particle);
+            }
+        }, 2000);
+    }
+}
+
+// Ajouter un effet de texte Matrix
+function addMatrixTextEffect(text) {
+    const effect = document.createElement('div');
+    effect.className = 'matrix-text-effect';
+    effect.textContent = text;
+    effect.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #00ff00;
+        font-family: 'Courier New', monospace;
+        font-size: 24px;
+        font-weight: bold;
+        text-shadow: 0 0 10px #00ff00;
+        z-index: 10000;
+        animation: matrixTextFade 3s ease-out forwards;
+        pointer-events: none;
+    `;
+    document.body.appendChild(effect);
+
+    setTimeout(() => {
+        if (effect.parentNode) {
+            effect.parentNode.removeChild(effect);
+        }
+    }, 3000);
+}
+
+// Son de succès
+function playSuccessSound() {
+    if (audioContext && audioEnabled) {
+        try {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(1200, audioContext.currentTime + 0.1);
+
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.3);
+        } catch (e) {
+            // Mode silencieux
+        }
+    }
+}
+
+// Ajouter les styles CSS pour les nouveaux effets
+const feedbackStyles = `
+<style>
+@keyframes success-pulse {
+    0%, 100% { 
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+    }
+    50% { 
+        box-shadow: 0 0 40px rgba(0, 255, 0, 0.6);
+    }
+}
+
+@keyframes error-shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+@keyframes particleFloat {
+    0% { 
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    100% { 
+        transform: translateY(-100px) scale(0);
+        opacity: 0;
+    }
+}
+
+@keyframes matrixTextFade {
+    0% { 
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    20% { 
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+    80% { 
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% { 
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+}
+
+@keyframes progressPulse {
+    0%, 100% { 
+        box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+    }
+    50% { 
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.6);
+    }
+}
+
+@keyframes lunaGlow {
+    0%, 100% { 
+        text-shadow: 0 0 10px #00ffff;
+    }
+    50% { 
+        text-shadow: 0 0 20px #00ffff, 0 0 30px #00ffff;
+    }
+}
+
+.success-pulse {
+    animation: success-pulse 1s ease-in-out;
+}
+
+.error-shake {
+    animation: error-shake 0.5s ease-in-out;
+}
+</style>
+`;
+
+// Injecter les styles de feedback
+document.head.insertAdjacentHTML('beforeend', feedbackStyles); 

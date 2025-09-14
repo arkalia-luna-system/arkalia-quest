@@ -7,7 +7,7 @@ Système d'émotions ultra-avancé pour LUNA qui réagit en temps réel
 import random
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List
+from typing import Any
 
 
 class LunaEmotion(Enum):
@@ -152,7 +152,7 @@ class LunaEmotionsEngine:
             LunaEmotion.ENERGETIC: "luna_energetic",
         }
 
-    def analyze_action(self, action: str, result: Dict, profile: Dict) -> Dict:
+    def analyze_action(self, action: str, result: dict, profile: dict) -> dict:
         """
         Analyse une action et détermine l'émotion de LUNA
 
@@ -190,7 +190,7 @@ class LunaEmotionsEngine:
             "context": context,
         }
 
-    def _analyze_context(self, action: str, result: Dict, profile: Dict) -> Dict:
+    def _analyze_context(self, action: str, result: dict, profile: dict) -> dict:
         """Analyse le contexte de l'action"""
         # Extraire les informations du profil
         personality = profile.get("personnalite", {})
@@ -242,7 +242,7 @@ class LunaEmotionsEngine:
         else:
             return "general"
 
-    def _determine_emotion(self, context: Dict) -> LunaEmotion:
+    def _determine_emotion(self, context: dict) -> LunaEmotion:
         """Détermine l'émotion de LUNA selon le contexte avec logique avancée"""
         action_type = context["action_type"]
         success = context["success"]
@@ -380,7 +380,7 @@ class LunaEmotionsEngine:
 
         return random.choice(emotions)
 
-    def _calculate_intensity(self, context: Dict) -> float:
+    def _calculate_intensity(self, context: dict) -> float:
         """Calcule l'intensité de l'émotion avec plus de variabilité"""
         base_intensity = 0.5
 
@@ -439,7 +439,7 @@ class LunaEmotionsEngine:
 
         return min(1.0, max(0.0, base_intensity))
 
-    def _generate_message(self, emotion: LunaEmotion, context: Dict) -> str:
+    def _generate_message(self, emotion: LunaEmotion, context: dict) -> str:
         """Génère un message personnalisé selon l'émotion"""
         base_message = random.choice(self.emotion_phrases[emotion])
 
@@ -453,7 +453,7 @@ class LunaEmotionsEngine:
 
         return base_message
 
-    def _update_state(self, emotion: LunaEmotion, intensity: float, context: Dict):
+    def _update_state(self, emotion: LunaEmotion, intensity: float, context: dict):
         """Met à jour l'état de LUNA"""
         self.current_emotion = emotion
         self.emotion_intensity = intensity
@@ -482,8 +482,8 @@ class LunaEmotionsEngine:
         return recent_actions.count(self._classify_action(action))
 
     def _create_emotional_variety(
-        self, base_emotions: List[LunaEmotion], context: Dict
-    ) -> List[LunaEmotion]:
+        self, base_emotions: list[LunaEmotion], context: dict
+    ) -> list[LunaEmotion]:
         """Crée une variété d'émotions basée sur le contexte"""
         enhanced_emotions = base_emotions.copy()
 
@@ -508,7 +508,7 @@ class LunaEmotionsEngine:
 
         return enhanced_emotions
 
-    def get_current_state(self) -> Dict:
+    def get_current_state(self) -> dict:
         """Retourne l'état actuel de LUNA"""
         return {
             "emotion": self.current_emotion.value,
@@ -520,7 +520,7 @@ class LunaEmotionsEngine:
             "matrix_effects": self._generate_matrix_effects(self.current_emotion),
         }
 
-    def _generate_matrix_effects(self, emotion: LunaEmotion) -> Dict[str, Any]:
+    def _generate_matrix_effects(self, emotion: LunaEmotion) -> dict[str, Any]:
         """Génère des effets Matrix spéciaux selon l'émotion pour les ados"""
 
         effects = {
@@ -585,7 +585,7 @@ class LunaEmotionsEngine:
 
         return effects
 
-    def get_emotion_history(self) -> List[Dict]:
+    def get_emotion_history(self) -> list[dict]:
         """Retourne l'historique des émotions"""
         return self.emotion_history
 

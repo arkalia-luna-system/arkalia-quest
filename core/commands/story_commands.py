@@ -3,7 +3,7 @@ Commandes d'histoire Arkalia Quest
 Commandes pour la progression narrative : prologue, acte_1 à acte_6, epilogue
 """
 
-from typing import Any, Dict
+from typing import Any
 
 
 class StoryCommands:
@@ -32,7 +32,7 @@ class StoryCommands:
             "naviguer": self.handle_naviguer,
         }
 
-    def handle_prologue(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_prologue(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande prologue - Découverte du SOS d'Althea"""
         # Mettre à jour le profil
         if "missions_completed" not in profile:
@@ -79,7 +79,7 @@ Le message est codé et contient des informations cruciales sur PANDORA.
             "profile_updated": True,
         }
 
-    def handle_acte_1(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_acte_1(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande acte_1 - Réparation du site web de LUNA"""
         if "missions_completed" not in profile:
             profile["missions_completed"] = []
@@ -132,7 +132,7 @@ Le message est codé et contient des informations cruciales sur PANDORA.
             "next_action": "hack_system",
         }
 
-    def handle_acte_2(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_acte_2(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande acte_2 - Décryptage des logs de NEXUS"""
         if "missions_completed" not in profile:
             profile["missions_completed"] = []
@@ -174,7 +174,7 @@ Le message est codé et contient des informations cruciales sur PANDORA.
             "profile_updated": True,
         }
 
-    def handle_acte_3(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_acte_3(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande acte_3 - Analyse de la berceuse d'Althea"""
         if "missions_completed" not in profile:
             profile["missions_completed"] = []
@@ -217,7 +217,7 @@ Le message est codé et contient des informations cruciales sur PANDORA.
             "profile_updated": True,
         }
 
-    def handle_acte_4(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_acte_4(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande acte_4 - Traque de l'email piégé"""
         if "missions_completed" not in profile:
             profile["missions_completed"] = []
@@ -263,7 +263,7 @@ Le virus La Corp a été éliminé.
             "profile_updated": True,
         }
 
-    def handle_acte_5(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_acte_5(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande acte_5 - Le choix final"""
         if "missions_completed" not in profile:
             profile["missions_completed"] = []
@@ -305,7 +305,7 @@ Le virus La Corp a été éliminé.
             "profile_updated": True,
         }
 
-    def handle_acte_6(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_acte_6(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande acte_6 - Naissance d'Arkalia"""
         if "missions_completed" not in profile:
             profile["missions_completed"] = []
@@ -348,7 +348,7 @@ Le virus La Corp a été éliminé.
             "profile_updated": True,
         }
 
-    def handle_epilogue(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_epilogue(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande epilogue - L'aube de PANDORA"""
         if "missions_completed" not in profile:
             profile["missions_completed"] = []
@@ -398,7 +398,7 @@ Tu es maintenant un héros légendaire !
             "profile_updated": True,
         }
 
-    def handle_hack_system(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_hack_system(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande hack_system - Hack du système de La Corp"""
         if "missions_completed" not in profile:
             profile["missions_completed"] = []
@@ -543,7 +543,7 @@ Tu es maintenant un héros légendaire !
                 "next_mission": "acte_2",
             }
 
-    def handle_kill_virus(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_kill_virus(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande kill_virus - Élimination des virus"""
         profile["score"] += 150
 
@@ -568,7 +568,7 @@ Tu es maintenant un héros légendaire !
             "profile_updated": True,
         }
 
-    def handle_find_shadow(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_find_shadow(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande find_shadow - Recherche de SHADOW-13"""
         profile["score"] += 200
 
@@ -593,7 +593,7 @@ Tu es maintenant un héros légendaire !
             "profile_updated": True,
         }
 
-    def handle_challenge_corp(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_challenge_corp(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande challenge_corp - Défi de La Corp"""
         profile["score"] += 300
 
@@ -616,7 +616,7 @@ La Corp a été vaincue et ses systèmes détruits.
             "profile_updated": True,
         }
 
-    def handle_decode_portal(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_decode_portal(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande decode_portal - Décodage des portails"""
         profile["score"] += 250
 
@@ -640,7 +640,7 @@ La Corp a été vaincue et ses systèmes détruits.
             "profile_updated": True,
         }
 
-    def handle_hacker_coffre(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_hacker_coffre(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande hacker_coffre - Hack du coffre-fort"""
         profile["score"] += 400
 
@@ -663,7 +663,7 @@ La Corp a été vaincue et ses systèmes détruits.
             "profile_updated": True,
         }
 
-    def handle_boss_final(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_boss_final(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande boss_final - Combat final"""
         profile["score"] += 1000
         profile["level"] = min(profile.get("level", 1) + 1, 10)
@@ -696,7 +696,7 @@ La Corp a été vaincue et ses systèmes détruits.
             "profile_updated": True,
         }
 
-    def handle_monde(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_monde(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande monde - Accès au monde Arkalia"""
         return {
             "réussite": True,
@@ -723,7 +723,7 @@ La Corp a été vaincue et ses systèmes détruits.
             "profile_updated": False,
         }
 
-    def handle_explorer(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_explorer(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande explorer - Mode exploration"""
         profile["score"] += 30
         if "Explorateur" not in profile["badges"]:
@@ -756,7 +756,7 @@ La Corp a été vaincue et ses systèmes détruits.
             "profile_updated": True,
         }
 
-    def handle_naviguer(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def handle_naviguer(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande naviguer - Navigation dans le monde"""
         profile["score"] += 25
         if "Navigateur" not in profile["badges"]:

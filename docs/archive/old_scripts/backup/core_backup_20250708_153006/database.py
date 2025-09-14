@@ -6,7 +6,7 @@ import json
 import os
 import sqlite3
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 
 class DatabaseManager:
@@ -116,7 +116,7 @@ class DatabaseManager:
         except Exception as e:
             print(f"⚠️ Erreur migration missions: {e}")
 
-    def save_profile(self, username: str, profile_data: Dict[str, Any]) -> bool:
+    def save_profile(self, username: str, profile_data: dict[str, Any]) -> bool:
         """Sauvegarde un profil utilisateur"""
         try:
             with sqlite3.connect(self.db_path) as conn:
@@ -168,7 +168,7 @@ class DatabaseManager:
             print(f"❌ Erreur sauvegarde profil: {e}")
             return False
 
-    def load_profile(self, username: str) -> Optional[Dict[str, Any]]:
+    def load_profile(self, username: str) -> Optional[dict[str, Any]]:
         """Charge un profil utilisateur"""
         try:
             with sqlite3.connect(self.db_path) as conn:
@@ -193,7 +193,7 @@ class DatabaseManager:
             print(f"❌ Erreur chargement profil: {e}")
             return None
 
-    def save_mission(self, mission_data: Dict[str, Any]) -> bool:
+    def save_mission(self, mission_data: dict[str, Any]) -> bool:
         """Sauvegarde une mission"""
         try:
             with sqlite3.connect(self.db_path) as conn:
@@ -220,7 +220,7 @@ class DatabaseManager:
             print(f"❌ Erreur sauvegarde mission: {e}")
             return False
 
-    def create_challenge(self, challenge_data: Dict[str, Any]) -> Optional[int]:
+    def create_challenge(self, challenge_data: dict[str, Any]) -> Optional[int]:
         """Crée un nouveau défi social"""
         try:
             with sqlite3.connect(self.db_path) as conn:
@@ -252,7 +252,7 @@ class DatabaseManager:
         self,
         user_id: int,
         action_type: str,
-        action_data: Dict[str, Any],
+        action_data: dict[str, Any],
         response: str,
         success: bool = True,
     ):
@@ -273,7 +273,7 @@ class DatabaseManager:
         except Exception as e:
             print(f"❌ Erreur log apprentissage: {e}")
 
-    def get_leaderboard(self, limit: int = 10) -> List[Dict[str, Any]]:
+    def get_leaderboard(self, limit: int = 10) -> list[dict[str, Any]]:
         """Récupère le classement des joueurs"""
         try:
             with sqlite3.connect(self.db_path) as conn:

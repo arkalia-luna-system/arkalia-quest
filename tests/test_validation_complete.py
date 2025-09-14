@@ -5,8 +5,8 @@ Teste toutes les fonctionnalités principales du jeu
 """
 
 import json
-import sys
 import os
+import sys
 
 
 def test_imports():
@@ -20,7 +20,7 @@ def test_imports():
         assert True
     except Exception as e:
         print(f"❌ Erreur d'import: {e}")
-        assert False, f"Erreur d'import: {e}"
+        raise AssertionError(f"Erreur d'import: {e}")
 
 
 def test_missions():
@@ -36,7 +36,7 @@ def test_missions():
         missions = []
         for file in os.listdir(missions_dir):
             if file.endswith(".json"):
-                with open(os.path.join(missions_dir, file), "r", encoding="utf-8") as f:
+                with open(os.path.join(missions_dir, file), encoding="utf-8") as f:
                     mission = json.load(f)
                     missions.append(mission)
 
@@ -46,7 +46,7 @@ def test_missions():
         assert len(missions) > 0, "Aucune mission trouvée"
     except Exception as e:
         print(f"❌ Erreur missions: {e}")
-        assert False, f"Erreur missions: {e}"
+        raise AssertionError(f"Erreur missions: {e}")
 
 
 def test_mini_jeux():
@@ -64,7 +64,7 @@ def test_mini_jeux():
         assert len(games) > 0, "Aucun mini-jeu disponible"
     except Exception as e:
         print(f"❌ Erreur mini-jeux: {e}")
-        assert False, f"Erreur mini-jeux: {e}"
+        raise AssertionError(f"Erreur mini-jeux: {e}")
 
 
 def test_badges():
@@ -77,24 +77,24 @@ def test_badges():
             "data",
             "badges_secrets.json",
         )
-        with open(badges_file, "r", encoding="utf-8") as f:
+        with open(badges_file, encoding="utf-8") as f:
             badges = json.load(f)
 
         print(f"✅ {len(badges['badges_secrets'])} badges disponibles")
-        for badge_id, badge in list(badges["badges_secrets"].items())[:5]:
+        for _badge_id, badge in list(badges["badges_secrets"].items())[:5]:
             print(f"  - {badge['nom']} ({badge['rarete']})")
         assert len(badges["badges_secrets"]) > 0, "Aucun badge trouvé"
     except Exception as e:
         print(f"❌ Erreur badges: {e}")
-        assert False, f"Erreur badges: {e}"
+        raise AssertionError(f"Erreur badges: {e}")
 
 
 def test_commandes():
     """Test des commandes"""
     print("\n💻 Test des commandes...")
     try:
-        from core.commands.game_commands import GameCommands
         from core.commands.basic_commands import BasicCommands
+        from core.commands.game_commands import GameCommands
 
         gc = GameCommands()
         bc = BasicCommands()
@@ -115,7 +115,7 @@ def test_commandes():
         assert True, "Commandes testées avec succès"
     except Exception as e:
         print(f"❌ Erreur commandes: {e}")
-        assert False, f"Erreur commandes: {e}"
+        raise AssertionError(f"Erreur commandes: {e}")
 
 
 def test_interface_js():
@@ -138,7 +138,7 @@ def test_interface_js():
                 print(f"✅ {js_file} existe")
             else:
                 print(f"❌ {js_file} manquant")
-                assert False, f"Fichier manquant: {js_file}"
+                raise AssertionError(f"Fichier manquant: {js_file}")
 
         # Vérifier que les fichiers CSS existent
         css_files = ["static/css/mini-games.css", "static/css/arkalia-luna-vision.css"]
@@ -149,12 +149,12 @@ def test_interface_js():
                 print(f"✅ {css_file} existe")
             else:
                 print(f"❌ {css_file} manquant")
-                assert False, f"Fichier manquant: {css_file}"
+                raise AssertionError(f"Fichier manquant: {css_file}")
 
         assert True, "Interface testée avec succès"
     except Exception as e:
         print(f"❌ Erreur interface: {e}")
-        assert False, f"Erreur interface: {e}"
+        raise AssertionError(f"Erreur interface: {e}")
 
 
 def main():

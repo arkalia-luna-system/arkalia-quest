@@ -17,7 +17,7 @@ import threading
 import time
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 # Configuration du logging
 logging.basicConfig(level=logging.INFO)
@@ -56,8 +56,8 @@ class AnalyticsEvent:
     user_id: str
     timestamp: float
     session_id: str
-    data: Dict[str, Any]
-    context: Dict[str, Any]
+    data: dict[str, Any]
+    context: dict[str, Any]
     anonymized: bool = True
 
 
@@ -72,7 +72,7 @@ class UserProfile:
     games_completed: int
     badges_earned: int
     current_level: int
-    preferred_games: List[str]
+    preferred_games: list[str]
     learning_style: str
     engagement_score: float
     last_active: float
@@ -91,7 +91,7 @@ class SessionData:
     events_count: int
     missions_attempted: int
     games_played: int
-    commands_used: List[str]
+    commands_used: list[str]
 
 
 class AnalyticsEngine:
@@ -202,8 +202,8 @@ class AnalyticsEngine:
         event_type: EventType,
         user_id: str,
         session_id: str,
-        data: Optional[Dict[str, Any]] = None,
-        context: Optional[Dict[str, Any]] = None,
+        data: Optional[dict[str, Any]] = None,
+        context: Optional[dict[str, Any]] = None,
     ):
         """Tracker un événement"""
         try:
@@ -263,7 +263,7 @@ class AnalyticsEngine:
                 session.commands_used.append(command)
 
     def start_session(
-        self, user_id: str, session_id: str, context: Optional[Dict[str, Any]] = None
+        self, user_id: str, session_id: str, context: Optional[dict[str, Any]] = None
     ):
         """Démarrer une session"""
         self.track_event(
@@ -453,7 +453,7 @@ class AnalyticsEngine:
         thread = threading.Thread(target=flush_worker, daemon=True)
         thread.start()
 
-    def get_user_insights(self, user_id: str) -> Dict[str, Any]:
+    def get_user_insights(self, user_id: str) -> dict[str, Any]:
         """Obtenir des insights pour un utilisateur"""
         anonymized_user_id = self._anonymize_user_id(user_id)
 
@@ -532,7 +532,7 @@ class AnalyticsEngine:
 
     def _generate_recommendations(
         self, profile: UserProfile, learning_style: str
-    ) -> List[str]:
+    ) -> list[str]:
         """Générer des recommandations personnalisées"""
         recommendations = []
 
@@ -558,7 +558,7 @@ class AnalyticsEngine:
 
         return recommendations[:5]  # Limiter à 5 recommandations
 
-    def get_global_analytics(self) -> Dict[str, Any]:
+    def get_global_analytics(self) -> dict[str, Any]:
         """Obtenir des analytics globaux"""
         try:
             with sqlite3.connect(self.db_path) as conn:
@@ -621,7 +621,7 @@ class AnalyticsEngine:
             logger.error(f"Erreur lors du calcul des analytics globaux: {e}")
             return {}
 
-    def _calculate_engagement_metrics(self) -> Dict[str, float]:
+    def _calculate_engagement_metrics(self) -> dict[str, float]:
         """Calculer les métriques d'engagement"""
         try:
             with sqlite3.connect(self.db_path) as conn:

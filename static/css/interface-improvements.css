@@ -233,6 +233,77 @@ a:focus {
     border-color: var(--matrix-accent) !important;
 }
 
+/* FOCUS RENFORCÉ EN MODE SOMBRE */
+.dark-mode *:focus,
+.dark-mode button:focus,
+.dark-mode input:focus,
+.dark-mode select:focus,
+.dark-mode textarea:focus,
+.dark-mode a:focus {
+    outline: 4px solid var(--matrix-accent) !important;
+    outline-offset: 3px !important;
+    box-shadow:
+        0 0 20px rgba(0, 255, 255, 0.8),
+        0 0 40px rgba(0, 255, 255, 0.4) !important;
+    border-color: var(--matrix-accent) !important;
+    background: rgba(0, 255, 255, 0.1) !important;
+}
+
+/* FOCUS ULTRA-VISIBLE POUR ACCESSIBILITÉ */
+.high-contrast *:focus,
+.high-contrast button:focus,
+.high-contrast input:focus,
+.high-contrast select:focus,
+.high-contrast textarea:focus,
+.high-contrast a:focus {
+    outline: 5px solid #ffffff !important;
+    outline-offset: 4px !important;
+    box-shadow:
+        0 0 25px rgba(255, 255, 255, 0.9),
+        0 0 50px rgba(255, 255, 255, 0.6) !important;
+    border: 3px solid #ffffff !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: #000000 !important;
+}
+
+/* FOCUS POUR ÉLÉMENTS SPÉCIFIQUES */
+button:focus,
+.btn:focus,
+.cta-btn:focus,
+.nav-button:focus {
+    outline: 4px solid var(--matrix-green) !important;
+    outline-offset: 3px !important;
+    box-shadow:
+        0 0 20px rgba(0, 255, 0, 0.8),
+        0 0 40px rgba(0, 255, 0, 0.4) !important;
+    border-color: var(--matrix-green) !important;
+    background: rgba(0, 255, 0, 0.2) !important;
+    transform: scale(1.05) !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 4px solid var(--matrix-accent) !important;
+    outline-offset: 3px !important;
+    box-shadow:
+        0 0 20px rgba(0, 255, 255, 0.8),
+        0 0 40px rgba(0, 255, 255, 0.4) !important;
+    border-color: var(--matrix-accent) !important;
+    background: rgba(0, 255, 255, 0.1) !important;
+}
+
+a:focus {
+    outline: 4px solid var(--matrix-highlight) !important;
+    outline-offset: 3px !important;
+    box-shadow:
+        0 0 20px rgba(0, 255, 68, 0.8),
+        0 0 40px rgba(0, 255, 68, 0.4) !important;
+    border-color: var(--matrix-highlight) !important;
+    background: rgba(0, 255, 68, 0.1) !important;
+    text-decoration: underline !important;
+}
+
 /* AMÉLIORATION NAVIGATION CLAVIER */
 .skip-link {
     position: absolute !important;
@@ -291,6 +362,149 @@ a:focus {
     outline: 3px solid var(--matrix-green) !important;
     outline-offset: 2px !important;
     box-shadow: 0 0 25px rgba(0, 255, 0, 0.6) !important;
+}
+
+/* NAVIGATION CLAVIER MODAUX AMÉLIORÉE */
+.modal,
+.dialog,
+.overlay,
+.accessibility-menu,
+.accessibility-panel {
+    tabindex: 0 !important;
+}
+
+.modal *,
+.dialog *,
+.overlay *,
+.accessibility-menu *,
+.accessibility-panel * {
+    tabindex: 0 !important;
+}
+
+/* FOCUS TRAP POUR MODAUX */
+.modal:focus-within,
+.dialog:focus-within,
+.overlay:focus-within {
+    outline: 3px solid var(--matrix-accent) !important;
+    outline-offset: 4px !important;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.8) !important;
+}
+
+/* AMÉLIORATION BOUTONS MODAUX */
+.modal button,
+.dialog button,
+.overlay button,
+.accessibility-menu button,
+.accessibility-panel button {
+    tabindex: 0 !important;
+    min-height: 44px !important;
+    min-width: 44px !important;
+    padding: 12px 16px !important;
+    margin: 4px !important;
+    border: 2px solid rgba(0, 255, 0, 0.4) !important;
+    background: rgba(0, 255, 0, 0.1) !important;
+    color: var(--matrix-green) !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+}
+
+.modal button:focus,
+.dialog button:focus,
+.overlay button:focus,
+.accessibility-menu button:focus,
+.accessibility-panel button:focus {
+    outline: 3px solid var(--matrix-accent) !important;
+    outline-offset: 2px !important;
+    background: rgba(0, 255, 255, 0.2) !important;
+    border-color: var(--matrix-accent) !important;
+    color: var(--matrix-accent) !important;
+    transform: scale(1.05) !important;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.6) !important;
+}
+
+/* AMÉLIORATION INPUTS MODAUX */
+.modal input,
+.modal select,
+.modal textarea,
+.dialog input,
+.dialog select,
+.dialog textarea,
+.overlay input,
+.overlay select,
+.overlay textarea,
+.accessibility-menu input,
+.accessibility-menu select,
+.accessibility-menu textarea,
+.accessibility-panel input,
+.accessibility-panel select,
+.accessibility-panel textarea {
+    tabindex: 0 !important;
+    min-height: 44px !important;
+    padding: 12px 16px !important;
+    border: 2px solid rgba(0, 255, 0, 0.4) !important;
+    background: rgba(0, 0, 0, 0.8) !important;
+    color: var(--matrix-green) !important;
+    font-size: 16px !important;
+    transition: all 0.2s ease !important;
+}
+
+.modal input:focus,
+.modal select:focus,
+.modal textarea:focus,
+.dialog input:focus,
+.dialog select:focus,
+.dialog textarea:focus,
+.overlay input:focus,
+.overlay select:focus,
+.overlay textarea:focus,
+.accessibility-menu input:focus,
+.accessibility-menu select:focus,
+.accessibility-menu textarea:focus,
+.accessibility-panel input:focus,
+.accessibility-panel select:focus,
+.accessibility-panel textarea:focus {
+    outline: 3px solid var(--matrix-accent) !important;
+    outline-offset: 2px !important;
+    border-color: var(--matrix-accent) !important;
+    background: rgba(0, 0, 0, 0.9) !important;
+    color: var(--matrix-accent) !important;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.4) !important;
+}
+
+/* AMÉLIORATION LABELS MODAUX */
+.modal label,
+.dialog label,
+.overlay label,
+.accessibility-menu label,
+.accessibility-panel label {
+    color: var(--matrix-green) !important;
+    font-weight: 600 !important;
+    font-size: 1.1em !important;
+    margin-bottom: 8px !important;
+    display: block !important;
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.3) !important;
+}
+
+/* AMÉLIORATION TITRES MODAUX */
+.modal h1,
+.modal h2,
+.modal h3,
+.dialog h1,
+.dialog h2,
+.dialog h3,
+.overlay h1,
+.overlay h2,
+.overlay h3,
+.accessibility-menu h1,
+.accessibility-menu h2,
+.accessibility-menu h3,
+.accessibility-panel h1,
+.accessibility-panel h2,
+.accessibility-panel h3 {
+    color: var(--matrix-green) !important;
+    font-weight: 700 !important;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5) !important;
+    margin-bottom: 20px !important;
 }
 
 /* AMÉLIORATION FOCUS POUR FORMULAIRES */
@@ -577,9 +791,74 @@ form:focus-within {
     }
 }
 
-/* TRANSITIONS GLOBALES */
+/* TRANSITIONS GLOBALES ET PAGES */
 * {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* TRANSITIONS ENTRE PAGES */
+body {
+    animation: pageLoad 0.8s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+@keyframes pageLoad {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* TRANSITIONS DE SECTIONS */
+.section-transition {
+    animation: sectionSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+@keyframes sectionSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-30px) scale(0.95);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+/* TRANSITIONS DE MODAUX */
+.modal-transition {
+    animation: modalSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+@keyframes modalSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* TRANSITIONS DE BOUTONS ET ACTIONS */
+.btn-transition {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.btn-transition:hover {
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 8px 25px rgba(0, 255, 0, 0.3) !important;
+}
+
+.btn-transition:active {
+    transform: translateY(0) scale(0.98) !important;
 }
 
 /* TRANSITIONS SPÉCIFIQUES */

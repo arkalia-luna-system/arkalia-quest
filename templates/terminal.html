@@ -252,33 +252,88 @@
         }
 
         .terminal-message.success {
-            background: rgba(0, 255, 0, 0.1);
+            background: rgba(0, 255, 0, 0.15);
             border-left: 4px solid var(--matrix-green);
             color: var(--matrix-green);
+            font-weight: 600;
         }
 
         .terminal-message.error {
-            background: rgba(255, 0, 0, 0.1);
+            background: rgba(255, 0, 0, 0.15);
             border-left: 4px solid #ff0000;
             color: #ff6666;
+            font-weight: 600;
         }
 
         .terminal-message.info {
-            background: rgba(0, 255, 255, 0.1);
+            background: rgba(0, 255, 255, 0.15);
             border-left: 4px solid var(--matrix-accent);
             color: var(--matrix-accent);
+            font-weight: 600;
         }
 
         .terminal-message.warning {
-            background: rgba(255, 255, 0, 0.1);
+            background: rgba(255, 255, 0, 0.15);
             border-left: 4px solid #ffff00;
             color: #ffff66;
+            font-weight: 600;
         }
 
         .terminal-message.luna {
-            background: rgba(167, 139, 250, 0.1);
+            background: rgba(167, 139, 250, 0.15);
             border-left: 4px solid var(--violet-lunaire);
             color: var(--violet-lunaire);
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        /* NOUVELLES CLASSES POUR DIFFÉRENCIER SYSTÈME/UTILISATEUR */
+        .terminal-message.system {
+            background: rgba(0, 255, 0, 0.1);
+            border-left: 4px solid #00ff00;
+            color: #00ff00;
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 500;
+        }
+
+        .terminal-message.user {
+            background: rgba(0, 255, 255, 0.1);
+            border-left: 4px solid #00ffff;
+            color: #00ffff;
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 600;
+        }
+
+        .terminal-message.command {
+            background: rgba(255, 255, 0, 0.1);
+            border-left: 4px solid #ffff00;
+            color: #ffff00;
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 700;
+        }
+
+        .terminal-message.response {
+            background: rgba(255, 165, 0, 0.1);
+            border-left: 4px solid #ffa500;
+            color: #ffa500;
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 500;
+        }
+
+        /* STYLES POUR PROMPT DIFFÉRENCIÉ */
+        .terminal-prompt-system {
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        .terminal-prompt-user {
+            color: #00ffff;
+            font-weight: bold;
+        }
+
+        .terminal-prompt-luna {
+            color: var(--violet-lunaire);
+            font-weight: bold;
             font-style: italic;
         }
 
@@ -785,6 +840,7 @@
     <script src="{{ url_for('static', filename='js/arkalia-luna-vision.js') }}"></script>
     <script src="{{ url_for('static', filename='js/navigation.js') }}"></script>
     <script src="{{ url_for('static', filename='js/terminal-enhancements.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/personalized-messages.js') }}"></script>
     <script src="{{ url_for('static', filename='js/terminal.js') }}"></script>
     <script src="{{ url_for('static', filename='js/educational_games.js') }}"></script>
     <script src="{{ url_for('static', filename='js/accessibility.js') }}"></script>

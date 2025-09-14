@@ -1,0 +1,117 @@
+name: ✨ Feature Request
+description: Proposer une nouvelle fonctionnalité pour Arkalia Quest
+title: "[FEATURE] "
+labels: ["enhancement", "needs-triage"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Merci de proposer une nouvelle fonctionnalité ! ✨
+
+        **Avant de continuer, assurez-vous que :**
+        - [ ] Cette fonctionnalité n'existe pas déjà
+        - [ ] Vous avez vérifié les discussions existantes
+        - [ ] Cette fonctionnalité s'aligne avec la vision du projet
+
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: 🎯 Description de la fonctionnalité
+      description: Décrivez clairement la fonctionnalité souhaitée
+      placeholder: "Ex: Ajouter un système de sauvegarde automatique des parties"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem-solution
+    attributes:
+      label: 🤔 Problème résolu
+      description: Quel problème cette fonctionnalité résout-elle ?
+      placeholder: "Actuellement, les utilisateurs perdent leur progression quand..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: 💡 Solution proposée
+      description: Comment imaginez-vous cette fonctionnalité ?
+      placeholder: |
+        - Interface utilisateur
+        - Comportement
+        - Intégration avec l'existant
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 🔄 Alternatives considérées
+      description: Avez-vous considéré d'autres approches ?
+      placeholder: "Ex: Au lieu de X, on pourrait faire Y, mais Z serait mieux car..."
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 🎯 Priorité
+      description: Quelle est la priorité de cette fonctionnalité ?
+      options:
+        - "🔴 Critique - Bloque l'utilisation"
+        - "🟡 Importante - Améliore l'expérience"
+        - "🟢 Nice to have - Amélioration mineure"
+        - "💡 Idée - À discuter"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: complexity
+    attributes:
+      label: ⚙️ Complexité estimée
+      description: Quelle est la complexité technique estimée ?
+      options:
+        - "🟢 Simple - Quelques heures"
+        - "🟡 Moyenne - Quelques jours"
+        - "🟠 Complexe - Quelques semaines"
+        - "🔴 Très complexe - Plusieurs mois"
+
+  - type: textarea
+    id: use-cases
+    attributes:
+      label: 📋 Cas d'usage
+      description: Qui utiliserait cette fonctionnalité et comment ?
+      placeholder: |
+        - **Utilisateurs cibles** : Débutants, experts, etc.
+        - **Scénarios d'usage** : Quand et pourquoi l'utiliser
+        - **Fréquence d'usage** : Quotidien, hebdomadaire, etc.
+
+  - type: textarea
+    id: technical-considerations
+    attributes:
+      label: 🔧 Considérations techniques
+      description: Aspects techniques à considérer (optionnel)
+      placeholder: |
+        - Impact sur les performances
+        - Modifications de la base de données
+        - Compatibilité avec l'existant
+        - Dépendances externes
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: 📎 Contexte supplémentaire
+      description: Mockups, exemples, références, etc.
+      placeholder: "Screenshots, liens vers des exemples similaires, etc."
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: ✅ Vérifications
+      description: Confirmez les points suivants
+      options:
+        - label: J'ai vérifié que cette fonctionnalité n'existe pas déjà
+          required: true
+        - label: J'ai fourni une description claire et détaillée
+          required: true
+        - label: Cette fonctionnalité s'aligne avec la vision d'Arkalia Quest
+          required: true

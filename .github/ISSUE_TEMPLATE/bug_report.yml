@@ -1,0 +1,100 @@
+name: 🐛 Bug Report
+description: Signaler un bug dans Arkalia Quest
+title: "[BUG] "
+labels: ["bug", "needs-triage"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Merci de prendre le temps de signaler ce bug ! 🐛
+
+        **Avant de continuer, assurez-vous que :**
+        - [ ] Le bug n'a pas déjà été signalé
+        - [ ] Vous utilisez la dernière version
+        - [ ] Vous avez vérifié la documentation
+
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: 📝 Description du bug
+      description: Décrivez clairement le problème
+      placeholder: "Ex: Quand je clique sur le bouton X, l'application plante"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: 🔄 Étapes pour reproduire
+      description: Comment reproduire le bug ?
+      placeholder: |
+        1. Aller à la page...
+        2. Cliquer sur...
+        3. Voir l'erreur...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: ✅ Comportement attendu
+      description: Que devrait-il se passer ?
+      placeholder: "Le bouton devrait..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: ❌ Comportement actuel
+      description: Que se passe-t-il réellement ?
+      placeholder: "Au lieu de cela, l'application..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: 🖥️ Environnement
+      description: Informations sur votre système
+      placeholder: |
+        - OS: [ex: macOS 14.0, Windows 11, Ubuntu 22.04]
+        - Navigateur: [ex: Chrome 120, Firefox 119, Safari 17]
+        - Version Python: [ex: 3.10.14]
+        - Version Arkalia Quest: [ex: 3.1.0]
+    validations:
+      required: true
+
+  - type: textarea
+    id: error-logs
+    attributes:
+      label: 📋 Logs d'erreur
+      description: Coller les logs d'erreur ici (si disponibles)
+      placeholder: |
+        ```
+        Traceback (most recent call last):
+        File "app.py", line 123, in <module>
+        ...
+        ```
+      render: shell
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: 📎 Contexte supplémentaire
+      description: Autres informations utiles
+      placeholder: "Screenshots, fichiers de configuration, etc."
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: ✅ Vérifications
+      description: Confirmez les points suivants
+      options:
+        - label: J'ai vérifié que ce bug n'existe pas déjà
+          required: true
+        - label: J'ai fourni toutes les informations demandées
+          required: true
+        - label: J'ai testé avec la dernière version
+          required: true

@@ -363,24 +363,48 @@
 
         .terminal-commands {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 15px;
             margin-top: 25px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid rgba(0, 255, 0, 0.3);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
         }
 
         .command-btn {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.85em;
-            color: var(--argent-holographique);
-            background: rgba(167, 139, 250, 0.1);
-            border: 1px solid rgba(167, 139, 250, 0.3);
-            border-radius: 8px;
-            padding: 12px 16px;
+            font-size: 0.8em;
+            color: var(--matrix-green);
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 255, 255, 0.05));
+            border: 2px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 14px 12px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: center;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            min-height: 80px;
+            justify-content: center;
+        }
+
+        .cmd-icon {
+            font-size: 1.5em;
+            filter: drop-shadow(0 0 8px rgba(0, 255, 0, 0.6));
+            margin-bottom: 4px;
+        }
+
+        .cmd-text {
+            font-size: 0.75em;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--matrix-green);
         }
 
         .command-btn::before {
@@ -400,11 +424,20 @@
         }
 
         .command-btn:hover {
-            color: var(--violet-lunaire);
-            background: rgba(167, 139, 250, 0.2);
-            border-color: rgba(167, 139, 250, 0.6);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 20px rgba(167, 139, 250, 0.3);
+            color: var(--matrix-accent);
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.2), rgba(0, 255, 255, 0.15));
+            border-color: var(--matrix-green);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 255, 0, 0.4);
+        }
+
+        .command-btn:hover .cmd-text {
+            color: var(--matrix-accent);
+        }
+
+        .command-btn:hover .cmd-icon {
+            filter: drop-shadow(0 0 12px rgba(0, 255, 255, 0.8));
+            transform: scale(1.1);
         }
 
         .luna-message {
@@ -514,13 +547,23 @@
             }
 
             .terminal-commands {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-                gap: 10px;
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 12px;
+                padding: 15px;
             }
 
             .command-btn {
-                font-size: 0.8em;
-                padding: 10px 12px;
+                font-size: 0.75em;
+                padding: 12px 8px;
+                min-height: 70px;
+            }
+
+            .cmd-icon {
+                font-size: 1.3em;
+            }
+
+            .cmd-text {
+                font-size: 0.7em;
             }
         }
     </style>
@@ -594,16 +637,40 @@
                 monde world explorer naviguer
             </div>
 
-            <!-- Commandes rapides -->
+            <!-- Commandes rapides améliorées -->
             <div class="terminal-commands">
-                <button class="command-btn" onclick="quickCommand('aide')">📖 AIDE</button>
-                <button class="command-btn" onclick="quickCommand('profil')">👤 PROFIL</button>
-                <button class="command-btn" onclick="quickCommand('monde')">🌍 MONDE</button>
-                <button class="command-btn" onclick="quickCommand('status')">📊 STATUS</button>
-                <button class="command-btn" onclick="quickCommand('badges')">🏆 BADGES</button>
-                <button class="command-btn" onclick="quickCommand('missions')">🎯 MISSIONS</button>
-                <button class="command-btn" onclick="quickCommand('clear')">🧹 CLEAR</button>
-                <button class="command-btn" onclick="quickCommand('luna')">🌙 LUNA</button>
+                <button class="command-btn" onclick="quickCommand('aide')" title="Afficher l'aide des commandes">
+                    <span class="cmd-icon">📖</span>
+                    <span class="cmd-text">AIDE</span>
+                </button>
+                <button class="command-btn" onclick="quickCommand('profil')" title="Afficher votre profil">
+                    <span class="cmd-icon">👤</span>
+                    <span class="cmd-text">PROFIL</span>
+                </button>
+                <button class="command-btn" onclick="quickCommand('monde')" title="Explorer le monde">
+                    <span class="cmd-icon">🌍</span>
+                    <span class="cmd-text">MONDE</span>
+                </button>
+                <button class="command-btn" onclick="quickCommand('status')" title="Vérifier le statut">
+                    <span class="cmd-icon">📊</span>
+                    <span class="cmd-text">STATUS</span>
+                </button>
+                <button class="command-btn" onclick="quickCommand('badges')" title="Voir vos badges">
+                    <span class="cmd-icon">🏆</span>
+                    <span class="cmd-text">BADGES</span>
+                </button>
+                <button class="command-btn" onclick="quickCommand('missions')" title="Vos missions">
+                    <span class="cmd-icon">🎯</span>
+                    <span class="cmd-text">MISSIONS</span>
+                </button>
+                <button class="command-btn" onclick="quickCommand('clear')" title="Effacer l'écran">
+                    <span class="cmd-icon">🧹</span>
+                    <span class="cmd-text">CLEAR</span>
+                </button>
+                <button class="command-btn" onclick="quickCommand('luna')" title="Parler avec LUNA">
+                    <span class="cmd-icon">🌙</span>
+                    <span class="cmd-text">LUNA</span>
+                </button>
             </div>
 
             <!-- Pied de page -->

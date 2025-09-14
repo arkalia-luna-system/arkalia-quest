@@ -396,10 +396,46 @@
         }
 
         .navigation-controls {
-            display: flex;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(0, 255, 0, 0.3);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .direction-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 12px !important;
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.15), rgba(0, 255, 255, 0.1)) !important;
+            border: 2px solid rgba(0, 255, 0, 0.4) !important;
+            border-radius: 10px !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+
+        .direction-btn:hover {
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.3), rgba(0, 255, 255, 0.2)) !important;
+            border-color: var(--matrix-green) !important;
+            transform: translateY(-3px) scale(1.05) !important;
+            box-shadow: 0 8px 25px rgba(0, 255, 0, 0.4) !important;
+        }
+
+        .direction-icon {
+            font-size: 1.5em;
+            filter: drop-shadow(0 0 8px rgba(0, 255, 0, 0.6));
+        }
+
+        .direction-text {
+            font-size: 0.8em;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--matrix-green);
         }
 
         .nav-button {
@@ -525,6 +561,24 @@
                 font-size: 0.7em;
             }
 
+            .navigation-controls {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+                padding: 15px;
+            }
+
+            .direction-btn {
+                padding: 12px 8px !important;
+            }
+
+            .direction-icon {
+                font-size: 1.3em;
+            }
+
+            .direction-text {
+                font-size: 0.7em;
+            }
+
             .luna-world-guide {
                 position: static;
                 margin: 20px auto;
@@ -614,12 +668,28 @@
                         <div class="player-position" id="player-position" style="top: 45%; left: 45%;"></div>
                     </div>
 
-                    <!-- Contrôles de navigation -->
+                    <!-- Contrôles de navigation améliorés -->
                     <div class="navigation-controls">
-                        <button class="nav-button" onclick="movePlayer('up')">⬆️ NORD</button>
-                        <button class="nav-button" onclick="movePlayer('down')">⬇️ SUD</button>
-                        <button class="nav-button" onclick="movePlayer('left')">⬅️ OUEST</button>
-                        <button class="nav-button" onclick="movePlayer('right')">➡️ EST</button>
+                        <button class="nav-button direction-btn" onclick="movePlayer('up')"
+                            title="Déplacer vers le Nord">
+                            <span class="direction-icon">⬆️</span>
+                            <span class="direction-text">NORD</span>
+                        </button>
+                        <button class="nav-button direction-btn" onclick="movePlayer('down')"
+                            title="Déplacer vers le Sud">
+                            <span class="direction-icon">⬇️</span>
+                            <span class="direction-text">SUD</span>
+                        </button>
+                        <button class="nav-button direction-btn" onclick="movePlayer('left')"
+                            title="Déplacer vers l'Ouest">
+                            <span class="direction-icon">⬅️</span>
+                            <span class="direction-text">OUEST</span>
+                        </button>
+                        <button class="nav-button direction-btn" onclick="movePlayer('right')"
+                            title="Déplacer vers l'Est">
+                            <span class="direction-icon">➡️</span>
+                            <span class="direction-text">EST</span>
+                        </button>
                     </div>
                 </div>
 

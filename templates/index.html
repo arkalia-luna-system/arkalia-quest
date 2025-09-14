@@ -177,30 +177,59 @@
         }
 
         .cta-buttons {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
             justify-content: center;
-            flex-wrap: wrap;
             margin-bottom: 50px;
             opacity: 0;
             animation: fadeInUp 2s ease-out 2s forwards;
+            padding: 20px;
         }
 
         .cta-btn {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 1.1em;
-            color: var(--argent-holographique);
-            background: rgba(167, 139, 250, 0.15);
-            border: 2px solid rgba(167, 139, 250, 0.4);
+            font-size: 1em;
+            color: var(--matrix-green);
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.15), rgba(0, 255, 255, 0.1));
+            border: 2px solid rgba(0, 255, 0, 0.4);
             border-radius: 15px;
-            padding: 18px 35px;
+            padding: 20px 25px;
             cursor: pointer;
-            transition: all 0.5s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
-            display: inline-block;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
+            min-height: 120px;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .cta-icon {
+            font-size: 2.5em;
+            filter: drop-shadow(0 0 15px rgba(0, 255, 0, 0.6));
+            margin-bottom: 8px;
+        }
+
+        .cta-text {
+            font-size: 0.9em;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--matrix-green);
+            line-height: 1.2;
+        }
+
+        .cta-subtitle {
+            font-size: 0.7em;
+            color: var(--matrix-accent);
+            opacity: 0.8;
+            font-weight: 400;
+            letter-spacing: 0.5px;
         }
 
         .cta-btn::before {
@@ -219,21 +248,40 @@
         }
 
         .cta-btn:hover {
-            color: var(--violet-lunaire);
-            border-color: rgba(167, 139, 250, 0.8);
-            box-shadow: 0 0 40px rgba(167, 139, 250, 0.6);
-            transform: translateY(-5px) scale(1.05);
+            color: var(--matrix-accent);
+            border-color: var(--matrix-green);
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.25), rgba(0, 255, 255, 0.2));
+            box-shadow: 0 10px 40px rgba(0, 255, 0, 0.4);
+            transform: translateY(-8px) scale(1.03);
+        }
+
+        .cta-btn:hover .cta-text {
+            color: var(--matrix-accent);
+        }
+
+        .cta-btn:hover .cta-icon {
+            filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.8));
+            transform: scale(1.1);
+        }
+
+        .cta-btn:hover .cta-subtitle {
+            color: var(--matrix-green);
+            opacity: 1;
         }
 
         .cta-btn.primary {
-            background: rgba(167, 139, 250, 0.25);
-            border-color: rgba(167, 139, 250, 0.7);
-            box-shadow: 0 0 30px rgba(167, 139, 250, 0.3);
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.25), rgba(0, 255, 255, 0.15));
+            border-color: var(--matrix-green);
+            box-shadow: 0 6px 30px rgba(0, 255, 0, 0.3);
+        }
+
+        .cta-btn.primary .cta-icon {
+            filter: drop-shadow(0 0 20px rgba(0, 255, 0, 0.8));
         }
 
         .cta-btn.primary:hover {
-            background: rgba(167, 139, 250, 0.35);
-            box-shadow: 0 0 50px rgba(167, 139, 250, 0.7);
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.35), rgba(0, 255, 255, 0.25));
+            box-shadow: 0 12px 50px rgba(0, 255, 0, 0.6);
         }
 
         .features-grid {
@@ -351,13 +399,26 @@
             }
 
             .cta-buttons {
-                flex-direction: column;
-                align-items: center;
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 15px;
             }
 
             .cta-btn {
-                width: 100%;
-                max-width: 320px;
+                padding: 18px 20px;
+                min-height: 100px;
+            }
+
+            .cta-icon {
+                font-size: 2em;
+            }
+
+            .cta-text {
+                font-size: 0.85em;
+            }
+
+            .cta-subtitle {
+                font-size: 0.65em;
             }
 
             .features-grid {
@@ -409,12 +470,28 @@
             <p class="luna-greeting" id="luna-greeting">"Bienvenue, hacker. Je suis LUNA, ton guide dans cette aventure
                 cybernétique. Commence par le tutoriel pour comprendre comment jouer !"</p>
 
-            <!-- Boutons d'action -->
+            <!-- Boutons d'action améliorés -->
             <div class="cta-buttons">
-                <a href="/tutorial" class="cta-btn primary">🎯 TUTORIEL DÉBUTANT</a>
-                <a href="/terminal" class="cta-btn">🚀 COMMENCER L'AVENTURE</a>
-                <a href="/monde" class="cta-btn">🌍 EXPLORER LE MONDE</a>
-                <a href="/profil" class="cta-btn">👤 MON PROFIL</a>
+                <a href="/tutorial" class="cta-btn primary" title="Commencer par le tutoriel">
+                    <span class="cta-icon">🎯</span>
+                    <span class="cta-text">TUTORIEL DÉBUTANT</span>
+                    <span class="cta-subtitle">Apprends les bases</span>
+                </a>
+                <a href="/terminal" class="cta-btn" title="Accéder au terminal de commandes">
+                    <span class="cta-icon">🚀</span>
+                    <span class="cta-text">COMMENCER L'AVENTURE</span>
+                    <span class="cta-subtitle">Terminal LUNA</span>
+                </a>
+                <a href="/monde" class="cta-btn" title="Explorer le monde d'Arkalia">
+                    <span class="cta-icon">🌍</span>
+                    <span class="cta-text">EXPLORER LE MONDE</span>
+                    <span class="cta-subtitle">Zones mystérieuses</span>
+                </a>
+                <a href="/profil" class="cta-btn" title="Voir votre profil">
+                    <span class="cta-icon">👤</span>
+                    <span class="cta-text">MON PROFIL</span>
+                    <span class="cta-subtitle">Statistiques</span>
+                </a>
             </div>
         </div>
 

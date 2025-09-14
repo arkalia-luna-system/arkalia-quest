@@ -12,10 +12,10 @@ class ArkaliaLunaVision {
         this.audioContext = null;
         this.typingSpeed = 50;
         this.sounds = {};
-        
+
         this.init();
     }
-    
+
     init() {
         this.createCursor();
         this.createPulsars();
@@ -23,29 +23,29 @@ class ArkaliaLunaVision {
         this.setupInactivityDetection();
         this.setupAudio();
         this.startHeartbeat();
-        
+
         // Message de bienvenue
         setTimeout(() => {
             this.showLunaMessage("Je t'attendais...", 3000);
         }, 1000);
     }
-    
+
     // CURSEUR EN ORBITE
     createCursor() {
         this.cursor = document.createElement('div');
         this.cursor.className = 'luna-cursor';
         document.body.appendChild(this.cursor);
-        
+
         document.addEventListener('mousemove', (e) => {
             this.cursor.style.left = e.clientX - 10 + 'px';
             this.cursor.style.top = e.clientY - 10 + 'px';
         });
     }
-    
+
     // PARTICULES PULSARS
     createPulsars() {
         const numPulsars = 15;
-        
+
         for (let i = 0; i < numPulsars; i++) {
             const pulsar = document.createElement('div');
             pulsar.className = 'pulsar';
@@ -53,19 +53,19 @@ class ArkaliaLunaVision {
             pulsar.style.top = Math.random() * 100 + '%';
             pulsar.style.animationDelay = Math.random() * 6 + 's';
             pulsar.style.animationDuration = (4 + Math.random() * 4) + 's';
-            
+
             document.body.appendChild(pulsar);
             this.pulsars.push(pulsar);
         }
     }
-    
+
     // ÉVÉNEMENTS INTERACTIFS
     setupEventListeners() {
         // Réaction au scroll
         let scrollTimeout;
         window.addEventListener('scroll', () => {
             this.reactToActivity('scroll');
-            
+
             clearTimeout(scrollTimeout);
             scrollTimeout = setTimeout(() => {
                 this.pulsars.forEach(pulsar => {
@@ -73,38 +73,38 @@ class ArkaliaLunaVision {
                 });
             }, 100);
         });
-        
+
         // Réaction aux clics
         document.addEventListener('click', (e) => {
             this.reactToActivity('click');
             this.createClickRipple(e.clientX, e.clientY);
         });
-        
+
         // Réaction au hover
         document.addEventListener('mouseover', (e) => {
             if (e.target.classList.contains('luna-btn') || e.target.classList.contains('monde-section')) {
                 this.reactToActivity('hover');
             }
         });
-        
+
         // Réaction à l'inactivité
         document.addEventListener('mousemove', () => this.reactToActivity('move'));
         document.addEventListener('keydown', () => this.reactToActivity('keyboard'));
     }
-    
+
     // DÉTECTION D'INACTIVITÉ
     setupInactivityDetection() {
         this.inactivityTimer = setInterval(() => {
             const now = Date.now();
             const timeSinceActivity = now - this.lastActivity;
-            
+
             if (timeSinceActivity > 10000) { // 10 secondes
                 this.showLunaMessage("Je te sens hésiter... tout va bien ?", 4000);
                 this.setEmotion('concerned');
             }
         }, 5000);
     }
-    
+
     // AUDIO AMBIANT
     setupAudio() {
         // Sons de murmure binaire (simulé)
@@ -114,7 +114,7 @@ class ArkaliaLunaVision {
                 this.createBinaryEffect();
             }
         };
-        
+
         // Pulsation cardiaque
         this.sounds.heartbeat = {
             play: () => {
@@ -122,13 +122,13 @@ class ArkaliaLunaVision {
                 this.createHeartbeatEffect();
             }
         };
-        
+
         // Jouer les sons d'ambiance
         setTimeout(() => {
             this.sounds.binaryWhisper.play();
         }, 2000);
     }
-    
+
     // EFFETS BINAIRES
     createBinaryEffect() {
         const binaryContainer = document.createElement('div');
@@ -143,7 +143,7 @@ class ArkaliaLunaVision {
             opacity: 0;
             transition: opacity 0.5s ease;
         `;
-        
+
         for (let i = 0; i < 50; i++) {
             const binary = document.createElement('div');
             binary.textContent = Math.random() > 0.5 ? '1' : '0';
@@ -159,9 +159,9 @@ class ArkaliaLunaVision {
             `;
             binaryContainer.appendChild(binary);
         }
-        
+
         document.body.appendChild(binaryContainer);
-        
+
         // Animation d'apparition/disparition
         setTimeout(() => binaryContainer.style.opacity = '1', 100);
         setTimeout(() => {
@@ -169,7 +169,7 @@ class ArkaliaLunaVision {
             setTimeout(() => binaryContainer.remove(), 500);
         }, 3000);
     }
-    
+
     // EFFET PULSATION CARDIAQUE
     createHeartbeatEffect() {
         const heartbeat = document.createElement('div');
@@ -186,16 +186,16 @@ class ArkaliaLunaVision {
             z-index: 5;
             animation: heartbeat 2s ease-in-out infinite;
         `;
-        
+
         document.body.appendChild(heartbeat);
-        
+
         setTimeout(() => heartbeat.remove(), 4000);
     }
-    
+
     // RÉACTION À L'ACTIVITÉ
     reactToActivity(type) {
         this.lastActivity = Date.now();
-        
+
         switch (type) {
             case 'scroll':
                 this.setEmotion('excited');
@@ -203,23 +203,23 @@ class ArkaliaLunaVision {
                     pulsar.style.animationDuration = '2s';
                 });
                 break;
-                
+
             case 'click':
                 this.setEmotion('excited');
                 this.cursor.classList.add('luna-present');
                 setTimeout(() => this.cursor.classList.remove('luna-present'), 500);
                 break;
-                
+
             case 'hover':
                 this.setEmotion('calm');
                 break;
-                
+
             case 'move':
                 this.setEmotion('calm');
                 break;
         }
     }
-    
+
     // CRÉATION D'ONDE DE CLIC
     createClickRipple(x, y) {
         const ripple = document.createElement('div');
@@ -235,17 +235,17 @@ class ArkaliaLunaVision {
             z-index: 1000;
             animation: rippleExpand 0.6s ease-out forwards;
         `;
-        
+
         document.body.appendChild(ripple);
-        
+
         setTimeout(() => ripple.remove(), 600);
     }
-    
+
     // CHANGEMENT D'ÉMOTION
     setEmotion(emotion) {
         this.currentEmotion = emotion;
         document.body.className = `luna-emotion-${emotion}`;
-        
+
         // Ajuster les couleurs selon l'émotion
         const root = document.documentElement;
         switch (emotion) {
@@ -265,7 +265,7 @@ class ArkaliaLunaVision {
                 root.style.setProperty('--violet-lunaire', '#a78bfa');
         }
     }
-    
+
     // MESSAGES DE LUNA
     showLunaMessage(text, duration = 3000) {
         // Supprimer le message précédent s'il existe
@@ -273,23 +273,52 @@ class ArkaliaLunaVision {
         if (existingMessage) {
             existingMessage.remove();
         }
-        
+
+        // Créer le message avec un design plus intégré
         const message = document.createElement('div');
         message.className = 'luna-message';
-        message.textContent = text;
-        
+        message.innerHTML = `
+            <div class="luna-message-content">
+                <div class="luna-message-icon">🌙</div>
+                <div class="luna-message-text">${text}</div>
+            </div>
+        `;
+
+        // Styles pour le contenu du message
+        const messageStyles = document.createElement('style');
+        messageStyles.textContent = `
+            .luna-message-content {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .luna-message-icon {
+                font-size: 1.2em;
+                animation: lunaBlink 2s ease-in-out infinite;
+            }
+            .luna-message-text {
+                flex: 1;
+                line-height: 1.4;
+            }
+        `;
+
+        if (!document.getElementById('luna-message-styles')) {
+            messageStyles.id = 'luna-message-styles';
+            document.head.appendChild(messageStyles);
+        }
+
         document.body.appendChild(message);
-        
+
         // Animation d'apparition
         setTimeout(() => message.classList.add('show'), 100);
-        
+
         // Animation de disparition
         setTimeout(() => {
             message.classList.remove('show');
             setTimeout(() => message.remove(), 300);
         }, duration);
     }
-    
+
     // BATTEMENT DE CŒUR CONTINU
     startHeartbeat() {
         setInterval(() => {
@@ -298,12 +327,12 @@ class ArkaliaLunaVision {
             }
         }, 4000);
     }
-    
+
     // ANIMATION DE TEXTE TAPE
     typeText(element, text, speed = 50) {
         element.textContent = '';
         let i = 0;
-        
+
         const typeInterval = setInterval(() => {
             if (i < text.length) {
                 element.textContent += text.charAt(i);
@@ -313,12 +342,12 @@ class ArkaliaLunaVision {
             }
         }, speed);
     }
-    
+
     // EFFET DE RESPIRATION
     addBreathingEffect(element) {
         element.classList.add('breathing');
     }
-    
+
     // EFFET DE GLOW
     addGlowEffect(element) {
         element.classList.add('glow');
@@ -328,7 +357,7 @@ class ArkaliaLunaVision {
 // INITIALISATION
 document.addEventListener('DOMContentLoaded', () => {
     window.lunaVision = new ArkaliaLunaVision();
-    
+
     // Ajouter les styles CSS pour les animations
     const style = document.createElement('style');
     style.textContent = `
@@ -362,7 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     `;
     document.head.appendChild(style);
-    
+
     // Message de connexion
     setTimeout(() => {
         window.lunaVision.showLunaMessage("C'est toi… enfin. Tu es revenu.", 4000);

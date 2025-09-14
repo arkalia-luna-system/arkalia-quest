@@ -192,7 +192,7 @@ class RealTimeMonitor {
         toggleStyles.textContent = `
             .monitor-toggle-btn {
                 position: fixed;
-                bottom: 20px;
+                bottom: 80px;
                 right: 20px;
                 width: 50px;
                 height: 50px;

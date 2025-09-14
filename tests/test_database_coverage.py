@@ -77,12 +77,42 @@ class TestDatabaseCoverage(unittest.TestCase):
 
     def test_get_connection_error(self):
         """Test la gestion d'erreur de connexion"""
-        # Ce test ne peut pas fonctionner car DatabaseManager appelle init_database() dans __init__
-        # qui utilise get_connection(), donc l'erreur se produit avant qu'on puisse tester
-        # On skip ce test car il n'est pas possible de tester cette fonctionnalité
-        self.skipTest(
-            "Impossible de tester get_connection avec chemin invalide car init_database() échoue dans __init__"
-        )
+        # Test avec un chemin de base de données invalide
+        import os
+        import sqlite3
+        import tempfile
+
+        # Créer un répertoire temporaire et le supprimer pour créer un chemin invalide
+        temp_dir = tempfile.mkdtemp()
+        invalid_db_path = os.path.join(temp_dir, "invalid", "path", "database.db")
+        os.rmdir(temp_dir)  # Supprimer le répertoire pour rendre le chemin invalide
+
+        # Créer un nouveau DatabaseManager avec un chemin invalide
+        from core.database import DatabaseManager
+
+        # Sauvegarder le chemin original
+        original_db_path = self.db_manager.db_path
+
+        try:
+            # Tester avec un chemin invalide
+            with self.assertRaises(
+                (OSError, FileNotFoundError, PermissionError, sqlite3.OperationalError)
+            ):
+                # Créer un nouveau DatabaseManager avec un chemin invalide
+                invalid_db = DatabaseManager(invalid_db_path)
+                # Cette ligne ne devrait jamais être atteinte car l'initialisation échoue
+                invalid_db.get_connection()
+        except (
+            OSError,
+            FileNotFoundError,
+            PermissionError,
+            sqlite3.OperationalError,
+        ) as e:
+            # Vérifier que l'erreur est liée au chemin invalide
+            self.assertIn("path", str(e).lower())
+
+        # Restaurer le chemin original
+        self.db_manager.db_path = original_db_path
 
     def test_save_profile_success(self):
         """Test la sauvegarde réussie d'un profil"""

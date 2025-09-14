@@ -106,36 +106,97 @@ class TestUtilsCoverage(unittest.TestCase):
             self.assertTrue(mock_warning.called or mock_error.called)
 
     def test_luna_ai_v2_initialization(self):
-        """Test d'initialisation de LunaAIV2 - SKIP car module inexistant"""
-        self.skipTest("Module LunaAIV2 n'existe pas")
+        """Test d'initialisation de LunaAIV2"""
+        from engines.luna_ai_v2 import LunaAIV2
+
+        luna = LunaAIV2()
+        self.assertIsNotNone(luna)
+        self.assertIsInstance(luna.personality_traits, dict)
+        self.assertIsInstance(luna.learning_data, dict)
+        self.assertIsInstance(luna.emotion_states, dict)
 
     def test_luna_ai_v2_generate_response(self):
-        """Test de génération de réponse - SKIP car module inexistant"""
-        self.skipTest("Module LunaAIV2 n'existe pas")
+        """Test de génération de réponse"""
+        from engines.luna_ai_v2 import LunaAIV2
+
+        luna = LunaAIV2()
+        response = luna.generate_response("Salut LUNA !")
+
+        self.assertIsInstance(response, dict)
+        self.assertIn("success", response)
+        self.assertIn("response", response)
+        self.assertTrue(response["success"])
 
     def test_luna_ai_v2_analyze_emotion(self):
-        """Test d'analyse d'émotion - SKIP car module inexistant"""
-        self.skipTest("Module LunaAIV2 n'existe pas")
+        """Test d'analyse d'émotion"""
+        from engines.luna_ai_v2 import LunaAIV2
+
+        luna = LunaAIV2()
+        emotion = luna.analyze_emotion("Je suis très content !")
+
+        self.assertIsInstance(emotion, dict)
+        self.assertIn("emotion", emotion)
+        self.assertIn("intensity", emotion)
+        self.assertIn("scores", emotion)
 
     def test_luna_ai_v2_get_suggestions(self):
-        """Test de récupération de suggestions - SKIP car module inexistant"""
-        self.skipTest("Module LunaAIV2 n'existe pas")
+        """Test de récupération de suggestions"""
+        from engines.luna_ai_v2 import LunaAIV2
+
+        luna = LunaAIV2()
+        suggestions = luna.get_suggestions({"level": 2})
+
+        self.assertIsInstance(suggestions, list)
+        self.assertGreater(len(suggestions), 0)
+        self.assertLessEqual(len(suggestions), 5)
 
     def test_luna_ai_v2_learn_from_interaction(self):
-        """Test d'apprentissage à partir d'interactions - SKIP car module inexistant"""
-        self.skipTest("Module LunaAIV2 n'existe pas")
+        """Test d'apprentissage à partir d'interactions"""
+        from engines.luna_ai_v2 import LunaAIV2
+
+        luna = LunaAIV2()
+        emotion = {"emotion": "happy", "intensity": 0.8}
+        result = luna.learn_from_interaction("Test input", "Test response", emotion)
+
+        self.assertTrue(result)
+        self.assertGreater(len(luna.learning_data["interactions"]), 0)
 
     def test_luna_ai_v2_get_personality_traits(self):
-        """Test de récupération des traits de personnalité - SKIP car module inexistant"""
-        self.skipTest("Module LunaAIV2 n'existe pas")
+        """Test de récupération des traits de personnalité"""
+        from engines.luna_ai_v2 import LunaAIV2
+
+        luna = LunaAIV2()
+        traits = luna.get_personality_traits()
+
+        self.assertIsInstance(traits, dict)
+        self.assertIn("curiosity", traits)
+        self.assertIn("empathy", traits)
+        self.assertIn("playfulness", traits)
 
     def test_luna_ai_v2_update_personality(self):
-        """Test de mise à jour de la personnalité - SKIP car module inexistant"""
-        self.skipTest("Module LunaAIV2 n'existe pas")
+        """Test de mise à jour de la personnalité"""
+        from engines.luna_ai_v2 import LunaAIV2
+
+        luna = LunaAIV2()
+        result = luna.update_personality("curiosity", 0.9)
+
+        self.assertTrue(result)
+        self.assertEqual(luna.personality_traits["curiosity"], 0.9)
 
     def test_luna_ai_v2_error_handling(self):
-        """Test de gestion d'erreurs dans LunaAIV2 - SKIP car module inexistant"""
-        self.skipTest("Module LunaAIV2 n'existe pas")
+        """Test de gestion d'erreurs dans LunaAIV2"""
+        from engines.luna_ai_v2 import LunaAIV2
+
+        luna = LunaAIV2()
+
+        # Test avec des données invalides
+        result = luna.update_personality("invalid_trait", 0.5)
+        self.assertFalse(result)
+
+        # Test avec une valeur invalide
+        result = luna.update_personality("curiosity", 1.5)  # Valeur > 1
+        self.assertTrue(result)
+        self.assertEqual(luna.personality_traits["curiosity"], 1.0)  # Limité à 1.0
 
     def test_game_logger_error_handling(self):
         """Test de gestion d'erreurs dans GameLogger"""
@@ -192,8 +253,16 @@ class TestUtilsCoverage(unittest.TestCase):
             self.assertTrue(mock_info.called)
 
     def test_luna_ai_v2_context_handling(self):
-        """Test de gestion du contexte dans LunaAIV2 - SKIP car module inexistant"""
-        self.skipTest("Module LunaAIV2 n'existe pas")
+        """Test de gestion du contexte dans LunaAIV2"""
+        from engines.luna_ai_v2 import LunaAIV2
+
+        luna = LunaAIV2()
+        context = {"level": 3, "previous_interaction": "test"}
+        response = luna.generate_response("Comment ça va ?", context)
+
+        self.assertIsInstance(response, dict)
+        self.assertTrue(response["success"])
+        self.assertIn("response", response)
 
 
 if __name__ == "__main__":

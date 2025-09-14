@@ -562,6 +562,159 @@ def create_md5_hash(text):
         else:
             return encouragements[2]  # Encouragement général
 
+    def _get_user_data(self, user_id: str) -> dict[str, Any]:
+        """Récupère les données utilisateur"""
+        if user_id not in self.user_progress:
+            self.user_progress[user_id] = {
+                "level": 1,
+                "total_score": 0,
+                "games_completed": 0,
+                "favorite_type": "logic",
+                "last_played": None,
+                "statistics": {
+                    "total_attempts": 0,
+                    "successful_attempts": 0,
+                    "success_rate": 0.0,
+                    "average_time": 0.0,
+                    "total_time": 0.0,
+                    "games_played": 0,
+                },
+            }
+        return self.user_progress[user_id]
+
+    def _save_user_data(self, user_id: str, user_data: dict[str, Any]) -> bool:
+        """Sauvegarde les données utilisateur"""
+        try:
+            self.user_progress[user_id] = user_data
+            return True
+        except Exception as e:
+            game_logger.error(
+                f"Erreur lors de la sauvegarde des données utilisateur {user_id}: {e}"
+            )
+            return False
+
+    def _generate_session_id(self, user_id: str, game_id: str) -> str:
+        """Génère un ID de session unique"""
+        timestamp = datetime.now().timestamp()
+        return f"{user_id}_{game_id}_{int(timestamp)}"
+
+    def _get_game_by_id(self, game_id: str) -> dict[str, Any] | None:
+        """Récupère un jeu par son ID"""
+        for _game_type, games in self.games_data.items():
+            for game in games:
+                if game["id"] == game_id:
+                    return game
+        return None
+
+    def _is_game_available_for_user(
+        self, game: dict[str, Any], user_level: int
+    ) -> bool:
+        """Vérifie si un jeu est disponible pour l'utilisateur"""
+        difficulty_levels = {
+            "beginner": 1,
+            "intermediate": 3,
+            "advanced": 5,
+            "expert": 7,
+        }
+
+        required_level = difficulty_levels.get(game.get("difficulty", "beginner"), 1)
+        return user_level >= required_level
+
+    def _calculate_score(
+        self, game: dict[str, Any], attempts: int, time_taken: float
+    ) -> int:
+        """Calcule le score basé sur le jeu, les tentatives et le temps"""
+        base_points = game.get("points", 50)
+
+        # Bonus pour rapidité (moins de 60 secondes)
+        time_bonus = 1.0
+        if time_taken < 60:
+            time_bonus = 1.5
+        elif time_taken < 120:
+            time_bonus = 1.2
+
+        # Malus pour tentatives multiples
+        attempt_penalty = max(0.1, 1.0 - (attempts - 1) * 0.1)
+
+        final_score = int(base_points * time_bonus * attempt_penalty)
+        return max(10, final_score)  # Score minimum de 10
+
+    def _update_user_statistics(
+        self, user_id: str, game_id: str, score: int, attempts: int, time_taken: float
+    ) -> bool:
+        """Met à jour les statistiques utilisateur"""
+        try:
+            user_data = self._get_user_data(user_id)
+            stats = user_data["statistics"]
+
+            # Mise à jour des statistiques
+            stats["total_attempts"] += attempts
+            stats["successful_attempts"] += 1
+            stats["success_rate"] = (
+                stats["successful_attempts"] / stats["total_attempts"]
+            )
+            stats["total_time"] += time_taken
+            stats["games_played"] += 1
+            stats["average_time"] = stats["total_time"] / stats["games_played"]
+
+            # Mise à jour du score total
+            user_data["total_score"] += score
+            user_data["games_completed"] += 1
+            user_data["last_played"] = datetime.now().isoformat()
+
+            return self._save_user_data(user_id, user_data)
+        except Exception as e:
+            game_logger.error(f"Erreur lors de la mise à jour des statistiques: {e}")
+            return False
+
+    def _get_user_statistics(self, user_id: str) -> dict[str, Any]:
+        """Récupère les statistiques utilisateur"""
+        user_data = self._get_user_data(user_id)
+        return user_data.get("statistics", {})
+
+    def _filter_games_by_criteria(
+        self, games: list[dict[str, Any]], criteria: dict[str, Any]
+    ) -> list[dict[str, Any]]:
+        """Filtre les jeux selon des critères spécifiques"""
+        filtered_games = []
+
+        for game in games:
+            # Filtre par type
+            if "type" in criteria and game.get("type") != criteria["type"]:
+                continue
+
+            # Filtre par difficulté
+            if (
+                "difficulty" in criteria
+                and game.get("difficulty") != criteria["difficulty"]
+            ):
+                continue
+
+            # Filtre par niveau minimum
+            if "min_level" in criteria:
+                difficulty_levels = {
+                    "beginner": 1,
+                    "intermediate": 3,
+                    "advanced": 5,
+                    "expert": 7,
+                }
+                required_level = difficulty_levels.get(
+                    game.get("difficulty", "beginner"), 1
+                )
+                if required_level < criteria["min_level"]:
+                    continue
+
+            # Filtre par points minimum
+            if (
+                "min_points" in criteria
+                and game.get("points", 0) < criteria["min_points"]
+            ):
+                continue
+
+            filtered_games.append(game)
+
+        return filtered_games
+
 
 # Instance globale
 educational_games = EducationalGamesEngine()

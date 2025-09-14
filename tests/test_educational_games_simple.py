@@ -126,48 +126,72 @@ class TestEducationalGamesSimple(unittest.TestCase):
 
     def test_get_user_data_method(self):
         """Test la méthode _get_user_data"""
-        # Cette méthode n'existe pas, on skip le test
-        self.skipTest("Méthode _get_user_data n'existe pas")
+        user_data = self.games_engine._get_user_data("test_user")
+        self.assertIsInstance(user_data, dict)
+        self.assertIn("level", user_data)
+        self.assertIn("total_score", user_data)
+        self.assertIn("statistics", user_data)
 
     def test_save_user_data_method(self):
         """Test la méthode _save_user_data"""
-        # Cette méthode n'existe pas, on skip le test
-        self.skipTest("Méthode _save_user_data n'existe pas")
+        user_data = {"level": 5, "total_score": 1000}
+        result = self.games_engine._save_user_data("test_user", user_data)
+        self.assertTrue(result)
 
     def test_generate_session_id_method(self):
         """Test la méthode _generate_session_id"""
-        # Cette méthode n'existe pas, on skip le test
-        self.skipTest("Méthode _generate_session_id n'existe pas")
+        session_id = self.games_engine._generate_session_id("test_user", "logic_1")
+        self.assertIsInstance(session_id, str)
+        self.assertIn("test_user", session_id)
+        self.assertIn("logic_1", session_id)
 
     def test_get_game_by_id_method(self):
         """Test la méthode _get_game_by_id"""
-        # Cette méthode n'existe pas, on skip le test
-        self.skipTest("Méthode _get_game_by_id n'existe pas")
+        game = self.games_engine._get_game_by_id("logic_1")
+        self.assertIsNotNone(game)
+        self.assertEqual(game["id"], "logic_1")
 
     def test_is_game_available_for_user_method(self):
         """Test la méthode _is_game_available_for_user"""
-        # Cette méthode n'existe pas, on skip le test
-        self.skipTest("Méthode _is_game_available_for_user n'existe pas")
+        game = {"difficulty": "beginner", "points": 50}
+        available = self.games_engine._is_game_available_for_user(game, 1)
+        self.assertTrue(available)
 
     def test_calculate_score_method(self):
         """Test la méthode _calculate_score"""
-        # Cette méthode n'existe pas, on skip le test
-        self.skipTest("Méthode _calculate_score n'existe pas")
+        game = {"points": 100}
+        score = self.games_engine._calculate_score(game, 1, 30.0)
+        self.assertIsInstance(score, int)
+        self.assertGreater(score, 0)
 
     def test_update_user_statistics_method(self):
         """Test la méthode _update_user_statistics"""
-        # Cette méthode n'existe pas, on skip le test
-        self.skipTest("Méthode _update_user_statistics n'existe pas")
+        result = self.games_engine._update_user_statistics(
+            "test_user", "logic_1", 100, 1, 30.0
+        )
+        self.assertTrue(result)
 
     def test_get_user_statistics_method(self):
         """Test la méthode _get_user_statistics"""
-        # Cette méthode n'existe pas, on skip le test
-        self.skipTest("Méthode _get_user_statistics n'existe pas")
+        stats = self.games_engine._get_user_statistics("test_user")
+        self.assertIsInstance(stats, dict)
+        self.assertIn("total_attempts", stats)
 
     def test_filter_games_by_criteria_method(self):
         """Test la méthode _filter_games_by_criteria"""
-        # Cette méthode n'existe pas, on skip le test
-        self.skipTest("Méthode _filter_games_by_criteria n'existe pas")
+        games = [
+            {"id": "logic_1", "type": "logic", "difficulty": "beginner", "points": 50},
+            {
+                "id": "code_1",
+                "type": "code",
+                "difficulty": "intermediate",
+                "points": 100,
+            },
+        ]
+        criteria = {"type": "logic"}
+        filtered = self.games_engine._filter_games_by_criteria(games, criteria)
+        self.assertEqual(len(filtered), 1)
+        self.assertEqual(filtered[0]["id"], "logic_1")
 
 
 if __name__ == "__main__":

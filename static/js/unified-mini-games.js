@@ -562,19 +562,43 @@ class UnifiedMiniGames {
                 question: "Si tous les chats sont des animaux et que Félix est un chat, que peut-on conclure ?",
                 options: ["Félix est un animal", "Félix n'est pas un animal", "Tous les animaux sont des chats", "Aucune des réponses"],
                 correct: 0,
-                explanation: "Si tous les chats sont des animaux et que Félix est un chat, alors Félix est nécessairement un animal."
+                explanation: "Si tous les chats sont des animaux et que Félix est un chat, alors Félix est nécessairement un animal.",
+                hint: "Pense à la logique des ensembles"
             },
             {
                 question: "Dans une séquence : 2, 4, 8, 16, ? Quel est le prochain nombre ?",
                 options: ["20", "24", "32", "28"],
                 correct: 2,
-                explanation: "La séquence double à chaque étape : 2×2=4, 4×2=8, 8×2=16, 16×2=32."
+                explanation: "La séquence double à chaque étape : 2×2=4, 4×2=8, 8×2=16, 16×2=32.",
+                hint: "Chaque nombre est le double du précédent"
             },
             {
                 question: "Si A = 1, B = 2, C = 3, alors D = ?",
                 options: ["3", "4", "5", "6"],
                 correct: 1,
-                explanation: "L'alphabet suit l'ordre numérique : A=1, B=2, C=3, D=4."
+                explanation: "L'alphabet suit l'ordre numérique : A=1, B=2, C=3, D=4.",
+                hint: "Regarde la position dans l'alphabet"
+            },
+            {
+                question: "Un train part à 14h30 et arrive à 16h45. Combien de temps a-t-il mis ?",
+                options: ["2h15", "2h30", "2h45", "3h15"],
+                correct: 0,
+                explanation: "De 14h30 à 16h45, il y a 2 heures et 15 minutes.",
+                hint: "Calcule la différence entre les deux heures"
+            },
+            {
+                question: "Si 3 pommes coûtent 6€, combien coûtent 5 pommes ?",
+                options: ["8€", "10€", "12€", "15€"],
+                correct: 1,
+                explanation: "Une pomme coûte 2€ (6€ ÷ 3), donc 5 pommes coûtent 10€ (5 × 2€).",
+                hint: "Calcule d'abord le prix d'une pomme"
+            },
+            {
+                question: "Quel est le nombre manquant : 1, 4, 9, 16, ?",
+                options: ["20", "25", "30", "36"],
+                correct: 1,
+                explanation: "C'est la séquence des carrés : 1²=1, 2²=4, 3²=9, 4²=16, 5²=25.",
+                hint: "Pense aux carrés des nombres"
             }
         ];
 
@@ -647,6 +671,21 @@ class UnifiedMiniGames {
                 problem: "Ce code Python a une erreur. Trouvez-la :\n\ndef greet(name):\n    print('Hello, ' + name)\n\ngreet('World')",
                 solution: "def greet(name):\n    print('Hello, ' + name)\n\ngreet('World')",
                 hint: "Le code semble correct, vérifiez l'indentation"
+            },
+            {
+                problem: "Corrigez cette boucle JavaScript :\n\nfor (let i = 0; i < 5; i++) {\n  console.log(i)\n}",
+                solution: "for (let i = 0; i < 5; i++) {\n  console.log(i);\n}",
+                hint: "Il manque un point-virgule dans la boucle"
+            },
+            {
+                problem: "Ce code HTML a une erreur. Trouvez-la :\n\n<div class=\"container\">\n  <h1>Titre</h1>\n  <p>Paragraphe</p>\n</div>",
+                solution: "<div class=\"container\">\n  <h1>Titre</h1>\n  <p>Paragraphe</p>\n</div>",
+                hint: "Vérifiez les guillemets des attributs"
+            },
+            {
+                problem: "Corrigez cette fonction CSS :\n\n.button {\n  background-color: blue\n  color: white;\n  padding: 10px;\n}",
+                solution: ".button {\n  background-color: blue;\n  color: white;\n  padding: 10px;\n}",
+                hint: "Il manque un point-virgule après background-color"
             }
         ];
 
@@ -722,7 +761,8 @@ class UnifiedMiniGames {
                     "Transférer l'email à vos collègues"
                 ],
                 correct: 1,
-                explanation: "Il faut toujours supprimer les emails suspects avec des pièces jointes pour éviter les malwares."
+                explanation: "Il faut toujours supprimer les emails suspects avec des pièces jointes pour éviter les malwares.",
+                hint: "Les pièces jointes suspectes peuvent contenir des virus"
             },
             {
                 scenario: "Votre mot de passe a été compromis. Quelle est la première chose à faire ?",
@@ -733,7 +773,44 @@ class UnifiedMiniGames {
                     "Utiliser le même mot de passe partout"
                 ],
                 correct: 0,
-                explanation: "Il faut changer le mot de passe compromis immédiatement pour sécuriser le compte."
+                explanation: "Il faut changer le mot de passe compromis immédiatement pour sécuriser le compte.",
+                hint: "Plus vous attendez, plus le risque augmente"
+            },
+            {
+                scenario: "Vous voyez un lien suspect dans un email. Que faites-vous ?",
+                options: [
+                    "Cliquer pour voir où il mène",
+                    "Survoler le lien pour voir l'URL",
+                    "Supprimer l'email",
+                    "Partager le lien avec des amis"
+                ],
+                correct: 2,
+                explanation: "Il faut supprimer l'email suspect pour éviter les attaques de phishing.",
+                hint: "Les liens suspects peuvent mener à des sites malveillants"
+            },
+            {
+                scenario: "Quelle est la meilleure pratique pour les mots de passe ?",
+                options: [
+                    "Utiliser le même mot de passe partout",
+                    "Utiliser des mots de passe complexes et uniques",
+                    "Écrire ses mots de passe sur un post-it",
+                    "Utiliser des informations personnelles"
+                ],
+                correct: 1,
+                explanation: "Il faut utiliser des mots de passe complexes, uniques et difficiles à deviner.",
+                hint: "Un bon mot de passe est long, complexe et unique"
+            },
+            {
+                scenario: "Vous recevez un appel prétendant être de votre banque. Que faites-vous ?",
+                options: [
+                    "Donner vos informations personnelles",
+                    "Raccrocher et rappeler le numéro officiel",
+                    "Confirmer votre identité",
+                    "Transférer l'appel à un collègue"
+                ],
+                correct: 1,
+                explanation: "Il faut raccrocher et rappeler le numéro officiel pour vérifier l'authenticité.",
+                hint: "Les banques ne demandent jamais d'informations sensibles par téléphone"
             }
         ];
 
@@ -806,7 +883,36 @@ class UnifiedMiniGames {
                 challenge: "Trouvez le mot de passe caché dans ce fichier système",
                 commands: ["ls", "cat password.txt", "grep password", "find . -name '*.txt'"],
                 solution: "cat password.txt",
-                explanation: "La commande 'cat' permet de lire le contenu d'un fichier."
+                explanation: "La commande 'cat' permet de lire le contenu d'un fichier.",
+                hint: "Utilisez 'cat' pour lire un fichier"
+            },
+            {
+                challenge: "Trouvez tous les fichiers .log dans le système",
+                commands: ["ls", "find /var/log -name '*.log'", "grep log", "cat /etc/passwd"],
+                solution: "find /var/log -name '*.log'",
+                explanation: "La commande 'find' permet de rechercher des fichiers selon des critères.",
+                hint: "Utilisez 'find' avec un chemin et un nom de fichier"
+            },
+            {
+                challenge: "Vérifiez les processus en cours d'exécution",
+                commands: ["ps", "top", "htop", "kill"],
+                solution: "ps",
+                explanation: "La commande 'ps' affiche les processus en cours d'exécution.",
+                hint: "Utilisez 'ps' pour voir les processus"
+            },
+            {
+                challenge: "Trouvez l'adresse IP de ce système",
+                commands: ["ifconfig", "ip addr", "hostname", "ping"],
+                solution: "ifconfig",
+                explanation: "La commande 'ifconfig' affiche les informations de configuration réseau.",
+                hint: "Utilisez 'ifconfig' pour voir la configuration réseau"
+            },
+            {
+                challenge: "Listez les utilisateurs du système",
+                commands: ["who", "users", "cat /etc/passwd", "id"],
+                solution: "cat /etc/passwd",
+                explanation: "Le fichier /etc/passwd contient les informations des utilisateurs.",
+                hint: "Utilisez 'cat' pour lire le fichier des utilisateurs"
             }
         ];
 

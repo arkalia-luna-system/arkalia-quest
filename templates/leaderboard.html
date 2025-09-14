@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/game-interface.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/mission-interface.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/reward-animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/loading-animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/progression-animations.css') }}">
 
     <style>
         /* Styles spécifiques au leaderboard immersif */
@@ -551,6 +553,46 @@
             transform: translateY(-3px);
         }
 
+        .challenge-card.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: rgba(100, 100, 100, 0.1);
+            border: 2px solid rgba(100, 100, 100, 0.3);
+        }
+
+        .challenge-card.disabled:hover,
+        .challenge-card.disabled:focus {
+            transform: none;
+            box-shadow: 0 5px 15px rgba(100, 100, 100, 0.2);
+            border-color: rgba(100, 100, 100, 0.3);
+        }
+
+        .challenge-card.disabled .challenge-icon {
+            filter: grayscale(100%);
+        }
+
+        .challenge-card.disabled .challenge-name {
+            color: rgba(167, 139, 250, 0.5);
+        }
+
+        .challenge-card.disabled .challenge-description {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .challenge-status {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 193, 7, 0.9);
+            color: #000;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         .challenge-icon {
             font-size: 2em;
             margin-bottom: 10px;
@@ -754,27 +796,29 @@
             <div class="challenge-section" role="region" aria-label="Défis actifs">
                 <h2 class="challenge-title">Défis Actifs</h2>
                 <div class="challenge-grid">
-                    <div class="challenge-card" tabindex="0" role="button"
-                        aria-label="Défi Vitesse - Complète 10 missions en moins de 30 minutes"
-                        onclick="startChallenge('speed')" onkeydown="handleChallengeKeydown(event, 'speed')">
+                    <div class="challenge-card disabled" tabindex="-1" role="button"
+                        aria-label="Défi Vitesse - Bientôt disponible" aria-disabled="true"
+                        title="Défi bientôt disponible">
                         <span class="challenge-icon" aria-hidden="true">⚡</span>
                         <div class="challenge-name">Défi Vitesse</div>
                         <div class="challenge-description">Complète 10 missions en moins de 30 minutes</div>
+                        <div class="challenge-status">Bientôt disponible</div>
                     </div>
-                    <div class="challenge-card" tabindex="0" role="button"
-                        aria-label="Défi Précision - 100% de réussite sur 5 missions consécutives"
-                        onclick="startChallenge('precision')" onkeydown="handleChallengeKeydown(event, 'precision')">
+                    <div class="challenge-card disabled" tabindex="-1" role="button"
+                        aria-label="Défi Précision - Bientôt disponible" aria-disabled="true"
+                        title="Défi bientôt disponible">
                         <span class="challenge-icon" aria-hidden="true">🎯</span>
                         <div class="challenge-name">Défi Précision</div>
                         <div class="challenge-description">100% de réussite sur 5 missions consécutives</div>
+                        <div class="challenge-status">Bientôt disponible</div>
                     </div>
-                    <div class="challenge-card" tabindex="0" role="button"
-                        aria-label="Défi Exploration - Découvre 3 nouvelles zones en une journée"
-                        onclick="startChallenge('exploration')"
-                        onkeydown="handleChallengeKeydown(event, 'exploration')">
+                    <div class="challenge-card disabled" tabindex="-1" role="button"
+                        aria-label="Défi Exploration - Bientôt disponible" aria-disabled="true"
+                        title="Défi bientôt disponible">
                         <span class="challenge-icon" aria-hidden="true">🗺️</span>
                         <div class="challenge-name">Défi Exploration</div>
                         <div class="challenge-description">Découvre 3 nouvelles zones en une journée</div>
+                        <div class="challenge-status">Bientôt disponible</div>
                     </div>
                 </div>
             </div>

@@ -391,3 +391,273 @@
         opacity: 1;
     }
 }
+
+/* ===== ANIMATIONS FESTIVES POUR ÉTATS VIDES ===== */
+
+/* Animation de brillance pour dashboard */
+.dashboard-empty {
+    position: relative;
+    overflow: hidden;
+}
+
+.dashboard-empty::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(0, 255, 0, 0.1), transparent);
+    animation: dashboardShine 3s ease-in-out infinite;
+}
+
+.dashboard-empty .empty-state-icon {
+    animation: dashboardPulse 2s ease-in-out infinite;
+    position: relative;
+    z-index: 1;
+}
+
+.dashboard-empty .empty-state-title {
+    position: relative;
+    z-index: 1;
+}
+
+.dashboard-empty .empty-state-description {
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes dashboardShine {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+
+    100% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+}
+
+@keyframes dashboardPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+}
+
+/* Animation de particules pour profil */
+.profil-empty {
+    position: relative;
+    overflow: hidden;
+}
+
+.profil-empty::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 20%, rgba(167, 139, 250, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(96, 165, 250, 0.1) 0%, transparent 50%);
+    animation: profilParticles 4s ease-in-out infinite;
+}
+
+@keyframes profilParticles {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.6;
+        transform: scale(1.1);
+    }
+}
+
+/* Animation de rotation pour missions */
+.missions-empty .empty-state-icon {
+    animation: missionRotate 3s ease-in-out infinite;
+}
+
+@keyframes missionRotate {
+
+    0%,
+    100% {
+        transform: rotate(0deg) scale(1);
+    }
+
+    50% {
+        transform: rotate(180deg) scale(1.1);
+    }
+}
+
+/* Animation de bounce pour badges */
+.badges-empty .empty-state-icon {
+    animation: badgeBounce 2s ease-in-out infinite;
+}
+
+@keyframes badgeBounce {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    25% {
+        transform: translateY(-10px) rotate(5deg);
+    }
+
+    75% {
+        transform: translateY(-5px) rotate(-5deg);
+    }
+}
+
+/* Animation de glow pour leaderboard */
+.leaderboard-empty {
+    position: relative;
+    overflow: hidden;
+}
+
+.leaderboard-empty::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.1), transparent);
+    animation: leaderboardGlow 2s ease-in-out infinite;
+}
+
+@keyframes leaderboardGlow {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Animation de pulse pour les boutons d'action */
+.empty-state-action {
+    position: relative;
+    overflow: hidden;
+}
+
+.empty-state-action::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: buttonShine 2s ease-in-out infinite;
+}
+
+@keyframes buttonShine {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+/* Animation de confettis pour les succès */
+.success-empty {
+    position: relative;
+    overflow: hidden;
+}
+
+.success-empty::after {
+    content: '🎉';
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 2em;
+    animation: confettiFloat 3s ease-in-out infinite;
+}
+
+.success-empty::before {
+    content: '✨';
+    position: absolute;
+    top: 40px;
+    left: 20px;
+    font-size: 1.5em;
+    animation: confettiFloat 3s ease-in-out infinite 1s;
+}
+
+@keyframes confettiFloat {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.7;
+    }
+
+    50% {
+        transform: translateY(-20px) rotate(180deg);
+        opacity: 1;
+    }
+}
+
+/* Animation de texte qui apparaît */
+.empty-state-title {
+    animation: titleAppear 1s ease-out;
+}
+
+.empty-state-description {
+    animation: descriptionAppear 1s ease-out 0.5s both;
+}
+
+.empty-state-action {
+    animation: actionAppear 1s ease-out 1s both;
+}
+
+@keyframes titleAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes descriptionAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes actionAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

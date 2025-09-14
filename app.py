@@ -13,6 +13,7 @@ from core.adaptive_storytelling import adaptive_storytelling
 from core.cache_manager import cache_manager
 from core.command_handler_v2 import CommandHandlerV2 as CommandHandler
 from core.customization_engine import customization_engine
+from core.daily_challenges_engine import DailyChallengesEngine
 from core.database import DatabaseManager
 from core.educational_games_engine import EducationalGamesEngine
 from core.gamification_engine import GamificationEngine
@@ -23,6 +24,7 @@ from core.security_manager import security_manager
 from core.social_engine import social_engine
 from core.tutorial_manager import tutorial_manager
 from core.websocket_manager import websocket_manager
+from engines.luna_ai_v3 import LunaAIV3
 
 try:
     from utils.logger import game_logger, performance_logger, security_logger
@@ -71,7 +73,11 @@ def before_request():
 
     # Valider les entrées (sauf pour les routes des jeux éducatifs)
     if request.method in ["POST", "PUT", "PATCH"]:
-        if request.is_json and not request.path.startswith("/api/educational-games"):
+        if (
+            request.is_json
+            and not request.path.startswith("/api/educational-games")
+            and not request.path.startswith("/api/luna-v3/")
+        ):
             data = request.get_json()
             if data:
                 for key, value in data.items():
@@ -2457,4 +2463,172 @@ def api_update_interaction_preferences():
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
 
+
+# ===== NOUVELLES FONCTIONNALITÉS V3 =====
+
+# Initialisation des nouveaux moteurs
+daily_challenges_engine = DailyChallengesEngine()
+luna_ai_v3 = LunaAIV3()
+
+# ===== ROUTES POUR LES DÉFIS QUOTIDIENS =====
+
+
+@app.route("/api/daily-challenges", methods=["GET"])
+@performance_optimizer.monitor_performance("get_daily_challenges")
+def api_get_daily_challenges():
+    """Récupère les défis quotidiens pour un utilisateur"""
+    try:
+        user_id = request.args.get("user_id", "default")
+        date = request.args.get("date")
+
+        challenges = daily_challenges_engine.get_daily_challenges(user_id, date)
+        return jsonify(challenges)
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/daily-challenges/attempt", methods=["POST"])
+@performance_optimizer.monitor_performance("attempt_daily_challenge")
+def api_attempt_daily_challenge():
+    """Tente de résoudre un défi quotidien"""
+    try:
+        data = request.get_json()
+        user_id = data.get("user_id", "default")
+        challenge_id = data.get("challenge_id")
+        answer = data.get("answer", "")
+        date = data.get("date")
+
+        if not challenge_id:
+            return jsonify({"success": False, "error": "ID du défi requis"}), 400
+
+        result = daily_challenges_engine.attempt_challenge(
+            user_id, challenge_id, answer, date
+        )
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/daily-challenges/leaderboard", methods=["GET"])
+@performance_optimizer.monitor_performance("get_daily_leaderboard")
+def api_get_daily_leaderboard():
+    """Retourne le classement des défis quotidiens"""
+    try:
+        date = request.args.get("date")
+        leaderboard = daily_challenges_engine.get_leaderboard(date)
+        return jsonify({"success": True, "leaderboard": leaderboard})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/daily-challenges/weekly-stats", methods=["GET"])
+@performance_optimizer.monitor_performance("get_weekly_stats")
+def api_get_weekly_stats():
+    """Retourne les statistiques hebdomadaires d'un utilisateur"""
+    try:
+        user_id = request.args.get("user_id", "default")
+        stats = daily_challenges_engine.get_weekly_stats(user_id)
+        return jsonify({"success": True, "stats": stats})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+# ===== ROUTES POUR LUNA AI V3 =====
+
+
+@app.route("/api/luna-v3/chat", methods=["POST"])
+@performance_optimizer.monitor_performance("luna_v3_chat")
+def api_luna_v3_chat():
+    """Chat avec LUNA AI V3"""
+    try:
+        data = request.get_json()
+        user_input = data.get("message", "")
+        user_profile = data.get("user_profile", {})
+        game_context = data.get("game_context", {})
+
+        if not user_input:
+            return jsonify({"success": False, "error": "Message requis"}), 400
+
+        response = luna_ai_v3.generate_response(user_input, user_profile, game_context)
+        return jsonify(response)
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/luna-v3/learning-stats", methods=["GET"])
+@performance_optimizer.monitor_performance("get_luna_learning_stats")
+def api_get_luna_learning_stats():
+    """Retourne les statistiques d'apprentissage de LUNA"""
+    try:
+        stats = luna_ai_v3.get_learning_stats()
+        return jsonify({"success": True, "stats": stats})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/luna-v3/reset", methods=["POST"])
+@performance_optimizer.monitor_performance("reset_luna_learning")
+def api_reset_luna_learning():
+    """Remet à zéro l'apprentissage de LUNA (pour les tests)"""
+    try:
+        luna_ai_v3.reset_learning()
+        return jsonify(
+            {"success": True, "message": "Apprentissage de LUNA réinitialisé"}
+        )
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+# ===== ROUTES POUR LES THÈMES =====
+
+
+@app.route("/api/themes", methods=["GET"])
+@performance_optimizer.monitor_performance("get_themes")
+def api_get_themes():
+    """Retourne la liste des thèmes disponibles"""
+    try:
+        themes = {
+            "matrix": {
+                "name": "Matrix",
+                "description": "Thème classique vert Matrix",
+                "icon": "🌌",
+                "class": "matrix-theme",
+            },
+            "cyberpunk": {
+                "name": "Cyberpunk",
+                "description": "Thème néon rose et cyan",
+                "icon": "🌆",
+                "class": "cyberpunk-theme",
+            },
+            "neon": {
+                "name": "Neon",
+                "description": "Thème néon vert et rouge",
+                "icon": "💚",
+                "class": "neon-theme",
+            },
+            "dark": {
+                "name": "Dark Mode",
+                "description": "Thème sombre moderne",
+                "icon": "🌙",
+                "class": "dark-theme",
+            },
+            "retro": {
+                "name": "Retro",
+                "description": "Thème rétro années 80",
+                "icon": "🎮",
+                "class": "retro-theme",
+            },
+            "ocean": {
+                "name": "Ocean",
+                "description": "Thème océan bleu",
+                "icon": "🌊",
+                "class": "ocean-theme",
+            },
+        }
+        return jsonify({"success": True, "themes": themes})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5001, debug=False)

@@ -26,6 +26,9 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}?v=3.1.1">
     </noscript>
 
+    <!-- Nouveaux CSS V3 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/themes.css') }}?v=3.2.0">
+
     <!-- CSS critiques chargés immédiatement -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}?v=3.1.1">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}?v=3.1.1">
@@ -36,6 +39,10 @@
     <link rel="preload" href="{{ url_for('static', filename='css/empty-states.css') }}?v=3.1.1" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="{{ url_for('static', filename='css/reward-animations.css') }}?v=3.1.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/loading-animations.css') }}?v=3.1.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/progression-animations.css') }}?v=3.1.1" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="{{ url_for('static', filename='css/mini-games.css') }}" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
@@ -467,6 +474,9 @@
                     <a href="/profil" class="nav-link">👤 PROFIL</a>
                     <a href="/leaderboard" class="nav-link">🏆 CLASSEMENT</a>
                     <a href="/dashboard" class="nav-link">📊 DASHBOARD</a>
+                    <button class="nav-link daily-challenges-btn" onclick="dailyChallenges.show()">🎯 DÉFIS
+                        QUOTIDIENS</button>
+                    <button class="nav-link theme-btn" onclick="themeManager.show()">🎨 THÈMES</button>
                 </div>
             </div>
         </nav>
@@ -606,6 +616,7 @@
                 '{{ url_for("static", filename="js/performance-ux-optimizer.js") }}',
                 '{{ url_for("static", filename="js/bug-fixes.js") }}',
                 '{{ url_for("static", filename="js/reward-system.js") }}',
+                '{{ url_for("static", filename="js/loading-manager.js") }}',
                 '{{ url_for("static", filename="js/system-integrator.js") }}'
             ];
 
@@ -669,6 +680,27 @@
 
     <!-- Scripts personnalisés -->
     <script src="{{ url_for('static', filename='js/personalized-messages.js') }}"></script>
+
+    <!-- Nouveaux scripts V3 -->
+    <script src="{{ url_for('static', filename='js/theme-manager.js') }}?v=3.2.0"></script>
+    <script src="{{ url_for('static', filename='js/daily-challenges.js') }}?v=3.2.0"></script>
+
+    <script>
+        // Initialisation des nouvelles fonctionnalités
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('🚀 Arkalia Quest V3.2.0 - Nouvelles fonctionnalités chargées');
+
+            // Initialiser le gestionnaire de thèmes
+            if (window.ThemeManager) {
+                console.log('🎨 Theme Manager initialisé');
+            }
+
+            // Initialiser les défis quotidiens
+            if (window.DailyChallenges) {
+                console.log('🎯 Daily Challenges initialisé');
+            }
+        });
+    </script>
 </body>
 
 </html>

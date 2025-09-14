@@ -3,7 +3,7 @@ import logging
 import os
 import random
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from flask import Flask, jsonify, render_template, request, send_from_directory
 from flask_compress import Compress
@@ -36,6 +36,16 @@ except ImportError:
 
 app = Flask(__name__)
 
+# Configuration sécurisée des sessions
+app.config.update(
+    SECRET_KEY=os.environ.get("SECRET_KEY", "dev-key-change-in-production"),
+    SESSION_COOKIE_SECURE=True,  # HTTPS uniquement en production
+    SESSION_COOKIE_HTTPONLY=True,  # Pas d'accès JavaScript
+    SESSION_COOKIE_SAMESITE="Lax",  # Protection CSRF
+    PERMANENT_SESSION_LIFETIME=timedelta(hours=2),  # Expiration
+    SESSION_REFRESH_EACH_REQUEST=True,  # Renouvellement
+)
+
 # Configuration de la compression gzip
 Compress(app)
 
@@ -64,14 +74,27 @@ def before_request():
         if request.is_json and not request.path.startswith("/api/educational-games"):
             data = request.get_json()
             if data:
-                for _key, value in data.items():
+                for key, value in data.items():
                     if isinstance(value, str):
+                        # Validation renforcée selon le type de champ
+                        input_type = "command"  # Par défaut
+                        if "username" in key.lower():
+                            input_type = "username"
+                        elif "email" in key.lower():
+                            input_type = "email"
+                        elif "password" in key.lower():
+                            input_type = "password"
+                        elif "game_id" in key.lower():
+                            input_type = "game_id"
+
                         is_valid, error_msg = security_enhanced.validate_input(
-                            "command", value
+                            input_type, value
                         )
                         if not is_valid:
                             return (
-                                jsonify({"error": f"Entrée invalide: {error_msg}"}),
+                                jsonify(
+                                    {"error": f"Entrée invalide ({key}): {error_msg}"}
+                                ),
                                 400,
                             )
 
@@ -79,19 +102,42 @@ def before_request():
 @app.after_request
 def after_request(response):
     """Middleware exécuté après chaque requête"""
-    # Ajouter des headers de sécurité
+    # Ajouter des headers de sécurité renforcés
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["X-XSS-Protection"] = "1; mode=block"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    response.headers["Content-Security-Policy"] = (
+        "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'"
+    )
     response.headers["Strict-Transport-Security"] = (
         "max-age=31536000; includeSubDomains"
     )
+    response.headers["Permissions-Policy"] = "geolocation=(), microphone=(), camera=()"
 
     # Ajouter des headers de cache pour les assets statiques
     if request.endpoint and request.endpoint.startswith("static"):
         response.headers["Cache-Control"] = "public, max-age=31536000"  # 1 an
+    else:
+        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
 
     return response
+
+
+# Gestionnaire d'erreurs global
+@app.errorhandler(404)
+def not_found(error):
+    """Gestion des erreurs 404"""
+    return jsonify({"error": "Ressource non trouvée", "code": 404}), 404
+
+
+# Fonction de gestion d'erreur 500 supprimée car redéfinie plus bas
+
+
+@app.errorhandler(403)
+def forbidden(error):
+    """Gestion des erreurs 403"""
+    return jsonify({"error": "Accès refusé", "code": 403}), 403
 
 
 # Instances des modules
@@ -1986,21 +2032,32 @@ if __name__ == "__main__":
 @app.route("/api/performance/stats", methods=["GET"])
 @performance_optimizer.monitor_performance("performance_stats")
 def api_performance_stats():
-    """Retourne les statistiques de performance"""
+    """Retourne les statistiques de performance avec cache"""
     try:
+        # Vérifier le cache d'abord
+        cache_key = "performance_stats"
+        cached_data = performance_optimizer.get_cached_data(cache_key, ttl_seconds=60)
+
+        if cached_data:
+            return jsonify(cached_data)
+
+        # Générer les nouvelles données
         stats = performance_optimizer.get_performance_stats()
         cache_stats = cache_manager.get_stats()
         security_stats = security_enhanced.get_security_stats()
 
-        return jsonify(
-            {
-                "success": True,
-                "performance": stats,
-                "cache": cache_stats,
-                "security": security_stats,
-                "timestamp": datetime.now().isoformat(),
-            }
-        )
+        response_data = {
+            "success": True,
+            "performance": stats,
+            "cache": cache_stats,
+            "security": security_stats,
+            "timestamp": datetime.now().isoformat(),
+        }
+
+        # Mettre en cache
+        performance_optimizer.set_cached_data(cache_key, response_data, ttl_seconds=60)
+
+        return jsonify(response_data)
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
 

@@ -19,15 +19,30 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/icon-16x16.png">
     <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png">
 
-    <!-- CSS LUNA VISION -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}?v=3.1.1">
+    <!-- CSS LUNA VISION - Optimisé pour le chargement -->
+    <link rel="preload" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}?v=3.1.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}?v=3.1.1">
+    </noscript>
+
+    <!-- CSS critiques chargés immédiatement -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}?v=3.1.1">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}?v=3.1.1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/interface-improvements.css') }}?v=3.1.1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/empty-states.css') }}?v=3.1.1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/mini-games.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/animations-optimized.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/performance-optimized.css') }}">
+
+    <!-- CSS non-critiques chargés de manière différée -->
+    <link rel="preload" href="{{ url_for('static', filename='css/interface-improvements.css') }}?v=3.1.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/empty-states.css') }}?v=3.1.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/reward-animations.css') }}?v=3.1.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/mini-games.css') }}" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/animations-optimized.css') }}" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/performance-optimized.css') }}" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
 
     <style>
         /* Styles spécifiques au portail d'accueil */
@@ -471,27 +486,31 @@
             <p class="luna-greeting" id="luna-greeting">"Bienvenue, hacker. Je suis LUNA, ton guide dans cette aventure
                 cybernétique. Commence par le tutoriel pour comprendre comment jouer !"</p>
 
-            <!-- Boutons d'action améliorés -->
-            <div class="cta-buttons">
-                <a href="/tutorial" class="cta-btn primary" title="Commencer par le tutoriel">
-                    <span class="cta-icon">🎯</span>
+            <!-- Boutons d'action améliorés avec accessibilité -->
+            <div class="cta-buttons" role="navigation" aria-label="Navigation principale">
+                <a href="/tutorial" class="cta-btn primary" title="Commencer par le tutoriel" role="button"
+                    aria-describedby="tutorial-desc">
+                    <span class="cta-icon" aria-hidden="true">🎯</span>
                     <span class="cta-text">TUTORIEL DÉBUTANT</span>
-                    <span class="cta-subtitle">Apprends les bases</span>
+                    <span class="cta-subtitle" id="tutorial-desc">Apprends les bases</span>
                 </a>
-                <a href="/terminal" class="cta-btn" title="Accéder au terminal de commandes">
-                    <span class="cta-icon">🚀</span>
+                <a href="/terminal" class="cta-btn" title="Accéder au terminal de commandes" role="button"
+                    aria-describedby="terminal-desc">
+                    <span class="cta-icon" aria-hidden="true">🚀</span>
                     <span class="cta-text">COMMENCER L'AVENTURE</span>
-                    <span class="cta-subtitle">Terminal LUNA</span>
+                    <span class="cta-subtitle" id="terminal-desc">Terminal LUNA</span>
                 </a>
-                <a href="/monde" class="cta-btn" title="Explorer le monde d'Arkalia">
-                    <span class="cta-icon">🌍</span>
+                <a href="/monde" class="cta-btn" title="Explorer le monde d'Arkalia" role="button"
+                    aria-describedby="monde-desc">
+                    <span class="cta-icon" aria-hidden="true">🌍</span>
                     <span class="cta-text">EXPLORER LE MONDE</span>
-                    <span class="cta-subtitle">Zones mystérieuses</span>
+                    <span class="cta-subtitle" id="monde-desc">Zones mystérieuses</span>
                 </a>
-                <a href="/profil" class="cta-btn" title="Voir votre profil">
-                    <span class="cta-icon">👤</span>
+                <a href="/profil" class="cta-btn" title="Voir votre profil" role="button"
+                    aria-describedby="profil-desc">
+                    <span class="cta-icon" aria-hidden="true">👤</span>
                     <span class="cta-text">MON PROFIL</span>
-                    <span class="cta-subtitle">Statistiques</span>
+                    <span class="cta-subtitle" id="profil-desc">Statistiques</span>
                 </a>
             </div>
         </div>
@@ -553,26 +572,48 @@
         jeux éducatifs educational games mini-jeux minigames logique logic cybersécurité cybersecurity
     </div>
 
+    <!-- Scripts critiques chargés immédiatement -->
     <script src="{{ url_for('static', filename='js/arkalia-luna-vision.js') }}?v=3.1.1"></script>
-    <script src="{{ url_for('static', filename='js/audio-manager.js') }}?v=3.1.1"></script>
     <script src="{{ url_for('static', filename='js/accessibility.js') }}?v=3.1.1"></script>
-    <script src="{{ url_for('static', filename='js/tutorial.js') }}?v=3.1.1"></script>
-    <script src="{{ url_for('static', filename='js/mini-games-interface.js') }}?v=3.1.1"></script>
     <script src="{{ url_for('static', filename='js/performance-optimizer.js') }}?v=3.1.1"></script>
-    <script src="{{ url_for('static', filename='js/real-time-monitor.js') }}?v=3.1.1"></script>
-    <script src="{{ url_for('static', filename='js/game-engine.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/mission-system.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/luna-personality.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/visual-feedback-system.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/unified-mini-games.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/advanced-features.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/ai_engine.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/analytics.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/mini-games-interface.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/service-worker.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/performance-ux-optimizer.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bug-fixes.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/system-integrator.js') }}"></script>
+
+    <!-- Scripts non-critiques chargés de manière différée -->
+    <script>
+        // Chargement différé des scripts non-critiques
+        function loadScript(src, callback) {
+            const script = document.createElement('script');
+            script.src = src;
+            script.onload = callback;
+            document.head.appendChild(script);
+        }
+
+        // Charger les scripts après le chargement de la page
+        window.addEventListener('load', function () {
+            const scripts = [
+                '{{ url_for("static", filename="js/audio-manager.js") }}?v=3.1.1',
+                '{{ url_for("static", filename="js/tutorial.js") }}?v=3.1.1',
+                '{{ url_for("static", filename="js/mini-games-interface.js") }}?v=3.1.1',
+                '{{ url_for("static", filename="js/real-time-monitor.js") }}?v=3.1.1',
+                '{{ url_for("static", filename="js/game-engine.js") }}',
+                '{{ url_for("static", filename="js/mission-system.js") }}',
+                '{{ url_for("static", filename="js/luna-personality.js") }}',
+                '{{ url_for("static", filename="js/visual-feedback-system.js") }}',
+                '{{ url_for("static", filename="js/unified-mini-games.js") }}',
+                '{{ url_for("static", filename="js/advanced-features.js") }}',
+                '{{ url_for("static", filename="js/ai_engine.js") }}',
+                '{{ url_for("static", filename="js/analytics.js") }}',
+                '{{ url_for("static", filename="js/service-worker.js") }}',
+                '{{ url_for("static", filename="js/performance-ux-optimizer.js") }}',
+                '{{ url_for("static", filename="js/bug-fixes.js") }}',
+                '{{ url_for("static", filename="js/reward-system.js") }}',
+                '{{ url_for("static", filename="js/system-integrator.js") }}'
+            ];
+
+            scripts.forEach((src, index) => {
+                setTimeout(() => loadScript(src), index * 100); // Chargement échelonné
+            });
+        });
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {

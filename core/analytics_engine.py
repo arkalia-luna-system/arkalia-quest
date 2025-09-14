@@ -341,7 +341,13 @@ class AnalyticsEngine:
 
         profile = self.user_profiles[anonymized_user_id]
         profile.total_sessions += 1
-        profile.total_playtime += session.duration or 0
+        # Correction sécurisée : s'assurer que session.duration est un float
+        duration = session.duration if session.duration is not None else 0.0
+        if isinstance(duration, (int, float)):
+            profile.total_playtime += float(duration)
+        else:
+            # Log l'erreur mais continue sans planter
+            logger.warning(f"Type de durée invalide: {type(duration)} = {duration}")
         profile.last_active = time.time()
 
         # Sauvegarder le profil

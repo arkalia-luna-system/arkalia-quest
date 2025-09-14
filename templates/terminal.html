@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/interface-improvements.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/empty-states.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reward-animations.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/game-interface.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/mission-interface.css') }}">
 
@@ -770,10 +771,18 @@
 
             <!-- Zone de saisie -->
             <div class="terminal-input-container">
-                <span class="terminal-prompt">luna@arkalia:~$</span>
+                <span class="terminal-prompt" aria-label="Invite de commande">luna@arkalia:~$</span>
                 <input type="text" class="terminal-input" id="terminal-input" placeholder="Tape ta commande ici..."
-                    autocomplete="off">
-                <button class="terminal-send" onclick="sendCommand()">EXÉCUTER</button>
+                    autocomplete="off" aria-label="Zone de saisie de commande" aria-describedby="command-help">
+                <button class="terminal-send" onclick="sendCommand()" aria-label="Exécuter la commande"
+                    title="Exécuter la commande (Entrée)">
+                    EXÉCUTER
+                </button>
+            </div>
+
+            <!-- Aide contextuelle -->
+            <div id="command-help" class="command-help" aria-live="polite">
+                Tape 'aide' pour voir toutes les commandes disponibles
             </div>
 
             <!-- Commandes disponibles (cachées pour les tests) -->
@@ -856,6 +865,7 @@
     <script src="{{ url_for('static', filename='js/service-worker.js') }}"></script>
     <script src="{{ url_for('static', filename='js/performance-ux-optimizer.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bug-fixes.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/reward-system.js') }}"></script>
     <script src="{{ url_for('static', filename='js/system-integrator.js') }}"></script>
     <script src="{{ url_for('static', filename='js/terminal.js') }}"></script>
     <script src="{{ url_for('static', filename='js/educational_games.js') }}"></script>

@@ -32,7 +32,7 @@ class SecurityEnhanced:
             "max_session_duration_hours": 24,
         }
 
-        # Patterns de validation
+        # Patterns de validation renforcés
         self.validation_patterns = {
             "username": re.compile(r"^[a-zA-Z0-9_-]{3,20}$"),
             "email": re.compile(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"),
@@ -40,7 +40,11 @@ class SecurityEnhanced:
                 r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
             ),
             "game_id": re.compile(r"^[a-zA-Z0-9_-]+$"),
-            "command": re.compile(r"^[a-zA-Z0-9_\s-]+$"),
+            "command": re.compile(
+                r"^[a-zA-Z0-9_\s\-\.]+$"
+            ),  # Ajout du point pour les commandes
+            "api_key": re.compile(r"^[a-zA-Z0-9]{32,64}$"),
+            "session_id": re.compile(r"^[a-zA-Z0-9_-]{24,48}$"),
         }
 
     def validate_input(self, input_type: str, value: str) -> tuple[bool, str]:
@@ -61,10 +65,58 @@ class SecurityEnhanced:
         if len(value) > 1000:  # Limite de sécurité
             return False, "Valeur trop longue"
 
-        # Vérifier les caractères dangereux
-        dangerous_chars = ["<", ">", '"', "'", "&", ";", "(", ")", "|", "`", "$"]
+        # Vérifier les caractères dangereux (liste étendue)
+        dangerous_chars = [
+            "<",
+            ">",
+            '"',
+            "'",
+            "&",
+            ";",
+            "(",
+            ")",
+            "|",
+            "`",
+            "$",
+            "{",
+            "}",
+            "[",
+            "]",
+            "\\",
+            "/",
+            "*",
+            "?",
+            "!",
+            "@",
+            "#",
+            "%",
+            "^",
+            "+",
+            "=",
+            "~",
+            "`",
+        ]
         if any(char in value for char in dangerous_chars):
             return False, "Caractères non autorisés détectés"
+
+        # Vérifier les patterns d'injection
+        injection_patterns = [
+            "script",
+            "javascript",
+            "vbscript",
+            "onload",
+            "onerror",
+            "onclick",
+            "eval",
+            "function",
+            "alert",
+            "confirm",
+            "prompt",
+        ]
+        value_lower = value.lower()
+        for pattern in injection_patterns:
+            if pattern in value_lower:
+                return False, f"Pattern suspect détecté: {pattern}"
 
         # Validation spécifique par type
         if input_type in self.validation_patterns:

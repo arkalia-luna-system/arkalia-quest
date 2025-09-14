@@ -8,7 +8,7 @@ import os
 import sys
 from datetime import datetime
 from enum import Enum
-from typing import Any
+from typing import Any, Optional
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 try:
@@ -598,7 +598,7 @@ def create_md5_hash(text):
         timestamp = datetime.now().timestamp()
         return f"{user_id}_{game_id}_{int(timestamp)}"
 
-    def _get_game_by_id(self, game_id: str) -> dict[str, Any] | None:
+    def _get_game_by_id(self, game_id: str) -> Optional[dict[str, Any]]:
         """Récupère un jeu par son ID"""
         for _game_type, games in self.games_data.items():
             for game in games:

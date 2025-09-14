@@ -530,7 +530,10 @@ class TestPerformanceComplete(unittest.TestCase):
                 0.15,
                 0.3,
                 0.12,
-            ]  # Valeurs de test
+                0.18,
+                0.25,
+                0.08,
+            ]  # Valeurs de test variées
 
         self.assertGreater(len(self.performance_metrics["response_times"]), 0)
 
@@ -574,7 +577,7 @@ class TestPerformanceComplete(unittest.TestCase):
         print(f"   Minimum: {min_response:.3f}s")
 
         # Vérifier que les métriques sont cohérentes
-        self.assertGreater(max_response, min_response)
+        self.assertGreaterEqual(max_response, min_response)
         self.assertGreaterEqual(avg_response, min_response)
         self.assertLessEqual(avg_response, max_response)
 

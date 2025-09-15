@@ -204,7 +204,7 @@ jobs:
 
     - name: 🧪 Test Docker container
       run: |
-        ./.github/scripts/test-docker.sh
+        bash ./.github/scripts/test-docker.sh
 
   deploy_docs:
     name: 📚 Deploy Documentation

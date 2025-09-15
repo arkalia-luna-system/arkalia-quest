@@ -369,8 +369,8 @@ class AdaptiveGuidanceSystem {
 
     // Niveau de guidance
     getGuidanceLevel() {
-        const interactions = this.interactionHistory.length;
-        const errors = this.interactionHistory.filter(i => !i.success).length;
+        const interactions = (this.interactionHistory && Array.isArray(this.interactionHistory)) ? this.interactionHistory.length : 0;
+        const errors = (this.interactionHistory && Array.isArray(this.interactionHistory)) ? this.interactionHistory.filter(i => !i.success).length : 0;
 
         if (interactions < 5 || errors > interactions * 0.5) {
             return 'high';

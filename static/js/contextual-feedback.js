@@ -438,7 +438,7 @@ class ContextualFeedbackSystem {
     }
 
     createMatrixRain() {
-        // Implémentation de l'effet Matrix Rain
+        // Implémentation de l'effet Matrix Rain - Version douce
         const canvas = document.createElement('canvas');
         canvas.style.position = 'fixed';
         canvas.style.top = '0';
@@ -447,12 +447,51 @@ class ContextualFeedbackSystem {
         canvas.style.height = '100%';
         canvas.style.pointerEvents = 'none';
         canvas.style.zIndex = '9999';
+        canvas.style.opacity = '0.3'; // Opacité réduite
         document.body.appendChild(canvas);
 
-        // Animation Matrix Rain
+        // Configuration douce pour les yeux
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars = '01';
+        const charArray = chars.split('');
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+
+        for (let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff00';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = charArray[Math.floor(Math.random() * charArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        const interval = setInterval(draw, 100); // Plus lent
+
+        // Arrêter après 5 secondes au lieu de 10
         setTimeout(() => {
-            document.body.removeChild(canvas);
-        }, 10000);
+            clearInterval(interval);
+            if (canvas.parentNode) {
+                document.body.removeChild(canvas);
+            }
+        }, 5000);
     }
 
     animateLuna() {

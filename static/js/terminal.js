@@ -846,6 +846,34 @@ function checkEasterEggs(command) {
         return `🔢 VERSION VIRTUELLE\n\n🚀 Arkalia Quest v3.3.0\n\n🌙 LUNA v2.1.0\n\n💻 Terminal v3.0.0\n\n🎮 Mini-jeux v1.5.0\n\n✨ *Toujours en évolution*`;
     }
 
+    // Easter eggs de thèmes
+    if (cmd === 'themes' || cmd === 'thèmes') {
+        return `🎨 THÈMES DISPONIBLES\n\n🌌 Matrix - Vert classique\n🌆 Cyberpunk - Rose/cyan\n💚 Neon - Vert/rouge\n🌙 Dark - Sombre moderne\n🎮 Retro - Années 80\n🌊 Ocean - Bleu océan\n🌍 Earth/Terra - Kaki/lilas\n🌈 Dopamine Burst - Rose/cyan énergisant\n⚡ Neon Electric - Violet/orange\n🐸 Frog Green - Vert moderne + rose/jaune\n\n💡 Tape 'theme [nom]' pour changer !`;
+    }
+
+    // Easter eggs de changement de thème
+    if (cmd.startsWith('theme ') || cmd.startsWith('thème ')) {
+        const themeName = cmd.split(' ')[1];
+        const availableThemes = ['matrix', 'cyberpunk', 'neon', 'dark', 'retro', 'ocean', 'earth', 'dopamine', 'neon-electric', 'frog'];
+
+        if (availableThemes.includes(themeName)) {
+            // Changer le thème
+            if (window.themeManager) {
+                window.themeManager.setTheme(themeName);
+                return `🎨 THÈME CHANGÉ !\n\n✨ Thème '${themeName}' activé !\n\n🎯 Recharge la page pour voir le changement complet !`;
+            } else {
+                return `⚠️ GESTIONNAIRE DE THÈMES NON DISPONIBLE\n\n🔄 Recharge la page et réessaie !`;
+            }
+        } else {
+            return `❌ THÈME INCONNU\n\n💡 Thèmes disponibles: ${availableThemes.join(', ')}\n\n🎨 Tape 'themes' pour voir la liste complète !`;
+        }
+    }
+
+    // Easter eggs de feedback thèmes
+    if (cmd === 'feedback_themes' || cmd === 'avis_thèmes') {
+        return `📝 FEEDBACK THÈMES\n\n🎨 Nous testons de nouveaux thèmes !\n\n✨ Dis-nous ce que tu penses :\n• Quel thème préfères-tu ?\n• Les couleurs sont-elles confortables ?\n• As-tu des suggestions ?\n\n💬 Envoie ton avis via 'luna_contact' !\n\n🌈 Merci pour ton aide !`;
+    }
+
     // Easter eggs de help étendu
     if (cmd === 'help_extended' || cmd === 'aide_etendue') {
         return `📚 AIDE ÉTENDUE - EASTER EGGS\n\n🎮 Jeux: play_game, simple_hack, sequence_game, typing_challenge\n\n🌙 LUNA: luna dance, luna love, luna secret, luna power\n\n🔮 Matrix: matrix, red pill, blue pill\n\n🎨 Thèmes: matrix_mode, cyberpunk_mode\n\n🐛 Debug: debug_mode, stats, version\n\n🎵 Fun: music, poetry, riddle, quote, joke\n\n🧮 Utils: calc [expression], color [couleur], time\n\n*Explore et découvre !*`;

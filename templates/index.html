@@ -27,10 +27,17 @@
     </noscript>
 
     <!-- Nouveaux CSS V3 - Chargement optimisé -->
-    <link rel="preload" href="{{ url_for('static', filename='css/themes.css') }}?v=3.2.0" as="style"
+    <link rel="preload" href="{{ url_for('static', filename='css/themes.css') }}?v=3.3.0" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/themes.css') }}?v=3.2.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/themes.css') }}?v=3.3.0">
+    </noscript>
+
+    <!-- Système de couleurs modernes -->
+    <link rel="preload" href="{{ url_for('static', filename='css/color-system.css') }}?v=3.3.0" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/color-system.css') }}?v=3.3.0">
     </noscript>
 
     <!-- CSS critiques chargés immédiatement -->

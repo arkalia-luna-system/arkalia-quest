@@ -42,6 +42,30 @@ class ThemeManager {
                 description: 'Thème océan bleu',
                 icon: '🌊',
                 class: 'ocean-theme'
+            },
+            'earth': {
+                name: 'Earth/Terra',
+                description: 'Thème naturel kaki/lilas',
+                icon: '🌍',
+                class: 'earth-theme'
+            },
+            'dopamine': {
+                name: 'Dopamine Burst',
+                description: 'Thème énergisant rose/cyan',
+                icon: '🌈',
+                class: 'dopamine-theme'
+            },
+            'neon-electric': {
+                name: 'Neon Electric',
+                description: 'Thème violet/orange électrique',
+                icon: '⚡',
+                class: 'neon-theme'
+            },
+            'frog': {
+                name: 'Frog Green',
+                description: 'Thème vert moderne + rose/jaune',
+                icon: '🐸',
+                class: 'frog-theme'
             }
         };
 

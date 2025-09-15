@@ -72,6 +72,11 @@ LUNA, une IA émotionnelle, s'est éveillée dans ton terminal.
 • matrix_mode → Thème Matrix
 • cyberpunk_mode → Thème Cyberpunk
 
+🎨 THÈMES MODERNES :
+• themes → Liste tous les thèmes
+• theme [nom] → Changer de thème
+• feedback_themes → Donner ton avis sur les thèmes
+
 🔍 DIAGNOSTIC :
 • check_objects → Vérifier les objets disponibles
 • debug_mode → Informations système

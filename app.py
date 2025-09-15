@@ -633,7 +633,13 @@ def check_rate_limit(ip_address):
         request_counts[ip_address] = (1, current_time)
         return True
 
-    count, timestamp = request_counts[ip_address]
+    # Vérifier que l'entrée existe et est valide
+    entry = request_counts.get(ip_address)
+    if not entry or len(entry) != 2:
+        request_counts[ip_address] = (1, current_time)
+        return True
+    
+    count, timestamp = entry
 
     if current_time - timestamp >= RATE_LIMIT_WINDOW:
         # Nouvelle fenêtre de temps

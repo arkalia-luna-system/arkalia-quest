@@ -38,6 +38,15 @@
     <!-- Typography Perfection CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/typography-perfection.css') }}?v=3.4.0">
 
+    <!-- Empty States Perfection CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/empty-states-perfection.css') }}?v=3.4.0">
+
+    <!-- Grid Perfection CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/grid-perfection.css') }}?v=3.4.0">
+
+    <!-- Theme Patterns CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme-patterns.css') }}?v=3.4.0">
+
     <!-- Nouveaux CSS V3 - Chargement optimisé -->
     <link rel="preload" href="{{ url_for('static', filename='css/themes.css') }}?v=3.3.0" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
@@ -744,6 +753,10 @@
     <script src="{{ url_for('static', filename='js/reward-animations.js') }}?v=3.3.0" defer></script>
     <script src="{{ url_for('static', filename='js/luna-enhanced.js') }}?v=3.3.0" defer></script>
 
+    <!-- Scripts de perfection avancés -->
+    <script src="{{ url_for('static', filename='js/smart-notifications-enhanced.js') }}?v=3.4.0"></script>
+    <script src="{{ url_for('static', filename='js/accessibility-feedback.js') }}?v=3.4.0"></script>
+
     <script>
         // Initialisation des nouvelles fonctionnalités
         document.addEventListener('DOMContentLoaded', function () {
@@ -809,6 +822,15 @@
 
             if (window.enhancedEmptyStates) {
                 console.log('🌟 Empty states améliorés initialisés');
+            }
+
+            // Initialiser les nouveaux systèmes de perfection
+            if (window.smartNotifications) {
+                console.log('🔔 Notifications intelligentes initialisées');
+            }
+
+            if (window.accessibilityFeedback) {
+                console.log('♿ Feedback d\'accessibilité initialisé');
             }
         });
     </script>

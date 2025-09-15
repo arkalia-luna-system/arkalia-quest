@@ -39,6 +39,7 @@ class DailyChallengesEngine:
 
     def __init__(self):
         self.challenges = {}
+        self.challenges_data = {}  # Alias pour compatibilité
         self.user_progress = {}
         self.streak_data = {}
         self.rewards = {}
@@ -46,8 +47,85 @@ class DailyChallengesEngine:
         # Initialiser les défis
         self._initialize_challenges()
         self._initialize_rewards()
+        
+        # Synchroniser challenges_data avec challenges
+        self.challenges_data = self.challenges
 
         logger.info("✅ Moteur de défis quotidiens initialisé")
+
+    def generate_challenge(self, challenge_type: str, frequency: str, difficulty: str) -> Dict[str, Any]:
+        """Génère un défi aléatoire"""
+        try:
+            # Convertir le type de défi
+            type_mapping = {
+                "hack": ChallengeType.HACKING,
+                "program": ChallengeType.PROGRAMMING,
+                "logic": ChallengeType.LOGIC,
+                "cybersecurity": ChallengeType.CYBERSECURITY,
+                "explore": ChallengeType.EXPLORATION,
+                "social": ChallengeType.SOCIAL,
+                "creative": ChallengeType.CREATIVE,
+            }
+            
+            challenge_type_enum = type_mapping.get(challenge_type.lower(), ChallengeType.HACKING)
+            
+            # Convertir la difficulté
+            difficulty_mapping = {
+                "facile": "easy",
+                "moyen": "medium", 
+                "difficile": "hard",
+                "expert": "expert"
+            }
+            difficulty_key = difficulty_mapping.get(difficulty.lower(), "easy")
+            
+            # Récupérer les défis disponibles
+            available_challenges = self.challenges.get(challenge_type_enum, {}).get(difficulty_key, [])
+            
+            if not available_challenges:
+                # Fallback vers easy si pas de défis pour cette difficulté
+                available_challenges = self.challenges.get(challenge_type_enum, {}).get("easy", [])
+            
+            if not available_challenges:
+                # Défi par défaut
+                return {
+                    "id": f"{challenge_type}_default_1",
+                    "title": f"🎯 Défi {challenge_type.title()}",
+                    "description": f"Un défi de {challenge_type} pour toi !",
+                    "objective": "Réussir ce défi",
+                    "hints": ["Pense différemment", "Utilise ta créativité"],
+                    "reward_points": 50,
+                    "reward_badge": "Défieur",
+                    "time_limit": 300,
+                    "attempts_limit": 3,
+                    "difficulty": difficulty,
+                    "type": challenge_type,
+                    "answer": "solution_par_defaut"
+                }
+            
+            # Sélectionner un défi aléatoire
+            challenge = random.choice(available_challenges).copy()
+            challenge["difficulty"] = difficulty
+            challenge["type"] = challenge_type
+            challenge["answer"] = f"solution_{challenge['id']}"
+            
+            return challenge
+            
+        except Exception as e:
+            logger.error(f"Erreur génération défi: {e}")
+            return {
+                "id": "error_challenge",
+                "title": "❌ Erreur",
+                "description": "Impossible de générer un défi",
+                "objective": "Réessayer plus tard",
+                "hints": [],
+                "reward_points": 0,
+                "reward_badge": "Aucun",
+                "time_limit": 0,
+                "attempts_limit": 0,
+                "difficulty": "easy",
+                "type": "error",
+                "answer": "error"
+            }
 
     def _initialize_challenges(self):
         """Initialise la base de données des défis"""
@@ -285,6 +363,7 @@ class DailyChallengesEngine:
 
         return {
             "date": date,
+            "user_id": user_id,
             "challenges": user_data["challenges"],
             "completed": user_data["completed"],
             "streak": self._get_user_streak(user_id),
@@ -321,6 +400,7 @@ class DailyChallengesEngine:
                         challenge["type"] = challenge_type.value
                         challenge["difficulty"] = difficulty
                         challenge["daily_id"] = f"{date}_{challenge['id']}"
+                        challenge["answer"] = f"solution_{challenge['id']}"
                         challenges.append(challenge)
 
         # S'assurer qu'il y a au moins 3 défis
@@ -337,6 +417,7 @@ class DailyChallengesEngine:
                     challenge["type"] = challenge_type.value
                     challenge["difficulty"] = difficulty
                     challenge["daily_id"] = f"{date}_{challenge['id']}"
+                    challenge["answer"] = f"solution_{challenge['id']}"
                     challenges.append(challenge)
 
         random.seed()  # Reset seed
@@ -350,28 +431,28 @@ class DailyChallengesEngine:
             date = datetime.now().strftime("%Y-%m-%d")
 
         if date not in self.user_progress or user_id not in self.user_progress[date]:
-            return {"success": False, "error": "Défis quotidiens non trouvés"}
+            return {"success": False, "error": "Défis quotidiens non trouvés", "points_earned": 0}
 
         user_data = self.user_progress[date][user_id]
 
-        # Trouver le défi
+        # Trouver le défi (chercher par id ou daily_id)
         challenge = None
         for c in user_data["challenges"]:
-            if c["daily_id"] == challenge_id:
+            if c["id"] == challenge_id or c["daily_id"] == challenge_id:
                 challenge = c
                 break
 
         if not challenge:
-            return {"success": False, "error": "Défi non trouvé"}
+            return {"success": False, "error": "Défi non trouvé", "points_earned": 0}
 
         # Vérifier les tentatives
         attempts = user_data["attempts"].get(challenge_id, 0)
         if attempts >= challenge["attempts_limit"]:
-            return {"success": False, "error": "Limite de tentatives atteinte"}
+            return {"success": False, "error": "Limite de tentatives atteinte", "points_earned": 0}
 
         # Vérifier le temps
         if self._is_time_expired(user_data["start_time"], challenge["time_limit"]):
-            return {"success": False, "error": "Temps écoulé"}
+            return {"success": False, "error": "Temps écoulé", "points_earned": 0}
 
         # Incrémenter les tentatives
         user_data["attempts"][challenge_id] = attempts + 1
@@ -393,15 +474,17 @@ class DailyChallengesEngine:
             return {
                 "success": True,
                 "correct": True,
-                "rewards": rewards,
-                "message": f"🎉 Excellent ! Tu as résolu le défi ! +{rewards['points']} points !",
+                "points_earned": rewards.get("points", 0),
+                "message": f"🎉 Excellent ! Tu as résolu le défi ! +{rewards.get('points', 0)} points !",
                 "streak": self._get_user_streak(user_id),
+                "rewards": rewards,
             }
         else:
             remaining_attempts = challenge["attempts_limit"] - (attempts + 1)
             return {
                 "success": True,
                 "correct": False,
+                "points_earned": 0,
                 "message": f"❌ Incorrect. Il te reste {remaining_attempts} tentative(s).",
                 "hint": random.choice(challenge.get("hints", ["Essaie encore !"])),
                 "remaining_attempts": remaining_attempts,
@@ -562,13 +645,16 @@ class DailyChallengesEngine:
                 days_active += 1
 
         return {
+            "user_id": user_id,
             "week_start": week_start.strftime("%Y-%m-%d"),
+            "week_end": (week_start + timedelta(days=6)).strftime("%Y-%m-%d"),
             "total_points": total_points,
-            "total_completed": total_completed,
+            "completed_challenges": total_completed,
             "total_challenges": total_challenges,
             "completion_rate": (
                 total_completed / total_challenges if total_challenges > 0 else 0
             ),
+            "streak_days": self._get_user_streak(user_id),
             "days_active": days_active,
             "average_daily_points": total_points / 7 if days_active > 0 else 0,
         }

@@ -36,6 +36,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/reward-animations.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/loading-animations.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/progression-animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/adaptive-guidance.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/progression-feedback.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/competitive-system.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/creative-system.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/casual-system.css') }}">
 
     <style>
         /* Styles spécifiques au profil immersif */
@@ -899,6 +904,45 @@
                     }
                 });
             });
+        });
+    </script>
+
+    <!-- Scripts des systèmes adaptatifs -->
+    <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/progression-feedback.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/competitive-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/creative-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/casual-system.js') }}"></script>
+
+    <script>
+        // Initialisation des systèmes adaptatifs
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('👤 Systèmes adaptatifs initialisés dans le profil');
+
+            // Initialiser le système de guidance adaptative
+            if (window.adaptiveGuidance) {
+                console.log('✅ Guidance adaptative active');
+            }
+
+            // Initialiser le système de feedback de progression
+            if (window.progressionFeedback) {
+                console.log('✅ Feedback de progression actif');
+            }
+
+            // Initialiser le système compétitif
+            if (window.competitiveSystem) {
+                console.log('✅ Système compétitif actif');
+            }
+
+            // Initialiser le système créatif
+            if (window.creativeSystem) {
+                console.log('✅ Système créatif actif');
+            }
+
+            // Initialiser le système casual
+            if (window.casualSystem) {
+                console.log('✅ Système casual actif');
+            }
         });
     </script>
 </body>

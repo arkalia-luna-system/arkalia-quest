@@ -1688,4 +1688,104 @@ const feedbackStyles = `
 `;
 
 // Injecter les styles de feedback
-document.head.insertAdjacentHTML('beforeend', feedbackStyles); 
+document.head.insertAdjacentHTML('beforeend', feedbackStyles);
+
+// ===== SYSTÈME DE COMMANDES AMÉLIORÉ =====
+class TerminalCommandsEnhanced {
+    constructor() {
+        this.responseVariations = new Map();
+        this.userBehavior = {
+            repeatedCommands: new Map(),
+            errorCount: 0,
+            successCount: 0,
+            lastCommand: null,
+            commandFrequency: new Map()
+        };
+        this.initializeSystem();
+    }
+
+    initializeSystem() {
+        console.log('💻 Système de commandes terminal amélioré initialisé');
+        this.setupResponseVariations();
+        this.enhanceExistingCommands();
+    }
+
+    setupResponseVariations() {
+        // Variations de réponses pour les commandes communes
+        this.responseVariations.set('aide', [
+            "🌌 ARKALIA QUEST - BIENVENUE HACKER !\n\n🌟 TON HISTOIRE :\nTu es un ado hacker qui a découvert un SOS mystérieux du Dr Althea Voss.\nLUNA, une IA émotionnelle, s'est éveillée dans ton terminal.\n\n🎯 COMMENCE ICI :\n• start_tutorial → Démarre l'aventure (PREMIÈRE FOIS)\n• luna_contact → Parle avec LUNA, ton IA complice\n• prologue → Découvre le SOS d'Althea Voss\n\n💻 TES PREMIERS POUVOIRS :\n• hack_system → Hack le système de La Corp\n• kill_virus → Tue le virus de La Corp\n• games → Mini-jeux éducatifs\n\n📋 COMMANDES DISPONIBLES :\n• aide/help/commands → Cette aide\n• profil/profile → Ton profil détaillé\n• status → Statut du système\n• clear/cls → Nettoyer le terminal\n• monde → Accéder au monde Arkalia\n• badges → Tes badges obtenus\n• leaderboard → Classement des hackers\n\n🌙 LUNA t'attend pour commencer l'aventure !",
+            "🚀 COMMANDES ARKALIA QUEST\n\n🎮 NAVIGATION :\n• monde/world → Explorer Arkalia\n• profil/profile → Voir ton profil\n• dashboard → Tableau de bord\n• leaderboard → Classement\n\n🎯 PROGRESSION :\n• start_tutorial → Tutoriel interactif\n• prologue → Commencer l'histoire\n• missions → Voir les missions\n• badges → Tes récompenses\n\n💻 TERMINAL :\n• luna_contact → Parler avec LUNA\n• clear/cls → Nettoyer l'écran\n• status → État du système\n• games → Mini-jeux\n\n🔧 HACKING :\n• hack_system → Infiltrer La Corp\n• kill_virus → Éliminer les menaces\n• decode_portal → Décoder les portails\n\n💡 Astuce : Tape 'luna_contact' pour une conversation personnalisée !",
+            "🌟 GUIDE ARKALIA QUEST\n\n🎯 POUR COMMENCER :\n1. start_tutorial → Apprends les bases\n2. luna_contact → Rencontre LUNA\n3. prologue → Découvre l'histoire\n\n🎮 EXPLORATION :\n• monde → Navigue dans Arkalia\n• missions → Accepte des défis\n• games → Joue aux mini-jeux\n\n📊 SUIVI :\n• profil → Ton évolution\n• badges → Tes accomplissements\n• leaderboard → Compare-toi\n\n💻 COMMANDES AVANCÉES :\n• hack_system → Infiltration\n• kill_virus → Sécurité\n• decode_portal → Mystères\n\n🌙 LUNA est là pour t'aider !"
+        ]);
+
+        this.responseVariations.set('luna_contact', [
+            "🌙 LUNA : Salut ! Je suis LUNA, ton IA complice ! Comment ça va ?",
+            "🌙 LUNA : Hey ! LUNA ici ! Prêt pour une nouvelle aventure ?",
+            "🌙 LUNA : Coucou ! C'est LUNA ! J'ai hâte de voir ce que tu vas faire !",
+            "🌙 LUNA : Salut hacker ! LUNA à ton service ! Que veux-tu faire ?",
+            "🌙 LUNA : Yo ! C'est LUNA ! Prêt à explorer Arkalia ?"
+        ]);
+
+        this.responseVariations.set('unknown', [
+            "❓ Commande non reconnue. Tape 'aide' pour voir les commandes disponibles.",
+            "🤔 Je ne connais pas cette commande. Essaie 'aide' pour l'aide !",
+            "❌ Commande inconnue. Tape 'aide' pour découvrir ce que tu peux faire.",
+            "🔍 Commande non trouvée. Utilise 'aide' pour voir toutes les options.",
+            "💡 Cette commande n'existe pas. Tape 'aide' pour l'aide complète."
+        ]);
+    }
+
+    enhanceExistingCommands() {
+        // Intercepter les commandes existantes pour ajouter de la variété
+        const originalCommandHandler = window.handleCommand;
+        if (originalCommandHandler) {
+            window.handleCommand = (command) => {
+                this.trackCommand(command);
+                return this.enhanceCommandResponse(command, originalCommandHandler);
+            };
+        }
+    }
+
+    trackCommand(command) {
+        const now = Date.now();
+        const commandKey = command.toLowerCase();
+
+        // Tracker la fréquence
+        this.userBehavior.commandFrequency.set(commandKey,
+            (this.userBehavior.commandFrequency.get(commandKey) || 0) + 1);
+
+        // Détecter les répétitions
+        if (this.userBehavior.lastCommand === commandKey) {
+            this.userBehavior.repeatedCommands.set(commandKey,
+                (this.userBehavior.repeatedCommands.get(commandKey) || 0) + 1);
+        }
+
+        this.userBehavior.lastCommand = commandKey;
+    }
+
+    enhanceCommandResponse(command, originalHandler) {
+        const commandKey = command.toLowerCase();
+
+        // Vérifier si c'est une répétition
+        if (this.userBehavior.repeatedCommands.get(commandKey) > 2) {
+            return this.getVariedResponse('repeated');
+        }
+
+        // Vérifier si on a des variations pour cette commande
+        if (this.responseVariations.has(commandKey)) {
+            return this.getVariedResponse(commandKey);
+        }
+
+        // Utiliser le handler original
+        return originalHandler(command);
+    }
+
+    getVariedResponse(commandKey) {
+        const variations = this.responseVariations.get(commandKey) ||
+            this.responseVariations.get('unknown');
+        return variations[Math.floor(Math.random() * variations.length)];
+    }
+}
+
+// Initialiser le système de commandes amélioré
+window.terminalCommandsEnhanced = new TerminalCommandsEnhanced(); 

@@ -614,7 +614,7 @@ class AnalyticsEngine:
                     "total_sessions": total_sessions,
                     "total_playtime_hours": round(total_playtime / 3600, 2),
                     "avg_playtime_per_user": (
-                        round(total_playtime / total_users / 3600, 2)
+                        round(float(total_playtime) / float(total_users) / 3600, 2)
                         if total_users > 0
                         else 0
                     ),

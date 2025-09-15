@@ -7,7 +7,7 @@ import logging
 import random
 from collections import defaultdict, deque
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 # import numpy as np  # Remplacé par une implémentation native
 
@@ -24,7 +24,7 @@ class LongTermMemory:
         self.importance_weights = {}
 
     def store_interaction(
-        self, user_input: str, response: str, outcome: Dict[str, Any]
+        self, user_input: str, response: str, outcome: dict[str, Any]
     ):
         """Stocke une interaction avec pondération d'importance"""
         memory = {
@@ -41,7 +41,7 @@ class LongTermMemory:
         self._index_memory(memory)
         logger.info(f"💾 Mémoire stockée: {memory['importance']:.2f}")
 
-    def _calculate_importance(self, user_input: str, outcome: Dict[str, Any]) -> float:
+    def _calculate_importance(self, user_input: str, outcome: dict[str, Any]) -> float:
         """Calcule l'importance d'une interaction"""
         importance = 0.5  # Base
 
@@ -64,7 +64,7 @@ class LongTermMemory:
 
         return min(importance, 1.0)
 
-    def _index_memory(self, memory: Dict[str, Any]):
+    def _index_memory(self, memory: dict[str, Any]):
         """Indexe la mémoire pour recherche rapide"""
         keywords = memory["user_input"].lower().split()
         for keyword in keywords:
@@ -72,7 +72,7 @@ class LongTermMemory:
                 self.memory_index[keyword] = []
             self.memory_index[keyword].append(len(self.memories) - 1)
 
-    def search_memories(self, query: str, limit: int = 5) -> List[Dict[str, Any]]:
+    def search_memories(self, query: str, limit: int = 5) -> list[dict[str, Any]]:
         """Recherche dans les mémoires"""
         query_words = query.lower().split()
         memory_scores = defaultdict(float)
@@ -113,14 +113,14 @@ class PersonalityEvolution:
         self.learning_rate = 0.01
         self.adaptation_threshold = 0.1
 
-    def update_traits(self, outcome: Dict[str, Any]):
+    def update_traits(self, outcome: dict[str, Any]):
         """Met à jour les traits de personnalité basés sur l'interaction"""
         if not outcome.get("success", False):
             return
 
         # Analyser l'émotion de l'utilisateur
         user_emotion = outcome.get("user_emotion", "neutral")
-        luna_emotion = outcome.get("emotion", "neutral")
+        # luna_emotion = outcome.get("emotion", "neutral")  # Variable non utilisée
 
         # Adapter les traits selon les réactions
         if user_emotion == "excited":
@@ -148,7 +148,7 @@ class PersonalityEvolution:
 
         logger.info(f"🧬 Personnalité évoluée: {self.base_traits}")
 
-    def get_dominant_traits(self) -> List[str]:
+    def get_dominant_traits(self) -> list[str]:
         """Retourne les traits dominants"""
         sorted_traits = sorted(
             self.base_traits.items(), key=lambda x: x[1], reverse=True
@@ -169,7 +169,7 @@ class PredictiveEngine:
         }
         self.prediction_accuracy = 0.0
 
-    def update_patterns(self, user_input: str, context: Dict[str, Any]):
+    def update_patterns(self, user_input: str, context: dict[str, Any]):
         """Met à jour les patterns d'utilisation"""
         current_time = datetime.now().hour
         topics = self._extract_topics(user_input)
@@ -199,7 +199,7 @@ class PredictiveEngine:
             }
         )
 
-    def _extract_topics(self, text: str) -> List[str]:
+    def _extract_topics(self, text: str) -> list[str]:
         """Extrait les sujets principaux du texte"""
         topics = []
         text_lower = text.lower()
@@ -218,7 +218,7 @@ class PredictiveEngine:
 
         return topics
 
-    def _analyze_interaction_style(self, user_input: str, context: Dict[str, Any]):
+    def _analyze_interaction_style(self, user_input: str, context: dict[str, Any]):
         """Analyse le style d'interaction de l'utilisateur"""
         word_count = len(user_input.split())
 
@@ -231,7 +231,7 @@ class PredictiveEngine:
 
         self.user_behavior["interaction_style"] = style
 
-    def predict_next_action(self, user_id: str) -> Dict[str, Any]:
+    def predict_next_action(self, user_id: str) -> dict[str, Any]:
         """Prédit la prochaine action de l'utilisateur"""
         current_time = datetime.now().hour
         user_data = self.user_behavior
@@ -372,9 +372,9 @@ class LunaAIV3:
     def generate_response(
         self,
         user_input: str,
-        user_profile: Dict[str, Any],
-        game_context: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
+        user_profile: dict[str, Any],
+        game_context: Optional[dict[str, Any]] = None,
+    ) -> dict[str, Any]:
         """Génère une réponse ultra-personnalisée"""
         try:
             # Analyser le contexte et l'émotion
@@ -426,9 +426,9 @@ class LunaAIV3:
     def _analyze_advanced_context(
         self,
         user_input: str,
-        user_profile: Dict[str, Any],
-        game_context: Optional[Dict[str, Any]],
-    ) -> Dict[str, Any]:
+        user_profile: dict[str, Any],
+        game_context: Optional[dict[str, Any]],
+    ) -> dict[str, Any]:
         """Analyse contextuelle avancée"""
         context = {
             "user_personality": user_profile.get("personnalite", {}).get(
@@ -507,7 +507,7 @@ class LunaAIV3:
         else:
             return "statement"
 
-    def _determine_emotion(self, user_input: str, context: Dict[str, Any]) -> str:
+    def _determine_emotion(self, user_input: str, context: dict[str, Any]) -> str:
         """Détermine l'émotion de LUNA basée sur le contexte"""
         # Analyser le ton de l'utilisateur
         user_tone = context.get("emotional_tone", "neutral")
@@ -537,9 +537,9 @@ class LunaAIV3:
     def _generate_personalized_response(
         self,
         user_input: str,
-        context: Dict[str, Any],
+        context: dict[str, Any],
         emotion: str,
-        memories: List[Dict[str, Any]],
+        memories: list[dict[str, Any]],
     ) -> str:
         """Génère une réponse personnalisée"""
         # Base de la réponse
@@ -572,7 +572,7 @@ class LunaAIV3:
         return base_response
 
     def _learn_from_interaction(
-        self, user_input: str, response: str, context: Dict[str, Any], emotion: str
+        self, user_input: str, response: str, context: dict[str, Any], emotion: str
     ):
         """Apprend de l'interaction"""
         # Mettre à jour les statistiques
@@ -608,7 +608,7 @@ class LunaAIV3:
             f"🧠 LUNA V3 a appris: adaptation={self.learning_data['adaptation_level']:.2f}"
         )
 
-    def get_learning_stats(self) -> Dict[str, Any]:
+    def get_learning_stats(self) -> dict[str, Any]:
         """Retourne les statistiques d'apprentissage"""
         return {
             "total_interactions": self.learning_data["total_interactions"],

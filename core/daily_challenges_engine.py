@@ -7,7 +7,7 @@ import logging
 import random
 from datetime import datetime, timedelta
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 # Configuration du logger
 logger = logging.getLogger("daily_challenges")
@@ -47,13 +47,15 @@ class DailyChallengesEngine:
         # Initialiser les défis
         self._initialize_challenges()
         self._initialize_rewards()
-        
+
         # Synchroniser challenges_data avec challenges
         self.challenges_data = self.challenges
 
         logger.info("✅ Moteur de défis quotidiens initialisé")
 
-    def generate_challenge(self, challenge_type: str, frequency: str, difficulty: str) -> Dict[str, Any]:
+    def generate_challenge(
+        self, challenge_type: str, frequency: str, difficulty: str
+    ) -> dict[str, Any]:
         """Génère un défi aléatoire"""
         try:
             # Convertir le type de défi
@@ -66,25 +68,31 @@ class DailyChallengesEngine:
                 "social": ChallengeType.SOCIAL,
                 "creative": ChallengeType.CREATIVE,
             }
-            
-            challenge_type_enum = type_mapping.get(challenge_type.lower(), ChallengeType.HACKING)
-            
+
+            challenge_type_enum = type_mapping.get(
+                challenge_type.lower(), ChallengeType.HACKING
+            )
+
             # Convertir la difficulté
             difficulty_mapping = {
                 "facile": "easy",
-                "moyen": "medium", 
+                "moyen": "medium",
                 "difficile": "hard",
-                "expert": "expert"
+                "expert": "expert",
             }
             difficulty_key = difficulty_mapping.get(difficulty.lower(), "easy")
-            
+
             # Récupérer les défis disponibles
-            available_challenges = self.challenges.get(challenge_type_enum, {}).get(difficulty_key, [])
-            
+            available_challenges = self.challenges.get(challenge_type_enum, {}).get(
+                difficulty_key, []
+            )
+
             if not available_challenges:
                 # Fallback vers easy si pas de défis pour cette difficulté
-                available_challenges = self.challenges.get(challenge_type_enum, {}).get("easy", [])
-            
+                available_challenges = self.challenges.get(challenge_type_enum, {}).get(
+                    "easy", []
+                )
+
             if not available_challenges:
                 # Défi par défaut
                 return {
@@ -99,17 +107,17 @@ class DailyChallengesEngine:
                     "attempts_limit": 3,
                     "difficulty": difficulty,
                     "type": challenge_type,
-                    "answer": "solution_par_defaut"
+                    "answer": "solution_par_defaut",
                 }
-            
+
             # Sélectionner un défi aléatoire
             challenge = random.choice(available_challenges).copy()
             challenge["difficulty"] = difficulty
             challenge["type"] = challenge_type
             challenge["answer"] = f"solution_{challenge['id']}"
-            
+
             return challenge
-            
+
         except Exception as e:
             logger.error(f"Erreur génération défi: {e}")
             return {
@@ -124,7 +132,7 @@ class DailyChallengesEngine:
                 "attempts_limit": 0,
                 "difficulty": "easy",
                 "type": "error",
-                "answer": "error"
+                "answer": "error",
             }
 
     def _initialize_challenges(self):
@@ -342,7 +350,7 @@ class DailyChallengesEngine:
 
     def get_daily_challenges(
         self, user_id: str, date: Optional[str] = None
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Récupère les défis quotidiens pour un utilisateur"""
         if date is None:
             date = datetime.now().strftime("%Y-%m-%d")
@@ -373,7 +381,7 @@ class DailyChallengesEngine:
 
     def _generate_daily_challenges(
         self, user_id: str, date: str
-    ) -> List[Dict[str, Any]]:
+    ) -> list[dict[str, Any]]:
         """Génère les défis quotidiens personnalisés"""
         # Utiliser la date comme seed pour la reproductibilité
         random.seed(hash(date + user_id))
@@ -425,13 +433,17 @@ class DailyChallengesEngine:
 
     def attempt_challenge(
         self, user_id: str, challenge_id: str, answer: str, date: Optional[str] = None
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Tente de résoudre un défi quotidien"""
         if date is None:
             date = datetime.now().strftime("%Y-%m-%d")
 
         if date not in self.user_progress or user_id not in self.user_progress[date]:
-            return {"success": False, "error": "Défis quotidiens non trouvés", "points_earned": 0}
+            return {
+                "success": False,
+                "error": "Défis quotidiens non trouvés",
+                "points_earned": 0,
+            }
 
         user_data = self.user_progress[date][user_id]
 
@@ -448,7 +460,11 @@ class DailyChallengesEngine:
         # Vérifier les tentatives
         attempts = user_data["attempts"].get(challenge_id, 0)
         if attempts >= challenge["attempts_limit"]:
-            return {"success": False, "error": "Limite de tentatives atteinte", "points_earned": 0}
+            return {
+                "success": False,
+                "error": "Limite de tentatives atteinte",
+                "points_earned": 0,
+            }
 
         # Vérifier le temps
         if self._is_time_expired(user_data["start_time"], challenge["time_limit"]):
@@ -490,7 +506,7 @@ class DailyChallengesEngine:
                 "remaining_attempts": remaining_attempts,
             }
 
-    def _check_answer(self, challenge: Dict[str, Any], answer: str) -> bool:
+    def _check_answer(self, challenge: dict[str, Any], answer: str) -> bool:
         """Vérifie si la réponse est correcte (logique simplifiée)"""
         # Dans un vrai système, ceci serait plus sophistiqué
         objective = challenge.get("objective", "").lower()
@@ -514,8 +530,8 @@ class DailyChallengesEngine:
             return len(set(objective.split()) & set(answer_lower.split())) >= 2
 
     def _calculate_rewards(
-        self, challenge: Dict[str, Any], user_id: str, date: str
-    ) -> Dict[str, Any]:
+        self, challenge: dict[str, Any], user_id: str, date: str
+    ) -> dict[str, Any]:
         """Calcule les récompenses pour un défi complété"""
         base_points = challenge.get("reward_points", 50)
         badge = challenge.get("reward_badge", "Daily Warrior")
@@ -596,7 +612,7 @@ class DailyChallengesEngine:
         elapsed = (datetime.now() - start).total_seconds()
         return elapsed > time_limit
 
-    def get_leaderboard(self, date: Optional[str] = None) -> List[Dict[str, Any]]:
+    def get_leaderboard(self, date: Optional[str] = None) -> list[dict[str, Any]]:
         """Retourne le classement des défis quotidiens"""
         if date is None:
             date = datetime.now().strftime("%Y-%m-%d")
@@ -625,7 +641,7 @@ class DailyChallengesEngine:
         leaderboard.sort(key=lambda x: x["points"], reverse=True)
         return leaderboard
 
-    def get_weekly_stats(self, user_id: str) -> Dict[str, Any]:
+    def get_weekly_stats(self, user_id: str) -> dict[str, Any]:
         """Retourne les statistiques hebdomadaires d'un utilisateur"""
         today = datetime.now()
         week_start = today - timedelta(days=today.weekday())

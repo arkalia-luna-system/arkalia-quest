@@ -75,14 +75,17 @@ class TestLunaV3Integration(unittest.TestCase):
             self.test_user_profile,
             self.test_game_context,
         )
-        self.assertIn(response["emotion"], ["concerned", "supportive", "encouraging", "proud"])
+        self.assertIn(
+            response["emotion"], ["concerned", "supportive", "encouraging", "proud"]
+        )
 
     def test_memory_system(self):
         """Test du système de mémoire"""
         # Première interaction
-        response1 = self.luna.generate_response(
-            "Mon nom est Alice", self.test_user_profile, self.test_game_context
-        )
+        # Première interaction (commentée car variable non utilisée)
+        # response1 = self.luna.generate_response(
+        #     "Mon nom est Alice", self.test_user_profile, self.test_game_context
+        # )
 
         # Deuxième interaction qui devrait utiliser la mémoire
         response2 = self.luna.generate_response(
@@ -97,7 +100,7 @@ class TestLunaV3Integration(unittest.TestCase):
 
     def test_personality_evolution(self):
         """Test de l'évolution de la personnalité"""
-        initial_personality = self.luna.personality.base_traits
+        # initial_personality = self.luna.personality.base_traits  # Variable non utilisée
 
         # Simuler plusieurs interactions
         for i in range(10):

@@ -7,7 +7,6 @@ Tests complets du système de défis quotidiens V3
 import os
 import sys
 import unittest
-from datetime import date
 
 # Ajouter le répertoire parent au path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -142,11 +141,17 @@ class TestDailyChallengesIntegration(unittest.TestCase):
 
             # Vérifier que les points augmentent avec la difficulté
             if difficulty == "facile":
-                self.assertLessEqual(challenge["reward_points"], 100)  # Ajusté pour la réalité
+                self.assertLessEqual(
+                    challenge["reward_points"], 100
+                )  # Ajusté pour la réalité
             elif difficulty == "moyen":
-                self.assertLessEqual(challenge["reward_points"], 200)  # Ajusté pour la réalité
+                self.assertLessEqual(
+                    challenge["reward_points"], 200
+                )  # Ajusté pour la réalité
             elif difficulty == "difficile":
-                self.assertLessEqual(challenge["reward_points"], 500)  # Ajusté pour la réalité
+                self.assertLessEqual(
+                    challenge["reward_points"], 500
+                )  # Ajusté pour la réalité
             elif difficulty == "expert":
                 self.assertLessEqual(challenge["reward_points"], 500)
 
@@ -184,7 +189,9 @@ class TestDailyChallengesIntegration(unittest.TestCase):
         )
 
         # Vérifier que le progrès est mis à jour
-        updated_progress = self.engine.user_progress.get(self.test_date, {}).get(self.test_user_id, {})
+        updated_progress = self.engine.user_progress.get(self.test_date, {}).get(
+            self.test_user_id, {}
+        )
         self.assertIsInstance(updated_progress, dict)
         # Le progrès peut être dans différents formats
         self.assertTrue(len(updated_progress) > 0)
@@ -197,7 +204,7 @@ class TestDailyChallengesIntegration(unittest.TestCase):
         self.assertEqual(challenges["date"], "2025-12-25")
 
         # Test avec date d'aujourd'hui
-        today = date.today().strftime("%Y-%m-%d")
+        # today = date.today().strftime("%Y-%m-%d")  # Variable non utilisée
         challenges_today = self.engine.get_daily_challenges(self.test_user_id)
         self.assertIn("date", challenges_today)
 
@@ -221,7 +228,7 @@ class TestDailyChallengesIntegration(unittest.TestCase):
         start_time = time.time()
 
         # Générer 100 défis
-        for i in range(100):
+        for _i in range(100):
             self.engine.generate_challenge("hack", "daily", "moyen")
 
         end_time = time.time()

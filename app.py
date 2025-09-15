@@ -1224,9 +1224,7 @@ def get_gamification_summary():
             "recent_badges": profil.get("badges", [])[-3:],  # 3 derniers badges
             "recent_missions": profil.get("personnalite", {}).get(
                 "missions_completees", []
-            )[
-                -3:
-            ],  # 3 dernières missions
+            )[-3:],  # 3 dernières missions
             "top_players": summary.get("leaderboard_stats", {}).get("top_players", [])[
                 :5
             ],  # Top 5

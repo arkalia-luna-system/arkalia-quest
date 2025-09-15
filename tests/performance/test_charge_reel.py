@@ -199,18 +199,18 @@ class TestChargeReel:
         print(f"📈 Débit: {throughput:.2f} req/s")
         print(f"📊 Total des requêtes: {total_requests}")
         print(
-            f"✅ Requêtes réussies: {successful_requests} ({successful_requests/total_requests*100:.1f}%)"
+            f"✅ Requêtes réussies: {successful_requests} ({successful_requests / total_requests * 100:.1f}%)"
         )
         print(
-            f"❌ Requêtes échouées: {failed_requests} ({failed_requests/total_requests*100:.1f}%)"
+            f"❌ Requêtes échouées: {failed_requests} ({failed_requests / total_requests * 100:.1f}%)"
         )
 
         print("\n⏱️  TEMPS DE RÉPONSE:")
-        print(f"   Moyenne: {avg_response_time*1000:.1f}ms")
-        print(f"   Médiane: {median_response_time*1000:.1f}ms")
-        print(f"   Min: {min_response_time*1000:.1f}ms")
-        print(f"   Max: {max_response_time*1000:.1f}ms")
-        print(f"   95e percentile: {p95_response_time*1000:.1f}ms")
+        print(f"   Moyenne: {avg_response_time * 1000:.1f}ms")
+        print(f"   Médiane: {median_response_time * 1000:.1f}ms")
+        print(f"   Min: {min_response_time * 1000:.1f}ms")
+        print(f"   Max: {max_response_time * 1000:.1f}ms")
+        print(f"   95e percentile: {p95_response_time * 1000:.1f}ms")
 
         print("\n🌐 STATISTIQUES PAR ENDPOINT:")
         for endpoint, stats in endpoint_stats.items():

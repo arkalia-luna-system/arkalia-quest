@@ -4,7 +4,6 @@ Test visuel des améliorations du terminal Arkalia Quest
 Simule l'interface utilisateur pour montrer les changements
 """
 
-
 import requests
 
 

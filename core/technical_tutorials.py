@@ -611,9 +611,9 @@ class TechnicalTutorials:
             self.player_progress[player_id]["tutorials"][tutorial_id][
                 "quiz_completed"
             ] = True
-            self.player_progress[player_id]["tutorials"][tutorial_id][
-                "quiz_score"
-            ] = score
+            self.player_progress[player_id]["tutorials"][tutorial_id]["quiz_score"] = (
+                score
+            )
 
         return {
             "success": True,

@@ -320,12 +320,23 @@ la vérité sur NEXUS et la menace de PANDORA.
 • {portail_message}
 
 🏆 TES DERNIERS ACCOMPLISSEMENTS :
-{chr(10).join(['• ' + badge for badge in badges[-5:]]) if len(badges) > 5 else
-chr(10).join(['• ' + badge for badge in badges]) if badges else '🎯 Aucun accomplissement encore - Continue à jouer !'}
+{
+                chr(10).join(["• " + badge for badge in badges[-5:]])
+                if len(badges) > 5
+                else chr(10).join(["• " + badge for badge in badges])
+                if badges
+                else "🎯 Aucun accomplissement encore - Continue à jouer !"
+            }
 
 🌍 TON EXPLORATION :
-• Univers disponibles : {', '.join(univers)}
-• Portails accessibles : {', '.join(portails[:5]) + '...' if len(portails) > 5 else ', '.join(portails) if portails else '🚪 Aucun portail encore - Explore pour les débloquer !'}
+• Univers disponibles : {", ".join(univers)}
+• Portails accessibles : {
+                ", ".join(portails[:5]) + "..."
+                if len(portails) > 5
+                else ", ".join(portails)
+                if portails
+                else "🚪 Aucun portail encore - Explore pour les débloquer !"
+            }
 
 💡 PROCHAINES ÉTAPES :
 • Complète des missions pour gagner des points
@@ -455,16 +466,16 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
             "message": f"""🔍 ANALYSE DE PERSONNALITÉ TERMINÉE !
 
 🧠 PROFIL HACKER DÉTECTÉ :
-• Type : {hacker_type['type']}
-• Niveau : {hacker_type['level']}
-• Spécialité : {hacker_type['specialty']}
-• Style : {hacker_type['style']}
+• Type : {hacker_type["type"]}
+• Niveau : {hacker_type["level"]}
+• Spécialité : {hacker_type["specialty"]}
+• Style : {hacker_type["style"]}
 
 📊 CARACTÉRISTIQUES DÉTECTÉES :
-• Curiosité : {hacker_type['curiosity']}%
-• Persévérance : {hacker_type['perseverance']}%
-• Créativité : {hacker_type['creativity']}%
-• Logique : {hacker_type['logic']}%
+• Curiosité : {hacker_type["curiosity"]}%
+• Persévérance : {hacker_type["perseverance"]}%
+• Créativité : {hacker_type["creativity"]}%
+• Logique : {hacker_type["logic"]}%
 
 🎯 RECOMMANDATIONS :
 • Missions adaptées à ton profil
@@ -642,11 +653,11 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
 
 📊 CLASSEMENT DES HACKERS :
 
-🥇 1. {leaderboard_data[0]['name']} - {leaderboard_data[0]['score']} pts (Niveau {leaderboard_data[0]['level']})
-🥈 2. {leaderboard_data[1]['name']} - {leaderboard_data[1]['score']} pts (Niveau {leaderboard_data[1]['level']})
-🥉 3. {leaderboard_data[2]['name']} - {leaderboard_data[2]['score']} pts (Niveau {leaderboard_data[2]['level']})
-4. {leaderboard_data[3]['name']} - {leaderboard_data[3]['score']} pts (Niveau {leaderboard_data[3]['level']})
-5. {leaderboard_data[4]['name']} - {leaderboard_data[4]['score']} pts (Niveau {leaderboard_data[4]['level']})
+🥇 1. {leaderboard_data[0]["name"]} - {leaderboard_data[0]["score"]} pts (Niveau {leaderboard_data[0]["level"]})
+🥈 2. {leaderboard_data[1]["name"]} - {leaderboard_data[1]["score"]} pts (Niveau {leaderboard_data[1]["level"]})
+🥉 3. {leaderboard_data[2]["name"]} - {leaderboard_data[2]["score"]} pts (Niveau {leaderboard_data[2]["level"]})
+4. {leaderboard_data[3]["name"]} - {leaderboard_data[3]["score"]} pts (Niveau {leaderboard_data[3]["level"]})
+5. {leaderboard_data[4]["name"]} - {leaderboard_data[4]["score"]} pts (Niveau {leaderboard_data[4]["level"]})
 
 🎯 TON CLASSEMENT :
 • Position : #{player_position}

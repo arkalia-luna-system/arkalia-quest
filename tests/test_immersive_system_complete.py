@@ -509,9 +509,7 @@ class ImmersiveSystemTester:
                 else (
                     "BON"
                     if overall_success_rate >= 75
-                    else "MOYEN"
-                    if overall_success_rate >= 50
-                    else "MAUVAIS"
+                    else "MOYEN" if overall_success_rate >= 50 else "MAUVAIS"
                 )
             ),
         }

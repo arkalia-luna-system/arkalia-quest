@@ -76,9 +76,9 @@ def test_performance_optimizations():
     except ImportError as e:
         print(f"❌ Erreur d'import: {e}")
 
-    assert tests_passed == total_tests, (
-        f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
-    )
+    assert (
+        tests_passed == total_tests
+    ), f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
 
 
 def test_security_enhancements():
@@ -149,9 +149,9 @@ def test_security_enhancements():
     except Exception as e:
         print(f"❌ Erreur test tokens: {e}")
 
-    assert tests_passed == total_tests, (
-        f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
-    )
+    assert (
+        tests_passed == total_tests
+    ), f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
 
 
 def test_cache_system():
@@ -212,9 +212,9 @@ def test_cache_system():
     except Exception as e:
         print(f"❌ Erreur test stats cache: {e}")
 
-    assert tests_passed == total_tests, (
-        f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
-    )
+    assert (
+        tests_passed == total_tests
+    ), f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
 
 
 def test_performance_monitoring():
@@ -274,9 +274,9 @@ def test_performance_monitoring():
     except Exception as e:
         print(f"❌ Erreur test suggestions: {e}")
 
-    assert tests_passed == total_tests, (
-        f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
-    )
+    assert (
+        tests_passed == total_tests
+    ), f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
 
 
 def test_database_optimizations():
@@ -330,9 +330,9 @@ def test_database_optimizations():
     except Exception as e:
         print(f"❌ Erreur test stats DB: {e}")
 
-    assert tests_passed == total_tests, (
-        f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
-    )
+    assert (
+        tests_passed == total_tests
+    ), f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
 
 
 def test_application_integration():
@@ -395,9 +395,9 @@ def test_application_integration():
     else:
         print("❌ Certains fichiers statiques sont manquants")
 
-    assert tests_passed == total_tests, (
-        f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
-    )
+    assert (
+        tests_passed == total_tests
+    ), f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
 
 
 def main():

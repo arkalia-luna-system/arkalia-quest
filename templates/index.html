@@ -115,6 +115,14 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/audit-visual-fixes.css') }}?v=3.5.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/theme-selection-enhanced.css') }}?v=3.5.0">
 
+    <!-- CSS des systèmes de gameplay améliorés -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/zone-exploration-enhanced.css') }}?v=3.6.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/daily-missions-enhanced.css') }}?v=3.6.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/motivational-empty-states.css') }}?v=3.6.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/timer-challenges.css') }}?v=3.6.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/interactive-puzzles.css') }}?v=3.6.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gameplay-integration.css') }}?v=3.6.0">
+
     <style>
         /* Styles spécifiques au portail d'accueil */
         .portal-container {
@@ -840,11 +848,44 @@
                 console.log('🔔 Notifications intelligentes initialisées');
             }
 
+            // Initialiser les systèmes de gameplay améliorés
+            if (window.zoneExplorationEnhanced) {
+                console.log('🗺️ Zone Exploration Enhanced initialisé');
+            }
+
+            if (window.dailyMissions) {
+                console.log('🎯 Daily Missions Enhanced initialisé');
+            }
+
+            if (window.motivationalEmptyStates) {
+                console.log('🌟 Motivational Empty States initialisé');
+            }
+
+            if (window.timerChallenges) {
+                console.log('⏱️ Timer Challenges initialisé');
+            }
+
+            if (window.interactivePuzzles) {
+                console.log('🧩 Interactive Puzzles initialisé');
+            }
+
+            if (window.gameplayIntegration) {
+                console.log('🎮 Gameplay Integration initialisé');
+            }
+
             if (window.accessibilityFeedback) {
                 console.log('♿ Feedback d\'accessibilité initialisé');
             }
         });
     </script>
+
+    <!-- Scripts des systèmes de gameplay améliorés -->
+    <script src="{{ url_for('static', filename='js/zone-exploration-enhanced.js') }}?v=3.6.0"></script>
+    <script src="{{ url_for('static', filename='js/daily-missions-enhanced.js') }}?v=3.6.0"></script>
+    <script src="{{ url_for('static', filename='js/motivational-empty-states.js') }}?v=3.6.0"></script>
+    <script src="{{ url_for('static', filename='js/timer-challenges.js') }}?v=3.6.0"></script>
+    <script src="{{ url_for('static', filename='js/interactive-puzzles.js') }}?v=3.6.0"></script>
+    <script src="{{ url_for('static', filename='js/gameplay-integration.js') }}?v=3.6.0"></script>
 </body>
 
 </html>

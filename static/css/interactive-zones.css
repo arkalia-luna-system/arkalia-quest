@@ -1,0 +1,313 @@
+/* ===== ARKALIA QUEST - INTERACTIVE ZONES CSS ===== */
+
+.zone-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.zone-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.zone-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.zone-content {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.95), rgba(0, 0, 0, 0.9));
+    border: 2px solid rgba(167, 139, 250, 0.8);
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 40px rgba(167, 139, 250, 0.5);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.zone-overlay.show .zone-content {
+    transform: scale(1);
+}
+
+.zone-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(167, 139, 250, 0.3);
+}
+
+.zone-title {
+    color: #a78bfa;
+    font-size: 2em;
+    font-weight: bold;
+    margin: 0;
+    text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+}
+
+.zone-close {
+    background: rgba(255, 0, 0, 0.8);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.zone-close:hover {
+    background: rgba(255, 0, 0, 1);
+    transform: scale(1.1);
+}
+
+.zone-description {
+    color: #e0e0e0;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.zone-lore {
+    color: #b0b0b0;
+    font-size: 1em;
+    font-style: italic;
+    margin-bottom: 25px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    border-left: 4px solid rgba(167, 139, 250, 0.6);
+}
+
+.zone-interactions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.zone-interaction-btn {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.2), rgba(0, 0, 0, 0.3));
+    border: 2px solid rgba(167, 139, 250, 0.4);
+    border-radius: 12px;
+    padding: 20px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.zone-interaction-btn:hover {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.4), rgba(0, 0, 0, 0.5));
+    border-color: rgba(167, 139, 250, 0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(167, 139, 250, 0.3);
+}
+
+.interaction-name {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #a78bfa;
+}
+
+.interaction-description {
+    font-size: 0.9em;
+    color: #c0c0c0;
+    line-height: 1.4;
+}
+
+.zone-ambiance {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    text-align: center;
+    color: #888;
+    font-size: 0.9em;
+}
+
+/* Ambiances par zone */
+.ambiance-terminal {
+    background: linear-gradient(135deg, #001100, #003300);
+}
+
+.ambiance-terminal::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 255, 0, 0.03) 2px,
+            rgba(0, 255, 0, 0.03) 4px);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.ambiance-world {
+    background: linear-gradient(135deg, #000033, #000066);
+}
+
+.ambiance-world::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(255, 255, 0, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.ambiance-profile {
+    background: linear-gradient(135deg, #330033, #660066);
+}
+
+.ambiance-profile::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(45deg,
+            transparent,
+            transparent 10px,
+            rgba(255, 0, 255, 0.05) 10px,
+            rgba(255, 0, 255, 0.05) 20px);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.ambiance-competitive {
+    background: linear-gradient(135deg, #331100, #663300);
+}
+
+.ambiance-competitive::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(90deg,
+            transparent,
+            transparent 5px,
+            rgba(255, 215, 0, 0.05) 5px,
+            rgba(255, 215, 0, 0.05) 10px);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Indicateurs de zone */
+[data-zone] {
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+[data-zone]:hover {
+    transform: scale(1.02);
+    box-shadow: 0 5px 15px rgba(167, 139, 250, 0.3);
+}
+
+[data-zone]:hover::after {
+    content: 'Cliquez pour explorer';
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(167, 139, 250, 0.9);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+/* Animations d'entrée de zone */
+@keyframes zoneEnter {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.zone-overlay.show .zone-content {
+    animation: zoneEnter 0.4s ease-out;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .zone-content {
+        padding: 20px;
+        margin: 10px;
+        max-width: calc(100% - 20px);
+    }
+
+    .zone-title {
+        font-size: 1.5em;
+    }
+
+    .zone-description {
+        font-size: 1.1em;
+    }
+
+    .zone-interactions {
+        grid-template-columns: 1fr;
+    }
+
+    .zone-interaction-btn {
+        padding: 15px;
+    }
+}
+
+/* Mode sombre */
+@media (prefers-color-scheme: dark) {
+    .zone-content {
+        background: linear-gradient(135deg, rgba(167, 139, 250, 0.98), rgba(0, 0, 0, 0.95));
+    }
+}
+
+/* Mode haute contraste */
+@media (prefers-contrast: high) {
+    .zone-content {
+        border-width: 3px;
+        box-shadow: 0 0 50px rgba(167, 139, 250, 0.8);
+    }
+
+    .zone-title {
+        text-shadow: 0 0 20px rgba(167, 139, 250, 1);
+    }
+}

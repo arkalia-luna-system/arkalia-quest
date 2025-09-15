@@ -231,33 +231,10 @@ class VisualGuidance {
         this.activeHighlights.delete(selector);
     }
 
-    // Guider un débutant dans le parcours d'onboarding
+    // Guider un débutant dans le parcours d'onboarding - DÉSACTIVÉ
     guideBeginner() {
-        console.log('🎯 Démarrage du guidage pour débutant');
-
-        // Séquence de guidage
-        const guidanceSequence = [
-            {
-                selector: '.tutorial-btn, .start-tutorial-btn, [href*="tutorial"]',
-                message: '🌟 Commencez par le tutoriel !',
-                type: 'pulse',
-                duration: 4000
-            },
-            {
-                selector: '.terminal-btn, [href*="terminal"]',
-                message: '💻 Puis explorez le terminal',
-                type: 'bounce',
-                duration: 3000
-            },
-            {
-                selector: '.profil-btn, [href*="profil"]',
-                message: '👤 Consultez votre profil',
-                type: 'glow',
-                duration: 3000
-            }
-        ];
-
-        this.executeGuidanceSequence(guidanceSequence);
+        console.log('🎯 Guidance débutant désactivée - interface propre');
+        return; // Sortie immédiate
     }
 
     // Exécuter une séquence de guidage
@@ -312,9 +289,9 @@ class VisualGuidance {
     // Guider automatiquement les débutants - DÉSACTIVÉ (trop agressive)
     guideBeginner() {
         console.log('🎯 Guidance automatique désactivée - interface plus propre');
-
-        // Guidance supprimée - les utilisateurs peuvent explorer naturellement
+        // Guidance complètement supprimée - les utilisateurs peuvent explorer naturellement
         // Plus de popups agressives ou de highlights automatiques
+        return; // Sortie immédiate
     }
 
     // Guider vers les défis quotidiens
@@ -386,12 +363,9 @@ class VisualGuidance {
 
     // Auto-guidage intelligent
     autoGuide() {
-        if (!this.isBeginner()) return;
-
-        // Attendre que la page soit chargée
-        setTimeout(() => {
-            this.guideBeginner();
-        }, 2000);
+        // Guidance automatique complètement désactivée
+        console.log('🎯 Auto-guidance désactivée - interface propre');
+        return; // Sortie immédiate
     }
 }
 

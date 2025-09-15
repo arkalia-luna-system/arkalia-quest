@@ -482,6 +482,12 @@ def favicon():
     return send_from_directory(".", "favicon.ico")
 
 
+@app.route("/tests/<filename>")
+def serve_test_file(filename):
+    """Sert les fichiers de test HTML depuis le dossier tests/"""
+    return send_from_directory("tests", filename)
+
+
 @app.route("/")
 def index():
     return render_template("index.html")

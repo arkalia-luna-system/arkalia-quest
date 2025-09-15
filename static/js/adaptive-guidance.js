@@ -170,16 +170,14 @@ class AdaptiveGuidanceSystem {
         }
     }
 
-    // Guidance pour débutants
+    // Guidance pour débutants - DÉSACTIVÉE (trop agressive)
     provideBeginnerGuidance() {
         const currentPage = this.getCurrentPage();
 
         switch (currentPage) {
             case 'index':
-                this.highlightElement('.cta-btn.primary', {
-                    title: '🎯 Commencez ici !',
-                    description: 'Cliquez sur "TUTORIEL DÉBUTANT" pour apprendre les bases du jeu.'
-                });
+                // Guidance supprimée - trop agressive et inutile
+                // Les utilisateurs peuvent découvrir l'interface naturellement
                 break;
             case 'tutorial':
                 this.highlightElement('.tutorial-step.active', {

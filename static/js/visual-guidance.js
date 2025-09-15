@@ -309,43 +309,12 @@ class VisualGuidance {
         });
     }
 
-    // Guider automatiquement les débutants
+    // Guider automatiquement les débutants - DÉSACTIVÉ (trop agressive)
     guideBeginner() {
-        console.log('🎯 Démarrage du guidage pour débutant');
+        console.log('🎯 Guidance automatique désactivée - interface plus propre');
 
-        // Séquence de guidage pour débutants
-        setTimeout(() => {
-            this.highlightElement('.tutorial-start, [data-tutorial="start"]', {
-                message: '🚀 Commencez votre aventure ici !',
-                type: 'pulse',
-                duration: 8000,
-                showArrow: true,
-                showTooltip: true,
-                blink: true,
-                attract: true
-            });
-        }, 1000);
-
-        setTimeout(() => {
-            this.highlightElement('.luna-contact, [href*="luna"]', {
-                message: '🌙 Parlez avec LUNA, votre IA complice !',
-                type: 'glow',
-                duration: 6000,
-                showArrow: true,
-                showTooltip: true,
-                sparkle: true
-            });
-        }, 10000);
-
-        setTimeout(() => {
-            this.highlightElement('.terminal-link, [href*="terminal"]', {
-                message: '💻 Découvrez le terminal hacker !',
-                type: 'bounce',
-                duration: 6000,
-                showArrow: true,
-                showTooltip: true
-            });
-        }, 18000);
+        // Guidance supprimée - les utilisateurs peuvent explorer naturellement
+        // Plus de popups agressives ou de highlights automatiques
     }
 
     // Guider vers les défis quotidiens
@@ -448,8 +417,9 @@ class VisualGuidance {
 window.visualGuidance = new VisualGuidance();
 
 // Auto-guidage pour les débutants
-document.addEventListener('DOMContentLoaded', () => {
-    if (window.visualGuidance.isBeginner()) {
-        window.visualGuidance.autoGuide();
-    }
-});
+// Auto-guidance DÉSACTIVÉE - trop agressive
+// document.addEventListener('DOMContentLoaded', () => {
+//     if (window.visualGuidance.isBeginner()) {
+//         window.visualGuidance.autoGuide();
+//     }
+// });

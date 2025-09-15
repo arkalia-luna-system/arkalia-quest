@@ -1,0 +1,106 @@
+# MkDocs Configuration for Arkalia Quest
+site_name: Arkalia Quest Documentation
+site_description: Documentation complète du jeu Arkalia Quest
+site_author: Arkalia Luna System
+site_url: https://arkalia-luna-system.github.io/arkalia-quest/
+
+# Repository
+repo_name: arkalia-luna-system/arkalia-quest
+repo_url: https://github.com/arkalia-luna-system/arkalia-quest
+
+# Configuration
+theme:
+  name: material
+  palette:
+    - scheme: dark
+      primary: green
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - scheme: light
+      primary: green
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - navigation.top
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+# Plugins
+plugins:
+  - search
+  - git-revision-date-localized:
+      enable_creation_date: true
+
+# Markdown extensions
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - toc:
+      permalink: true
+
+# Navigation
+nav:
+  - Accueil: index.md
+  - Guide de développement:
+      - Architecture technique: docs/ARCHITECTURE_TECHNIQUE.md
+      - Guide technique développeur: docs/GUIDE_TECHNIQUE_DEVELOPPEUR.md
+      - Guide de développement: docs/GUIDE_DEVELOPPEMENT.md
+  - Déploiement:
+      - Guide de déploiement: docs/GUIDE_DEPLOIEMENT.md
+      - Docker: docs/DOCKER_AUTH.md
+  - Tests et qualité:
+      - Guide test utilisateur: docs/GUIDE_TEST_UTILISATEUR.md
+      - Test plan utilisateur: docs/TEST_PLAN_UTILISATEUR.md
+      - Checklists test: docs/CHECKLISTS_TEST_UTILISATEUR.md
+  - Contribution:
+      - Contributing: docs/CONTRIBUTING.md
+      - GitHub contribution setup: docs/GITHUB_CONTRIBUTION_SETUP.md
+  - Documentation:
+      - Index documentation: docs/INDEX_DOCUMENTATION.md
+      - Statut projet actuel: docs/STATUT_PROJET_ACTUEL.md
+      - Roadmap stratégique: docs/ROADMAP_STRATEGIQUE.md
+  - Changelog:
+      - Changelog: CHANGELOG.md
+      - Changelog documentation: docs/CHANGELOG_DOCUMENTATION.md
+
+# Extra
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/arkalia-luna-system
+    - icon: fontawesome/brands/docker
+      link: https://hub.docker.com/r/arkalia-quest
+  version:
+    provider: mike
+
+# Copyright
+copyright: Copyright &copy; 2024 Arkalia Luna System

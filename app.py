@@ -3,26 +3,67 @@ import logging
 import os
 import random
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from flask import Flask, jsonify, render_template, request, send_from_directory
 from flask_compress import Compress
 
-from arkalia_engine import arkalia_engine
-from core.adaptive_storytelling import adaptive_storytelling
-from core.cache_manager import cache_manager
-from core.command_handler_v2 import CommandHandlerV2 as CommandHandler
-from core.customization_engine import customization_engine
-from core.database import DatabaseManager
-from core.educational_games_engine import EducationalGamesEngine
-from core.gamification_engine import GamificationEngine
-from core.micro_interactions import micro_interactions
-from core.performance_optimizer import performance_optimizer
-from core.security_enhanced import security_enhanced
-from core.security_manager import security_manager
-from core.social_engine import social_engine
-from core.tutorial_manager import tutorial_manager
-from core.websocket_manager import websocket_manager
+# Imports avec gestion d'erreur robuste
+try:
+    from arkalia_engine import arkalia_engine
+    from core.adaptive_storytelling import adaptive_storytelling
+    from core.advanced_achievements import advanced_achievements
+    from core.cache_manager import cache_manager
+    from core.category_leaderboards import category_leaderboards
+    from core.command_handler_v2 import CommandHandlerV2 as CommandHandler
+    from core.customization_engine import customization_engine
+    from core.daily_challenges_engine import DailyChallengesEngine
+    from core.database import DatabaseManager
+    from core.educational_games_engine import EducationalGamesEngine
+    from core.gamification_engine import GamificationEngine
+    from core.micro_interactions import micro_interactions
+    from core.mission_progress_tracker import mission_progress_tracker
+    from core.narrative_branches import narrative_branches
+    from core.performance_optimizer import performance_optimizer
+    from core.secondary_missions import secondary_missions
+    from core.security_enhanced import security_enhanced
+    from core.security_manager import security_manager
+    from core.social_engine import social_engine
+    from core.technical_tutorials import technical_tutorials
+    from core.tutorial_manager import tutorial_manager
+    from core.websocket_manager import websocket_manager
+    from engines.luna_ai_v3 import LunaAIV3
+
+    print("✅ All core modules imported successfully")
+except Exception as e:
+    print(f"❌ Error importing core modules: {e}")
+    import traceback
+
+    traceback.print_exc()
+    # Créer des objets factices pour éviter les erreurs
+    arkalia_engine = None
+    adaptive_storytelling = None
+    advanced_achievements = None
+    cache_manager = None
+    category_leaderboards = None
+    CommandHandler = None
+    customization_engine = None
+    DailyChallengesEngine = None
+    DatabaseManager = None
+    EducationalGamesEngine = None
+    GamificationEngine = None
+    micro_interactions = None
+    mission_progress_tracker = None
+    narrative_branches = None
+    performance_optimizer = None
+    secondary_missions = None
+    security_enhanced = None
+    security_manager = None
+    social_engine = None
+    technical_tutorials = None
+    tutorial_manager = None
+    websocket_manager = None
+    LunaAIV3 = None
 
 try:
     from utils.logger import game_logger, performance_logger, security_logger
@@ -36,11 +77,26 @@ except ImportError:
 
 app = Flask(__name__)
 
+# Configuration sécurisée des sessions
+app.config.update(
+    SECRET_KEY=os.environ.get("SECRET_KEY", "dev-key-change-in-production"),
+    SESSION_COOKIE_SECURE=False,  # Désactivé pour HTTP en développement
+    SESSION_COOKIE_HTTPONLY=True,  # Pas d'accès JavaScript
+    SESSION_COOKIE_SAMESITE="Lax",  # Protection CSRF
+    PERMANENT_SESSION_LIFETIME=timedelta(hours=2),  # Expiration
+    SESSION_REFRESH_EACH_REQUEST=True,  # Renouvellement
+)
+
 # Configuration de la compression gzip
 Compress(app)
 
 # Instance globale du moteur de jeux éducatifs
-games_engine = EducationalGamesEngine()
+try:
+    games_engine = EducationalGamesEngine() if EducationalGamesEngine else None
+    print("✅ Games engine initialized")
+except Exception as e:
+    print(f"❌ Error initializing games engine: {e}")
+    games_engine = None
 
 
 # Middleware de sécurité et performance
@@ -50,28 +106,47 @@ def before_request():
     # Vérifier la sécurité
     client_ip = request.environ.get("HTTP_X_FORWARDED_FOR", request.remote_addr)
 
-    # Vérifier si l'IP est bloquée
-    if security_enhanced.is_ip_blocked(client_ip):
-        return jsonify({"error": "Accès refusé"}), 403
+    # Vérifier si l'IP est bloquée (si le module est disponible)
+    if security_enhanced and hasattr(security_enhanced, "is_ip_blocked"):
+        if security_enhanced.is_ip_blocked(client_ip):
+            return jsonify({"error": "Accès refusé"}), 403
 
-    # Vérifier le rate limiting
-    allowed, message = security_enhanced.check_rate_limit(client_ip)
-    if not allowed:
-        return jsonify({"error": message}), 429
+    # Vérifier le rate limiting (si le module est disponible)
+    if security_enhanced and hasattr(security_enhanced, "check_rate_limit"):
+        allowed, message = security_enhanced.check_rate_limit(client_ip)
+        if not allowed:
+            return jsonify({"error": message}), 429
 
     # Valider les entrées (sauf pour les routes des jeux éducatifs)
     if request.method in ["POST", "PUT", "PATCH"]:
-        if request.is_json and not request.path.startswith("/api/educational-games"):
+        if (
+            request.is_json
+            and not request.path.startswith("/api/educational-games")
+            and not request.path.startswith("/api/luna-v3/")
+        ):
             data = request.get_json()
             if data:
-                for _key, value in data.items():
+                for key, value in data.items():
                     if isinstance(value, str):
+                        # Validation renforcée selon le type de champ
+                        input_type = "command"  # Par défaut
+                        if "username" in key.lower():
+                            input_type = "username"
+                        elif "email" in key.lower():
+                            input_type = "email"
+                        elif "password" in key.lower():
+                            input_type = "password"
+                        elif "game_id" in key.lower():
+                            input_type = "game_id"
+
                         is_valid, error_msg = security_enhanced.validate_input(
-                            "command", value
+                            input_type, value
                         )
                         if not is_valid:
                             return (
-                                jsonify({"error": f"Entrée invalide: {error_msg}"}),
+                                jsonify(
+                                    {"error": f"Entrée invalide ({key}): {error_msg}"}
+                                ),
                                 400,
                             )
 
@@ -79,19 +154,42 @@ def before_request():
 @app.after_request
 def after_request(response):
     """Middleware exécuté après chaque requête"""
-    # Ajouter des headers de sécurité
+    # Ajouter des headers de sécurité renforcés
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["X-XSS-Protection"] = "1; mode=block"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    response.headers["Content-Security-Policy"] = (
+        "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'"
+    )
     response.headers["Strict-Transport-Security"] = (
         "max-age=31536000; includeSubDomains"
     )
+    response.headers["Permissions-Policy"] = "geolocation=(), microphone=(), camera=()"
 
     # Ajouter des headers de cache pour les assets statiques
     if request.endpoint and request.endpoint.startswith("static"):
         response.headers["Cache-Control"] = "public, max-age=31536000"  # 1 an
+    else:
+        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
 
     return response
+
+
+# Gestionnaire d'erreurs global
+@app.errorhandler(404)
+def not_found(error):
+    """Gestion des erreurs 404"""
+    return jsonify({"error": "Ressource non trouvée", "code": 404}), 404
+
+
+# Gestionnaires d'erreurs définis
+
+
+@app.errorhandler(403)
+def forbidden(error):
+    """Gestion des erreurs 403"""
+    return jsonify({"error": "Accès refusé", "code": 403}), 403
 
 
 # Instances des modules
@@ -171,10 +269,7 @@ def internal_error(error):
     return jsonify({"error": "Internal server error"}), 500
 
 
-@app.errorhandler(404)
-def not_found_error(error):
-    """Gestionnaire d'erreur 404"""
-    return jsonify({"error": "Not found"}), 404
+# Gestionnaire 404 supprimé - déjà défini plus haut
 
 
 # Commandes autorisées - Version "L'Éveil des IA"
@@ -433,6 +528,12 @@ def favicon():
     return send_from_directory(".", "favicon.ico")
 
 
+@app.route("/tests/<filename>")
+def serve_test_file(filename):
+    """Sert les fichiers de test HTML depuis le dossier tests/"""
+    return send_from_directory("tests", filename)
+
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -578,7 +679,13 @@ def check_rate_limit(ip_address):
         request_counts[ip_address] = (1, current_time)
         return True
 
-    count, timestamp = request_counts[ip_address]
+    # Vérifier que l'entrée existe et est valide
+    entry = request_counts.get(ip_address)
+    if not entry or len(entry) != 2:
+        request_counts[ip_address] = (1, current_time)
+        return True
+
+    count, timestamp = entry
 
     if current_time - timestamp >= RATE_LIMIT_WINDOW:
         # Nouvelle fenêtre de temps
@@ -591,6 +698,17 @@ def check_rate_limit(ip_address):
     # Incrémenter le compteur
     request_counts[ip_address] = (count + 1, timestamp)
     return True
+
+
+@app.route("/test-commande", methods=["POST"])
+def test_commande():
+    """Route de test simple pour debugger"""
+    try:
+        data = request.get_json()
+        cmd = data.get("commande", "") if data else ""
+        return jsonify({"status": "ok", "commande": cmd, "message": "Test réussi"})
+    except Exception as e:
+        return jsonify({"status": "error", "error": str(e)}), 500
 
 
 @app.route("/commande", methods=["POST"])
@@ -730,7 +848,7 @@ def commande():
 
             # Vérifier les badges secrets et achievements
             unlocked_badges = gamification.check_badges_secrets(
-                profil.get("id", "default"), profil, "command_used", command=cmd
+                profil, "command_used", command=cmd
             )
             unlocked_achievements = gamification.check_achievements(
                 profil.get("id", "default"), profil, "command_used", command=cmd
@@ -943,11 +1061,15 @@ def get_gamification_leaderboard():
 
         # Nettoyer les anciennes entrées
         if client_ip in request_counts:
-            request_counts[client_ip] = [
-                req_time
-                for req_time in request_counts[client_ip]
-                if current_time - req_time < RATE_LIMIT_WINDOW
-            ]
+            if isinstance(request_counts[client_ip], list):
+                request_counts[client_ip] = [
+                    req_time
+                    for req_time in request_counts[client_ip]
+                    if current_time - req_time < RATE_LIMIT_WINDOW
+                ]
+            else:
+                # Convertir de tuple vers liste si nécessaire
+                request_counts[client_ip] = []
         else:
             request_counts[client_ip] = []
 
@@ -1986,21 +2108,32 @@ if __name__ == "__main__":
 @app.route("/api/performance/stats", methods=["GET"])
 @performance_optimizer.monitor_performance("performance_stats")
 def api_performance_stats():
-    """Retourne les statistiques de performance"""
+    """Retourne les statistiques de performance avec cache"""
     try:
+        # Vérifier le cache d'abord
+        cache_key = "performance_stats"
+        cached_data = performance_optimizer.get_cached_data(cache_key, ttl_seconds=60)
+
+        if cached_data:
+            return jsonify(cached_data)
+
+        # Générer les nouvelles données
         stats = performance_optimizer.get_performance_stats()
         cache_stats = cache_manager.get_stats()
         security_stats = security_enhanced.get_security_stats()
 
-        return jsonify(
-            {
-                "success": True,
-                "performance": stats,
-                "cache": cache_stats,
-                "security": security_stats,
-                "timestamp": datetime.now().isoformat(),
-            }
-        )
+        response_data = {
+            "success": True,
+            "performance": stats,
+            "cache": cache_stats,
+            "security": security_stats,
+            "timestamp": datetime.now().isoformat(),
+        }
+
+        # Mettre en cache
+        performance_optimizer.set_cached_data(cache_key, response_data, ttl_seconds=60)
+
+        return jsonify(response_data)
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
 
@@ -2400,4 +2533,563 @@ def api_update_interaction_preferences():
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
 
-    app.run(host="0.0.0.0", port=5001, debug=False)
+
+# ===== NOUVELLES FONCTIONNALITÉS V3 =====
+
+# Initialisation des nouveaux moteurs
+daily_challenges_engine = DailyChallengesEngine()
+luna_ai_v3 = LunaAIV3()
+
+# ===== ROUTES POUR LES DÉFIS QUOTIDIENS =====
+
+
+@app.route("/api/daily-challenges", methods=["GET"])
+@performance_optimizer.monitor_performance("get_daily_challenges")
+def api_get_daily_challenges():
+    """Récupère les défis quotidiens pour un utilisateur"""
+    try:
+        user_id = request.args.get("user_id", "default")
+        date = request.args.get("date")
+
+        challenges = daily_challenges_engine.get_daily_challenges(user_id, date)
+        return jsonify(challenges)
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/daily-challenges/attempt", methods=["POST"])
+@performance_optimizer.monitor_performance("attempt_daily_challenge")
+def api_attempt_daily_challenge():
+    """Tente de résoudre un défi quotidien"""
+    try:
+        data = request.get_json()
+        user_id = data.get("user_id", "default")
+        challenge_id = data.get("challenge_id")
+        answer = data.get("answer", "")
+        date = data.get("date")
+
+        if not challenge_id:
+            return jsonify({"success": False, "error": "ID du défi requis"}), 400
+
+        result = daily_challenges_engine.attempt_challenge(
+            user_id, challenge_id, answer, date
+        )
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/daily-challenges/leaderboard", methods=["GET"])
+@performance_optimizer.monitor_performance("get_daily_leaderboard")
+def api_get_daily_leaderboard():
+    """Retourne le classement des défis quotidiens"""
+    try:
+        date = request.args.get("date")
+        leaderboard = daily_challenges_engine.get_leaderboard(date)
+        return jsonify({"success": True, "leaderboard": leaderboard})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/daily-challenges/weekly-stats", methods=["GET"])
+@performance_optimizer.monitor_performance("get_weekly_stats")
+def api_get_weekly_stats():
+    """Retourne les statistiques hebdomadaires d'un utilisateur"""
+    try:
+        user_id = request.args.get("user_id", "default")
+        stats = daily_challenges_engine.get_weekly_stats(user_id)
+        return jsonify({"success": True, "stats": stats})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+# ===== ROUTES POUR LUNA AI V3 =====
+
+
+@app.route("/api/luna-v3/chat", methods=["POST"])
+@performance_optimizer.monitor_performance("luna_v3_chat")
+def api_luna_v3_chat():
+    """Chat avec LUNA AI V3"""
+    try:
+        data = request.get_json()
+        user_input = data.get("message", "")
+        user_profile = data.get("user_profile", {})
+        game_context = data.get("game_context", {})
+
+        if not user_input:
+            return jsonify({"success": False, "error": "Message requis"}), 400
+
+        response = luna_ai_v3.generate_response(user_input, user_profile, game_context)
+        return jsonify(response)
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/luna-v3/learning-stats", methods=["GET"])
+@performance_optimizer.monitor_performance("get_luna_learning_stats")
+def api_get_luna_learning_stats():
+    """Retourne les statistiques d'apprentissage de LUNA"""
+    try:
+        stats = luna_ai_v3.get_learning_stats()
+        return jsonify({"success": True, "stats": stats})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/luna-v3/reset", methods=["POST"])
+@performance_optimizer.monitor_performance("reset_luna_learning")
+def api_reset_luna_learning():
+    """Remet à zéro l'apprentissage de LUNA (pour les tests)"""
+    try:
+        luna_ai_v3.reset_learning()
+        return jsonify(
+            {"success": True, "message": "Apprentissage de LUNA réinitialisé"}
+        )
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+# ===== ROUTES POUR LES THÈMES =====
+
+
+@app.route("/api/themes", methods=["GET"])
+@performance_optimizer.monitor_performance("get_themes")
+def api_get_themes():
+    """Retourne la liste des thèmes disponibles"""
+    try:
+        themes = {
+            "matrix": {
+                "name": "Matrix",
+                "description": "Thème classique vert Matrix",
+                "icon": "🌌",
+                "class": "matrix-theme",
+            },
+            "cyberpunk": {
+                "name": "Cyberpunk",
+                "description": "Thème néon rose et cyan",
+                "icon": "🌆",
+                "class": "cyberpunk-theme",
+            },
+            "neon": {
+                "name": "Neon",
+                "description": "Thème néon vert et rouge",
+                "icon": "💚",
+                "class": "neon-theme",
+            },
+            "dark": {
+                "name": "Dark Mode",
+                "description": "Thème sombre moderne",
+                "icon": "🌙",
+                "class": "dark-theme",
+            },
+            "retro": {
+                "name": "Retro",
+                "description": "Thème rétro années 80",
+                "icon": "🎮",
+                "class": "retro-theme",
+            },
+            "ocean": {
+                "name": "Ocean",
+                "description": "Thème océan bleu",
+                "icon": "🌊",
+                "class": "ocean-theme",
+            },
+        }
+        return jsonify({"success": True, "themes": themes})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/performance/log", methods=["POST"])
+@performance_optimizer.monitor_performance("log_performance")
+def api_log_performance():
+    """Endpoint pour recevoir les logs de performance du frontend"""
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({"success": False, "error": "Données manquantes"}), 400
+
+        # Log des métriques de performance
+        performance_logger.info(f"Performance metrics: {data}")
+
+        return jsonify({"success": True, "message": "Log enregistré"})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/tutorial/data", methods=["GET"])
+@performance_optimizer.monitor_performance("get_tutorial_data")
+def api_get_tutorial_data():
+    """Récupère les données du tutoriel"""
+    try:
+        tutorial_data = {
+            "steps": [
+                {
+                    "id": "welcome",
+                    "title": "Bienvenue dans Arkalia Quest",
+                    "content": "Découvrez l'univers cybernétique d'Arkalia Quest",
+                    "type": "intro",
+                },
+                {
+                    "id": "navigation",
+                    "title": "Navigation",
+                    "content": "Utilisez les boutons pour naviguer dans le jeu",
+                    "type": "guide",
+                },
+                {
+                    "id": "luna",
+                    "title": "LUNA AI",
+                    "content": "Interagissez avec LUNA, votre IA compagnon",
+                    "type": "interaction",
+                },
+            ],
+            "current_step": 0,
+            "completed": False,
+        }
+
+        return jsonify({"success": True, "tutorial": tutorial_data})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+# ===== NOUVELLES ROUTES API POUR LES SYSTÈMES AVANCÉS =====
+
+
+@app.route("/api/mission-progress/update", methods=["POST"])
+def api_update_mission_progress():
+    """Met à jour la progression d'une mission avec indicateurs visuels"""
+    try:
+        data = request.get_json()
+        player_id = data.get("player_id", "main_user")
+        mission_id = data.get("mission_id")
+        step_id = data.get("step_id")
+        action = data.get("action")
+        success = data.get("success", True)
+        metadata = data.get("metadata", {})
+
+        if not all([mission_id, step_id, action]):
+            return jsonify({"error": "Paramètres manquants"}), 400
+
+        result = mission_progress_tracker.update_mission_progress(
+            mission_id, player_id, step_id, action, success, metadata
+        )
+
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/mission-progress/analytics/<player_id>", methods=["GET"])
+def api_get_mission_analytics(player_id):
+    """Récupère les analytics de progression des missions"""
+    try:
+        analytics = mission_progress_tracker.get_mission_analytics(player_id)
+        return jsonify(analytics)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/narrative-branches/available", methods=["GET"])
+def api_get_available_branches():
+    """Récupère les branches narratives disponibles"""
+    try:
+        player_id = request.args.get("player_id", "main_user")
+        branches = narrative_branches.get_available_branches(player_id)
+        return jsonify(branches)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/narrative-branches/choice", methods=["POST"])
+def api_make_narrative_choice():
+    """Enregistre un choix narratif du joueur"""
+    try:
+        data = request.get_json()
+        player_id = data.get("player_id", "main_user")
+        branch_id = data.get("branch_id")
+        choice_id = data.get("choice_id")
+        context = data.get("context", {})
+
+        if not all([branch_id, choice_id]):
+            return jsonify({"error": "Paramètres manquants"}), 400
+
+        result = narrative_branches.make_choice(
+            player_id, branch_id, choice_id, context
+        )
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/narrative-branches/story-state/<player_id>", methods=["GET"])
+def api_get_story_state(player_id):
+    """Récupère l'état de l'histoire d'un joueur"""
+    try:
+        story_state = narrative_branches.get_story_state(player_id)
+        relationships = narrative_branches.get_character_relationships(player_id)
+
+        return jsonify({"story_state": story_state, "relationships": relationships})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/secondary-missions/available", methods=["GET"])
+def api_get_available_secondary_missions():
+    """Récupère les missions secondaires disponibles"""
+    try:
+        player_id = request.args.get("player_id", "main_user")
+        missions = secondary_missions.get_available_missions(player_id)
+        return jsonify(missions)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/secondary-missions/start", methods=["POST"])
+def api_start_secondary_mission():
+    """Démarre une mission secondaire"""
+    try:
+        data = request.get_json()
+        player_id = data.get("player_id", "main_user")
+        mission_id = data.get("mission_id")
+
+        if not mission_id:
+            return jsonify({"error": "ID de mission manquant"}), 400
+
+        result = secondary_missions.start_mission(player_id, mission_id)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/secondary-missions/update", methods=["POST"])
+def api_update_secondary_mission():
+    """Met à jour la progression d'une mission secondaire"""
+    try:
+        data = request.get_json()
+        player_id = data.get("player_id", "main_user")
+        mission_id = data.get("mission_id")
+        objective_id = data.get("objective_id")
+        completed = data.get("completed", True)
+
+        if not all([mission_id, objective_id]):
+            return jsonify({"error": "Paramètres manquants"}), 400
+
+        result = secondary_missions.update_mission_progress(
+            player_id, mission_id, objective_id, completed
+        )
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/achievements/check", methods=["POST"])
+def api_check_achievements():
+    """Vérifie les achievements pour une action"""
+    try:
+        data = request.get_json()
+        player_id = data.get("player_id", "main_user")
+        action = data.get("action")
+        context = data.get("context", {})
+
+        if not action:
+            return jsonify({"error": "Action manquante"}), 400
+
+        new_achievements = advanced_achievements.check_achievement_progress(
+            player_id, action, context
+        )
+
+        return jsonify(
+            {"new_achievements": new_achievements, "count": len(new_achievements)}
+        )
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/achievements/player/<player_id>", methods=["GET"])
+def api_get_player_achievements(player_id):
+    """Récupère les achievements d'un joueur"""
+    try:
+        achievements = advanced_achievements.get_player_achievements(player_id)
+        return jsonify(achievements)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/achievements/leaderboard", methods=["GET"])
+def api_get_achievement_leaderboard():
+    """Récupère le classement des achievements"""
+    try:
+        category = request.args.get("category")
+        leaderboard = advanced_achievements.get_achievement_leaderboard(category)
+        return jsonify(leaderboard)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/leaderboards/category/<category>", methods=["GET"])
+def api_get_category_leaderboard(category):
+    """Récupère le classement d'une catégorie"""
+    try:
+        period = request.args.get("period", "all_time")
+        limit = int(request.args.get("limit", 50))
+
+        leaderboard = category_leaderboards.get_leaderboard(category, period, limit)
+        return jsonify(leaderboard)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/leaderboards/player/<player_id>", methods=["GET"])
+def api_get_player_leaderboard_info(player_id):
+    """Récupère les informations de classement d'un joueur"""
+    try:
+        overview = category_leaderboards.get_player_overview(player_id)
+        comparison = category_leaderboards.get_category_comparison(player_id)
+
+        return jsonify({"overview": overview, "comparison": comparison})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/leaderboards/update-metrics", methods=["POST"])
+def api_update_player_metrics():
+    """Met à jour les métriques d'un joueur pour les classements"""
+    try:
+        data = request.get_json()
+        player_id = data.get("player_id", "main_user")
+        category = data.get("category")
+        metrics = data.get("metrics", {})
+        context = data.get("context", {})
+
+        if not category:
+            return jsonify({"error": "Catégorie manquante"}), 400
+
+        result = category_leaderboards.update_player_metrics(
+            player_id, category, metrics, context
+        )
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/technical-tutorials/available", methods=["GET"])
+def api_get_available_tutorials():
+    """Récupère les tutoriels techniques disponibles"""
+    try:
+        player_id = request.args.get("player_id", "main_user")
+        tutorials = technical_tutorials.get_available_tutorials(player_id)
+        return jsonify(tutorials)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/technical-tutorials/start", methods=["POST"])
+def api_start_technical_tutorial():
+    """Démarre un tutoriel technique"""
+    try:
+        data = request.get_json()
+        player_id = data.get("player_id", "main_user")
+        tutorial_id = data.get("tutorial_id")
+
+        if not tutorial_id:
+            return jsonify({"error": "ID de tutoriel manquant"}), 400
+
+        result = technical_tutorials.start_tutorial(player_id, tutorial_id)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/technical-tutorials/content/<tutorial_id>", methods=["GET"])
+def api_get_tutorial_content(tutorial_id):
+    """Récupère le contenu d'un tutoriel"""
+    try:
+        player_id = request.args.get("player_id", "main_user")
+        step = int(request.args.get("step", 0))
+
+        content = technical_tutorials.get_tutorial_content(player_id, tutorial_id, step)
+        return jsonify(content)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/technical-tutorials/complete-step", methods=["POST"])
+def api_complete_tutorial_step():
+    """Marque une étape de tutoriel comme terminée"""
+    try:
+        data = request.get_json()
+        player_id = data.get("player_id", "main_user")
+        tutorial_id = data.get("tutorial_id")
+        step = data.get("step")
+        exercise_result = data.get("exercise_result", {})
+
+        if not all([tutorial_id, step is not None]):
+            return jsonify({"error": "Paramètres manquants"}), 400
+
+        result = technical_tutorials.complete_tutorial_step(
+            player_id, tutorial_id, step, exercise_result
+        )
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/technical-tutorials/quiz/<tutorial_id>", methods=["GET"])
+def api_get_tutorial_quiz(tutorial_id):
+    """Récupère le quiz d'un tutoriel"""
+    try:
+        player_id = request.args.get("player_id", "main_user")
+        quiz = technical_tutorials.get_quiz(player_id, tutorial_id)
+        return jsonify(quiz)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/technical-tutorials/submit-quiz", methods=["POST"])
+def api_submit_tutorial_quiz():
+    """Soumet les réponses d'un quiz"""
+    try:
+        data = request.get_json()
+        player_id = data.get("player_id", "main_user")
+        tutorial_id = data.get("tutorial_id")
+        answers = data.get("answers", {})
+
+        if not all([tutorial_id, answers]):
+            return jsonify({"error": "Paramètres manquants"}), 400
+
+        result = technical_tutorials.submit_quiz(player_id, tutorial_id, answers)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/technical-tutorials/references", methods=["GET"])
+def api_get_tutorial_references():
+    """Récupère les références d'apprentissage"""
+    try:
+        category = request.args.get("category")
+        references = technical_tutorials.get_references(category)
+        return jsonify(references)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/technical-tutorials/concepts", methods=["GET"])
+def api_get_tutorial_concepts():
+    """Récupère tous les concepts disponibles"""
+    try:
+        concepts = technical_tutorials.get_concepts()
+        return jsonify(concepts)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+if __name__ == "__main__":
+    # Mode production optimisé - serveur de développement désactivé
+    print("🚀 Utilisez Gunicorn pour la production :")
+    print("   gunicorn -c gunicorn.conf.py app:app")
+    print("   ou Docker : docker-compose up")
+    print("")
+    print("⚠️  Serveur de développement désactivé pour éviter les fuites de ressources")
+    print("   Utilisez 'python -m flask run' pour le développement")
+    # app.run(host="0.0.0.0", port=5001, debug=False, threaded=True)

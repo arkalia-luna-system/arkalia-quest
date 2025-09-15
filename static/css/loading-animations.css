@@ -1,0 +1,604 @@
+/* ===== ARKALIA QUEST - LOADING ANIMATIONS IMMERSIVES ===== */
+
+/* ===== LOADERS PRINCIPAUX ===== */
+
+/* Loader Matrix */
+.matrix-loader {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin: 20px auto;
+}
+
+.matrix-loader::before,
+.matrix-loader::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 2px solid transparent;
+    border-top: 2px solid var(--matrix-green);
+    border-radius: 50%;
+    animation: matrixSpin 1s linear infinite;
+}
+
+.matrix-loader::after {
+    border-top-color: var(--violet-lunaire);
+    animation-delay: 0.5s;
+    animation-duration: 1.5s;
+}
+
+@keyframes matrixSpin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Loader Cyber */
+.cyber-loader {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 20px auto;
+}
+
+.cyber-loader .cyber-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 3px solid transparent;
+    border-top: 3px solid var(--bleu-spectre);
+    border-radius: 50%;
+    animation: cyberPulse 2s ease-in-out infinite;
+}
+
+.cyber-loader .cyber-ring:nth-child(2) {
+    width: 60px;
+    height: 60px;
+    top: 10px;
+    left: 10px;
+    border-top-color: var(--violet-lunaire);
+    animation-delay: 0.3s;
+}
+
+.cyber-loader .cyber-ring:nth-child(3) {
+    width: 40px;
+    height: 40px;
+    top: 20px;
+    left: 20px;
+    border-top-color: var(--matrix-green);
+    animation-delay: 0.6s;
+}
+
+@keyframes cyberPulse {
+
+    0%,
+    100% {
+        transform: rotate(0deg) scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: rotate(180deg) scale(1.1);
+        opacity: 0.7;
+    }
+}
+
+/* Loader Luna */
+.luna-loader {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 20px auto;
+}
+
+.luna-loader .luna-core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background: var(--violet-lunaire);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: lunaGlow 1.5s ease-in-out infinite;
+}
+
+.luna-loader .luna-orbit {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 2px solid transparent;
+    border-top: 2px solid var(--matrix-green);
+    border-radius: 50%;
+    animation: lunaOrbit 3s linear infinite;
+}
+
+.luna-loader .luna-orbit:nth-child(2) {
+    width: 80px;
+    height: 80px;
+    top: 10px;
+    left: 10px;
+    border-top-color: var(--bleu-spectre);
+    animation-delay: 0.5s;
+    animation-direction: reverse;
+}
+
+.luna-loader .luna-orbit:nth-child(3) {
+    width: 60px;
+    height: 60px;
+    top: 20px;
+    left: 20px;
+    border-top-color: var(--violet-lunaire);
+    animation-delay: 1s;
+}
+
+@keyframes lunaGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px var(--violet-lunaire);
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+        box-shadow: 0 0 40px var(--violet-lunaire);
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+}
+
+@keyframes lunaOrbit {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Loader Terminal */
+.terminal-loader {
+    position: relative;
+    width: 120px;
+    height: 40px;
+    margin: 20px auto;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid var(--matrix-green);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.terminal-loader .terminal-text {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: var(--matrix-green);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    animation: terminalBlink 1s infinite;
+}
+
+.terminal-loader .terminal-cursor {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 2px;
+    height: 20px;
+    background: var(--matrix-green);
+    animation: terminalCursor 1s infinite;
+}
+
+@keyframes terminalBlink {
+
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    51%,
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes terminalCursor {
+
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    51%,
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Loader Progressif */
+.progressive-loader {
+    position: relative;
+    width: 200px;
+    height: 4px;
+    margin: 20px auto;
+    background: rgba(167, 139, 250, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progressive-loader .progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: linear-gradient(90deg, var(--matrix-green), var(--violet-lunaire), var(--bleu-spectre));
+    border-radius: 2px;
+    animation: progressiveLoad 3s ease-in-out infinite;
+}
+
+@keyframes progressiveLoad {
+    0% {
+        width: 0%;
+    }
+
+    50% {
+        width: 70%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+/* ===== LOADERS CONTEXTUELS ===== */
+
+/* Loader pour les sections */
+.section-loader {
+    position: relative;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.section-loader .loader-icon {
+    font-size: 3em;
+    margin-bottom: 20px;
+    animation: loaderBounce 2s ease-in-out infinite;
+}
+
+.section-loader .loader-text {
+    color: var(--violet-lunaire);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.1em;
+    text-align: center;
+    animation: loaderPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes loaderBounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes loaderPulse {
+
+    0%,
+    100% {
+        opacity: 0.7;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Loader pour les données */
+.data-loader {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(167, 139, 250, 0.05);
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.data-loader .data-dots {
+    display: flex;
+    gap: 8px;
+}
+
+.data-loader .data-dot {
+    width: 12px;
+    height: 12px;
+    background: var(--violet-lunaire);
+    border-radius: 50%;
+    animation: dataDot 1.4s ease-in-out infinite;
+}
+
+.data-loader .data-dot:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.data-loader .data-dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.data-loader .data-dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes dataDot {
+
+    0%,
+    80%,
+    100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+
+    40% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+}
+
+/* Loader pour les mini-jeux */
+.game-loader {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.1), rgba(96, 165, 250, 0.1));
+    border-radius: 12px;
+    margin: 20px 0;
+}
+
+.game-loader .game-icon {
+    font-size: 4em;
+    margin-bottom: 20px;
+    animation: gameSpin 2s linear infinite;
+}
+
+.game-loader .game-text {
+    color: var(--violet-lunaire);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.2em;
+    text-align: center;
+    animation: gameGlow 2s ease-in-out infinite;
+}
+
+@keyframes gameSpin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes gameGlow {
+
+    0%,
+    100% {
+        text-shadow: 0 0 10px var(--violet-lunaire);
+        transform: scale(1);
+    }
+
+    50% {
+        text-shadow: 0 0 20px var(--violet-lunaire);
+        transform: scale(1.05);
+    }
+}
+
+/* ===== LOADERS RESPONSIVE ===== */
+
+@media (max-width: 768px) {
+
+    .matrix-loader,
+    .cyber-loader,
+    .luna-loader {
+        width: 40px;
+        height: 40px;
+    }
+
+    .terminal-loader {
+        width: 100px;
+        height: 30px;
+    }
+
+    .progressive-loader {
+        width: 150px;
+    }
+
+    .section-loader {
+        min-height: 150px;
+    }
+
+    .section-loader .loader-icon {
+        font-size: 2em;
+    }
+
+    .game-loader {
+        height: 150px;
+    }
+
+    .game-loader .game-icon {
+        font-size: 3em;
+    }
+}
+
+/* ===== LOADERS D'ÉTAT ===== */
+
+/* Loader de succès */
+.success-loader {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin: 20px auto;
+}
+
+.success-loader .success-check {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    border: 3px solid var(--matrix-green);
+    border-top: none;
+    border-right: none;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    animation: successCheck 0.6s ease-in-out;
+}
+
+@keyframes successCheck {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 0;
+    }
+
+    100% {
+        width: 30px;
+        height: 30px;
+        opacity: 1;
+    }
+}
+
+/* Loader d'erreur */
+.error-loader {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin: 20px auto;
+}
+
+.error-loader .error-x {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 3px;
+    background: #ff4444;
+    animation: errorX 0.6s ease-in-out;
+}
+
+.error-loader .error-x::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ff4444;
+    transform: rotate(90deg);
+}
+
+@keyframes errorX {
+    0% {
+        width: 0;
+        opacity: 0;
+    }
+
+    100% {
+        width: 30px;
+        opacity: 1;
+    }
+}
+
+/* ===== UTILITAIRES ===== */
+
+/* Masquer/afficher les loaders */
+.loader-hidden {
+    display: none !important;
+}
+
+.loader-visible {
+    display: flex !important;
+}
+
+/* Animation de transition */
+.loader-fade-in {
+    animation: loaderFadeIn 0.3s ease-in-out;
+}
+
+.loader-fade-out {
+    animation: loaderFadeOut 0.3s ease-in-out;
+}
+
+@keyframes loaderFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes loaderFadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+/* ===== PREFERS-REDUCED-MOTION ===== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .matrix-loader::before,
+    .matrix-loader::after,
+    .cyber-loader .cyber-ring,
+    .luna-loader .luna-core,
+    .luna-loader .luna-orbit,
+    .terminal-loader .terminal-text,
+    .terminal-loader .terminal-cursor,
+    .progressive-loader .progress-bar,
+    .section-loader .loader-icon,
+    .section-loader .loader-text,
+    .data-loader .data-dot,
+    .game-loader .game-icon,
+    .game-loader .game-text,
+    .success-loader .success-check,
+    .error-loader .error-x {
+        animation: none;
+    }
+
+    .loader-fade-in,
+    .loader-fade-out {
+        animation: none;
+    }
+}

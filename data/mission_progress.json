@@ -1,0 +1,22 @@
+{
+  "integration_test_player_test_mission": {
+    "mission_id": "test_mission",
+    "player_id": "integration_test_player",
+    "start_time": "2025-09-15T07:29:47.817315",
+    "current_step": 0,
+    "total_steps": 5,
+    "completed_steps": [],
+    "failed_attempts": 0,
+    "hints_used": 0,
+    "time_spent": 0,
+    "difficulty_level": "medium",
+    "progress_percentage": 0.0,
+    "status": "active",
+    "branches_unlocked": [],
+    "choices_made": [],
+    "resources_used": [],
+    "achievements_earned": [],
+    "visual_effects": [],
+    "last_activity": "2025-09-15T07:29:47.817318"
+  }
+}

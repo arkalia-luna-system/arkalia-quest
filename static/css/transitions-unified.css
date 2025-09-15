@@ -1,0 +1,317 @@
+/* ===== ARKALIA QUEST - TRANSITIONS UNIFIÉES ===== */
+/* Système de transitions cohérent pour toute l'interface */
+
+:root {
+    /* Durées de transition standardisées */
+    --transition-instant: 0.1s;
+    --transition-fast: 0.2s;
+    --transition-smooth: 0.3s;
+    --transition-luxury: 0.5s;
+    --transition-slow: 0.8s;
+    --transition-epic: 1.2s;
+
+    /* Courbes d'animation standardisées */
+    --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --ease-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --ease-luxury: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* ===== TRANSITIONS DE BASE ===== */
+* {
+    transition:
+        color var(--transition-smooth) var(--ease-standard),
+        background-color var(--transition-smooth) var(--ease-standard),
+        border-color var(--transition-smooth) var(--ease-standard),
+        box-shadow var(--transition-smooth) var(--ease-standard),
+        transform var(--transition-smooth) var(--ease-standard),
+        opacity var(--transition-smooth) var(--ease-standard);
+}
+
+/* ===== TRANSITIONS POUR BOUTONS ===== */
+.btn-perfect,
+.cta-perfect,
+button,
+.button {
+    transition:
+        all var(--transition-smooth) var(--ease-standard),
+        transform var(--transition-fast) var(--ease-bounce);
+}
+
+.btn-perfect:hover,
+.cta-perfect:hover,
+button:hover,
+.button:hover {
+    transform: translateY(-2px) scale(1.02);
+    transition: all var(--transition-fast) var(--ease-bounce);
+}
+
+.btn-perfect:active,
+.cta-perfect:active,
+button:active,
+.button:active {
+    transform: translateY(0) scale(0.98);
+    transition: all var(--transition-instant) var(--ease-standard);
+}
+
+/* ===== TRANSITIONS POUR MODALES ===== */
+.modal-perfect,
+.popup-perfect {
+    transition:
+        opacity var(--transition-luxury) var(--ease-smooth),
+        transform var(--transition-luxury) var(--ease-smooth),
+        box-shadow var(--transition-smooth) var(--ease-standard);
+}
+
+.modal-perfect.fade-out,
+.popup-perfect.fade-out {
+    transition:
+        opacity var(--transition-smooth) var(--ease-smooth),
+        transform var(--transition-smooth) var(--ease-smooth);
+}
+
+/* ===== TRANSITIONS POUR CARDS ===== */
+.card,
+.section-perfect,
+.stat-modern {
+    transition:
+        all var(--transition-smooth) var(--ease-standard),
+        transform var(--transition-smooth) var(--ease-smooth),
+        box-shadow var(--transition-smooth) var(--ease-standard);
+}
+
+.card:hover,
+.section-perfect:hover,
+.stat-modern:hover {
+    transform: translateY(-4px) scale(1.01);
+    transition: all var(--transition-smooth) var(--ease-bounce);
+}
+
+/* ===== TRANSITIONS POUR FORMULAIRES ===== */
+.form-input,
+.form-textarea,
+.form-select {
+    transition:
+        border-color var(--transition-smooth) var(--ease-standard),
+        box-shadow var(--transition-smooth) var(--ease-standard),
+        background-color var(--transition-smooth) var(--ease-standard);
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+    transition:
+        border-color var(--transition-fast) var(--ease-bounce),
+        box-shadow var(--transition-fast) var(--ease-bounce);
+}
+
+/* ===== TRANSITIONS POUR PROGRESSION ===== */
+.progress-fill,
+.metric-value,
+.achievement-icon {
+    transition:
+        width var(--transition-luxury) var(--ease-smooth),
+        height var(--transition-luxury) var(--ease-smooth),
+        transform var(--transition-smooth) var(--ease-bounce),
+        opacity var(--transition-smooth) var(--ease-standard);
+}
+
+/* ===== TRANSITIONS POUR NAVIGATION ===== */
+.nav-link,
+.menu-item {
+    transition:
+        color var(--transition-smooth) var(--ease-standard),
+        background-color var(--transition-smooth) var(--ease-standard),
+        transform var(--transition-fast) var(--ease-bounce);
+}
+
+.nav-link:hover,
+.menu-item:hover {
+    transform: translateX(4px);
+    transition: all var(--transition-fast) var(--ease-bounce);
+}
+
+/* ===== TRANSITIONS POUR NOTIFICATIONS ===== */
+.notification,
+.floating-feedback,
+.achievement-notification {
+    transition:
+        opacity var(--transition-smooth) var(--ease-smooth),
+        transform var(--transition-smooth) var(--ease-bounce),
+        box-shadow var(--transition-smooth) var(--ease-standard);
+}
+
+.notification.show,
+.floating-feedback.show,
+.achievement-notification.show {
+    transition:
+        opacity var(--transition-luxury) var(--ease-bounce),
+        transform var(--transition-luxury) var(--ease-bounce);
+}
+
+/* ===== TRANSITIONS POUR TABLEAUX ===== */
+.leaderboard-table tr,
+.table-row {
+    transition:
+        background-color var(--transition-smooth) var(--ease-standard),
+        transform var(--transition-smooth) var(--ease-smooth),
+        opacity var(--transition-smooth) var(--ease-standard);
+}
+
+.leaderboard-table tr:hover,
+.table-row:hover {
+    transform: translateX(5px);
+    transition: all var(--transition-smooth) var(--ease-bounce);
+}
+
+/* ===== TRANSITIONS POUR BADGES ===== */
+.badge,
+.achievement-badge {
+    transition:
+        transform var(--transition-smooth) var(--ease-bounce),
+        box-shadow var(--transition-smooth) var(--ease-standard),
+        filter var(--transition-smooth) var(--ease-standard);
+}
+
+.badge:hover,
+.achievement-badge:hover {
+    transform: scale(1.1) rotate(5deg);
+    transition: all var(--transition-smooth) var(--ease-bounce);
+}
+
+/* ===== TRANSITIONS POUR ICÔNES ===== */
+.icon,
+.milestone-icon {
+    transition:
+        transform var(--transition-smooth) var(--ease-bounce),
+        color var(--transition-smooth) var(--ease-standard),
+        filter var(--transition-smooth) var(--ease-standard);
+}
+
+.icon:hover,
+.milestone-icon:hover {
+    transform: scale(1.2) rotate(10deg);
+    transition: all var(--transition-smooth) var(--ease-bounce);
+}
+
+/* ===== TRANSITIONS POUR ANIMATIONS D'APPARITION ===== */
+.fade-in {
+    animation: fadeIn var(--transition-luxury) var(--ease-smooth);
+}
+
+.scale-in {
+    animation: scaleIn var(--transition-smooth) var(--ease-bounce);
+}
+
+.slide-up {
+    animation: slideUp var(--transition-smooth) var(--ease-smooth);
+}
+
+.slide-in-left {
+    animation: slideInLeft var(--transition-smooth) var(--ease-smooth);
+}
+
+.slide-in-right {
+    animation: slideInRight var(--transition-smooth) var(--ease-smooth);
+}
+
+/* ===== KEYFRAMES UNIFIÉS ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ===== TRANSITIONS POUR RESPONSIVE ===== */
+@media (max-width: 768px) {
+
+    .card:hover,
+    .section-perfect:hover,
+    .stat-modern:hover {
+        transform: translateY(-2px) scale(1.005);
+    }
+
+    .btn-perfect:hover,
+    .cta-perfect:hover,
+    button:hover,
+    .button:hover {
+        transform: translateY(-1px) scale(1.01);
+    }
+}
+
+/* ===== TRANSITIONS POUR ACCESSIBILITÉ ===== */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+
+    .fade-in,
+    .scale-in,
+    .slide-up,
+    .slide-in-left,
+    .slide-in-right {
+        animation: none !important;
+    }
+}
+
+/* ===== TRANSITIONS POUR PERFORMANCE ===== */
+.gpu-accelerated {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}

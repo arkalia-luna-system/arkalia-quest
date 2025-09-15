@@ -1,0 +1,560 @@
+/* ===== ARKALIA QUEST - THEME PATTERNS & CONTINUITY ===== */
+
+/* ===== MOTIFS DE BASE ===== */
+:root {
+    /* Motifs de fond */
+    --pattern-opacity: 0.03;
+    --pattern-size: 20px;
+    --pattern-animation: 20s linear infinite;
+}
+
+/* ===== THÈME MATRIX - MOTIFS DE CODE ===== */
+.matrix-theme {
+    --pattern-bg: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2300ff00' fill-opacity='0.03'%3E%3Cpath d='M0 0h20v20H0V0zm10 10h10v10H10V10z'/%3E%3C/g%3E%3C/svg%3E");
+    --pattern-overlay: linear-gradient(45deg,
+            transparent 30%,
+            rgba(0, 255, 0, 0.02) 50%,
+            transparent 70%);
+    --matrix-rain: linear-gradient(to bottom,
+            transparent 0%,
+            rgba(0, 255, 0, 0.1) 50%,
+            transparent 100%);
+    --matrix-code-pattern: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2300ff00' fill-opacity='0.02'%3E%3Ctext x='5' y='15' font-family='monospace' font-size='8'%3E0101%3C/text%3E%3Ctext x='5' y='25' font-family='monospace' font-size='8'%3E1010%3C/text%3E%3Ctext x='5' y='35' font-family='monospace' font-size='8'%3E0101%3C/text%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Motifs de code Matrix animés */
+.matrix-theme .card,
+.matrix-theme .container {
+    position: relative;
+}
+
+.matrix-theme .card::before,
+.matrix-theme .container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: var(--matrix-code-pattern);
+    background-size: 40px 40px;
+    opacity: 0.1;
+    animation: matrixCodeFlow 15s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes matrixCodeFlow {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(40px);
+    }
+}
+
+.matrix-theme body {
+    background-image: var(--pattern-bg);
+    background-size: var(--pattern-size);
+    background-attachment: fixed;
+    position: relative;
+}
+
+.matrix-theme body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--pattern-overlay);
+    animation: matrixShift var(--pattern-animation);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.matrix-theme .card,
+.matrix-theme .container {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    box-shadow:
+        0 0 20px rgba(0, 255, 0, 0.1),
+        inset 0 0 20px rgba(0, 255, 0, 0.05);
+}
+
+.matrix-theme .btn-primary {
+    background: linear-gradient(45deg, #00ff00, #00cc00);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.matrix-theme .nav-link:hover {
+    text-shadow: 0 0 10px #00ff00;
+    color: #00ff00;
+}
+
+/* ===== THÈME NEON - MOTIFS ÉLECTRIQUES ===== */
+.neon-theme {
+    --pattern-bg: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ff00ff' fill-opacity='0.03'%3E%3Cpath d='M0 0h40v40H0V0zm20 20h20v20H20V20z'/%3E%3Cpath d='M0 20h40v20H0V20z'/%3E%3Cpath d='M20 0h20v40H20V0z'/%3E%3C/g%3E%3C/svg%3E");
+    --neon-circuit-pattern: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ff00ff' fill-opacity='0.02'%3E%3Cpath d='M10 10h10v2h-10z'/%3E%3Cpath d='M20 10h2v10h-2z'/%3E%3Cpath d='M20 20h10v2h-10z'/%3E%3Cpath d='M30 20h2v10h-2z'/%3E%3Cpath d='M30 30h10v2h-10z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Motifs de circuit Neon */
+.neon-theme .card,
+.neon-theme .container {
+    position: relative;
+}
+
+.neon-theme .card::before,
+.neon-theme .container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: var(--neon-circuit-pattern);
+    background-size: 60px 60px;
+    opacity: 0.1;
+    animation: neonCircuitPulse 8s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes neonCircuitPulse {
+
+    0%,
+    100% {
+        opacity: 0.1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}
+
+.neon-theme {
+    --pattern-overlay: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255, 0, 255, 0.02) 25%,
+            rgba(0, 255, 255, 0.02) 50%,
+            rgba(255, 0, 255, 0.02) 75%,
+            transparent 100%);
+    --neon-pulse: 2s ease-in-out infinite;
+}
+
+.neon-theme body {
+    background-image: var(--pattern-bg);
+    background-size: var(--pattern-size);
+    background-attachment: fixed;
+    position: relative;
+}
+
+.neon-theme body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--pattern-overlay);
+    animation: neonPulse var(--neon-pulse);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.neon-theme .card,
+.neon-theme .container {
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid rgba(255, 0, 255, 0.3);
+    box-shadow:
+        0 0 30px rgba(255, 0, 255, 0.2),
+        inset 0 0 30px rgba(255, 0, 255, 0.05);
+}
+
+.neon-theme .btn-primary {
+    background: linear-gradient(45deg, #ff00ff, #ff0080);
+    box-shadow: 0 0 30px rgba(255, 0, 255, 0.4);
+    text-shadow: 0 0 15px rgba(255, 0, 255, 0.7);
+}
+
+.neon-theme .nav-link:hover {
+    text-shadow: 0 0 15px #ff00ff;
+    color: #ff00ff;
+}
+
+/* ===== THÈME CYBERPUNK - MOTIFS MÉTALLIQUES ===== */
+.cyberpunk-theme {
+    --pattern-bg: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffc107' fill-opacity='0.03'%3E%3Cpath d='M0 0h30v30H0V0zm15 15h15v15H15V15z'/%3E%3Cpath d='M0 15h30v15H0V15z'/%3E%3Cpath d='M15 0h15v30H15V0z'/%3E%3C/g%3E%3C/svg%3E");
+    --pattern-overlay: linear-gradient(135deg,
+            transparent 0%,
+            rgba(255, 193, 7, 0.02) 25%,
+            rgba(220, 53, 69, 0.02) 50%,
+            rgba(255, 193, 7, 0.02) 75%,
+            transparent 100%);
+    --cyber-glow: 3s ease-in-out infinite;
+}
+
+.cyberpunk-theme body {
+    background-image: var(--pattern-bg);
+    background-size: var(--pattern-size);
+    background-attachment: fixed;
+    position: relative;
+}
+
+.cyberpunk-theme body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--pattern-overlay);
+    animation: cyberGlow var(--cyber-glow);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.cyberpunk-theme .card,
+.cyberpunk-theme .container {
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    box-shadow:
+        0 0 25px rgba(255, 193, 7, 0.15),
+        inset 0 0 25px rgba(255, 193, 7, 0.05);
+}
+
+.cyberpunk-theme .btn-primary {
+    background: linear-gradient(45deg, #ffc107, #ff8c00);
+    box-shadow: 0 0 25px rgba(255, 193, 7, 0.3);
+    text-shadow: 0 0 12px rgba(255, 193, 7, 0.6);
+}
+
+.cyberpunk-theme .nav-link:hover {
+    text-shadow: 0 0 12px #ffc107;
+    color: #ffc107;
+}
+
+/* ===== THÈME OCEAN - MOTIFS AQUATIQUES ===== */
+.ocean-theme {
+    --pattern-bg: url("data:image/svg+xml,%3Csvg width='50' height='50' viewBox='0 0 50 50' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2300bfff' fill-opacity='0.03'%3E%3Cpath d='M0 0h50v50H0V0zm25 25h25v25H25V25z'/%3E%3Cpath d='M0 25h50v25H0V25z'/%3E%3Cpath d='M25 0h25v50H25V0z'/%3E%3C/g%3E%3C/svg%3E");
+    --pattern-overlay: linear-gradient(180deg,
+            transparent 0%,
+            rgba(0, 191, 255, 0.02) 25%,
+            rgba(0, 255, 191, 0.02) 50%,
+            rgba(0, 191, 255, 0.02) 75%,
+            transparent 100%);
+    --ocean-wave: 4s ease-in-out infinite;
+}
+
+.ocean-theme body {
+    background-image: var(--pattern-bg);
+    background-size: var(--pattern-size);
+    background-attachment: fixed;
+    position: relative;
+}
+
+.ocean-theme body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--pattern-overlay);
+    animation: oceanWave var(--ocean-wave);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.ocean-theme .card,
+.ocean-theme .container {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(0, 191, 255, 0.2);
+    box-shadow:
+        0 0 20px rgba(0, 191, 255, 0.1),
+        inset 0 0 20px rgba(0, 191, 255, 0.05);
+}
+
+.ocean-theme .btn-primary {
+    background: linear-gradient(45deg, #00bfff, #0099cc);
+    box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
+    text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+}
+
+.ocean-theme .nav-link:hover {
+    text-shadow: 0 0 10px #00bfff;
+    color: #00bfff;
+}
+
+/* ===== THÈME EARTH - MOTIFS NATURELS ===== */
+.earth-theme {
+    --pattern-bg: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23228b22' fill-opacity='0.03'%3E%3Cpath d='M0 0h60v60H0V0zm30 30h30v30H30V30z'/%3E%3Cpath d='M0 30h60v30H0V30z'/%3E%3Cpath d='M30 0h30v60H30V0z'/%3E%3C/g%3E%3C/svg%3E");
+    --pattern-overlay: linear-gradient(45deg,
+            transparent 0%,
+            rgba(34, 139, 34, 0.02) 25%,
+            rgba(107, 142, 35, 0.02) 50%,
+            rgba(34, 139, 34, 0.02) 75%,
+            transparent 100%);
+    --earth-grow: 5s ease-in-out infinite;
+}
+
+.earth-theme body {
+    background-image: var(--pattern-bg);
+    background-size: var(--pattern-size);
+    background-attachment: fixed;
+    position: relative;
+}
+
+.earth-theme body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--pattern-overlay);
+    animation: earthGrow var(--earth-grow);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.earth-theme .card,
+.earth-theme .container {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(34, 139, 34, 0.2);
+    box-shadow:
+        0 0 20px rgba(34, 139, 34, 0.1),
+        inset 0 0 20px rgba(34, 139, 34, 0.05);
+}
+
+.earth-theme .btn-primary {
+    background: linear-gradient(45deg, #228b22, #32cd32);
+    box-shadow: 0 0 20px rgba(34, 139, 34, 0.3);
+    text-shadow: 0 0 10px rgba(34, 139, 34, 0.5);
+}
+
+.earth-theme .nav-link:hover {
+    text-shadow: 0 0 10px #228b22;
+    color: #228b22;
+}
+
+/* ===== THÈME DOPAMINE - MOTIFS COLORÉS ===== */
+.dopamine-theme {
+    --pattern-bg: url("data:image/svg+xml,%3Csvg width='25' height='25' viewBox='0 0 25 25' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ff6b6b' fill-opacity='0.03'%3E%3Cpath d='M0 0h25v25H0V0zm12.5 12.5h12.5v12.5H12.5V12.5z'/%3E%3Cpath d='M0 12.5h25v12.5H0V12.5z'/%3E%3Cpath d='M12.5 0h12.5v25H12.5V0z'/%3E%3C/g%3E%3C/svg%3E");
+    --pattern-overlay: linear-gradient(45deg,
+            rgba(255, 107, 107, 0.02) 0%,
+            rgba(255, 193, 7, 0.02) 25%,
+            rgba(76, 175, 80, 0.02) 50%,
+            rgba(33, 150, 243, 0.02) 75%,
+            rgba(156, 39, 176, 0.02) 100%);
+    --dopamine-rainbow: 6s ease-in-out infinite;
+}
+
+.dopamine-theme body {
+    background-image: var(--pattern-bg);
+    background-size: var(--pattern-size);
+    background-attachment: fixed;
+    position: relative;
+}
+
+.dopamine-theme body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--pattern-overlay);
+    animation: dopamineRainbow var(--dopamine-rainbow);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.dopamine-theme .card,
+.dopamine-theme .container {
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid rgba(255, 107, 107, 0.3);
+    box-shadow:
+        0 0 25px rgba(255, 107, 107, 0.15),
+        inset 0 0 25px rgba(255, 107, 107, 0.05);
+}
+
+.dopamine-theme .btn-primary {
+    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+    box-shadow: 0 0 25px rgba(255, 107, 107, 0.4);
+    text-shadow: 0 0 15px rgba(255, 107, 107, 0.7);
+}
+
+.dopamine-theme .nav-link:hover {
+    text-shadow: 0 0 15px #ff6b6b;
+    color: #ff6b6b;
+}
+
+/* ===== ANIMATIONS DE MOTIFS ===== */
+@keyframes matrixShift {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes neonPulse {
+
+    0%,
+    100% {
+        opacity: 0.02;
+    }
+
+    50% {
+        opacity: 0.05;
+    }
+}
+
+@keyframes cyberGlow {
+
+    0%,
+    100% {
+        opacity: 0.02;
+    }
+
+    50% {
+        opacity: 0.04;
+    }
+}
+
+@keyframes oceanWave {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes earthGrow {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.02);
+    }
+}
+
+@keyframes dopamineRainbow {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+
+    25% {
+        filter: hue-rotate(90deg);
+    }
+
+    50% {
+        filter: hue-rotate(180deg);
+    }
+
+    75% {
+        filter: hue-rotate(270deg);
+    }
+
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+/* ===== ICÔNES THÉMATIQUES ===== */
+.matrix-theme .theme-icon::before {
+    content: '🔢';
+}
+
+.neon-theme .theme-icon::before {
+    content: '⚡';
+}
+
+.cyberpunk-theme .theme-icon::before {
+    content: '🤖';
+}
+
+.ocean-theme .theme-icon::before {
+    content: '🌊';
+}
+
+.earth-theme .theme-icon::before {
+    content: '🌱';
+}
+
+.dopamine-theme .theme-icon::before {
+    content: '🌈';
+}
+
+/* ===== TRANSITIONS DE THÈME ===== */
+.theme-transition {
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-transition * {
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== RESPONSIVE PATTERNS ===== */
+@media (max-width: 768px) {
+    :root {
+        --pattern-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --pattern-size: 10px;
+    }
+}
+
+/* ===== PERFORMANCE OPTIMIZATION ===== */
+@media (prefers-reduced-motion: reduce) {
+
+    .matrix-theme body::before,
+    .neon-theme body::before,
+    .cyberpunk-theme body::before,
+    .ocean-theme body::before,
+    .earth-theme body::before,
+    .dopamine-theme body::before {
+        animation: none;
+    }
+}
+
+/* ===== UTILITAIRES DE THÈME ===== */
+.theme-pattern {
+    background-attachment: fixed;
+    background-repeat: repeat;
+}
+
+.theme-overlay {
+    position: relative;
+}
+
+.theme-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.theme-content {
+    position: relative;
+    z-index: 2;
+}

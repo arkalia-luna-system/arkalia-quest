@@ -1,0 +1,10 @@
+{
+  "player_1757876189953_efnpgz4ji": {
+    "interactions_enabled": true,
+    "disabled_interaction_types": [],
+    "animation_intensity": "medium",
+    "sound_volume": 0.7,
+    "haptic_enabled": true,
+    "notifications_enabled": true
+  }
+}

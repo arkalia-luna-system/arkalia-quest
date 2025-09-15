@@ -342,8 +342,8 @@ class PerformanceOptimizer {
             memory: this.metrics.memoryUsage
         };
 
-        // Envoyer vers l'API si disponible
-        if (window.fetch) {
+        // Envoyer vers l'API si disponible (avec throttling)
+        if (window.fetch && this.shouldLogPerformance()) {
             fetch('/api/performance/log', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -352,6 +352,16 @@ class PerformanceOptimizer {
                 // Ignorer les erreurs de réseau
             });
         }
+    }
+
+    shouldLogPerformance() {
+        // Throttling : ne logger que toutes les 5 secondes
+        const now = Date.now();
+        if (!this.lastLogTime || now - this.lastLogTime > 5000) {
+            this.lastLogTime = now;
+            return true;
+        }
+        return false;
     }
 
     getMetrics() {

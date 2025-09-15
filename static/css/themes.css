@@ -1,0 +1,697 @@
+/* ===== ARKALIA QUEST - THÈMES ALTERNATIFS ===== */
+
+/* ===== THÈME MATRIX (DÉFAUT) - VERT RÉDUIT ===== */
+:root {
+    --matrix-primary: #00ff00;
+    --matrix-secondary: #00ffff;
+    --matrix-accent: #ff00ff;
+    --matrix-bg: #000000;
+    --matrix-surface: #0a0a0a;
+    --matrix-text: #00ff00;
+    --matrix-text-secondary: #00ffff;
+    --matrix-border: #00ff00;
+    --matrix-shadow: rgba(0, 255, 0, 0.3);
+    --matrix-glow: rgba(0, 255, 0, 0.5);
+
+    /* Variables globales pour usage ponctuel */
+    --success-color: #00ff00;
+    --hacking-color: #00ff00;
+    --feedback-positive: #00ff00;
+    --terminal-accent: #00ff00;
+}
+
+/* ===== THÈME CYBERPUNK ===== */
+.cyberpunk-theme {
+    --primary: #ff0080;
+    --secondary: #00ffff;
+    --accent: #ffff00;
+    --bg: linear-gradient(135deg, #0a0a0a, #1a1a2e, #16213e);
+    --surface: rgba(255, 0, 128, 0.1);
+    --text: #ff0080;
+    --text-secondary: #00ffff;
+    --border: #ff0080;
+    --shadow: rgba(255, 0, 128, 0.4);
+    --glow: rgba(255, 0, 128, 0.6);
+}
+
+.cyberpunk-theme .hero-title {
+    background: linear-gradient(45deg, #ff0080, #00ffff, #ffff00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(255, 0, 128, 0.8);
+}
+
+.cyberpunk-theme .cta-btn {
+    background: linear-gradient(45deg, #ff0080, #00ffff);
+    border: 2px solid #ffff00;
+    box-shadow: 0 0 20px rgba(255, 0, 128, 0.5);
+}
+
+.cyberpunk-theme .cta-btn:hover {
+    background: linear-gradient(45deg, #00ffff, #ff0080);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.7);
+    transform: translateY(-3px) scale(1.05);
+}
+
+.cyberpunk-theme .terminal {
+    background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
+    border: 2px solid #ff0080;
+    box-shadow: 0 0 25px rgba(255, 0, 128, 0.4);
+}
+
+.cyberpunk-theme .terminal-input {
+    color: #00ffff;
+    border-color: #ff0080;
+}
+
+.cyberpunk-theme .terminal-output {
+    color: #ffff00;
+}
+
+/* ===== THÈME NEON ===== */
+.neon-theme {
+    --primary: #00ff41;
+    --secondary: #ff073a;
+    --accent: #00ffff;
+    --bg: radial-gradient(circle at center, #001122, #000000);
+    --surface: rgba(0, 255, 65, 0.1);
+    --text: #00ff41;
+    --text-secondary: #ff073a;
+    --border: #00ff41;
+    --shadow: rgba(0, 255, 65, 0.4);
+    --glow: rgba(0, 255, 65, 0.6);
+}
+
+.neon-theme .hero-title {
+    color: #00ff41;
+    text-shadow:
+        0 0 5px #00ff41,
+        0 0 10px #00ff41,
+        0 0 15px #00ff41,
+        0 0 20px #00ff41;
+    animation: neonPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes neonPulse {
+    from {
+        text-shadow:
+            0 0 5px #00ff41,
+            0 0 10px #00ff41,
+            0 0 15px #00ff41,
+            0 0 20px #00ff41;
+    }
+
+    to {
+        text-shadow:
+            0 0 2px #00ff41,
+            0 0 5px #00ff41,
+            0 0 8px #00ff41,
+            0 0 12px #00ff41;
+    }
+}
+
+.neon-theme .cta-btn {
+    background: transparent;
+    border: 2px solid #00ff41;
+    color: #00ff41;
+    position: relative;
+    overflow: hidden;
+}
+
+.neon-theme .cta-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, #00ff41, transparent);
+    transition: left 0.5s;
+}
+
+.neon-theme .cta-btn:hover::before {
+    left: 100%;
+}
+
+.neon-theme .cta-btn:hover {
+    box-shadow: 0 0 20px #00ff41;
+    color: #000;
+    background: #00ff41;
+}
+
+.neon-theme .terminal {
+    background: #000;
+    border: 2px solid #00ff41;
+    box-shadow:
+        0 0 10px #00ff41,
+        inset 0 0 10px rgba(0, 255, 65, 0.1);
+}
+
+.neon-theme .terminal-input {
+    color: #00ff41;
+    background: transparent;
+    border: none;
+    outline: none;
+    text-shadow: 0 0 5px #00ff41;
+}
+
+.neon-theme .terminal-output {
+    color: #ff073a;
+    text-shadow: 0 0 3px #ff073a;
+}
+
+/* ===== THÈME DARK MODE ===== */
+.dark-theme {
+    --primary: #bb86fc;
+    --secondary: #03dac6;
+    --accent: #cf6679;
+    --bg: #121212;
+    --surface: #1e1e1e;
+    --text: #ffffff;
+    --text-secondary: #bb86fc;
+    --border: #bb86fc;
+    --shadow: rgba(187, 134, 252, 0.3);
+    --glow: rgba(187, 134, 252, 0.5);
+}
+
+.dark-theme .hero-title {
+    color: #bb86fc;
+    text-shadow: 0 0 20px rgba(187, 134, 252, 0.5);
+}
+
+.dark-theme .cta-btn {
+    background: linear-gradient(45deg, #bb86fc, #03dac6);
+    border: 1px solid #bb86fc;
+    color: #000;
+    font-weight: 600;
+}
+
+.dark-theme .cta-btn:hover {
+    background: linear-gradient(45deg, #03dac6, #bb86fc);
+    box-shadow: 0 0 25px rgba(3, 218, 198, 0.4);
+}
+
+.dark-theme .terminal {
+    background: #1e1e1e;
+    border: 1px solid #bb86fc;
+    color: #03dac6;
+}
+
+.dark-theme .terminal-input {
+    color: #bb86fc;
+    background: #2d2d2d;
+}
+
+.dark-theme .terminal-output {
+    color: #03dac6;
+}
+
+/* ===== THÈME RETRO ===== */
+.retro-theme {
+    --primary: #ff6b35;
+    --secondary: #f7931e;
+    --accent: #ffd23f;
+    --bg: linear-gradient(135deg, #2c3e50, #34495e);
+    --surface: rgba(255, 107, 53, 0.1);
+    --text: #ff6b35;
+    --text-secondary: #f7931e;
+    --border: #ff6b35;
+    --shadow: rgba(255, 107, 53, 0.4);
+    --glow: rgba(255, 107, 53, 0.6);
+}
+
+.retro-theme .hero-title {
+    font-family: 'Courier New', monospace;
+    color: #ff6b35;
+    text-shadow: 2px 2px 0px #f7931e;
+    letter-spacing: 2px;
+}
+
+.retro-theme .cta-btn {
+    background: #ff6b35;
+    border: 3px solid #f7931e;
+    color: #fff;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.retro-theme .cta-btn:hover {
+    background: #f7931e;
+    border-color: #ffd23f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.retro-theme .terminal {
+    background: #2c3e50;
+    border: 3px solid #ff6b35;
+    font-family: 'Courier New', monospace;
+    box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+}
+
+.retro-theme .terminal-input {
+    color: #ffd23f;
+    background: #34495e;
+    border: 1px solid #f7931e;
+}
+
+.retro-theme .terminal-output {
+    color: #ff6b35;
+}
+
+/* ===== THÈME OCEAN ===== */
+.ocean-theme {
+    --primary: #00bcd4;
+    --secondary: #0097a7;
+    --accent: #26c6da;
+    --bg: linear-gradient(135deg, #0d47a1, #1976d2, #42a5f5);
+    --surface: rgba(0, 188, 212, 0.1);
+    --text: #00bcd4;
+    --text-secondary: #26c6da;
+    --border: #00bcd4;
+    --shadow: rgba(0, 188, 212, 0.4);
+    --glow: rgba(0, 188, 212, 0.6);
+}
+
+.ocean-theme .hero-title {
+    color: #00bcd4;
+    text-shadow: 0 0 20px rgba(0, 188, 212, 0.5);
+    animation: wave 3s ease-in-out infinite;
+}
+
+@keyframes wave {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.ocean-theme .cta-btn {
+    background: linear-gradient(45deg, #00bcd4, #26c6da);
+    border: 2px solid #0097a7;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.ocean-theme .cta-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+}
+
+.ocean-theme .cta-btn:hover::after {
+    transform: translateX(100%);
+}
+
+.ocean-theme .terminal {
+    background: linear-gradient(135deg, #0d47a1, #1976d2);
+    border: 2px solid #00bcd4;
+    box-shadow: 0 0 25px rgba(0, 188, 212, 0.3);
+}
+
+.ocean-theme .terminal-input {
+    color: #26c6da;
+    background: rgba(0, 188, 212, 0.1);
+}
+
+.ocean-theme .terminal-output {
+    color: #00bcd4;
+}
+
+/* ===== ANIMATIONS GLOBALES POUR TOUS LES THÈMES ===== */
+.theme-transition {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== BOUTON DE CHANGEMENT DE THÈME ===== */
+.theme-selector {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    padding: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.theme-selector select {
+    background: transparent;
+    border: 2px solid var(--primary, #00ff00);
+    color: var(--text, #00ff00);
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.theme-selector select:focus {
+    outline: none;
+    box-shadow: 0 0 10px var(--glow, rgba(0, 255, 0, 0.5));
+}
+
+.theme-selector option {
+    background: #000;
+    color: #00ff00;
+}
+
+/* ===== RESPONSIVE POUR LES THÈMES ===== */
+@media (max-width: 768px) {
+    .theme-selector {
+        top: 10px;
+        right: 10px;
+        padding: 5px;
+    }
+
+    .theme-selector select {
+        font-size: 12px;
+        padding: 6px 8px;
+    }
+}
+
+/* ===== EFFETS SPÉCIAUX POUR CHAQUE THÈME ===== */
+.cyberpunk-theme .matrix-effect {
+    background: linear-gradient(45deg, #ff0080, #00ffff, #ffff00);
+    animation: cyberpunkGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes cyberpunkGlow {
+    from {
+        filter: hue-rotate(0deg);
+    }
+
+    to {
+        filter: hue-rotate(360deg);
+    }
+}
+
+.neon-theme .matrix-effect {
+    box-shadow:
+        0 0 5px #00ff41,
+        0 0 10px #00ff41,
+        0 0 15px #00ff41,
+        0 0 20px #00ff41;
+    animation: neonFlicker 0.1s infinite alternate;
+}
+
+@keyframes neonFlicker {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+}
+
+.dark-theme .matrix-effect {
+    background: linear-gradient(45deg, #bb86fc, #03dac6);
+    animation: darkPulse 3s ease-in-out infinite;
+}
+
+@keyframes darkPulse {
+
+    0%,
+    100% {
+        opacity: 0.8;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.retro-theme .matrix-effect {
+    background: repeating-linear-gradient(45deg,
+            #ff6b35,
+            #ff6b35 10px,
+            #f7931e 10px,
+            #f7931e 20px);
+    animation: retroMove 1s linear infinite;
+}
+
+@keyframes retroMove {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 20px 20px;
+    }
+}
+
+.ocean-theme .matrix-effect {
+    background: linear-gradient(45deg, #00bcd4, #26c6da, #0097a7);
+    animation: oceanWave 4s ease-in-out infinite;
+}
+
+@keyframes oceanWave {
+
+    0%,
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    50% {
+        transform: scale(1.05) rotate(2deg);
+    }
+}
+
+/* ===== NOUVEAUX THÈMES MODERNES ===== */
+
+/* ===== THÈME EARTH/TERRA ===== */
+.earth-theme {
+    --primary: #8B4513;
+    --secondary: #DDA0DD;
+    --accent: #F4A460;
+    --bg: linear-gradient(135deg, #2F4F2F, #3E5F3E, #4A6B4A);
+    --surface: rgba(139, 69, 19, 0.1);
+    --text: #F4A460;
+    --text-secondary: #DDA0DD;
+    --border: #8B4513;
+    --shadow: rgba(139, 69, 19, 0.4);
+    --glow: rgba(139, 69, 19, 0.6);
+
+    /* Couleurs spécialisées */
+    --success-color: #32CD32;
+    --hacking-color: #00ff00;
+    --feedback-positive: #32CD32;
+    --terminal-accent: #F4A460;
+    --badge-gold: #FFD700;
+    --badge-silver: #C0C0C0;
+    --badge-bronze: #CD7F32;
+}
+
+.earth-theme .hero-title {
+    background: linear-gradient(45deg, #8B4513, #DDA0DD, #F4A460);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(139, 69, 19, 0.8);
+}
+
+.earth-theme .cta-btn {
+    background: linear-gradient(45deg, #8B4513, #F4A460);
+    border: 2px solid #DDA0DD;
+    box-shadow: 0 0 20px rgba(139, 69, 19, 0.5);
+    color: #fff;
+}
+
+.earth-theme .cta-btn:hover {
+    background: linear-gradient(45deg, #F4A460, #8B4513);
+    box-shadow: 0 0 30px rgba(244, 164, 96, 0.7);
+    transform: translateY(-3px) scale(1.05);
+}
+
+/* ===== THÈME DOPAMINE BURST ===== */
+.dopamine-theme {
+    --primary: #FF6B6B;
+    --secondary: #4ECDC4;
+    --accent: #FFE66D;
+    --bg: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+    --surface: rgba(255, 107, 107, 0.1);
+    --text: #FF6B6B;
+    --text-secondary: #4ECDC4;
+    --border: #FF6B6B;
+    --shadow: rgba(255, 107, 107, 0.4);
+    --glow: rgba(255, 107, 107, 0.6);
+
+    /* Couleurs spécialisées */
+    --success-color: #32CD32;
+    --hacking-color: #00ff00;
+    --feedback-positive: #32CD32;
+    --terminal-accent: #FFE66D;
+    --badge-gold: #FFD700;
+    --badge-silver: #C0C0C0;
+    --badge-bronze: #CD7F32;
+}
+
+.dopamine-theme .hero-title {
+    background: linear-gradient(45deg, #FF6B6B, #4ECDC4, #FFE66D);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(255, 107, 107, 0.8);
+    animation: dopaminePulse 2s ease-in-out infinite;
+}
+
+@keyframes dopaminePulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.dopamine-theme .cta-btn {
+    background: linear-gradient(45deg, #FF6B6B, #FFE66D);
+    border: 2px solid #4ECDC4;
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+    color: #fff;
+    animation: buttonBounce 1s ease-in-out infinite;
+}
+
+@keyframes buttonBounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.dopamine-theme .cta-btn:hover {
+    background: linear-gradient(45deg, #4ECDC4, #FF6B6B);
+    box-shadow: 0 0 30px rgba(78, 205, 196, 0.7);
+    transform: translateY(-3px) scale(1.1);
+}
+
+/* ===== THÈME NEON ELECTRIC ===== */
+.neon-theme {
+    --primary: #9D4EDD;
+    --secondary: #FF8500;
+    --accent: #00F5FF;
+    --bg: linear-gradient(135deg, #0a0a0a, #1a0033, #2d1b69);
+    --surface: rgba(157, 78, 221, 0.1);
+    --text: #9D4EDD;
+    --text-secondary: #FF8500;
+    --border: #9D4EDD;
+    --shadow: rgba(157, 78, 221, 0.4);
+    --glow: rgba(157, 78, 221, 0.6);
+
+    /* Couleurs spécialisées */
+    --success-color: #00ff00;
+    --hacking-color: #00ff00;
+    --feedback-positive: #00ff00;
+    --terminal-accent: #00F5FF;
+    --badge-gold: #FFD700;
+    --badge-silver: #C0C0C0;
+    --badge-bronze: #CD7F32;
+}
+
+.neon-theme .hero-title {
+    background: linear-gradient(45deg, #9D4EDD, #FF8500, #00F5FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(157, 78, 221, 0.8);
+    animation: neonFlicker 3s ease-in-out infinite;
+}
+
+@keyframes neonFlicker {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+
+    75% {
+        opacity: 1;
+    }
+}
+
+.neon-theme .cta-btn {
+    background: linear-gradient(45deg, #9D4EDD, #00F5FF);
+    border: 2px solid #FF8500;
+    box-shadow: 0 0 20px rgba(157, 78, 221, 0.5);
+    color: #fff;
+}
+
+.neon-theme .cta-btn:hover {
+    background: linear-gradient(45deg, #FF8500, #9D4EDD);
+    box-shadow: 0 0 30px rgba(255, 133, 0, 0.7);
+    transform: translateY(-3px) scale(1.05);
+}
+
+/* ===== THÈME FROG GREEN MODERNE ===== */
+.frog-theme {
+    --primary: #7CB342;
+    --secondary: #FF6B9D;
+    --accent: #FFC107;
+    --bg: linear-gradient(135deg, #1B5E20, #2E7D32, #388E3C);
+    --surface: rgba(124, 179, 66, 0.1);
+    --text: #7CB342;
+    --text-secondary: #FF6B9D;
+    --border: #7CB342;
+    --shadow: rgba(124, 179, 66, 0.4);
+    --glow: rgba(124, 179, 66, 0.6);
+
+    /* Couleurs spécialisées */
+    --success-color: #7CB342;
+    --hacking-color: #00ff00;
+    --feedback-positive: #7CB342;
+    --terminal-accent: #FFC107;
+    --badge-gold: #FFD700;
+    --badge-silver: #C0C0C0;
+    --badge-bronze: #CD7F32;
+}
+
+.frog-theme .hero-title {
+    background: linear-gradient(45deg, #7CB342, #FF6B9D, #FFC107);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(124, 179, 66, 0.8);
+}
+
+.frog-theme .cta-btn {
+    background: linear-gradient(45deg, #7CB342, #FFC107);
+    border: 2px solid #FF6B9D;
+    box-shadow: 0 0 20px rgba(124, 179, 66, 0.5);
+    color: #fff;
+}
+
+.frog-theme .cta-btn:hover {
+    background: linear-gradient(45deg, #FF6B9D, #7CB342);
+    box-shadow: 0 0 30px rgba(255, 107, 157, 0.7);
+    transform: translateY(-3px) scale(1.05);
+}

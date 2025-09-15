@@ -34,6 +34,8 @@ class DatabaseOptimizer:
             "connection_creates": 0,
             "connection_reuses": 0,
             "slow_queries": 0,
+            "prepared_queries": 0,
+            "batch_operations": 0,
         }
 
         # Initialiser le pool de connexions
@@ -374,6 +376,85 @@ class DatabaseOptimizer:
                 logging.warning(f"Problème d'intégrité détecté: {integrity_result}")
 
             conn.commit()
+
+    def execute_prepared_query(
+        self, query: str, params: tuple = (), cache_key: str = None
+    ):
+        """
+        Exécute une requête préparée avec cache
+
+        Args:
+            query: Requête SQL préparée
+            params: Paramètres de la requête
+            cache_key: Clé de cache (optionnel)
+
+        Returns:
+            Résultats de la requête
+        """
+        # Vérifier le cache
+        if cache_key and cache_key in self.query_cache:
+            if time.time() - self.query_cache[cache_key]["timestamp"] < self.cache_ttl:
+                self.stats["cache_hits"] += 1
+                return self.query_cache[cache_key]["data"]
+            else:
+                del self.query_cache[cache_key]
+
+        self.stats["cache_misses"] += 1
+
+        # Exécuter la requête
+        with self.get_connection() as conn:
+            start_time = time.time()
+            cursor = conn.cursor()
+            cursor.execute(query, params)
+            results = cursor.fetchall()
+            execution_time = time.time() - start_time
+
+            # Mettre en cache si nécessaire
+            if cache_key and execution_time < 1.0:  # Seulement les requêtes rapides
+                self.query_cache[cache_key] = {
+                    "data": results,
+                    "timestamp": time.time(),
+                }
+
+            self.stats["queries_executed"] += 1
+            self.stats["prepared_queries"] += 1
+
+            if execution_time > 0.1:  # Requête lente
+                self.stats["slow_queries"] += 1
+                logging.warning(
+                    f"Requête lente détectée: {execution_time:.3f}s - {query[:50]}..."
+                )
+
+            return results
+
+    def execute_batch_operations(self, operations: list):
+        """
+        Exécute plusieurs opérations en lot pour optimiser les performances
+
+        Args:
+            operations: Liste de tuples (query, params)
+        """
+        with self.get_connection() as conn:
+            start_time = time.time()
+            cursor = conn.cursor()
+
+            try:
+                for query, params in operations:
+                    cursor.execute(query, params)
+
+                conn.commit()
+                self.stats["batch_operations"] += 1
+                self.stats["queries_executed"] += len(operations)
+
+                execution_time = time.time() - start_time
+                logging.info(
+                    f"Batch de {len(operations)} opérations exécuté en {execution_time:.3f}s"
+                )
+
+            except sqlite3.Error as e:
+                conn.rollback()
+                logging.error(f"Erreur lors de l'exécution du batch: {e}")
+                raise
 
     def close_all_connections(self):
         """Ferme toutes les connexions"""

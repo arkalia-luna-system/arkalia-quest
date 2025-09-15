@@ -23,6 +23,18 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/interface-improvements.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/empty-states.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game-interface.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mission-interface.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reward-animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/loading-animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/progression-animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/adaptive-guidance.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/progression-feedback.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/competitive-system.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/creative-system.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/casual-system.css') }}">
 
     <style>
         /* Styles spécifiques au monde immersif */
@@ -395,10 +407,46 @@
         }
 
         .navigation-controls {
-            display: flex;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(0, 255, 0, 0.3);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .direction-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 12px !important;
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.15), rgba(0, 255, 255, 0.1)) !important;
+            border: 2px solid rgba(0, 255, 0, 0.4) !important;
+            border-radius: 10px !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+
+        .direction-btn:hover {
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.3), rgba(0, 255, 255, 0.2)) !important;
+            border-color: var(--matrix-green) !important;
+            transform: translateY(-3px) scale(1.05) !important;
+            box-shadow: 0 8px 25px rgba(0, 255, 0, 0.4) !important;
+        }
+
+        .direction-icon {
+            font-size: 1.5em;
+            filter: drop-shadow(0 0 8px rgba(0, 255, 0, 0.6));
+        }
+
+        .direction-text {
+            font-size: 0.8em;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--matrix-green);
         }
 
         .nav-button {
@@ -524,6 +572,24 @@
                 font-size: 0.7em;
             }
 
+            .navigation-controls {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+                padding: 15px;
+            }
+
+            .direction-btn {
+                padding: 12px 8px !important;
+            }
+
+            .direction-icon {
+                font-size: 1.3em;
+            }
+
+            .direction-text {
+                font-size: 0.7em;
+            }
+
             .luna-world-guide {
                 position: static;
                 margin: 20px auto;
@@ -613,12 +679,28 @@
                         <div class="player-position" id="player-position" style="top: 45%; left: 45%;"></div>
                     </div>
 
-                    <!-- Contrôles de navigation -->
+                    <!-- Contrôles de navigation améliorés -->
                     <div class="navigation-controls">
-                        <button class="nav-button" onclick="movePlayer('up')">⬆️ NORD</button>
-                        <button class="nav-button" onclick="movePlayer('down')">⬇️ SUD</button>
-                        <button class="nav-button" onclick="movePlayer('left')">⬅️ OUEST</button>
-                        <button class="nav-button" onclick="movePlayer('right')">➡️ EST</button>
+                        <button class="nav-button direction-btn" onclick="movePlayer('up')"
+                            title="Déplacer vers le Nord">
+                            <span class="direction-icon">⬆️</span>
+                            <span class="direction-text">NORD</span>
+                        </button>
+                        <button class="nav-button direction-btn" onclick="movePlayer('down')"
+                            title="Déplacer vers le Sud">
+                            <span class="direction-icon">⬇️</span>
+                            <span class="direction-text">SUD</span>
+                        </button>
+                        <button class="nav-button direction-btn" onclick="movePlayer('left')"
+                            title="Déplacer vers l'Ouest">
+                            <span class="direction-icon">⬅️</span>
+                            <span class="direction-text">OUEST</span>
+                        </button>
+                        <button class="nav-button direction-btn" onclick="movePlayer('right')"
+                            title="Déplacer vers l'Est">
+                            <span class="direction-icon">➡️</span>
+                            <span class="direction-text">EST</span>
+                        </button>
                     </div>
                 </div>
 
@@ -678,10 +760,21 @@
     </main>
 
     <!-- Scripts LUNA VISION -->
-    <script src="{{ url_for('static', filename='js/arkalia-luna-vision.js') }}"></script>
     <script src="{{ url_for('static', filename='js/audio-manager.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/personalized-messages.js') }}"></script>
     <script src="{{ url_for('static', filename='js/effects.js') }}"></script>
     <script src="{{ url_for('static', filename='js/accessibility.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/game-engine.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/mission-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/visual-feedback-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/advanced-features.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ai_engine.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/analytics.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/immersive_effects.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/performance-ux-optimizer.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bug-fixes.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/reward-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/system-integrator.js') }}"></script>
 
     <script>
         // Données des zones
@@ -962,6 +1055,45 @@
                     }
                 });
             });
+        });
+    </script>
+
+    <!-- Scripts des systèmes adaptatifs -->
+    <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/progression-feedback.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/competitive-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/creative-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/casual-system.js') }}"></script>
+
+    <script>
+        // Initialisation des systèmes adaptatifs
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('🌍 Systèmes adaptatifs initialisés dans le monde');
+
+            // Initialiser le système de guidance adaptative
+            if (window.adaptiveGuidance) {
+                console.log('✅ Guidance adaptative active');
+            }
+
+            // Initialiser le système de feedback de progression
+            if (window.progressionFeedback) {
+                console.log('✅ Feedback de progression actif');
+            }
+
+            // Initialiser le système compétitif
+            if (window.competitiveSystem) {
+                console.log('✅ Système compétitif actif');
+            }
+
+            // Initialiser le système créatif
+            if (window.creativeSystem) {
+                console.log('✅ Système créatif actif');
+            }
+
+            // Initialiser le système casual
+            if (window.casualSystem) {
+                console.log('✅ Système casual actif');
+            }
         });
     </script>
 </body>

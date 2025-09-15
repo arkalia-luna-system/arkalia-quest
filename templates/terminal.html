@@ -26,6 +26,21 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/interface-improvements.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/empty-states.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reward-animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/loading-animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/progression-animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/adaptive-guidance.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/progression-feedback.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/competitive-system.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/creative-system.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/casual-system.css') }}">
+
+    <!-- CSS des améliorations UX contextuelles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/contextual-feedback.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game-interface.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mission-interface.css') }}">
 
     <style>
         /* Styles spécifiques au terminal immersif */
@@ -225,9 +240,9 @@
         .terminal-output {
             font-family: 'Share Tech Mono', monospace;
             font-size: 0.9em;
-            color: var(--argent-holographique);
-            background: rgba(0, 0, 0, 0.7);
-            border: 1px solid rgba(167, 139, 250, 0.3);
+            color: var(--matrix-green);
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid rgba(0, 255, 0, 0.4);
             border-radius: 10px;
             padding: 20px;
             height: 450px;
@@ -236,6 +251,161 @@
             line-height: 1.5;
             position: relative;
             flex: 1;
+            box-shadow:
+                inset 0 2px 10px rgba(0, 0, 0, 0.8),
+                0 0 20px rgba(0, 255, 0, 0.2);
+        }
+
+        /* STYLES POUR MESSAGES TERMINAL */
+        .terminal-message {
+            margin: 8px 0;
+            padding: 8px 12px;
+            border-radius: 4px;
+            animation: messageSlideIn 0.3s ease-out;
+        }
+
+        .terminal-message.success {
+            background: rgba(0, 255, 0, 0.15);
+            border-left: 4px solid var(--matrix-green);
+            color: var(--matrix-green);
+            font-weight: 600;
+        }
+
+        .terminal-message.error {
+            background: rgba(255, 0, 0, 0.15);
+            border-left: 4px solid #ff0000;
+            color: #ff6666;
+            font-weight: 600;
+        }
+
+        .terminal-message.info {
+            background: rgba(0, 255, 255, 0.15);
+            border-left: 4px solid var(--matrix-accent);
+            color: var(--matrix-accent);
+            font-weight: 600;
+        }
+
+        .terminal-message.warning {
+            background: rgba(255, 255, 0, 0.15);
+            border-left: 4px solid #ffff00;
+            color: #ffff66;
+            font-weight: 600;
+        }
+
+        .terminal-message.luna {
+            background: rgba(167, 139, 250, 0.15);
+            border-left: 4px solid var(--violet-lunaire);
+            color: var(--violet-lunaire);
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        /* NOUVELLES CLASSES POUR DIFFÉRENCIER SYSTÈME/UTILISATEUR */
+        .terminal-message.system {
+            background: rgba(0, 255, 0, 0.1);
+            border-left: 4px solid #00ff00;
+            color: #00ff00;
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 500;
+        }
+
+        .terminal-message.user {
+            background: rgba(0, 255, 255, 0.1);
+            border-left: 4px solid #00ffff;
+            color: #00ffff;
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 600;
+        }
+
+        .terminal-message.command {
+            background: rgba(255, 255, 0, 0.1);
+            border-left: 4px solid #ffff00;
+            color: #ffff00;
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 700;
+        }
+
+        .terminal-message.response {
+            background: rgba(255, 165, 0, 0.1);
+            border-left: 4px solid #ffa500;
+            color: #ffa500;
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 500;
+        }
+
+        /* STYLES POUR PROMPT DIFFÉRENCIÉ */
+        .terminal-prompt-system {
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        .terminal-prompt-user {
+            color: #00ffff;
+            font-weight: bold;
+        }
+
+        .terminal-prompt-luna {
+            color: var(--violet-lunaire);
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        @keyframes messageSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* STYLES POUR COMMANDES */
+        .command-line {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+            font-family: 'Share Tech Mono', 'Courier New', monospace;
+        }
+
+        .command-prompt {
+            color: var(--matrix-green);
+            margin-right: 8px;
+            font-weight: bold;
+        }
+
+        .command-input {
+            color: var(--matrix-accent);
+            background: transparent;
+            border: none;
+            outline: none;
+            flex: 1;
+            font-family: inherit;
+            font-size: inherit;
+        }
+
+        .command-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2em;
+            background: var(--matrix-green);
+            animation: cursorBlink 1s infinite;
+            margin-left: 2px;
+        }
+
+        @keyframes cursorBlink {
+
+            0%,
+            50% {
+                opacity: 1;
+            }
+
+            51%,
+            100% {
+                opacity: 0;
+            }
         }
 
         .terminal-output::-webkit-scrollbar {
@@ -362,24 +532,48 @@
 
         .terminal-commands {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 15px;
             margin-top: 25px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid rgba(0, 255, 0, 0.3);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
         }
 
         .command-btn {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.85em;
-            color: var(--argent-holographique);
-            background: rgba(167, 139, 250, 0.1);
-            border: 1px solid rgba(167, 139, 250, 0.3);
-            border-radius: 8px;
-            padding: 12px 16px;
+            font-size: 0.8em;
+            color: var(--matrix-green);
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 255, 255, 0.05));
+            border: 2px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 14px 12px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: center;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            min-height: 80px;
+            justify-content: center;
+        }
+
+        .cmd-icon {
+            font-size: 1.5em;
+            filter: drop-shadow(0 0 8px rgba(0, 255, 0, 0.6));
+            margin-bottom: 4px;
+        }
+
+        .cmd-text {
+            font-size: 0.75em;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--matrix-green);
         }
 
         .command-btn::before {
@@ -399,11 +593,20 @@
         }
 
         .command-btn:hover {
-            color: var(--violet-lunaire);
-            background: rgba(167, 139, 250, 0.2);
-            border-color: rgba(167, 139, 250, 0.6);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 20px rgba(167, 139, 250, 0.3);
+            color: var(--matrix-accent);
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.2), rgba(0, 255, 255, 0.15));
+            border-color: var(--matrix-green);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 255, 0, 0.4);
+        }
+
+        .command-btn:hover .cmd-text {
+            color: var(--matrix-accent);
+        }
+
+        .command-btn:hover .cmd-icon {
+            filter: drop-shadow(0 0 12px rgba(0, 255, 255, 0.8));
+            transform: scale(1.1);
         }
 
         .luna-message {
@@ -513,13 +716,23 @@
             }
 
             .terminal-commands {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-                gap: 10px;
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 12px;
+                padding: 15px;
             }
 
             .command-btn {
-                font-size: 0.8em;
-                padding: 10px 12px;
+                font-size: 0.75em;
+                padding: 12px 8px;
+                min-height: 70px;
+            }
+
+            .cmd-icon {
+                font-size: 1.3em;
+            }
+
+            .cmd-text {
+                font-size: 0.7em;
             }
         }
     </style>
@@ -568,10 +781,18 @@
 
             <!-- Zone de saisie -->
             <div class="terminal-input-container">
-                <span class="terminal-prompt">luna@arkalia:~$</span>
+                <span class="terminal-prompt" aria-label="Invite de commande">luna@arkalia:~$</span>
                 <input type="text" class="terminal-input" id="terminal-input" placeholder="Tape ta commande ici..."
-                    autocomplete="off">
-                <button class="terminal-send" onclick="sendCommand()">EXÉCUTER</button>
+                    autocomplete="off" aria-label="Zone de saisie de commande" aria-describedby="command-help">
+                <button class="terminal-send" onclick="sendCommand()" aria-label="Exécuter la commande"
+                    title="Exécuter la commande (Entrée)">
+                    EXÉCUTER
+                </button>
+            </div>
+
+            <!-- Aide contextuelle -->
+            <div id="command-help" class="command-help" aria-live="polite">
+                Tape 'aide' pour voir toutes les commandes disponibles
             </div>
 
             <!-- Commandes disponibles (cachées pour les tests) -->
@@ -593,16 +814,40 @@
                 monde world explorer naviguer
             </div>
 
-            <!-- Commandes rapides -->
+            <!-- Commandes rapides améliorées -->
             <div class="terminal-commands">
-                <button class="command-btn" onclick="quickCommand('aide')">📖 AIDE</button>
-                <button class="command-btn" onclick="quickCommand('profil')">👤 PROFIL</button>
-                <button class="command-btn" onclick="quickCommand('monde')">🌍 MONDE</button>
-                <button class="command-btn" onclick="quickCommand('status')">📊 STATUS</button>
-                <button class="command-btn" onclick="quickCommand('badges')">🏆 BADGES</button>
-                <button class="command-btn" onclick="quickCommand('missions')">🎯 MISSIONS</button>
-                <button class="command-btn" onclick="quickCommand('clear')">🧹 CLEAR</button>
-                <button class="command-btn" onclick="quickCommand('luna')">🌙 LUNA</button>
+                <button class="command-btn" onclick="quickCommand('aide')" title="Afficher l'aide des commandes">
+                    <span class="cmd-icon">📖</span>
+                    <span class="cmd-text">AIDE</span>
+                </button>
+                <button class="command-btn" onclick="quickCommand('profil')" title="Afficher votre profil">
+                    <span class="cmd-icon">👤</span>
+                    <span class="cmd-text">PROFIL</span>
+                </button>
+                <button class="command-btn" onclick="quickCommand('monde')" title="Explorer le monde">
+                    <span class="cmd-icon">🌍</span>
+                    <span class="cmd-text">MONDE</span>
+                </button>
+                <button class="command-btn" onclick="quickCommand('status')" title="Vérifier le statut">
+                    <span class="cmd-icon">📊</span>
+                    <span class="cmd-text">STATUS</span>
+                </button>
+                <button class="command-btn" onclick="quickCommand('badges')" title="Voir vos badges">
+                    <span class="cmd-icon">🏆</span>
+                    <span class="cmd-text">BADGES</span>
+                </button>
+                <button class="command-btn" onclick="quickCommand('missions')" title="Vos missions">
+                    <span class="cmd-icon">🎯</span>
+                    <span class="cmd-text">MISSIONS</span>
+                </button>
+                <button class="command-btn" onclick="quickCommand('clear')" title="Effacer l'écran">
+                    <span class="cmd-icon">🧹</span>
+                    <span class="cmd-text">CLEAR</span>
+                </button>
+                <button class="command-btn" onclick="quickCommand('luna')" title="Parler avec LUNA">
+                    <span class="cmd-icon">🌙</span>
+                    <span class="cmd-text">LUNA</span>
+                </button>
             </div>
 
             <!-- Pied de page -->
@@ -613,8 +858,21 @@
     </main>
 
     <!-- Scripts LUNA VISION -->
-    <script src="{{ url_for('static', filename='js/arkalia-luna-vision.js') }}"></script>
     <script src="{{ url_for('static', filename='js/navigation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/terminal-enhancements.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/personalized-messages.js') }}?v=3.3.1"></script>
+    <script src="{{ url_for('static', filename='js/game-engine.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/mission-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/visual-feedback-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/advanced-features.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ai_engine.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/analytics.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/hacking-effects.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/service-worker.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/performance-ux-optimizer.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bug-fixes.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/reward-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/system-integrator.js') }}"></script>
     <script src="{{ url_for('static', filename='js/terminal.js') }}"></script>
     <script src="{{ url_for('static', filename='js/educational_games.js') }}"></script>
     <script src="{{ url_for('static', filename='js/accessibility.js') }}"></script>
@@ -643,12 +901,27 @@
                 }
             }, 2000);
 
+            // Initialiser les systèmes de jeu
+            if (window.gameEngine) {
+                // Initialiser le système de missions
+                window.missionSystem = new MissionSystem(window.gameEngine);
+
+                // Initialiser la personnalité de LUNA
+                window.lunaPersonality = new LunaPersonality(window.gameEngine);
+
+                // Connecter les systèmes
+                window.gameEngine.missionSystem = window.missionSystem;
+                window.gameEngine.lunaPersonality = window.lunaPersonality;
+            }
+
             // Suggestions de commandes contextuelles
             const suggestions = [
                 "Tape 'aide' pour voir toutes les commandes",
                 "Utilise 'profil' pour voir tes statistiques",
                 "Explore le 'monde' pour découvrir de nouvelles missions",
-                "Vérifie ton 'status' pour voir ta progression"
+                "Vérifie ton 'status' pour voir ta progression",
+                "Joue à 'games' pour voir les mini-jeux disponibles",
+                "Utilise 'missions' pour voir tes missions"
             ];
 
             let suggestionIndex = 0;
@@ -971,6 +1244,93 @@
                 }
             }, 500);
         }
+    </script>
+
+    <!-- Scripts des systèmes adaptatifs -->
+    <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/progression-feedback.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/competitive-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/creative-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/casual-system.js') }}"></script>
+
+    <!-- Scripts des améliorations UX contextuelles -->
+    <script src="{{ url_for('static', filename='js/contextual-feedback.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/progression-animations.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/terminal-integration.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/advanced-player-profiles.js') }}"></script>
+
+    <!-- Nouveaux scripts V3.3.0 -->
+    <script src="{{ url_for('static', filename='js/visual-guidance.js') }}?v=3.3.0"></script>
+    <script src="{{ url_for('static', filename='js/tutorial-celebrations.js') }}?v=3.3.0"></script>
+    <script src="{{ url_for('static', filename='js/daily-challenges-enhanced.js') }}?v=3.3.0"></script>
+    <script src="{{ url_for('static', filename='js/mini-games-interactive.js') }}?v=3.3.0"></script>
+    <script src="{{ url_for('static', filename='js/empty-states-enhanced.js') }}?v=3.3.0"></script>
+    <script src="{{ url_for('static', filename='js/reward-animations.js') }}?v=3.3.0"></script>
+    <script src="{{ url_for('static', filename='js/luna-enhanced.js') }}?v=3.3.0"></script>
+
+    <script>
+        // Initialisation des systèmes adaptatifs
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('🎯 Systèmes UX contextuels initialisés dans le terminal');
+
+            // Initialiser le système de guidance adaptative
+            if (window.adaptiveGuidance) {
+                console.log('✅ Guidance adaptative active');
+            }
+
+            // Initialiser le système de feedback de progression
+            if (window.progressionFeedback) {
+                console.log('✅ Feedback de progression actif');
+            }
+
+            // Initialiser le système compétitif
+            if (window.competitiveSystem) {
+                console.log('✅ Système compétitif actif');
+            }
+
+            // Initialiser le système créatif
+            if (window.creativeSystem) {
+                console.log('✅ Système créatif actif');
+            }
+
+            // Initialiser le système casual
+            if (window.casualSystem) {
+                console.log('✅ Système casual actif');
+            }
+
+            // Initialiser les nouveaux systèmes V3.3.0
+            if (window.visualGuidance) {
+                console.log('👁️ Visual Guidance actif');
+            }
+
+            if (window.tutorialCelebrations) {
+                console.log('🎉 Tutorial Celebrations actif');
+            }
+
+            if (window.dailyChallengesEnhanced) {
+                console.log('🎯 Daily Challenges Enhanced actif');
+            }
+
+            if (window.terminalCommandsEnhanced) {
+                console.log('💻 Terminal Commands Enhanced actif');
+            }
+
+            if (window.miniGamesInteractive) {
+                console.log('🎮 Mini-games Interactive actif');
+            }
+
+            if (window.emptyStatesEnhanced) {
+                console.log('🌟 Empty States Enhanced actif');
+            }
+
+            if (window.rewardAnimations) {
+                console.log('🎉 Reward Animations actif');
+            }
+
+            if (window.lunaEnhanced) {
+                console.log('🌙 LUNA Enhanced actif');
+            }
+        });
     </script>
 </body>
 

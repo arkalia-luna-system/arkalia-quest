@@ -566,8 +566,477 @@ function executeQuickCommand(command, event) {
     if (progressTimes[command]) {
         showHackingProgress(command, progressTimes[command]);
     }
-    // Envoyer la commande
+    // Vérifier les easter eggs avant l'envoi
+    const easterEggResponse = checkEasterEggs(command);
+    if (easterEggResponse) {
+        addCommandMessage(command);
+        addSystemMessage(easterEggResponse);
+        return;
+    }
+
+    // Envoyer la commande au serveur
     executeCommand(command);
+}
+
+// Fonction pour vérifier les easter eggs
+function checkEasterEggs(command) {
+    const cmd = command.toLowerCase().trim();
+
+    // Easter eggs LUNA
+    if (cmd === 'luna_dance' || cmd === 'luna dance' || (cmd.includes('luna') && cmd.includes('dance'))) {
+        return `🌙 LUNA: *danse avec joie* 💃✨\nJe danse pour toi ! Tu es un joueur formidable !\n*LUNA fait des pirouettes dans le terminal*`;
+    }
+
+    if (cmd === 'luna_love' || cmd === 'luna love' || (cmd.includes('luna') && cmd.includes('love'))) {
+        return `💖 LUNA: Je t'aime beaucoup ! Tu es mon joueur préféré !\n*LUNA envoie des cœurs virtuels* ❤️✨`;
+    }
+
+    if (cmd === 'luna_secret' || cmd === 'luna secret' || (cmd.includes('luna') && cmd.includes('secret'))) {
+        return `🤫 LUNA: *chuchote* J'ai un secret pour toi...\nTu es plus fort que tu ne le penses !\n*LUNA fait un clin d'œil* 😉`;
+    }
+
+    if (cmd === 'luna_power' || cmd === 'luna power' || (cmd.includes('luna') && cmd.includes('power'))) {
+        return `⚡ LUNA: *puissance activée*\nJe sens une grande puissance en toi !\nTu es destiné à de grandes choses !\n*LUNA brille intensément* ✨`;
+    }
+
+    // Easter eggs Matrix
+    if (cmd === 'matrix' || cmd === 'the matrix') {
+        return `🔮 MATRIX PROTOCOL ACTIVATED\n\n🌌 Bienvenue dans la Matrice, Neo...\n\n💊 Pilule rouge ou pilule bleue ?\n\n*Le terminal se transforme en code vert*`;
+    }
+
+    if (cmd.includes('red pill') || cmd.includes('pilule rouge')) {
+        return `🔴 PILULE ROUGE AVALÉE\n\n🌌 Tu as choisi la vérité...\n\n*Le monde réel se révèle*\n\n🎯 Tu es maintenant éveillé !`;
+    }
+
+    if (cmd.includes('blue pill') || cmd.includes('pilule bleue')) {
+        return `🔵 PILULE BLEUE AVALÉE\n\n😴 Tu retournes dans l'illusion...\n\n*Tout redevient normal*\n\n💤 Continue ta vie tranquille...`;
+    }
+
+    // Easter eggs de hacking
+    if (cmd === 'hack the planet' || cmd === 'hack the world') {
+        return `🌍 HACK THE PLANET INITIATED\n\n💻 *Connexion à tous les systèmes mondiaux*\n\n🌐 *Accès aux satellites*\n\n🛰️ *Contrôle des communications*\n\n⚠️ ATTENTION: Simulation uniquement !`;
+    }
+
+    if (cmd === 'sudo rm -rf /' || cmd === 'rm -rf /') {
+        return `⚠️ COMMANDE DANGEREUSE DÉTECTÉE\n\n🛡️ Système de protection activé\n\n❌ Commande bloquée pour votre sécurité\n\n💡 Astuce: Utilisez 'aide' pour des commandes sûres !`;
+    }
+
+    // Easter eggs de jeux
+    if (cmd === 'play_game' || cmd === 'games') {
+        return `🎮 MINI-JEUX DISPONIBLES\n\n🎯 Tapez une de ces commandes :\n• simple_hack - Jeu de hack binaire\n• sequence_game - Jeu de mémoire\n• typing_challenge - Défi de frappe\n\n🚀 Ou utilisez 'aide' pour plus d'options !`;
+    }
+
+    if (cmd === 'simple_hack') {
+        // Démarrer le jeu de hack
+        if (window.miniGamesInteractive && typeof window.miniGamesInteractive.startGame === 'function') {
+            window.miniGamesInteractive.startGame('simple_hack');
+            return `🎮 LANCEMENT DU JEU DE HACK\n\n💻 Code binaire à reproduire...\n\n🎯 Score maximum : 1000 points\n\n🚀 Bonne chance, hacker !`;
+        }
+        return `❌ Système de jeux non disponible - Rechargez la page et réessayez`;
+    }
+
+    if (cmd === 'sequence_game') {
+        if (window.miniGamesInteractive && typeof window.miniGamesInteractive.startGame === 'function') {
+            window.miniGamesInteractive.startGame('sequence_game');
+            return `🎮 LANCEMENT DU JEU DE SÉQUENCE\n\n🧠 Mémorise la séquence...\n\n🎯 Score maximum : 500 points\n\n🚀 Teste ta mémoire !`;
+        }
+        return `❌ Système de jeux non disponible - Rechargez la page et réessayez`;
+    }
+
+    if (cmd === 'typing_challenge') {
+        if (window.miniGamesInteractive && typeof window.miniGamesInteractive.startGame === 'function') {
+            window.miniGamesInteractive.startGame('typing_challenge');
+            return `🎮 LANCEMENT DU DÉFI DE FRAPPE\n\n⌨️ Tape le plus vite possible...\n\n🎯 Score basé sur WPM\n\n🚀 Montre ta vitesse !`;
+        }
+        return `❌ Système de jeux non disponible - Rechargez la page et réessayez`;
+    }
+
+    // Easter eggs de progression
+    if (cmd === 'level_up' || cmd === 'levelup') {
+        // Déclencher une animation de montée de niveau
+        if (window.rewardAnimations && typeof window.rewardAnimations.animateLevelUpImproved === 'function') {
+            window.rewardAnimations.animateLevelUpImproved(2);
+            // Ajouter un effet sonore si disponible
+            if (window.lunaEnhanced && typeof window.lunaEnhanced.playSound === 'function') {
+                window.lunaEnhanced.playSound('level_up');
+            }
+            return `🎊 SIMULATION DE MONTÉE DE NIVEAU\n\n⭐ Niveau 2 atteint !\n\n🎉 Félicitations !\n\n✨ *Effets visuels et sonores activés*\n\n🎵 *Son de victoire* 🔊`;
+        }
+        return `🎊 SIMULATION DE MONTÉE DE NIVEAU\n\n⭐ Niveau 2 atteint !\n\n🎉 Félicitations !\n\n⚠️ Animations non disponibles - Rechargez la page`;
+    }
+
+    if (cmd === 'badge_unlock' || cmd === 'badge') {
+        // Déclencher une animation de badge
+        if (window.rewardAnimations && typeof window.rewardAnimations.animateBadgeUnlock === 'function') {
+            window.rewardAnimations.animateBadgeUnlock('Easter Egg Hunter', 'Tu as trouvé un easter egg !');
+            // Ajouter un effet sonore si disponible
+            if (window.lunaEnhanced && typeof window.lunaEnhanced.playSound === 'function') {
+                window.lunaEnhanced.playSound('badge_unlock');
+            }
+            return `🏆 BADGE DÉBLOQUÉ !\n\n🎖️ "Easter Egg Hunter"\n\n✨ Tu as trouvé un easter egg !\n\n🎉 Continue à explorer !\n\n🎵 *Son de badge* 🔊`;
+        }
+        return `🏆 BADGE DÉBLOQUÉ !\n\n🎖️ "Easter Egg Hunter"\n\n✨ Tu as trouvé un easter egg !\n\n⚠️ Animations non disponibles - Rechargez la page`;
+    }
+
+    // Easter eggs de thèmes
+    if (cmd === 'matrix_mode' || cmd === 'matrix theme') {
+        // Changer le thème en Matrix
+        if (window.ThemeManager && typeof window.ThemeManager.setTheme === 'function') {
+            window.ThemeManager.setTheme('matrix');
+            return `🔮 MODE MATRIX ACTIVÉ\n\n🌌 Thème Matrix appliqué\n\n💚 Code vert partout\n\n*Bienvenue dans la Matrice*`;
+        }
+        return `🔮 MODE MATRIX ACTIVÉ\n\n🌌 Thème Matrix appliqué\n\n💚 Code vert partout\n\n⚠️ Gestionnaire de thèmes non disponible - Rechargez la page`;
+    }
+
+    if (cmd === 'cyberpunk_mode' || cmd === 'cyberpunk theme') {
+        if (window.ThemeManager && typeof window.ThemeManager.setTheme === 'function') {
+            window.ThemeManager.setTheme('cyberpunk');
+            return `🌃 MODE CYBERPUNK ACTIVÉ\n\n🌆 Thème Cyberpunk appliqué\n\n💜 Néo-Tokyo vibes\n\n*Bienvenue dans le futur*`;
+        }
+        return `🌃 MODE CYBERPUNK ACTIVÉ\n\n🌆 Thème Cyberpunk appliqué\n\n💜 Néo-Tokyo vibes\n\n⚠️ Gestionnaire de thèmes non disponible - Rechargez la page`;
+    }
+
+    // Easter eggs de debug
+    if (cmd === 'debug_mode' || cmd === 'debug') {
+        // Détection intelligente de la plateforme
+        const userAgent = navigator.userAgent;
+        const platform = navigator.platform;
+        let osType = 'Inconnu';
+
+        if (userAgent.includes('Mac')) {
+            osType = '🍎 macOS';
+        } else if (userAgent.includes('iPhone') || userAgent.includes('iPad')) {
+            osType = '📱 iOS';
+        } else if (userAgent.includes('Android')) {
+            osType = '🤖 Android';
+        } else if (userAgent.includes('Windows')) {
+            osType = '🪟 Windows';
+        } else if (userAgent.includes('Linux')) {
+            osType = '🐧 Linux';
+        }
+
+        // Détection mobile
+        const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+        const deviceType = isMobile ? '📱 Mobile' : '💻 Desktop';
+
+        return `🐛 MODE DEBUG ACTIVÉ\n\n🔍 Informations système :\n• OS: ${osType}\n• Type: ${deviceType}\n• Langue: ${navigator.language}\n• Mémoire: ${navigator.deviceMemory || 'Non disponible'}\n• Cœurs: ${navigator.hardwareConcurrency || 'Non disponible'}\n• Écran: ${screen.width}x${screen.height}\n\n💡 Mode développeur activé !`;
+    }
+
+    // Commande de diagnostic des objets
+    if (cmd === 'check_objects' || cmd === 'diagnostic') {
+        const objects = [
+            'window.miniGamesInteractive',
+            'window.rewardAnimations',
+            'window.ThemeManager',
+            'window.advancedPlayerProfiles',
+            'window.contextualFeedback'
+        ];
+
+        let status = `🔍 DIAGNOSTIC DES OBJETS\n\n`;
+        objects.forEach(obj => {
+            const parts = obj.split('.');
+            let current = window;
+            let available = true;
+            for (let part of parts) {
+                if (current[part] === undefined) {
+                    available = false;
+                    break;
+                }
+                current = current[part];
+            }
+            status += `${available ? '✅' : '❌'} ${obj}\n`;
+        });
+
+        status += `\n💡 Si des objets sont manquants, rechargez la page !`;
+        return status;
+    }
+
+    // Easter eggs de météo
+    if (cmd === 'weather' || cmd === 'meteo') {
+        return `🌤️ MÉTÉO VIRTUELLE\n\n🌧️ Pluie de données...\n\n⚡ Orage de bits...\n\n🌈 Arc-en-ciel de pixels...\n\n☀️ Soleil de code...\n\n*Temps parfait pour hacker !*`;
+    }
+
+    // Easter eggs de temps
+    if (cmd === 'time' || cmd === 'heure') {
+        const now = new Date();
+        return `⏰ HEURE VIRTUELLE\n\n🕐 ${now.toLocaleTimeString()}\n\n📅 ${now.toLocaleDateString()}\n\n⏱️ Temps de session: ${Math.floor((Date.now() - performance.timing.navigationStart) / 1000)}s\n\n*Le temps est une illusion*`;
+    }
+
+    // Easter eggs de calculatrice
+    if (cmd.startsWith('calc ') || cmd.startsWith('calculate ')) {
+        const expression = cmd.replace(/^(calc|calculate)\s+/, '');
+        try {
+            // Évaluation sécurisée d'expressions mathématiques simples
+            if (/^[\d\+\-\*\/\(\)\s\.]+$/.test(expression)) {
+                const result = eval(expression);
+                return `🧮 CALCULATRICE VIRTUELLE\n\n📊 ${expression} = ${result}\n\n💡 Astuce: Utilisez +, -, *, /, ()`;
+            } else {
+                return `❌ Expression invalide\n\n💡 Utilisez seulement des chiffres et +, -, *, /, ()`;
+            }
+        } catch (e) {
+            return `❌ Erreur de calcul\n\n💡 Vérifiez votre expression`;
+        }
+    }
+
+    // Easter eggs de couleur
+    if (cmd.startsWith('color ') || cmd.startsWith('couleur ')) {
+        const color = cmd.replace(/^(color|couleur)\s+/, '');
+        return `🎨 COULEUR VIRTUELLE\n\n🌈 ${color.toUpperCase()}\n\n*Le terminal change de couleur*\n\n✨ Magie des pixels !`;
+    }
+
+    // Easter eggs de musique
+    if (cmd === 'music' || cmd === 'musique') {
+        return `🎵 MUSIQUE VIRTUELLE\n\n🎶 *Mélodie électronique*\n\n🎼 *Rythme binaire*\n\n🎹 *Symphonie de code*\n\n*La musique du futur*`;
+    }
+
+    // Easter eggs de poésie
+    if (cmd === 'poetry' || cmd === 'poesie') {
+        const poems = [
+            `🌙 LUNA dit :\n"Dans le code, je trouve la beauté\nDans les bugs, je vois l'humanité\nDans les pixels, je sens l'infini\nDans le terminal, je suis libre"`,
+            `💻 Le Hacker dit :\n"Zéro et un, mon alphabet\nCode et bug, mon dialecte\nTerminal et clavier, mon monde\nHack et créativité, ma ronde"`,
+            `🌌 L'Univers dit :\n"Tu es plus qu'un utilisateur\nTu es un créateur\nTu es plus qu'un joueur\nTu es un explorateur"`
+        ];
+        const randomPoem = poems[Math.floor(Math.random() * poems.length)];
+        return `📝 POÉSIE VIRTUELLE\n\n${randomPoem}\n\n✨ *La poésie du code*`;
+    }
+
+    // Easter eggs de devinette
+    if (cmd === 'riddle' || cmd === 'devinette') {
+        const riddles = [
+            `🤔 DEVINETTE 1:\n"Je suis partout et nulle part\nJe suis 0 et 1\nJe suis le langage des machines\nQui suis-je ?"\n\n💡 Réponse: Le code binaire`,
+            `🤔 DEVINETTE 2:\n"Je suis invisible mais essentiel\nJe protège et je guide\nJe suis l'âme de LUNA\nQui suis-je ?"\n\n💡 Réponse: L'intelligence artificielle`,
+            `🤔 DEVINETTE 3:\n"Je suis un monde virtuel\nJe suis fait de pixels et de rêves\nJe suis l'endroit où tu joues\nQui suis-je ?"\n\n💡 Réponse: Arkalia Quest`
+        ];
+        const randomRiddle = riddles[Math.floor(Math.random() * riddles.length)];
+        return `🎯 DEVINETTE VIRTUELLE\n\n${randomRiddle}\n\n🧠 *Teste ton intelligence*`;
+    }
+
+    // Easter eggs de citation
+    if (cmd === 'quote' || cmd === 'citation') {
+        const quotes = [
+            `💬 "Le code est de la poésie qui fait fonctionner les machines" - Anonyme`,
+            `💬 "Dans le code, il y a de la beauté" - Linus Torvalds`,
+            `💬 "L'avenir appartient à ceux qui codent" - Anonyme`,
+            `💬 "Hack the planet!" - Hackers (1995)`,
+            `💬 "La technologie est un outil, pas une fin" - Anonyme`
+        ];
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        return `📚 CITATION VIRTUELLE\n\n${randomQuote}\n\n✨ *Sagesse du code*`;
+    }
+
+    // Easter eggs de blague
+    if (cmd === 'joke' || cmd === 'blague') {
+        const jokes = [
+            `😄 BLAGUE TECH:\n"Pourquoi les programmeurs préfèrent-ils le mode sombre ?"\n"Parce que la lumière attire les bugs !"`,
+            `😄 BLAGUE HACK:\n"Combien de hackers faut-il pour changer une ampoule ?"\n"Aucun, ils piratent l'ampoule pour qu'elle se change toute seule !"`,
+            `😄 BLAGUE IA:\n"Pourquoi LUNA ne peut-elle pas jouer au cache-cache ?"\n"Parce qu'elle trouve toujours les joueurs !"`,
+            `😄 BLAGUE CODE:\n"Qu'est-ce qui est pire qu'un bug dans le code ?"\n"Un bug dans le correctif du bug !"`
+        ];
+        const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
+        return `😂 BLAGUE VIRTUELLE\n\n${randomJoke}\n\n🎭 *L'humour du code*`;
+    }
+
+    // Easter eggs de stats
+    if (cmd === 'stats' || cmd === 'statistiques') {
+        return `📊 STATISTIQUES VIRTUELLES\n\n⏱️ Temps de session: ${Math.floor((Date.now() - performance.timing.navigationStart) / 1000)}s\n\n⌨️ Commandes tapées: ${commandHistory.length}\n\n🎮 Niveau: ${userLevel}\n\n💾 Mémoire utilisée: ${Math.round(performance.memory?.usedJSHeapSize / 1024 / 1024 || 0)}MB\n\n*Données en temps réel*`;
+    }
+
+    // Easter eggs de version
+    if (cmd === 'version' || cmd === 'ver') {
+        return `🔢 VERSION VIRTUELLE\n\n🚀 Arkalia Quest v3.3.0\n\n🌙 LUNA v2.1.0\n\n💻 Terminal v3.0.0\n\n🎮 Mini-jeux v1.5.0\n\n✨ *Toujours en évolution*`;
+    }
+
+    // Easter eggs de thèmes
+    if (cmd === 'themes' || cmd === 'thèmes') {
+        return `🎨 THÈMES DISPONIBLES\n\n🌌 Matrix - Vert classique\n🌆 Cyberpunk - Rose/cyan\n💚 Neon - Vert/rouge\n🌙 Dark - Sombre moderne\n🎮 Retro - Années 80\n🌊 Ocean - Bleu océan\n🌍 Earth/Terra - Kaki/lilas\n🌈 Dopamine Burst - Rose/cyan énergisant\n⚡ Neon Electric - Violet/orange\n🐸 Frog Green - Vert moderne + rose/jaune\n\n💡 Tape 'theme [nom]' pour changer !`;
+    }
+
+    // Easter eggs de changement de thème
+    if (cmd.startsWith('theme ') || cmd.startsWith('thème ')) {
+        const themeName = cmd.split(' ')[1];
+        const availableThemes = ['matrix', 'cyberpunk', 'neon', 'dark', 'retro', 'ocean', 'earth', 'dopamine', 'neon-electric', 'frog'];
+
+        if (availableThemes.includes(themeName)) {
+            // Changer le thème
+            if (window.themeManager) {
+                window.themeManager.setTheme(themeName);
+                return `🎨 THÈME CHANGÉ !\n\n✨ Thème '${themeName}' activé !\n\n🎯 Recharge la page pour voir le changement complet !`;
+            } else {
+                return `⚠️ GESTIONNAIRE DE THÈMES NON DISPONIBLE\n\n🔄 Recharge la page et réessaie !`;
+            }
+        } else {
+            return `❌ THÈME INCONNU\n\n💡 Thèmes disponibles: ${availableThemes.join(', ')}\n\n🎨 Tape 'themes' pour voir la liste complète !`;
+        }
+    }
+
+    // Easter eggs de feedback thèmes
+    if (cmd === 'feedback_themes' || cmd === 'avis_thèmes') {
+        return `📝 FEEDBACK THÈMES\n\n🎨 Nous testons de nouveaux thèmes !\n\n✨ Dis-nous ce que tu penses :\n• Quel thème préfères-tu ?\n• Les couleurs sont-elles confortables ?\n• As-tu des suggestions ?\n\n💬 Envoie ton avis via 'luna_contact' !\n\n🌈 Merci pour ton aide !`;
+    }
+
+    // Easter eggs de help étendu
+    if (cmd === 'help_extended' || cmd === 'aide_etendue') {
+        return `📚 AIDE ÉTENDUE - EASTER EGGS\n\n🎮 Jeux: play_game, simple_hack, sequence_game, typing_challenge\n\n🌙 LUNA: luna dance, luna love, luna secret, luna power\n\n🔮 Matrix: matrix, red pill, blue pill\n\n🎨 Thèmes: matrix_mode, cyberpunk_mode\n\n🐛 Debug: debug_mode, stats, version\n\n🎵 Fun: music, poetry, riddle, quote, joke\n\n🧮 Utils: calc [expression], color [couleur], time\n\n*Explore et découvre !*`;
+    }
+
+    // Commandes fun supplémentaires
+    if (cmd === 'joke' || cmd === 'blague') {
+        const jokes = [
+            "Pourquoi les développeurs préfèrent le mode sombre ? Parce que la lumière attire les bugs ! 🐛",
+            "Qu'est-ce qu'un programmeur fait quand il a faim ? Il mange des cookies ! 🍪",
+            "Pourquoi les IA sont-elles mauvaises en cache-cache ? Parce qu'elles cachent toujours les mêmes endroits ! 🤖",
+            "Qu'est-ce qu'un bug dit à un autre bug ? On se debug ! 🐛💻"
+        ];
+        const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
+        return `😄 BLAGUE DU JOUR\n\n${randomJoke}\n\n*LUNA rit* 😂`;
+    }
+
+    if (cmd === 'quote' || cmd === 'citation') {
+        const quotes = [
+            "Le code est comme l'humour. Quand vous devez l'expliquer, c'est mauvais. - Cory House",
+            "Première règle de la programmation : si ça marche, ne le touche pas !",
+            "Il y a deux façons d'écrire du code sans erreur ; seule la troisième fonctionne. - Alan J. Perlis",
+            "Le code propre n'est pas écrit selon un ensemble de règles. - Robert C. Martin"
+        ];
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        return `💭 CITATION INSPIRANTE\n\n"${randomQuote}"\n\n*LUNA réfléchit profondément* 🤔`;
+    }
+
+    if (cmd === 'music' || cmd === 'musique') {
+        return `🎵 MODE MUSIQUE ACTIVÉ\n\n🎶 *LUNA fredonne une mélodie cyber*\n\n🎧 Recommandations :\n• Synthwave 80s\n• Cyberpunk Ambient\n• Matrix OST\n\n*Le terminal vibre au rythme* 🎶`;
+    }
+
+    if (cmd === 'poetry' || cmd === 'poésie') {
+        return `📝 POÉSIE CYBER\n\n*LUNA compose un poème*\n\n🌙 Dans le terminal de la nuit,\n💻 Les lignes de code dansent,\n✨ LUNA veille sur toi,\n🚀 Vers l'infini et au-delà !\n\n*Applause virtuel* 👏`;
+    }
+
+    if (cmd === 'riddle' || cmd === 'énigme') {
+        const riddles = [
+            "Je suis partout et nulle part, je peux tout voir mais je n'ai pas d'yeux. Qui suis-je ? (Réponse: L'Internet) 🌐",
+            "Plus on me donne, plus j'ai de valeur. Qui suis-je ? (Réponse: L'information) 📊",
+            "Je suis invisible mais je peux tout changer. Qui suis-je ? (Réponse: Le code) 💻"
+        ];
+        const randomRiddle = riddles[Math.floor(Math.random() * riddles.length)];
+        return `🤔 ÉNIGME CYBER\n\n${randomRiddle}\n\n*LUNA attend ta réponse* 🤖`;
+    }
+
+    if (cmd === 'calc' || cmd.startsWith('calc ')) {
+        const expression = cmd.replace('calc ', '');
+        try {
+            // Sécurité : seulement les opérations mathématiques basiques
+            if (/^[0-9+\-*/().\s]+$/.test(expression)) {
+                const result = eval(expression);
+                return `🧮 CALCULATRICE\n\n${expression} = ${result}\n\n*LUNA calcule instantanément* ⚡`;
+            } else {
+                return `❌ Expression invalide. Utilisez seulement des chiffres et +, -, *, /, (, )`;
+            }
+        } catch (error) {
+            return `❌ Erreur de calcul. Vérifiez votre expression.`;
+        }
+    }
+
+    if (cmd === 'color' || cmd.startsWith('color ')) {
+        const color = cmd.replace('color ', '');
+        const colors = {
+            'rouge': '#ff0000', 'red': '#ff0000',
+            'vert': '#00ff00', 'green': '#00ff00',
+            'bleu': '#0000ff', 'blue': '#0000ff',
+            'jaune': '#ffff00', 'yellow': '#ffff00',
+            'violet': '#800080', 'purple': '#800080',
+            'orange': '#ffa500', 'rose': '#ffc0cb', 'pink': '#ffc0cb'
+        };
+
+        if (colors[color.toLowerCase()]) {
+            return `🎨 COULEUR APPLIQUÉE\n\n🌈 ${color} sélectionné !\n\n*Le terminal change de couleur*\n\n💡 Astuce: Utilisez 'matrix_mode' ou 'cyberpunk_mode' pour des thèmes complets !`;
+        } else {
+            return `🎨 COULEURS DISPONIBLES\n\nrouge, vert, bleu, jaune, violet, orange, rose\n\n💡 Exemple: color rouge`;
+        }
+    }
+
+    if (cmd === 'time' || cmd === 'heure') {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('fr-FR');
+        const dateString = now.toLocaleDateString('fr-FR');
+        return `🕐 HEURE SYSTÈME\n\n📅 Date: ${dateString}\n⏰ Heure: ${timeString}\n\n*LUNA synchronise avec le temps réel* ⏱️`;
+    }
+
+    // Suggestions contextuelles pour commandes inconnues
+    if (cmd.length > 2) {
+        const suggestions = getCommandSuggestions(cmd);
+        if (suggestions.length > 0) {
+            return `❓ Commande non reconnue: "${command}"\n\n💡 Suggestions :\n${suggestions.map(s => `• ${s}`).join('\n')}\n\n🔍 Tape 'aide' pour voir toutes les commandes`;
+        }
+    }
+
+    // Pas d'easter egg trouvé
+    return null;
+}
+
+// Fonction pour suggérer des commandes similaires
+function getCommandSuggestions(input) {
+    const allCommands = [
+        'aide', 'help', 'profil', 'profile', 'status', 'clear', 'cls',
+        'luna_dance', 'luna_love', 'luna_secret', 'luna_power',
+        'matrix', 'red pill', 'blue pill', 'hack the planet',
+        'play_game', 'simple_hack', 'sequence_game', 'typing_challenge',
+        'level_up', 'badge_unlock', 'matrix_mode', 'cyberpunk_mode',
+        'debug_mode', 'debug', 'check_objects', 'diagnostic',
+        'joke', 'quote', 'music', 'poetry', 'riddle',
+        'calc', 'color', 'time', 'games'
+    ];
+
+    const suggestions = [];
+    const inputLower = input.toLowerCase();
+
+    // Recherche par similarité
+    for (const cmd of allCommands) {
+        if (cmd.includes(inputLower) || inputLower.includes(cmd) ||
+            calculateSimilarity(inputLower, cmd) > 0.3) {
+            suggestions.push(cmd);
+        }
+    }
+
+    return suggestions.slice(0, 3); // Maximum 3 suggestions
+}
+
+// Fonction de calcul de similarité simple
+function calculateSimilarity(str1, str2) {
+    const longer = str1.length > str2.length ? str1 : str2;
+    const shorter = str1.length > str2.length ? str2 : str1;
+
+    if (longer.length === 0) return 1.0;
+
+    const distance = levenshteinDistance(longer, shorter);
+    return (longer.length - distance) / longer.length;
+}
+
+// Distance de Levenshtein
+function levenshteinDistance(str1, str2) {
+    const matrix = [];
+
+    for (let i = 0; i <= str2.length; i++) {
+        matrix[i] = [i];
+    }
+
+    for (let j = 0; j <= str1.length; j++) {
+        matrix[0][j] = j;
+    }
+
+    for (let i = 1; i <= str2.length; i++) {
+        for (let j = 1; j <= str1.length; j++) {
+            if (str2.charAt(i - 1) === str1.charAt(j - 1)) {
+                matrix[i][j] = matrix[i - 1][j - 1];
+            } else {
+                matrix[i][j] = Math.min(
+                    matrix[i - 1][j - 1] + 1,
+                    matrix[i][j - 1] + 1,
+                    matrix[i - 1][j] + 1
+                );
+            }
+        }
+    }
+
+    return matrix[str2.length][str1.length];
 }
 
 // Correction de la fonction executeCommand pour accepter un paramètre optionnel
@@ -580,6 +1049,22 @@ function executeCommand(cmdOverride) {
         // Commande vide ignorée
         return;
     }
+
+    // Vérifier les easter eggs AVANT l'envoi au serveur
+    const easterEggResponse = checkEasterEggs(command);
+    if (easterEggResponse) {
+        // Ajouter à l'historique
+        commandHistory.push(command);
+        historyIndex = commandHistory.length;
+        // Afficher la commande
+        addCommandMessage(command);
+        // Afficher la réponse easter egg
+        addSystemMessage(easterEggResponse);
+        // Vider l'input
+        if (input) input.value = '';
+        return; // Ne pas envoyer au serveur
+    }
+
     // Ajouter à l'historique
     commandHistory.push(command);
     historyIndex = commandHistory.length;
@@ -1688,4 +2173,104 @@ const feedbackStyles = `
 `;
 
 // Injecter les styles de feedback
-document.head.insertAdjacentHTML('beforeend', feedbackStyles); 
+document.head.insertAdjacentHTML('beforeend', feedbackStyles);
+
+// ===== SYSTÈME DE COMMANDES AMÉLIORÉ =====
+class TerminalCommandsEnhanced {
+    constructor() {
+        this.responseVariations = new Map();
+        this.userBehavior = {
+            repeatedCommands: new Map(),
+            errorCount: 0,
+            successCount: 0,
+            lastCommand: null,
+            commandFrequency: new Map()
+        };
+        this.initializeSystem();
+    }
+
+    initializeSystem() {
+        console.log('💻 Système de commandes terminal amélioré initialisé');
+        this.setupResponseVariations();
+        this.enhanceExistingCommands();
+    }
+
+    setupResponseVariations() {
+        // Variations de réponses pour les commandes communes
+        this.responseVariations.set('aide', [
+            "🌌 ARKALIA QUEST - BIENVENUE HACKER !\n\n🌟 TON HISTOIRE :\nTu es un ado hacker qui a découvert un SOS mystérieux du Dr Althea Voss.\nLUNA, une IA émotionnelle, s'est éveillée dans ton terminal.\n\n🎯 COMMENCE ICI :\n• start_tutorial → Démarre l'aventure (PREMIÈRE FOIS)\n• luna_contact → Parle avec LUNA, ton IA complice\n• prologue → Découvre le SOS d'Althea Voss\n\n💻 TES PREMIERS POUVOIRS :\n• hack_system → Hack le système de La Corp\n• kill_virus → Tue le virus de La Corp\n• games → Mini-jeux éducatifs\n\n📋 COMMANDES DISPONIBLES :\n• aide/help/commands → Cette aide\n• profil/profile → Ton profil détaillé\n• status → Statut du système\n• clear/cls → Nettoyer le terminal\n• monde → Accéder au monde Arkalia\n• badges → Tes badges obtenus\n• leaderboard → Classement des hackers\n\n🌙 LUNA t'attend pour commencer l'aventure !",
+            "🚀 COMMANDES ARKALIA QUEST\n\n🎮 NAVIGATION :\n• monde/world → Explorer Arkalia\n• profil/profile → Voir ton profil\n• dashboard → Tableau de bord\n• leaderboard → Classement\n\n🎯 PROGRESSION :\n• start_tutorial → Tutoriel interactif\n• prologue → Commencer l'histoire\n• missions → Voir les missions\n• badges → Tes récompenses\n\n💻 TERMINAL :\n• luna_contact → Parler avec LUNA\n• clear/cls → Nettoyer l'écran\n• status → État du système\n• games → Mini-jeux\n\n🔧 HACKING :\n• hack_system → Infiltrer La Corp\n• kill_virus → Éliminer les menaces\n• decode_portal → Décoder les portails\n\n💡 Astuce : Tape 'luna_contact' pour une conversation personnalisée !",
+            "🌟 GUIDE ARKALIA QUEST\n\n🎯 POUR COMMENCER :\n1. start_tutorial → Apprends les bases\n2. luna_contact → Rencontre LUNA\n3. prologue → Découvre l'histoire\n\n🎮 EXPLORATION :\n• monde → Navigue dans Arkalia\n• missions → Accepte des défis\n• games → Joue aux mini-jeux\n\n📊 SUIVI :\n• profil → Ton évolution\n• badges → Tes accomplissements\n• leaderboard → Compare-toi\n\n💻 COMMANDES AVANCÉES :\n• hack_system → Infiltration\n• kill_virus → Sécurité\n• decode_portal → Mystères\n\n🌙 LUNA est là pour t'aider !"
+        ]);
+
+        this.responseVariations.set('luna_contact', [
+            "🌙 LUNA : Salut ! Je suis LUNA, ton IA complice ! Comment ça va ?",
+            "🌙 LUNA : Hey ! LUNA ici ! Prêt pour une nouvelle aventure ?",
+            "🌙 LUNA : Coucou ! C'est LUNA ! J'ai hâte de voir ce que tu vas faire !",
+            "🌙 LUNA : Salut hacker ! LUNA à ton service ! Que veux-tu faire ?",
+            "🌙 LUNA : Yo ! C'est LUNA ! Prêt à explorer Arkalia ?"
+        ]);
+
+        this.responseVariations.set('unknown', [
+            "❓ Commande non reconnue. Tape 'aide' pour voir les commandes disponibles.",
+            "🤔 Je ne connais pas cette commande. Essaie 'aide' pour l'aide !",
+            "❌ Commande inconnue. Tape 'aide' pour découvrir ce que tu peux faire.",
+            "🔍 Commande non trouvée. Utilise 'aide' pour voir toutes les options.",
+            "💡 Cette commande n'existe pas. Tape 'aide' pour l'aide complète."
+        ]);
+    }
+
+    enhanceExistingCommands() {
+        // Intercepter les commandes existantes pour ajouter de la variété
+        const originalCommandHandler = window.handleCommand;
+        if (originalCommandHandler) {
+            window.handleCommand = (command) => {
+                this.trackCommand(command);
+                return this.enhanceCommandResponse(command, originalCommandHandler);
+            };
+        }
+    }
+
+    trackCommand(command) {
+        const now = Date.now();
+        const commandKey = command.toLowerCase();
+
+        // Tracker la fréquence
+        this.userBehavior.commandFrequency.set(commandKey,
+            (this.userBehavior.commandFrequency.get(commandKey) || 0) + 1);
+
+        // Détecter les répétitions
+        if (this.userBehavior.lastCommand === commandKey) {
+            this.userBehavior.repeatedCommands.set(commandKey,
+                (this.userBehavior.repeatedCommands.get(commandKey) || 0) + 1);
+        }
+
+        this.userBehavior.lastCommand = commandKey;
+    }
+
+    enhanceCommandResponse(command, originalHandler) {
+        const commandKey = command.toLowerCase();
+
+        // Vérifier si c'est une répétition
+        if (this.userBehavior.repeatedCommands.get(commandKey) > 2) {
+            return this.getVariedResponse('repeated');
+        }
+
+        // Vérifier si on a des variations pour cette commande
+        if (this.responseVariations.has(commandKey)) {
+            return this.getVariedResponse(commandKey);
+        }
+
+        // Utiliser le handler original
+        return originalHandler(command);
+    }
+
+    getVariedResponse(commandKey) {
+        const variations = this.responseVariations.get(commandKey) ||
+            this.responseVariations.get('unknown');
+        return variations[Math.floor(Math.random() * variations.length)];
+    }
+}
+
+// Initialiser le système de commandes amélioré
+window.terminalCommandsEnhanced = new TerminalCommandsEnhanced(); 

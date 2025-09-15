@@ -24,10 +24,16 @@ class PerformanceOptimizer:
             "response_times": [],
             "error_count": 0,
             "start_time": time.time(),
+            "compression_savings": 0,
+            "cache_size": 0,
         }
         self.lock = threading.RLock()
         self.slow_queries = []
         self.error_log = []
+        # Cache optimisé avec TTL
+        self.cache = {}
+        self.cache_ttl = {}
+        self.max_cache_size = 1000  # Limite du cache
 
     def monitor_performance(self, func_name: str = None):
         """
@@ -308,6 +314,77 @@ class PerformanceOptimizer:
             )
 
         return suggestions
+
+    def get_cached_data(self, key: str, ttl_seconds: int = 300):
+        """
+        Récupère des données du cache avec TTL
+
+        Args:
+            key: Clé du cache
+            ttl_seconds: Durée de vie en secondes
+
+        Returns:
+            Données mises en cache ou None
+        """
+        with self.lock:
+            if key in self.cache:
+                if time.time() - self.cache_ttl.get(key, 0) < ttl_seconds:
+                    self.metrics["cache_hits"] += 1
+                    return self.cache[key]
+                else:
+                    # Expiré, supprimer
+                    del self.cache[key]
+                    del self.cache_ttl[key]
+
+            self.metrics["cache_misses"] += 1
+            return None
+
+    def set_cached_data(self, key: str, data: Any, ttl_seconds: int = 300):
+        """
+        Met des données en cache avec TTL
+
+        Args:
+            key: Clé du cache
+            data: Données à mettre en cache
+            ttl_seconds: Durée de vie en secondes
+        """
+        with self.lock:
+            # Nettoyer le cache si nécessaire
+            if len(self.cache) >= self.max_cache_size:
+                # Supprimer les entrées les plus anciennes
+                oldest_key = min(self.cache_ttl.keys(), key=lambda k: self.cache_ttl[k])
+                del self.cache[oldest_key]
+                del self.cache_ttl[oldest_key]
+
+            self.cache[key] = data
+            self.cache_ttl[key] = time.time()
+            self.metrics["cache_size"] = len(self.cache)
+
+    def compress_data(self, data: str) -> bytes:
+        """
+        Compresse des données avec gzip
+
+        Args:
+            data: Données à compresser
+
+        Returns:
+            Données compressées
+        """
+        if isinstance(data, str):
+            data = data.encode("utf-8")
+
+        compressed = gzip.compress(data)
+        savings = len(data) - len(compressed)
+        self.metrics["compression_savings"] += savings
+
+        return compressed
+
+    def clear_cache(self):
+        """Vide le cache"""
+        with self.lock:
+            self.cache.clear()
+            self.cache_ttl.clear()
+            self.metrics["cache_size"] = 0
 
 
 # Instance globale de l'optimiseur de performances

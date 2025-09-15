@@ -5,13 +5,51 @@ Toutes les modifications notables de ce projet sont documentées dans ce fichier
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/),
 et ce projet adhère à [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Non publié]
+## [3.3.0] - 2025-09-15
 
 ### Ajouté
-- ✨ Table of Contents interactive dans README
-- 🌐 Section écosystème Arkalia Luna System
-- 🌍 Résumé anglais international
-- 🔗 Cross-linking avec autres projets
+- 👁️ Visual Guidance System (guidage visuel pour débutants)
+- 🎉 Tutorial Celebrations (animations de célébration)
+- 🎮 Mini-games Interactive (vrais jeux jouables)
+- 🌟 Empty States Enhanced (états vides motivants)
+- 🎉 Reward Animations (animations de récompenses)
+- 🌙 LUNA Enhanced (IA plus intelligente)
+- 🎯 Daily Challenges Enhanced (défis quotidiens interactifs)
+- 💻 Terminal Commands Enhanced (commandes variées et intelligentes)
+
+### Amélioré
+- 🔧 Consolidation des doublons (daily-challenges.js, terminal-commands-enhanced.js)
+- ⚡ Optimisation des performances (réduction duplication de code)
+- 🎯 Activation des fonctionnalités inactives
+- 📊 Correction erreur analytics backend (int + str)
+
+### Corrigé
+- ❌ Erreur `this.addPersonalizedGreetings is not a function`
+- ❌ Erreur `Cannot read properties of undefined (reading 'length')`
+- ❌ Erreur analytics `unsupported operand type(s) for +: 'int' and 'str'`
+- ❌ Problèmes UX identifiés dans le rapport de test
+
+## [3.2.0] - 2025-09-15
+
+### Ajouté
+- 🌙 LUNA AI V3 avec Machine Learning et mémoire à long terme
+- 🎯 Système de défis quotidiens avec 6 types de défis
+- 🎨 6 thèmes alternatifs (Matrix, Cyberpunk, Neon, Dark, Retro, Ocean)
+- 📊 Endpoints API manquants (/api/performance/log, /api/tutorial/data)
+- 🚀 Script de démarrage optimisé (start_optimized.sh)
+- ⚡ Optimisations de performance (réduction 95% des appels API)
+
+### Amélioré
+- 🔧 Correction des erreurs JavaScript critiques
+- 📈 Performance monitoring avec throttling
+- 🛡️ Gestionnaires d'erreurs unifiés
+- 🎮 Interface utilisateur optimisée
+
+### Corrigé
+- ❌ Erreur `addPersonalizedGreetings` manquante
+- ❌ Erreur de lecture de propriété dans adaptive-guidance.js
+- ❌ Gestionnaires d'erreurs dupliqués dans app.py
+- ❌ Fuites de semaphore multiprocessing
 
 ## [3.1.0] - 2025-09-13
 

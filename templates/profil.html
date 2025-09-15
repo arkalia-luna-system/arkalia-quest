@@ -23,9 +23,31 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/interface-improvements.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/empty-states.css') }}">
+
+    <!-- Perfection UI/UX 2025 -->
+    <link rel="preload" href="{{ url_for('static', filename='css/ui-perfection.css') }}?v=3.3.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/ui-perfection.css') }}?v=3.3.1">
+    </noscript>
+
+    <!-- Nouveaux CSS V3 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/themes.css') }}?v=3.2.0">
 
     <!-- Composants modernes pour ado -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/teen-modern-components.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game-interface.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mission-interface.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reward-animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/loading-animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/progression-animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/adaptive-guidance.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/progression-feedback.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/competitive-system.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/creative-system.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/casual-system.css') }}">
 
     <style>
         /* Styles spécifiques au profil immersif */
@@ -580,6 +602,9 @@
                     <a href="/profil" class="nav-link active">👤 PROFIL</a>
                     <a href="/leaderboard" class="nav-link">🏆 CLASSEMENT</a>
                     <a href="/dashboard" class="nav-link">📊 DASHBOARD</a>
+                    <button class="nav-link daily-challenges-btn" onclick="dailyChallenges.show()">🎯 DÉFIS
+                        QUOTIDIENS</button>
+                    <button class="nav-link theme-btn" onclick="themeManager.show()">🎨 THÈMES</button>
                 </div>
             </div>
         </nav>
@@ -666,7 +691,7 @@
             </div>
 
             <!-- Section Badges Moderne -->
-            <div class="badges-section-modern">
+            <div class="badges-section-modern section-perfect" data-empty-state="badges">
                 <h2 class="badges-title-modern">🏆 COLLECTION DE BADGES</h2>
 
                 <!-- Composant de badges moderne -->
@@ -692,10 +717,26 @@
     {% include 'components/achievement_notification.html' %}
 
     <!-- Scripts LUNA VISION -->
-    <script src="{{ url_for('static', filename='js/arkalia-luna-vision.js') }}"></script>
     <script src="{{ url_for('static', filename='js/audio-manager.js') }}"></script>
     <script src="{{ url_for('static', filename='js/effects.js') }}"></script>
     <script src="{{ url_for('static', filename='js/accessibility.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/game-engine.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/mission-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/luna-personality.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/personalized-messages.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/visual-feedback-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/advanced-features.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ai_engine.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/analytics.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/immersive_effects.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/performance-ux-optimizer.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bug-fixes.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/reward-system.js') }}"></script>
+
+    <!-- Nouveaux scripts V3 -->
+    <script src="{{ url_for('static', filename='js/theme-manager.js') }}?v=3.2.0"></script>
+    <script src="{{ url_for('static', filename='js/daily-challenges-enhanced.js') }}?v=3.3.0"></script>
+    <script src="{{ url_for('static', filename='js/system-integrator.js') }}"></script>
 
     <script>
         // Charger les données du profil
@@ -869,6 +910,45 @@
                     }
                 });
             });
+        });
+    </script>
+
+    <!-- Scripts des systèmes adaptatifs -->
+    <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/progression-feedback.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/competitive-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/creative-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/casual-system.js') }}"></script>
+
+    <script>
+        // Initialisation des systèmes adaptatifs
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('👤 Systèmes adaptatifs initialisés dans le profil');
+
+            // Initialiser le système de guidance adaptative
+            if (window.adaptiveGuidance) {
+                console.log('✅ Guidance adaptative active');
+            }
+
+            // Initialiser le système de feedback de progression
+            if (window.progressionFeedback) {
+                console.log('✅ Feedback de progression actif');
+            }
+
+            // Initialiser le système compétitif
+            if (window.competitiveSystem) {
+                console.log('✅ Système compétitif actif');
+            }
+
+            // Initialiser le système créatif
+            if (window.creativeSystem) {
+                console.log('✅ Système créatif actif');
+            }
+
+            // Initialiser le système casual
+            if (window.casualSystem) {
+                console.log('✅ Système casual actif');
+            }
         });
     </script>
 </body>

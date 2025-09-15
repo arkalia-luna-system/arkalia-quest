@@ -186,7 +186,7 @@ jobs:
         path: dist/
 
   docker_build:
-    name: 🐳 Docker Build
+    name: 🐳 Docker Build & Test
     runs-on: ubuntu-latest
     needs: build_package
 
@@ -199,16 +199,23 @@ jobs:
 
     - name: 🏗️ Build Docker image
       run: |
+        echo "Building Docker image..."
         docker build -t arkalia-quest:latest .
+        echo "Docker image built successfully:"
         docker images arkalia-quest:latest
 
     - name: 🧪 Test Docker container
       run: |
-        docker run --rm -d --name arkalia-test -p 5001:10000 arkalia-quest:latest
-        sleep 15
-        echo "Container started, checking health..."
-        docker logs arkalia-test
-        docker stop arkalia-test
+        echo "Testing Docker container..."
+        chmod +x ./.github/scripts/test-docker.sh
+        bash ./.github/scripts/test-docker.sh
+
+    - name: 🧹 Cleanup Docker resources
+      if: always()
+      run: |
+        echo "Cleaning up Docker resources..."
+        docker system prune -f || true
+        docker volume prune -f || true
 
   deploy_docs:
     name: 📚 Deploy Documentation

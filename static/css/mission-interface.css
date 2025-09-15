@@ -1,0 +1,490 @@
+/* ===== ARKALIA QUEST - MISSION INTERFACE ===== */
+
+/* MODAL DE MISSION */
+.mission-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    animation: missionModalFadeIn 0.4s ease-out;
+}
+
+@keyframes missionModalFadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) rotateY(15deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) rotateY(0deg);
+    }
+}
+
+.mission-container {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.98), rgba(0, 17, 0, 0.95));
+    border: 3px solid var(--matrix-green);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 900px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow:
+        0 0 60px rgba(0, 255, 0, 0.4),
+        inset 0 2px 15px rgba(0, 255, 0, 0.1);
+    animation: missionContainerSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+@keyframes missionContainerSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(60px) scale(0.9);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* EN-TÊTE DE MISSION */
+.mission-header {
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 3px solid rgba(0, 255, 0, 0.3);
+    padding-bottom: 30px;
+    position: relative;
+}
+
+.mission-header::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--matrix-green), transparent);
+    border-radius: 2px;
+}
+
+.mission-header h2 {
+    color: var(--matrix-green);
+    font-size: 2.5em;
+    margin-bottom: 15px;
+    text-shadow: 0 0 20px rgba(0, 255, 0, 0.6);
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.mission-description {
+    color: var(--matrix-accent);
+    font-size: 1.3em;
+    line-height: 1.8;
+    margin-bottom: 25px;
+    font-style: italic;
+}
+
+.mission-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    background: rgba(0, 255, 0, 0.1);
+    border: 2px solid rgba(0, 255, 0, 0.3);
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.mission-info span {
+    color: var(--matrix-green);
+    font-weight: 600;
+    font-size: 1.1em;
+    text-align: center;
+    padding: 10px;
+    background: rgba(0, 255, 0, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 255, 0, 0.2);
+}
+
+/* CONTENU DE MISSION */
+.mission-content {
+    margin-bottom: 40px;
+    min-height: 300px;
+}
+
+/* CONTENU D'HISTOIRE */
+.story-content {
+    text-align: center;
+}
+
+.story-text {
+    background: rgba(0, 255, 0, 0.05);
+    border: 2px solid rgba(0, 255, 0, 0.2);
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+    line-height: 1.8;
+}
+
+.story-text p {
+    color: var(--matrix-green);
+    font-size: 1.2em;
+    margin-bottom: 15px;
+}
+
+.story-choices {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+/* CONTENU D'INTERACTION */
+.interaction-content {
+    text-align: center;
+}
+
+.luna-avatar {
+    font-size: 4em;
+    margin-bottom: 20px;
+    animation: lunaAvatarPulse 2s ease-in-out infinite;
+}
+
+@keyframes lunaAvatarPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.interaction-text {
+    background: rgba(167, 139, 250, 0.1);
+    border: 2px solid rgba(167, 139, 250, 0.3);
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+    line-height: 1.8;
+}
+
+.interaction-text p {
+    color: var(--violet-lunaire);
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+.interaction-choices {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+/* CONTENU DE JEU */
+.game-content {
+    text-align: center;
+}
+
+.game-preview {
+    background: rgba(0, 255, 255, 0.1);
+    border: 2px solid rgba(0, 255, 255, 0.3);
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.game-preview h3 {
+    color: var(--matrix-accent);
+    font-size: 1.8em;
+    margin-bottom: 15px;
+}
+
+.game-preview p {
+    color: var(--matrix-accent);
+    font-size: 1.1em;
+    margin-bottom: 20px;
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.game-info span {
+    color: var(--matrix-accent);
+    font-weight: 600;
+    background: rgba(0, 255, 255, 0.1);
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.game-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+/* CONTENU D'EXPLORATION */
+.exploration-content {
+    text-align: center;
+}
+
+.exploration-map {
+    background: rgba(0, 255, 68, 0.1);
+    border: 2px solid rgba(0, 255, 68, 0.3);
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.exploration-map h3 {
+    color: var(--matrix-highlight);
+    font-size: 1.8em;
+    margin-bottom: 15px;
+}
+
+.exploration-map p {
+    color: var(--matrix-highlight);
+    font-size: 1.1em;
+}
+
+.exploration-choices {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+/* BOUTONS DE CHOIX */
+.choice-btn {
+    background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 255, 255, 0.05));
+    border: 2px solid rgba(0, 255, 0, 0.4);
+    border-radius: 12px;
+    padding: 20px;
+    color: var(--matrix-green);
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.choice-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.choice-btn:hover::before {
+    left: 100%;
+}
+
+.choice-btn:hover {
+    background: linear-gradient(135deg, rgba(0, 255, 0, 0.2), rgba(0, 255, 255, 0.1));
+    border-color: var(--matrix-accent);
+    color: var(--matrix-accent);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4);
+}
+
+.choice-btn:active {
+    transform: translateY(-2px) scale(0.98);
+}
+
+/* BOUTONS D'EXPLORATION */
+.exploration-btn {
+    background: linear-gradient(135deg, rgba(0, 255, 68, 0.1), rgba(0, 255, 68, 0.05));
+    border-color: rgba(0, 255, 68, 0.4);
+    color: var(--matrix-highlight);
+}
+
+.exploration-btn:hover {
+    background: linear-gradient(135deg, rgba(0, 255, 68, 0.2), rgba(0, 255, 68, 0.1));
+    border-color: var(--matrix-highlight);
+    color: var(--matrix-highlight);
+    box-shadow: 0 10px 30px rgba(0, 255, 68, 0.4);
+}
+
+.choice-icon {
+    font-size: 2em;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 8px currentColor);
+}
+
+.choice-text {
+    font-size: 1.1em;
+    margin-bottom: 8px;
+}
+
+.choice-xp {
+    font-size: 0.9em;
+    opacity: 0.8;
+    color: var(--matrix-accent);
+}
+
+/* CONTRÔLES DE MISSION */
+.mission-controls {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 2px solid rgba(0, 255, 0, 0.3);
+}
+
+.mission-controls .btn-primary,
+.mission-controls .btn-secondary {
+    padding: 18px 35px;
+    font-size: 1.2em;
+    font-weight: 700;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    min-width: 150px;
+    position: relative;
+    overflow: hidden;
+}
+
+.mission-controls .btn-primary {
+    background: linear-gradient(135deg, rgba(0, 255, 0, 0.2), rgba(0, 255, 255, 0.1));
+    border: 3px solid var(--matrix-green);
+    color: var(--matrix-green);
+}
+
+.mission-controls .btn-primary:hover {
+    background: linear-gradient(135deg, rgba(0, 255, 0, 0.3), rgba(0, 255, 255, 0.2));
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 35px rgba(0, 255, 0, 0.5);
+}
+
+.mission-controls .btn-secondary {
+    background: linear-gradient(135deg, rgba(255, 0, 0, 0.2), rgba(255, 100, 0, 0.1));
+    border: 3px solid #ff0000;
+    color: #ff6666;
+}
+
+.mission-controls .btn-secondary:hover {
+    background: linear-gradient(135deg, rgba(255, 0, 0, 0.3), rgba(255, 100, 0, 0.2));
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 35px rgba(255, 0, 0, 0.5);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .mission-container {
+        width: 95%;
+        padding: 25px;
+        margin: 10px;
+    }
+
+    .mission-header h2 {
+        font-size: 2em;
+    }
+
+    .mission-description {
+        font-size: 1.1em;
+    }
+
+    .mission-info {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .story-choices,
+    .interaction-choices,
+    .exploration-choices {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .choice-btn {
+        padding: 15px;
+        min-height: 60px;
+        font-size: 1em;
+    }
+
+    .mission-controls {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .mission-controls .btn-primary,
+    .mission-controls .btn-secondary {
+        width: 100%;
+        padding: 15px 25px;
+    }
+
+    .game-actions {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+/* ANIMATIONS SPÉCIALES */
+.mission-accepted {
+    animation: missionAcceptedPulse 1s ease-out;
+}
+
+@keyframes missionAcceptedPulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+    }
+
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 40px rgba(0, 255, 0, 0.6);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+    }
+}
+
+.mission-completed {
+    animation: missionCompletedGlow 2s ease-out;
+}
+
+@keyframes missionCompletedGlow {
+    0% {
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 60px rgba(0, 255, 0, 0.8);
+    }
+
+    100% {
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+    }
+}

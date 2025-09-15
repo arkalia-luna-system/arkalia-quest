@@ -23,6 +23,18 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/interface-improvements.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/empty-states.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game-interface.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mission-interface.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reward-animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/loading-animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/progression-animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/adaptive-guidance.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/progression-feedback.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/competitive-system.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/creative-system.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/casual-system.css') }}">
 
     <style>
         /* Styles spécifiques au leaderboard immersif */
@@ -269,6 +281,91 @@
             background: rgba(167, 139, 250, 0.08);
             color: var(--violet-lunaire);
             transform: translateX(5px);
+        }
+
+        /* Styling spécial pour les 3 premiers rangs */
+        .leaderboard-table tr:nth-child(1) {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 193, 7, 0.05));
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+
+        .leaderboard-table tr:nth-child(1) td {
+            color: #FFD700;
+            font-weight: 700;
+        }
+
+        .leaderboard-table tr:nth-child(1) .rank-cell {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #000;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            font-size: 1.4em;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .leaderboard-table tr:nth-child(2) {
+            background: linear-gradient(135deg, rgba(192, 192, 192, 0.1), rgba(169, 169, 169, 0.05));
+            border: 2px solid rgba(192, 192, 192, 0.3);
+            box-shadow: 0 0 15px rgba(192, 192, 192, 0.2);
+        }
+
+        .leaderboard-table tr:nth-child(2) td {
+            color: #C0C0C0;
+            font-weight: 600;
+        }
+
+        .leaderboard-table tr:nth-child(2) .rank-cell {
+            background: linear-gradient(135deg, #C0C0C0, #A9A9A9);
+            color: #000;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            font-size: 1.2em;
+            box-shadow: 0 0 10px rgba(192, 192, 192, 0.4);
+        }
+
+        .leaderboard-table tr:nth-child(3) {
+            background: linear-gradient(135deg, rgba(205, 127, 50, 0.1), rgba(184, 115, 51, 0.05));
+            border: 2px solid rgba(205, 127, 50, 0.3);
+            box-shadow: 0 0 15px rgba(205, 127, 50, 0.2);
+        }
+
+        .leaderboard-table tr:nth-child(3) td {
+            color: #CD7F32;
+            font-weight: 600;
+        }
+
+        .leaderboard-table tr:nth-child(3) .rank-cell {
+            background: linear-gradient(135deg, #CD7F32, #B87333);
+            color: #000;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            font-size: 1.2em;
+            box-shadow: 0 0 10px rgba(205, 127, 50, 0.4);
+        }
+
+        /* Alternance de couleurs pour les autres rangs */
+        .leaderboard-table tr:nth-child(even):not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)) {
+            background: rgba(167, 139, 250, 0.03);
+        }
+
+        .leaderboard-table tr:nth-child(odd):not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)) {
+            background: rgba(96, 165, 250, 0.03);
         }
 
         .rank-cell {
@@ -546,6 +643,46 @@
             transform: translateY(-3px);
         }
 
+        .challenge-card.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: rgba(100, 100, 100, 0.1);
+            border: 2px solid rgba(100, 100, 100, 0.3);
+        }
+
+        .challenge-card.disabled:hover,
+        .challenge-card.disabled:focus {
+            transform: none;
+            box-shadow: 0 5px 15px rgba(100, 100, 100, 0.2);
+            border-color: rgba(100, 100, 100, 0.3);
+        }
+
+        .challenge-card.disabled .challenge-icon {
+            filter: grayscale(100%);
+        }
+
+        .challenge-card.disabled .challenge-name {
+            color: rgba(167, 139, 250, 0.5);
+        }
+
+        .challenge-card.disabled .challenge-description {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .challenge-status {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 193, 7, 0.9);
+            color: #000;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         .challenge-icon {
             font-size: 2em;
             margin-bottom: 10px;
@@ -749,27 +886,29 @@
             <div class="challenge-section" role="region" aria-label="Défis actifs">
                 <h2 class="challenge-title">Défis Actifs</h2>
                 <div class="challenge-grid">
-                    <div class="challenge-card" tabindex="0" role="button"
-                        aria-label="Défi Vitesse - Complète 10 missions en moins de 30 minutes"
-                        onclick="startChallenge('speed')" onkeydown="handleChallengeKeydown(event, 'speed')">
+                    <div class="challenge-card disabled" tabindex="-1" role="button"
+                        aria-label="Défi Vitesse - Bientôt disponible" aria-disabled="true"
+                        title="Défi bientôt disponible">
                         <span class="challenge-icon" aria-hidden="true">⚡</span>
                         <div class="challenge-name">Défi Vitesse</div>
                         <div class="challenge-description">Complète 10 missions en moins de 30 minutes</div>
+                        <div class="challenge-status">Bientôt disponible</div>
                     </div>
-                    <div class="challenge-card" tabindex="0" role="button"
-                        aria-label="Défi Précision - 100% de réussite sur 5 missions consécutives"
-                        onclick="startChallenge('precision')" onkeydown="handleChallengeKeydown(event, 'precision')">
+                    <div class="challenge-card disabled" tabindex="-1" role="button"
+                        aria-label="Défi Précision - Bientôt disponible" aria-disabled="true"
+                        title="Défi bientôt disponible">
                         <span class="challenge-icon" aria-hidden="true">🎯</span>
                         <div class="challenge-name">Défi Précision</div>
                         <div class="challenge-description">100% de réussite sur 5 missions consécutives</div>
+                        <div class="challenge-status">Bientôt disponible</div>
                     </div>
-                    <div class="challenge-card" tabindex="0" role="button"
-                        aria-label="Défi Exploration - Découvre 3 nouvelles zones en une journée"
-                        onclick="startChallenge('exploration')"
-                        onkeydown="handleChallengeKeydown(event, 'exploration')">
+                    <div class="challenge-card disabled" tabindex="-1" role="button"
+                        aria-label="Défi Exploration - Bientôt disponible" aria-disabled="true"
+                        title="Défi bientôt disponible">
                         <span class="challenge-icon" aria-hidden="true">🗺️</span>
                         <div class="challenge-name">Défi Exploration</div>
                         <div class="challenge-description">Découvre 3 nouvelles zones en une journée</div>
+                        <div class="challenge-status">Bientôt disponible</div>
                     </div>
                 </div>
             </div>
@@ -812,11 +951,18 @@
     </main>
 
     <!-- Scripts LUNA VISION -->
-    <script src="{{ url_for('static', filename='js/arkalia-luna-vision.js') }}"></script>
     <script src="{{ url_for('static', filename='js/navigation.js') }}"></script>
     <script src="{{ url_for('static', filename='js/audio-manager.js') }}"></script>
     <script src="{{ url_for('static', filename='js/effects.js') }}"></script>
     <script src="{{ url_for('static', filename='js/accessibility.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/game-engine.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/mission-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/luna-personality.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/personalized-messages.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/performance-ux-optimizer.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bug-fixes.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/reward-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/system-integrator.js') }}"></script>
 
     <script>
         // Variables globales
@@ -1227,6 +1373,45 @@
         window.addEventListener('unhandledrejection', (event) => {
             console.error('Promesse rejetée:', event.reason);
             showMessage('Erreur de connexion', 'error');
+        });
+    </script>
+
+    <!-- Scripts des systèmes adaptatifs -->
+    <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/progression-feedback.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/competitive-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/creative-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/casual-system.js') }}"></script>
+
+    <script>
+        // Initialisation des systèmes adaptatifs
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('🏆 Systèmes adaptatifs initialisés dans le leaderboard');
+
+            // Initialiser le système de guidance adaptative
+            if (window.adaptiveGuidance) {
+                console.log('✅ Guidance adaptative active');
+            }
+
+            // Initialiser le système de feedback de progression
+            if (window.progressionFeedback) {
+                console.log('✅ Feedback de progression actif');
+            }
+
+            // Initialiser le système compétitif
+            if (window.competitiveSystem) {
+                console.log('✅ Système compétitif actif');
+            }
+
+            // Initialiser le système créatif
+            if (window.creativeSystem) {
+                console.log('✅ Système créatif actif');
+            }
+
+            // Initialiser le système casual
+            if (window.casualSystem) {
+                console.log('✅ Système casual actif');
+            }
         });
     </script>
 </body>

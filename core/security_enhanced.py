@@ -24,15 +24,15 @@ class SecurityEnhanced:
 
         # Configuration de sécurité
         self.config = {
-            "max_requests_per_minute": 60,
-            "max_requests_per_hour": 1000,
+            "max_requests_per_minute": 120,  # Augmenté pour éviter les blocages en développement
+            "max_requests_per_hour": 2000,  # Augmenté proportionnellement
             "max_login_attempts": 5,
-            "block_duration_minutes": 15,
-            "suspicious_threshold": 10,
+            "block_duration_minutes": 5,  # Réduit de 15 à 5 minutes
+            "suspicious_threshold": 20,  # Augmenté de 10 à 20
             "max_session_duration_hours": 24,
         }
 
-        # Patterns de validation
+        # Patterns de validation renforcés
         self.validation_patterns = {
             "username": re.compile(r"^[a-zA-Z0-9_-]{3,20}$"),
             "email": re.compile(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"),
@@ -40,7 +40,11 @@ class SecurityEnhanced:
                 r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
             ),
             "game_id": re.compile(r"^[a-zA-Z0-9_-]+$"),
-            "command": re.compile(r"^[a-zA-Z0-9_\s-]+$"),
+            "command": re.compile(
+                r"^[a-zA-Z0-9_\s\-\.]+$"
+            ),  # Ajout du point pour les commandes
+            "api_key": re.compile(r"^[a-zA-Z0-9]{32,64}$"),
+            "session_id": re.compile(r"^[a-zA-Z0-9_-]{24,48}$"),
         }
 
     def validate_input(self, input_type: str, value: str) -> tuple[bool, str]:
@@ -61,10 +65,58 @@ class SecurityEnhanced:
         if len(value) > 1000:  # Limite de sécurité
             return False, "Valeur trop longue"
 
-        # Vérifier les caractères dangereux
-        dangerous_chars = ["<", ">", '"', "'", "&", ";", "(", ")", "|", "`", "$"]
+        # Vérifier les caractères dangereux (liste étendue)
+        dangerous_chars = [
+            "<",
+            ">",
+            '"',
+            "'",
+            "&",
+            ";",
+            "(",
+            ")",
+            "|",
+            "`",
+            "$",
+            "{",
+            "}",
+            "[",
+            "]",
+            "\\",
+            "/",
+            "*",
+            "?",
+            "!",
+            "@",
+            "#",
+            "%",
+            "^",
+            "+",
+            "=",
+            "~",
+            "`",
+        ]
         if any(char in value for char in dangerous_chars):
             return False, "Caractères non autorisés détectés"
+
+        # Vérifier les patterns d'injection
+        injection_patterns = [
+            "script",
+            "javascript",
+            "vbscript",
+            "onload",
+            "onerror",
+            "onclick",
+            "eval",
+            "function",
+            "alert",
+            "confirm",
+            "prompt",
+        ]
+        value_lower = value.lower()
+        for pattern in injection_patterns:
+            if pattern in value_lower:
+                return False, f"Pattern suspect détecté: {pattern}"
 
         # Validation spécifique par type
         if input_type in self.validation_patterns:
@@ -84,6 +136,11 @@ class SecurityEnhanced:
         Returns:
             Tuple (is_allowed, message)
         """
+        # Liste blanche pour les IPs de développement - pas de rate limiting
+        dev_ips = ["127.0.0.1", "localhost", "::1"]
+        if ip_address in dev_ips:
+            return True, ""
+
         current_time = time.time()
 
         # Nettoyer les anciennes requêtes
@@ -177,6 +234,18 @@ class SecurityEnhanced:
             ip_address: Adresse IP à bloquer
             duration_minutes: Durée du blocage en minutes
         """
+        # Ne pas bloquer les IPs de développement
+        dev_ips = ["127.0.0.1", "localhost", "::1"]
+        if ip_address in dev_ips:
+            self._log_security_event(
+                "dev_ip_block_attempt",
+                {
+                    "ip": ip_address,
+                    "message": "Tentative de blocage d'IP de développement ignorée",
+                },
+            )
+            return
+
         if duration_minutes is None:
             duration_minutes = self.config["block_duration_minutes"]
 

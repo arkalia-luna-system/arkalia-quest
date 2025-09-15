@@ -1,0 +1,315 @@
+/* ===== ARKALIA QUEST - CONTRAST PERFECTION ===== */
+
+/* ===== SYSTÈME DE COULEURS HARMONIEUX ===== */
+:root {
+    /* Couleurs de base adoucies */
+    --color-text-primary: rgba(255, 255, 255, 0.95);
+    --color-text-secondary: rgba(255, 255, 255, 0.8);
+    --color-text-muted: rgba(255, 255, 255, 0.65);
+    --color-text-subtle: rgba(255, 255, 255, 0.5);
+
+    /* Couleurs d'accent adoucies */
+    --color-accent-primary: rgba(0, 255, 0, 0.8);
+    /* Vert plus doux */
+    --color-accent-secondary: rgba(0, 255, 255, 0.8);
+    /* Cyan plus doux */
+    --color-accent-warning: rgba(255, 193, 7, 0.9);
+    /* Jaune plus doux */
+    --color-accent-danger: rgba(220, 53, 69, 0.9);
+    /* Rouge plus doux */
+
+    /* Couleurs de fond avec plus de contraste */
+    --color-bg-primary: rgba(0, 0, 0, 0.95);
+    --color-bg-secondary: rgba(20, 20, 25, 0.9);
+    --color-bg-tertiary: rgba(40, 40, 50, 0.8);
+    --color-bg-card: rgba(255, 255, 255, 0.05);
+    --color-bg-hover: rgba(255, 255, 255, 0.1);
+
+    /* Bordures subtiles */
+    --color-border-primary: rgba(255, 255, 255, 0.2);
+    --color-border-secondary: rgba(255, 255, 255, 0.1);
+    --color-border-accent: rgba(0, 255, 0, 0.3);
+
+    /* Ombres colorées douces */
+    --shadow-accent-green: 0 4px 20px rgba(0, 255, 0, 0.15);
+    --shadow-accent-cyan: 0 4px 20px rgba(0, 255, 255, 0.15);
+    --shadow-accent-purple: 0 4px 20px rgba(167, 139, 250, 0.15);
+}
+
+/* ===== AMÉLIORATION DU CONTRASTE ===== */
+body {
+    color: var(--color-text-primary);
+    background: var(--color-bg-primary);
+}
+
+/* Textes secondaires plus lisibles */
+.subtitle,
+.description,
+.info-text,
+.secondary-text {
+    color: var(--color-text-secondary) !important;
+}
+
+.muted-text,
+.help-text,
+.caption {
+    color: var(--color-text-muted) !important;
+}
+
+/* ===== BOUTONS AVEC COULEURS ADOUCIES ===== */
+.btn-primary,
+.cta-btn.primary {
+    background: linear-gradient(135deg,
+            rgba(0, 255, 0, 0.8) 0%,
+            rgba(0, 200, 0, 0.9) 100%);
+    color: rgba(0, 0, 0, 0.9);
+    border: 2px solid rgba(0, 255, 0, 0.4);
+    box-shadow: var(--shadow-accent-green);
+}
+
+.btn-primary:hover,
+.cta-btn.primary:hover {
+    background: linear-gradient(135deg,
+            rgba(0, 255, 0, 0.9) 0%,
+            rgba(0, 220, 0, 1) 100%);
+    box-shadow: 0 8px 30px rgba(0, 255, 0, 0.25);
+    transform: translateY(-2px);
+}
+
+.btn-secondary,
+.cta-btn:not(.primary) {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-text-primary);
+    border: 2px solid var(--color-border-primary);
+    backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover,
+.cta-btn:not(.primary):hover {
+    background: var(--color-bg-hover);
+    border-color: var(--color-accent-primary);
+    box-shadow: var(--shadow-accent-green);
+}
+
+/* ===== CARTES ET CONTAINERS ===== */
+.card,
+.stat-card,
+.profile-card,
+.container {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border-secondary);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.card:hover,
+.stat-card:hover,
+.profile-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--color-border-accent);
+    box-shadow: var(--shadow-accent-green);
+}
+
+/* ===== THÈMES AMÉLIORÉS ===== */
+
+/* Thème Matrix - Plus doux */
+.matrix-theme {
+    --color-accent-primary: rgba(0, 255, 0, 0.7);
+    --color-accent-secondary: rgba(0, 255, 0, 0.5);
+    --shadow-accent: var(--shadow-accent-green);
+}
+
+.matrix-theme .btn-primary {
+    background: linear-gradient(135deg,
+            rgba(0, 255, 0, 0.6) 0%,
+            rgba(0, 200, 0, 0.8) 100%);
+    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.2);
+}
+
+/* Thème Neon - Plus subtil */
+.neon-theme {
+    --color-accent-primary: rgba(255, 0, 255, 0.8);
+    --color-accent-secondary: rgba(0, 255, 255, 0.8);
+    --shadow-accent: 0 4px 20px rgba(255, 0, 255, 0.15);
+}
+
+.neon-theme .btn-primary {
+    background: linear-gradient(135deg,
+            rgba(255, 0, 255, 0.7) 0%,
+            rgba(200, 0, 200, 0.9) 100%);
+    box-shadow: 0 4px 15px rgba(255, 0, 255, 0.2);
+}
+
+/* Thème Cyberpunk - Plus raffiné */
+.cyberpunk-theme {
+    --color-accent-primary: rgba(255, 193, 7, 0.8);
+    --color-accent-secondary: rgba(220, 53, 69, 0.8);
+    --shadow-accent: 0 4px 20px rgba(255, 193, 7, 0.15);
+}
+
+.cyberpunk-theme .btn-primary {
+    background: linear-gradient(135deg,
+            rgba(255, 193, 7, 0.7) 0%,
+            rgba(255, 140, 0, 0.9) 100%);
+    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.2);
+}
+
+/* Thème Ocean - Plus apaisant */
+.ocean-theme {
+    --color-accent-primary: rgba(0, 191, 255, 0.8);
+    --color-accent-secondary: rgba(0, 255, 191, 0.8);
+    --shadow-accent: 0 4px 20px rgba(0, 191, 255, 0.15);
+}
+
+.ocean-theme .btn-primary {
+    background: linear-gradient(135deg,
+            rgba(0, 191, 255, 0.7) 0%,
+            rgba(0, 150, 200, 0.9) 100%);
+    box-shadow: 0 4px 15px rgba(0, 191, 255, 0.2);
+}
+
+/* ===== ÉLÉMENTS SPÉCIFIQUES ===== */
+
+/* Navigation */
+.nav-link {
+    color: var(--color-text-secondary);
+    transition: all var(--transition-smooth);
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--color-accent-primary);
+    text-shadow: 0 0 10px var(--color-accent-primary);
+}
+
+/* Badges et statuts */
+.badge,
+.status-badge {
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border-primary);
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.badge.primary {
+    background: rgba(0, 255, 0, 0.2);
+    color: var(--color-accent-primary);
+    border-color: var(--color-accent-primary);
+}
+
+.badge.secondary {
+    background: rgba(0, 255, 255, 0.2);
+    color: var(--color-accent-secondary);
+    border-color: var(--color-accent-secondary);
+}
+
+/* Progress bars */
+.progress-bar {
+    background: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border-secondary);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg,
+            var(--color-accent-primary) 0%,
+            var(--color-accent-secondary) 100%);
+    height: 100%;
+    transition: width 0.6s ease;
+}
+
+/* Formulaires */
+.form-input,
+.form-textarea,
+.form-select {
+    background: var(--color-bg-card);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border-secondary);
+    transition: all var(--transition-smooth);
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+    border-color: var(--color-accent-primary);
+    box-shadow: 0 0 0 3px rgba(0, 255, 0, 0.1);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* ===== ACCESSIBILITÉ ===== */
+@media (prefers-contrast: high) {
+    :root {
+        --color-text-primary: rgba(255, 255, 255, 1);
+        --color-text-secondary: rgba(255, 255, 255, 0.9);
+        --color-text-muted: rgba(255, 255, 255, 0.8);
+        --color-border-primary: rgba(255, 255, 255, 0.4);
+        --color-border-secondary: rgba(255, 255, 255, 0.3);
+    }
+}
+
+/* ===== MODE SOMBRE AMÉLIORÉ ===== */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-bg-primary: rgba(0, 0, 0, 0.98);
+        --color-bg-secondary: rgba(10, 10, 15, 0.95);
+        --color-bg-tertiary: rgba(20, 20, 30, 0.9);
+    }
+}
+
+/* ===== ANIMATIONS DE COULEUR ===== */
+@keyframes colorPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+    }
+
+    50% {
+        box-shadow: 0 0 30px rgba(0, 255, 0, 0.4);
+    }
+}
+
+.color-pulse {
+    animation: colorPulse 2s ease-in-out infinite;
+}
+
+/* ===== UTILITAIRES DE COULEUR ===== */
+.text-primary {
+    color: var(--color-text-primary) !important;
+}
+
+.text-secondary {
+    color: var(--color-text-secondary) !important;
+}
+
+.text-muted {
+    color: var(--color-text-muted) !important;
+}
+
+.text-accent {
+    color: var(--color-accent-primary) !important;
+}
+
+.bg-primary {
+    background: var(--color-bg-primary) !important;
+}
+
+.bg-secondary {
+    background: var(--color-bg-secondary) !important;
+}
+
+.bg-card {
+    background: var(--color-bg-card) !important;
+}
+
+.border-primary {
+    border-color: var(--color-border-primary) !important;
+}
+
+.border-accent {
+    border-color: var(--color-accent-primary) !important;
+}

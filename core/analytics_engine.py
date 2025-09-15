@@ -341,7 +341,13 @@ class AnalyticsEngine:
 
         profile = self.user_profiles[anonymized_user_id]
         profile.total_sessions += 1
-        profile.total_playtime += session.duration or 0
+        # Correction sécurisée : s'assurer que session.duration est un float
+        duration = session.duration if session.duration is not None else 0.0
+        if isinstance(duration, (int, float)):
+            profile.total_playtime += float(duration)
+        else:
+            # Log l'erreur mais continue sans planter
+            logger.warning(f"Type de durée invalide: {type(duration)} = {duration}")
         profile.last_active = time.time()
 
         # Sauvegarder le profil
@@ -479,7 +485,7 @@ class AnalyticsEngine:
         return {
             "user_id": user_id,
             "total_sessions": profile.total_sessions,
-            "total_playtime_hours": round(profile.total_playtime / 3600, 2),
+            "total_playtime_hours": round(float(profile.total_playtime) / 3600, 2),
             "avg_session_duration_minutes": round(avg_session_duration / 60, 2),
             "missions_completed": profile.missions_completed,
             "games_completed": profile.games_completed,
@@ -606,9 +612,9 @@ class AnalyticsEngine:
                 return {
                     "total_users": total_users,
                     "total_sessions": total_sessions,
-                    "total_playtime_hours": round(total_playtime / 3600, 2),
+                    "total_playtime_hours": round(float(total_playtime) / 3600, 2),
                     "avg_playtime_per_user": (
-                        round(total_playtime / total_users / 3600, 2)
+                        round(float(total_playtime) / float(total_users) / 3600, 2)
                         if total_users > 0
                         else 0
                     ),

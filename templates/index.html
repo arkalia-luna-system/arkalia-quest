@@ -19,13 +19,97 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/icon-16x16.png">
     <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png">
 
-    <!-- CSS LUNA VISION -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/mini-games.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/animations-optimized.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/performance-optimized.css') }}">
+    <!-- CSS LUNA VISION - Optimisé pour le chargement -->
+    <link rel="preload" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}?v=3.1.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}?v=3.1.1">
+    </noscript>
+
+    <!-- Spacing Perfection CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/spacing-perfection.css') }}?v=3.4.0">
+
+    <!-- Contrast Perfection CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/contrast-perfection.css') }}?v=3.4.0">
+
+    <!-- Animations Perfection CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animations-perfection.css') }}?v=3.4.0">
+
+    <!-- Typography Perfection CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/typography-perfection.css') }}?v=3.4.0">
+
+    <!-- Empty States Perfection CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/empty-states-perfection.css') }}?v=3.4.0">
+
+    <!-- Grid Perfection CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/grid-perfection.css') }}?v=3.4.0">
+
+    <!-- Theme Patterns CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme-patterns.css') }}?v=3.4.0">
+
+    <!-- Nouveaux CSS V3 - Chargement optimisé -->
+    <link rel="preload" href="{{ url_for('static', filename='css/themes.css') }}?v=3.3.0" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/themes.css') }}?v=3.3.0">
+    </noscript>
+
+    <!-- Système de couleurs modernes -->
+    <link rel="preload" href="{{ url_for('static', filename='css/color-system.css') }}?v=3.3.0" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/color-system.css') }}?v=3.3.0">
+    </noscript>
+
+    <!-- Perfection UI/UX 2025 -->
+    <link rel="preload" href="{{ url_for('static', filename='css/ui-perfection.css') }}?v=3.3.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/ui-perfection.css') }}?v=3.3.1">
+    </noscript>
+
+    <!-- Systèmes UX avancés -->
+    <script src="{{ url_for('static', filename='js/smart-notifications.js') }}?v=3.3.0"></script>
+    <script src="{{ url_for('static', filename='js/smart-empty-states.js') }}?v=3.3.0"></script>
+    <script src="{{ url_for('static', filename='js/enhanced-feedback.js') }}?v=3.3.0"></script>
+    <script src="{{ url_for('static', filename='js/ui-perfection.js') }}?v=3.3.1"></script>
+
+    <!-- CSS critiques chargés immédiatement -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}?v=3.1.1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}?v=3.1.1">
+
+    <!-- CSS non-critiques chargés de manière différée -->
+    <link rel="preload" href="{{ url_for('static', filename='css/interface-improvements.css') }}?v=3.1.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/empty-states.css') }}?v=3.1.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/reward-animations.css') }}?v=3.1.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/loading-animations.css') }}?v=3.1.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/progression-animations.css') }}?v=3.1.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/adaptive-guidance.css') }}?v=3.1.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/progression-feedback.css') }}?v=3.1.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/competitive-system.css') }}?v=3.1.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/creative-system.css') }}?v=3.1.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/casual-system.css') }}?v=3.1.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+
+    <!-- CSS des améliorations UX contextuelles -->
+    <link rel="preload" href="{{ url_for('static', filename='css/contextual-feedback.css') }}?v=3.3.0" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+
+    <link rel="preload" href="{{ url_for('static', filename='css/mini-games.css') }}" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/animations-optimized.css') }}" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/performance-optimized.css') }}" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
 
     <style>
         /* Styles spécifiques au portail d'accueil */
@@ -176,30 +260,59 @@
         }
 
         .cta-buttons {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
             justify-content: center;
-            flex-wrap: wrap;
             margin-bottom: 50px;
             opacity: 0;
             animation: fadeInUp 2s ease-out 2s forwards;
+            padding: 20px;
         }
 
         .cta-btn {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 1.1em;
-            color: var(--argent-holographique);
-            background: rgba(167, 139, 250, 0.15);
-            border: 2px solid rgba(167, 139, 250, 0.4);
+            font-size: 1em;
+            color: var(--matrix-green);
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.15), rgba(0, 255, 255, 0.1));
+            border: 2px solid rgba(0, 255, 0, 0.4);
             border-radius: 15px;
-            padding: 18px 35px;
+            padding: 20px 25px;
             cursor: pointer;
-            transition: all 0.5s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
-            display: inline-block;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
+            min-height: 120px;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .cta-icon {
+            font-size: 2.5em;
+            filter: drop-shadow(0 0 15px rgba(0, 255, 0, 0.6));
+            margin-bottom: 8px;
+        }
+
+        .cta-text {
+            font-size: 0.9em;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--matrix-green);
+            line-height: 1.2;
+        }
+
+        .cta-subtitle {
+            font-size: 0.7em;
+            color: var(--matrix-accent);
+            opacity: 0.8;
+            font-weight: 400;
+            letter-spacing: 0.5px;
         }
 
         .cta-btn::before {
@@ -218,21 +331,40 @@
         }
 
         .cta-btn:hover {
-            color: var(--violet-lunaire);
-            border-color: rgba(167, 139, 250, 0.8);
-            box-shadow: 0 0 40px rgba(167, 139, 250, 0.6);
-            transform: translateY(-5px) scale(1.05);
+            color: var(--matrix-accent);
+            border-color: var(--matrix-green);
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.25), rgba(0, 255, 255, 0.2));
+            box-shadow: 0 10px 40px rgba(0, 255, 0, 0.4);
+            transform: translateY(-8px) scale(1.03);
+        }
+
+        .cta-btn:hover .cta-text {
+            color: var(--matrix-accent);
+        }
+
+        .cta-btn:hover .cta-icon {
+            filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.8));
+            transform: scale(1.1);
+        }
+
+        .cta-btn:hover .cta-subtitle {
+            color: var(--matrix-green);
+            opacity: 1;
         }
 
         .cta-btn.primary {
-            background: rgba(167, 139, 250, 0.25);
-            border-color: rgba(167, 139, 250, 0.7);
-            box-shadow: 0 0 30px rgba(167, 139, 250, 0.3);
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.25), rgba(0, 255, 255, 0.15));
+            border-color: var(--matrix-green);
+            box-shadow: 0 6px 30px rgba(0, 255, 0, 0.3);
+        }
+
+        .cta-btn.primary .cta-icon {
+            filter: drop-shadow(0 0 20px rgba(0, 255, 0, 0.8));
         }
 
         .cta-btn.primary:hover {
-            background: rgba(167, 139, 250, 0.35);
-            box-shadow: 0 0 50px rgba(167, 139, 250, 0.7);
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.35), rgba(0, 255, 255, 0.25));
+            box-shadow: 0 12px 50px rgba(0, 255, 0, 0.6);
         }
 
         .features-grid {
@@ -350,13 +482,26 @@
             }
 
             .cta-buttons {
-                flex-direction: column;
-                align-items: center;
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 15px;
             }
 
             .cta-btn {
-                width: 100%;
-                max-width: 320px;
+                padding: 18px 20px;
+                min-height: 100px;
+            }
+
+            .cta-icon {
+                font-size: 2em;
+            }
+
+            .cta-text {
+                font-size: 0.85em;
+            }
+
+            .cta-subtitle {
+                font-size: 0.65em;
             }
 
             .features-grid {
@@ -389,6 +534,9 @@
                     <a href="/profil" class="nav-link">👤 PROFIL</a>
                     <a href="/leaderboard" class="nav-link">🏆 CLASSEMENT</a>
                     <a href="/dashboard" class="nav-link">📊 DASHBOARD</a>
+                    <button class="nav-link daily-challenges-btn" onclick="dailyChallenges.show()">🎯 DÉFIS
+                        QUOTIDIENS</button>
+                    <button class="nav-link theme-btn" onclick="themeManager.show()">🎨 THÈMES</button>
                 </div>
             </div>
         </nav>
@@ -402,18 +550,39 @@
         <div class="luna-avatar">🌙</div>
 
         <!-- Section héro -->
-        <div class="hero-section">
-            <h1 class="hero-title" id="main-title">ARKALIA QUEST</h1>
-            <p class="hero-subtitle" id="hero-subtitle">Portail d'entrée dans l'esprit de LUNA</p>
-            <p class="luna-greeting" id="luna-greeting">"Bienvenue, hacker. Je suis LUNA, ton guide dans cette aventure
+        <div class="hero-section animate-fade-in-up">
+            <h1 class="hero-title animate-fade-in-up" id="main-title">ARKALIA QUEST</h1>
+            <p class="hero-subtitle animate-fade-in-up" id="hero-subtitle">Portail d'entrée dans l'esprit de LUNA</p>
+            <p class="luna-greeting animate-fade-in-up" id="luna-greeting">"Bienvenue, hacker. Je suis LUNA, ton guide
+                dans cette aventure
                 cybernétique. Commence par le tutoriel pour comprendre comment jouer !"</p>
 
-            <!-- Boutons d'action -->
-            <div class="cta-buttons">
-                <a href="/tutorial" class="cta-btn primary">🎯 TUTORIEL DÉBUTANT</a>
-                <a href="/terminal" class="cta-btn">🚀 COMMENCER L'AVENTURE</a>
-                <a href="/monde" class="cta-btn">🌍 EXPLORER LE MONDE</a>
-                <a href="/profil" class="cta-btn">👤 MON PROFIL</a>
+            <!-- Boutons d'action améliorés avec accessibilité -->
+            <div class="cta-buttons horizontal animate-fade-in-up" role="navigation" aria-label="Navigation principale">
+                <a href="/tutorial" class="cta-btn primary btn-perfect cta-perfect hover-lift ripple-effect"
+                    title="Commencer par le tutoriel" role="button" aria-describedby="tutorial-desc">
+                    <span class="cta-icon" aria-hidden="true">🎯</span>
+                    <span class="cta-text">TUTORIEL DÉBUTANT</span>
+                    <span class="cta-subtitle" id="tutorial-desc">Apprends les bases</span>
+                </a>
+                <a href="/terminal" class="cta-btn btn-perfect cta-perfect hover-lift ripple-effect"
+                    title="Accéder au terminal de commandes" role="button" aria-describedby="terminal-desc">
+                    <span class="cta-icon" aria-hidden="true">🚀</span>
+                    <span class="cta-text">COMMENCER L'AVENTURE</span>
+                    <span class="cta-subtitle" id="terminal-desc">Terminal LUNA</span>
+                </a>
+                <a href="/monde" class="cta-btn hover-lift ripple-effect" title="Explorer le monde d'Arkalia"
+                    role="button" aria-describedby="monde-desc">
+                    <span class="cta-icon" aria-hidden="true">🌍</span>
+                    <span class="cta-text">EXPLORER LE MONDE</span>
+                    <span class="cta-subtitle" id="monde-desc">Zones mystérieuses</span>
+                </a>
+                <a href="/profil" class="cta-btn" title="Voir votre profil" role="button"
+                    aria-describedby="profil-desc">
+                    <span class="cta-icon" aria-hidden="true">👤</span>
+                    <span class="cta-text">MON PROFIL</span>
+                    <span class="cta-subtitle" id="profil-desc">Statistiques</span>
+                </a>
             </div>
         </div>
 
@@ -474,13 +643,50 @@
         jeux éducatifs educational games mini-jeux minigames logique logic cybersécurité cybersecurity
     </div>
 
-    <script src="{{ url_for('static', filename='js/arkalia-luna-vision.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/audio-manager.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/accessibility.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/tutorial.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/mini-games-interface.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/performance-optimizer.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/real-time-monitor.js') }}"></script>
+    <!-- Scripts critiques chargés immédiatement -->
+    <script src="{{ url_for('static', filename='js/accessibility.js') }}?v=3.1.1"></script>
+    <script src="{{ url_for('static', filename='js/performance-optimizer.js') }}?v=3.1.1"></script>
+
+    <!-- Scripts non-critiques chargés de manière différée -->
+    <script>
+        // Chargement différé des scripts non-critiques
+        function loadScript(src, callback) {
+            const script = document.createElement('script');
+            script.src = src;
+            script.onload = callback;
+            document.head.appendChild(script);
+        }
+
+        // Charger les scripts après le chargement de la page
+        window.addEventListener('load', function () {
+            const scripts = [
+                '{{ url_for("static", filename="js/audio-manager.js") }}?v=3.1.1',
+                '{{ url_for("static", filename="js/tutorial.js") }}?v=3.1.1',
+                '{{ url_for("static", filename="js/real-time-monitor.js") }}?v=3.1.1',
+                '{{ url_for("static", filename="js/game-engine.js") }}',
+                '{{ url_for("static", filename="js/mission-system.js") }}',
+                '{{ url_for("static", filename="js/visual-feedback-system.js") }}',
+                '{{ url_for("static", filename="js/advanced-features.js") }}',
+                '{{ url_for("static", filename="js/ai_engine.js") }}',
+                '{{ url_for("static", filename="js/analytics.js") }}',
+                '{{ url_for("static", filename="js/service-worker.js") }}',
+                '{{ url_for("static", filename="js/performance-ux-optimizer.js") }}',
+                '{{ url_for("static", filename="js/bug-fixes.js") }}',
+                '{{ url_for("static", filename="js/reward-system.js") }}',
+                '{{ url_for("static", filename="js/loading-manager.js") }}',
+                '{{ url_for("static", filename="js/adaptive-guidance.js") }}?v=3.3.1',
+                '{{ url_for("static", filename="js/progression-feedback.js") }}',
+                '{{ url_for("static", filename="js/competitive-system.js") }}',
+                '{{ url_for("static", filename="js/creative-system.js") }}',
+                '{{ url_for("static", filename="js/casual-system.js") }}',
+                '{{ url_for("static", filename="js/system-integrator.js") }}'
+            ];
+
+            scripts.forEach((src, index) => {
+                setTimeout(() => loadScript(src), index * 100); // Chargement échelonné
+            });
+        });
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -528,8 +734,103 @@
             });
 
             // Effet de particules spécial pour l'accueil
-            if (window.lunaVision) {
+            if (window.lunaVision && typeof window.lunaVision.createPortalParticles === 'function') {
                 window.lunaVision.createPortalParticles();
+            }
+        });
+    </script>
+
+    <!-- Scripts personnalisés -->
+    <script src="{{ url_for('static', filename='js/personalized-messages.js') }}?v=3.3.1"></script>
+
+    <!-- Nouveaux scripts V3 - Chargement optimisé -->
+    <script src="{{ url_for('static', filename='js/theme-manager.js') }}?v=3.3.0" defer></script>
+    <script src="{{ url_for('static', filename='js/daily-challenges-enhanced.js') }}?v=3.3.0" defer></script>
+    <script src="{{ url_for('static', filename='js/visual-guidance.js') }}?v=3.3.0" defer></script>
+    <script src="{{ url_for('static', filename='js/tutorial-celebrations.js') }}?v=3.3.0" defer></script>
+    <script src="{{ url_for('static', filename='js/mini-games-interactive.js') }}?v=3.3.0"></script>
+    <script src="{{ url_for('static', filename='js/empty-states-enhanced.js') }}?v=3.3.0" defer></script>
+    <script src="{{ url_for('static', filename='js/reward-animations.js') }}?v=3.3.0" defer></script>
+    <script src="{{ url_for('static', filename='js/luna-enhanced.js') }}?v=3.3.0" defer></script>
+
+    <!-- Scripts de perfection avancés -->
+    <script src="{{ url_for('static', filename='js/smart-notifications-enhanced.js') }}?v=3.4.0"></script>
+    <script src="{{ url_for('static', filename='js/accessibility-feedback.js') }}?v=3.4.0"></script>
+
+    <script>
+        // Initialisation des nouvelles fonctionnalités
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('🚀 Arkalia Quest V3.3.0 - Systèmes UX contextuels chargés');
+
+            // Initialiser le gestionnaire de thèmes
+            if (window.ThemeManager) {
+                console.log('🎨 Theme Manager initialisé');
+            }
+
+            // Initialiser les défis quotidiens améliorés
+            if (window.DailyChallengesEnhanced) {
+                console.log('🎯 Daily Challenges Enhanced initialisé');
+            }
+
+            // Initialiser le guidage visuel
+            if (window.VisualGuidance) {
+                console.log('👁️ Visual Guidance initialisé');
+            }
+
+            // Initialiser les célébrations tutoriel
+            if (window.TutorialCelebrations) {
+                console.log('🎉 Tutorial Celebrations initialisé');
+            }
+
+            // Initialiser les commandes terminal améliorées
+            if (window.terminalCommandsEnhanced) {
+                console.log('💻 Terminal Commands Enhanced initialisé');
+            }
+
+            // Initialiser les mini-jeux interactifs
+            if (window.miniGamesInteractive) {
+                console.log('🎮 Mini-games Interactive initialisé');
+            }
+
+            // Initialiser les empty states améliorés
+            if (window.emptyStatesEnhanced) {
+                console.log('🌟 Empty States Enhanced initialisé');
+            }
+
+            // Initialiser les animations de récompenses
+            if (window.rewardAnimations) {
+                console.log('🎉 Reward Animations initialisé');
+            }
+
+            // Initialiser LUNA améliorée
+            if (window.lunaEnhanced) {
+                console.log('🌙 LUNA Enhanced initialisé');
+            }
+
+            // Initialiser les systèmes UX contextuels
+            if (window.contextualFeedback) {
+                console.log('💬 Système de feedback contextuel initialisé');
+            }
+
+            if (window.progressionAnimations) {
+                console.log('🎬 Système d\'animations de progression initialisé');
+            }
+
+            if (window.interactiveMiniGames) {
+                console.log('🎮 Mini-jeux interactifs initialisés');
+            }
+
+            if (window.enhancedEmptyStates) {
+                console.log('🌟 Empty states améliorés initialisés');
+            }
+
+            // Initialiser les nouveaux systèmes de perfection
+            if (window.smartNotifications) {
+                console.log('🔔 Notifications intelligentes initialisées');
+            }
+
+            if (window.accessibilityFeedback) {
+                console.log('♿ Feedback d\'accessibilité initialisé');
             }
         });
     </script>

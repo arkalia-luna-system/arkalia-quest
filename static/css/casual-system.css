@@ -1,0 +1,587 @@
+/* ===== ARKALIA QUEST - CASUAL SYSTEM STYLES ===== */
+
+/* ===== NOTIFICATIONS CASUAL ===== */
+
+.casual-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 1em;
+    z-index: 10000;
+    opacity: 0;
+    transform: translateX(400px);
+    transition: all 0.5s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 350px;
+}
+
+.casual-notification.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Types de notifications */
+.casual-notification.welcome {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.95), rgba(139, 119, 250, 0.95));
+    color: white;
+    border: 2px solid var(--violet-lunaire);
+    animation: welcomeGlow 2s ease-in-out infinite;
+}
+
+@keyframes welcomeGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(167, 139, 250, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 40px rgba(167, 139, 250, 0.6);
+    }
+}
+
+.casual-notification.return {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.95), rgba(56, 155, 80, 0.95));
+    color: white;
+    border: 2px solid #4caf50;
+    animation: returnBounce 1s ease-in-out infinite;
+}
+
+@keyframes returnBounce {
+
+    0%,
+    100% {
+        transform: translateX(0) scale(1);
+    }
+
+    50% {
+        transform: translateX(-5px) scale(1.05);
+    }
+}
+
+.casual-notification.idle-reward {
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.95), rgba(255, 183, 7, 0.95));
+    color: #000;
+    border: 2px solid #ffc107;
+    animation: idleRewardPulse 2s ease-in-out infinite;
+}
+
+@keyframes idleRewardPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(255, 193, 7, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 40px rgba(255, 193, 7, 0.8);
+    }
+}
+
+.casual-notification.auto-pause {
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.95), rgba(76, 145, 250, 0.95));
+    color: white;
+    border: 2px solid var(--bleu-spectre);
+    animation: autoPauseFloat 3s ease-in-out infinite;
+}
+
+@keyframes autoPauseFloat {
+
+    0%,
+    100% {
+        transform: translateX(0) translateY(0);
+    }
+
+    50% {
+        transform: translateX(-5px) translateY(-5px);
+    }
+}
+
+.casual-notification.resume {
+    background: linear-gradient(135deg, rgba(0, 255, 0, 0.95), rgba(0, 200, 0, 0.95));
+    color: #000;
+    border: 2px solid var(--matrix-green);
+    animation: resumeGlow 2s ease-in-out infinite;
+}
+
+@keyframes resumeGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 40px rgba(0, 255, 0, 0.8);
+    }
+}
+
+.casual-notification.play-time {
+    background: linear-gradient(135deg, rgba(255, 152, 0, 0.95), rgba(255, 132, 0, 0.95));
+    color: white;
+    border: 2px solid #ff9800;
+    animation: playTimeCelebration 2s ease-in-out infinite;
+}
+
+@keyframes playTimeCelebration {
+
+    0%,
+    100% {
+        transform: translateX(0) rotate(0deg);
+    }
+
+    25% {
+        transform: translateX(-5px) rotate(-2deg);
+    }
+
+    75% {
+        transform: translateX(5px) rotate(2deg);
+    }
+}
+
+.casual-notification.return-frequency {
+    background: linear-gradient(135deg, rgba(156, 39, 176, 0.95), rgba(136, 19, 176, 0.95));
+    color: white;
+    border: 2px solid #9c27b0;
+    animation: returnFrequencySparkle 2s ease-in-out infinite;
+}
+
+@keyframes returnFrequencySparkle {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(156, 39, 176, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 40px rgba(156, 39, 176, 0.8);
+    }
+}
+
+.casual-notification.gentle-progress {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.95), rgba(56, 155, 80, 0.95));
+    color: white;
+    border: 2px solid #4caf50;
+    animation: gentleProgressGlow 2s ease-in-out infinite;
+}
+
+@keyframes gentleProgressGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 40px rgba(76, 175, 80, 0.8);
+    }
+}
+
+/* ===== ICÔNES CASUAL ===== */
+
+.casual-icon {
+    font-size: 1.5em;
+    animation: casualIconFloat 3s ease-in-out infinite;
+}
+
+@keyframes casualIconFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.casual-message {
+    flex: 1;
+    line-height: 1.4;
+}
+
+/* ===== ANIMATIONS DOUCES ===== */
+
+.gentle-animations * {
+    transition: all 0.3s ease;
+}
+
+.gentle-animations button:hover {
+    transform: translateY(-2px) scale(1.02);
+}
+
+.gentle-animations .card:hover {
+    transform: translateY(-3px) scale(1.01);
+}
+
+.gentle-animations .notification {
+    animation: gentleFadeIn 0.5s ease-out;
+}
+
+@keyframes gentleFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ===== MODE PAUSE ===== */
+
+.game-paused {
+    filter: grayscale(0.3) brightness(0.8);
+    animation: pausePulse 2s ease-in-out infinite;
+}
+
+@keyframes pausePulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.game-paused::before {
+    content: '⏸️ PAUSE';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--matrix-green);
+    padding: 20px 40px;
+    border-radius: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.5em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    z-index: 10000;
+    animation: pauseMessageGlow 2s ease-in-out infinite;
+}
+
+@keyframes pauseMessageGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 40px rgba(0, 255, 0, 0.8);
+    }
+}
+
+/* ===== RÉCOMPENSES D'INACTIVITÉ ===== */
+
+.idle-reward-card {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(0, 17, 0, 0.7));
+    border: 2px solid var(--matrix-green);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 15px 0;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.idle-reward-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 255, 0, 0.3);
+}
+
+.idle-reward-card.unlocked {
+    border-color: var(--violet-lunaire);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(17, 0, 17, 0.8));
+    animation: idleRewardUnlocked 2s ease-in-out infinite;
+}
+
+@keyframes idleRewardUnlocked {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(167, 139, 250, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 40px rgba(167, 139, 250, 0.6);
+    }
+}
+
+.idle-reward-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.idle-reward-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--matrix-green);
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.idle-reward-status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.idle-reward-status.locked {
+    background: rgba(100, 100, 100, 0.2);
+    color: #666;
+    border: 1px solid #666;
+}
+
+.idle-reward-status.unlocked {
+    background: rgba(167, 139, 250, 0.2);
+    color: var(--violet-lunaire);
+    border: 1px solid var(--violet-lunaire);
+    animation: statusPulse 2s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+
+    0%,
+    100% {
+        opacity: 0.7;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.idle-reward-description {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9em;
+    color: var(--argent-holographique);
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.idle-reward-progress {
+    margin-bottom: 15px;
+}
+
+.idle-reward-progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(0, 255, 0, 0.2);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.idle-reward-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--matrix-green), var(--matrix-accent));
+    border-radius: 3px;
+    transition: width 0.5s ease;
+}
+
+.idle-reward-progress-text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8em;
+    color: var(--matrix-green);
+    text-align: center;
+}
+
+.idle-reward-reward {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.idle-reward-points {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.1em;
+    font-weight: 700;
+    color: var(--matrix-accent);
+}
+
+.idle-reward-badge {
+    font-size: 1.2em;
+    margin-left: 8px;
+}
+
+/* ===== MESSAGES DOUX ===== */
+
+.gentle-message {
+    font-family: 'Inter', sans-serif;
+    color: var(--argent-holographique);
+    line-height: 1.6;
+    padding: 10px;
+    background: rgba(0, 255, 0, 0.1);
+    border-radius: 6px;
+    border-left: 3px solid var(--matrix-green);
+    margin: 10px 0;
+}
+
+.gentle-message.error {
+    background: rgba(255, 107, 107, 0.1);
+    border-left-color: #ff6b6b;
+    color: #ff6b6b;
+}
+
+.gentle-message.success {
+    background: rgba(76, 175, 80, 0.1);
+    border-left-color: #4caf50;
+    color: #4caf50;
+}
+
+.gentle-message.loading {
+    background: rgba(96, 165, 250, 0.1);
+    border-left-color: var(--bleu-spectre);
+    color: var(--bleu-spectre);
+}
+
+.gentle-message.complete {
+    background: rgba(167, 139, 250, 0.1);
+    border-left-color: var(--violet-lunaire);
+    color: var(--violet-lunaire);
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 768px) {
+    .casual-notification {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+        transform: translateY(-100px);
+    }
+
+    .casual-notification.show {
+        transform: translateY(0);
+    }
+
+    .idle-reward-card {
+        padding: 15px;
+    }
+
+    .idle-reward-header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .idle-reward-reward {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+}
+
+/* ===== PREFERS-REDUCED-MOTION ===== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .casual-notification,
+    .casual-icon,
+    .gentle-animations *,
+    .game-paused,
+    .idle-reward-card.unlocked,
+    .idle-reward-status.unlocked,
+    .welcome,
+    .return,
+    .idle-reward,
+    .auto-pause,
+    .resume,
+    .play-time,
+    .return-frequency,
+    .gentle-progress {
+        animation: none;
+    }
+
+    .gentle-animations button:hover,
+    .gentle-animations .card:hover {
+        transform: none;
+    }
+}
+
+/* ===== MODE SOMBRE ===== */
+
+@media (prefers-color-scheme: dark) {
+    .casual-notification {
+        backdrop-filter: blur(15px);
+    }
+
+    .idle-reward-card {
+        background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(0, 17, 0, 0.8));
+    }
+
+    .gentle-message {
+        background: rgba(0, 255, 0, 0.15);
+    }
+}
+
+/* ===== ACCESSIBILITÉ ===== */
+
+.casual-notification:focus {
+    outline: 3px solid var(--violet-lunaire);
+    outline-offset: 2px;
+}
+
+.idle-reward-card:focus {
+    outline: 2px solid var(--violet-lunaire);
+    outline-offset: 2px;
+}
+
+/* ===== ANIMATIONS D'ENTRÉE ===== */
+
+.casual-notification {
+    animation: casualNotificationEnter 0.5s ease-out;
+}
+
+@keyframes casualNotificationEnter {
+    from {
+        opacity: 0;
+        transform: translateX(400px) scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+.idle-reward-card {
+    animation: idleRewardCardEnter 0.5s ease-out;
+}
+
+@keyframes idleRewardCardEnter {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}

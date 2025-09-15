@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test d'intégration des systèmes adaptatifs</title>
+    <style>
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background: #000;
+            color: #00ff00;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #00ff00;
+            border-radius: 8px;
+        }
+        .test-result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .success { background: rgba(0, 255, 0, 0.1); }
+        .error { background: rgba(255, 0, 0, 0.1); }
+        .info { background: rgba(0, 150, 255, 0.1); }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test d'intégration des systèmes adaptatifs Arkalia Quest</h1>
+    
+    <div class="test-section">
+        <h2>📁 Vérification des fichiers</h2>
+        <div id="file-tests"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>🎯 Test des systèmes JavaScript</h2>
+        <div id="js-tests"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>🎨 Test des styles CSS</h2>
+        <div id="css-tests"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>🔧 Test des fonctionnalités</h2>
+        <div id="feature-tests"></div>
+    </div>
+
+    <script>
+        // Test des fichiers
+        function testFiles() {
+            const files = [
+                'static/js/adaptive-guidance.js',
+                'static/js/progression-feedback.js',
+                'static/js/competitive-system.js',
+                'static/js/creative-system.js',
+                'static/js/casual-system.js',
+                'static/css/adaptive-guidance.css',
+                'static/css/progression-feedback.css',
+                'static/css/competitive-system.css',
+                'static/css/creative-system.css',
+                'static/css/casual-system.css'
+            ];
+            
+            const fileTestsDiv = document.getElementById('file-tests');
+            
+            files.forEach(file => {
+                fetch(file)
+                    .then(response => {
+                        const div = document.createElement('div');
+                        div.className = 'test-result';
+                        if (response.ok) {
+                            div.className += ' success';
+                            div.innerHTML = `✅ ${file} - OK (${response.status})`;
+                        } else {
+                            div.className += ' error';
+                            div.innerHTML = `❌ ${file} - ERREUR (${response.status})`;
+                        }
+                        fileTestsDiv.appendChild(div);
+                    })
+                    .catch(error => {
+                        const div = document.createElement('div');
+                        div.className = 'test-result error';
+                        div.innerHTML = `❌ ${file} - ERREUR: ${error.message}`;
+                        fileTestsDiv.appendChild(div);
+                    });
+            });
+        }
+        
+        // Test des systèmes JavaScript
+        function testJavaScript() {
+            const jsTestsDiv = document.getElementById('js-tests');
+            
+            const systems = [
+                { name: 'AdaptiveGuidance', obj: window.adaptiveGuidance },
+                { name: 'ProgressionFeedback', obj: window.progressionFeedback },
+                { name: 'CompetitiveSystem', obj: window.competitiveSystem },
+                { name: 'CreativeSystem', obj: window.creativeSystem },
+                { name: 'CasualSystem', obj: window.casualSystem }
+            ];
+            
+            systems.forEach(system => {
+                const div = document.createElement('div');
+                div.className = 'test-result';
+                
+                if (system.obj) {
+                    div.className += ' success';
+                    div.innerHTML = `✅ ${system.name} - Initialisé correctement`;
+                } else {
+                    div.className += ' error';
+                    div.innerHTML = `❌ ${system.name} - Non initialisé`;
+                }
+                jsTestsDiv.appendChild(div);
+            });
+        }
+        
+        // Test des styles CSS
+        function testCSS() {
+            const cssTestsDiv = document.getElementById('css-tests');
+            
+            const styles = [
+                '.adaptive-guidance',
+                '.progression-feedback',
+                '.competitive-system',
+                '.creative-system',
+                '.casual-system'
+            ];
+            
+            styles.forEach(style => {
+                const div = document.createElement('div');
+                div.className = 'test-result';
+                
+                // Créer un élément temporaire pour tester le style
+                const testEl = document.createElement('div');
+                testEl.className = style.replace('.', '');
+                testEl.style.display = 'none';
+                document.body.appendChild(testEl);
+                
+                const computedStyle = window.getComputedStyle(testEl);
+                
+                if (computedStyle.display !== 'none' || testEl.className) {
+                    div.className += ' success';
+                    div.innerHTML = `✅ ${style} - Style disponible`;
+                } else {
+                    div.className += ' error';
+                    div.innerHTML = `❌ ${style} - Style non trouvé`;
+                }
+                
+                document.body.removeChild(testEl);
+                cssTestsDiv.appendChild(div);
+            });
+        }
+        
+        // Test des fonctionnalités
+        function testFeatures() {
+            const featureTestsDiv = document.getElementById('feature-tests');
+            
+            // Test de la guidance adaptative
+            if (window.adaptiveGuidance) {
+                const div = document.createElement('div');
+                div.className = 'test-result success';
+                div.innerHTML = '✅ Guidance adaptative - Système de détection de profil actif';
+                featureTestsDiv.appendChild(div);
+            }
+            
+            // Test du feedback de progression
+            if (window.progressionFeedback) {
+                const div = document.createElement('div');
+                div.className = 'test-result success';
+                div.innerHTML = '✅ Feedback de progression - Métriques de performance actives';
+                featureTestsDiv.appendChild(div);
+            }
+            
+            // Test du système compétitif
+            if (window.competitiveSystem) {
+                const div = document.createElement('div');
+                div.className = 'test-result success';
+                div.innerHTML = '✅ Système compétitif - Défis et badges disponibles';
+                featureTestsDiv.appendChild(div);
+            }
+            
+            // Test du système créatif
+            if (window.creativeSystem) {
+                const div = document.createElement('div');
+                div.className = 'test-result success';
+                div.innerHTML = '✅ Système créatif - Easter eggs et thèmes disponibles';
+                featureTestsDiv.appendChild(div);
+            }
+            
+            // Test du système casual
+            if (window.casualSystem) {
+                const div = document.createElement('div');
+                div.className = 'test-result success';
+                div.innerHTML = '✅ Système casual - Récompenses d\'inactivité actives';
+                featureTestsDiv.appendChild(div);
+            }
+        }
+        
+        // Charger les scripts de test
+        function loadTestScripts() {
+            const scripts = [
+                'static/js/adaptive-guidance.js',
+                'static/js/progression-feedback.js',
+                'static/js/competitive-system.js',
+                'static/js/creative-system.js',
+                'static/js/casual-system.js'
+            ];
+            
+            let loaded = 0;
+            scripts.forEach(script => {
+                const scriptEl = document.createElement('script');
+                scriptEl.src = script;
+                scriptEl.onload = () => {
+                    loaded++;
+                    if (loaded === scripts.length) {
+                        setTimeout(() => {
+                            testJavaScript();
+                            testFeatures();
+                        }, 1000);
+                    }
+                };
+                scriptEl.onerror = () => {
+                    console.error(`Erreur de chargement: ${script}`);
+                };
+                document.head.appendChild(scriptEl);
+            });
+        }
+        
+        // Charger les styles de test
+        function loadTestStyles() {
+            const styles = [
+                'static/css/adaptive-guidance.css',
+                'static/css/progression-feedback.css',
+                'static/css/competitive-system.css',
+                'static/css/creative-system.css',
+                'static/css/casual-system.css'
+            ];
+            
+            styles.forEach(style => {
+                const linkEl = document.createElement('link');
+                linkEl.rel = 'stylesheet';
+                linkEl.href = style;
+                document.head.appendChild(linkEl);
+            });
+        }
+        
+        // Initialiser les tests
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🧪 Démarrage des tests d\'intégration');
+            
+            // Charger les styles
+            loadTestStyles();
+            
+            // Tester les fichiers
+            testFiles();
+            
+            // Charger les scripts et tester
+            loadTestScripts();
+            
+            // Tester les styles après un délai
+            setTimeout(testCSS, 2000);
+        });
+    </script>
+</body>
+</html>

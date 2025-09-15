@@ -203,22 +203,23 @@ body.highlight-buttons button {
 /* Bouton d'accessibilité discret */
 .accessibility-toggle-btn {
     position: fixed;
-    top: 20px;
+    top: 80px;
     right: 20px;
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: rgba(167, 139, 250, 0.2);
-    border: 2px solid rgba(167, 139, 250, 0.4);
+    background: rgba(167, 139, 250, 0.3);
+    border: 2px solid rgba(167, 139, 250, 0.5);
     color: var(--argent-holographique);
     font-size: 1.2em;
     cursor: pointer;
     z-index: 999;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
+    transition: all 0.1s ease;
+    backdrop-filter: blur(15px);
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 4px 20px rgba(167, 139, 250, 0.3);
 }
 
 .accessibility-toggle-btn:hover {
@@ -238,17 +239,17 @@ body.highlight-buttons button {
 /* Menu d'accessibilité flottant */
 .accessibility-menu {
     position: fixed;
-    top: 80px;
+    top: 140px;
     right: 20px;
     width: 320px;
-    max-height: 80vh;
-    background: rgba(9, 9, 11, 0.95);
-    border: 2px solid rgba(167, 139, 250, 0.4);
+    max-height: 75vh;
+    background: rgba(9, 9, 11, 0.98);
+    border: 2px solid rgba(167, 139, 250, 0.5);
     border-radius: 15px;
     padding: 0;
     z-index: 1000;
-    backdrop-filter: blur(20px);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(25px);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.9);
     transform: translateX(400px);
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
@@ -283,7 +284,7 @@ body.highlight-buttons button {
     cursor: pointer;
     padding: 5px;
     border-radius: 50%;
-    transition: all 0.3s ease;
+    transition: all 0.1s ease;
     width: 30px;
     height: 30px;
     display: flex;
@@ -308,7 +309,7 @@ body.highlight-buttons button {
     z-index: 999;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.1s ease;
 }
 
 .accessibility-overlay.active {
@@ -567,7 +568,7 @@ textarea:focus {
     display: none;
     opacity: 0;
     transform: translateX(100%);
-    transition: all 0.3s ease;
+    transition: all 0.1s ease;
 }
 
 .accessibility-panel.active {
@@ -600,7 +601,7 @@ textarea:focus {
     cursor: pointer;
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.9em;
-    transition: all 0.3s ease;
+    transition: all 0.1s ease;
     text-align: left;
     display: flex;
     align-items: center;
@@ -630,7 +631,7 @@ textarea:focus {
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.8em;
-    transition: all 0.3s ease;
+    transition: all 0.1s ease;
     text-align: center;
 }
 
@@ -882,10 +883,11 @@ body.low-performance * {
     .accessibility-menu {
         width: 280px;
         right: 15px;
+        top: 130px;
     }
 
     .accessibility-toggle-btn {
-        top: 15px;
+        top: 75px;
         right: 15px;
         width: 45px;
         height: 45px;
@@ -898,11 +900,11 @@ body.low-performance * {
         width: calc(100vw - 40px);
         right: 20px;
         left: 20px;
-        top: 70px;
+        top: 120px;
     }
 
     .accessibility-toggle-btn {
-        top: 10px;
+        top: 70px;
         right: 10px;
         width: 40px;
         height: 40px;
@@ -989,7 +991,7 @@ body.low-performance * {
     align-items: center;
     gap: 10px;
     padding: 5px 0;
-    transition: all 0.3s ease;
+    transition: all 0.1s ease;
 }
 
 .accessibility-shortcuts li:hover {
@@ -1267,4 +1269,92 @@ body.large-spacing .btn {
         opacity: 0;
         transform: translate(-50%, -50%) scale(0.8);
     }
+}
+
+/* ===== AMÉLIORATIONS FOCUS CLAVIER ===== */
+
+/* Focus ultra-visible pour tous les éléments interactifs */
+button:focus,
+input:focus,
+select:focus,
+textarea:focus,
+a:focus,
+.nav-link:focus,
+.nav-button:focus,
+.direction-btn:focus,
+.mission-item:focus,
+.badge-item:focus,
+.zone:focus {
+    outline: 4px solid var(--violet-lunaire) !important;
+    outline-offset: 3px !important;
+    box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.5) !important;
+    border-color: var(--violet-lunaire) !important;
+    transition: all 0.1s ease !important;
+}
+
+/* Focus encore plus visible pour les éléments critiques */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+a:focus-visible {
+    outline: 5px solid var(--violet-lunaire) !important;
+    outline-offset: 4px !important;
+    box-shadow: 0 0 0 5px rgba(167, 139, 250, 0.7) !important;
+    border-color: var(--violet-lunaire) !important;
+    background-color: rgba(167, 139, 250, 0.1) !important;
+}
+
+/* Focus pour les éléments de navigation */
+.nav-link:focus-visible,
+.nav-button:focus-visible {
+    outline: 4px solid var(--matrix-green) !important;
+    outline-offset: 3px !important;
+    box-shadow: 0 0 0 4px rgba(0, 255, 0, 0.5) !important;
+    border-color: var(--matrix-green) !important;
+    background-color: rgba(0, 255, 0, 0.1) !important;
+}
+
+/* Focus pour les boutons de direction */
+.direction-btn:focus-visible {
+    outline: 4px solid var(--matrix-green) !important;
+    outline-offset: 3px !important;
+    box-shadow: 0 0 0 4px rgba(0, 255, 0, 0.5) !important;
+    border-color: var(--matrix-green) !important;
+    background-color: rgba(0, 255, 0, 0.1) !important;
+    transform: scale(1.05) !important;
+}
+
+/* Focus pour les éléments interactifs */
+.mission-item:focus-visible,
+.badge-item:focus-visible,
+.zone:focus-visible {
+    outline: 3px solid var(--bleu-spectre) !important;
+    outline-offset: 2px !important;
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.5) !important;
+    border-color: var(--bleu-spectre) !important;
+    background-color: rgba(96, 165, 250, 0.1) !important;
+}
+
+/* Indicateur de focus pour les éléments non-focusables */
+.focus-indicator {
+    position: relative;
+}
+
+.focus-indicator::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 2px solid transparent;
+    border-radius: inherit;
+    pointer-events: none;
+    transition: all 0.1s ease;
+}
+
+.focus-indicator:focus::before {
+    border-color: var(--violet-lunaire) !important;
+    box-shadow: 0 0 0 2px rgba(167, 139, 250, 0.3) !important;
 }

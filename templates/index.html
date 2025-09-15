@@ -602,7 +602,6 @@
     </div>
 
     <!-- Scripts critiques chargés immédiatement -->
-    <script src="{{ url_for('static', filename='js/arkalia-luna-vision.js') }}?v=3.1.1"></script>
     <script src="{{ url_for('static', filename='js/accessibility.js') }}?v=3.1.1"></script>
     <script src="{{ url_for('static', filename='js/performance-optimizer.js') }}?v=3.1.1"></script>
 
@@ -621,13 +620,10 @@
             const scripts = [
                 '{{ url_for("static", filename="js/audio-manager.js") }}?v=3.1.1',
                 '{{ url_for("static", filename="js/tutorial.js") }}?v=3.1.1',
-                '{{ url_for("static", filename="js/mini-games-interface.js") }}?v=3.1.1',
                 '{{ url_for("static", filename="js/real-time-monitor.js") }}?v=3.1.1',
                 '{{ url_for("static", filename="js/game-engine.js") }}',
                 '{{ url_for("static", filename="js/mission-system.js") }}',
-                '{{ url_for("static", filename="js/luna-personality.js") }}',
                 '{{ url_for("static", filename="js/visual-feedback-system.js") }}',
-                '{{ url_for("static", filename="js/unified-mini-games.js") }}',
                 '{{ url_for("static", filename="js/advanced-features.js") }}',
                 '{{ url_for("static", filename="js/ai_engine.js") }}',
                 '{{ url_for("static", filename="js/analytics.js") }}',
@@ -711,7 +707,6 @@
     <script src="{{ url_for('static', filename='js/daily-challenges-enhanced.js') }}?v=3.3.0" defer></script>
     <script src="{{ url_for('static', filename='js/visual-guidance.js') }}?v=3.3.0" defer></script>
     <script src="{{ url_for('static', filename='js/tutorial-celebrations.js') }}?v=3.3.0" defer></script>
-    <script src="{{ url_for('static', filename='js/terminal-commands-enhanced.js') }}?v=3.3.0" defer></script>
     <script src="{{ url_for('static', filename='js/mini-games-interactive.js') }}?v=3.3.0" defer></script>
     <script src="{{ url_for('static', filename='js/empty-states-enhanced.js') }}?v=3.3.0" defer></script>
     <script src="{{ url_for('static', filename='js/reward-animations.js') }}?v=3.3.0" defer></script>

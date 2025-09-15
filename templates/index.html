@@ -19,54 +19,18 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/icon-16x16.png">
     <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png">
 
-    <!-- CSS LUNA VISION - Optimisé pour le chargement -->
-    <link rel="preload" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}?v=3.1.1" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}?v=3.1.1">
-    </noscript>
+    <!-- CSS ARKALIA CONSOLIDÉ - Version 4.0 -->
+    <!-- Styles de base Luna -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-core.css') }}?v=4.0.0">
 
-    <!-- Spacing Perfection CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/spacing-perfection.css') }}?v=3.4.0">
+    <!-- Thèmes Luna -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-themes.css') }}?v=4.0.0">
 
-    <!-- Contrast Perfection CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/contrast-perfection.css') }}?v=3.4.0">
+    <!-- Composants UI -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-components.css') }}?v=4.0.0">
 
-    <!-- Animations Perfection CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/animations-perfection.css') }}?v=3.4.0">
-
-    <!-- Typography Perfection CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/typography-perfection.css') }}?v=3.4.0">
-
-    <!-- Empty States Perfection CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/empty-states-perfection.css') }}?v=3.4.0">
-
-    <!-- Grid Perfection CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/grid-perfection.css') }}?v=3.4.0">
-
-    <!-- Theme Patterns CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme-patterns.css') }}?v=3.4.0">
-
-    <!-- Nouveaux CSS V3 - Chargement optimisé -->
-    <link rel="preload" href="{{ url_for('static', filename='css/themes.css') }}?v=3.3.0" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/themes.css') }}?v=3.3.0">
-    </noscript>
-
-    <!-- Système de couleurs modernes -->
-    <link rel="preload" href="{{ url_for('static', filename='css/color-system.css') }}?v=3.3.0" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/color-system.css') }}?v=3.3.0">
-    </noscript>
-
-    <!-- Perfection UI/UX 2025 -->
-    <link rel="preload" href="{{ url_for('static', filename='css/ui-perfection.css') }}?v=3.3.1" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/ui-perfection.css') }}?v=3.3.1">
-    </noscript>
+    <!-- Responsive design -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-responsive.css') }}?v=4.0.0">
 
     <!-- Systèmes Universels Unifiés V4.0.0 -->
     <!-- Remplace 10+ fichiers redondants par 3 systèmes unifiés -->
@@ -894,6 +858,7 @@
     <!-- Scripts des systèmes de gameplay améliorés -->
     <script src="{{ url_for('static', filename='js/zone-exploration-enhanced.js') }}?v=3.6.0"></script>
     <script src="{{ url_for('static', filename='js/daily-missions-enhanced.js') }}?v=3.6.0"></script>
+    <script src="{{ url_for('static', filename='js/motivational-empty-states.js') }}?v=3.6.0"></script>
     <script src="{{ url_for('static', filename='js/timer-challenges.js') }}?v=3.6.0"></script>
     <script src="{{ url_for('static', filename='js/interactive-puzzles.js') }}?v=3.6.0"></script>
     <script src="{{ url_for('static', filename='js/gameplay-integration.js') }}?v=3.6.0"></script>

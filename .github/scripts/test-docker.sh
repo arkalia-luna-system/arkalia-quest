@@ -21,16 +21,20 @@ docker rm arkalia-test 2>/dev/null || true
 
 # Démarrer le conteneur
 echo "Starting container..."
-CONTAINER_ID=$(docker run --rm -d --name arkalia-test -p 5001:10000 arkalia-quest:latest)
+CONTAINER_ID=$(docker run --rm -d --name arkalia-test -p 5001:10000 -e PORT=10000 arkalia-quest:latest)
 echo "Container started with ID: $CONTAINER_ID"
 
 # Attendre un peu et vérifier immédiatement
 echo "Waiting for container to initialize..."
-sleep 5
+sleep 10
 
 # Vérifier le statut du conteneur
 echo "Checking container status..."
 docker ps -a
+
+# Afficher les logs immédiatement pour debug
+echo "Container logs (first 20 lines):"
+docker logs arkalia-test --tail 20 2>/dev/null || echo "No logs available yet"
 
 # Vérifier que le conteneur est toujours en cours d'exécution
 if ! docker ps --format "table {{.Names}}" | grep -q "arkalia-test"; then

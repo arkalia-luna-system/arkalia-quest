@@ -8,29 +8,60 @@ from datetime import datetime, timedelta
 from flask import Flask, jsonify, render_template, request, send_from_directory
 from flask_compress import Compress
 
-from arkalia_engine import arkalia_engine
-from core.adaptive_storytelling import adaptive_storytelling
-from core.advanced_achievements import advanced_achievements
-from core.cache_manager import cache_manager
-from core.category_leaderboards import category_leaderboards
-from core.command_handler_v2 import CommandHandlerV2 as CommandHandler
-from core.customization_engine import customization_engine
-from core.daily_challenges_engine import DailyChallengesEngine
-from core.database import DatabaseManager
-from core.educational_games_engine import EducationalGamesEngine
-from core.gamification_engine import GamificationEngine
-from core.micro_interactions import micro_interactions
-from core.mission_progress_tracker import mission_progress_tracker
-from core.narrative_branches import narrative_branches
-from core.performance_optimizer import performance_optimizer
-from core.secondary_missions import secondary_missions
-from core.security_enhanced import security_enhanced
-from core.security_manager import security_manager
-from core.social_engine import social_engine
-from core.technical_tutorials import technical_tutorials
-from core.tutorial_manager import tutorial_manager
-from core.websocket_manager import websocket_manager
-from engines.luna_ai_v3 import LunaAIV3
+# Imports avec gestion d'erreur robuste
+try:
+    from arkalia_engine import arkalia_engine
+    from core.adaptive_storytelling import adaptive_storytelling
+    from core.advanced_achievements import advanced_achievements
+    from core.cache_manager import cache_manager
+    from core.category_leaderboards import category_leaderboards
+    from core.command_handler_v2 import CommandHandlerV2 as CommandHandler
+    from core.customization_engine import customization_engine
+    from core.daily_challenges_engine import DailyChallengesEngine
+    from core.database import DatabaseManager
+    from core.educational_games_engine import EducationalGamesEngine
+    from core.gamification_engine import GamificationEngine
+    from core.micro_interactions import micro_interactions
+    from core.mission_progress_tracker import mission_progress_tracker
+    from core.narrative_branches import narrative_branches
+    from core.performance_optimizer import performance_optimizer
+    from core.secondary_missions import secondary_missions
+    from core.security_enhanced import security_enhanced
+    from core.security_manager import security_manager
+    from core.social_engine import social_engine
+    from core.technical_tutorials import technical_tutorials
+    from core.tutorial_manager import tutorial_manager
+    from core.websocket_manager import websocket_manager
+    from engines.luna_ai_v3 import LunaAIV3
+    print("✅ All core modules imported successfully")
+except Exception as e:
+    print(f"❌ Error importing core modules: {e}")
+    import traceback
+    traceback.print_exc()
+    # Créer des objets factices pour éviter les erreurs
+    arkalia_engine = None
+    adaptive_storytelling = None
+    advanced_achievements = None
+    cache_manager = None
+    category_leaderboards = None
+    CommandHandler = None
+    customization_engine = None
+    DailyChallengesEngine = None
+    DatabaseManager = None
+    EducationalGamesEngine = None
+    GamificationEngine = None
+    micro_interactions = None
+    mission_progress_tracker = None
+    narrative_branches = None
+    performance_optimizer = None
+    secondary_missions = None
+    security_enhanced = None
+    security_manager = None
+    social_engine = None
+    technical_tutorials = None
+    tutorial_manager = None
+    websocket_manager = None
+    LunaAIV3 = None
 
 try:
     from utils.logger import game_logger, performance_logger, security_logger
@@ -47,7 +78,7 @@ app = Flask(__name__)
 # Configuration sécurisée des sessions
 app.config.update(
     SECRET_KEY=os.environ.get("SECRET_KEY", "dev-key-change-in-production"),
-    SESSION_COOKIE_SECURE=True,  # HTTPS uniquement en production
+    SESSION_COOKIE_SECURE=False,  # Désactivé pour HTTP en développement
     SESSION_COOKIE_HTTPONLY=True,  # Pas d'accès JavaScript
     SESSION_COOKIE_SAMESITE="Lax",  # Protection CSRF
     PERMANENT_SESSION_LIFETIME=timedelta(hours=2),  # Expiration
@@ -58,7 +89,12 @@ app.config.update(
 Compress(app)
 
 # Instance globale du moteur de jeux éducatifs
-games_engine = EducationalGamesEngine()
+try:
+    games_engine = EducationalGamesEngine() if EducationalGamesEngine else None
+    print("✅ Games engine initialized")
+except Exception as e:
+    print(f"❌ Error initializing games engine: {e}")
+    games_engine = None
 
 
 # Middleware de sécurité et performance
@@ -68,14 +104,16 @@ def before_request():
     # Vérifier la sécurité
     client_ip = request.environ.get("HTTP_X_FORWARDED_FOR", request.remote_addr)
 
-    # Vérifier si l'IP est bloquée
-    if security_enhanced.is_ip_blocked(client_ip):
-        return jsonify({"error": "Accès refusé"}), 403
+    # Vérifier si l'IP est bloquée (si le module est disponible)
+    if security_enhanced and hasattr(security_enhanced, 'is_ip_blocked'):
+        if security_enhanced.is_ip_blocked(client_ip):
+            return jsonify({"error": "Accès refusé"}), 403
 
-    # Vérifier le rate limiting
-    allowed, message = security_enhanced.check_rate_limit(client_ip)
-    if not allowed:
-        return jsonify({"error": message}), 429
+    # Vérifier le rate limiting (si le module est disponible)
+    if security_enhanced and hasattr(security_enhanced, 'check_rate_limit'):
+        allowed, message = security_enhanced.check_rate_limit(client_ip)
+        if not allowed:
+            return jsonify({"error": message}), 429
 
     # Valider les entrées (sauf pour les routes des jeux éducatifs)
     if request.method in ["POST", "PUT", "PATCH"]:

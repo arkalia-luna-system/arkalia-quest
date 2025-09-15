@@ -38,7 +38,7 @@ raw_env = [
 ]
 
 # Optimisations pour les jeux éducatifs
-worker_class = "gevent"
+worker_class = "sync"
 worker_connections = 1000
 
 

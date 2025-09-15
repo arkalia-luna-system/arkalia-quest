@@ -26,6 +26,18 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}?v=3.1.1">
     </noscript>
 
+    <!-- Spacing Perfection CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/spacing-perfection.css') }}?v=3.4.0">
+
+    <!-- Contrast Perfection CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/contrast-perfection.css') }}?v=3.4.0">
+
+    <!-- Animations Perfection CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animations-perfection.css') }}?v=3.4.0">
+
+    <!-- Typography Perfection CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/typography-perfection.css') }}?v=3.4.0">
+
     <!-- Nouveaux CSS V3 - Chargement optimisé -->
     <link rel="preload" href="{{ url_for('static', filename='css/themes.css') }}?v=3.3.0" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
@@ -529,28 +541,29 @@
         <div class="luna-avatar">🌙</div>
 
         <!-- Section héro -->
-        <div class="hero-section">
-            <h1 class="hero-title" id="main-title">ARKALIA QUEST</h1>
-            <p class="hero-subtitle" id="hero-subtitle">Portail d'entrée dans l'esprit de LUNA</p>
-            <p class="luna-greeting" id="luna-greeting">"Bienvenue, hacker. Je suis LUNA, ton guide dans cette aventure
+        <div class="hero-section animate-fade-in-up">
+            <h1 class="hero-title animate-fade-in-up" id="main-title">ARKALIA QUEST</h1>
+            <p class="hero-subtitle animate-fade-in-up" id="hero-subtitle">Portail d'entrée dans l'esprit de LUNA</p>
+            <p class="luna-greeting animate-fade-in-up" id="luna-greeting">"Bienvenue, hacker. Je suis LUNA, ton guide
+                dans cette aventure
                 cybernétique. Commence par le tutoriel pour comprendre comment jouer !"</p>
 
             <!-- Boutons d'action améliorés avec accessibilité -->
-            <div class="cta-buttons" role="navigation" aria-label="Navigation principale">
-                <a href="/tutorial" class="cta-btn primary btn-perfect cta-perfect" title="Commencer par le tutoriel"
-                    role="button" aria-describedby="tutorial-desc">
+            <div class="cta-buttons horizontal animate-fade-in-up" role="navigation" aria-label="Navigation principale">
+                <a href="/tutorial" class="cta-btn primary btn-perfect cta-perfect hover-lift ripple-effect"
+                    title="Commencer par le tutoriel" role="button" aria-describedby="tutorial-desc">
                     <span class="cta-icon" aria-hidden="true">🎯</span>
                     <span class="cta-text">TUTORIEL DÉBUTANT</span>
                     <span class="cta-subtitle" id="tutorial-desc">Apprends les bases</span>
                 </a>
-                <a href="/terminal" class="cta-btn btn-perfect cta-perfect" title="Accéder au terminal de commandes"
-                    role="button" aria-describedby="terminal-desc">
+                <a href="/terminal" class="cta-btn btn-perfect cta-perfect hover-lift ripple-effect"
+                    title="Accéder au terminal de commandes" role="button" aria-describedby="terminal-desc">
                     <span class="cta-icon" aria-hidden="true">🚀</span>
                     <span class="cta-text">COMMENCER L'AVENTURE</span>
                     <span class="cta-subtitle" id="terminal-desc">Terminal LUNA</span>
                 </a>
-                <a href="/monde" class="cta-btn" title="Explorer le monde d'Arkalia" role="button"
-                    aria-describedby="monde-desc">
+                <a href="/monde" class="cta-btn hover-lift ripple-effect" title="Explorer le monde d'Arkalia"
+                    role="button" aria-describedby="monde-desc">
                     <span class="cta-icon" aria-hidden="true">🌍</span>
                     <span class="cta-text">EXPLORER LE MONDE</span>
                     <span class="cta-subtitle" id="monde-desc">Zones mystérieuses</span>

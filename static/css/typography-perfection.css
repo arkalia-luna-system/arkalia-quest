@@ -1,0 +1,571 @@
+/* ===== ARKALIA QUEST - TYPOGRAPHY PERFECTION ===== */
+
+/* ===== SYSTÈME TYPOGRAPHIQUE HARMONIEUX ===== */
+:root {
+    /* Tailles de police cohérentes */
+    --font-size-xs: 0.75rem;
+    /* 12px */
+    --font-size-sm: 0.875rem;
+    /* 14px */
+    --font-size-base: 1rem;
+    /* 16px */
+    --font-size-lg: 1.125rem;
+    /* 18px */
+    --font-size-xl: 1.25rem;
+    /* 20px */
+    --font-size-2xl: 1.5rem;
+    /* 24px */
+    --font-size-3xl: 1.875rem;
+    /* 30px */
+    --font-size-4xl: 2.25rem;
+    /* 36px */
+    --font-size-5xl: 3rem;
+    /* 48px */
+    --font-size-6xl: 3.75rem;
+    /* 60px */
+
+    /* Poids de police */
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+
+    /* Hauteurs de ligne */
+    --line-height-tight: 1.25;
+    --line-height-snug: 1.375;
+    --line-height-normal: 1.5;
+    --line-height-relaxed: 1.625;
+    --line-height-loose: 2;
+
+    /* Espacement des lettres */
+    --letter-spacing-tight: -0.025em;
+    --letter-spacing-normal: 0;
+    --letter-spacing-wide: 0.025em;
+    --letter-spacing-wider: 0.05em;
+    --letter-spacing-widest: 0.1em;
+}
+
+/* ===== HIÉRARCHIE TYPOGRAPHIQUE ===== */
+
+/* Titres principaux */
+h1,
+.h1,
+.hero-title {
+    font-size: var(--font-size-5xl);
+    font-weight: var(--font-weight-extrabold);
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-tight);
+    margin-bottom: 1.5rem;
+    color: var(--color-text-primary);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Titres secondaires */
+h2,
+.h2,
+.section-title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-snug);
+    letter-spacing: var(--letter-spacing-normal);
+    margin-bottom: 1.25rem;
+    color: var(--color-text-primary);
+}
+
+/* Titres de section */
+h3,
+.h3,
+.subsection-title {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-snug);
+    letter-spacing: var(--letter-spacing-normal);
+    margin-bottom: 1rem;
+    color: var(--color-text-primary);
+}
+
+/* Titres de carte */
+h4,
+.h4,
+.card-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-normal);
+    margin-bottom: 0.75rem;
+    color: var(--color-text-primary);
+}
+
+/* Titres de sous-élément */
+h5,
+.h5,
+.item-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-normal);
+    margin-bottom: 0.5rem;
+    color: var(--color-text-primary);
+}
+
+/* Titres de détail */
+h6,
+.h6,
+.detail-title {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-wide);
+    margin-bottom: 0.5rem;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+}
+
+/* ===== TEXTES DE CONTENU ===== */
+
+/* Texte principal */
+p,
+.text-body {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-relaxed);
+    letter-spacing: var(--letter-spacing-normal);
+    margin-bottom: 1rem;
+    color: var(--color-text-primary);
+}
+
+/* Texte secondaire */
+.text-secondary,
+.subtitle,
+.description {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-relaxed);
+    letter-spacing: var(--letter-spacing-normal);
+    margin-bottom: 1rem;
+    color: var(--color-text-secondary);
+}
+
+/* Texte d'aide */
+.text-muted,
+.help-text,
+.caption {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-normal);
+    margin-bottom: 0.5rem;
+    color: var(--color-text-muted);
+}
+
+/* Texte d'accent */
+.text-accent,
+.highlight {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-wide);
+    color: var(--color-accent-primary);
+}
+
+/* ===== BOUTONS ET CTA ===== */
+
+/* Boutons principaux */
+.btn-primary,
+.cta-btn.primary,
+.cta-text {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-wide);
+    text-transform: uppercase;
+}
+
+/* Boutons secondaires */
+.btn-secondary,
+.cta-btn:not(.primary) {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-wide);
+    text-transform: uppercase;
+}
+
+/* Sous-titres de boutons */
+.cta-subtitle {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-normal);
+    text-transform: none;
+    opacity: 0.8;
+}
+
+/* ===== NAVIGATION ===== */
+
+/* Liens de navigation */
+.nav-link,
+.menu-item {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-normal);
+    text-decoration: none;
+    transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.nav-link:hover,
+.menu-item:hover {
+    color: var(--color-accent-primary);
+    text-shadow: 0 0 10px var(--color-accent-primary);
+}
+
+/* ===== BADGES ET STATUTS ===== */
+
+/* Badges */
+.badge,
+.status-badge {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-wide);
+    text-transform: uppercase;
+}
+
+/* Labels */
+.label,
+.tag {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-normal);
+}
+
+/* ===== FORMULAIRES ===== */
+
+/* Labels de formulaire */
+.form-label,
+label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-normal);
+    color: var(--color-text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+/* Champs de formulaire */
+.form-input,
+.form-textarea,
+.form-select {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-normal);
+}
+
+/* Placeholders */
+::placeholder {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-normal);
+    color: var(--color-text-muted);
+    opacity: 0.7;
+}
+
+/* ===== LISTES ===== */
+
+/* Éléments de liste */
+.list-item,
+.challenge-item,
+.badge-item,
+.mission-item {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-relaxed);
+    letter-spacing: var(--letter-spacing-normal);
+}
+
+/* Titres d'éléments de liste */
+.list-item-title,
+.item-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-snug);
+    letter-spacing: var(--letter-spacing-normal);
+    margin-bottom: 0.25rem;
+}
+
+/* Descriptions d'éléments de liste */
+.list-item-description,
+.item-description {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-normal);
+    color: var(--color-text-muted);
+}
+
+/* ===== SECTIONS VIDES ===== */
+
+/* Titres de sections vides */
+.empty-state-title {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-snug);
+    letter-spacing: var(--letter-spacing-normal);
+    margin-bottom: 0.75rem;
+    color: var(--color-text-secondary);
+}
+
+/* Descriptions de sections vides */
+.empty-state-description {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-relaxed);
+    letter-spacing: var(--letter-spacing-normal);
+    color: var(--color-text-muted);
+}
+
+/* ===== RESPONSIVE TYPOGRAPHY ===== */
+@media (max-width: 768px) {
+    :root {
+        --font-size-5xl: 2.5rem;
+        /* 40px */
+        --font-size-4xl: 2rem;
+        /* 32px */
+        --font-size-3xl: 1.5rem;
+        /* 24px */
+        --font-size-2xl: 1.25rem;
+        /* 20px */
+    }
+
+    h1,
+    .h1,
+    .hero-title {
+        font-size: var(--font-size-4xl);
+        margin-bottom: 1rem;
+    }
+
+    h2,
+    .h2,
+    .section-title {
+        font-size: var(--font-size-2xl);
+        margin-bottom: 0.75rem;
+    }
+
+    .cta-text {
+        font-size: var(--font-size-base);
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --font-size-5xl: 2rem;
+        /* 32px */
+        --font-size-4xl: 1.75rem;
+        /* 28px */
+        --font-size-3xl: 1.25rem;
+        /* 20px */
+    }
+
+    h1,
+    .h1,
+    .hero-title {
+        font-size: var(--font-size-3xl);
+    }
+
+    .cta-text {
+        font-size: var(--font-size-sm);
+    }
+}
+
+/* ===== ACCESSIBILITÉ TYPOGRAPHIQUE ===== */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        text-shadow: none !important;
+    }
+}
+
+/* Amélioration du contraste pour l'accessibilité */
+@media (prefers-contrast: high) {
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        text-shadow: 0 0 0 transparent;
+    }
+
+    .text-muted {
+        color: var(--color-text-secondary);
+    }
+}
+
+/* ===== UTILITAIRES TYPOGRAPHIQUES ===== */
+.text-xs {
+    font-size: var(--font-size-xs) !important;
+}
+
+.text-sm {
+    font-size: var(--font-size-sm) !important;
+}
+
+.text-base {
+    font-size: var(--font-size-base) !important;
+}
+
+.text-lg {
+    font-size: var(--font-size-lg) !important;
+}
+
+.text-xl {
+    font-size: var(--font-size-xl) !important;
+}
+
+.text-2xl {
+    font-size: var(--font-size-2xl) !important;
+}
+
+.text-3xl {
+    font-size: var(--font-size-3xl) !important;
+}
+
+.text-4xl {
+    font-size: var(--font-size-4xl) !important;
+}
+
+.text-5xl {
+    font-size: var(--font-size-5xl) !important;
+}
+
+.text-6xl {
+    font-size: var(--font-size-6xl) !important;
+}
+
+.font-light {
+    font-weight: var(--font-weight-light) !important;
+}
+
+.font-normal {
+    font-weight: var(--font-weight-normal) !important;
+}
+
+.font-medium {
+    font-weight: var(--font-weight-medium) !important;
+}
+
+.font-semibold {
+    font-weight: var(--font-weight-semibold) !important;
+}
+
+.font-bold {
+    font-weight: var(--font-weight-bold) !important;
+}
+
+.font-extrabold {
+    font-weight: var(--font-weight-extrabold) !important;
+}
+
+.leading-tight {
+    line-height: var(--line-height-tight) !important;
+}
+
+.leading-snug {
+    line-height: var(--line-height-snug) !important;
+}
+
+.leading-normal {
+    line-height: var(--line-height-normal) !important;
+}
+
+.leading-relaxed {
+    line-height: var(--line-height-relaxed) !important;
+}
+
+.leading-loose {
+    line-height: var(--line-height-loose) !important;
+}
+
+.tracking-tight {
+    letter-spacing: var(--letter-spacing-tight) !important;
+}
+
+.tracking-normal {
+    letter-spacing: var(--letter-spacing-normal) !important;
+}
+
+.tracking-wide {
+    letter-spacing: var(--letter-spacing-wide) !important;
+}
+
+.tracking-wider {
+    letter-spacing: var(--letter-spacing-wider) !important;
+}
+
+.tracking-widest {
+    letter-spacing: var(--letter-spacing-widest) !important;
+}
+
+.text-left {
+    text-align: left !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+.text-justify {
+    text-align: justify !important;
+}
+
+.uppercase {
+    text-transform: uppercase !important;
+}
+
+.lowercase {
+    text-transform: lowercase !important;
+}
+
+.capitalize {
+    text-transform: capitalize !important;
+}
+
+.normal-case {
+    text-transform: none !important;
+}
+
+.italic {
+    font-style: italic !important;
+}
+
+.not-italic {
+    font-style: normal !important;
+}
+
+.underline {
+    text-decoration: underline !important;
+}
+
+.no-underline {
+    text-decoration: none !important;
+}
+
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.text-ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

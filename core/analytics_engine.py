@@ -485,7 +485,7 @@ class AnalyticsEngine:
         return {
             "user_id": user_id,
             "total_sessions": profile.total_sessions,
-            "total_playtime_hours": round(profile.total_playtime / 3600, 2),
+            "total_playtime_hours": round(float(profile.total_playtime) / 3600, 2),
             "avg_session_duration_minutes": round(avg_session_duration / 60, 2),
             "missions_completed": profile.missions_completed,
             "games_completed": profile.games_completed,
@@ -612,7 +612,7 @@ class AnalyticsEngine:
                 return {
                     "total_users": total_users,
                     "total_sessions": total_sessions,
-                    "total_playtime_hours": round(total_playtime / 3600, 2),
+                    "total_playtime_hours": round(float(total_playtime) / 3600, 2),
                     "avg_playtime_per_user": (
                         round(float(total_playtime) / float(total_users) / 3600, 2)
                         if total_users > 0

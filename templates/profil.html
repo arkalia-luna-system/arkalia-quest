@@ -26,6 +26,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/interface-improvements.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/empty-states.css') }}">
 
+    <!-- Perfection UI/UX 2025 -->
+    <link rel="preload" href="{{ url_for('static', filename='css/ui-perfection.css') }}?v=3.3.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/ui-perfection.css') }}?v=3.3.1">
+    </noscript>
+
     <!-- Nouveaux CSS V3 -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/themes.css') }}?v=3.2.0">
 
@@ -684,7 +691,7 @@
             </div>
 
             <!-- Section Badges Moderne -->
-            <div class="badges-section-modern" data-empty-state="badges">
+            <div class="badges-section-modern section-perfect" data-empty-state="badges">
                 <h2 class="badges-title-modern">🏆 COLLECTION DE BADGES</h2>
 
                 <!-- Composant de badges moderne -->

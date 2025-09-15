@@ -40,10 +40,18 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/color-system.css') }}?v=3.3.0">
     </noscript>
 
+    <!-- Perfection UI/UX 2025 -->
+    <link rel="preload" href="{{ url_for('static', filename='css/ui-perfection.css') }}?v=3.3.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/ui-perfection.css') }}?v=3.3.1">
+    </noscript>
+
     <!-- Systèmes UX avancés -->
     <script src="{{ url_for('static', filename='js/smart-notifications.js') }}?v=3.3.0"></script>
     <script src="{{ url_for('static', filename='js/smart-empty-states.js') }}?v=3.3.0"></script>
     <script src="{{ url_for('static', filename='js/enhanced-feedback.js') }}?v=3.3.0"></script>
+    <script src="{{ url_for('static', filename='js/ui-perfection.js') }}?v=3.3.1"></script>
 
     <!-- CSS critiques chargés immédiatement -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}?v=3.1.1">
@@ -529,14 +537,14 @@
 
             <!-- Boutons d'action améliorés avec accessibilité -->
             <div class="cta-buttons" role="navigation" aria-label="Navigation principale">
-                <a href="/tutorial" class="cta-btn primary" title="Commencer par le tutoriel" role="button"
-                    aria-describedby="tutorial-desc">
+                <a href="/tutorial" class="cta-btn primary btn-perfect cta-perfect" title="Commencer par le tutoriel"
+                    role="button" aria-describedby="tutorial-desc">
                     <span class="cta-icon" aria-hidden="true">🎯</span>
                     <span class="cta-text">TUTORIEL DÉBUTANT</span>
                     <span class="cta-subtitle" id="tutorial-desc">Apprends les bases</span>
                 </a>
-                <a href="/terminal" class="cta-btn" title="Accéder au terminal de commandes" role="button"
-                    aria-describedby="terminal-desc">
+                <a href="/terminal" class="cta-btn btn-perfect cta-perfect" title="Accéder au terminal de commandes"
+                    role="button" aria-describedby="terminal-desc">
                     <span class="cta-icon" aria-hidden="true">🚀</span>
                     <span class="cta-text">COMMENCER L'AVENTURE</span>
                     <span class="cta-subtitle" id="terminal-desc">Terminal LUNA</span>

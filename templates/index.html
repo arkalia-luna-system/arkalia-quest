@@ -636,7 +636,7 @@
                 '{{ url_for("static", filename="js/bug-fixes.js") }}',
                 '{{ url_for("static", filename="js/reward-system.js") }}',
                 '{{ url_for("static", filename="js/loading-manager.js") }}',
-                '{{ url_for("static", filename="js/adaptive-guidance.js") }}?v=3.3.1',
+                '{{ url_for("static", filename="js/adaptive-guidance.js") }}?v={{ range(1000, 9999) | random }}',
                 '{{ url_for("static", filename="js/progression-feedback.js") }}',
                 '{{ url_for("static", filename="js/competitive-system.js") }}',
                 '{{ url_for("static", filename="js/creative-system.js") }}',
@@ -703,7 +703,8 @@
     </script>
 
     <!-- Scripts personnalisés -->
-    <script src="{{ url_for('static', filename='js/personalized-messages.js') }}?v=3.3.1"></script>
+    <script
+        src="{{ url_for('static', filename='js/personalized-messages.js') }}?v={{ range(1000, 9999) | random }}"></script>
 
     <!-- Nouveaux scripts V3 - Chargement optimisé -->
     <script src="{{ url_for('static', filename='js/theme-manager.js') }}?v=3.3.0" defer></script>

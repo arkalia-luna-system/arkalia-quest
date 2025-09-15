@@ -10,7 +10,7 @@
 Arkalia Quest est un jeu narratif éducatif de hacking pour adolescents, développé avec une approche inclusive et accessible.
 
 
-## ✅ Fonctionnalités Implémentées
+## ✅ Fonctionnalités Implémentées (V3.3.0)
 
 
 
@@ -47,6 +47,30 @@ Arkalia Quest est un jeu narratif éducatif de hacking pour adolescents, dévelo
 
 
 - **Interface immersive** : Effets visuels et sonores
+
+
+
+- **🎮 Mini-games Interactive** : Vrais jeux jouables (plus de "Chargement...")
+
+
+
+### 👁️ Système de Guidage Visuel
+
+
+
+- **Visual Guidance** : Guidage visuel pour débutants
+
+
+
+- **Tutorial Celebrations** : Animations de célébration
+
+
+
+- **Empty States Enhanced** : États vides motivants
+
+
+
+- **Reward Animations** : Animations de récompenses
 
 
 

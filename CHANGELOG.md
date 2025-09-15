@@ -5,6 +5,30 @@ Toutes les modifications notables de ce projet sont documentées dans ce fichier
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/),
 et ce projet adhère à [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.3.0] - 2025-09-15
+
+### Ajouté
+- 👁️ Visual Guidance System (guidage visuel pour débutants)
+- 🎉 Tutorial Celebrations (animations de célébration)
+- 🎮 Mini-games Interactive (vrais jeux jouables)
+- 🌟 Empty States Enhanced (états vides motivants)
+- 🎉 Reward Animations (animations de récompenses)
+- 🌙 LUNA Enhanced (IA plus intelligente)
+- 🎯 Daily Challenges Enhanced (défis quotidiens interactifs)
+- 💻 Terminal Commands Enhanced (commandes variées et intelligentes)
+
+### Amélioré
+- 🔧 Consolidation des doublons (daily-challenges.js, terminal-commands-enhanced.js)
+- ⚡ Optimisation des performances (réduction duplication de code)
+- 🎯 Activation des fonctionnalités inactives
+- 📊 Correction erreur analytics backend (int + str)
+
+### Corrigé
+- ❌ Erreur `this.addPersonalizedGreetings is not a function`
+- ❌ Erreur `Cannot read properties of undefined (reading 'length')`
+- ❌ Erreur analytics `unsupported operand type(s) for +: 'int' and 'str'`
+- ❌ Problèmes UX identifiés dans le rapport de test
+
 ## [3.2.0] - 2025-09-15
 
 ### Ajouté

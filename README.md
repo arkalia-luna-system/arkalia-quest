@@ -14,7 +14,7 @@
 [![Coverage](https://img.shields.io/codecov/c/github/arkalia-luna-system/arkalia-quest)](https://codecov.io/gh/arkalia-luna-system/arkalia-quest)
 [![Security](https://img.shields.io/badge/Security-Bandit%20✓-green)](https://github.com/arkalia-luna-system/arkalia-quest/actions)
 [![Performance](https://img.shields.io/badge/Performance-98%25-brightgreen.svg)](https://github.com/arkalia-luna-system/arkalia-quest)
-[![Changelog](https://img.shields.io/badge/Changelog-v3.2.0-blue.svg)](CHANGELOG.md)
+[![Changelog](https://img.shields.io/badge/Changelog-v3.3.0-blue.svg)](CHANGELOG.md)
 [![Good First Issue](https://img.shields.io/badge/Good%20First-Issue-green.svg)](https://github.com/arkalia-luna-system/arkalia-quest/labels/good%20first%20issue)
 [![Help Wanted](https://img.shields.io/badge/Help-Wanted-orange.svg)](https://github.com/arkalia-luna-system/arkalia-quest/labels/help%20wanted)
 

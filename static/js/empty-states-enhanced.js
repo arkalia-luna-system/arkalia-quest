@@ -228,7 +228,7 @@ class EmptyStatesEnhanced {
             }
             
             .empty-state-action {
-                background: linear-gradient(45deg, #00ff00, #00cc00);
+                background: linear-gradient(45deg, rgba(0, 255, 0, 0.8), rgba(0, 204, 0, 0.8));
                 color: #000;
                 border: none;
                 padding: 12px 24px;
@@ -345,8 +345,8 @@ class EmptyStatesEnhanced {
             }
             
             @keyframes retro-glow {
-                0%, 100% { text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00; }
-                50% { text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00, 0 0 40px #00ff00; }
+                0%, 100% { text-shadow: 0 0 10px rgba(0, 255, 0, 0.7), 0 0 20px rgba(0, 255, 0, 0.7); }
+                50% { text-shadow: 0 0 20px rgba(0, 255, 0, 0.8), 0 0 30px rgba(0, 255, 0, 0.8), 0 0 40px rgba(0, 255, 0, 0.8); }
             }
             
             .trophy-glow {
@@ -461,8 +461,8 @@ class EmptyStatesEnhanced {
             }
             
             @keyframes profil-glow {
-                0%, 100% { text-shadow: 0 0 10px #00ff00; }
-                50% { text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00; }
+                0%, 100% { text-shadow: 0 0 10px rgba(0, 255, 0, 0.7); }
+                50% { text-shadow: 0 0 20px rgba(0, 255, 0, 0.8), 0 0 30px rgba(0, 255, 0, 0.8); }
             }
             
             @keyframes leaderboard-bounce {
@@ -624,10 +624,10 @@ class EmptyStatesEnhanced {
         `;
 
         modal.innerHTML = `
-            <div style="background: linear-gradient(135deg, #001100, #003300); border: 2px solid #00ff00; border-radius: 12px; padding: 20px; max-width: 500px; color: #00ff00;">
+            <div style="background: linear-gradient(135deg, #001100, #003300); border: 2px solid rgba(0, 255, 0, 0.6); border-radius: 12px; padding: 20px; max-width: 500px; color: rgba(0, 255, 0, 0.9);">
                 <h3>🎯 Défis Quotidiens</h3>
                 <p>Les défis quotidiens vous permettent de gagner de l'XP et des récompenses !</p>
-                <button onclick="this.parentElement.parentElement.remove()" style="background: #00ff00; color: #000; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer;">Fermer</button>
+                <button onclick="this.parentElement.parentElement.remove()" style="background: linear-gradient(45deg, rgba(0, 255, 0, 0.8), rgba(0, 204, 0, 0.8)); color: #000; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer;">Fermer</button>
             </div>
         `;
 

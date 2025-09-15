@@ -38,7 +38,7 @@ class MiniGamesInteractive {
             
             .mini-game-window {
                 background: linear-gradient(135deg, #001100, #003300);
-                border: 2px solid #00ff00;
+                border: 2px solid rgba(0, 255, 0, 0.6);
                 border-radius: 12px;
                 padding: 20px;
                 max-width: 600px;
@@ -53,11 +53,11 @@ class MiniGamesInteractive {
                 align-items: center;
                 margin-bottom: 20px;
                 padding-bottom: 10px;
-                border-bottom: 1px solid #00ff00;
+                border-bottom: 1px solid rgba(0, 255, 0, 0.6);
             }
             
             .game-title {
-                color: #00ff00;
+                color: rgba(0, 255, 0, 0.9);
                 font-size: 20px;
                 font-weight: bold;
                 margin: 0;
@@ -78,7 +78,7 @@ class MiniGamesInteractive {
             }
             
             .game-content {
-                color: #00ff00;
+                color: rgba(0, 255, 0, 0.9);
                 margin-bottom: 20px;
             }
             
@@ -89,7 +89,7 @@ class MiniGamesInteractive {
             
             .game-area {
                 background: rgba(0, 255, 0, 0.1);
-                border: 1px solid #00ff00;
+                border: 1px solid rgba(0, 255, 0, 0.6);
                 border-radius: 8px;
                 padding: 20px;
                 margin: 15px 0;
@@ -104,7 +104,7 @@ class MiniGamesInteractive {
             }
             
             .game-button {
-                background: #00ff00;
+                background: linear-gradient(45deg, rgba(0, 255, 0, 0.8), rgba(0, 204, 0, 0.8));
                 color: #000;
                 border: none;
                 padding: 10px 20px;
@@ -127,7 +127,7 @@ class MiniGamesInteractive {
             
             .game-feedback {
                 background: rgba(0, 255, 0, 0.1);
-                border: 1px solid #00ff00;
+                border: 1px solid rgba(0, 255, 0, 0.6);
                 border-radius: 6px;
                 padding: 10px;
                 margin: 10px 0;
@@ -141,7 +141,7 @@ class MiniGamesInteractive {
                 justify-content: space-between;
                 align-items: center;
                 background: rgba(0, 255, 0, 0.1);
-                border: 1px solid #00ff00;
+                border: 1px solid rgba(0, 255, 0, 0.6);
                 border-radius: 6px;
                 padding: 10px;
                 margin: 10px 0;
@@ -154,7 +154,7 @@ class MiniGamesInteractive {
             .score-value {
                 font-size: 18px;
                 font-weight: bold;
-                color: #00ff00;
+                color: rgba(0, 255, 0, 0.9);
             }
             
             .score-label {
@@ -176,7 +176,7 @@ class MiniGamesInteractive {
             
             .progress-fill {
                 height: 100%;
-                background: linear-gradient(90deg, #00ff00, #00cc00);
+                background: linear-gradient(90deg, rgba(0, 255, 0, 0.8), rgba(0, 204, 0, 0.8));
                 transition: width 0.3s ease;
                 border-radius: 4px;
             }
@@ -184,7 +184,7 @@ class MiniGamesInteractive {
             .progress-text {
                 text-align: center;
                 margin-top: 5px;
-                color: #00ff00;
+                color: rgba(0, 255, 0, 0.9);
                 font-size: 14px;
             }
             
@@ -200,7 +200,7 @@ class MiniGamesInteractive {
                 width: 60px;
                 height: 60px;
                 background: rgba(0, 255, 0, 0.1);
-                border: 2px solid #00ff00;
+                border: 2px solid rgba(0, 255, 0, 0.6);
                 border-radius: 8px;
                 display: flex;
                 align-items: center;
@@ -216,18 +216,18 @@ class MiniGamesInteractive {
             }
             
             .logic-puzzle-cell.selected {
-                background: #00ff00;
+                background: linear-gradient(45deg, rgba(0, 255, 0, 0.8), rgba(0, 204, 0, 0.8));
                 color: #000;
             }
             
             .code-debug-editor {
                 background: #000;
-                border: 1px solid #00ff00;
+                border: 1px solid rgba(0, 255, 0, 0.6);
                 border-radius: 6px;
                 padding: 15px;
                 font-family: 'Courier New', monospace;
                 font-size: 14px;
-                color: #00ff00;
+                color: rgba(0, 255, 0, 0.9);
                 min-height: 200px;
                 white-space: pre-wrap;
             }
@@ -257,7 +257,7 @@ class MiniGamesInteractive {
             
             .security-panel {
                 background: rgba(0, 255, 0, 0.1);
-                border: 1px solid #00ff00;
+                border: 1px solid rgba(0, 255, 0, 0.6);
                 border-radius: 8px;
                 padding: 15px;
             }
@@ -294,7 +294,7 @@ class MiniGamesInteractive {
                 width: 80px;
                 height: 80px;
                 background: rgba(0, 255, 0, 0.1);
-                border: 2px solid #00ff00;
+                border: 2px solid rgba(0, 255, 0, 0.6);
                 border-radius: 8px;
                 display: flex;
                 align-items: center;
@@ -310,7 +310,7 @@ class MiniGamesInteractive {
             }
             
             .memory-card.flipped {
-                background: #00ff00;
+                background: linear-gradient(45deg, rgba(0, 255, 0, 0.8), rgba(0, 204, 0, 0.8));
                 color: #000;
             }
             

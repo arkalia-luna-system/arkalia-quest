@@ -404,11 +404,11 @@ class AdaptiveGuidanceSystem {
     }
 
     getCommandsUsed() {
-        return this.interactionHistory ? this.interactionHistory.length : 0;
+        return (this.interactionHistory && Array.isArray(this.interactionHistory)) ? this.interactionHistory.length : 0;
     }
 
     getErrorsMade() {
-        return this.interactionHistory ? this.interactionHistory.filter(i => !i.success).length : 0;
+        return (this.interactionHistory && Array.isArray(this.interactionHistory)) ? this.interactionHistory.filter(i => !i.success).length : 0;
     }
 
     // Configuration des écouteurs d'événements

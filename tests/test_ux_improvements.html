@@ -120,6 +120,43 @@
     <script src="../static/js/enhanced-empty-states.js"></script>
     <script src="../static/js/terminal-integration.js"></script>
     <script src="../static/js/advanced-player-profiles.js"></script>
+
+    <!-- Script d'initialisation -->
+    <script>
+        // Attendre que tous les scripts soient chargés
+        window.addEventListener('load', function () {
+            console.log('🎮 Tous les scripts UX chargés');
+
+            // Vérifier que advancedPlayerProfiles est disponible
+            if (window.advancedPlayerProfiles) {
+                console.log('✅ advancedPlayerProfiles disponible');
+            } else {
+                console.error('❌ advancedPlayerProfiles non disponible');
+            }
+
+            // Vérifier que tous les autres objets sont disponibles
+            const requiredObjects = [
+                'window.contextualFeedback',
+                'window.progressionAnimations',
+                'window.interactiveMiniGames',
+                'window.enhancedEmptyStates',
+                'window.terminalIntegration'
+            ];
+
+            requiredObjects.forEach(obj => {
+                const parts = obj.split('.');
+                let current = window;
+                for (let part of parts) {
+                    if (current[part] === undefined) {
+                        console.warn(`⚠️ ${obj} non disponible`);
+                        return;
+                    }
+                    current = current[part];
+                }
+                console.log(`✅ ${obj} disponible`);
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -484,7 +521,29 @@
                     const profiles = ['debutant', 'experimente', 'competitif', 'creatif', 'casual'];
                     const randomProfile = profiles[Math.floor(Math.random() * profiles.length)];
 
-                    window.advancedPlayerProfiles.switchProfile(randomProfile);
+                    // Vérifier que l'objet est chargé
+                    if (window.advancedPlayerProfiles && typeof window.advancedPlayerProfiles.switchProfile === 'function') {
+                        const success = window.advancedPlayerProfiles.switchProfile(randomProfile);
+                        if (!success) {
+                            result.innerHTML = '<div class="error">❌ Changement de profil échoué</div>';
+                            return;
+                        }
+                    } else {
+                        console.warn('⚠️ advancedPlayerProfiles pas encore chargé, attente...');
+                        setTimeout(() => {
+                            if (window.advancedPlayerProfiles && typeof window.advancedPlayerProfiles.switchProfile === 'function') {
+                                const success = window.advancedPlayerProfiles.switchProfile(randomProfile);
+                                if (!success) {
+                                    result.innerHTML = '<div class="error">❌ Changement de profil échoué</div>';
+                                    return;
+                                }
+                            } else {
+                                console.error('❌ Impossible de charger advancedPlayerProfiles');
+                                result.innerHTML = '<div class="error">❌ advancedPlayerProfiles non disponible</div>';
+                                return;
+                            }
+                        }, 1000);
+                    }
 
                     setTimeout(() => {
                         const currentProfile = window.advancedPlayerProfiles.getCurrentProfile();

@@ -861,6 +861,7 @@
     <script src="{{ url_for('static', filename='js/arkalia-luna-vision.js') }}"></script>
     <script src="{{ url_for('static', filename='js/navigation.js') }}"></script>
     <script src="{{ url_for('static', filename='js/terminal-enhancements.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/terminal-commands-enhanced.js') }}"></script>
     <script src="{{ url_for('static', filename='js/personalized-messages.js') }}"></script>
     <script src="{{ url_for('static', filename='js/game-engine.js') }}"></script>
     <script src="{{ url_for('static', filename='js/mission-system.js') }}"></script>
@@ -1265,6 +1266,16 @@
     <script src="{{ url_for('static', filename='js/terminal-integration.js') }}"></script>
     <script src="{{ url_for('static', filename='js/advanced-player-profiles.js') }}"></script>
 
+    <!-- Nouveaux scripts V3.3.0 -->
+    <script src="{{ url_for('static', filename='js/visual-guidance.js') }}?v=3.3.0"></script>
+    <script src="{{ url_for('static', filename='js/tutorial-celebrations.js') }}?v=3.3.0"></script>
+    <script src="{{ url_for('static', filename='js/daily-challenges-enhanced.js') }}?v=3.3.0"></script>
+    <script src="{{ url_for('static', filename='js/terminal-commands-enhanced.js') }}?v=3.3.0"></script>
+    <script src="{{ url_for('static', filename='js/mini-games-interactive.js') }}?v=3.3.0"></script>
+    <script src="{{ url_for('static', filename='js/empty-states-enhanced.js') }}?v=3.3.0"></script>
+    <script src="{{ url_for('static', filename='js/reward-animations.js') }}?v=3.3.0"></script>
+    <script src="{{ url_for('static', filename='js/luna-enhanced.js') }}?v=3.3.0"></script>
+
     <script>
         // Initialisation des systèmes adaptatifs
         document.addEventListener('DOMContentLoaded', function () {
@@ -1293,6 +1304,39 @@
             // Initialiser le système casual
             if (window.casualSystem) {
                 console.log('✅ Système casual actif');
+            }
+
+            // Initialiser les nouveaux systèmes V3.3.0
+            if (window.visualGuidance) {
+                console.log('👁️ Visual Guidance actif');
+            }
+
+            if (window.tutorialCelebrations) {
+                console.log('🎉 Tutorial Celebrations actif');
+            }
+
+            if (window.dailyChallengesEnhanced) {
+                console.log('🎯 Daily Challenges Enhanced actif');
+            }
+
+            if (window.terminalCommandsEnhanced) {
+                console.log('💻 Terminal Commands Enhanced actif');
+            }
+
+            if (window.miniGamesInteractive) {
+                console.log('🎮 Mini-games Interactive actif');
+            }
+
+            if (window.emptyStatesEnhanced) {
+                console.log('🌟 Empty States Enhanced actif');
+            }
+
+            if (window.rewardAnimations) {
+                console.log('🎉 Reward Animations actif');
+            }
+
+            if (window.lunaEnhanced) {
+                console.log('🌙 LUNA Enhanced actif');
             }
         });
     </script>

@@ -12,8 +12,8 @@ class PersonalizedMessages {
     init() {
         this.loadUserData();
         this.setupMessageSystem();
-        // addPersonalizedGreetings sera appelé après le chargement complet
-        setTimeout(() => this.addPersonalizedGreetings(), 100);
+        // Les messages personnalisés sont déjà ajoutés dans setupMessageSystem
+        console.log('✅ Messages personnalisés initialisés');
     }
 
     loadUserData() {

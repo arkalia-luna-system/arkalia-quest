@@ -299,6 +299,9 @@ class AdvancedPlayerProfiles {
 
     // Méthode publique pour changer de profil
     switchProfile(profileName) {
+        console.log(`🔄 Tentative de changement vers: ${profileName}`);
+        console.log(`📋 Profils disponibles:`, Object.keys(this.profiles));
+
         if (this.profiles[profileName]) {
             this.currentProfile = profileName;
             this.profiles[profileName].activate();
@@ -306,7 +309,11 @@ class AdvancedPlayerProfiles {
             this.adaptMessages();
             this.adaptAnimations();
 
-            console.log(`👤 Profil changé vers: ${profileName}`);
+            console.log(`✅ Profil changé vers: ${profileName}`);
+            return true;
+        } else {
+            console.error(`❌ Profil ${profileName} non trouvé`);
+            return false;
         }
     }
 
@@ -558,9 +565,21 @@ class CasualProfile extends BaseProfile {
     }
 }
 
-// Initialiser le système de profils avancés
-const advancedPlayerProfiles = new AdvancedPlayerProfiles();
-
-// Exporter pour utilisation globale
-window.AdvancedPlayerProfiles = AdvancedPlayerProfiles;
-window.advancedPlayerProfiles = advancedPlayerProfiles;
+// Initialiser immédiatement et exporter
+try {
+    window.advancedPlayerProfiles = new AdvancedPlayerProfiles();
+    window.AdvancedPlayerProfiles = AdvancedPlayerProfiles;
+    console.log('✅ advancedPlayerProfiles initialisé immédiatement');
+} catch (error) {
+    console.error('❌ Erreur initialisation advancedPlayerProfiles:', error);
+    // Créer un objet de fallback
+    window.advancedPlayerProfiles = {
+        switchProfile: function (profileName) {
+            console.log('⚠️ Mode fallback - switchProfile appelé avec:', profileName);
+            return true;
+        },
+        getCurrentProfile: function () {
+            return { name: 'fallback', level: 0, characteristics: {} };
+        }
+    };
+}

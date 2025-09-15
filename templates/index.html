@@ -706,8 +706,15 @@
     <script src="{{ url_for('static', filename='js/personalized-messages.js') }}"></script>
 
     <!-- Nouveaux scripts V3 - Chargement optimisé -->
-    <script src="{{ url_for('static', filename='js/theme-manager.js') }}?v=3.2.0" defer></script>
-    <script src="{{ url_for('static', filename='js/daily-challenges.js') }}?v=3.2.0" defer></script>
+    <script src="{{ url_for('static', filename='js/theme-manager.js') }}?v=3.3.0" defer></script>
+    <script src="{{ url_for('static', filename='js/daily-challenges-enhanced.js') }}?v=3.3.0" defer></script>
+    <script src="{{ url_for('static', filename='js/visual-guidance.js') }}?v=3.3.0" defer></script>
+    <script src="{{ url_for('static', filename='js/tutorial-celebrations.js') }}?v=3.3.0" defer></script>
+    <script src="{{ url_for('static', filename='js/terminal-commands-enhanced.js') }}?v=3.3.0" defer></script>
+    <script src="{{ url_for('static', filename='js/mini-games-interactive.js') }}?v=3.3.0" defer></script>
+    <script src="{{ url_for('static', filename='js/empty-states-enhanced.js') }}?v=3.3.0" defer></script>
+    <script src="{{ url_for('static', filename='js/reward-animations.js') }}?v=3.3.0" defer></script>
+    <script src="{{ url_for('static', filename='js/luna-enhanced.js') }}?v=3.3.0" defer></script>
 
     <script>
         // Initialisation des nouvelles fonctionnalités
@@ -719,9 +726,44 @@
                 console.log('🎨 Theme Manager initialisé');
             }
 
-            // Initialiser les défis quotidiens
-            if (window.DailyChallenges) {
-                console.log('🎯 Daily Challenges initialisé');
+            // Initialiser les défis quotidiens améliorés
+            if (window.DailyChallengesEnhanced) {
+                console.log('🎯 Daily Challenges Enhanced initialisé');
+            }
+
+            // Initialiser le guidage visuel
+            if (window.VisualGuidance) {
+                console.log('👁️ Visual Guidance initialisé');
+            }
+
+            // Initialiser les célébrations tutoriel
+            if (window.TutorialCelebrations) {
+                console.log('🎉 Tutorial Celebrations initialisé');
+            }
+
+            // Initialiser les commandes terminal améliorées
+            if (window.terminalCommandsEnhanced) {
+                console.log('💻 Terminal Commands Enhanced initialisé');
+            }
+
+            // Initialiser les mini-jeux interactifs
+            if (window.miniGamesInteractive) {
+                console.log('🎮 Mini-games Interactive initialisé');
+            }
+
+            // Initialiser les empty states améliorés
+            if (window.emptyStatesEnhanced) {
+                console.log('🌟 Empty States Enhanced initialisé');
+            }
+
+            // Initialiser les animations de récompenses
+            if (window.rewardAnimations) {
+                console.log('🎉 Reward Animations initialisé');
+            }
+
+            // Initialiser LUNA améliorée
+            if (window.lunaEnhanced) {
+                console.log('🌙 LUNA Enhanced initialisé');
             }
 
             // Initialiser les systèmes UX contextuels

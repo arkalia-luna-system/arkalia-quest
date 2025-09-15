@@ -656,7 +656,11 @@ function checkEasterEggs(command) {
         // Déclencher une animation de montée de niveau
         if (window.rewardAnimations && typeof window.rewardAnimations.animateLevelUpImproved === 'function') {
             window.rewardAnimations.animateLevelUpImproved(2);
-            return `🎊 SIMULATION DE MONTÉE DE NIVEAU\n\n⭐ Niveau 2 atteint !\n\n🎉 Félicitations !\n\n✨ *Effets visuels activés*`;
+            // Ajouter un effet sonore si disponible
+            if (window.lunaEnhanced && typeof window.lunaEnhanced.playSound === 'function') {
+                window.lunaEnhanced.playSound('level_up');
+            }
+            return `🎊 SIMULATION DE MONTÉE DE NIVEAU\n\n⭐ Niveau 2 atteint !\n\n🎉 Félicitations !\n\n✨ *Effets visuels et sonores activés*\n\n🎵 *Son de victoire* 🔊`;
         }
         return `🎊 SIMULATION DE MONTÉE DE NIVEAU\n\n⭐ Niveau 2 atteint !\n\n🎉 Félicitations !\n\n⚠️ Animations non disponibles - Rechargez la page`;
     }
@@ -665,7 +669,11 @@ function checkEasterEggs(command) {
         // Déclencher une animation de badge
         if (window.rewardAnimations && typeof window.rewardAnimations.animateBadgeUnlock === 'function') {
             window.rewardAnimations.animateBadgeUnlock('Easter Egg Hunter', 'Tu as trouvé un easter egg !');
-            return `🏆 BADGE DÉBLOQUÉ !\n\n🎖️ "Easter Egg Hunter"\n\n✨ Tu as trouvé un easter egg !\n\n🎉 Continue à explorer !`;
+            // Ajouter un effet sonore si disponible
+            if (window.lunaEnhanced && typeof window.lunaEnhanced.playSound === 'function') {
+                window.lunaEnhanced.playSound('badge_unlock');
+            }
+            return `🏆 BADGE DÉBLOQUÉ !\n\n🎖️ "Easter Egg Hunter"\n\n✨ Tu as trouvé un easter egg !\n\n🎉 Continue à explorer !\n\n🎵 *Son de badge* 🔊`;
         }
         return `🏆 BADGE DÉBLOQUÉ !\n\n🎖️ "Easter Egg Hunter"\n\n✨ Tu as trouvé un easter egg !\n\n⚠️ Animations non disponibles - Rechargez la page`;
     }
@@ -924,8 +932,83 @@ function checkEasterEggs(command) {
         return `🕐 HEURE SYSTÈME\n\n📅 Date: ${dateString}\n⏰ Heure: ${timeString}\n\n*LUNA synchronise avec le temps réel* ⏱️`;
     }
 
+    // Suggestions contextuelles pour commandes inconnues
+    if (cmd.length > 2) {
+        const suggestions = getCommandSuggestions(cmd);
+        if (suggestions.length > 0) {
+            return `❓ Commande non reconnue: "${command}"\n\n💡 Suggestions :\n${suggestions.map(s => `• ${s}`).join('\n')}\n\n🔍 Tape 'aide' pour voir toutes les commandes`;
+        }
+    }
+
     // Pas d'easter egg trouvé
     return null;
+}
+
+// Fonction pour suggérer des commandes similaires
+function getCommandSuggestions(input) {
+    const allCommands = [
+        'aide', 'help', 'profil', 'profile', 'status', 'clear', 'cls',
+        'luna_dance', 'luna_love', 'luna_secret', 'luna_power',
+        'matrix', 'red pill', 'blue pill', 'hack the planet',
+        'play_game', 'simple_hack', 'sequence_game', 'typing_challenge',
+        'level_up', 'badge_unlock', 'matrix_mode', 'cyberpunk_mode',
+        'debug_mode', 'debug', 'check_objects', 'diagnostic',
+        'joke', 'quote', 'music', 'poetry', 'riddle',
+        'calc', 'color', 'time', 'games'
+    ];
+
+    const suggestions = [];
+    const inputLower = input.toLowerCase();
+
+    // Recherche par similarité
+    for (const cmd of allCommands) {
+        if (cmd.includes(inputLower) || inputLower.includes(cmd) ||
+            calculateSimilarity(inputLower, cmd) > 0.3) {
+            suggestions.push(cmd);
+        }
+    }
+
+    return suggestions.slice(0, 3); // Maximum 3 suggestions
+}
+
+// Fonction de calcul de similarité simple
+function calculateSimilarity(str1, str2) {
+    const longer = str1.length > str2.length ? str1 : str2;
+    const shorter = str1.length > str2.length ? str2 : str1;
+
+    if (longer.length === 0) return 1.0;
+
+    const distance = levenshteinDistance(longer, shorter);
+    return (longer.length - distance) / longer.length;
+}
+
+// Distance de Levenshtein
+function levenshteinDistance(str1, str2) {
+    const matrix = [];
+
+    for (let i = 0; i <= str2.length; i++) {
+        matrix[i] = [i];
+    }
+
+    for (let j = 0; j <= str1.length; j++) {
+        matrix[0][j] = j;
+    }
+
+    for (let i = 1; i <= str2.length; i++) {
+        for (let j = 1; j <= str1.length; j++) {
+            if (str2.charAt(i - 1) === str1.charAt(j - 1)) {
+                matrix[i][j] = matrix[i - 1][j - 1];
+            } else {
+                matrix[i][j] = Math.min(
+                    matrix[i - 1][j - 1] + 1,
+                    matrix[i][j - 1] + 1,
+                    matrix[i - 1][j] + 1
+                );
+            }
+        }
+    }
+
+    return matrix[str2.length][str1.length];
 }
 
 // Correction de la fonction executeCommand pour accepter un paramètre optionnel

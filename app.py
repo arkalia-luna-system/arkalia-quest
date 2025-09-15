@@ -137,7 +137,7 @@ def not_found(error):
     return jsonify({"error": "Ressource non trouvée", "code": 404}), 404
 
 
-# Fonction de gestion d'erreur 500 supprimée car redéfinie plus bas
+# Gestionnaires d'erreurs définis
 
 
 @app.errorhandler(403)
@@ -223,10 +223,7 @@ def internal_error(error):
     return jsonify({"error": "Internal server error"}), 500
 
 
-@app.errorhandler(404)
-def not_found_error(error):
-    """Gestionnaire d'erreur 404"""
-    return jsonify({"error": "Not found"}), 404
+# Gestionnaire 404 supprimé - déjà défini plus haut
 
 
 # Commandes autorisées - Version "L'Éveil des IA"
@@ -2630,5 +2627,64 @@ def api_get_themes():
         return jsonify({"success": False, "error": str(e)}), 500
 
 
+@app.route("/api/performance/log", methods=["POST"])
+@performance_optimizer.monitor_performance("log_performance")
+def api_log_performance():
+    """Endpoint pour recevoir les logs de performance du frontend"""
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({"success": False, "error": "Données manquantes"}), 400
+
+        # Log des métriques de performance
+        performance_logger.info(f"Performance metrics: {data}")
+
+        return jsonify({"success": True, "message": "Log enregistré"})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/tutorial/data", methods=["GET"])
+@performance_optimizer.monitor_performance("get_tutorial_data")
+def api_get_tutorial_data():
+    """Récupère les données du tutoriel"""
+    try:
+        tutorial_data = {
+            "steps": [
+                {
+                    "id": "welcome",
+                    "title": "Bienvenue dans Arkalia Quest",
+                    "content": "Découvrez l'univers cybernétique d'Arkalia Quest",
+                    "type": "intro",
+                },
+                {
+                    "id": "navigation",
+                    "title": "Navigation",
+                    "content": "Utilisez les boutons pour naviguer dans le jeu",
+                    "type": "guide",
+                },
+                {
+                    "id": "luna",
+                    "title": "LUNA AI",
+                    "content": "Interagissez avec LUNA, votre IA compagnon",
+                    "type": "interaction",
+                },
+            ],
+            "current_step": 0,
+            "completed": False,
+        }
+
+        return jsonify({"success": True, "tutorial": tutorial_data})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5001, debug=False)
+    # Mode production optimisé - serveur de développement désactivé
+    print("🚀 Utilisez Gunicorn pour la production :")
+    print("   gunicorn -c gunicorn.conf.py app:app")
+    print("   ou Docker : docker-compose up")
+    print("")
+    print("⚠️  Serveur de développement désactivé pour éviter les fuites de ressources")
+    print("   Utilisez 'python -m flask run' pour le développement")
+    # app.run(host="0.0.0.0", port=5001, debug=False, threaded=True)

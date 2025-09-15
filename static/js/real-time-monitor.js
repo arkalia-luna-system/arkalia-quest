@@ -286,12 +286,12 @@ class RealTimeMonitor {
         this.isMonitoring = true;
         this.updateMetrics();
 
-        // Mettre à jour toutes les 5 secondes
+        // Mettre à jour toutes les 30 secondes (optimisé)
         setInterval(() => {
             if (this.isMonitoring) {
                 this.updateMetrics();
             }
-        }, this.updateInterval);
+        }, 30000);
     }
 
     stopMonitoring() {
@@ -504,12 +504,12 @@ class RealTimeMonitor {
 document.addEventListener('DOMContentLoaded', () => {
     window.realTimeMonitor = new RealTimeMonitor();
 
-    // Mettre à jour les graphiques toutes les 10 secondes
+    // Mettre à jour les graphiques toutes les 30 secondes (optimisé)
     setInterval(() => {
         if (window.realTimeMonitor) {
             window.realTimeMonitor.updateCharts();
         }
-    }, 10000);
+    }, 30000);
 });
 
 // Exporter pour utilisation dans d'autres modules

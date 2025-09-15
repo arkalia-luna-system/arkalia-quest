@@ -35,10 +35,10 @@ class LunaPersonality {
     }
 
     startPersonalityLoop() {
-        // Boucle de personnalité qui s'exécute toutes les 30 secondes
+        // Boucle de personnalité qui s'exécute toutes les 2 minutes (optimisé)
         setInterval(() => {
             this.updatePersonality();
-        }, 30000);
+        }, 120000);
     }
 
     updatePersonality() {

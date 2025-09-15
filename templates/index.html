@@ -26,8 +26,12 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}?v=3.1.1">
     </noscript>
 
-    <!-- Nouveaux CSS V3 -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/themes.css') }}?v=3.2.0">
+    <!-- Nouveaux CSS V3 - Chargement optimisé -->
+    <link rel="preload" href="{{ url_for('static', filename='css/themes.css') }}?v=3.2.0" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/themes.css') }}?v=3.2.0">
+    </noscript>
 
     <!-- CSS critiques chargés immédiatement -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}?v=3.1.1">
@@ -54,6 +58,11 @@
         onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="{{ url_for('static', filename='css/casual-system.css') }}?v=3.1.1" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
+
+    <!-- CSS des améliorations UX contextuelles -->
+    <link rel="preload" href="{{ url_for('static', filename='css/contextual-feedback.css') }}?v=3.3.0" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+
     <link rel="preload" href="{{ url_for('static', filename='css/mini-games.css') }}" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="{{ url_for('static', filename='css/animations-optimized.css') }}" as="style"
@@ -687,7 +696,7 @@
             });
 
             // Effet de particules spécial pour l'accueil
-            if (window.lunaVision) {
+            if (window.lunaVision && typeof window.lunaVision.createPortalParticles === 'function') {
                 window.lunaVision.createPortalParticles();
             }
         });
@@ -696,14 +705,14 @@
     <!-- Scripts personnalisés -->
     <script src="{{ url_for('static', filename='js/personalized-messages.js') }}"></script>
 
-    <!-- Nouveaux scripts V3 -->
-    <script src="{{ url_for('static', filename='js/theme-manager.js') }}?v=3.2.0"></script>
-    <script src="{{ url_for('static', filename='js/daily-challenges.js') }}?v=3.2.0"></script>
+    <!-- Nouveaux scripts V3 - Chargement optimisé -->
+    <script src="{{ url_for('static', filename='js/theme-manager.js') }}?v=3.2.0" defer></script>
+    <script src="{{ url_for('static', filename='js/daily-challenges.js') }}?v=3.2.0" defer></script>
 
     <script>
         // Initialisation des nouvelles fonctionnalités
         document.addEventListener('DOMContentLoaded', function () {
-            console.log('🚀 Arkalia Quest V3.2.0 - Nouvelles fonctionnalités chargées');
+            console.log('🚀 Arkalia Quest V3.3.0 - Systèmes UX contextuels chargés');
 
             // Initialiser le gestionnaire de thèmes
             if (window.ThemeManager) {
@@ -713,6 +722,23 @@
             // Initialiser les défis quotidiens
             if (window.DailyChallenges) {
                 console.log('🎯 Daily Challenges initialisé');
+            }
+
+            // Initialiser les systèmes UX contextuels
+            if (window.contextualFeedback) {
+                console.log('💬 Système de feedback contextuel initialisé');
+            }
+
+            if (window.progressionAnimations) {
+                console.log('🎬 Système d\'animations de progression initialisé');
+            }
+
+            if (window.interactiveMiniGames) {
+                console.log('🎮 Mini-jeux interactifs initialisés');
+            }
+
+            if (window.enhancedEmptyStates) {
+                console.log('🌟 Empty states améliorés initialisés');
             }
         });
     </script>

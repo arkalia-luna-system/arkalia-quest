@@ -404,11 +404,11 @@ class AdaptiveGuidanceSystem {
     }
 
     getCommandsUsed() {
-        return this.interactionHistory.length;
+        return this.interactionHistory ? this.interactionHistory.length : 0;
     }
 
     getErrorsMade() {
-        return this.interactionHistory.filter(i => !i.success).length;
+        return this.interactionHistory ? this.interactionHistory.filter(i => !i.success).length : 0;
     }
 
     // Configuration des écouteurs d'événements
@@ -438,10 +438,10 @@ class AdaptiveGuidanceSystem {
         // Détecter le profil initial
         this.provideAdaptiveGuidance();
 
-        // Mettre à jour périodiquement
+        // Mettre à jour périodiquement (optimisé)
         setInterval(() => {
             this.updateUserProfile();
-        }, 30000); // Toutes les 30 secondes
+        }, 120000); // Toutes les 2 minutes
     }
 }
 

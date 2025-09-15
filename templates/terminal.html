@@ -36,6 +36,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/competitive-system.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/creative-system.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/casual-system.css') }}">
+
+    <!-- CSS des améliorations UX contextuelles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/contextual-feedback.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/game-interface.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/mission-interface.css') }}">
 
@@ -1254,10 +1257,18 @@
     <script src="{{ url_for('static', filename='js/creative-system.js') }}"></script>
     <script src="{{ url_for('static', filename='js/casual-system.js') }}"></script>
 
+    <!-- Scripts des améliorations UX contextuelles -->
+    <script src="{{ url_for('static', filename='js/contextual-feedback.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/progression-animations.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/interactive-mini-games.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/enhanced-empty-states.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/terminal-integration.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/advanced-player-profiles.js') }}"></script>
+
     <script>
         // Initialisation des systèmes adaptatifs
         document.addEventListener('DOMContentLoaded', function () {
-            console.log('🎯 Systèmes adaptatifs initialisés dans le terminal');
+            console.log('🎯 Systèmes UX contextuels initialisés dans le terminal');
 
             // Initialiser le système de guidance adaptative
             if (window.adaptiveGuidance) {

@@ -620,65 +620,98 @@ function checkEasterEggs(command) {
 
     if (cmd === 'simple_hack') {
         // Démarrer le jeu de hack
-        if (window.miniGamesInteractive) {
+        if (window.miniGamesInteractive && typeof window.miniGamesInteractive.startGame === 'function') {
             window.miniGamesInteractive.startGame('simple_hack');
             return `🎮 LANCEMENT DU JEU DE HACK\n\n💻 Code binaire à reproduire...\n\n🎯 Score maximum : 1000 points\n\n🚀 Bonne chance, hacker !`;
         }
-        return `❌ Système de jeux non disponible`;
+        return `❌ Système de jeux non disponible - Rechargez la page et réessayez`;
     }
 
     if (cmd === 'sequence_game') {
-        if (window.miniGamesInteractive) {
+        if (window.miniGamesInteractive && typeof window.miniGamesInteractive.startGame === 'function') {
             window.miniGamesInteractive.startGame('sequence_game');
             return `🎮 LANCEMENT DU JEU DE SÉQUENCE\n\n🧠 Mémorise la séquence...\n\n🎯 Score maximum : 500 points\n\n🚀 Teste ta mémoire !`;
         }
-        return `❌ Système de jeux non disponible`;
+        return `❌ Système de jeux non disponible - Rechargez la page et réessayez`;
     }
 
     if (cmd === 'typing_challenge') {
-        if (window.miniGamesInteractive) {
+        if (window.miniGamesInteractive && typeof window.miniGamesInteractive.startGame === 'function') {
             window.miniGamesInteractive.startGame('typing_challenge');
             return `🎮 LANCEMENT DU DÉFI DE FRAPPE\n\n⌨️ Tape le plus vite possible...\n\n🎯 Score basé sur WPM\n\n🚀 Montre ta vitesse !`;
         }
-        return `❌ Système de jeux non disponible`;
+        return `❌ Système de jeux non disponible - Rechargez la page et réessayez`;
     }
 
     // Easter eggs de progression
     if (cmd === 'level_up' || cmd === 'levelup') {
         // Déclencher une animation de montée de niveau
-        if (window.rewardAnimations) {
+        if (window.rewardAnimations && typeof window.rewardAnimations.animateLevelUpImproved === 'function') {
             window.rewardAnimations.animateLevelUpImproved(2);
+            return `🎊 SIMULATION DE MONTÉE DE NIVEAU\n\n⭐ Niveau 2 atteint !\n\n🎉 Félicitations !\n\n✨ *Effets visuels activés*`;
         }
-        return `🎊 SIMULATION DE MONTÉE DE NIVEAU\n\n⭐ Niveau 2 atteint !\n\n🎉 Félicitations !\n\n✨ *Effets visuels activés*`;
+        return `🎊 SIMULATION DE MONTÉE DE NIVEAU\n\n⭐ Niveau 2 atteint !\n\n🎉 Félicitations !\n\n⚠️ Animations non disponibles - Rechargez la page`;
     }
 
     if (cmd === 'badge_unlock' || cmd === 'badge') {
         // Déclencher une animation de badge
-        if (window.rewardAnimations) {
+        if (window.rewardAnimations && typeof window.rewardAnimations.animateBadgeUnlock === 'function') {
             window.rewardAnimations.animateBadgeUnlock('Easter Egg Hunter', 'Tu as trouvé un easter egg !');
+            return `🏆 BADGE DÉBLOQUÉ !\n\n🎖️ "Easter Egg Hunter"\n\n✨ Tu as trouvé un easter egg !\n\n🎉 Continue à explorer !`;
         }
-        return `🏆 BADGE DÉBLOQUÉ !\n\n🎖️ "Easter Egg Hunter"\n\n✨ Tu as trouvé un easter egg !\n\n🎉 Continue à explorer !`;
+        return `🏆 BADGE DÉBLOQUÉ !\n\n🎖️ "Easter Egg Hunter"\n\n✨ Tu as trouvé un easter egg !\n\n⚠️ Animations non disponibles - Rechargez la page`;
     }
 
     // Easter eggs de thèmes
     if (cmd === 'matrix_mode' || cmd === 'matrix theme') {
         // Changer le thème en Matrix
-        if (window.ThemeManager) {
+        if (window.ThemeManager && typeof window.ThemeManager.setTheme === 'function') {
             window.ThemeManager.setTheme('matrix');
+            return `🔮 MODE MATRIX ACTIVÉ\n\n🌌 Thème Matrix appliqué\n\n💚 Code vert partout\n\n*Bienvenue dans la Matrice*`;
         }
-        return `🔮 MODE MATRIX ACTIVÉ\n\n🌌 Thème Matrix appliqué\n\n💚 Code vert partout\n\n*Bienvenue dans la Matrice*`;
+        return `🔮 MODE MATRIX ACTIVÉ\n\n🌌 Thème Matrix appliqué\n\n💚 Code vert partout\n\n⚠️ Gestionnaire de thèmes non disponible - Rechargez la page`;
     }
 
     if (cmd === 'cyberpunk_mode' || cmd === 'cyberpunk theme') {
-        if (window.ThemeManager) {
+        if (window.ThemeManager && typeof window.ThemeManager.setTheme === 'function') {
             window.ThemeManager.setTheme('cyberpunk');
+            return `🌃 MODE CYBERPUNK ACTIVÉ\n\n🌆 Thème Cyberpunk appliqué\n\n💜 Néo-Tokyo vibes\n\n*Bienvenue dans le futur*`;
         }
-        return `🌃 MODE CYBERPUNK ACTIVÉ\n\n🌆 Thème Cyberpunk appliqué\n\n💜 Néo-Tokyo vibes\n\n*Bienvenue dans le futur*`;
+        return `🌃 MODE CYBERPUNK ACTIVÉ\n\n🌆 Thème Cyberpunk appliqué\n\n💜 Néo-Tokyo vibes\n\n⚠️ Gestionnaire de thèmes non disponible - Rechargez la page`;
     }
 
     // Easter eggs de debug
     if (cmd === 'debug_mode' || cmd === 'debug') {
         return `🐛 MODE DEBUG ACTIVÉ\n\n🔍 Informations système :\n• User Agent: ${navigator.userAgent}\n• Langue: ${navigator.language}\n• Plateforme: ${navigator.platform}\n• Mémoire: ${navigator.deviceMemory || 'Non disponible'}\n• Cœurs: ${navigator.hardwareConcurrency || 'Non disponible'}\n\n💡 Mode développeur activé !`;
+    }
+
+    // Commande de diagnostic des objets
+    if (cmd === 'check_objects' || cmd === 'diagnostic') {
+        const objects = [
+            'window.miniGamesInteractive',
+            'window.rewardAnimations',
+            'window.ThemeManager',
+            'window.advancedPlayerProfiles',
+            'window.contextualFeedback'
+        ];
+
+        let status = `🔍 DIAGNOSTIC DES OBJETS\n\n`;
+        objects.forEach(obj => {
+            const parts = obj.split('.');
+            let current = window;
+            let available = true;
+            for (let part of parts) {
+                if (current[part] === undefined) {
+                    available = false;
+                    break;
+                }
+                current = current[part];
+            }
+            status += `${available ? '✅' : '❌'} ${obj}\n`;
+        });
+
+        status += `\n💡 Si des objets sont manquants, rechargez la page !`;
+        return status;
     }
 
     // Easter eggs de météo

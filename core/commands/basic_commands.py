@@ -60,6 +60,22 @@ LUNA, une IA émotionnelle, s'est éveillée dans ton terminal.
 • kill_virus → Tue le virus de La Corp
 • games → Mini-jeux éducatifs
 
+🎮 MINI-JEUX INTERACTIFS :
+• simple_hack → Jeu de hack binaire
+• sequence_game → Jeu de mémoire
+• typing_challenge → Défi de frappe
+• play_game → Lancer un mini-jeu
+
+🎨 EFFETS ET ANIMATIONS :
+• level_up → Simulation montée de niveau
+• badge_unlock → Simulation déblocage badge
+• matrix_mode → Thème Matrix
+• cyberpunk_mode → Thème Cyberpunk
+
+🔍 DIAGNOSTIC :
+• check_objects → Vérifier les objets disponibles
+• debug_mode → Informations système
+
 📋 COMMANDES DISPONIBLES :
 • aide/help/commands → Cette aide
 • profil/profile → Ton profil détaillé
@@ -95,17 +111,28 @@ la vérité sur NEXUS, sa sœur jumelle IA, et la menace de PANDORA.
 • challenge_corp → Défie La Corp
 • decode_portal → Décode les portails secrets
 
-🎮 TES MINI-JEUX :
+🎮 MINI-JEUX INTERACTIFS :
+• simple_hack → Jeu de hack binaire
+• sequence_game → Jeu de mémoire
+• typing_challenge → Défi de frappe
+• play_game → Lancer un mini-jeu
 • games → Liste tous les jeux
-• play_game logic_1 → Jeu de logique
-• play_game code_1 → Jeu de programmation
-• play_game cyber_1 → Jeu de cybersécurité
+
+🎨 EFFETS ET ANIMATIONS :
+• level_up → Simulation montée de niveau
+• badge_unlock → Simulation déblocage badge
+• matrix_mode → Thème Matrix
+• cyberpunk_mode → Thème Cyberpunk
 
 🌙 INTERACTIONS LUNA :
 • luna_contact → Parle avec LUNA
 • luna_engine → Active le moteur IA
 • luna_analyze → Analyse avancée
 • luna_dance → LUNA danse pour toi
+
+🔍 DIAGNOSTIC :
+• check_objects → Vérifier les objets disponibles
+• debug_mode → Informations système
 
 💡 UTILITAIRES :
 • profil → Ton profil détaillé

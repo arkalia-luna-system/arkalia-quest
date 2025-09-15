@@ -8,6 +8,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y \
     gcc \
     g++ \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Copier requirements.txt d'abord pour optimiser le cache Docker
@@ -30,6 +31,11 @@ EXPOSE 10000
 ENV PYTHONPATH=/app
 ENV FLASK_APP=app.py
 ENV FLASK_ENV=production
+ENV PORT=10000
+
+# Healthcheck pour vérifier que l'application est prête
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD curl -f http://localhost:10000/ || exit 1
 
 # Commande de démarrage avec Gunicorn
 CMD ["sh", "-c", "gunicorn app:app --bind 0.0.0.0:${PORT:-10000} --workers 2 --timeout 120 --preload --access-logfile - --error-logfile -"]

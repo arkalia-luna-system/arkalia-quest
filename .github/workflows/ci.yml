@@ -204,11 +204,7 @@ jobs:
 
     - name: 🧪 Test Docker container
       run: |
-        docker run --rm -d --name arkalia-test -p 5001:10000 arkalia-quest:latest
-        sleep 15
-        echo "Container started, checking health..."
-        docker logs arkalia-test
-        docker stop arkalia-test
+        ./.github/scripts/test-docker.sh
 
   deploy_docs:
     name: 📚 Deploy Documentation

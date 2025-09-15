@@ -682,7 +682,28 @@ function checkEasterEggs(command) {
 
     // Easter eggs de debug
     if (cmd === 'debug_mode' || cmd === 'debug') {
-        return `🐛 MODE DEBUG ACTIVÉ\n\n🔍 Informations système :\n• User Agent: ${navigator.userAgent}\n• Langue: ${navigator.language}\n• Plateforme: ${navigator.platform}\n• Mémoire: ${navigator.deviceMemory || 'Non disponible'}\n• Cœurs: ${navigator.hardwareConcurrency || 'Non disponible'}\n\n💡 Mode développeur activé !`;
+        // Détection intelligente de la plateforme
+        const userAgent = navigator.userAgent;
+        const platform = navigator.platform;
+        let osType = 'Inconnu';
+
+        if (userAgent.includes('Mac')) {
+            osType = '🍎 macOS';
+        } else if (userAgent.includes('iPhone') || userAgent.includes('iPad')) {
+            osType = '📱 iOS';
+        } else if (userAgent.includes('Android')) {
+            osType = '🤖 Android';
+        } else if (userAgent.includes('Windows')) {
+            osType = '🪟 Windows';
+        } else if (userAgent.includes('Linux')) {
+            osType = '🐧 Linux';
+        }
+
+        // Détection mobile
+        const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+        const deviceType = isMobile ? '📱 Mobile' : '💻 Desktop';
+
+        return `🐛 MODE DEBUG ACTIVÉ\n\n🔍 Informations système :\n• OS: ${osType}\n• Type: ${deviceType}\n• Langue: ${navigator.language}\n• Mémoire: ${navigator.deviceMemory || 'Non disponible'}\n• Cœurs: ${navigator.hardwareConcurrency || 'Non disponible'}\n• Écran: ${screen.width}x${screen.height}\n\n💡 Mode développeur activé !`;
     }
 
     // Commande de diagnostic des objets

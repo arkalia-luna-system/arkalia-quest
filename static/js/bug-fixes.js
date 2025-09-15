@@ -6,8 +6,8 @@ class BugFixes {
         this.maxHistorySize = 50;
         this.spamProtection = new Map();
         this.lastCommandTime = 0;
-        this.minCommandInterval = 100; // 100ms minimum entre les commandes
-        
+        this.minCommandInterval = 500; // 500ms minimum entre les commandes (plus raisonnable)
+
         this.init();
     }
 
@@ -18,7 +18,7 @@ class BugFixes {
         this.fixResponsiveIssues();
         this.fixAccessibilityBugs();
         this.fixLunaResponseVariety();
-        
+
         console.log('🔧 Bug fixes appliqués');
     }
 
@@ -26,10 +26,10 @@ class BugFixes {
     fixTerminalStability() {
         // Protection contre le spam de commandes
         this.setupSpamProtection();
-        
+
         // Améliorer les réponses aux commandes invalides
         this.improveInvalidCommandResponses();
-        
+
         // Optimiser les réponses rapides
         this.optimizeRapidResponses();
     }
@@ -42,7 +42,7 @@ class BugFixes {
                     this.showSpamWarning();
                     return;
                 }
-                
+
                 this.recordCommand(command);
                 return originalSendCommand(command);
             };
@@ -52,19 +52,19 @@ class BugFixes {
     isSpamCommand(command) {
         const now = Date.now();
         const timeSinceLastCommand = now - this.lastCommandTime;
-        
+
         if (timeSinceLastCommand < this.minCommandInterval) {
             return true;
         }
-        
-        // Vérifier les commandes répétitives
-        const recentCommands = this.commandHistory.slice(-5);
+
+        // Vérifier les commandes répétitives (plus tolérant)
+        const recentCommands = this.commandHistory.slice(-10);
         const duplicateCount = recentCommands.filter(cmd => cmd === command).length;
-        
-        if (duplicateCount >= 3) {
+
+        if (duplicateCount >= 5) { // Augmenté de 3 à 5
             return true;
         }
-        
+
         this.lastCommandTime = now;
         return false;
     }
@@ -85,7 +85,7 @@ class BugFixes {
                 <div class="warning-text">Trop rapide ! Attendez un moment...</div>
             </div>
         `;
-        
+
         warning.style.cssText = `
             position: fixed;
             top: 20px;
@@ -101,7 +101,7 @@ class BugFixes {
             animation: spamWarningSlide 3s ease;
             box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
         `;
-        
+
         // Ajouter l'animation CSS
         if (!document.getElementById('spam-warning-animation')) {
             const style = document.createElement('style');
@@ -116,9 +116,9 @@ class BugFixes {
             `;
             document.head.appendChild(style);
         }
-        
+
         document.body.appendChild(warning);
-        
+
         setTimeout(() => {
             if (warning.parentNode) {
                 warning.parentNode.removeChild(warning);
@@ -131,11 +131,11 @@ class BugFixes {
         if (originalGetCommandResponse) {
             window.getCommandResponse = (command) => {
                 const response = originalGetCommandResponse(command);
-                
+
                 if (response.includes('Commande non reconnue') || response.includes('inconnue')) {
                     return this.getHelpfulInvalidCommandResponse(command);
                 }
-                
+
                 return response;
             };
         }
@@ -143,7 +143,7 @@ class BugFixes {
 
     getHelpfulInvalidCommandResponse(command) {
         const suggestions = this.getCommandSuggestions(command);
-        
+
         return `❌ Commande "${command}" non reconnue.
 
 💡 Suggestions :
@@ -159,37 +159,37 @@ ${suggestions.map(s => `• ${s}`).join('\n')}
             'prologue', 'acte_1', 'acte_2', 'acte_3', 'explorer',
             'games', 'play_game', 'score', 'level', 'xp'
         ];
-        
-        const suggestions = allCommands.filter(cmd => 
+
+        const suggestions = allCommands.filter(cmd =>
             cmd.toLowerCase().includes(command.toLowerCase()) ||
             command.toLowerCase().includes(cmd.toLowerCase()) ||
             this.calculateSimilarity(cmd, command) > 0.3
         );
-        
+
         return suggestions.slice(0, 3);
     }
 
     calculateSimilarity(str1, str2) {
         const longer = str1.length > str2.length ? str1 : str2;
         const shorter = str1.length > str2.length ? str2 : str1;
-        
+
         if (longer.length === 0) return 1.0;
-        
+
         const distance = this.levenshteinDistance(longer, shorter);
         return (longer.length - distance) / longer.length;
     }
 
     levenshteinDistance(str1, str2) {
         const matrix = [];
-        
+
         for (let i = 0; i <= str2.length; i++) {
             matrix[i] = [i];
         }
-        
+
         for (let j = 0; j <= str1.length; j++) {
             matrix[0][j] = j;
         }
-        
+
         for (let i = 1; i <= str2.length; i++) {
             for (let j = 1; j <= str1.length; j++) {
                 if (str2.charAt(i - 1) === str1.charAt(j - 1)) {
@@ -203,7 +203,7 @@ ${suggestions.map(s => `• ${s}`).join('\n')}
                 }
             }
         }
-        
+
         return matrix[str2.length][str1.length];
     }
 
@@ -211,10 +211,10 @@ ${suggestions.map(s => `• ${s}`).join('\n')}
     fixNavigationIssues() {
         // Corriger les lags visuels lors de la navigation
         this.fixVisualLags();
-        
+
         // Améliorer les transitions entre pages
         this.improvePageTransitions();
-        
+
         // Corriger les problèmes de focus
         this.fixFocusIssues();
     }
@@ -222,7 +222,7 @@ ${suggestions.map(s => `• ${s}`).join('\n')}
     fixVisualLags() {
         // Utiliser requestAnimationFrame pour les transitions
         const originalAddEventListener = Element.prototype.addEventListener;
-        Element.prototype.addEventListener = function(type, listener, options) {
+        Element.prototype.addEventListener = function (type, listener, options) {
             if (type === 'transitionend' || type === 'animationend') {
                 const wrappedListener = (e) => {
                     requestAnimationFrame(() => listener.call(this, e));
@@ -238,7 +238,7 @@ ${suggestions.map(s => `• ${s}`).join('\n')}
         document.addEventListener('DOMContentLoaded', () => {
             document.body.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
         });
-        
+
         // Intercepter les changements de contenu
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
@@ -247,7 +247,7 @@ ${suggestions.map(s => `• ${s}`).join('\n')}
                 }
             });
         });
-        
+
         observer.observe(document.body, {
             childList: true,
             subtree: true
@@ -260,7 +260,7 @@ ${suggestions.map(s => `• ${s}`).join('\n')}
                 node.style.opacity = '0';
                 node.style.transform = 'translateY(10px)';
                 node.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-                
+
                 requestAnimationFrame(() => {
                     node.style.opacity = '1';
                     node.style.transform = 'translateY(0)';
@@ -276,7 +276,7 @@ ${suggestions.map(s => `• ${s}`).join('\n')}
                 this.enhanceTabNavigation(e);
             }
         });
-        
+
         // Améliorer le focus visible
         this.enhanceFocusVisibility();
     }
@@ -285,9 +285,9 @@ ${suggestions.map(s => `• ${s}`).join('\n')}
         const focusableElements = document.querySelectorAll(
             'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
         );
-        
+
         const currentIndex = Array.from(focusableElements).indexOf(document.activeElement);
-        
+
         if (e.shiftKey) {
             // Tab vers l'arrière
             if (currentIndex === 0) {
@@ -326,7 +326,7 @@ ${suggestions.map(s => `• ${s}`).join('\n')}
     fixProgressionUpdates() {
         // Corriger les compteurs figés
         this.fixFrozenCounters();
-        
+
         // Améliorer la synchronisation des données
         this.improveDataSynchronization();
     }
@@ -340,7 +340,7 @@ ${suggestions.map(s => `• ${s}`).join('\n')}
                 }
             });
         });
-        
+
         // Observer tous les éléments avec des compteurs
         const counters = document.querySelectorAll('[data-counter], [data-value]');
         counters.forEach(counter => {
@@ -351,7 +351,7 @@ ${suggestions.map(s => `• ${s}`).join('\n')}
     updateCounter(element) {
         const newValue = element.dataset.value || element.dataset.counter;
         const currentValue = element.textContent;
-        
+
         if (newValue && newValue !== currentValue) {
             this.animateCounterUpdate(element, currentValue, newValue);
         }
@@ -362,26 +362,26 @@ ${suggestions.map(s => `• ${s}`).join('\n')}
         const endValue = parseInt(to) || 0;
         const duration = 500;
         const startTime = performance.now();
-        
+
         const animate = (currentTime) => {
             const elapsed = currentTime - startTime;
             const progress = Math.min(elapsed / duration, 1);
-            
+
             const current = Math.round(startValue + (endValue - startValue) * progress);
             element.textContent = current;
-            
+
             if (progress < 1) {
                 requestAnimationFrame(animate);
             }
         };
-        
+
         requestAnimationFrame(animate);
     }
 
     improveDataSynchronization() {
         // Synchroniser les données entre les composants
         this.setupDataSync();
-        
+
         // Améliorer la mise à jour des états
         this.improveStateUpdates();
     }
@@ -408,11 +408,11 @@ ${suggestions.map(s => `• ${s}`).join('\n')}
         if (data.value !== undefined) {
             component.textContent = data.value;
         }
-        
+
         if (data.class !== undefined) {
             component.className = data.class;
         }
-        
+
         if (data.attribute !== undefined) {
             Object.keys(data.attribute).forEach(key => {
                 component.setAttribute(key, data.attribute[key]);
@@ -424,7 +424,7 @@ ${suggestions.map(s => `• ${s}`).join('\n')}
     fixResponsiveIssues() {
         // Corriger les problèmes de responsive
         this.fixTableOverflow();
-        
+
         // Améliorer la navigation sur mobile
         this.improveMobileNavigation();
     }
@@ -435,14 +435,14 @@ ${suggestions.map(s => `• ${s}`).join('\n')}
         tables.forEach(table => {
             table.style.overflowX = 'auto';
             table.style.width = '100%';
-            
+
             // Ajouter un wrapper si nécessaire
             if (!table.parentElement.classList.contains('table-wrapper')) {
                 const wrapper = document.createElement('div');
                 wrapper.className = 'table-wrapper';
                 wrapper.style.overflowX = 'auto';
                 wrapper.style.width = '100%';
-                
+
                 table.parentNode.insertBefore(wrapper, table);
                 wrapper.appendChild(table);
             }
@@ -454,7 +454,7 @@ ${suggestions.map(s => `• ${s}`).join('\n')}
         if (window.innerWidth < 768) {
             this.enableMobileOptimizations();
         }
-        
+
         window.addEventListener('resize', () => {
             if (window.innerWidth < 768) {
                 this.enableMobileOptimizations();
@@ -466,13 +466,13 @@ ${suggestions.map(s => `• ${s}`).join('\n')}
 
     enableMobileOptimizations() {
         document.body.classList.add('mobile-optimized');
-        
+
         // Ajuster les tailles de police
         const smallTexts = document.querySelectorAll('small, .small-text');
         smallTexts.forEach(text => {
             text.style.fontSize = '12px';
         });
-        
+
         // Ajuster les boutons
         const buttons = document.querySelectorAll('button, .btn');
         buttons.forEach(button => {
@@ -489,7 +489,7 @@ ${suggestions.map(s => `• ${s}`).join('\n')}
     fixAccessibilityBugs() {
         // Corriger les problèmes d'accessibilité
         this.fixAccessibilityIssues();
-        
+
         // Améliorer la navigation clavier
         this.improveKeyboardNavigation();
     }
@@ -497,7 +497,7 @@ ${suggestions.map(s => `• ${s}`).join('\n')}
     fixAccessibilityIssues() {
         // Ajouter des attributs ARIA manquants
         this.addMissingAriaAttributes();
-        
+
         // Améliorer les contrastes
         this.improveContrasts();
     }
@@ -510,7 +510,7 @@ ${suggestions.map(s => `• ${s}`).join('\n')}
                 button.setAttribute('aria-label', button.textContent.trim());
             }
         });
-        
+
         // Ajouter des attributs ARIA aux liens
         const links = document.querySelectorAll('a:not([aria-label])');
         links.forEach(link => {
@@ -545,7 +545,7 @@ ${suggestions.map(s => `• ${s}`).join('\n')}
     fixLunaResponseVariety() {
         // Améliorer la variété des réponses LUNA
         this.enhanceLunaResponses();
-        
+
         // Éviter les répétitions
         this.avoidRepetitiveResponses();
     }
@@ -573,9 +573,9 @@ ${suggestions.map(s => `• ${s}`).join('\n')}
             '💫 ' + message,
             '🎯 ' + message
         ];
-        
+
         const randomEnhancement = enhancements[Math.floor(Math.random() * enhancements.length)];
-        
+
         // Ajouter des variations de ton
         const toneVariations = [
             'Avec enthousiasme, ',
@@ -584,9 +584,9 @@ ${suggestions.map(s => `• ${s}`).join('\n')}
             'En s\'illuminant, ',
             'Avec bienveillance, '
         ];
-        
+
         const randomTone = toneVariations[Math.floor(Math.random() * toneVariations.length)];
-        
+
         return randomTone + randomEnhancement;
     }
 
@@ -594,7 +594,7 @@ ${suggestions.map(s => `• ${s}`).join('\n')}
         // Éviter les réponses répétitives
         this.responseHistory = [];
         this.maxResponseHistory = 10;
-        
+
         const originalAddMessage = window.addMessage;
         if (originalAddMessage) {
             window.addMessage = (message, type) => {
@@ -623,7 +623,7 @@ ${suggestions.map(s => `• ${s}`).join('\n')}
             message.replace('Parfait', 'Excellent'),
             message.replace('Génial', 'Fantastique')
         ];
-        
+
         return variations[Math.floor(Math.random() * variations.length)];
     }
 

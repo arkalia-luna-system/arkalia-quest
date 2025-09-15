@@ -28,7 +28,7 @@ class MissionProgressTracker:
         self.achievement_triggers = {}
 
     def initialize_mission_progress(
-        self, mission_id: str, player_id: str
+        self, mission_id: str, player_id: str, total_steps: int = 5
     ) -> dict[str, Any]:
         """Initialise le suivi de progression pour une mission"""
         progress_key = f"{player_id}_{mission_id}"
@@ -39,7 +39,7 @@ class MissionProgressTracker:
                 "player_id": player_id,
                 "start_time": datetime.now().isoformat(),
                 "current_step": 0,
-                "total_steps": 0,
+                "total_steps": total_steps,
                 "completed_steps": [],
                 "failed_attempts": 0,
                 "hints_used": 0,

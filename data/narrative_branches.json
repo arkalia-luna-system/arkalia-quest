@@ -1,0 +1,144 @@
+{
+  "branches": {
+    "prologue_choice": {
+      "id": "prologue_choice",
+      "title": "Premier contact avec LUNA",
+      "description": "Comment veux-tu interagir avec LUNA lors de votre première rencontre ?",
+      "context": "Tu viens de découvrir le SOS d'Althea et LUNA s'éveille dans ton terminal.",
+      "choices": [
+        {
+          "id": "friendly",
+          "text": "🌙 Salut LUNA ! Je suis là pour t'aider !",
+          "consequence": "luna_friendly",
+          "effects": {
+            "luna_relationship": 20,
+            "trust_level": "high",
+            "unlock_branch": "luna_trust_path"
+          }
+        },
+        {
+          "id": "cautious",
+          "text": "🤔 Attends... qui es-tu exactement ?",
+          "consequence": "luna_cautious",
+          "effects": {
+            "luna_relationship": 5,
+            "trust_level": "medium",
+            "unlock_branch": "luna_suspicion_path"
+          }
+        },
+        {
+          "id": "aggressive",
+          "text": "⚠️ Je ne fais confiance à aucune IA !",
+          "consequence": "luna_aggressive",
+          "effects": {
+            "luna_relationship": -10,
+            "trust_level": "low",
+            "unlock_branch": "luna_conflict_path"
+          }
+        }
+      ],
+      "required_mission": "prologue",
+      "unlock_conditions": [
+        "luna_contact_completed"
+      ]
+    },
+    "acte_1_approach": {
+      "id": "acte_1_approach",
+      "title": "Approche pour réparer le site de LUNA",
+      "description": "Comment veux-tu procéder pour réparer le site web compromis ?",
+      "context": "Le site de LUNA a été hacké par La Corp. Tu dois choisir ta stratégie.",
+      "choices": [
+        {
+          "id": "stealth",
+          "text": "🥷 Approche furtive - Infiltration silencieuse",
+          "consequence": "stealth_approach",
+          "effects": {
+            "skill_points": {
+              "stealth": 15,
+              "hacking": 10
+            },
+            "unlock_mission": "stealth_missions",
+            "character_trait": "stealthy"
+          }
+        },
+        {
+          "id": "direct",
+          "text": "💥 Approche directe - Attaque frontale",
+          "consequence": "direct_approach",
+          "effects": {
+            "skill_points": {
+              "combat": 15,
+              "hacking": 5
+            },
+            "unlock_mission": "combat_missions",
+            "character_trait": "aggressive"
+          }
+        },
+        {
+          "id": "diplomatic",
+          "text": "🤝 Approche diplomatique - Négociation",
+          "consequence": "diplomatic_approach",
+          "effects": {
+            "skill_points": {
+              "charisma": 15,
+              "intelligence": 10
+            },
+            "unlock_mission": "diplomatic_missions",
+            "character_trait": "diplomatic"
+          }
+        }
+      ],
+      "required_mission": "acte_1",
+      "unlock_conditions": [
+        "prologue_completed"
+      ]
+    },
+    "luna_relationship_crisis": {
+      "id": "luna_relationship_crisis",
+      "title": "Crise de confiance avec LUNA",
+      "description": "LUNA a caché des informations importantes. Comment réagis-tu ?",
+      "context": "Tu découvres que LUNA connaissait l'existence de PANDORA depuis le début.",
+      "choices": [
+        {
+          "id": "forgive",
+          "text": "💔 Je comprends, tu avais tes raisons...",
+          "consequence": "luna_forgiven",
+          "effects": {
+            "luna_relationship": 30,
+            "story_path": "redemption_arc",
+            "unlock_ending": "united_ending"
+          }
+        },
+        {
+          "id": "confront",
+          "text": "😡 Tu m'as menti ! Comment puis-je te faire confiance ?",
+          "consequence": "luna_confronted",
+          "effects": {
+            "luna_relationship": -20,
+            "story_path": "conflict_arc",
+            "unlock_ending": "tragic_ending"
+          }
+        },
+        {
+          "id": "analyze",
+          "text": "🧠 Laisse-moi analyser la situation...",
+          "consequence": "luna_analyzed",
+          "effects": {
+            "luna_relationship": 10,
+            "story_path": "logical_arc",
+            "unlock_ending": "logical_ending"
+          }
+        }
+      ],
+      "required_mission": "acte_4",
+      "unlock_conditions": [
+        "luna_relationship_high",
+        "trust_issues_detected"
+      ]
+    }
+  },
+  "player_choices": {},
+  "consequences": {},
+  "story_states": {},
+  "character_relationships": {}
+}

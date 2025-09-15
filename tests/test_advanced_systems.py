@@ -144,6 +144,17 @@ class TestNarrativeBranches(unittest.TestCase):
         self.branches = NarrativeBranches()
         self.player_id = "test_player"
 
+        # Configurer les conditions de déverrouillage pour les tests
+        self.branches.story_states[self.player_id] = {
+            "completed_events": ["luna_contact_completed"],
+            "current_mission": "prologue",
+            "branches_completed": [],
+            "story_path": "default",
+            "character_arc": "neutral",
+            "unlocked_endings": [],
+            "major_choices": [],
+        }
+
     def test_make_choice(self):
         """Test de prise de décision narrative"""
         result = self.branches.make_choice(
@@ -170,6 +181,13 @@ class TestNarrativeBranches(unittest.TestCase):
         """Test du suivi de l'état de l'histoire"""
         # Faire plusieurs choix
         self.branches.make_choice(self.player_id, "prologue_choice", "friendly", {})
+
+        # Ajouter les conditions pour la deuxième branche
+        self.branches.story_states[self.player_id]["completed_events"].append(
+            "prologue_completed"
+        )
+        self.branches.story_states[self.player_id]["current_mission"] = "acte_1"
+
         self.branches.make_choice(self.player_id, "acte_1_approach", "stealth", {})
 
         story_state = self.branches.get_story_state(self.player_id)
@@ -523,10 +541,21 @@ class TestIntegration(unittest.TestCase):
     def test_full_workflow(self):
         """Test d'un workflow complet"""
         # 1. Démarrer une mission
-        mission_id = "integration_mission"
+        mission_id = "prologue"
         self.tracker.initialize_mission_progress(mission_id, self.player_id)
 
-        # 2. Faire un choix narratif
+        # 2. Simuler les conditions de déverrouillage
+        self.branches.story_states[self.player_id] = {
+            "completed_events": ["luna_contact_completed"],
+            "current_mission": "prologue",
+            "branches_completed": [],
+            "story_path": "default",
+            "character_arc": "neutral",
+            "unlocked_endings": [],
+            "major_choices": [],
+        }
+
+        # 3. Faire un choix narratif
         choice_result = self.branches.make_choice(
             self.player_id, "prologue_choice", "friendly", {}
         )

@@ -1,0 +1,135 @@
+{
+  "categories": {
+    "speed": {
+      "name": "Vitesse",
+      "description": "Rapidité d'exécution et efficacité",
+      "icon": "⚡",
+      "color": "#ff4444",
+      "metrics": [
+        "mission_time",
+        "hack_speed",
+        "response_time"
+      ],
+      "weight": {
+        "mission_time": 0.4,
+        "hack_speed": 0.4,
+        "response_time": 0.2
+      }
+    },
+    "creativity": {
+      "name": "Créativité",
+      "description": "Solutions innovantes et approches créatives",
+      "icon": "🎨",
+      "color": "#aa44ff",
+      "metrics": [
+        "creative_solutions",
+        "unexpected_approaches",
+        "artistic_score"
+      ],
+      "weight": {
+        "creative_solutions": 0.5,
+        "unexpected_approaches": 0.3,
+        "artistic_score": 0.2
+      }
+    },
+    "hacking": {
+      "name": "Hacking",
+      "description": "Compétences techniques et de sécurité",
+      "icon": "💻",
+      "color": "#00ff00",
+      "metrics": [
+        "hack_success_rate",
+        "security_knowledge",
+        "technical_skills"
+      ],
+      "weight": {
+        "hack_success_rate": 0.4,
+        "security_knowledge": 0.3,
+        "technical_skills": 0.3
+      }
+    },
+    "social": {
+      "name": "Social",
+      "description": "Interactions et leadership communautaire",
+      "icon": "👥",
+      "color": "#ff00ff",
+      "metrics": [
+        "interactions_count",
+        "guild_leadership",
+        "help_provided"
+      ],
+      "weight": {
+        "interactions_count": 0.3,
+        "guild_leadership": 0.4,
+        "help_provided": 0.3
+      }
+    },
+    "education": {
+      "name": "Éducation",
+      "description": "Apprentissage et développement des compétences",
+      "icon": "📚",
+      "color": "#ffff00",
+      "metrics": [
+        "games_completed",
+        "knowledge_gained",
+        "skill_progression"
+      ],
+      "weight": {
+        "games_completed": 0.3,
+        "knowledge_gained": 0.4,
+        "skill_progression": 0.3
+      }
+    },
+    "exploration": {
+      "name": "Exploration",
+      "description": "Découverte et curiosité",
+      "icon": "🌍",
+      "color": "#00ffff",
+      "metrics": [
+        "zones_discovered",
+        "secrets_found",
+        "exploration_time"
+      ],
+      "weight": {
+        "zones_discovered": 0.4,
+        "secrets_found": 0.4,
+        "exploration_time": 0.2
+      }
+    },
+    "luna_relationship": {
+      "name": "Relation LUNA",
+      "description": "Développement de la relation avec l'IA",
+      "icon": "🌙",
+      "color": "#ffaa00",
+      "metrics": [
+        "luna_interactions",
+        "trust_level",
+        "emotional_connection"
+      ],
+      "weight": {
+        "luna_interactions": 0.3,
+        "trust_level": 0.4,
+        "emotional_connection": 0.3
+      }
+    },
+    "persistence": {
+      "name": "Persévérance",
+      "description": "Détermination et résilience",
+      "icon": "💪",
+      "color": "#44aa44",
+      "metrics": [
+        "retry_count",
+        "comeback_success",
+        "difficulty_overcome"
+      ],
+      "weight": {
+        "retry_count": 0.3,
+        "comeback_success": 0.4,
+        "difficulty_overcome": 0.3
+      }
+    }
+  },
+  "leaderboards": {},
+  "player_stats": {},
+  "ranking_periods": {}
+}

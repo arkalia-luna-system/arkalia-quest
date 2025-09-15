@@ -383,7 +383,9 @@ class TechnicalTutorials:
         )
         return prereq in completed_tutorials
 
-    def _format_tutorial(self, tutorial: dict[str, Any], player_id: str) -> dict[str, Any]:
+    def _format_tutorial(
+        self, tutorial: dict[str, Any], player_id: str
+    ) -> dict[str, Any]:
         """Formate un tutoriel pour l'affichage"""
         concept = self.concepts.get(tutorial.get("concept", ""), {})
 
@@ -453,7 +455,7 @@ class TechnicalTutorials:
 
         return {
             "success": True,
-            "tutorial": self._format_tutorial(tutorial),
+            "tutorial": self._format_tutorial(tutorial, player_id),
             "message": f"Tutoriel '{tutorial['title']}' démarré !",
         }
 

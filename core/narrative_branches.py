@@ -36,7 +36,19 @@ class NarrativeBranches:
         """Charge les données de branches narratives"""
         try:
             with open("data/narrative_branches.json", encoding="utf-8") as f:
-                self.branches = json.load(f)
+                data = json.load(f)
+                # Gérer la structure imbriquée du fichier JSON
+                if "branches" in data and isinstance(data["branches"], dict):
+                    branches_data = data["branches"]
+                    # Vérifier s'il y a une autre couche d'imbrication
+                    if "branches" in branches_data and isinstance(
+                        branches_data["branches"], dict
+                    ):
+                        self.branches = branches_data["branches"]
+                    else:
+                        self.branches = branches_data
+                else:
+                    self.branches = data
         except FileNotFoundError:
             logger.info(
                 "Fichier de branches non trouvé, création des données par défaut"
@@ -263,8 +275,13 @@ class NarrativeBranches:
 
     def _has_completed_mission(self, player_id: str, mission_id: str) -> bool:
         """Vérifie si une mission a été complétée"""
-        # Logique simplifiée - à intégrer avec le système de missions
-        return True  # Valeur par défaut
+        # Vérifier dans l'état de l'histoire du joueur
+        story_state = self.story_states.get(player_id, {})
+        completed_events = story_state.get("completed_events", [])
+        return (
+            f"{mission_id}_completed" in completed_events
+            or mission_id in completed_events
+        )
 
     def _get_luna_relationship(self, player_id: str) -> int:
         """Retourne le niveau de relation avec LUNA"""
@@ -520,7 +537,6 @@ class NarrativeBranches:
         except Exception as e:
             logger.error(f"Erreur sauvegarde branches: {e}")
             return False
-
 
 
 # Instance globale

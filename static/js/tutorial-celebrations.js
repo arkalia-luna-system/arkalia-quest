@@ -34,13 +34,16 @@ class TutorialCelebrations {
                 width: 10px;
                 height: 10px;
                 background: #00ff00;
+                opacity: 0.7;
                 animation: confetti-fall 3s ease-out forwards;
             }
             
             .celebration-star {
                 position: absolute;
                 font-size: 24px;
-                color: #00ff00;
+                color: rgba(0, 255, 0, 0.9);
+                opacity: 0.8;
+                text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
                 animation: star-burst 2s ease-out forwards;
             }
             
@@ -49,7 +52,7 @@ class TutorialCelebrations {
                 top: -60px;
                 left: 50%;
                 transform: translateX(-50%);
-                background: linear-gradient(45deg, #00ff00, #00cc00);
+                background: linear-gradient(45deg, rgba(0, 255, 0, 0.8), rgba(0, 204, 0, 0.8));
                 color: #000;
                 padding: 10px 20px;
                 border-radius: 25px;
@@ -62,7 +65,7 @@ class TutorialCelebrations {
             .tutorial-step-completed {
                 animation: step-completed 1s ease-out;
                 background: linear-gradient(45deg, rgba(0, 255, 0, 0.2), rgba(0, 204, 0, 0.2));
-                border: 2px solid #00ff00;
+                border: 2px solid rgba(0, 255, 0, 0.6);
                 border-radius: 8px;
                 padding: 10px;
                 margin: 5px 0;
@@ -79,7 +82,7 @@ class TutorialCelebrations {
             
             .tutorial-progress-fill {
                 height: 100%;
-                background: linear-gradient(90deg, #00ff00, #00cc00);
+                background: linear-gradient(90deg, rgba(0, 255, 0, 0.8), rgba(0, 204, 0, 0.8));
                 width: 0%;
                 transition: width 0.5s ease-out;
                 border-radius: 4px;
@@ -89,7 +92,7 @@ class TutorialCelebrations {
                 position: absolute;
                 top: -30px;
                 right: 10px;
-                color: #00ff00;
+                color: rgba(0, 255, 0, 0.9);
                 font-weight: bold;
                 font-size: 14px;
                 animation: xp-gain-float 2s ease-out forwards;

@@ -186,7 +186,7 @@ class EmptyStatesEnhanced {
                 text-align: center;
                 padding: 40px 20px;
                 background: linear-gradient(135deg, rgba(0, 255, 0, 0.05), rgba(0, 204, 0, 0.05));
-                border: 2px dashed #00ff00;
+                border: 2px dashed rgba(0, 255, 0, 0.6);
                 border-radius: 12px;
                 margin: 20px 0;
                 position: relative;
@@ -212,7 +212,7 @@ class EmptyStatesEnhanced {
             }
             
             .empty-state-title {
-                color: #00ff00;
+                color: rgba(0, 255, 0, 0.8);
                 font-size: 24px;
                 font-weight: bold;
                 margin-bottom: 15px;
@@ -253,7 +253,7 @@ class EmptyStatesEnhanced {
             
             .empty-state-encouragement {
                 margin-top: 20px;
-                color: #00ff00;
+                color: rgba(0, 255, 0, 0.8);
                 font-style: italic;
                 font-size: 14px;
                 animation: empty-state-fade-in 1s ease-out 0.6s both;
@@ -273,7 +273,7 @@ class EmptyStatesEnhanced {
                 position: absolute;
                 width: 4px;
                 height: 4px;
-                background: #00ff00;
+                background: rgba(0, 255, 0, 0.8);
                 border-radius: 50%;
                 animation: empty-state-particle-float 4s ease-in-out infinite;
             }

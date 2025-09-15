@@ -36,7 +36,7 @@ class VisualGuidance {
             }
             
             .guidance-glow {
-                box-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 60px #00ff00;
+                box-shadow: 0 0 20px rgba(0, 255, 0, 0.5), 0 0 40px rgba(0, 255, 0, 0.3), 0 0 60px rgba(0, 255, 0, 0.2);
                 animation: guidance-glow 2s ease-in-out infinite;
             }
             
@@ -46,7 +46,7 @@ class VisualGuidance {
                 left: 50%;
                 transform: translateX(-50%);
                 font-size: 24px;
-                color: #00ff00;
+                color: rgba(0, 255, 0, 0.8);
                 animation: guidance-arrow-bounce 1s ease-in-out infinite;
                 z-index: 1001;
             }
@@ -78,8 +78,8 @@ class VisualGuidance {
             }
             
             @keyframes guidance-glow {
-                0%, 100% { box-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 60px #00ff00; }
-                50% { box-shadow: 0 0 30px #00ff00, 0 0 50px #00ff00, 0 0 80px #00ff00; }
+                0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 0, 0.5), 0 0 40px rgba(0, 255, 0, 0.3), 0 0 60px rgba(0, 255, 0, 0.2); }
+                50% { box-shadow: 0 0 30px rgba(0, 255, 0, 0.6), 0 0 50px rgba(0, 255, 0, 0.4), 0 0 80px rgba(0, 255, 0, 0.3); }
             }
             
             @keyframes guidance-arrow-bounce {

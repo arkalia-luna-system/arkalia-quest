@@ -33,7 +33,7 @@ class RewardAnimations {
             }
             
             .reward-popup {
-                background: linear-gradient(45deg, #00ff00, #00cc00);
+                background: linear-gradient(45deg, rgba(0, 255, 0, 0.8), rgba(0, 204, 0, 0.8));
                 color: #000;
                 padding: 20px 30px;
                 border-radius: 15px;
@@ -78,7 +78,7 @@ class RewardAnimations {
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                background: linear-gradient(45deg, #00ff00, #00cc00);
+                background: linear-gradient(45deg, rgba(0, 255, 0, 0.8), rgba(0, 204, 0, 0.8));
                 color: #000;
                 padding: 10px 20px;
                 border-radius: 20px;
@@ -105,7 +105,7 @@ class RewardAnimations {
             }
             
             .level-up-content {
-                background: linear-gradient(45deg, #00ff00, #00cc00);
+                background: linear-gradient(45deg, rgba(0, 255, 0, 0.8), rgba(0, 204, 0, 0.8));
                 color: #000;
                 padding: 40px 60px;
                 border-radius: 30px;
@@ -143,7 +143,7 @@ class RewardAnimations {
                 position: absolute;
                 width: 8px;
                 height: 8px;
-                background: #00ff00;
+                background: rgba(0, 255, 0, 0.8);
                 animation: reward-confetti-fall 3s ease-out forwards;
             }
             
@@ -151,7 +151,7 @@ class RewardAnimations {
                 position: absolute;
                 width: 6px;
                 height: 6px;
-                background: #00ff00;
+                background: rgba(0, 255, 0, 0.8);
                 border-radius: 50%;
                 animation: reward-particles-burst 2s ease-out forwards;
             }
@@ -159,7 +159,7 @@ class RewardAnimations {
             .reward-stars {
                 position: absolute;
                 font-size: 24px;
-                color: #00ff00;
+                color: rgba(0, 255, 0, 0.9);
                 animation: reward-stars-burst 2s ease-out forwards;
             }
             
@@ -167,7 +167,7 @@ class RewardAnimations {
                 position: fixed;
                 top: 20px;
                 right: 20px;
-                background: linear-gradient(45deg, #00ff00, #00cc00);
+                background: linear-gradient(45deg, rgba(0, 255, 0, 0.8), rgba(0, 204, 0, 0.8));
                 color: #000;
                 padding: 10px 20px;
                 border-radius: 25px;
@@ -211,7 +211,7 @@ class RewardAnimations {
             .level-up-text {
                 font-size: 48px;
                 font-weight: bold;
-                color: #00ff00;
+                color: rgba(0, 255, 0, 0.9);
                 text-align: center;
                 animation: level-up-text-grow 2s ease-out;
                 text-shadow: 0 0 20px #00ff00;

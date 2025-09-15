@@ -19,6 +19,39 @@
             transparent 0%,
             rgba(0, 255, 0, 0.1) 50%,
             transparent 100%);
+    --matrix-code-pattern: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2300ff00' fill-opacity='0.02'%3E%3Ctext x='5' y='15' font-family='monospace' font-size='8'%3E0101%3C/text%3E%3Ctext x='5' y='25' font-family='monospace' font-size='8'%3E1010%3C/text%3E%3Ctext x='5' y='35' font-family='monospace' font-size='8'%3E0101%3C/text%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Motifs de code Matrix animés */
+.matrix-theme .card,
+.matrix-theme .container {
+    position: relative;
+}
+
+.matrix-theme .card::before,
+.matrix-theme .container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: var(--matrix-code-pattern);
+    background-size: 40px 40px;
+    opacity: 0.1;
+    animation: matrixCodeFlow 15s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes matrixCodeFlow {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(40px);
+    }
 }
 
 .matrix-theme body {
@@ -64,6 +97,44 @@
 /* ===== THÈME NEON - MOTIFS ÉLECTRIQUES ===== */
 .neon-theme {
     --pattern-bg: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ff00ff' fill-opacity='0.03'%3E%3Cpath d='M0 0h40v40H0V0zm20 20h20v20H20V20z'/%3E%3Cpath d='M0 20h40v20H0V20z'/%3E%3Cpath d='M20 0h20v40H20V0z'/%3E%3C/g%3E%3C/svg%3E");
+    --neon-circuit-pattern: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ff00ff' fill-opacity='0.02'%3E%3Cpath d='M10 10h10v2h-10z'/%3E%3Cpath d='M20 10h2v10h-2z'/%3E%3Cpath d='M20 20h10v2h-10z'/%3E%3Cpath d='M30 20h2v10h-2z'/%3E%3Cpath d='M30 30h10v2h-10z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Motifs de circuit Neon */
+.neon-theme .card,
+.neon-theme .container {
+    position: relative;
+}
+
+.neon-theme .card::before,
+.neon-theme .container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: var(--neon-circuit-pattern);
+    background-size: 60px 60px;
+    opacity: 0.1;
+    animation: neonCircuitPulse 8s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes neonCircuitPulse {
+
+    0%,
+    100% {
+        opacity: 0.1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}
+
+.neon-theme {
     --pattern-overlay: linear-gradient(90deg,
             transparent 0%,
             rgba(255, 0, 255, 0.02) 25%,

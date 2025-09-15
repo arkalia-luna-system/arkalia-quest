@@ -2,31 +2,93 @@
 
 /* ===== ANIMATIONS DE RÉCOMPENSE ===== */
 
-/* Animation de niveau up */
+/* Animation de niveau up améliorée */
 @keyframes levelUp {
     0% {
         transform: scale(1) rotate(0deg);
         opacity: 1;
+        filter: brightness(1);
     }
 
     25% {
-        transform: scale(1.2) rotate(5deg);
-        opacity: 0.8;
+        transform: scale(1.3) rotate(8deg);
+        opacity: 0.9;
+        filter: brightness(1.5);
     }
 
     50% {
-        transform: scale(1.4) rotate(-5deg);
+        transform: scale(1.6) rotate(-8deg);
         opacity: 1;
+        filter: brightness(2);
     }
 
     75% {
-        transform: scale(1.2) rotate(3deg);
-        opacity: 0.9;
+        transform: scale(1.3) rotate(5deg);
+        opacity: 0.95;
+        filter: brightness(1.5);
     }
 
     100% {
         transform: scale(1) rotate(0deg);
         opacity: 1;
+        filter: brightness(1);
+    }
+}
+
+/* Animation de confetti améliorée */
+@keyframes confettiBurst {
+    0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.5) rotate(180deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(0.8) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Animation de particules lumineuses */
+@keyframes lightParticles {
+    0% {
+        transform: scale(0) translateY(0);
+        opacity: 1;
+        filter: brightness(2);
+    }
+
+    50% {
+        transform: scale(1.2) translateY(-20px);
+        opacity: 1;
+        filter: brightness(3);
+    }
+
+    100% {
+        transform: scale(0) translateY(-40px);
+        opacity: 0;
+        filter: brightness(1);
+    }
+}
+
+/* Animation de son visuel */
+@keyframes soundWave {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.5);
+        opacity: 0.4;
+    }
+
+    100% {
+        transform: scale(2);
+        opacity: 0;
     }
 }
 

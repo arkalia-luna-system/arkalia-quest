@@ -283,6 +283,91 @@
             transform: translateX(5px);
         }
 
+        /* Styling spécial pour les 3 premiers rangs */
+        .leaderboard-table tr:nth-child(1) {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 193, 7, 0.05));
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+
+        .leaderboard-table tr:nth-child(1) td {
+            color: #FFD700;
+            font-weight: 700;
+        }
+
+        .leaderboard-table tr:nth-child(1) .rank-cell {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #000;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            font-size: 1.4em;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .leaderboard-table tr:nth-child(2) {
+            background: linear-gradient(135deg, rgba(192, 192, 192, 0.1), rgba(169, 169, 169, 0.05));
+            border: 2px solid rgba(192, 192, 192, 0.3);
+            box-shadow: 0 0 15px rgba(192, 192, 192, 0.2);
+        }
+
+        .leaderboard-table tr:nth-child(2) td {
+            color: #C0C0C0;
+            font-weight: 600;
+        }
+
+        .leaderboard-table tr:nth-child(2) .rank-cell {
+            background: linear-gradient(135deg, #C0C0C0, #A9A9A9);
+            color: #000;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            font-size: 1.2em;
+            box-shadow: 0 0 10px rgba(192, 192, 192, 0.4);
+        }
+
+        .leaderboard-table tr:nth-child(3) {
+            background: linear-gradient(135deg, rgba(205, 127, 50, 0.1), rgba(184, 115, 51, 0.05));
+            border: 2px solid rgba(205, 127, 50, 0.3);
+            box-shadow: 0 0 15px rgba(205, 127, 50, 0.2);
+        }
+
+        .leaderboard-table tr:nth-child(3) td {
+            color: #CD7F32;
+            font-weight: 600;
+        }
+
+        .leaderboard-table tr:nth-child(3) .rank-cell {
+            background: linear-gradient(135deg, #CD7F32, #B87333);
+            color: #000;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            font-size: 1.2em;
+            box-shadow: 0 0 10px rgba(205, 127, 50, 0.4);
+        }
+
+        /* Alternance de couleurs pour les autres rangs */
+        .leaderboard-table tr:nth-child(even):not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)) {
+            background: rgba(167, 139, 250, 0.03);
+        }
+
+        .leaderboard-table tr:nth-child(odd):not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)) {
+            background: rgba(96, 165, 250, 0.03);
+        }
+
         .rank-cell {
             text-align: center;
             font-family: 'Cormorant', serif;

@@ -197,6 +197,35 @@ button:focus,
     }
 }
 
+/* Animation de disparition améliorée */
+@keyframes modalDisappear {
+    from {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.9) translateY(-20px);
+    }
+}
+
+/* Classes pour les transitions fluides */
+.modal-perfect.fade-out,
+.popup-perfect.fade-out {
+    animation: modalDisappear var(--transition-smooth) ease-in;
+}
+
+/* Amélioration des transitions de popup */
+.popup-perfect {
+    transition: all var(--transition-smooth);
+}
+
+.popup-perfect:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 255, 0, 0.2);
+}
+
 /* ===== ZONES VIDES ÉLÉGANTES ===== */
 .empty-state-perfect {
     padding: var(--spacing-xxl) var(--spacing-xl);

@@ -224,9 +224,27 @@ class SmartNotificationsEnhanced {
         }
     }
 
-    showSmartNotification(message, type = 'info', duration = 4000) {
+    showSmartNotification(message, type = 'info', duration = 4000, context = {}) {
         // Vérifier si le message est en cooldown
         if (this.isInCooldown(message)) {
+            return;
+        }
+
+        // Vérifier si c'est un message de chargement sans action utilisateur
+        if (type === 'loading' && !context.isUserAction) {
+            console.log('Message de chargement sans action utilisateur, ignoré');
+            return;
+        }
+
+        // Vérifier si c'est un message de profil sans modification
+        if (type === 'profile' && !context.profileChanged) {
+            console.log('Message de profil sans modification, ignoré');
+            return;
+        }
+
+        // Vérifier si c'est un rechargement de page
+        if (context.isFirstLoad) {
+            console.log('Premier chargement, pas de notification');
             return;
         }
 

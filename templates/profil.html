@@ -26,6 +26,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/interface-improvements.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/empty-states.css') }}">
 
+    <!-- Nouveaux CSS V3 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/themes.css') }}?v=3.2.0">
+
     <!-- Composants modernes pour ado -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/teen-modern-components.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/game-interface.css') }}">
@@ -587,6 +590,9 @@
                     <a href="/profil" class="nav-link active">👤 PROFIL</a>
                     <a href="/leaderboard" class="nav-link">🏆 CLASSEMENT</a>
                     <a href="/dashboard" class="nav-link">📊 DASHBOARD</a>
+                    <button class="nav-link daily-challenges-btn" onclick="dailyChallenges.show()">🎯 DÉFIS
+                        QUOTIDIENS</button>
+                    <button class="nav-link theme-btn" onclick="themeManager.show()">🎨 THÈMES</button>
                 </div>
             </div>
         </nav>
@@ -715,6 +721,10 @@
     <script src="{{ url_for('static', filename='js/performance-ux-optimizer.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bug-fixes.js') }}"></script>
     <script src="{{ url_for('static', filename='js/reward-system.js') }}"></script>
+
+    <!-- Nouveaux scripts V3 -->
+    <script src="{{ url_for('static', filename='js/theme-manager.js') }}?v=3.2.0"></script>
+    <script src="{{ url_for('static', filename='js/daily-challenges.js') }}?v=3.2.0"></script>
     <script src="{{ url_for('static', filename='js/system-integrator.js') }}"></script>
 
     <script>

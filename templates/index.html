@@ -44,6 +44,16 @@
         onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="{{ url_for('static', filename='css/progression-animations.css') }}?v=3.1.1" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/adaptive-guidance.css') }}?v=3.1.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/progression-feedback.css') }}?v=3.1.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/competitive-system.css') }}?v=3.1.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/creative-system.css') }}?v=3.1.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/casual-system.css') }}?v=3.1.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="{{ url_for('static', filename='css/mini-games.css') }}" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="{{ url_for('static', filename='css/animations-optimized.css') }}" as="style"
@@ -616,8 +626,13 @@
                 '{{ url_for("static", filename="js/performance-ux-optimizer.js") }}',
                 '{{ url_for("static", filename="js/bug-fixes.js") }}',
                 '{{ url_for("static", filename="js/reward-system.js") }}',
-                '{{ url_for("static", filename="js/loading-manager.js") }}',
-                '{{ url_for("static", filename="js/system-integrator.js") }}'
+                 '{{ url_for("static", filename="js/loading-manager.js") }}',
+                 '{{ url_for("static", filename="js/adaptive-guidance.js") }}',
+                 '{{ url_for("static", filename="js/progression-feedback.js") }}',
+                 '{{ url_for("static", filename="js/competitive-system.js") }}',
+                 '{{ url_for("static", filename="js/creative-system.js") }}',
+                 '{{ url_for("static", filename="js/casual-system.js") }}',
+                 '{{ url_for("static", filename="js/system-integrator.js") }}'
             ];
 
             scripts.forEach((src, index) => {

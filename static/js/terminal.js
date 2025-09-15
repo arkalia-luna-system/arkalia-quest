@@ -1022,7 +1022,21 @@ function executeCommand(cmdOverride) {
         return;
     }
 
-    // Les easter eggs sont maintenant vérifiés dans sendCommand
+    // Vérifier les easter eggs AVANT l'envoi au serveur
+    const easterEggResponse = checkEasterEggs(command);
+    if (easterEggResponse) {
+        // Ajouter à l'historique
+        commandHistory.push(command);
+        historyIndex = commandHistory.length;
+        // Afficher la commande
+        addCommandMessage(command);
+        // Afficher la réponse easter egg
+        addSystemMessage(easterEggResponse);
+        // Vider l'input
+        if (input) input.value = '';
+        return; // Ne pas envoyer au serveur
+    }
+
     // Ajouter à l'historique
     commandHistory.push(command);
     historyIndex = commandHistory.length;

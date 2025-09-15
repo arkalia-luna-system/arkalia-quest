@@ -648,6 +648,17 @@ def check_rate_limit(ip_address):
     return True
 
 
+@app.route("/test-commande", methods=["POST"])
+def test_commande():
+    """Route de test simple pour debugger"""
+    try:
+        data = request.get_json()
+        cmd = data.get("commande", "") if data else ""
+        return jsonify({"status": "ok", "commande": cmd, "message": "Test réussi"})
+    except Exception as e:
+        return jsonify({"status": "error", "error": str(e)}), 500
+
+
 @app.route("/commande", methods=["POST"])
 def commande():
     # Rate limiting
@@ -785,7 +796,7 @@ def commande():
 
             # Vérifier les badges secrets et achievements
             unlocked_badges = gamification.check_badges_secrets(
-                profil.get("id", "default"), profil, "command_used", command=cmd
+                profil, "command_used", command=cmd
             )
             unlocked_achievements = gamification.check_achievements(
                 profil.get("id", "default"), profil, "command_used", command=cmd

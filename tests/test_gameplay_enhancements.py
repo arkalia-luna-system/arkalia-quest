@@ -45,9 +45,7 @@ class TestGameplayEnhancements(unittest.TestCase):
         ]
 
         for js_file in js_files:
-            self.assertTrue(
-                os.path.exists(js_file), f"Le fichier {js_file} n'existe pas"
-            )
+            self.assertTrue(os.path.exists(js_file), f"Le fichier {js_file} n'existe pas")
 
     def test_css_files_exist(self):
         """Test de l'existence des fichiers CSS"""
@@ -61,9 +59,7 @@ class TestGameplayEnhancements(unittest.TestCase):
         ]
 
         for css_file in css_files:
-            self.assertTrue(
-                os.path.exists(css_file), f"Le fichier {css_file} n'existe pas"
-            )
+            self.assertTrue(os.path.exists(css_file), f"Le fichier {css_file} n'existe pas")
 
     def test_html_integration(self):
         """Test de l'intégration dans le fichier HTML"""
@@ -81,9 +77,7 @@ class TestGameplayEnhancements(unittest.TestCase):
         ]
 
         for css_link in css_links:
-            self.assertIn(
-                css_link, html_content, f"Le lien CSS {css_link} n'est pas inclus"
-            )
+            self.assertIn(css_link, html_content, f"Le lien CSS {css_link} n'est pas inclus")
 
         # Vérifier que les scripts JavaScript sont inclus
         js_scripts = [
@@ -96,9 +90,7 @@ class TestGameplayEnhancements(unittest.TestCase):
         ]
 
         for js_script in js_scripts:
-            self.assertIn(
-                js_script, html_content, f"Le script {js_script} n'est pas inclus"
-            )
+            self.assertIn(js_script, html_content, f"Le script {js_script} n'est pas inclus")
 
     def test_zone_exploration_structure(self):
         """Test de la structure des données d'exploration des zones"""
@@ -243,9 +235,7 @@ class TestGameplayEnhancements(unittest.TestCase):
         ]
 
         for system in systems:
-            self.assertIn(
-                system, integration_content, f"Le système {system} n'est pas intégré"
-            )
+            self.assertIn(system, integration_content, f"Le système {system} n'est pas intégré")
 
     def test_responsive_design(self):
         """Test de la conception responsive"""

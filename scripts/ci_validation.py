@@ -22,9 +22,7 @@ class CIValidator:
         """Exécute une commande et gère les erreurs"""
         print(f"🔍 {description}...")
         try:
-            result = subprocess.run(
-                command, shell=True, capture_output=True, text=True, check=True
-            )
+            result = subprocess.run(command, shell=True, capture_output=True, text=True, check=True)
             print(f"✅ {description} - SUCCÈS")
             return result.stdout
         except subprocess.CalledProcessError as e:
@@ -42,9 +40,7 @@ class CIValidator:
 
     def validate_black(self):
         """Valide le formatage avec Black"""
-        return self.run_command(
-            "black --check . --diff", "Vérification Black (Formatage)"
-        )
+        return self.run_command("black --check . --diff", "Vérification Black (Formatage)")
 
     def validate_tests(self):
         """Valide l'exécution des tests"""
@@ -101,9 +97,7 @@ class CIValidator:
                         try:
                             coverage = float(line.split()[-1].replace("%", ""))
                             if coverage < 10.0:
-                                self.errors.append(
-                                    f"Couverture insuffisante: {coverage}% < 10%"
-                                )
+                                self.errors.append(f"Couverture insuffisante: {coverage}% < 10%")
                                 self.success = False
                             else:
                                 print(f"✅ Couverture de code: {coverage}% (>= 10%)")

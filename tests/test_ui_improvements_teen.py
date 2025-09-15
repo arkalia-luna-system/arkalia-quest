@@ -51,9 +51,7 @@ class TeenUXImprovementsTester:
                 if response_data.get("réussite", False):
                     test["success"] = True
                     test["score"] += 25
-                    test["features_tested"].append(
-                        "Commande daily_challenges fonctionne"
-                    )
+                    test["features_tested"].append("Commande daily_challenges fonctionne")
 
                     # Vérifier le contenu des défis
                     message = response_data.get("message", "")
@@ -70,9 +68,7 @@ class TeenUXImprovementsTester:
                     # Vérifier les barres de progression
                     if "█" in message and "░" in message:
                         test["score"] += 25
-                        test["features_tested"].append(
-                            "Barres de progression visuelles"
-                        )
+                        test["features_tested"].append("Barres de progression visuelles")
                     else:
                         test["issues"].append("Barres de progression manquantes")
 
@@ -119,28 +115,20 @@ class TeenUXImprovementsTester:
                     message = response_data.get("message", "")
                     if "Surprise LUNA" in message:
                         test["score"] += 25
-                        test["features_tested"].append(
-                            "Événement Surprise LUNA présent"
-                        )
+                        test["features_tested"].append("Événement Surprise LUNA présent")
                     if "Badge Secret" in message:
                         test["score"] += 25
                         test["features_tested"].append("Événement Badge Secret présent")
                     if "Glitch Matrix" in message:
                         test["score"] += 25
-                        test["features_tested"].append(
-                            "Événement Glitch Matrix présent"
-                        )
+                        test["features_tested"].append("Événement Glitch Matrix présent")
 
                     # Vérifier les informations de déclenchement
                     if "Déclencheur" in message and "Chance" in message:
                         test["score"] += 25
-                        test["features_tested"].append(
-                            "Informations de déclenchement présentes"
-                        )
+                        test["features_tested"].append("Informations de déclenchement présentes")
                     else:
-                        test["issues"].append(
-                            "Informations de déclenchement manquantes"
-                        )
+                        test["issues"].append("Informations de déclenchement manquantes")
 
                 else:
                     test["issues"].append("Commande random_events échouée")
@@ -182,9 +170,7 @@ class TeenUXImprovementsTester:
                     # Vérifier la progression de mission
                     if "mission_progress" in response_data:
                         test["score"] += 25
-                        test["features_tested"].append(
-                            "Progression de mission présente"
-                        )
+                        test["features_tested"].append("Progression de mission présente")
                     else:
                         test["issues"].append("Progression de mission manquante")
 
@@ -258,9 +244,7 @@ class TeenUXImprovementsTester:
                     message = data.get("message", "")
                     if "1/3 étapes" in message:
                         test["score"] += 25
-                        test["features_tested"].append(
-                            "Progression visuelle hack présente"
-                        )
+                        test["features_tested"].append("Progression visuelle hack présente")
                     else:
                         test["issues"].append("Progression visuelle hack manquante")
 

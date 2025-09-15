@@ -59,9 +59,7 @@ class MicroInteractionsEngine:
         try:
             os.makedirs("data", exist_ok=True)
 
-            with open(
-                os.path.join("data", "user_preferences.json"), "w", encoding="utf-8"
-            ) as f:
+            with open(os.path.join("data", "user_preferences.json"), "w", encoding="utf-8") as f:
                 json.dump(self.user_preferences, f, indent=2, ensure_ascii=False)
 
             logger.info("✅ Données d'interactions sauvegardées")
@@ -634,9 +632,7 @@ class MicroInteractionsEngine:
 
         # Traiter les notifications
         processed_notifications = []
-        for item in self.notification_queue[
-            :2
-        ]:  # Traiter max 2 notifications à la fois
+        for item in self.notification_queue[:2]:  # Traiter max 2 notifications à la fois
             notification_data = self.generate_notification_data(item["interaction"])
             processed_notifications.append(notification_data)
 

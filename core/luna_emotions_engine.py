@@ -476,9 +476,7 @@ class LunaEmotionsEngine:
 
     def _get_action_frequency(self, action: str) -> int:
         """Calcule la fréquence d'une action"""
-        recent_actions = [
-            h["context"]["action_type"] for h in self.emotion_history[-10:]
-        ]
+        recent_actions = [h["context"]["action_type"] for h in self.emotion_history[-10:]]
         return recent_actions.count(self._classify_action(action))
 
     def _create_emotional_variety(

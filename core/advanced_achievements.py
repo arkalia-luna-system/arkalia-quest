@@ -41,9 +41,7 @@ class AdvancedAchievements:
                 self.player_achievements = data.get("player_achievements", {})
                 self.achievement_triggers = data.get("achievement_triggers", {})
         except FileNotFoundError:
-            logger.info(
-                "Fichier d'achievements non trouvé, création des données par défaut"
-            )
+            logger.info("Fichier d'achievements non trouvé, création des données par défaut")
             self._create_default_achievements()
         except Exception as e:
             logger.error(f"Erreur chargement achievements: {e}")
@@ -448,9 +446,7 @@ class AdvancedAchievements:
                 continue  # Déjà débloqué
 
             # Vérifier si l'achievement peut être débloqué
-            if self._check_achievement_requirements(
-                player_id, achievement, action, context
-            ):
+            if self._check_achievement_requirements(player_id, achievement, action, context):
                 # Débloquer l'achievement
                 self._unlock_achievement(player_id, achievement_id, achievement)
                 new_achievements.append(achievement)
@@ -471,17 +467,13 @@ class AdvancedAchievements:
         if req_type == "action_count":
             return self._check_action_count_requirement(player_id, requirements, action)
         elif req_type == "consecutive_success":
-            return self._check_consecutive_success_requirement(
-                player_id, requirements, action
-            )
+            return self._check_consecutive_success_requirement(player_id, requirements, action)
         elif req_type == "zone_discovery":
             return self._check_zone_discovery_requirement(player_id, requirements)
         elif req_type == "secret_count":
             return self._check_secret_count_requirement(player_id, requirements)
         elif req_type == "unique_interactions":
-            return self._check_unique_interactions_requirement(
-                player_id, requirements, action
-            )
+            return self._check_unique_interactions_requirement(player_id, requirements, action)
         elif req_type == "guild_leadership":
             return self._check_guild_leadership_requirement(player_id, requirements)
         elif req_type == "game_completion":
@@ -493,15 +485,11 @@ class AdvancedAchievements:
         elif req_type == "speed_challenge":
             return self._check_speed_challenge_requirement(player_id, requirements)
         elif req_type == "single_speed_challenge":
-            return self._check_single_speed_challenge_requirement(
-                player_id, requirements
-            )
+            return self._check_single_speed_challenge_requirement(player_id, requirements)
         elif req_type == "creative_solutions":
             return self._check_creative_solutions_requirement(player_id, requirements)
         elif req_type == "unexpected_solution":
-            return self._check_unexpected_solution_requirement(
-                player_id, requirements, context
-            )
+            return self._check_unexpected_solution_requirement(player_id, requirements, context)
         elif req_type == "retry_count":
             return self._check_retry_count_requirement(player_id, requirements)
         elif req_type == "comeback_success":
@@ -528,9 +516,7 @@ class AdvancedAchievements:
             }
 
         progress_key = f"action_count_{required_action}"
-        current_count = self.player_achievements[player_id]["progress"].get(
-            progress_key, 0
-        )
+        current_count = self.player_achievements[player_id]["progress"].get(progress_key, 0)
         current_count += 1
         self.player_achievements[player_id]["progress"][progress_key] = current_count
 
@@ -561,9 +547,7 @@ class AdvancedAchievements:
         # À implémenter selon les besoins
         return True
 
-    def _check_secret_count_requirement(
-        self, player_id: str, requirements: dict[str, Any]
-    ) -> bool:
+    def _check_secret_count_requirement(self, player_id: str, requirements: dict[str, Any]) -> bool:
         """Vérifie les exigences de comptage de secrets"""
         requirements.get("count", 1)
 
@@ -656,9 +640,7 @@ class AdvancedAchievements:
 
         return creativity_score >= required_score
 
-    def _check_retry_count_requirement(
-        self, player_id: str, requirements: dict[str, Any]
-    ) -> bool:
+    def _check_retry_count_requirement(self, player_id: str, requirements: dict[str, Any]) -> bool:
         """Vérifie les exigences de comptage de tentatives"""
         # Logique pour vérifier le comptage de tentatives
         # À implémenter selon les besoins
@@ -696,9 +678,7 @@ class AdvancedAchievements:
         # Mettre à jour les statistiques
         self._update_player_statistics(player_id, achievement)
 
-    def _update_player_statistics(
-        self, player_id: str, achievement: dict[str, Any]
-    ) -> None:
+    def _update_player_statistics(self, player_id: str, achievement: dict[str, Any]) -> None:
         """Met à jour les statistiques du joueur"""
         if "statistics" not in self.player_achievements[player_id]:
             self.player_achievements[player_id]["statistics"] = {}
@@ -735,17 +715,13 @@ class AdvancedAchievements:
 
         return player_data
 
-    def get_achievement_leaderboard(
-        self, category: Optional[str] = None
-    ) -> list[dict[str, Any]]:
+    def get_achievement_leaderboard(self, category: Optional[str] = None) -> list[dict[str, Any]]:
         """Retourne le classement des achievements"""
         leaderboard = []
 
         for player_id, player_data in self.player_achievements.items():
             total_points = player_data.get("statistics", {}).get("total_points", 0)
-            total_achievements = player_data.get("statistics", {}).get(
-                "total_achievements", 0
-            )
+            total_achievements = player_data.get("statistics", {}).get("total_achievements", 0)
 
             if category:
                 category_achievements = player_data.get("statistics", {}).get(
@@ -763,9 +739,7 @@ class AdvancedAchievements:
                         "total_points": total_points,
                         "total_achievements": total_achievements,
                         "category_score": (
-                            player_data.get("statistics", {}).get(
-                                f"{category}_achievements", 0
-                            )
+                            player_data.get("statistics", {}).get(f"{category}_achievements", 0)
                             if category
                             else 0
                         ),

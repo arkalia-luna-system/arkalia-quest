@@ -23,9 +23,7 @@ class LongTermMemory:
         self.memory_index = {}
         self.importance_weights = {}
 
-    def store_interaction(
-        self, user_input: str, response: str, outcome: dict[str, Any]
-    ):
+    def store_interaction(self, user_input: str, response: str, outcome: dict[str, Any]):
         """Stocke une interaction avec pondération d'importance"""
         memory = {
             "timestamp": datetime.now().isoformat(),
@@ -150,9 +148,7 @@ class PersonalityEvolution:
 
     def get_dominant_traits(self) -> list[str]:
         """Retourne les traits dominants"""
-        sorted_traits = sorted(
-            self.base_traits.items(), key=lambda x: x[1], reverse=True
-        )
+        sorted_traits = sorted(self.base_traits.items(), key=lambda x: x[1], reverse=True)
         return [trait for trait, _ in sorted_traits[:3]]
 
 
@@ -378,9 +374,7 @@ class LunaAIV3:
         """Génère une réponse ultra-personnalisée"""
         try:
             # Analyser le contexte et l'émotion
-            context = self._analyze_advanced_context(
-                user_input, user_profile, game_context
-            )
+            context = self._analyze_advanced_context(user_input, user_profile, game_context)
             emotion = self._determine_emotion(user_input, context)
 
             # Rechercher dans la mémoire
@@ -392,9 +386,7 @@ class LunaAIV3:
             )
 
             # Prédire la prochaine action
-            prediction = self.predictive.predict_next_action(
-                user_profile.get("id", "default")
-            )
+            prediction = self.predictive.predict_next_action(user_profile.get("id", "default"))
 
             # Apprendre de l'interaction
             self._learn_from_interaction(user_input, response, context, emotion)
@@ -431,15 +423,11 @@ class LunaAIV3:
     ) -> dict[str, Any]:
         """Analyse contextuelle avancée"""
         context = {
-            "user_personality": user_profile.get("personnalite", {}).get(
-                "type", "non_detecte"
-            ),
+            "user_personality": user_profile.get("personnalite", {}).get("type", "non_detecte"),
             "user_level": user_profile.get("level", 1),
             "user_score": user_profile.get("score", 0),
             "user_badges": user_profile.get("badges", []),
-            "current_mission": (
-                game_context.get("current_mission") if game_context else None
-            ),
+            "current_mission": (game_context.get("current_mission") if game_context else None),
             "message_type": self._classify_message_type(user_input),
             "message_complexity": self._calculate_complexity(user_input),
             "emotional_tone": self._detect_emotional_tone(user_input),
@@ -520,9 +508,7 @@ class LunaAIV3:
             return "worried"
         elif message_type == "game_request":
             return "playful"
-        elif context.get("current_mission") and "secret" in str(
-            context.get("current_mission")
-        ):
+        elif context.get("current_mission") and "secret" in str(context.get("current_mission")):
             return "mysterious"
         else:
             # Utiliser les traits de personnalité pour influencer l'émotion
@@ -561,13 +547,9 @@ class LunaAIV3:
                 base_response += f" Je me souviens de notre conversation sur {memory_ref['context'].get('topic', 'ce sujet')}. "
 
         # Ajouter des suggestions prédictives
-        prediction = self.predictive.predict_next_action(
-            context.get("user_id", "default")
-        )
+        prediction = self.predictive.predict_next_action(context.get("user_id", "default"))
         if prediction["confidence"] > 0.6:
-            base_response += (
-                f" Je pense que tu aimerais {prediction['suggested_content']} ! "
-            )
+            base_response += f" Je pense que tu aimerais {prediction['suggested_content']} ! "
 
         return base_response
 
@@ -585,8 +567,7 @@ class LunaAIV3:
 
         # Calculer le niveau d'adaptation
         success_rate = (
-            self.learning_data["successful_interactions"]
-            / self.learning_data["total_interactions"]
+            self.learning_data["successful_interactions"] / self.learning_data["total_interactions"]
         )
         self.learning_data["adaptation_level"] = success_rate
 
@@ -604,9 +585,7 @@ class LunaAIV3:
         # Mettre à jour la personnalité
         self.personality.update_traits(outcome)
 
-        logger.info(
-            f"🧠 LUNA V3 a appris: adaptation={self.learning_data['adaptation_level']:.2f}"
-        )
+        logger.info(f"🧠 LUNA V3 a appris: adaptation={self.learning_data['adaptation_level']:.2f}")
 
     def get_learning_stats(self) -> dict[str, Any]:
         """Retourne les statistiques d'apprentissage"""

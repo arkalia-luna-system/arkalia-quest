@@ -68,10 +68,11 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/ui-perfection.css') }}?v=3.3.1">
     </noscript>
 
-    <!-- Systèmes UX avancés -->
-    <script src="{{ url_for('static', filename='js/smart-notifications.js') }}?v=3.3.0"></script>
-    <script src="{{ url_for('static', filename='js/smart-empty-states.js') }}?v=3.3.0"></script>
-    <script src="{{ url_for('static', filename='js/enhanced-feedback.js') }}?v=3.3.0"></script>
+    <!-- Systèmes Universels Unifiés V4.0.0 -->
+    <!-- Remplace 10+ fichiers redondants par 3 systèmes unifiés -->
+    <script src="{{ url_for('static', filename='js/universal-notifications.js') }}?v=4.0.0"></script>
+    <script src="{{ url_for('static', filename='js/universal-empty-states.js') }}?v=4.0.0"></script>
+    <script src="{{ url_for('static', filename='js/universal-feedback.js') }}?v=4.0.0"></script>
     <script src="{{ url_for('static', filename='js/ui-perfection.js') }}?v=3.3.1"></script>
 
     <!-- CSS critiques chargés immédiatement -->
@@ -122,6 +123,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/timer-challenges.css') }}?v=3.6.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/interactive-puzzles.css') }}?v=3.6.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/gameplay-integration.css') }}?v=3.6.0">
+
+    <!-- CSS du gestionnaire de popups -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/popup-manager.css') }}?v=3.7.0">
 
     <style>
         /* Styles spécifiques au portail d'accueil */
@@ -765,13 +769,10 @@
     <script src="{{ url_for('static', filename='js/visual-guidance.js') }}?v=3.3.0" defer></script>
     <script src="{{ url_for('static', filename='js/tutorial-celebrations.js') }}?v=3.3.0" defer></script>
     <script src="{{ url_for('static', filename='js/mini-games-interactive.js') }}?v=3.3.0"></script>
-    <script src="{{ url_for('static', filename='js/empty-states-enhanced.js') }}?v=3.3.0" defer></script>
     <script src="{{ url_for('static', filename='js/reward-animations.js') }}?v=3.3.0" defer></script>
     <script src="{{ url_for('static', filename='js/luna-enhanced.js') }}?v=3.3.0" defer></script>
 
     <!-- Scripts de perfection avancés -->
-    <script src="{{ url_for('static', filename='js/smart-notifications-enhanced.js') }}?v=3.4.0"></script>
-    <script src="{{ url_for('static', filename='js/accessibility-feedback.js') }}?v=3.4.0"></script>
 
     <!-- Scripts des corrections d'audit visuel -->
     <script src="{{ url_for('static', filename='js/audit-visual-enhancements.js') }}?v=3.5.0"></script>
@@ -873,6 +874,15 @@
                 console.log('🎮 Gameplay Integration initialisé');
             }
 
+            // Initialiser les systèmes de gestion des popups
+            if (window.popupManager) {
+                console.log('🎭 Popup Manager initialisé');
+            }
+
+            if (window.popupCoordinator) {
+                console.log('🎭 Popup Coordinator initialisé');
+            }
+
             if (window.accessibilityFeedback) {
                 console.log('♿ Feedback d\'accessibilité initialisé');
             }
@@ -882,10 +892,13 @@
     <!-- Scripts des systèmes de gameplay améliorés -->
     <script src="{{ url_for('static', filename='js/zone-exploration-enhanced.js') }}?v=3.6.0"></script>
     <script src="{{ url_for('static', filename='js/daily-missions-enhanced.js') }}?v=3.6.0"></script>
-    <script src="{{ url_for('static', filename='js/motivational-empty-states.js') }}?v=3.6.0"></script>
     <script src="{{ url_for('static', filename='js/timer-challenges.js') }}?v=3.6.0"></script>
     <script src="{{ url_for('static', filename='js/interactive-puzzles.js') }}?v=3.6.0"></script>
     <script src="{{ url_for('static', filename='js/gameplay-integration.js') }}?v=3.6.0"></script>
+
+    <!-- Scripts du gestionnaire de popups -->
+    <script src="{{ url_for('static', filename='js/popup-manager.js') }}?v=3.7.0"></script>
+    <script src="{{ url_for('static', filename='js/popup-coordinator.js') }}?v=3.7.0"></script>
 </body>
 
 </html>

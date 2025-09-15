@@ -91,9 +91,7 @@ class TestPerformanceComplete(unittest.TestCase):
         self.performance_metrics["throughput"].append(
             {"operation": "gamification", "throughput": 200.0}
         )
-        self.performance_metrics["throughput"].append(
-            {"operation": "database", "throughput": 50.0}
-        )
+        self.performance_metrics["throughput"].append({"operation": "database", "throughput": 50.0})
 
         # Collecter des métriques de mémoire et CPU de base
         if PSUTIL_AVAILABLE:
@@ -136,9 +134,7 @@ class TestPerformanceComplete(unittest.TestCase):
             result = {"réussite": _ % 2 == 0, "score_gagne": _ * 10}
 
             emotion_start = time.time()
-            emotion_data = self.luna_engine.analyze_action(
-                action, result, self.test_profile
-            )
+            emotion_data = self.luna_engine.analyze_action(action, result, self.test_profile)
             emotion_end = time.time()
 
             # Enregistrer le temps de réponse
@@ -337,9 +333,7 @@ class TestPerformanceComplete(unittest.TestCase):
 
         # Vérifier que l'utilisation CPU est raisonnable
         avg_cpu = sum(cpu_usage_history) / len(cpu_usage_history)
-        self.assertLess(
-            avg_cpu, 90, f"Utilisation CPU moyenne trop élevée: {avg_cpu:.1f}%"
-        )
+        self.assertLess(avg_cpu, 90, f"Utilisation CPU moyenne trop élevée: {avg_cpu:.1f}%")
 
         # Enregistrer les métriques
         self.performance_metrics["cpu_usage"] = cpu_usage_history
@@ -365,9 +359,7 @@ class TestPerformanceComplete(unittest.TestCase):
                     if operation_name == "emotion_analysis":
                         action = f"action_{i % 10}"
                         result = {"réussite": i % 2 == 0, "score_gagne": i * 5}
-                        self.luna_engine.analyze_action(
-                            action, result, self.test_profile
-                        )
+                        self.luna_engine.analyze_action(action, result, self.test_profile)
                     elif operation_name == "gamification_calculation":
                         profile = self.test_profile.copy()
                         profile["score"] += i
@@ -426,9 +418,7 @@ class TestPerformanceComplete(unittest.TestCase):
                 result = {"réussite": i % 3 != 0, "complexity": i % 10}
 
                 # Analyser l'émotion
-                emotion_data = self.luna_engine.analyze_action(
-                    action, result, self.test_profile
-                )
+                emotion_data = self.luna_engine.analyze_action(action, result, self.test_profile)
 
                 # Calculer la gamification
                 profile = self.test_profile.copy()
@@ -450,17 +440,11 @@ class TestPerformanceComplete(unittest.TestCase):
         total_duration = end_time - start_time
 
         # Vérifier que la plupart des opérations ont réussi
-        success_rate = successful_operations / (
-            successful_operations + failed_operations
-        )
-        self.assertGreater(
-            success_rate, 0.95, f"Taux de succès trop faible: {success_rate:.2%}"
-        )
+        success_rate = successful_operations / (successful_operations + failed_operations)
+        self.assertGreater(success_rate, 0.95, f"Taux de succès trop faible: {success_rate:.2%}")
 
         # Vérifier que le temps total est raisonnable
-        self.assertLess(
-            total_duration, 30.0, f"Test de stress trop long: {total_duration:.2f}s"
-        )
+        self.assertLess(total_duration, 30.0, f"Test de stress trop long: {total_duration:.2f}s")
 
         print(f"✅ Opérations réussies: {successful_operations}")
         print(f"❌ Opérations échouées: {failed_operations}")
@@ -502,8 +486,7 @@ class TestPerformanceComplete(unittest.TestCase):
                 self.assertLess(
                     memory_growth,
                     50,
-                    f"Fuite mémoire détectée dans la session {session}:"
-                    + "+{memory_growth:.1f}MB",
+                    f"Fuite mémoire détectée dans la session {session}:" + "+{memory_growth:.1f}MB",
                 )
 
         # Vérifier qu'il n'y a pas de fuite mémoire globale
@@ -611,9 +594,9 @@ class TestPerformanceComplete(unittest.TestCase):
                 if operation == "overall":
                     # Vérifier les métriques globales
                     if PSUTIL_AVAILABLE and self.performance_metrics["memory_usage"]:
-                        memory_growth = max(
+                        memory_growth = max(self.performance_metrics["memory_usage"]) - min(
                             self.performance_metrics["memory_usage"]
-                        ) - min(self.performance_metrics["memory_usage"])
+                        )
                         self.assertLess(
                             memory_growth,
                             baselines["max_memory_growth"],
@@ -658,9 +641,7 @@ class TestPerformanceComplete(unittest.TestCase):
 
         # Calculer les métriques globales
         total_operations = len(self.performance_metrics["response_times"])
-        avg_response_time = (
-            sum(self.performance_metrics["response_times"]) / total_operations
-        )
+        avg_response_time = sum(self.performance_metrics["response_times"]) / total_operations
         max_response_time = max(self.performance_metrics["response_times"])
 
         # Vérifier que les performances sont acceptables
@@ -677,9 +658,7 @@ class TestPerformanceComplete(unittest.TestCase):
         )
 
         # Vérifier le débit global
-        total_throughput = sum(
-            t["throughput"] for t in self.performance_metrics["throughput"]
-        )
+        total_throughput = sum(t["throughput"] for t in self.performance_metrics["throughput"])
         avg_throughput = total_throughput / len(self.performance_metrics["throughput"])
 
         self.assertGreater(

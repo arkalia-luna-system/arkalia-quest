@@ -124,9 +124,7 @@ class DatabaseOptimizer:
 
             conn.commit()
 
-    def execute_query(
-        self, query: str, params: tuple = None, cache_key: str = None
-    ) -> list[dict]:
+    def execute_query(self, query: str, params: tuple = None, cache_key: str = None) -> list[dict]:
         """
         Exécute une requête avec cache et monitoring
 
@@ -377,9 +375,7 @@ class DatabaseOptimizer:
 
             conn.commit()
 
-    def execute_prepared_query(
-        self, query: str, params: tuple = (), cache_key: str = None
-    ):
+    def execute_prepared_query(self, query: str, params: tuple = (), cache_key: str = None):
         """
         Exécute une requête préparée avec cache
 
@@ -421,9 +417,7 @@ class DatabaseOptimizer:
 
             if execution_time > 0.1:  # Requête lente
                 self.stats["slow_queries"] += 1
-                logging.warning(
-                    f"Requête lente détectée: {execution_time:.3f}s - {query[:50]}..."
-                )
+                logging.warning(f"Requête lente détectée: {execution_time:.3f}s - {query[:50]}...")
 
             return results
 

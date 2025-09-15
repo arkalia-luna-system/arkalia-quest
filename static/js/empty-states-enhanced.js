@@ -32,6 +32,12 @@ class EmptyStatesEnhanced {
                 '🚀 L\'aventure commence maintenant !',
                 '💫 Prêt à découvrir Arkalia ?',
                 '🎮 Commencez par le tutoriel !'
+            ],
+            visualEffects: ['sparkles', 'pulse', 'glow'],
+            soundEffect: 'mission_available',
+            interactiveElements: [
+                { text: '💡 Astuce: Utilisez "aide" pour voir toutes les commandes', type: 'tip' },
+                { text: '🌙 Parlez avec LUNA pour des conseils', type: 'suggestion' }
             ]
         });
 
@@ -48,6 +54,13 @@ class EmptyStatesEnhanced {
                 '⭐ Montrez votre talent !',
                 '🎖️ Les récompenses vous attendent !',
                 '🏆 Prêt à collectionner ?'
+            ],
+            visualEffects: ['badge-shine', 'bounce', 'rainbow'],
+            soundEffect: 'badge_unlock',
+            interactiveElements: [
+                { text: '🎯 Complétez votre première mission', type: 'tip' },
+                { text: '🎮 Jouez aux mini-jeux pour des points', type: 'suggestion' },
+                { text: '🌙 Demandez à LUNA comment obtenir des badges', type: 'help' }
             ]
         });
 
@@ -112,6 +125,56 @@ class EmptyStatesEnhanced {
                 '🎯 Débloquez de nouveaux défis !',
                 '🎪 L\'amusement commence !',
                 '🎲 Prêt à jouer ?'
+            ],
+            visualEffects: ['game-controller', 'pixel-art', 'retro-glow'],
+            soundEffect: 'game_start',
+            interactiveElements: [
+                { text: '💻 Tapez "play_game" dans le terminal', type: 'tip' },
+                { text: '🎯 Commencez par le tutoriel', type: 'suggestion' }
+            ]
+        });
+
+        // Template pour le leaderboard vide
+        this.emptyStateTemplates.set('leaderboard', {
+            icon: '🏆',
+            title: 'Classement en construction',
+            message: 'Soyez le premier à apparaître ici !',
+            action: 'Commencer à jouer',
+            actionCommand: 'start_tutorial',
+            animation: 'leaderboard-empty',
+            encouragement: [
+                '🥇 Soyez le numéro 1 !',
+                '⭐ Montrez votre talent !',
+                '🏆 Grimpez dans le classement !',
+                '🎯 Votre nom vous attend !'
+            ],
+            visualEffects: ['trophy-glow', 'ranking-animation', 'victory-sparkles'],
+            soundEffect: 'victory_fanfare',
+            interactiveElements: [
+                { text: '🎮 Jouez pour gagner des points', type: 'tip' },
+                { text: '🌙 Demandez à LUNA comment progresser', type: 'suggestion' }
+            ]
+        });
+
+        // Template pour les défis quotidiens vides
+        this.emptyStateTemplates.set('daily-challenges', {
+            icon: '📅',
+            title: 'Défis quotidiens en préparation',
+            message: 'De nouveaux défis arrivent bientôt !',
+            action: 'Explorer le monde',
+            actionCommand: 'monde',
+            animation: 'challenges-empty',
+            encouragement: [
+                '📅 De nouveaux défis arrivent !',
+                '🎯 Préparez-vous !',
+                '⚡ L\'action commence bientôt !',
+                '🌟 Soyez prêt !'
+            ],
+            visualEffects: ['calendar-flip', 'challenge-pulse', 'daily-glow'],
+            soundEffect: 'challenge_available',
+            interactiveElements: [
+                { text: '🔄 Revenez demain pour de nouveaux défis', type: 'tip' },
+                { text: '🌙 LUNA peut vous donner des conseils', type: 'suggestion' }
             ]
         });
     }
@@ -236,6 +299,130 @@ class EmptyStatesEnhanced {
                 10% { opacity: 1; }
                 90% { opacity: 1; }
                 100% { transform: translateY(-100px) translateX(50px); opacity: 0; }
+            }
+            
+            /* Nouvelles animations pour les effets visuels */
+            .badge-shine {
+                animation: badge-shine 2s ease-in-out infinite;
+            }
+            
+            @keyframes badge-shine {
+                0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+                50% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.8), 0 0 60px rgba(255, 215, 0, 0.6); }
+            }
+            
+            .rainbow {
+                animation: rainbow 3s ease-in-out infinite;
+            }
+            
+            @keyframes rainbow {
+                0% { filter: hue-rotate(0deg); }
+                100% { filter: hue-rotate(360deg); }
+            }
+            
+            .game-controller {
+                animation: game-controller-bounce 2s ease-in-out infinite;
+            }
+            
+            @keyframes game-controller-bounce {
+                0%, 100% { transform: scale(1) rotate(0deg); }
+                25% { transform: scale(1.1) rotate(5deg); }
+                75% { transform: scale(1.1) rotate(-5deg); }
+            }
+            
+            .pixel-art {
+                image-rendering: pixelated;
+                animation: pixel-art-flicker 1s ease-in-out infinite;
+            }
+            
+            @keyframes pixel-art-flicker {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0.8; }
+            }
+            
+            .retro-glow {
+                animation: retro-glow 2s ease-in-out infinite;
+            }
+            
+            @keyframes retro-glow {
+                0%, 100% { text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00; }
+                50% { text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00, 0 0 40px #00ff00; }
+            }
+            
+            .trophy-glow {
+                animation: trophy-glow 2s ease-in-out infinite;
+            }
+            
+            @keyframes trophy-glow {
+                0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
+                50% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.9), 0 0 60px rgba(255, 215, 0, 0.7); }
+            }
+            
+            .ranking-animation {
+                animation: ranking-animation 3s ease-in-out infinite;
+            }
+            
+            @keyframes ranking-animation {
+                0% { transform: translateY(0) scale(1); }
+                25% { transform: translateY(-5px) scale(1.05); }
+                50% { transform: translateY(0) scale(1); }
+                75% { transform: translateY(-3px) scale(1.02); }
+                100% { transform: translateY(0) scale(1); }
+            }
+            
+            .victory-sparkles {
+                position: relative;
+            }
+            
+            .victory-sparkles::before,
+            .victory-sparkles::after {
+                content: '✨';
+                position: absolute;
+                animation: victory-sparkles-float 2s ease-in-out infinite;
+            }
+            
+            .victory-sparkles::before {
+                top: -10px;
+                left: 20px;
+                animation-delay: 0s;
+            }
+            
+            .victory-sparkles::after {
+                top: -10px;
+                right: 20px;
+                animation-delay: 1s;
+            }
+            
+            @keyframes victory-sparkles-float {
+                0%, 100% { transform: translateY(0) rotate(0deg); opacity: 1; }
+                50% { transform: translateY(-15px) rotate(180deg); opacity: 0.7; }
+            }
+            
+            .calendar-flip {
+                animation: calendar-flip 2s ease-in-out infinite;
+            }
+            
+            @keyframes calendar-flip {
+                0%, 100% { transform: rotateY(0deg); }
+                50% { transform: rotateY(180deg); }
+            }
+            
+            .challenge-pulse {
+                animation: challenge-pulse 1.5s ease-in-out infinite;
+            }
+            
+            @keyframes challenge-pulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+            }
+            
+            .daily-glow {
+                animation: daily-glow 2s ease-in-out infinite;
+            }
+            
+            @keyframes daily-glow {
+                0%, 100% { box-shadow: 0 0 15px rgba(0, 255, 0, 0.5); }
+                50% { box-shadow: 0 0 25px rgba(0, 255, 0, 0.8), 0 0 35px rgba(0, 255, 0, 0.6); }
             }
             
             /* Animations spécifiques par type */

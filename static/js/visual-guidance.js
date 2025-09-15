@@ -93,6 +93,46 @@ class VisualGuidance {
                 80% { opacity: 1; transform: translateX(-50%) translateY(0); }
                 100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
             }
+            
+            .guidance-blink {
+                animation: guidance-blink 1s ease-in-out infinite;
+            }
+            
+            @keyframes guidance-blink {
+                0%, 50% { opacity: 1; }
+                25%, 75% { opacity: 0.3; }
+            }
+            
+            .guidance-attract {
+                animation: guidance-attract 2s ease-in-out infinite;
+                transform-origin: center;
+            }
+            
+            @keyframes guidance-attract {
+                0%, 100% { transform: scale(1) rotate(0deg); }
+                25% { transform: scale(1.05) rotate(1deg); }
+                50% { transform: scale(1.1) rotate(0deg); }
+                75% { transform: scale(1.05) rotate(-1deg); }
+            }
+            
+            .guidance-sparkle {
+                position: relative;
+                overflow: visible;
+            }
+            
+            .guidance-sparkle::before {
+                content: '✨';
+                position: absolute;
+                top: -20px;
+                right: -20px;
+                font-size: 20px;
+                animation: guidance-sparkle-float 2s ease-in-out infinite;
+            }
+            
+            @keyframes guidance-sparkle-float {
+                0%, 100% { transform: translateY(0) rotate(0deg); opacity: 1; }
+                50% { transform: translateY(-15px) rotate(180deg); opacity: 0.7; }
+            }
         `;
         document.head.appendChild(style);
     }
@@ -134,6 +174,11 @@ class VisualGuidance {
 
         // Ajouter les classes de guidage
         element.classList.add('guidance-highlight', `guidance-${config.type}`);
+
+        // Ajouter des effets spéciaux selon le type
+        if (config.blink) element.classList.add('guidance-blink');
+        if (config.attract) element.classList.add('guidance-attract');
+        if (config.sparkle) element.classList.add('guidance-sparkle');
 
         // Ajouter une flèche si demandé
         if (config.showArrow) {
@@ -257,6 +302,69 @@ class VisualGuidance {
         this.highlightElement('.mini-games, [href*="games"]', {
             message: '🎮 Mini-jeux interactifs !',
             type: 'bounce',
+            duration: 5000,
+            showArrow: true,
+            showTooltip: true,
+            sparkle: true
+        });
+    }
+
+    // Guider automatiquement les débutants
+    guideBeginner() {
+        console.log('🎯 Démarrage du guidage pour débutant');
+
+        // Séquence de guidage pour débutants
+        setTimeout(() => {
+            this.highlightElement('.tutorial-start, [data-tutorial="start"]', {
+                message: '🚀 Commencez votre aventure ici !',
+                type: 'pulse',
+                duration: 8000,
+                showArrow: true,
+                showTooltip: true,
+                blink: true,
+                attract: true
+            });
+        }, 1000);
+
+        setTimeout(() => {
+            this.highlightElement('.luna-contact, [href*="luna"]', {
+                message: '🌙 Parlez avec LUNA, votre IA complice !',
+                type: 'glow',
+                duration: 6000,
+                showArrow: true,
+                showTooltip: true,
+                sparkle: true
+            });
+        }, 10000);
+
+        setTimeout(() => {
+            this.highlightElement('.terminal-link, [href*="terminal"]', {
+                message: '💻 Découvrez le terminal hacker !',
+                type: 'bounce',
+                duration: 6000,
+                showArrow: true,
+                showTooltip: true
+            });
+        }, 18000);
+    }
+
+    // Guider vers les défis quotidiens
+    guideToDailyChallenges() {
+        this.highlightElement('.daily-challenges, [href*="challenges"]', {
+            message: '🎯 Défis quotidiens disponibles !',
+            type: 'attract',
+            duration: 5000,
+            showArrow: true,
+            showTooltip: true,
+            sparkle: true
+        });
+    }
+
+    // Guider vers le profil
+    guideToProfile() {
+        this.highlightElement('.profile-link, [href*="profil"]', {
+            message: '👤 Consultez votre profil et vos badges !',
+            type: 'pulse',
             duration: 5000,
             showArrow: true,
             showTooltip: true

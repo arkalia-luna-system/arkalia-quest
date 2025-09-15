@@ -346,7 +346,10 @@ class MiniGamesInteractive {
             'code_debug_1': new CodeDebug1(),
             'cyber_security_1': new CyberSecurity1(),
             'hacking_challenge_1': new HackingChallenge1(),
-            'memory_game_1': new MemoryGame1()
+            'memory_game_1': new MemoryGame1(),
+            'simple_hack': new SimpleHackGame(),
+            'sequence_game': new SequenceGame(),
+            'typing_challenge': new TypingChallenge()
         };
     }
 
@@ -921,6 +924,257 @@ class MemoryGame1 {
     getProgress() { return (this.matchedPairs / 8) * 100; }
     getHint() { return 'Concentre-toi sur la position des cartes !'; }
     restart() { this.score = 0; this.matchedPairs = 0; this.flippedCards = []; this.generateCards(); }
+    showFeedback(message) { console.log(message); }
+}
+
+// Jeu de hack simple
+class SimpleHackGame {
+    constructor() {
+        this.score = 0;
+        this.level = 1;
+        this.targetCode = '';
+        this.userInput = '';
+        this.timeLeft = 30;
+        this.isActive = false;
+    }
+
+    start() {
+        this.isActive = true;
+        this.generateTargetCode();
+        this.timeLeft = 30;
+        this.userInput = '';
+        this.score = 0;
+        this.startTimer();
+    }
+
+    generateTargetCode() {
+        const patterns = [
+            '01010101',
+            '11001100',
+            '10101010',
+            '11110000',
+            '00001111',
+            '10110110',
+            '01101101',
+            '11010010'
+        ];
+        this.targetCode = patterns[Math.floor(Math.random() * patterns.length)];
+    }
+
+    startTimer() {
+        const timer = setInterval(() => {
+            if (!this.isActive) {
+                clearInterval(timer);
+                return;
+            }
+            this.timeLeft--;
+            if (this.timeLeft <= 0) {
+                this.endGame();
+                clearInterval(timer);
+            }
+        }, 1000);
+    }
+
+    inputDigit(digit) {
+        if (!this.isActive) return;
+        this.userInput += digit;
+        if (this.userInput.length === this.targetCode.length) {
+            this.checkCode();
+        }
+    }
+
+    checkCode() {
+        if (this.userInput === this.targetCode) {
+            this.score += 100;
+            this.level++;
+            this.generateTargetCode();
+            this.userInput = '';
+            this.timeLeft += 10; // Bonus de temps
+        } else {
+            this.score = Math.max(0, this.score - 50);
+            this.userInput = '';
+        }
+    }
+
+    endGame() {
+        this.isActive = false;
+        this.showFeedback(`Hack terminé ! Score: ${this.score}`);
+    }
+
+    getScore() { return this.score; }
+    getLevel() { return this.level; }
+    getProgress() { return (this.userInput.length / this.targetCode.length) * 100; }
+    getHint() { return `Code cible: ${this.targetCode}`; }
+    restart() { this.start(); }
+    showFeedback(message) { console.log(message); }
+}
+
+// Jeu de séquence
+class SequenceGame {
+    constructor() {
+        this.score = 0;
+        this.level = 1;
+        this.sequence = [];
+        this.userSequence = [];
+        this.isShowing = false;
+        this.isActive = false;
+    }
+
+    start() {
+        this.isActive = true;
+        this.score = 0;
+        this.level = 1;
+        this.generateSequence();
+        this.showSequence();
+    }
+
+    generateSequence() {
+        this.sequence = [];
+        for (let i = 0; i < this.level + 2; i++) {
+            this.sequence.push(Math.floor(Math.random() * 4) + 1);
+        }
+    }
+
+    showSequence() {
+        this.isShowing = true;
+        let index = 0;
+        const showNext = () => {
+            if (index < this.sequence.length) {
+                this.highlightButton(this.sequence[index]);
+                index++;
+                setTimeout(showNext, 800);
+            } else {
+                this.isShowing = false;
+            }
+        };
+        showNext();
+    }
+
+    highlightButton(number) {
+        // Simulation de highlight - en réalité, cela devrait interagir avec l'UI
+        console.log(`Bouton ${number} clignote`);
+    }
+
+    inputButton(number) {
+        if (!this.isActive || this.isShowing) return;
+
+        this.userSequence.push(number);
+
+        if (this.userSequence.length === this.sequence.length) {
+            this.checkSequence();
+        }
+    }
+
+    checkSequence() {
+        const isCorrect = this.userSequence.every((val, index) => val === this.sequence[index]);
+
+        if (isCorrect) {
+            this.score += this.level * 50;
+            this.level++;
+            this.userSequence = [];
+            this.generateSequence();
+            setTimeout(() => this.showSequence(), 1000);
+        } else {
+            this.endGame();
+        }
+    }
+
+    endGame() {
+        this.isActive = false;
+        this.showFeedback(`Séquence terminée ! Score: ${this.score}`);
+    }
+
+    getScore() { return this.score; }
+    getLevel() { return this.level; }
+    getProgress() { return (this.userSequence.length / this.sequence.length) * 100; }
+    getHint() { return 'Mémorise la séquence et reproduis-la !'; }
+    restart() { this.start(); }
+    showFeedback(message) { console.log(message); }
+}
+
+// Défi de frappe
+class TypingChallenge {
+    constructor() {
+        this.score = 0;
+        this.level = 1;
+        this.targetText = '';
+        this.userText = '';
+        this.timeLeft = 60;
+        this.isActive = false;
+        this.wpm = 0;
+    }
+
+    start() {
+        this.isActive = true;
+        this.generateTargetText();
+        this.userText = '';
+        this.score = 0;
+        this.timeLeft = 60;
+        this.startTimer();
+    }
+
+    generateTargetText() {
+        const texts = [
+            'hack the system',
+            'cyber security',
+            'digital world',
+            'code is power',
+            'matrix protocol',
+            'neural network',
+            'quantum encryption',
+            'binary revolution'
+        ];
+        this.targetText = texts[Math.floor(Math.random() * texts.length)];
+    }
+
+    startTimer() {
+        const timer = setInterval(() => {
+            if (!this.isActive) {
+                clearInterval(timer);
+                return;
+            }
+            this.timeLeft--;
+            if (this.timeLeft <= 0) {
+                this.endGame();
+                clearInterval(timer);
+            }
+        }, 1000);
+    }
+
+    inputText(text) {
+        if (!this.isActive) return;
+        this.userText = text;
+        this.calculateWPM();
+
+        if (this.userText === this.targetText) {
+            this.completeText();
+        }
+    }
+
+    calculateWPM() {
+        const words = this.userText.split(' ').length;
+        const timeElapsed = (60 - this.timeLeft) / 60;
+        this.wpm = Math.round(words / timeElapsed);
+    }
+
+    completeText() {
+        this.score += this.wpm * 10;
+        this.level++;
+        this.generateTargetText();
+        this.userText = '';
+        this.timeLeft += 15; // Bonus de temps
+    }
+
+    endGame() {
+        this.isActive = false;
+        this.showFeedback(`Défi terminé ! Score: ${this.score}, WPM: ${this.wpm}`);
+    }
+
+    getScore() { return this.score; }
+    getLevel() { return this.level; }
+    getProgress() { return (this.userText.length / this.targetText.length) * 100; }
+    getHint() { return `Tape: "${this.targetText}"`; }
+    restart() { this.start(); }
     showFeedback(message) { console.log(message); }
 }
 

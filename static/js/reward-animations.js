@@ -50,6 +50,72 @@ class RewardAnimations {
                 animation: reward-icon-bounce 1s ease-in-out infinite;
             }
             
+            .badge-unlock {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcf7f, #4d9de0);
+                background-size: 400% 400%;
+                color: white;
+                padding: 15px 25px;
+                border-radius: 25px;
+                font-weight: bold;
+                font-size: 16px;
+                text-align: center;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+                animation: badge-unlock-slide 0.6s ease-out, badge-gradient 3s ease-in-out infinite;
+                z-index: 10001;
+                transform: translateX(100%);
+                transition: transform 0.6s ease-out;
+            }
+            
+            .badge-unlock.show {
+                transform: translateX(0);
+            }
+            
+            .xp-gain {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(45deg, #00ff00, #00cc00);
+                color: #000;
+                padding: 10px 20px;
+                border-radius: 20px;
+                font-weight: bold;
+                font-size: 24px;
+                text-align: center;
+                box-shadow: 0 0 40px rgba(0, 255, 0, 0.6);
+                animation: xp-gain-pop 0.8s ease-out;
+                z-index: 10002;
+            }
+            
+            .level-up {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(45deg, rgba(0, 255, 0, 0.1), rgba(0, 204, 0, 0.1));
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10003;
+                animation: level-up-overlay 2s ease-out;
+            }
+            
+            .level-up-content {
+                background: linear-gradient(45deg, #00ff00, #00cc00);
+                color: #000;
+                padding: 40px 60px;
+                border-radius: 30px;
+                text-align: center;
+                font-size: 32px;
+                font-weight: bold;
+                box-shadow: 0 0 60px rgba(0, 255, 0, 0.8);
+                animation: level-up-content-grow 1s ease-out;
+            }
+            
             .reward-text {
                 margin: 10px 0;
                 animation: reward-text-glow 2s ease-in-out infinite;
@@ -206,6 +272,36 @@ class RewardAnimations {
             @keyframes reward-confetti-fall {
                 0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
                 100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+            }
+            
+            @keyframes badge-unlock-slide {
+                0% { transform: translateX(100%); }
+                100% { transform: translateX(0); }
+            }
+            
+            @keyframes badge-gradient {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+            
+            @keyframes xp-gain-pop {
+                0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+                50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+                100% { opacity: 0; transform: translate(-50%, -50%) scale(1) translateY(-50px); }
+            }
+            
+            @keyframes level-up-overlay {
+                0% { opacity: 0; }
+                20% { opacity: 1; }
+                80% { opacity: 1; }
+                100% { opacity: 0; }
+            }
+            
+            @keyframes level-up-content-grow {
+                0% { transform: scale(0.5); opacity: 0; }
+                50% { transform: scale(1.1); opacity: 1; }
+                100% { transform: scale(1); opacity: 1; }
             }
             
             @keyframes reward-particles-burst {
@@ -557,6 +653,67 @@ class RewardAnimations {
                 this.animateChallengeCompletion(data.challenge, data.rewards);
                 break;
         }
+    }
+
+    // Animation XP améliorée
+    animateXPGainImproved(amount, source = '') {
+        if (this.isAnimating) {
+            this.rewardQueue.push(() => this.animateXPGainImproved(amount, source));
+            return;
+        }
+
+        this.isAnimating = true;
+        console.log(`🎉 Animation XP améliorée: +${amount} (${source})`);
+
+        const xpElement = document.createElement('div');
+        xpElement.className = 'xp-gain';
+        xpElement.innerHTML = `
+            <div style="font-size: 28px; font-weight: bold;">+${amount} XP</div>
+            ${source ? `<div style="font-size: 14px; margin-top: 5px; opacity: 0.8;">${source}</div>` : ''}
+        `;
+
+        document.body.appendChild(xpElement);
+
+        // Supprimer après l'animation
+        setTimeout(() => {
+            xpElement.remove();
+            this.isAnimating = false;
+            this.processRewardQueue();
+        }, 2000);
+    }
+
+    // Animation de montée de niveau améliorée
+    animateLevelUpImproved(newLevel) {
+        if (this.isAnimating) {
+            this.rewardQueue.push(() => this.animateLevelUpImproved(newLevel));
+            return;
+        }
+
+        this.isAnimating = true;
+        console.log(`🎊 Animation Level Up améliorée: ${newLevel}`);
+
+        const levelUpElement = document.createElement('div');
+        levelUpElement.className = 'level-up';
+        levelUpElement.innerHTML = `
+            <div class="level-up-content">
+                <div style="font-size: 48px; margin-bottom: 20px;">🎊</div>
+                <div style="font-size: 36px; margin-bottom: 10px;">NIVEAU ${newLevel} !</div>
+                <div style="font-size: 18px; opacity: 0.9;">Félicitations !</div>
+            </div>
+        `;
+
+        document.body.appendChild(levelUpElement);
+
+        // Ajouter des effets
+        this.addConfettiEffect(levelUpElement);
+        this.addParticleEffect(levelUpElement);
+
+        // Supprimer après l'animation
+        setTimeout(() => {
+            levelUpElement.remove();
+            this.isAnimating = false;
+            this.processRewardQueue();
+        }, 3000);
     }
 
     getAnimationStats() {

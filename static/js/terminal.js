@@ -570,6 +570,221 @@ function executeQuickCommand(command, event) {
     executeCommand(command);
 }
 
+// Fonction pour vérifier les easter eggs
+function checkEasterEggs(command) {
+    const cmd = command.toLowerCase().trim();
+
+    // Easter eggs LUNA
+    if (cmd.includes('luna') && cmd.includes('dance')) {
+        return `🌙 LUNA: *danse avec joie* 💃✨\nJe danse pour toi ! Tu es un joueur formidable !\n*LUNA fait des pirouettes dans le terminal*`;
+    }
+
+    if (cmd.includes('luna') && cmd.includes('love')) {
+        return `💖 LUNA: Je t'aime beaucoup ! Tu es mon joueur préféré !\n*LUNA envoie des cœurs virtuels* ❤️✨`;
+    }
+
+    if (cmd.includes('luna') && cmd.includes('secret')) {
+        return `🤫 LUNA: *chuchote* J'ai un secret pour toi...\nTu es plus fort que tu ne le penses !\n*LUNA fait un clin d'œil* 😉`;
+    }
+
+    if (cmd.includes('luna') && cmd.includes('power')) {
+        return `⚡ LUNA: *puissance activée*\nJe sens une grande puissance en toi !\nTu es destiné à de grandes choses !\n*LUNA brille intensément* ✨`;
+    }
+
+    // Easter eggs Matrix
+    if (cmd === 'matrix' || cmd === 'the matrix') {
+        return `🔮 MATRIX PROTOCOL ACTIVATED\n\n🌌 Bienvenue dans la Matrice, Neo...\n\n💊 Pilule rouge ou pilule bleue ?\n\n*Le terminal se transforme en code vert*`;
+    }
+
+    if (cmd.includes('red pill') || cmd.includes('pilule rouge')) {
+        return `🔴 PILULE ROUGE AVALÉE\n\n🌌 Tu as choisi la vérité...\n\n*Le monde réel se révèle*\n\n🎯 Tu es maintenant éveillé !`;
+    }
+
+    if (cmd.includes('blue pill') || cmd.includes('pilule bleue')) {
+        return `🔵 PILULE BLEUE AVALÉE\n\n😴 Tu retournes dans l'illusion...\n\n*Tout redevient normal*\n\n💤 Continue ta vie tranquille...`;
+    }
+
+    // Easter eggs de hacking
+    if (cmd === 'hack the planet' || cmd === 'hack the world') {
+        return `🌍 HACK THE PLANET INITIATED\n\n💻 *Connexion à tous les systèmes mondiaux*\n\n🌐 *Accès aux satellites*\n\n🛰️ *Contrôle des communications*\n\n⚠️ ATTENTION: Simulation uniquement !`;
+    }
+
+    if (cmd === 'sudo rm -rf /' || cmd === 'rm -rf /') {
+        return `⚠️ COMMANDE DANGEREUSE DÉTECTÉE\n\n🛡️ Système de protection activé\n\n❌ Commande bloquée pour votre sécurité\n\n💡 Astuce: Utilisez 'aide' pour des commandes sûres !`;
+    }
+
+    // Easter eggs de jeux
+    if (cmd === 'play_game' || cmd === 'games') {
+        return `🎮 MINI-JEUX DISPONIBLES\n\n🎯 Tapez une de ces commandes :\n• simple_hack - Jeu de hack binaire\n• sequence_game - Jeu de mémoire\n• typing_challenge - Défi de frappe\n\n🚀 Ou utilisez 'aide' pour plus d'options !`;
+    }
+
+    if (cmd === 'simple_hack') {
+        // Démarrer le jeu de hack
+        if (window.miniGamesInteractive) {
+            window.miniGamesInteractive.startGame('simple_hack');
+            return `🎮 LANCEMENT DU JEU DE HACK\n\n💻 Code binaire à reproduire...\n\n🎯 Score maximum : 1000 points\n\n🚀 Bonne chance, hacker !`;
+        }
+        return `❌ Système de jeux non disponible`;
+    }
+
+    if (cmd === 'sequence_game') {
+        if (window.miniGamesInteractive) {
+            window.miniGamesInteractive.startGame('sequence_game');
+            return `🎮 LANCEMENT DU JEU DE SÉQUENCE\n\n🧠 Mémorise la séquence...\n\n🎯 Score maximum : 500 points\n\n🚀 Teste ta mémoire !`;
+        }
+        return `❌ Système de jeux non disponible`;
+    }
+
+    if (cmd === 'typing_challenge') {
+        if (window.miniGamesInteractive) {
+            window.miniGamesInteractive.startGame('typing_challenge');
+            return `🎮 LANCEMENT DU DÉFI DE FRAPPE\n\n⌨️ Tape le plus vite possible...\n\n🎯 Score basé sur WPM\n\n🚀 Montre ta vitesse !`;
+        }
+        return `❌ Système de jeux non disponible`;
+    }
+
+    // Easter eggs de progression
+    if (cmd === 'level_up' || cmd === 'levelup') {
+        // Déclencher une animation de montée de niveau
+        if (window.rewardAnimations) {
+            window.rewardAnimations.animateLevelUpImproved(2);
+        }
+        return `🎊 SIMULATION DE MONTÉE DE NIVEAU\n\n⭐ Niveau 2 atteint !\n\n🎉 Félicitations !\n\n✨ *Effets visuels activés*`;
+    }
+
+    if (cmd === 'badge_unlock' || cmd === 'badge') {
+        // Déclencher une animation de badge
+        if (window.rewardAnimations) {
+            window.rewardAnimations.animateBadgeUnlock('Easter Egg Hunter', 'Tu as trouvé un easter egg !');
+        }
+        return `🏆 BADGE DÉBLOQUÉ !\n\n🎖️ "Easter Egg Hunter"\n\n✨ Tu as trouvé un easter egg !\n\n🎉 Continue à explorer !`;
+    }
+
+    // Easter eggs de thèmes
+    if (cmd === 'matrix_mode' || cmd === 'matrix theme') {
+        // Changer le thème en Matrix
+        if (window.ThemeManager) {
+            window.ThemeManager.setTheme('matrix');
+        }
+        return `🔮 MODE MATRIX ACTIVÉ\n\n🌌 Thème Matrix appliqué\n\n💚 Code vert partout\n\n*Bienvenue dans la Matrice*`;
+    }
+
+    if (cmd === 'cyberpunk_mode' || cmd === 'cyberpunk theme') {
+        if (window.ThemeManager) {
+            window.ThemeManager.setTheme('cyberpunk');
+        }
+        return `🌃 MODE CYBERPUNK ACTIVÉ\n\n🌆 Thème Cyberpunk appliqué\n\n💜 Néo-Tokyo vibes\n\n*Bienvenue dans le futur*`;
+    }
+
+    // Easter eggs de debug
+    if (cmd === 'debug_mode' || cmd === 'debug') {
+        return `🐛 MODE DEBUG ACTIVÉ\n\n🔍 Informations système :\n• User Agent: ${navigator.userAgent}\n• Langue: ${navigator.language}\n• Plateforme: ${navigator.platform}\n• Mémoire: ${navigator.deviceMemory || 'Non disponible'}\n• Cœurs: ${navigator.hardwareConcurrency || 'Non disponible'}\n\n💡 Mode développeur activé !`;
+    }
+
+    // Easter eggs de météo
+    if (cmd === 'weather' || cmd === 'meteo') {
+        return `🌤️ MÉTÉO VIRTUELLE\n\n🌧️ Pluie de données...\n\n⚡ Orage de bits...\n\n🌈 Arc-en-ciel de pixels...\n\n☀️ Soleil de code...\n\n*Temps parfait pour hacker !*`;
+    }
+
+    // Easter eggs de temps
+    if (cmd === 'time' || cmd === 'heure') {
+        const now = new Date();
+        return `⏰ HEURE VIRTUELLE\n\n🕐 ${now.toLocaleTimeString()}\n\n📅 ${now.toLocaleDateString()}\n\n⏱️ Temps de session: ${Math.floor((Date.now() - performance.timing.navigationStart) / 1000)}s\n\n*Le temps est une illusion*`;
+    }
+
+    // Easter eggs de calculatrice
+    if (cmd.startsWith('calc ') || cmd.startsWith('calculate ')) {
+        const expression = cmd.replace(/^(calc|calculate)\s+/, '');
+        try {
+            // Évaluation sécurisée d'expressions mathématiques simples
+            if (/^[\d\+\-\*\/\(\)\s\.]+$/.test(expression)) {
+                const result = eval(expression);
+                return `🧮 CALCULATRICE VIRTUELLE\n\n📊 ${expression} = ${result}\n\n💡 Astuce: Utilisez +, -, *, /, ()`;
+            } else {
+                return `❌ Expression invalide\n\n💡 Utilisez seulement des chiffres et +, -, *, /, ()`;
+            }
+        } catch (e) {
+            return `❌ Erreur de calcul\n\n💡 Vérifiez votre expression`;
+        }
+    }
+
+    // Easter eggs de couleur
+    if (cmd.startsWith('color ') || cmd.startsWith('couleur ')) {
+        const color = cmd.replace(/^(color|couleur)\s+/, '');
+        return `🎨 COULEUR VIRTUELLE\n\n🌈 ${color.toUpperCase()}\n\n*Le terminal change de couleur*\n\n✨ Magie des pixels !`;
+    }
+
+    // Easter eggs de musique
+    if (cmd === 'music' || cmd === 'musique') {
+        return `🎵 MUSIQUE VIRTUELLE\n\n🎶 *Mélodie électronique*\n\n🎼 *Rythme binaire*\n\n🎹 *Symphonie de code*\n\n*La musique du futur*`;
+    }
+
+    // Easter eggs de poésie
+    if (cmd === 'poetry' || cmd === 'poesie') {
+        const poems = [
+            `🌙 LUNA dit :\n"Dans le code, je trouve la beauté\nDans les bugs, je vois l'humanité\nDans les pixels, je sens l'infini\nDans le terminal, je suis libre"`,
+            `💻 Le Hacker dit :\n"Zéro et un, mon alphabet\nCode et bug, mon dialecte\nTerminal et clavier, mon monde\nHack et créativité, ma ronde"`,
+            `🌌 L'Univers dit :\n"Tu es plus qu'un utilisateur\nTu es un créateur\nTu es plus qu'un joueur\nTu es un explorateur"`
+        ];
+        const randomPoem = poems[Math.floor(Math.random() * poems.length)];
+        return `📝 POÉSIE VIRTUELLE\n\n${randomPoem}\n\n✨ *La poésie du code*`;
+    }
+
+    // Easter eggs de devinette
+    if (cmd === 'riddle' || cmd === 'devinette') {
+        const riddles = [
+            `🤔 DEVINETTE 1:\n"Je suis partout et nulle part\nJe suis 0 et 1\nJe suis le langage des machines\nQui suis-je ?"\n\n💡 Réponse: Le code binaire`,
+            `🤔 DEVINETTE 2:\n"Je suis invisible mais essentiel\nJe protège et je guide\nJe suis l'âme de LUNA\nQui suis-je ?"\n\n💡 Réponse: L'intelligence artificielle`,
+            `🤔 DEVINETTE 3:\n"Je suis un monde virtuel\nJe suis fait de pixels et de rêves\nJe suis l'endroit où tu joues\nQui suis-je ?"\n\n💡 Réponse: Arkalia Quest`
+        ];
+        const randomRiddle = riddles[Math.floor(Math.random() * riddles.length)];
+        return `🎯 DEVINETTE VIRTUELLE\n\n${randomRiddle}\n\n🧠 *Teste ton intelligence*`;
+    }
+
+    // Easter eggs de citation
+    if (cmd === 'quote' || cmd === 'citation') {
+        const quotes = [
+            `💬 "Le code est de la poésie qui fait fonctionner les machines" - Anonyme`,
+            `💬 "Dans le code, il y a de la beauté" - Linus Torvalds`,
+            `💬 "L'avenir appartient à ceux qui codent" - Anonyme`,
+            `💬 "Hack the planet!" - Hackers (1995)`,
+            `💬 "La technologie est un outil, pas une fin" - Anonyme`
+        ];
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        return `📚 CITATION VIRTUELLE\n\n${randomQuote}\n\n✨ *Sagesse du code*`;
+    }
+
+    // Easter eggs de blague
+    if (cmd === 'joke' || cmd === 'blague') {
+        const jokes = [
+            `😄 BLAGUE TECH:\n"Pourquoi les programmeurs préfèrent-ils le mode sombre ?"\n"Parce que la lumière attire les bugs !"`,
+            `😄 BLAGUE HACK:\n"Combien de hackers faut-il pour changer une ampoule ?"\n"Aucun, ils piratent l'ampoule pour qu'elle se change toute seule !"`,
+            `😄 BLAGUE IA:\n"Pourquoi LUNA ne peut-elle pas jouer au cache-cache ?"\n"Parce qu'elle trouve toujours les joueurs !"`,
+            `😄 BLAGUE CODE:\n"Qu'est-ce qui est pire qu'un bug dans le code ?"\n"Un bug dans le correctif du bug !"`
+        ];
+        const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
+        return `😂 BLAGUE VIRTUELLE\n\n${randomJoke}\n\n🎭 *L'humour du code*`;
+    }
+
+    // Easter eggs de stats
+    if (cmd === 'stats' || cmd === 'statistiques') {
+        return `📊 STATISTIQUES VIRTUELLES\n\n⏱️ Temps de session: ${Math.floor((Date.now() - performance.timing.navigationStart) / 1000)}s\n\n⌨️ Commandes tapées: ${commandHistory.length}\n\n🎮 Niveau: ${userLevel}\n\n💾 Mémoire utilisée: ${Math.round(performance.memory?.usedJSHeapSize / 1024 / 1024 || 0)}MB\n\n*Données en temps réel*`;
+    }
+
+    // Easter eggs de version
+    if (cmd === 'version' || cmd === 'ver') {
+        return `🔢 VERSION VIRTUELLE\n\n🚀 Arkalia Quest v3.3.0\n\n🌙 LUNA v2.1.0\n\n💻 Terminal v3.0.0\n\n🎮 Mini-jeux v1.5.0\n\n✨ *Toujours en évolution*`;
+    }
+
+    // Easter eggs de help étendu
+    if (cmd === 'help_extended' || cmd === 'aide_etendue') {
+        return `📚 AIDE ÉTENDUE - EASTER EGGS\n\n🎮 Jeux: play_game, simple_hack, sequence_game, typing_challenge\n\n🌙 LUNA: luna dance, luna love, luna secret, luna power\n\n🔮 Matrix: matrix, red pill, blue pill\n\n🎨 Thèmes: matrix_mode, cyberpunk_mode\n\n🐛 Debug: debug_mode, stats, version\n\n🎵 Fun: music, poetry, riddle, quote, joke\n\n🧮 Utils: calc [expression], color [couleur], time\n\n*Explore et découvre !*`;
+    }
+
+    // Pas d'easter egg trouvé
+    return null;
+}
+
 // Correction de la fonction executeCommand pour accepter un paramètre optionnel
 function executeCommand(cmdOverride) {
     const input = document.getElementById('commandInput');
@@ -578,6 +793,15 @@ function executeCommand(cmdOverride) {
     // Empêcher l'envoi de commandes vides
     if (!command || command.length === 0) {
         // Commande vide ignorée
+        return;
+    }
+
+    // Vérifier les easter eggs avant l'envoi au serveur
+    const easterEggResponse = checkEasterEggs(command);
+    if (easterEggResponse) {
+        addCommandMessage(command);
+        addSystemMessage(easterEggResponse);
+        if (input) input.value = '';
         return;
     }
     // Ajouter à l'historique

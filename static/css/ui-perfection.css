@@ -159,13 +159,13 @@ button:focus,
 /* ===== POPUPS ET MODALES PERFECTIONNÉES ===== */
 .modal-perfect,
 .popup-perfect {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 20, 0, 0.9) 100%);
-    border: 2px solid rgba(0, 255, 0, 0.3);
+    background: linear-gradient(135deg, rgba(9, 9, 11, 0.98) 0%, rgba(30, 30, 40, 0.95) 100%);
+    border: 2px solid rgba(167, 139, 250, 0.4);
     border-radius: var(--radius-xl);
     padding: var(--spacing-xl);
     margin: var(--spacing-lg);
-    box-shadow: var(--shadow-luxury);
-    backdrop-filter: blur(10px);
+    box-shadow: 0 20px 40px rgba(167, 139, 250, 0.2), 0 0 0 1px rgba(96, 165, 250, 0.1);
+    backdrop-filter: blur(15px);
     animation: modalAppear var(--transition-luxury) ease-out;
     position: relative;
     overflow: hidden;
@@ -180,8 +180,8 @@ button:focus,
     right: 0;
     bottom: 0;
     background:
-        radial-gradient(circle at 30% 70%, rgba(0, 255, 0, 0.05) 0%, transparent 60%),
-        radial-gradient(circle at 70% 30%, rgba(0, 255, 0, 0.05) 0%, transparent 60%);
+        radial-gradient(circle at 30% 70%, rgba(167, 139, 250, 0.08) 0%, transparent 60%),
+        radial-gradient(circle at 70% 30%, rgba(96, 165, 250, 0.08) 0%, transparent 60%);
     pointer-events: none;
 }
 
@@ -223,7 +223,7 @@ button:focus,
 
 .popup-perfect:hover {
     transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(0, 255, 0, 0.2);
+    box-shadow: 0 20px 40px rgba(167, 139, 250, 0.3), 0 0 0 1px rgba(96, 165, 250, 0.2);
 }
 
 /* ===== ZONES VIDES ÉLÉGANTES ===== */

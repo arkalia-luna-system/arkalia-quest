@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-09-15T04:12:44.183655",
+  "last_updated": "2025-09-15T07:10:31.160430",
   "players": [
     {
       "user_id": "hacker_001",
@@ -56,6 +56,16 @@
       "is_current": false
     },
     {
+      "user_id": 2,
+      "name": "main_user",
+      "score": 630,
+      "level": 2,
+      "badges_count": 5,
+      "missions_completed": 0,
+      "last_activity": "2025-09-15T07:10:31.160423",
+      "join_date": "2025-08-15T12:58:38.952459"
+    },
+    {
       "user_id": "default",
       "name": "Hacker",
       "score": 250,
@@ -65,16 +75,6 @@
       "last_activity": "2025-08-17T15:53:24.746922",
       "join_date": "2025-07-10T08:00:00",
       "is_current": true
-    },
-    {
-      "user_id": 2,
-      "name": "main_user",
-      "score": 15,
-      "level": 1,
-      "badges_count": 0,
-      "missions_completed": 0,
-      "last_activity": "2025-09-15T04:12:44.183649",
-      "join_date": "2025-08-15T12:58:38.952459"
     }
   ],
   "top_players": [
@@ -133,6 +133,16 @@
       "is_current": false
     },
     {
+      "user_id": 2,
+      "name": "main_user",
+      "score": 630,
+      "level": 2,
+      "badges_count": 5,
+      "missions_completed": 0,
+      "last_activity": "2025-09-15T07:10:31.160423",
+      "join_date": "2025-08-15T12:58:38.952459"
+    },
+    {
       "user_id": "default",
       "name": "Hacker",
       "score": 250,
@@ -142,21 +152,11 @@
       "last_activity": "2025-08-17T15:53:24.746922",
       "join_date": "2025-07-10T08:00:00",
       "is_current": true
-    },
-    {
-      "user_id": 2,
-      "name": "main_user",
-      "score": 15,
-      "level": 1,
-      "badges_count": 0,
-      "missions_completed": 0,
-      "last_activity": "2025-09-15T04:12:44.183649",
-      "join_date": "2025-08-15T12:58:38.952459"
     }
   ],
   "statistics": {
     "total_players": 7,
-    "total_score": 7715,
-    "average_score": 1102.14
+    "total_score": 8330,
+    "average_score": 1190.0
   }
 }

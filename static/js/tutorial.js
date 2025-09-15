@@ -537,13 +537,14 @@ class TutorialEngine {
     }
 }
 
-// Instance globale
-window.tutorialEngine = new TutorialEngine();
+// Instance globale - DÉSACTIVÉE
+// window.tutorialEngine = new TutorialEngine();
 
-// Fonction pour démarrer le tutoriel depuis l'interface
+// Fonction pour démarrer le tutoriel depuis l'interface - DÉSACTIVÉE
 window.startTutorial = function () {
-    if (window.tutorialEngine) {
-        window.tutorialEngine.startTutorial();
+    console.log('🎓 Tutoriel désactivé - utilise les systèmes universels');
+    if (window.universalNotifications) {
+        window.universalNotifications.info('🎓 Tutoriel désactivé - explore librement !');
     }
 };
 

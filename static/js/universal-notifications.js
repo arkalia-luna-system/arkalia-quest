@@ -19,9 +19,9 @@ class UniversalNotifications {
 
     loadSettings() {
         const defaultSettings = {
-            maxNotifications: 3,
-            defaultDuration: 4000,
-            position: 'top-right',
+            maxNotifications: 1,
+            defaultDuration: 2000,
+            position: 'bottom-right',
             theme: 'arkalia',
             animations: true,
             sound: false,
@@ -44,7 +44,7 @@ class UniversalNotifications {
         style.textContent = `
             .universal-notifications-container {
                 position: fixed;
-                top: 20px;
+                bottom: 20px;
                 right: 20px;
                 z-index: 10000;
                 display: flex;

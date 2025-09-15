@@ -370,27 +370,9 @@ class VisualGuidance {
 
     // Afficher un feedback de succès
     showSuccessFeedback(message) {
-        const feedback = document.createElement('div');
-        feedback.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(45deg, #00ff00, #00cc00);
-            color: #000;
-            padding: 15px 20px;
-            border-radius: 8px;
-            font-weight: bold;
-            z-index: 10000;
-            animation: slideInRight 0.5s ease-out;
-        `;
-        feedback.textContent = message;
-
-        document.body.appendChild(feedback);
-
-        setTimeout(() => {
-            feedback.style.animation = 'slideOutRight 0.5s ease-in';
-            setTimeout(() => feedback.remove(), 500);
-        }, 3000);
+        if (window.universalNotifications) {
+            window.universalNotifications.info(message);
+        }
     }
 
     // Détecter si l'utilisateur est un débutant

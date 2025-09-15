@@ -521,7 +521,9 @@ class MissionSystem {
     }
 
     showInfo(message) {
-        this.gameEngine.showNotification(message, 'info');
+        if (window.universalNotifications) {
+            window.universalNotifications.info(message);
+        }
     }
 }
 

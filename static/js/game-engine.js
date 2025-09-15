@@ -368,29 +368,23 @@ class GameEngine {
         this.updateUI();
     }
 
-    // SYSTÈME DE NOTIFICATIONS
+    // SYSTÈME DE NOTIFICATIONS - DÉLÉGUÉ AUX SYSTÈMES UNIVERSELS
     showSuccess(message) {
-        this.showNotification(message, 'success');
+        if (window.universalNotifications) {
+            window.universalNotifications.success(message);
+        }
     }
 
     showError(message) {
-        this.showNotification(message, 'error');
+        if (window.universalNotifications) {
+            window.universalNotifications.error(message);
+        }
     }
 
     showNotification(message, type = 'info') {
-        const notification = document.createElement('div');
-        notification.className = `game-notification ${type}`;
-        notification.innerHTML = `
-            <div class="notification-icon">${this.getNotificationIcon(type)}</div>
-            <div class="notification-message">${message}</div>
-        `;
-
-        document.body.appendChild(notification);
-
-        setTimeout(() => {
-            notification.style.animation = 'notificationSlideOut 0.3s ease-out forwards';
-            setTimeout(() => notification.remove(), 300);
-        }, 3000);
+        if (window.universalNotifications) {
+            window.universalNotifications.show(message, { type });
+        }
     }
 
     getNotificationIcon(type) {

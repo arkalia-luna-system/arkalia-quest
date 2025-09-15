@@ -94,10 +94,6 @@
         onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="{{ url_for('static', filename='css/progression-feedback.css') }}?v=3.1.1" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="{{ url_for('static', filename='css/competitive-system.css') }}?v=3.1.1" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="{{ url_for('static', filename='css/creative-system.css') }}?v=3.1.1" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="{{ url_for('static', filename='css/casual-system.css') }}?v=3.1.1" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
 
@@ -686,7 +682,6 @@
                 '{{ url_for("static", filename="js/game-engine.js") }}',
                 '{{ url_for("static", filename="js/mission-system.js") }}',
                 '{{ url_for("static", filename="js/visual-feedback-system.js") }}',
-                '{{ url_for("static", filename="js/advanced-features.js") }}',
                 '{{ url_for("static", filename="js/ai_engine.js") }}',
                 '{{ url_for("static", filename="js/analytics.js") }}',
                 '{{ url_for("static", filename="js/service-worker.js") }}',
@@ -696,8 +691,6 @@
                 '{{ url_for("static", filename="js/loading-manager.js") }}',
                 '{{ url_for("static", filename="js/adaptive-guidance.js") }}?v=3.3.1',
                 '{{ url_for("static", filename="js/progression-feedback.js") }}',
-                '{{ url_for("static", filename="js/competitive-system.js") }}',
-                '{{ url_for("static", filename="js/creative-system.js") }}',
                 '{{ url_for("static", filename="js/casual-system.js") }}',
                 '{{ url_for("static", filename="js/system-integrator.js") }}'
             ];

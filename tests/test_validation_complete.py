@@ -127,7 +127,7 @@ def test_interface_js():
 
         # Vérifier que les fichiers JS existent
         js_files = [
-            "static/js/mini-games-interface.js",
+            "static/js/mini-games-interactive.js",
             "static/js/terminal.js",
             "static/js/tutorial.js",
         ]

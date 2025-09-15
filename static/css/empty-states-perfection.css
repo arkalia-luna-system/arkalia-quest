@@ -1,0 +1,442 @@
+/* ===== ARKALIA QUEST - EMPTY STATES PERFECTION ===== */
+
+/* ===== SYSTÈME DE PLACEHOLDERS ÉLÉGANTS ===== */
+:root {
+    /* Couleurs pour les états vides */
+    --empty-bg: rgba(255, 255, 255, 0.02);
+    --empty-border: rgba(255, 255, 255, 0.08);
+    --empty-text: rgba(255, 255, 255, 0.4);
+    --empty-icon: rgba(255, 255, 255, 0.3);
+
+    /* Animations pour les placeholders */
+    --empty-pulse: 2s ease-in-out infinite;
+    --empty-float: 3s ease-in-out infinite;
+}
+
+/* ===== CONTAINER D'ÉTAT VIDE ===== */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-section) var(--container-padding);
+    margin: var(--space-element) 0;
+    background: var(--empty-bg);
+    border: 2px dashed var(--empty-border);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 200px;
+}
+
+.empty-state::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg,
+            transparent 30%,
+            rgba(255, 255, 255, 0.02) 50%,
+            transparent 70%);
+    animation: shimmer 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* ===== ICÔNES D'ÉTAT VIDE ===== */
+.empty-state-icon {
+    font-size: 4rem;
+    margin-bottom: var(--space-item);
+    opacity: 0.6;
+    animation: float var(--empty-float);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.empty-state-icon.pulse {
+    animation: pulse var(--empty-pulse);
+}
+
+.empty-state-icon.bounce {
+    animation: bounce 2s ease-in-out infinite;
+}
+
+/* ===== TITRES D'ÉTAT VIDE ===== */
+.empty-state-title {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--empty-text);
+    margin-bottom: var(--space-tight);
+    line-height: var(--line-height-snug);
+}
+
+.empty-state-subtitle {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-normal);
+    color: var(--empty-text);
+    margin-bottom: var(--space-item);
+    line-height: var(--line-height-relaxed);
+    opacity: 0.8;
+}
+
+/* ===== DESCRIPTIONS D'ÉTAT VIDE ===== */
+.empty-state-description {
+    font-size: var(--font-size-base);
+    color: var(--empty-text);
+    margin-bottom: var(--space-item);
+    line-height: var(--line-height-relaxed);
+    max-width: 500px;
+    opacity: 0.7;
+}
+
+/* ===== BOUTONS D'ACTION POUR ÉTATS VIDES ===== */
+.empty-state-action {
+    margin-top: var(--space-item);
+}
+
+.empty-state-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-text-primary);
+    border: 1px solid var(--empty-border);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+    transition: all var(--duration-normal) var(--ease-smooth);
+    backdrop-filter: blur(10px);
+}
+
+.empty-state-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--color-accent-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-accent-green);
+}
+
+/* ===== ÉTATS VIDES SPÉCIFIQUES ===== */
+
+/* Aucun badge */
+.empty-badges {
+    --empty-icon: '🏆';
+}
+
+.empty-badges .empty-state-icon::before {
+    content: '🏆';
+    font-size: 4rem;
+    opacity: 0.3;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.empty-badges .empty-state-title::after {
+    content: 'Aucun badge encore...';
+}
+
+.empty-badges .empty-state-description::after {
+    content: 'Complétez des missions et relevez des défis pour débloquer vos premiers badges !';
+}
+
+/* Aucune mission */
+.empty-missions {
+    --empty-icon: '🎯';
+}
+
+.empty-missions .empty-state-icon::before {
+    content: '🎯';
+    font-size: 4rem;
+    opacity: 0.3;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.empty-missions .empty-state-title::after {
+    content: 'Aucune mission disponible';
+}
+
+.empty-missions .empty-state-description::after {
+    content: 'Les missions apparaîtront bientôt. En attendant, explorez le terminal ou le monde d\'Arkalia !';
+}
+
+/* Aucun défi */
+.empty-challenges {
+    --empty-icon: '⚡';
+}
+
+.empty-challenges .empty-state-icon::before {
+    content: '⚡';
+    font-size: 4rem;
+    opacity: 0.3;
+    animation: float 3s ease-in-out infinite;
+}
+
+.empty-challenges .empty-state-title::after {
+    content: 'Aucun défi quotidien';
+}
+
+.empty-challenges .empty-state-description::after {
+    content: 'Les défis quotidiens se renouvellent chaque jour. Revenez demain pour de nouveaux challenges !';
+}
+
+/* Aucun ami */
+.empty-friends {
+    --empty-icon: '👥';
+}
+
+.empty-friends .empty-state-icon::before {
+    content: '👥';
+    font-size: 4rem;
+    opacity: 0.3;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.empty-friends .empty-state-title::after {
+    content: 'Aucun ami connecté';
+}
+
+.empty-friends .empty-state-description::after {
+    content: 'Invitez vos amis à rejoindre Arkalia Quest pour partager l\'aventure !';
+}
+
+/* Aucune progression */
+.empty-progress {
+    --empty-icon: '📈';
+}
+
+.empty-progress .empty-state-icon::before {
+    content: '📈';
+    font-size: 4rem;
+    opacity: 0.3;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.empty-progress .empty-state-title::after {
+    content: 'Aucune progression enregistrée';
+}
+
+.empty-progress .empty-state-description::after {
+    content: 'Commencez à jouer pour voir votre progression s\'afficher ici !';
+}
+
+/* ===== PLACEHOLDERS DE CHARGEMENT ===== */
+.loading-placeholder {
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0.05) 25%,
+            rgba(255, 255, 255, 0.1) 50%,
+            rgba(255, 255, 255, 0.05) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+    border-radius: var(--radius-sm);
+    height: 20px;
+    margin: 8px 0;
+}
+
+.loading-placeholder.title {
+    height: 24px;
+    width: 60%;
+    margin: 0 auto 16px;
+}
+
+.loading-placeholder.text {
+    height: 16px;
+    width: 80%;
+    margin: 8px auto;
+}
+
+.loading-placeholder.button {
+    height: 40px;
+    width: 120px;
+    margin: 16px auto;
+    border-radius: var(--radius-md);
+}
+
+/* ===== SECTIONS VIDES MINIMALISTES ===== */
+.empty-minimal {
+    padding: var(--space-element) var(--container-padding);
+    text-align: center;
+    opacity: 0.6;
+}
+
+.empty-minimal .empty-state-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-tight);
+}
+
+.empty-minimal .empty-state-title {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-tight);
+}
+
+.empty-minimal .empty-state-description {
+    font-size: var(--font-size-sm);
+    margin-bottom: 0;
+}
+
+/* ===== SECTIONS VIDES AVEC ILLUSTRATIONS ===== */
+.empty-illustrated {
+    position: relative;
+    background: linear-gradient(135deg,
+            rgba(0, 255, 0, 0.05) 0%,
+            rgba(0, 255, 255, 0.05) 100%);
+}
+
+.empty-illustrated::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle,
+            rgba(0, 255, 0, 0.1) 0%,
+            transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* ===== ANIMATIONS SPÉCIFIQUES ===== */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.6;
+        transform: scale(1.05);
+    }
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    53%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40%,
+    43% {
+        transform: translateY(-15px);
+    }
+
+    70% {
+        transform: translateY(-7px);
+    }
+
+    90% {
+        transform: translateY(-3px);
+    }
+}
+
+/* ===== RESPONSIVE EMPTY STATES ===== */
+@media (max-width: 768px) {
+    .empty-state {
+        padding: var(--space-element) var(--container-padding-mobile);
+        min-height: 150px;
+    }
+
+    .empty-state-icon {
+        font-size: 3rem;
+    }
+
+    .empty-state-title {
+        font-size: var(--font-size-xl);
+    }
+
+    .empty-state-description {
+        font-size: var(--font-size-sm);
+    }
+}
+
+@media (max-width: 480px) {
+    .empty-state {
+        padding: var(--space-item) var(--container-padding-mobile);
+        min-height: 120px;
+    }
+
+    .empty-state-icon {
+        font-size: 2.5rem;
+    }
+
+    .empty-state-title {
+        font-size: var(--font-size-lg);
+    }
+}
+
+/* ===== UTILITAIRES D'ÉTAT VIDE ===== */
+.empty-hidden {
+    display: none !important;
+}
+
+.empty-fade-in {
+    animation: fadeInUp var(--duration-normal) var(--ease-smooth);
+}
+
+.empty-fade-out {
+    animation: fadeInDown var(--duration-fast) var(--ease-smooth);
+}
+
+/* ===== ÉTATS VIDES AVEC MOTIVATION ===== */
+.empty-motivational {
+    background: linear-gradient(135deg,
+            rgba(0, 255, 0, 0.03) 0%,
+            rgba(0, 255, 255, 0.03) 100%);
+    border-color: rgba(0, 255, 0, 0.2);
+}
+
+.empty-motivational .empty-state-title {
+    color: var(--color-accent-primary);
+}
+
+.empty-motivational .empty-state-description {
+    color: var(--color-text-secondary);
+}
+
+/* ===== ÉTATS VIDES AVEC CONSEILS ===== */
+.empty-tips {
+    position: relative;
+}
+
+.empty-tips::before {
+    content: '💡';
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 1.5rem;
+    opacity: 0.5;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.empty-tips .empty-state-description::after {
+    content: 'Astuce : Explorez tous les menus pour découvrir de nouvelles fonctionnalités !';
+}

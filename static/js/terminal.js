@@ -566,7 +566,15 @@ function executeQuickCommand(command, event) {
     if (progressTimes[command]) {
         showHackingProgress(command, progressTimes[command]);
     }
-    // Envoyer la commande
+    // Vérifier les easter eggs avant l'envoi
+    const easterEggResponse = checkEasterEggs(command);
+    if (easterEggResponse) {
+        addCommandMessage(command);
+        addSystemMessage(easterEggResponse);
+        return;
+    }
+
+    // Envoyer la commande au serveur
     executeCommand(command);
 }
 
@@ -931,14 +939,7 @@ function executeCommand(cmdOverride) {
         return;
     }
 
-    // Vérifier les easter eggs avant l'envoi au serveur
-    const easterEggResponse = checkEasterEggs(command);
-    if (easterEggResponse) {
-        addCommandMessage(command);
-        addSystemMessage(easterEggResponse);
-        if (input) input.value = '';
-        return;
-    }
+    // Les easter eggs sont maintenant vérifiés dans sendCommand
     // Ajouter à l'historique
     commandHistory.push(command);
     historyIndex = commandHistory.length;

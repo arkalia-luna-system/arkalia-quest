@@ -33,10 +33,12 @@ try:
     from core.tutorial_manager import tutorial_manager
     from core.websocket_manager import websocket_manager
     from engines.luna_ai_v3 import LunaAIV3
+
     print("✅ All core modules imported successfully")
 except Exception as e:
     print(f"❌ Error importing core modules: {e}")
     import traceback
+
     traceback.print_exc()
     # Créer des objets factices pour éviter les erreurs
     arkalia_engine = None
@@ -105,12 +107,12 @@ def before_request():
     client_ip = request.environ.get("HTTP_X_FORWARDED_FOR", request.remote_addr)
 
     # Vérifier si l'IP est bloquée (si le module est disponible)
-    if security_enhanced and hasattr(security_enhanced, 'is_ip_blocked'):
+    if security_enhanced and hasattr(security_enhanced, "is_ip_blocked"):
         if security_enhanced.is_ip_blocked(client_ip):
             return jsonify({"error": "Accès refusé"}), 403
 
     # Vérifier le rate limiting (si le module est disponible)
-    if security_enhanced and hasattr(security_enhanced, 'check_rate_limit'):
+    if security_enhanced and hasattr(security_enhanced, "check_rate_limit"):
         allowed, message = security_enhanced.check_rate_limit(client_ip)
         if not allowed:
             return jsonify({"error": message}), 429

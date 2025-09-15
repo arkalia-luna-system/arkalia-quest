@@ -6,7 +6,7 @@ class BugFixes {
         this.maxHistorySize = 50;
         this.spamProtection = new Map();
         this.lastCommandTime = 0;
-        this.minCommandInterval = 500; // 500ms minimum entre les commandes (plus raisonnable)
+        this.minCommandInterval = 200; // 200ms minimum entre les commandes (très tolérant)
 
         this.init();
     }

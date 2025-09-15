@@ -575,19 +575,19 @@ function checkEasterEggs(command) {
     const cmd = command.toLowerCase().trim();
 
     // Easter eggs LUNA
-    if (cmd.includes('luna') && cmd.includes('dance')) {
+    if (cmd === 'luna_dance' || cmd === 'luna dance' || (cmd.includes('luna') && cmd.includes('dance'))) {
         return `🌙 LUNA: *danse avec joie* 💃✨\nJe danse pour toi ! Tu es un joueur formidable !\n*LUNA fait des pirouettes dans le terminal*`;
     }
 
-    if (cmd.includes('luna') && cmd.includes('love')) {
+    if (cmd === 'luna_love' || cmd === 'luna love' || (cmd.includes('luna') && cmd.includes('love'))) {
         return `💖 LUNA: Je t'aime beaucoup ! Tu es mon joueur préféré !\n*LUNA envoie des cœurs virtuels* ❤️✨`;
     }
 
-    if (cmd.includes('luna') && cmd.includes('secret')) {
+    if (cmd === 'luna_secret' || cmd === 'luna secret' || (cmd.includes('luna') && cmd.includes('secret'))) {
         return `🤫 LUNA: *chuchote* J'ai un secret pour toi...\nTu es plus fort que tu ne le penses !\n*LUNA fait un clin d'œil* 😉`;
     }
 
-    if (cmd.includes('luna') && cmd.includes('power')) {
+    if (cmd === 'luna_power' || cmd === 'luna power' || (cmd.includes('luna') && cmd.includes('power'))) {
         return `⚡ LUNA: *puissance activée*\nJe sens une grande puissance en toi !\nTu es destiné à de grandes choses !\n*LUNA brille intensément* ✨`;
     }
 
@@ -833,6 +833,87 @@ function checkEasterEggs(command) {
     // Easter eggs de help étendu
     if (cmd === 'help_extended' || cmd === 'aide_etendue') {
         return `📚 AIDE ÉTENDUE - EASTER EGGS\n\n🎮 Jeux: play_game, simple_hack, sequence_game, typing_challenge\n\n🌙 LUNA: luna dance, luna love, luna secret, luna power\n\n🔮 Matrix: matrix, red pill, blue pill\n\n🎨 Thèmes: matrix_mode, cyberpunk_mode\n\n🐛 Debug: debug_mode, stats, version\n\n🎵 Fun: music, poetry, riddle, quote, joke\n\n🧮 Utils: calc [expression], color [couleur], time\n\n*Explore et découvre !*`;
+    }
+
+    // Commandes fun supplémentaires
+    if (cmd === 'joke' || cmd === 'blague') {
+        const jokes = [
+            "Pourquoi les développeurs préfèrent le mode sombre ? Parce que la lumière attire les bugs ! 🐛",
+            "Qu'est-ce qu'un programmeur fait quand il a faim ? Il mange des cookies ! 🍪",
+            "Pourquoi les IA sont-elles mauvaises en cache-cache ? Parce qu'elles cachent toujours les mêmes endroits ! 🤖",
+            "Qu'est-ce qu'un bug dit à un autre bug ? On se debug ! 🐛💻"
+        ];
+        const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
+        return `😄 BLAGUE DU JOUR\n\n${randomJoke}\n\n*LUNA rit* 😂`;
+    }
+
+    if (cmd === 'quote' || cmd === 'citation') {
+        const quotes = [
+            "Le code est comme l'humour. Quand vous devez l'expliquer, c'est mauvais. - Cory House",
+            "Première règle de la programmation : si ça marche, ne le touche pas !",
+            "Il y a deux façons d'écrire du code sans erreur ; seule la troisième fonctionne. - Alan J. Perlis",
+            "Le code propre n'est pas écrit selon un ensemble de règles. - Robert C. Martin"
+        ];
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        return `💭 CITATION INSPIRANTE\n\n"${randomQuote}"\n\n*LUNA réfléchit profondément* 🤔`;
+    }
+
+    if (cmd === 'music' || cmd === 'musique') {
+        return `🎵 MODE MUSIQUE ACTIVÉ\n\n🎶 *LUNA fredonne une mélodie cyber*\n\n🎧 Recommandations :\n• Synthwave 80s\n• Cyberpunk Ambient\n• Matrix OST\n\n*Le terminal vibre au rythme* 🎶`;
+    }
+
+    if (cmd === 'poetry' || cmd === 'poésie') {
+        return `📝 POÉSIE CYBER\n\n*LUNA compose un poème*\n\n🌙 Dans le terminal de la nuit,\n💻 Les lignes de code dansent,\n✨ LUNA veille sur toi,\n🚀 Vers l'infini et au-delà !\n\n*Applause virtuel* 👏`;
+    }
+
+    if (cmd === 'riddle' || cmd === 'énigme') {
+        const riddles = [
+            "Je suis partout et nulle part, je peux tout voir mais je n'ai pas d'yeux. Qui suis-je ? (Réponse: L'Internet) 🌐",
+            "Plus on me donne, plus j'ai de valeur. Qui suis-je ? (Réponse: L'information) 📊",
+            "Je suis invisible mais je peux tout changer. Qui suis-je ? (Réponse: Le code) 💻"
+        ];
+        const randomRiddle = riddles[Math.floor(Math.random() * riddles.length)];
+        return `🤔 ÉNIGME CYBER\n\n${randomRiddle}\n\n*LUNA attend ta réponse* 🤖`;
+    }
+
+    if (cmd === 'calc' || cmd.startsWith('calc ')) {
+        const expression = cmd.replace('calc ', '');
+        try {
+            // Sécurité : seulement les opérations mathématiques basiques
+            if (/^[0-9+\-*/().\s]+$/.test(expression)) {
+                const result = eval(expression);
+                return `🧮 CALCULATRICE\n\n${expression} = ${result}\n\n*LUNA calcule instantanément* ⚡`;
+            } else {
+                return `❌ Expression invalide. Utilisez seulement des chiffres et +, -, *, /, (, )`;
+            }
+        } catch (error) {
+            return `❌ Erreur de calcul. Vérifiez votre expression.`;
+        }
+    }
+
+    if (cmd === 'color' || cmd.startsWith('color ')) {
+        const color = cmd.replace('color ', '');
+        const colors = {
+            'rouge': '#ff0000', 'red': '#ff0000',
+            'vert': '#00ff00', 'green': '#00ff00',
+            'bleu': '#0000ff', 'blue': '#0000ff',
+            'jaune': '#ffff00', 'yellow': '#ffff00',
+            'violet': '#800080', 'purple': '#800080',
+            'orange': '#ffa500', 'rose': '#ffc0cb', 'pink': '#ffc0cb'
+        };
+
+        if (colors[color.toLowerCase()]) {
+            return `🎨 COULEUR APPLIQUÉE\n\n🌈 ${color} sélectionné !\n\n*Le terminal change de couleur*\n\n💡 Astuce: Utilisez 'matrix_mode' ou 'cyberpunk_mode' pour des thèmes complets !`;
+        } else {
+            return `🎨 COULEURS DISPONIBLES\n\nrouge, vert, bleu, jaune, violet, orange, rose\n\n💡 Exemple: color rouge`;
+        }
+    }
+
+    if (cmd === 'time' || cmd === 'heure') {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('fr-FR');
+        const dateString = now.toLocaleDateString('fr-FR');
+        return `🕐 HEURE SYSTÈME\n\n📅 Date: ${dateString}\n⏰ Heure: ${timeString}\n\n*LUNA synchronise avec le temps réel* ⏱️`;
     }
 
     // Pas d'easter egg trouvé

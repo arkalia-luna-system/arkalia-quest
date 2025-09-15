@@ -75,7 +75,9 @@ class TestLunaV3Integration(unittest.TestCase):
             self.test_user_profile,
             self.test_game_context,
         )
-        self.assertIn(response["emotion"], ["concerned", "supportive", "encouraging", "proud"])
+        self.assertIn(
+            response["emotion"], ["concerned", "supportive", "encouraging", "proud"]
+        )
 
     def test_memory_system(self):
         """Test du système de mémoire"""
@@ -119,7 +121,9 @@ class TestLunaV3Integration(unittest.TestCase):
             context = self.test_game_context.copy()
             context["time_of_day"] = f"{hour}:00"
 
-            self.luna.generate_response(f"Test à {hour}h", self.test_user_profile, context)
+            self.luna.generate_response(
+                f"Test à {hour}h", self.test_user_profile, context
+            )
 
         # Vérifier que les patterns sont appris
         patterns = self.luna.predictive.patterns
@@ -138,8 +142,12 @@ class TestLunaV3Integration(unittest.TestCase):
     def test_reset_functionality(self):
         """Test de la fonctionnalité de reset"""
         # Générer quelques interactions
-        self.luna.generate_response("Test 1", self.test_user_profile, self.test_game_context)
-        self.luna.generate_response("Test 2", self.test_user_profile, self.test_game_context)
+        self.luna.generate_response(
+            "Test 1", self.test_user_profile, self.test_game_context
+        )
+        self.luna.generate_response(
+            "Test 2", self.test_user_profile, self.test_game_context
+        )
 
         # Reset (simuler un reset)
         self.luna = LunaAIV3()

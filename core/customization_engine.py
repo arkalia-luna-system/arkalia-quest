@@ -290,7 +290,9 @@ class CustomizationEngine:
         if player_id not in self.player_customizations:
             return False
 
-        unlocked_themes = self.player_customizations[player_id].get("unlocked_themes", [])
+        unlocked_themes = self.player_customizations[player_id].get(
+            "unlocked_themes", []
+        )
         return theme_id in unlocked_themes
 
     def unlock_theme(self, player_id: str, theme_id: str) -> dict[str, Any]:
@@ -366,7 +368,9 @@ class CustomizationEngine:
         if player_id not in self.player_customizations:
             return False
 
-        unlocked_avatars = self.player_customizations[player_id].get("unlocked_avatars", [])
+        unlocked_avatars = self.player_customizations[player_id].get(
+            "unlocked_avatars", []
+        )
         return avatar_id in unlocked_avatars
 
     def unlock_avatar(self, player_id: str, avatar_id: str) -> dict[str, Any]:
@@ -427,7 +431,9 @@ class CustomizationEngine:
 
     # ===== GESTION DES SKINS =====
 
-    def get_available_skins(self, player_id: str, skin_type: str = None) -> list[dict[str, Any]]:
+    def get_available_skins(
+        self, player_id: str, skin_type: str = None
+    ) -> list[dict[str, Any]]:
         """Retourne les skins disponibles pour un joueur"""
         available_skins = []
 
@@ -521,7 +527,9 @@ class CustomizationEngine:
         if player_id not in self.player_customizations:
             return False
 
-        unlocked_voices = self.player_customizations[player_id].get("unlocked_voices", [])
+        unlocked_voices = self.player_customizations[player_id].get(
+            "unlocked_voices", []
+        )
         return voice_id in unlocked_voices
 
     def unlock_voice(self, player_id: str, voice_id: str) -> dict[str, Any]:
@@ -582,14 +590,18 @@ class CustomizationEngine:
 
     # ===== CUSTOMISATION AVANCÉE =====
 
-    def create_custom_theme(self, player_id: str, theme_data: dict[str, Any]) -> dict[str, Any]:
+    def create_custom_theme(
+        self, player_id: str, theme_data: dict[str, Any]
+    ) -> dict[str, Any]:
         """Crée un thème personnalisé"""
         theme_id = f"custom_{player_id}_{uuid.uuid4().hex[:8]}"
 
         custom_theme = {
             "id": theme_id,
             "name": theme_data.get("name", "Thème Personnalisé"),
-            "description": theme_data.get("description", "Thème créé par l'utilisateur"),
+            "description": theme_data.get(
+                "description", "Thème créé par l'utilisateur"
+            ),
             "colors": theme_data.get("colors", {}),
             "fonts": theme_data.get("fonts", {}),
             "effects": theme_data.get("effects", {}),
@@ -635,15 +647,23 @@ class CustomizationEngine:
             "current_theme": self.themes.get(customization["current_theme"], {}),
             "current_avatar": self.avatars.get(customization["current_avatar"], {}),
             "current_skin": self.skins.get(customization["current_skin"], {}),
-            "current_voice": self.voice_profiles.get(customization["current_voice"], {}),
+            "current_voice": self.voice_profiles.get(
+                customization["current_voice"], {}
+            ),
             "unlocked_themes": [
-                self.themes[t] for t in customization["unlocked_themes"] if t in self.themes
+                self.themes[t]
+                for t in customization["unlocked_themes"]
+                if t in self.themes
             ],
             "unlocked_avatars": [
-                self.avatars[a] for a in customization["unlocked_avatars"] if a in self.avatars
+                self.avatars[a]
+                for a in customization["unlocked_avatars"]
+                if a in self.avatars
             ],
             "unlocked_skins": [
-                self.skins[s] for s in customization["unlocked_skins"] if s in self.skins
+                self.skins[s]
+                for s in customization["unlocked_skins"]
+                if s in self.skins
             ],
             "unlocked_voices": [
                 self.voice_profiles[v]
@@ -659,7 +679,9 @@ class CustomizationEngine:
         return {
             "success": True,
             "customization": customization,
-            "css_variables": self.generate_css_variables(customization["current_theme"]),
+            "css_variables": self.generate_css_variables(
+                customization["current_theme"]
+            ),
             "message": "Customisation appliquée !",
         }
 
@@ -690,31 +712,37 @@ class CustomizationEngine:
         """Débloque une customisation aléatoire"""
         if category == "random":
             categories = ["themes", "avatars", "skins", "voices"]
-            category = categories[hash(player_id + str(datetime.now().date())) % len(categories)]
+            category = categories[
+                hash(player_id + str(datetime.now().date())) % len(categories)
+            ]
 
         if category == "themes":
             available = [
                 t
                 for t in self.themes.values()
-                if not t.get("unlocked", False) and not self.is_theme_unlocked(player_id, t["id"])
+                if not t.get("unlocked", False)
+                and not self.is_theme_unlocked(player_id, t["id"])
             ]
         elif category == "avatars":
             available = [
                 a
                 for a in self.avatars.values()
-                if not a.get("unlocked", False) and not self.is_avatar_unlocked(player_id, a["id"])
+                if not a.get("unlocked", False)
+                and not self.is_avatar_unlocked(player_id, a["id"])
             ]
         elif category == "skins":
             available = [
                 s
                 for s in self.skins.values()
-                if not s.get("unlocked", False) and not self.is_skin_unlocked(player_id, s["id"])
+                if not s.get("unlocked", False)
+                and not self.is_skin_unlocked(player_id, s["id"])
             ]
         elif category == "voices":
             available = [
                 v
                 for v in self.voice_profiles.values()
-                if not v.get("unlocked", False) and not self.is_voice_unlocked(player_id, v["id"])
+                if not v.get("unlocked", False)
+                and not self.is_voice_unlocked(player_id, v["id"])
             ]
         else:
             return {"success": False, "error": "Catégorie invalide"}

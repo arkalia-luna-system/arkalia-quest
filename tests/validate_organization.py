@@ -135,7 +135,9 @@ def test_quick_script():
                         "timestamp",
                         "success",
                     ]
-                    missing_fields = [field for field in required_fields if field not in data]
+                    missing_fields = [
+                        field for field in required_fields if field not in data
+                    ]
 
                     if not missing_fields:
                         print("✅ Structure JSON correcte")
@@ -175,7 +177,9 @@ def check_reports_organization():
     print(f"📊 Résultats dans results/: {results_count}")
 
     # Vérifier qu'il n'y a plus de fichiers à la racine
-    root_files = list(Path("..").glob("*test*.py")) + list(Path("..").glob("*report*.json"))
+    root_files = list(Path("..").glob("*test*.py")) + list(
+        Path("..").glob("*report*.json")
+    )
     root_files = [f for f in root_files if f.is_file()]
 
     if root_files:
@@ -239,7 +243,9 @@ def main():
     print("\n🎯 RÉSUMÉ DE LA VALIDATION")
     print("=" * 30)
     print(f"📊 Score global: {report['score']:.1f}%")
-    print(f"✅ Vérifications réussies: {report['passed_checks']}/{report['total_checks']}")
+    print(
+        f"✅ Vérifications réussies: {report['passed_checks']}/{report['total_checks']}"
+    )
 
     # Détails des vérifications
     for check_name, result in report["checks"].items():
@@ -250,7 +256,10 @@ def main():
     if report["score"] >= 90:
         print("\n🎉 EXCELLENT ! L'organisation est parfaitement fonctionnelle")
     elif report["score"] >= 75:
-        print("\n✅ BON ! L'organisation fonctionne bien avec quelques" + "améliorations mineures")
+        print(
+            "\n✅ BON ! L'organisation fonctionne bien avec quelques"
+            + "améliorations mineures"
+        )
     elif report["score"] >= 50:
         print("\n⚠️ MOYEN ! L'organisation nécessite des corrections")
     else:

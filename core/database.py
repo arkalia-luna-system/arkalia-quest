@@ -105,13 +105,21 @@ class DatabaseManager:
             )
 
             # Créer des index pour optimiser les performances
-            cursor.execute("CREATE INDEX IF NOT EXISTS idx_profiles_username ON profiles(username)")
-            cursor.execute("CREATE INDEX IF NOT EXISTS idx_profiles_score ON profiles(score)")
-            cursor.execute("CREATE INDEX IF NOT EXISTS idx_profiles_level ON profiles(level)")
+            cursor.execute(
+                "CREATE INDEX IF NOT EXISTS idx_profiles_username ON profiles(username)"
+            )
+            cursor.execute(
+                "CREATE INDEX IF NOT EXISTS idx_profiles_score ON profiles(score)"
+            )
+            cursor.execute(
+                "CREATE INDEX IF NOT EXISTS idx_profiles_level ON profiles(level)"
+            )
             cursor.execute(
                 "CREATE INDEX IF NOT EXISTS idx_missions_difficulty ON missions(difficulty)"
             )
-            cursor.execute("CREATE INDEX IF NOT EXISTS idx_challenges_status ON challenges(status)")
+            cursor.execute(
+                "CREATE INDEX IF NOT EXISTS idx_challenges_status ON challenges(status)"
+            )
             cursor.execute(
                 "CREATE INDEX IF NOT EXISTS idx_luna_learning_user_time ON luna_learning(user_id, timestamp)"
             )
@@ -188,7 +196,9 @@ class DatabaseManager:
                 cursor = conn.cursor()
 
                 # Vérifier si le profil existe déjà
-                cursor.execute("SELECT id FROM profiles WHERE username = ?", (username,))
+                cursor.execute(
+                    "SELECT id FROM profiles WHERE username = ?", (username,)
+                )
                 existing = cursor.fetchone()
 
                 if existing:
@@ -309,7 +319,9 @@ class DatabaseManager:
                     VALUES (?, ?, ?, ?, ?)
                 """,
                     (
-                        challenge_data.get("id", f"challenge_{datetime.now().timestamp()}"),
+                        challenge_data.get(
+                            "id", f"challenge_{datetime.now().timestamp()}"
+                        ),
                         challenge_data.get("title", "Défi"),
                         challenge_data.get("description", ""),
                         challenge_data.get("timer", 30),
@@ -411,7 +423,9 @@ class DatabaseManager:
         try:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
-                cursor.execute("SELECT * FROM missions WHERE mission_id = ?", (mission_id,))
+                cursor.execute(
+                    "SELECT * FROM missions WHERE mission_id = ?", (mission_id,)
+                )
                 row = cursor.fetchone()
 
                 if row:

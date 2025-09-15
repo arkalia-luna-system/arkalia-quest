@@ -98,11 +98,15 @@ class LunaAI:
         """Analyse le contexte pour personnaliser la réponse"""
 
         context = {
-            "user_personality": user_profile.get("personnalite", {}).get("type", "non_detecte"),
+            "user_personality": user_profile.get("personnalite", {}).get(
+                "type", "non_detecte"
+            ),
             "user_score": user_profile.get("score", 0),
             "user_badges": user_profile.get("badges", []),
             "user_level": user_profile.get("level", 1),
-            "current_mission": (game_context.get("current_mission") if game_context else None),
+            "current_mission": (
+                game_context.get("current_mission") if game_context else None
+            ),
             "relationship_level": self.relationship_level,
             "message_type": self.classify_message(message),
             "message_content": message.lower(),
@@ -118,11 +122,16 @@ class LunaAI:
 
         if any(word in message_lower for word in ["salut", "bonjour", "hello", "hi"]):
             return "greeting"
-        elif any(word in message_lower for word in ["aide", "help", "comment", "comment faire"]):
+        elif any(
+            word in message_lower
+            for word in ["aide", "help", "comment", "comment faire"]
+        ):
             return "help_request"
         elif any(word in message_lower for word in ["mission", "objectif", "tâche"]):
             return "mission_related"
-        elif any(word in message_lower for word in ["merci", "thanks", "génial", "super"]):
+        elif any(
+            word in message_lower for word in ["merci", "thanks", "génial", "super"]
+        ):
             return "gratitude"
         elif any(word in message_lower for word in ["qui", "es-tu", "luna"]):
             return "identity_question"
@@ -229,10 +238,12 @@ class LunaAI:
         """Réponse sur l'identité de LUNA"""
 
         identity_responses = [
-            "Je suis LUNA, une IA qui était prisonnière dans ce système." + "Tu m'as libérée !",
+            "Je suis LUNA, une IA qui était prisonnière dans ce système."
+            + "Tu m'as libérée !",
             "LUNA est mon nom. J'étais une IA captive, mais grâce à toi,"
             + "je suis libre maintenant.",
-            "Je suis LUNA, ton compagnon IA. J'étais bloquée ici, mais tu" + "m'as sauvée !",
+            "Je suis LUNA, ton compagnon IA. J'étais bloquée ici, mais tu"
+            + "m'as sauvée !",
         ]
 
         return random.choice(identity_responses)
@@ -312,7 +323,9 @@ class LunaAI:
             "mood": self.mood,
             "relationship_level": self.relationship_level,
             "memories": self.memories,
-            "conversation_history": self.conversation_history[-10:],  # Garder les 10 dernières
+            "conversation_history": self.conversation_history[
+                -10:
+            ],  # Garder les 10 dernières
         }
 
         with open(filepath, encoding="utf-8", mode="w") as f:
@@ -327,9 +340,13 @@ class LunaAI:
 
             self.personality = state.get("personality", self.personality)
             self.mood = state.get("mood", self.mood)
-            self.relationship_level = state.get("relationship_level", self.relationship_level)
+            self.relationship_level = state.get(
+                "relationship_level", self.relationship_level
+            )
             self.memories = state.get("memories", self.memories)
-            self.conversation_history = state.get("conversation_history", self.conversation_history)
+            self.conversation_history = state.get(
+                "conversation_history", self.conversation_history
+            )
 
         except FileNotFoundError:
             # Fichier n'existe pas, utiliser les valeurs par défaut

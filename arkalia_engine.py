@@ -51,10 +51,14 @@ class ProfileManager:
                 )
                 return False
         if not isinstance(profile.get("badges", []), list):
-            game_logger.error("Erreur sauvegarde profil: 'badges' doit être une liste !")
+            game_logger.error(
+                "Erreur sauvegarde profil: 'badges' doit être une liste !"
+            )
             return False
         if not isinstance(profile.get("preferences", {}), dict):
-            game_logger.error("Erreur sauvegarde profil: 'preferences' doit être un dictionnaire !")
+            game_logger.error(
+                "Erreur sauvegarde profil: 'preferences' doit être un dictionnaire !"
+            )
             return False
         # Vérification de la sous-structure 'personnalite'
         if not isinstance(profile.get("personnalite", {}), dict):
@@ -64,7 +68,9 @@ class ProfileManager:
             return False
         # Vérification de la sous-structure 'progression'
         if not isinstance(profile.get("progression", {}), dict):
-            game_logger.error("Erreur sauvegarde profil: 'progression' doit être un dictionnaire !")
+            game_logger.error(
+                "Erreur sauvegarde profil: 'progression' doit être un dictionnaire !"
+            )
             return False
         return self.db_manager.save_profile("main_user", profile)
 
@@ -127,7 +133,9 @@ class MissionEngine:
         """Génère une mission personnalisée"""
         try:
             level = profile.get("level", 1)
-            completed_missions = profile.get("personnalite", {}).get("missions_completees", [])
+            completed_missions = profile.get("personnalite", {}).get(
+                "missions_completees", []
+            )
 
             # Mission adaptée au niveau
             if level <= 2:
@@ -212,7 +220,9 @@ class ContentManager:
             missions_dir = "data/missions"
             if os.path.exists(missions_dir):
                 return [
-                    f.replace(".json", "") for f in os.listdir(missions_dir) if f.endswith(".json")
+                    f.replace(".json", "")
+                    for f in os.listdir(missions_dir)
+                    if f.endswith(".json")
                 ]
             return []
         except Exception:
@@ -258,7 +268,11 @@ arkalia_engine = type(
         "content": ContentManager(),
         # Méthodes de compatibilité
         "get_available_content": lambda self: self.content.get_available_content(),
-        "get_mission_info": lambda self, mission_name: self.content.get_mission_info(mission_name),
-        "get_profile_summary": lambda self, profile: self.content.get_profile_summary(profile),
+        "get_mission_info": lambda self, mission_name: self.content.get_mission_info(
+            mission_name
+        ),
+        "get_profile_summary": lambda self, profile: self.content.get_profile_summary(
+            profile
+        ),
     },
 )()

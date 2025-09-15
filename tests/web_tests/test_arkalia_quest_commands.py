@@ -72,7 +72,9 @@ class ArkaliaQuestCommandsTester:
 
         self.navigation_commands = ["monde", "world", "explorer", "naviguer"]
 
-    def log_test(self, test_name: str, status: str, details: str = "", duration: float = 0):
+    def log_test(
+        self, test_name: str, status: str, details: str = "", duration: float = 0
+    ):
         """Enregistre un résultat de test"""
         result = {
             "test": test_name,
@@ -96,7 +98,9 @@ class ArkaliaQuestCommandsTester:
         start_time = time.time()
         try:
             # Tester l'accès à la page terminal
-            response = self.session.get(f"{self.base_url}/terminal", timeout=self.timeout)
+            response = self.session.get(
+                f"{self.base_url}/terminal", timeout=self.timeout
+            )
             duration = time.time() - start_time
 
             if response.status_code == 200:
@@ -192,7 +196,9 @@ class ArkaliaQuestCommandsTester:
         """Test la fonctionnalité du leaderboard"""
         start_time = time.time()
         try:
-            response = self.session.get(f"{self.base_url}/leaderboard", timeout=self.timeout)
+            response = self.session.get(
+                f"{self.base_url}/leaderboard", timeout=self.timeout
+            )
             duration = time.time() - start_time
 
             if response.status_code == 200:
@@ -234,7 +240,9 @@ class ArkaliaQuestCommandsTester:
                 return False
         except requests.exceptions.RequestException as e:
             duration = time.time() - start_time
-            self.log_test("Fonctionnalité Leaderboard", "FAIL", f"Erreur: {str(e)}", duration)
+            self.log_test(
+                "Fonctionnalité Leaderboard", "FAIL", f"Erreur: {str(e)}", duration
+            )
             return False
 
     def test_educational_games(self) -> bool:
@@ -253,7 +261,8 @@ class ArkaliaQuestCommandsTester:
                     "éducatif" in content.lower() or "educational" in content.lower(),
                     "mini-jeu" in content.lower() or "minigame" in content.lower(),
                     "logique" in content.lower() or "logic" in content.lower(),
-                    "cybersécurité" in content.lower() or "cybersecurity" in content.lower(),
+                    "cybersécurité" in content.lower()
+                    or "cybersecurity" in content.lower(),
                 ]
 
                 elements_found = sum(game_elements)
@@ -476,7 +485,9 @@ class ArkaliaQuestCommandsTester:
         # Analyse par catégorie de commandes
         command_categories = {
             "Commandes de Base": [
-                r for r in self.test_results if any(cmd in r["test"] for cmd in self.basic_commands)
+                r
+                for r in self.test_results
+                if any(cmd in r["test"] for cmd in self.basic_commands)
             ],
             "Commandes Tutoriel": [
                 r
@@ -484,10 +495,14 @@ class ArkaliaQuestCommandsTester:
                 if any(cmd in r["test"] for cmd in self.tutorial_commands)
             ],
             "Commandes Jeux": [
-                r for r in self.test_results if any(cmd in r["test"] for cmd in self.game_commands)
+                r
+                for r in self.test_results
+                if any(cmd in r["test"] for cmd in self.game_commands)
             ],
             "Commandes Histoire": [
-                r for r in self.test_results if any(cmd in r["test"] for cmd in self.story_commands)
+                r
+                for r in self.test_results
+                if any(cmd in r["test"] for cmd in self.story_commands)
             ],
             "Commandes Action": [
                 r
@@ -495,7 +510,9 @@ class ArkaliaQuestCommandsTester:
                 if any(cmd in r["test"] for cmd in self.action_commands)
             ],
             "Commandes LUNA": [
-                r for r in self.test_results if any(cmd in r["test"] for cmd in self.luna_commands)
+                r
+                for r in self.test_results
+                if any(cmd in r["test"] for cmd in self.luna_commands)
             ],
             "Commandes Navigation": [
                 r
@@ -531,7 +548,9 @@ class ArkaliaQuestCommandsTester:
                 elif rate >= 60:
                     print(f"⚠️ {category}: À améliorer ({rate:.0f}% - {passed}/{total})")
                 else:
-                    print(f"❌ {category}: Problèmes majeurs ({rate:.0f}% - {passed}/{total})")
+                    print(
+                        f"❌ {category}: Problèmes majeurs ({rate:.0f}% - {passed}/{total})"
+                    )
 
         # Tests échoués
         if failed_tests > 0:
@@ -558,7 +577,9 @@ class ArkaliaQuestCommandsTester:
             print("🚨 État critique, de nombreuses commandes ne fonctionnent pas.")
 
         # Sauvegarde du rapport
-        report_file = f"commands_test_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+        report_file = (
+            f"commands_test_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+        )
         with open(report_file, "w", encoding="utf-8") as f:
             json.dump(
                 {

@@ -342,7 +342,9 @@ class TestRobustesseAvancee(unittest.TestCase):
         self.assertIsNotNone(recovered_data, "Profil non récupéré")
 
         # Vérifier que les données clés sont présentes
-        self.assertEqual(recovered_data["username"], "recovery_test", "Username incorrect")
+        self.assertEqual(
+            recovered_data["username"], "recovery_test", "Username incorrect"
+        )
         self.assertEqual(recovered_data["score"], 100, "Score incorrect")
         self.assertEqual(recovered_data["level"], 5, "Niveau incorrect")
         self.assertIn("test_badge", recovered_data["badges"], "Badge de test manquant")

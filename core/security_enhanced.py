@@ -40,7 +40,9 @@ class SecurityEnhanced:
                 r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
             ),
             "game_id": re.compile(r"^[a-zA-Z0-9_-]+$"),
-            "command": re.compile(r"^[a-zA-Z0-9_\s\-\.]+$"),  # Ajout du point pour les commandes
+            "command": re.compile(
+                r"^[a-zA-Z0-9_\s\-\.]+$"
+            ),  # Ajout du point pour les commandes
             "api_key": re.compile(r"^[a-zA-Z0-9]{32,64}$"),
             "session_id": re.compile(r"^[a-zA-Z0-9_-]{24,48}$"),
         }
@@ -142,7 +144,10 @@ class SecurityEnhanced:
         current_time = time.time()
 
         # Nettoyer les anciennes requêtes
-        while self.rate_limits[ip_address] and current_time - self.rate_limits[ip_address][0] > 60:
+        while (
+            self.rate_limits[ip_address]
+            and current_time - self.rate_limits[ip_address][0] > 60
+        ):
             self.rate_limits[ip_address].popleft()
 
         # Vérifier la limite par minute
@@ -256,7 +261,9 @@ class SecurityEnhanced:
             },
         )
 
-    def _log_suspicious_activity(self, ip_address: str, activity_type: str, details: str = ""):
+    def _log_suspicious_activity(
+        self, ip_address: str, activity_type: str, details: str = ""
+    ):
         """
         Enregistre une activité suspecte
 
@@ -279,7 +286,10 @@ class SecurityEnhanced:
         ]
 
         # Vérifier si l'IP doit être bloquée
-        if len(self.suspicious_activities[ip_address]) >= self.config["suspicious_threshold"]:
+        if (
+            len(self.suspicious_activities[ip_address])
+            >= self.config["suspicious_threshold"]
+        ):
             self.block_ip(ip_address)
 
         self._log_security_event(
@@ -326,7 +336,9 @@ class SecurityEnhanced:
             Mot de passe haché
         """
         salt = secrets.token_hex(16)
-        password_hash = hashlib.pbkdf2_hmac("sha256", password.encode(), salt.encode(), 100000)
+        password_hash = hashlib.pbkdf2_hmac(
+            "sha256", password.encode(), salt.encode(), 100000
+        )
         return f"{salt}:{password_hash.hex()}"
 
     def verify_password(self, password: str, hashed_password: str) -> bool:
@@ -342,7 +354,9 @@ class SecurityEnhanced:
         """
         try:
             salt, stored_hash = hashed_password.split(":")
-            password_hash = hashlib.pbkdf2_hmac("sha256", password.encode(), salt.encode(), 100000)
+            password_hash = hashlib.pbkdf2_hmac(
+                "sha256", password.encode(), salt.encode(), 100000
+            )
             return password_hash.hex() == stored_hash
         except (ValueError, AttributeError):
             return False
@@ -367,7 +381,11 @@ class SecurityEnhanced:
 
         # Compter les IPs bloquées
         blocked_ips = len(
-            [ip for ip, block_until in self.blocked_ips.items() if current_time < block_until]
+            [
+                ip
+                for ip, block_until in self.blocked_ips.items()
+                if current_time < block_until
+            ]
         )
 
         # Compter les activités suspectes

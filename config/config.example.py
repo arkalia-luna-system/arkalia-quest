@@ -18,7 +18,9 @@ DATABASE_URL = os.environ.get("DATABASE_URL", f"sqlite:///{BASE_DIR}/arkalia.db"
 
 # Configuration de l'IA LUNA
 LUNA_AI_ENABLED = os.environ.get("LUNA_AI_ENABLED", "true").lower() == "true"
-LUNA_EMOTIONS_ENABLED = os.environ.get("LUNA_EMOTIONS_ENABLED", "true").lower() == "true"
+LUNA_EMOTIONS_ENABLED = (
+    os.environ.get("LUNA_EMOTIONS_ENABLED", "true").lower() == "true"
+)
 
 # Configuration des tests
 TESTING = os.environ.get("TESTING", "false").lower() == "true"

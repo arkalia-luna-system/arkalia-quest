@@ -44,7 +44,9 @@ class TestMissionProgressTracker(unittest.TestCase):
 
     def test_initialize_mission_progress(self):
         """Test d'initialisation de la progression d'une mission"""
-        progress = self.tracker.initialize_mission_progress(self.mission_id, self.player_id)
+        progress = self.tracker.initialize_mission_progress(
+            self.mission_id, self.player_id
+        )
 
         self.assertEqual(progress["mission_id"], self.mission_id)
         self.assertEqual(progress["player_id"], self.player_id)
@@ -155,7 +157,9 @@ class TestNarrativeBranches(unittest.TestCase):
 
     def test_make_choice(self):
         """Test de prise de décision narrative"""
-        result = self.branches.make_choice(self.player_id, "prologue_choice", "friendly", {})
+        result = self.branches.make_choice(
+            self.player_id, "prologue_choice", "friendly", {}
+        )
 
         self.assertTrue(result["success"])
         self.assertIn("choice_made", result)
@@ -165,7 +169,9 @@ class TestNarrativeBranches(unittest.TestCase):
     def test_choice_consequences(self):
         """Test des conséquences des choix"""
         # Faire un choix amical
-        result = self.branches.make_choice(self.player_id, "prologue_choice", "friendly", {})
+        result = self.branches.make_choice(
+            self.player_id, "prologue_choice", "friendly", {}
+        )
 
         consequences = result["consequences"]
         self.assertIn("luna_relationship", consequences)
@@ -177,7 +183,9 @@ class TestNarrativeBranches(unittest.TestCase):
         self.branches.make_choice(self.player_id, "prologue_choice", "friendly", {})
 
         # Ajouter les conditions pour la deuxième branche
-        self.branches.story_states[self.player_id]["completed_events"].append("prologue_completed")
+        self.branches.story_states[self.player_id]["completed_events"].append(
+            "prologue_completed"
+        )
         self.branches.story_states[self.player_id]["current_mission"] = "acte_1"
 
         self.branches.make_choice(self.player_id, "acte_1_approach", "stealth", {})
@@ -265,7 +273,9 @@ class TestSecondaryMissions(unittest.TestCase):
             # Compléter tous les objectifs
             mission = self.missions.missions[mission_id]
             for obj in mission["objectives"]:
-                self.missions.update_mission_progress(self.player_id, mission_id, obj["id"], True)
+                self.missions.update_mission_progress(
+                    self.player_id, mission_id, obj["id"], True
+                )
 
             # Vérifier les récompenses
             rewards = self.missions._calculate_rewards(self.player_id, mission_id)
@@ -292,7 +302,9 @@ class TestAdvancedAchievements(unittest.TestCase):
         """Test de déverrouillage d'achievements"""
         # Simuler plusieurs hacks
         for _i in range(5):
-            self.achievements.check_achievement_progress(self.player_id, "hack_system", {})
+            self.achievements.check_achievement_progress(
+                self.player_id, "hack_system", {}
+            )
 
         player_achievements = self.achievements.get_player_achievements(self.player_id)
 
@@ -344,7 +356,9 @@ class TestCategoryLeaderboards(unittest.TestCase):
             "technical_skills": 90.0,
         }
 
-        result = self.leaderboards.update_player_metrics(self.player_id, "hacking", metrics)
+        result = self.leaderboards.update_player_metrics(
+            self.player_id, "hacking", metrics
+        )
 
         self.assertTrue(result["success"])
         self.assertIn("category_score", result)
@@ -380,7 +394,9 @@ class TestCategoryLeaderboards(unittest.TestCase):
         self.leaderboards.update_player_metrics(
             self.player_id, "hacking", {"hack_success_rate": 85.0}
         )
-        self.leaderboards.update_player_metrics(self.player_id, "speed", {"mission_time": 300.0})
+        self.leaderboards.update_player_metrics(
+            self.player_id, "speed", {"mission_time": 300.0}
+        )
 
         overview = self.leaderboards.get_player_overview(self.player_id)
 
@@ -394,7 +410,9 @@ class TestCategoryLeaderboards(unittest.TestCase):
         self.leaderboards.update_player_metrics(
             self.player_id, "hacking", {"hack_success_rate": 85.0}
         )
-        self.leaderboards.update_player_metrics(self.player_id, "speed", {"mission_time": 300.0})
+        self.leaderboards.update_player_metrics(
+            self.player_id, "speed", {"mission_time": 300.0}
+        )
 
         comparison = self.leaderboards.get_category_comparison(self.player_id)
 
@@ -441,7 +459,9 @@ class TestTechnicalTutorials(unittest.TestCase):
             tutorial_id = available[0]["id"]
             self.tutorials.start_tutorial(self.player_id, tutorial_id)
 
-            content = self.tutorials.get_tutorial_content(self.player_id, tutorial_id, 0)
+            content = self.tutorials.get_tutorial_content(
+                self.player_id, tutorial_id, 0
+            )
 
             self.assertIn("tutorial_id", content)
             self.assertIn("content", content)
@@ -454,7 +474,9 @@ class TestTechnicalTutorials(unittest.TestCase):
             tutorial_id = available[0]["id"]
             self.tutorials.start_tutorial(self.player_id, tutorial_id)
 
-            result = self.tutorials.complete_tutorial_step(self.player_id, tutorial_id, 0, {})
+            result = self.tutorials.complete_tutorial_step(
+                self.player_id, tutorial_id, 0, {}
+            )
 
             self.assertTrue(result["success"])
 
@@ -534,7 +556,9 @@ class TestIntegration(unittest.TestCase):
         }
 
         # 3. Faire un choix narratif
-        choice_result = self.branches.make_choice(self.player_id, "prologue_choice", "friendly", {})
+        choice_result = self.branches.make_choice(
+            self.player_id, "prologue_choice", "friendly", {}
+        )
         self.assertTrue(choice_result["success"])
 
         # 3. Mettre à jour la progression de mission

@@ -41,14 +41,18 @@ class NarrativeBranches:
                 if "branches" in data and isinstance(data["branches"], dict):
                     branches_data = data["branches"]
                     # Vérifier s'il y a une autre couche d'imbrication
-                    if "branches" in branches_data and isinstance(branches_data["branches"], dict):
+                    if "branches" in branches_data and isinstance(
+                        branches_data["branches"], dict
+                    ):
                         self.branches = branches_data["branches"]
                     else:
                         self.branches = branches_data
                 else:
                     self.branches = data
         except FileNotFoundError:
-            logger.info("Fichier de branches non trouvé, création des données par défaut")
+            logger.info(
+                "Fichier de branches non trouvé, création des données par défaut"
+            )
             self._create_default_branches()
         except Exception as e:
             logger.error(f"Erreur chargement branches: {e}")
@@ -232,7 +236,9 @@ class NarrativeBranches:
         self._update_story_state(player_id, branch_id, choice_id, consequences)
 
         # Générer la réponse narrative
-        narrative_response = self._generate_narrative_response(branch, choice, consequences)
+        narrative_response = self._generate_narrative_response(
+            branch, choice, consequences
+        )
 
         return {
             "success": True,
@@ -272,7 +278,10 @@ class NarrativeBranches:
         # Vérifier dans l'état de l'histoire du joueur
         story_state = self.story_states.get(player_id, {})
         completed_events = story_state.get("completed_events", [])
-        return f"{mission_id}_completed" in completed_events or mission_id in completed_events
+        return (
+            f"{mission_id}_completed" in completed_events
+            or mission_id in completed_events
+        )
 
     def _get_luna_relationship(self, player_id: str) -> int:
         """Retourne le niveau de relation avec LUNA"""
@@ -280,7 +289,9 @@ class NarrativeBranches:
 
     def _has_trust_issues(self, player_id: str) -> bool:
         """Vérifie s'il y a des problèmes de confiance"""
-        return self.character_relationships.get(player_id, {}).get("trust_issues", False)
+        return self.character_relationships.get(player_id, {}).get(
+            "trust_issues", False
+        )
 
     def _apply_consequences(
         self, player_id: str, choice: dict[str, Any], branch: dict[str, Any]
@@ -318,7 +329,9 @@ class NarrativeBranches:
             self.character_relationships[player_id] = {}
 
         current = self.character_relationships[player_id].get("luna", 0)
-        self.character_relationships[player_id]["luna"] = max(0, min(100, current + change))
+        self.character_relationships[player_id]["luna"] = max(
+            0, min(100, current + change)
+        )
 
     def _update_skills(self, player_id: str, skill_changes: dict[str, int]) -> None:
         """Met à jour les compétences du joueur"""
@@ -330,7 +343,9 @@ class NarrativeBranches:
 
         for skill, change in skill_changes.items():
             current = self.character_relationships[player_id]["skills"].get(skill, 0)
-            self.character_relationships[player_id]["skills"][skill] = max(0, current + change)
+            self.character_relationships[player_id]["skills"][skill] = max(
+                0, current + change
+            )
 
     def _update_character_trait(self, player_id: str, trait: str) -> None:
         """Met à jour les traits de caractère"""
@@ -447,7 +462,9 @@ class NarrativeBranches:
         unlocked = []
 
         for branch_id, branch in self.branches.items():
-            if branch_id not in self.story_states.get(player_id, {}).get("branches_completed", []):
+            if branch_id not in self.story_states.get(player_id, {}).get(
+                "branches_completed", []
+            ):
                 if self._check_unlock_conditions(player_id, branch):
                     unlocked.append(
                         {

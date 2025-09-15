@@ -73,7 +73,21 @@ class TestUniversalNotifications(unittest.TestCase):
         self.assertIn("getIcon(", content)
 
         # Vérifier les icônes définies
-        icons = ["✅", "⚠️", "❌", "ℹ️", "⏳", "🎉", "🏆", "⬆️", "🏅", "🎯", "🌙", "💻", "🛡️"]
+        icons = [
+            "✅",
+            "⚠️",
+            "❌",
+            "ℹ️",
+            "⏳",
+            "🎉",
+            "🏆",
+            "⬆️",
+            "🏅",
+            "🎯",
+            "🌙",
+            "💻",
+            "🛡️",
+        ]
         for icon in icons:
             self.assertIn(icon, content)
 
@@ -101,7 +115,11 @@ class TestUniversalNotifications(unittest.TestCase):
             content = f.read()
 
         # Vérifier les animations
-        animations = ["notificationSlideIn", "notificationSlideOut", "notificationPulse"]
+        animations = [
+            "notificationSlideIn",
+            "notificationSlideOut",
+            "notificationPulse",
+        ]
 
         for animation in animations:
             self.assertIn(animation, content)
@@ -234,7 +252,9 @@ class TestUniversalNotifications(unittest.TestCase):
         import subprocess
 
         result = subprocess.run(
-            ["node", "-c", "static/js/universal-notifications.js"], capture_output=True, text=True
+            ["node", "-c", "static/js/universal-notifications.js"],
+            capture_output=True,
+            text=True,
         )
         self.assertEqual(result.returncode, 0, f"Erreur de syntaxe: {result.stderr}")
 

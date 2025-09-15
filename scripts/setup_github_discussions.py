@@ -13,7 +13,9 @@ import requests
 class GitHubDiscussionsSetup:
     """Configuration des Discussions GitHub pour Arkalia Quest"""
 
-    def __init__(self, token: str = None, repo: str = "arkalia-luna-system/arkalia-quest"):
+    def __init__(
+        self, token: str = None, repo: str = "arkalia-luna-system/arkalia-quest"
+    ):
         self.token = token or os.getenv("GITHUB_TOKEN")
         self.repo = repo
         self.base_url = f"https://api.github.com/repos/{repo}"
@@ -99,7 +101,9 @@ class GitHubDiscussionsSetup:
     def check_discussions_enabled(self) -> bool:
         """Vérifie si les discussions sont activées"""
         try:
-            response = requests.get(f"{self.base_url}/discussions", headers=self.headers)
+            response = requests.get(
+                f"{self.base_url}/discussions", headers=self.headers
+            )
             return response.status_code == 200
         except Exception as e:
             print(f"❌ Erreur lors de la vérification des discussions: {e}")
@@ -107,7 +111,9 @@ class GitHubDiscussionsSetup:
 
     def enable_discussions(self) -> bool:
         """Active les discussions (nécessite des permissions admin)"""
-        print("⚠️  L'activation des discussions nécessite des permissions d'administrateur")
+        print(
+            "⚠️  L'activation des discussions nécessite des permissions d'administrateur"
+        )
         print(
             "💡 Veuillez activer manuellement les discussions dans les paramètres du repository :"
         )
@@ -126,7 +132,9 @@ class GitHubDiscussionsSetup:
             try:
                 # Note: L'API GitHub ne permet pas de créer des catégories via l'API
                 # Les catégories doivent être créées manuellement
-                print(f"📝 Catégorie recommandée: {category['name']} - {category['description']}")
+                print(
+                    f"📝 Catégorie recommandée: {category['name']} - {category['description']}"
+                )
                 success_count += 1
             except Exception as e:
                 print(f"❌ Erreur pour la catégorie {category['name']}: {e}")
@@ -381,7 +389,9 @@ Partagez, collaborez et contribuez à faire d'Arkalia Quest un projet encore mei
         print()
         print("=" * 60)
         print("🎉 Configuration des discussions terminée !")
-        print("💡 N'oubliez pas d'activer les discussions manuellement dans les paramètres GitHub")
+        print(
+            "💡 N'oubliez pas d'activer les discussions manuellement dans les paramètres GitHub"
+        )
 
         return True
 

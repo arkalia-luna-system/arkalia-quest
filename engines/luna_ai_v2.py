@@ -62,7 +62,9 @@ class LunaAIV2:
             ],
         }
 
-    def generate_response(self, user_input: str, context: dict[str, Any] = None) -> dict[str, Any]:
+    def generate_response(
+        self, user_input: str, context: dict[str, Any] = None
+    ) -> dict[str, Any]:
         """Génère une réponse personnalisée basée sur l'entrée utilisateur"""
         try:
             # Analyser l'émotion de l'utilisateur
@@ -72,7 +74,9 @@ class LunaAIV2:
             response_type = self._determine_response_type(user_input, context)
 
             # Générer la réponse
-            response = self._generate_personalized_response(response_type, emotion, context)
+            response = self._generate_personalized_response(
+                response_type, emotion, context
+            )
 
             # Apprendre de l'interaction
             self.learn_from_interaction(user_input, response, emotion)
@@ -216,7 +220,9 @@ class LunaAIV2:
 
             # Limiter l'historique à 1000 interactions
             if len(self.learning_data["interactions"]) > 1000:
-                self.learning_data["interactions"] = self.learning_data["interactions"][-1000:]
+                self.learning_data["interactions"] = self.learning_data["interactions"][
+                    -1000:
+                ]
 
             # Mettre à jour les préférences
             self._update_preferences(user_input, emotion)
@@ -249,18 +255,24 @@ class LunaAIV2:
             logger.error(f"Erreur lors de la mise à jour de la personnalité: {e}")
             return False
 
-    def _determine_response_type(self, user_input: str, context: dict[str, Any] = None) -> str:
+    def _determine_response_type(
+        self, user_input: str, context: dict[str, Any] = None
+    ) -> str:
         """Détermine le type de réponse à générer"""
         text_lower = user_input.lower()
 
         # Mots-clés pour différents types de réponses
         if any(word in text_lower for word in ["salut", "bonjour", "hello", "hey"]):
             return "greeting"
-        elif any(word in text_lower for word in ["aide", "help", "comment", "que faire"]):
+        elif any(
+            word in text_lower for word in ["aide", "help", "comment", "que faire"]
+        ):
             return "help"
         elif any(word in text_lower for word in ["merci", "thanks", "génial", "super"]):
             return "celebration"
-        elif any(word in text_lower for word in ["difficile", "dur", "problème", "bloqué"]):
+        elif any(
+            word in text_lower for word in ["difficile", "dur", "problème", "bloqué"]
+        ):
             return "encouragement"
         else:
             return "general"
@@ -324,7 +336,9 @@ class LunaAIV2:
         )
         total_interactions = len(self.learning_data["interactions"])
 
-        self.learning_data["success_rate"] = successful_interactions / total_interactions
+        self.learning_data["success_rate"] = (
+            successful_interactions / total_interactions
+        )
 
     def get_learning_stats(self) -> dict[str, Any]:
         """Retourne les statistiques d'apprentissage"""

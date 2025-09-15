@@ -100,7 +100,12 @@ class TestUniversalEmptyStates(unittest.TestCase):
             content = f.read()
 
         # Vérifier les animations
-        animations = ["emptyStateFloat", "emptyStateSlideIn", "emptyStateFadeIn", "particleFloat"]
+        animations = [
+            "emptyStateFloat",
+            "emptyStateSlideIn",
+            "emptyStateFadeIn",
+            "particleFloat",
+        ]
 
         for animation in animations:
             self.assertIn(animation, content)
@@ -226,7 +231,9 @@ class TestUniversalEmptyStates(unittest.TestCase):
         import subprocess
 
         result = subprocess.run(
-            ["node", "-c", "static/js/universal-empty-states.js"], capture_output=True, text=True
+            ["node", "-c", "static/js/universal-empty-states.js"],
+            capture_output=True,
+            text=True,
         )
         self.assertEqual(result.returncode, 0, f"Erreur de syntaxe: {result.stderr}")
 

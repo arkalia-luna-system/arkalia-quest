@@ -37,7 +37,9 @@ class GitHubContributionSetup:
 
         # Vérification de Python
         try:
-            result = subprocess.run(["python", "--version"], capture_output=True, text=True)
+            result = subprocess.run(
+                ["python", "--version"], capture_output=True, text=True
+            )
             print(f"✅ Python: {result.stdout.strip()}")
         except Exception as e:
             print(f"❌ Erreur Python: {e}")
@@ -45,7 +47,9 @@ class GitHubContributionSetup:
 
         # Vérification de Git
         try:
-            result = subprocess.run(["git", "--version"], capture_output=True, text=True)
+            result = subprocess.run(
+                ["git", "--version"], capture_output=True, text=True
+            )
             print(f"✅ Git: {result.stdout.strip()}")
         except Exception as e:
             print(f"❌ Erreur Git: {e}")
@@ -69,7 +73,9 @@ class GitHubContributionSetup:
         try:
             # Black
             print("🎨 Vérification Black...")
-            result = subprocess.run(["black", "--check", "."], capture_output=True, text=True)
+            result = subprocess.run(
+                ["black", "--check", "."], capture_output=True, text=True
+            )
             if result.returncode != 0:
                 print("❌ Black a trouvé des problèmes de formatage")
                 print("💡 Exécutez: black .")
@@ -78,7 +84,9 @@ class GitHubContributionSetup:
 
             # Ruff
             print("🔍 Vérification Ruff...")
-            result = subprocess.run(["ruff", "check", "."], capture_output=True, text=True)
+            result = subprocess.run(
+                ["ruff", "check", "."], capture_output=True, text=True
+            )
             if result.returncode != 0:
                 print("❌ Ruff a trouvé des problèmes de linting")
                 print("💡 Exécutez: ruff check . --fix")
@@ -146,7 +154,9 @@ class GitHubContributionSetup:
 
         try:
             print("🏷️  Exécution du script de configuration des labels...")
-            result = subprocess.run(["python", str(labels_script)], capture_output=True, text=True)
+            result = subprocess.run(
+                ["python", str(labels_script)], capture_output=True, text=True
+            )
 
             if result.returncode == 0:
                 print("✅ Labels GitHub configurés avec succès")
@@ -305,7 +315,9 @@ Votre projet Arkalia Quest est maintenant parfaitement configuré pour accueilli
             self.setup_github_labels()
             self.setup_github_discussions()
         else:
-            print("⚠️  GITHUB_TOKEN non défini - configuration des labels et discussions ignorée")
+            print(
+                "⚠️  GITHUB_TOKEN non défini - configuration des labels et discussions ignorée"
+            )
 
         # Génération du résumé
         summary = self.create_contribution_summary()

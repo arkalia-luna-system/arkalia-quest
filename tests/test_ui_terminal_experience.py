@@ -57,7 +57,9 @@ class TerminalExperienceTester:
         user_results["tests"].append(test4)
 
         user_results["total_time"] = time.time() - start_time
-        user_results["success_rate"] = self._calculate_success_rate(user_results["tests"])
+        user_results["success_rate"] = self._calculate_success_rate(
+            user_results["tests"]
+        )
 
         self.results["user_types_tested"].append(user_results)
         return user_results
@@ -94,7 +96,9 @@ class TerminalExperienceTester:
         user_results["tests"].append(test4)
 
         user_results["total_time"] = time.time() - start_time
-        user_results["success_rate"] = self._calculate_success_rate(user_results["tests"])
+        user_results["success_rate"] = self._calculate_success_rate(
+            user_results["tests"]
+        )
 
         self.results["user_types_tested"].append(user_results)
         return user_results
@@ -131,7 +135,9 @@ class TerminalExperienceTester:
         user_results["tests"].append(test4)
 
         user_results["total_time"] = time.time() - start_time
-        user_results["success_rate"] = self._calculate_success_rate(user_results["tests"])
+        user_results["success_rate"] = self._calculate_success_rate(
+            user_results["tests"]
+        )
 
         self.results["user_types_tested"].append(user_results)
         return user_results
@@ -168,7 +174,9 @@ class TerminalExperienceTester:
         user_results["tests"].append(test4)
 
         user_results["total_time"] = time.time() - start_time
-        user_results["success_rate"] = self._calculate_success_rate(user_results["tests"])
+        user_results["success_rate"] = self._calculate_success_rate(
+            user_results["tests"]
+        )
 
         self.results["user_types_tested"].append(user_results)
         return user_results
@@ -602,7 +610,9 @@ class TerminalExperienceTester:
 
             for cmd in commands:
                 cmd_start = time.time()
-                requests.post(f"{self.base_url}/commande", json={"commande": cmd}, timeout=1)
+                requests.post(
+                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=1
+                )
                 response_times.append(time.time() - cmd_start)
 
             test["duration"] = time.time() - start_time
@@ -708,7 +718,9 @@ class TerminalExperienceTester:
 
             for cmd in commands:
                 cmd_start = time.time()
-                requests.post(f"{self.base_url}/commande", json={"commande": cmd}, timeout=2)
+                requests.post(
+                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=2
+                )
                 response_times.append(time.time() - cmd_start)
 
             test["duration"] = time.time() - start_time
@@ -951,7 +963,9 @@ class TerminalExperienceTester:
             total_success_rate += user_type["success_rate"]
             total_tests += 1
 
-        self.results["overall_score"] = total_success_rate / total_tests if total_tests > 0 else 0
+        self.results["overall_score"] = (
+            total_success_rate / total_tests if total_tests > 0 else 0
+        )
 
         # Génération du rapport
         self._generate_report()
@@ -963,7 +977,9 @@ class TerminalExperienceTester:
         print("\n📊 RAPPORT D'EXPÉRIENCE TERMINAL")
         print("=" * 60)
         print(f"🎯 Score global: {self.results['overall_score']:.1f}/100")
-        print(f"👥 Types d'utilisateurs testés: {len(self.results['user_types_tested'])}")
+        print(
+            f"👥 Types d'utilisateurs testés: {len(self.results['user_types_tested'])}"
+        )
 
         for user_type in self.results["user_types_tested"]:
             print(f"\n👤 Type {user_type['user_type'].upper()}:")
@@ -971,8 +987,12 @@ class TerminalExperienceTester:
             print(f"   📊 Taux de réussite: {user_type['success_rate']:.1f}%")
 
             # Compter les problèmes et points positifs
-            total_issues = sum(len(test.get("issues", [])) for test in user_type["tests"])
-            total_positives = sum(len(test.get("positives", [])) for test in user_type["tests"])
+            total_issues = sum(
+                len(test.get("issues", [])) for test in user_type["tests"]
+            )
+            total_positives = sum(
+                len(test.get("positives", [])) for test in user_type["tests"]
+            )
 
             if total_issues > 0:
                 print(f"   ❌ Problèmes: {total_issues}")

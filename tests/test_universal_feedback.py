@@ -50,7 +50,15 @@ class TestUniversalFeedback(unittest.TestCase):
             content = f.read()
 
         # Vérifier les types de feedback (vérifier dans les fréquences)
-        types = ["success", "warning", "error", "info", "loading", "celebration", "achievement"]
+        types = [
+            "success",
+            "warning",
+            "error",
+            "info",
+            "loading",
+            "celebration",
+            "achievement",
+        ]
         for feedback_type in types:
             self.assertIn(f"{feedback_type}:", content)
 
@@ -245,7 +253,9 @@ class TestUniversalFeedback(unittest.TestCase):
         import subprocess
 
         result = subprocess.run(
-            ["node", "-c", "static/js/universal-feedback.js"], capture_output=True, text=True
+            ["node", "-c", "static/js/universal-feedback.js"],
+            capture_output=True,
+            text=True,
         )
         self.assertEqual(result.returncode, 0, f"Erreur de syntaxe: {result.stderr}")
 

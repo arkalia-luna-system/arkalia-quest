@@ -14,7 +14,9 @@ import requests
 class GitHubLabelsSetup:
     """Configuration des labels GitHub pour Arkalia Quest"""
 
-    def __init__(self, token: str = None, repo: str = "arkalia-luna-system/arkalia-quest"):
+    def __init__(
+        self, token: str = None, repo: str = "arkalia-luna-system/arkalia-quest"
+    ):
         self.token = token or os.getenv("GITHUB_TOKEN")
         self.repo = repo
         self.base_url = f"https://api.github.com/repos/{repo}/labels"
@@ -210,7 +212,9 @@ class GitHubLabelsSetup:
             if response.status_code == 200:
                 return response.json()
             else:
-                print(f"❌ Erreur lors de la récupération des labels: {response.status_code}")
+                print(
+                    f"❌ Erreur lors de la récupération des labels: {response.status_code}"
+                )
                 return []
         except Exception as e:
             print(f"❌ Erreur lors de la récupération des labels: {e}")

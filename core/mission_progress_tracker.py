@@ -134,7 +134,9 @@ class MissionProgressTracker:
             "feedback": self._generate_contextual_feedback(progress, action, success),
         }
 
-    def _trigger_progress_effects(self, progress: dict[str, Any], effect_type: str) -> None:
+    def _trigger_progress_effects(
+        self, progress: dict[str, Any], effect_type: str
+    ) -> None:
         """Déclenche des effets visuels selon le type de progression"""
         effects = {
             "step_completed": {
@@ -204,12 +206,18 @@ class MissionProgressTracker:
                 "current_step": progress["current_step"],
                 "total_steps": progress["total_steps"],
                 "color": self._get_progress_color(progress["progress_percentage"]),
-                "animation": ("fill_up" if progress["progress_percentage"] > 0 else "idle"),
+                "animation": (
+                    "fill_up" if progress["progress_percentage"] > 0 else "idle"
+                ),
             },
             "step_indicators": [
                 {
                     "step_id": f"step_{i}",
-                    "status": ("completed" if i < len(progress["completed_steps"]) else "pending"),
+                    "status": (
+                        "completed"
+                        if i < len(progress["completed_steps"])
+                        else "pending"
+                    ),
                     "icon": "✅" if i < len(progress["completed_steps"]) else "⏳",
                     "tooltip": f"Étape {i + 1}",
                 }
@@ -257,7 +265,9 @@ class MissionProgressTracker:
         if progress["time_spent"] == 0:
             return "unknown"
 
-        steps_per_minute = len(progress["completed_steps"]) / (progress["time_spent"] / 60)
+        steps_per_minute = len(progress["completed_steps"]) / (
+            progress["time_spent"] / 60
+        )
 
         if steps_per_minute > 2:
             return "excellent"
@@ -297,7 +307,9 @@ class MissionProgressTracker:
         # Logique pour compter les achievements disponibles
         return 5  # Valeur par défaut
 
-    def _get_next_achievement(self, progress: dict[str, Any]) -> Optional[dict[str, Any]]:
+    def _get_next_achievement(
+        self, progress: dict[str, Any]
+    ) -> Optional[dict[str, Any]]:
         """Retourne le prochain achievement à débloquer"""
         return {
             "id": "speed_demon",
@@ -312,7 +324,9 @@ class MissionProgressTracker:
         new_achievements = []
 
         # Achievement de vitesse
-        if progress["time_spent"] < 600 and progress["status"] == "completed":  # 10 minutes
+        if (
+            progress["time_spent"] < 600 and progress["status"] == "completed"
+        ):  # 10 minutes
             new_achievements.append(
                 {
                     "id": "speed_demon",
@@ -364,7 +378,9 @@ class MissionProgressTracker:
 
         elif action == "step_failed":
             if progress["failed_attempts"] == 1:
-                feedback["message"] = "💡 Pas de problème, essaie une approche différente !"
+                feedback["message"] = (
+                    "💡 Pas de problème, essaie une approche différente !"
+                )
                 feedback["tone"] = "supportive"
                 feedback["suggestions"] = [
                     "Vérifie tes données",
@@ -378,7 +394,9 @@ class MissionProgressTracker:
                     "Demande de l'aide à LUNA",
                 ]
             else:
-                feedback["message"] = "🆘 Besoin d'aide ? LUNA peut te donner des conseils !"
+                feedback["message"] = (
+                    "🆘 Besoin d'aide ? LUNA peut te donner des conseils !"
+                )
                 feedback["tone"] = "helpful"
                 feedback["suggestions"] = ["Utilise 'luna_help'", "Demande un indice"]
 
@@ -400,7 +418,9 @@ class MissionProgressTracker:
             [p for p in player_missions.values() if p["status"] == "completed"]
         )
         total_time = sum(p["time_spent"] for p in player_missions.values())
-        total_achievements = sum(len(p["achievements_earned"]) for p in player_missions.values())
+        total_achievements = sum(
+            len(p["achievements_earned"]) for p in player_missions.values()
+        )
 
         return {
             "total_missions": total_missions,
@@ -408,7 +428,9 @@ class MissionProgressTracker:
             "completion_rate": (
                 (completed_missions / total_missions) * 100 if total_missions > 0 else 0
             ),
-            "average_time_per_mission": (total_time / total_missions if total_missions > 0 else 0),
+            "average_time_per_mission": (
+                total_time / total_missions if total_missions > 0 else 0
+            ),
             "total_achievements": total_achievements,
             "efficiency_rating": self._calculate_overall_efficiency(player_missions),
             "favorite_mission_type": self._get_favorite_mission_type(player_missions),
@@ -423,7 +445,9 @@ class MissionProgressTracker:
         total_efficiency = 0
         for mission in missions.values():
             if mission["time_spent"] > 0:
-                efficiency = len(mission["completed_steps"]) / (mission["time_spent"] / 60)
+                efficiency = len(mission["completed_steps"]) / (
+                    mission["time_spent"] / 60
+                )
                 total_efficiency += efficiency
 
         average_efficiency = total_efficiency / len(missions)
@@ -474,7 +498,9 @@ class MissionProgressTracker:
                 self.mission_states = json.load(f)
             return True
         except FileNotFoundError:
-            logger.info("Fichier de progression non trouvé, initialisation avec données vides")
+            logger.info(
+                "Fichier de progression non trouvé, initialisation avec données vides"
+            )
             return True
         except Exception as e:
             logger.error(f"Erreur chargement progression: {e}")

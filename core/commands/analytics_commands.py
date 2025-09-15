@@ -36,8 +36,12 @@ class AnalyticsCommands:
                 message += "=" * 50 + "\n\n"
 
                 # Statistiques générales
-                message += f"👥 Utilisateurs totaux: {analytics.get('total_users', 0)}\n"
-                message += f"🎮 Sessions totales: {analytics.get('total_sessions', 0)}\n"
+                message += (
+                    f"👥 Utilisateurs totaux: {analytics.get('total_users', 0)}\n"
+                )
+                message += (
+                    f"🎮 Sessions totales: {analytics.get('total_sessions', 0)}\n"
+                )
                 message += f"⏱️ Temps de jeu total: {analytics.get('total_playtime_hours', 0)}h\n"
                 message += f"📊 Temps moyen par utilisateur: {analytics.get('avg_playtime_per_user', 0)}h\n\n"
 
@@ -107,19 +111,21 @@ class AnalyticsCommands:
                 # Statistiques générales
                 message += f"🎮 Sessions totales: {insights.get('total_sessions', 0)}\n"
                 message += f"⏱️ Temps de jeu total: {insights.get('total_playtime_hours', 0)}h\n"
-                message += f"📈 Taux d'engagement: {insights.get('engagement_rate', 0)}%\n"
+                message += (
+                    f"📈 Taux d'engagement: {insights.get('engagement_rate', 0)}%\n"
+                )
                 message += f"🏆 Niveau actuel: {insights.get('current_level', 1)}\n\n"
 
                 # Missions et jeux
-                message += f"🎯 Missions complétées: {insights.get('missions_completed', 0)}\n"
+                message += (
+                    f"🎯 Missions complétées: {insights.get('missions_completed', 0)}\n"
+                )
                 message += f"🎲 Jeux complétés: {insights.get('games_completed', 0)}\n"
                 message += f"🏅 Badges gagnés: {insights.get('badges_earned', 0)}\n\n"
 
                 # Style d'apprentissage
                 learning_style = insights.get("learning_style", "unknown")
-                message += (
-                    f"🧠 Style d'apprentissage: {self._format_learning_style(learning_style)}\n\n"
-                )
+                message += f"🧠 Style d'apprentissage: {self._format_learning_style(learning_style)}\n\n"
 
                 # Jeux préférés
                 preferred_games = insights.get("preferred_games", [])
@@ -176,7 +182,9 @@ class AnalyticsCommands:
                 # Statistiques de progression
                 message += "🎯 PROGRESSION:\n"
                 message += f"• Niveau: {insights.get('current_level', 1)}\n"
-                message += f"• Missions complétées: {insights.get('missions_completed', 0)}\n"
+                message += (
+                    f"• Missions complétées: {insights.get('missions_completed', 0)}\n"
+                )
                 message += f"• Jeux complétés: {insights.get('games_completed', 0)}\n"
                 message += f"• Badges gagnés: {insights.get('badges_earned', 0)}\n\n"
 
@@ -188,7 +196,9 @@ class AnalyticsCommands:
 
                 # Statistiques d'engagement
                 message += "📊 ENGAGEMENT:\n"
-                message += f"• Taux d'engagement: {insights.get('engagement_rate', 0)}%\n"
+                message += (
+                    f"• Taux d'engagement: {insights.get('engagement_rate', 0)}%\n"
+                )
                 message += f"• Dernière activité: {insights.get('last_active_days', 0)} jours\n\n"
 
                 # Statistiques de profil
@@ -247,7 +257,9 @@ class AnalyticsCommands:
                 message += f"• Badges: {badges} gagnés\n\n"
 
                 # Calculer les pourcentages (estimations)
-                mission_progress = min((missions / 50) * 100, 100)  # 50 missions estimées
+                mission_progress = min(
+                    (missions / 50) * 100, 100
+                )  # 50 missions estimées
                 game_progress = min((games / 20) * 100, 100)  # 20 jeux estimés
                 badge_progress = min((badges / 30) * 100, 100)  # 30 badges estimés
 
@@ -265,9 +277,7 @@ class AnalyticsCommands:
                 if badge_progress < 50:
                     message += "• Débloque de nouveaux badges en explorant\n"
                 if mission_progress >= 80 and game_progress >= 80:
-                    message += (
-                        "• Excellent travail ! Continue d'explorer les fonctionnalités avancées\n"
-                    )
+                    message += "• Excellent travail ! Continue d'explorer les fonctionnalités avancées\n"
 
                 return {
                     "réussite": True,
@@ -319,7 +329,9 @@ class AnalyticsCommands:
 
                 message += "\n🎯 Ces recommandations sont basées sur:\n"
                 message += f"• Votre style d'apprentissage: {self._format_learning_style(insights.get('learning_style', 'unknown'))}\n"
-                message += f"• Votre niveau actuel: {insights.get('current_level', 1)}\n"
+                message += (
+                    f"• Votre niveau actuel: {insights.get('current_level', 1)}\n"
+                )
                 message += f"• Votre taux d'engagement: {insights.get('engagement_rate', 0)}%\n"
 
                 return {
@@ -358,7 +370,9 @@ class AnalyticsCommands:
                 message = "🧠 ANALYSE DU STYLE D'APPRENTISSAGE\n"
                 message += "=" * 50 + "\n\n"
 
-                message += f"🎯 VOTRE STYLE: {self._format_learning_style(learning_style)}\n\n"
+                message += (
+                    f"🎯 VOTRE STYLE: {self._format_learning_style(learning_style)}\n\n"
+                )
 
                 # Description détaillée du style
                 style_descriptions = {
@@ -443,9 +457,13 @@ class AnalyticsCommands:
                 elif engagement_rate >= 60:
                     message += "👍 Bon engagement ! Vous participez régulièrement.\n"
                 elif engagement_rate >= 40:
-                    message += "📈 Engagement moyen. Il y a de la place pour s'améliorer.\n"
+                    message += (
+                        "📈 Engagement moyen. Il y a de la place pour s'améliorer.\n"
+                    )
                 else:
-                    message += "📉 Engagement faible. Essayez de jouer plus régulièrement.\n"
+                    message += (
+                        "📉 Engagement faible. Essayez de jouer plus régulièrement.\n"
+                    )
 
                 message += "\n📈 DÉTAILS:\n"
                 message += f"• Sessions totales: {total_sessions}\n"

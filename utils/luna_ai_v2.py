@@ -53,7 +53,9 @@ class LunaAI:
             "heure": datetime.now().hour,
             "niveau_joueur": profil_joueur.get("progression", {}).get("niveau", 1),
             "score": profil_joueur.get("score", 0),
-            "type_personnalite": profil_joueur.get("personnalite", {}).get("type", "non_detecte"),
+            "type_personnalite": profil_joueur.get("personnalite", {}).get(
+                "type", "non_detecte"
+            ),
             "derniere_commande": self.personnalite.get("derniere_commande"),
             "humeur": self.personnalite["humeur"],
         }
@@ -79,7 +81,9 @@ class LunaAI:
 
         return contexte
 
-    def generer_reponse(self, commande: str, profil_joueur: dict, resultat: dict) -> dict:
+    def generer_reponse(
+        self, commande: str, profil_joueur: dict, resultat: dict
+    ) -> dict:
         """Génère une réponse personnalisée de LUNA"""
         contexte = self.analyser_contexte(commande, profil_joueur)
         type_personnalite = contexte["type_personnalite"]
@@ -108,11 +112,15 @@ class LunaAI:
 
         # Conseils personnalisés
         if contexte["style"] == "debutant":
-            reponse["conseil"] = "💡 Conseil : N'hésite pas à explorer toutes les commandes !"
+            reponse["conseil"] = (
+                "💡 Conseil : N'hésite pas à explorer toutes les commandes !"
+            )
         elif contexte["style"] == "intermediaire":
             reponse["conseil"] = "🚀 Conseil : Essaie des combinaisons de commandes !"
         else:
-            reponse["conseil"] = "🎯 Conseil : Tu maîtrises bien ! Essaie les missions avancées !"
+            reponse["conseil"] = (
+                "🎯 Conseil : Tu maîtrises bien ! Essaie les missions avancées !"
+            )
 
         # Effets spéciaux selon l'humeur
         if self.personnalite["humeur"] == "mysterieuse":
@@ -152,14 +160,17 @@ class LunaAI:
         # Recommandations selon le niveau
         if analyse["niveau"] < 3:
             analyse["recommandations"].append(
-                "🎯 Objectif : Atteindre le niveau 3 pour débloquer de" + "nouvelles missions"
+                "🎯 Objectif : Atteindre le niveau 3 pour débloquer de"
+                + "nouvelles missions"
             )
         elif analyse["niveau"] < 5:
             analyse["recommandations"].append(
                 "🚀 Objectif : Atteindre le niveau 5 pour les missions expertes"
             )
         else:
-            analyse["recommandations"].append("🌟 Tu es un expert ! Essaie les défis ultimes")
+            analyse["recommandations"].append(
+                "🌟 Tu es un expert ! Essaie les défis ultimes"
+            )
 
         # Recommandations selon les badges
         if analyse["badges"] < 5:
@@ -175,7 +186,9 @@ class LunaAI:
 
     def generer_mission_personnalisee(self, profil_joueur: dict) -> dict:
         """Génère une mission personnalisée selon le profil"""
-        type_personnalite = profil_joueur.get("personnalite", {}).get("type", "hacker_equilibre")
+        type_personnalite = profil_joueur.get("personnalite", {}).get(
+            "type", "hacker_equilibre"
+        )
         niveau = profil_joueur.get("progression", {}).get("niveau", 1)
 
         missions_templates = {
@@ -209,7 +222,9 @@ class LunaAI:
             },
         }
 
-        template = missions_templates.get(type_personnalite, missions_templates["hacker_equilibre"])
+        template = missions_templates.get(
+            type_personnalite, missions_templates["hacker_equilibre"]
+        )
 
         return {
             "id": f"mission_personnalisee_{int(time.time())}",

@@ -5,6 +5,7 @@ Bienvenue dans la documentation complète d'**Arkalia Quest**, le jeu cybernéti
 ## 🎮 À propos du jeu
 
 Arkalia Quest est une expérience de jeu unique qui combine :
+
 - **Interface terminal immersive** avec LUNA, votre IA guide
 - **Système de progression** avec badges, niveaux et défis
 - **Thèmes visuels** adaptatifs (Matrix, Neon, Cyberpunk, Ocean, Earth, Dopamine)
@@ -14,6 +15,7 @@ Arkalia Quest est une expérience de jeu unique qui combine :
 ## 🚀 Démarrage rapide
 
 ### Installation locale
+
 ```bash
 git clone https://github.com/arkalia-luna-system/arkalia-quest.git
 cd arkalia-quest
@@ -24,6 +26,7 @@ python app.py
 ```
 
 ### Avec Docker
+
 ```bash
 docker build -t arkalia-quest .
 docker run -p 5000:10000 arkalia-quest
@@ -32,15 +35,18 @@ docker run -p 5000:10000 arkalia-quest
 ## 📚 Documentation
 
 ### Pour les développeurs
+
 - [Architecture technique](docs/ARCHITECTURE_TECHNIQUE.md) - Vue d'ensemble de l'architecture
 - [Guide technique développeur](docs/GUIDE_TECHNIQUE_DEVELOPPEUR.md) - Guide complet pour les développeurs
 - [Guide de développement](docs/GUIDE_DEVELOPPEMENT.md) - Processus de développement
 
 ### Pour le déploiement
+
 - [Guide de déploiement](docs/GUIDE_DEPLOIEMENT.md) - Instructions de déploiement
 - [Docker](docs/DOCKER_AUTH.md) - Configuration Docker
 
 ### Pour les tests
+
 - [Guide test utilisateur](docs/GUIDE_TEST_UTILISATEUR.md) - Tests utilisateur
 - [Test plan utilisateur](docs/TEST_PLAN_UTILISATEUR.md) - Plan de tests
 - [Checklists test](docs/CHECKLISTS_TEST_UTILISATEUR.md) - Checklists de validation

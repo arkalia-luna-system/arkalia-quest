@@ -2,6 +2,7 @@ import json
 import logging
 import os
 import random
+import secrets
 import time
 import types
 from datetime import datetime, timedelta
@@ -1028,7 +1029,7 @@ def luna_meme_reaction(fail_type, score):
         ],
     }
 
-    return random.choice(memes.get(fail_type, ["🤖 LUNA: ..."]))
+    return secrets.choice(memes.get(fail_type, ["🤖 LUNA: ..."]))
 
 
 # ===== NOUVELLES ROUTES API POUR VERSION 3.0 =====

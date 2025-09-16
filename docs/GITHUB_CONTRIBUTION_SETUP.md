@@ -31,6 +31,7 @@ python scripts/setup_github_contribution.py
 ### ✅ Templates d'Issues
 
 #### 🐛 Bug Report (`bug_report.yml`)
+
 - Description structurée du bug
 - Étapes de reproduction
 - Comportement attendu vs actuel
@@ -38,6 +39,7 @@ python scripts/setup_github_contribution.py
 - Logs d'erreur
 
 #### ✨ Feature Request (`feature_request.yml`)
+
 - Description de la fonctionnalité
 - Problème résolu
 - Solution proposée
@@ -45,6 +47,7 @@ python scripts/setup_github_contribution.py
 - Cas d'usage
 
 #### 🤝 Help Wanted (`help_wanted.yml`)
+
 - Tâches pour les contributeurs
 - Critères d'acceptation
 - Niveau de difficulté
@@ -52,6 +55,7 @@ python scripts/setup_github_contribution.py
 - Guide de démarrage
 
 #### ⚙️ Configuration (`config.yml`)
+
 - Liens vers les ressources
 - Redirections vers les templates
 - Désactivation des issues vides
@@ -59,6 +63,7 @@ python scripts/setup_github_contribution.py
 ### ✅ Template de Pull Request
 
 #### 📝 Template Complet (`pull_request_template.md`)
+
 - Description des changements
 - Type de changement
 - Tests effectués
@@ -69,17 +74,20 @@ python scripts/setup_github_contribution.py
 ### ✅ Scripts de Configuration
 
 #### 🏷️ Labels GitHub (`setup_github_labels.py`)
+
 - 30+ labels organisés par catégories
 - Priorité, types, contribution, technique
 - Spécifique au projet (luna-ai, gamification)
 - Taille et complexité
 
 #### 💬 Discussions GitHub (`setup_github_discussions.py`)
+
 - 10 catégories de discussions
 - Templates pour questions et idées
 - Guide d'utilisation complet
 
 #### 🎮 Configuration Complète (`setup_github_contribution.py`)
+
 - Vérification de l'environnement
 - Tests de qualité du code
 - Configuration de tous les éléments
@@ -135,12 +143,14 @@ python scripts/setup_github_discussions.py
 ### 🎯 Utilisation des Templates
 
 #### Pour les Issues
+
 1. Aller sur GitHub → Issues → New Issue
 2. Choisir le template approprié
 3. Remplir les sections requises
 4. Assigner les labels appropriés
 
 #### Pour les Pull Requests
+
 1. Créer une nouvelle PR
 2. Le template s'affiche automatiquement
 3. Remplir les sections pertinentes
@@ -191,16 +201,19 @@ python scripts/setup_github_labels.py
 ### Problèmes Courants
 
 #### Token GitHub Non Valide
+
 ```bash
 # Vérifier le token
 curl -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/user
 ```
 
 #### Permissions Insuffisantes
+
 - Vérifier que le token a les bonnes permissions
 - Repository : Contents, Issues, Pull Requests, Discussions
 
 #### Templates Non Visibles
+
 - Vérifier que les fichiers sont dans `.github/ISSUE_TEMPLATE/`
 - S'assurer que les fichiers ont l'extension `.yml`
 
@@ -228,6 +241,7 @@ Avec cette configuration, votre projet Arkalia Quest dispose de :
 ## 📞 Support
 
 Pour des questions ou problèmes :
+
 - Consulter ce guide
 - Vérifier les logs d'erreur
 - Ouvrir une issue avec le template approprié

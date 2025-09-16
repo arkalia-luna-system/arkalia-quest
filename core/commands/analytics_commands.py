@@ -27,7 +27,7 @@ class AnalyticsCommands:
     def cmd_analytics(self) -> dict[str, Any]:
         """Affiche les analytics globaux"""
         try:
-            response = requests.get(f"{self.base_url}/api/analytics/global")
+            response = requests.get(f"{self.base_url}/api/analytics/global", timeout=10)
             if response.status_code == 200:
                 data = response.json()
                 analytics = data.get("analytics", {})
@@ -91,7 +91,9 @@ class AnalyticsCommands:
     def cmd_insights(self) -> dict[str, Any]:
         """Affiche les insights personnalisés"""
         try:
-            response = requests.get(f"{self.base_url}/api/analytics/insights")
+            response = requests.get(
+                f"{self.base_url}/api/analytics/insights", timeout=10
+            )
             if response.status_code == 200:
                 data = response.json()
                 insights = data.get("insights", {})
@@ -171,7 +173,9 @@ class AnalyticsCommands:
         """Affiche les statistiques détaillées"""
         try:
             # Récupérer les insights
-            response = requests.get(f"{self.base_url}/api/analytics/insights")
+            response = requests.get(
+                f"{self.base_url}/api/analytics/insights", timeout=10
+            )
             if response.status_code == 200:
                 data = response.json()
                 insights = data.get("insights", {})
@@ -236,7 +240,9 @@ class AnalyticsCommands:
     def cmd_progress(self) -> dict[str, Any]:
         """Affiche la progression détaillée"""
         try:
-            response = requests.get(f"{self.base_url}/api/analytics/insights")
+            response = requests.get(
+                f"{self.base_url}/api/analytics/insights", timeout=10
+            )
             if response.status_code == 200:
                 data = response.json()
                 insights = data.get("insights", {})
@@ -306,7 +312,9 @@ class AnalyticsCommands:
     def cmd_recommendations(self) -> dict[str, Any]:
         """Affiche les recommandations personnalisées"""
         try:
-            response = requests.get(f"{self.base_url}/api/analytics/insights")
+            response = requests.get(
+                f"{self.base_url}/api/analytics/insights", timeout=10
+            )
             if response.status_code == 200:
                 data = response.json()
                 insights = data.get("insights", {})
@@ -361,7 +369,9 @@ class AnalyticsCommands:
     def cmd_learning_style(self) -> dict[str, Any]:
         """Affiche l'analyse du style d'apprentissage"""
         try:
-            response = requests.get(f"{self.base_url}/api/analytics/insights")
+            response = requests.get(
+                f"{self.base_url}/api/analytics/insights", timeout=10
+            )
             if response.status_code == 200:
                 data = response.json()
                 insights = data.get("insights", {})
@@ -436,7 +446,9 @@ class AnalyticsCommands:
     def cmd_engagement(self) -> dict[str, Any]:
         """Affiche les métriques d'engagement"""
         try:
-            response = requests.get(f"{self.base_url}/api/analytics/insights")
+            response = requests.get(
+                f"{self.base_url}/api/analytics/insights", timeout=10
+            )
             if response.status_code == 200:
                 data = response.json()
                 insights = data.get("insights", {})
@@ -509,7 +521,7 @@ class AnalyticsCommands:
     def cmd_export_data(self) -> dict[str, Any]:
         """Exporte les données analytics"""
         try:
-            response = requests.get(f"{self.base_url}/api/analytics/export")
+            response = requests.get(f"{self.base_url}/api/analytics/export", timeout=10)
             if response.status_code == 200:
                 # data = response.json()  # Variable non utilisée
 

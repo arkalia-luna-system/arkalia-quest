@@ -1,41 +1,32 @@
 # Document
+
 ---
+
 # **Statut : ARCHIVÉ**
+
 # **Date d'archivage : Juillet 2025**
+
 **Résumé :** Guide des tests intelligents, remplacé par la documentation centralisée.
 
 # **Liens utiles :**
 
-
 - [Documentation principale](../../docs/README.md)
-
-
 
 - [README archive](../../docs/archive/README_ARCHIVE.md)
 
-
 ---
-
 
 # 🧠 JOUEUR FANTÔME IA - SYSTÈME DE TEST INTELLIGENT
 
-
-
 ## 🎯 **OBJECTIF**
-
 
 Créer un **testeur IA intelligent** qui simule un vrai ado de 13 ans qui joue à Arkalia Quest, sans que tu doives tout tester manuellement. C'est exactement ce que font les studios de jeux vidéo professionnels !
 
 ---
 
-
 ## 🚀 **INSTALLATION**
 
-
-
 ### **1. Installer les dépendances**
-
-
 
 ```bash
 

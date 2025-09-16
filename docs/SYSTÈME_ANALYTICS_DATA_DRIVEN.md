@@ -1,42 +1,32 @@
 # Document
+
 ---
+
 # **Statut : ACTIF**
+
 # **Dernière mise à jour : Juillet 2025**
+
 **Résumé :** Documentation complète du système d'analytics et suivi utilisateur Arkalia Quest.
 
 # **Liens utiles :**
 
-
 - [Documentation principale](README.md)
-
-
 
 - [Statut projet](STATUT_PROJET_ACTUEL.md)
 
-
-
 - [Changelog documentation](CHANGELOG_DOCUMENTATION.md)
-
 
 ---
 
-
 # Système d'Analytics et Suivi Utilisateur Data-Driven
-
-
 
 ## Arkalia Quest - Système d'analyse comportementale éthique
 
-
-
 ### 📊 Vue d'ensemble
-
 
 Le système d'analytics d'Arkalia Quest est un moteur d'analyse comportementale avancé conçu pour améliorer l'expérience utilisateur tout en respectant la vie privée. Il collecte, analyse et utilise les données d'engagement pour personnaliser l'expérience d'apprentissage.
 
-
 ### 🎯 Objectifs
-
 
 1. **Collecte éthique** : Données anonymisées et respectueuses de la vie privée
 2. **Analyse comportementale** : Comprendre les patterns d'apprentissage
@@ -46,444 +36,237 @@ Le système d'analytics d'Arkalia Quest est un moteur d'analyse comportementale 
 
 ---
 
-
 ## 🏗️ Architecture du Système
-
-
 
 ### Composants Principaux
 
-
-
 #### 1. Moteur d'Analytics (`core/analytics_engine.py`)
-
-
 
 - **Collecte d'événements** : Tracking en temps réel
 
-
-
 - **Anonymisation** : Protection de la vie privée
-
-
 
 - **Analyse** : Génération d'insights
 
-
-
 - **Stockage** : Base de données sécurisée
-
-
 
 #### 2. Interface JavaScript (`static/js/analytics.js`)
 
-
-
 - **Collecte côté client** : Événements utilisateur
-
-
 
 - **Buffer intelligent** : Optimisation des performances
 
-
-
 - **Affichage insights** : Interface terminal
-
-
 
 #### 3. Routes API (`app.py`)
 
-
-
 - **Tracking** : `/api/analytics/track`
-
-
 
 - **Insights** : `/api/analytics/insights`
 
-
-
 - **Analytics globaux** : `/api/analytics/global`
-
-
 
 - **Export** : `/api/analytics/export`
 
-
-
 #### 4. Commandes Terminal (`core/commands/analytics_commands.py`)
-
-
 
 - **Analytics** : `analytics` - Vue globale
 
-
-
 - **Insights** : `insights` - Données personnelles
-
-
 
 - **Statistiques** : `stats` - Métriques détaillées
 
-
-
 - **Progression** : `progress` - Évolution personnelle
-
-
 
 - **Recommandations** : `recommendations` - Conseils personnalisés
 
-
 ---
-
 
 ## 📈 Types d'Événements Trackés
 
-
-
 ### Événements de Session
-
-
 
 - `session_start` : Début de session
 
-
-
 - `session_end` : Fin de session
-
-
 
 - `time_spent` : Temps passé sur une activité
 
-
-
 ### Événements de Commande
-
-
 
 - `command_executed` : Commande exécutée
 
-
-
 - `error_occurred` : Erreur rencontrée
-
-
 
 - `help_requested` : Demande d'aide
 
-
-
 ### Événements de Mission
-
-
 
 - `mission_start` : Début de mission
 
-
-
 - `mission_complete` : Mission réussie
-
-
 
 - `mission_fail` : Échec de mission
 
-
-
 - `hint_used` : Indice utilisé
-
-
 
 ### Événements de Jeu Éducatif
 
-
-
 - `game_start` : Début de jeu
-
-
 
 - `game_complete` : Jeu terminé
 
-
-
 - `game_fail` : Échec au jeu
-
-
 
 ### Événements de Tutoriel
 
-
-
 - `tutorial_start` : Début de tutoriel
-
-
 
 - `tutorial_complete` : Tutoriel terminé
 
-
-
 ### Événements de Gamification
-
-
 
 - `badge_earned` : Badge gagné
 
-
-
 - `level_up` : Montée de niveau
-
-
 
 ### Événements Émotionnels
 
-
-
 - `emotion_triggered` : Émotion LUNA déclenchée
-
-
 
 - `interaction` : Interaction utilisateur
 
-
 ---
-
 
 ## 🔒 Sécurité et Vie Privée
 
-
-
 ### Anonymisation
-
-
 
 - **Hachage SHA-256** : IDs utilisateur anonymisés
 
-
-
 - **Salt unique** : Protection contre les attaques
-
-
 
 - **Aucune PII** : Pas de données personnelles identifiables
 
-
-
 ### Rétention des Données
-
-
 
 - **90 jours** : Durée de conservation
 
-
-
 - **Nettoyage automatique** : Suppression des anciennes données
-
-
 
 - **Export contrôlé** : Accès limité aux données
 
-
-
 ### Conformité
-
-
 
 - **RGPD compatible** : Respect des réglementations
 
-
-
 - **Consentement** : Utilisation transparente
-
-
 
 - **Droit à l'oubli** : Suppression possible
 
-
 ---
-
 
 ## 📊 Métriques et Insights
 
-
-
 ### Métriques Utilisateur
-
-
 
 - **Temps de jeu total** : Engagement global
 
-
-
 - **Sessions** : Fréquence d'utilisation
-
-
 
 - **Missions complétées** : Progression
 
-
-
 - **Jeux terminés** : Participation éducative
-
-
 
 - **Badges gagnés** : Accomplissements
 
-
-
 - **Taux d'engagement** : Score de motivation
-
-
 
 ### Métriques Globales
 
-
-
 - **Utilisateurs actifs** : Base utilisateur
-
-
 
 - **Taux de rétention** : Fidélisation
 
-
-
 - **Taux de complétion** : Efficacité
-
-
 
 - **Événements populaires** : Tendances
 
-
-
 - **Performance système** : Optimisation
-
-
 
 ### Analyse Comportementale
 
-
-
 - **Style d'apprentissage** : Préférences utilisateur
-
-
 
 - **Patterns d'utilisation** : Habitudes
 
-
-
 - **Points de friction** : Difficultés rencontrées
-
-
 
 - **Zones d'intérêt** : Contenu préféré
 
-
 ---
-
 
 ## 🎯 Personnalisation et Recommandations
 
-
-
 ### Styles d'Apprentissage Détectés
-
-
 
 #### Apprenant Guidé
 
-
-
 - **Caractéristiques** : Préfère les tutoriels structurés
 
-
-
 - **Recommandations** :
-
 
   - Suivre les tutoriels dans l'ordre
   - Lire attentivement les instructions
   - Prendre le temps de comprendre
 
-
 #### Apprenant Pratique
-
-
 
 - **Caractéristiques** : Préfère l'expérimentation
 
-
-
 - **Recommandations** :
-
 
   - Expérimenter avec les commandes
   - Essayer différentes approches
   - Apprendre par l'erreur
 
-
 #### Demandeur d'Aide
-
-
 
 - **Caractéristiques** : Utilise indices et support
 
-
-
 - **Recommandations** :
-
 
   - Utiliser les indices quand bloqué
   - Demander de l'aide via le chat
   - Consulter la documentation
 
-
 #### Apprenant Équilibré
-
-
 
 - **Caractéristiques** : Adapte son approche
 
-
-
 - **Recommandations** :
-
 
   - Varier les méthodes d'apprentissage
   - Combiner tutoriels et expérimentation
   - S'adapter selon les défis
 
-
 ### Système de Recommandations
-
-
 
 - **Basé sur le niveau** : Progression adaptée
 
-
-
 - **Basé sur le style** : Méthodes préférées
-
-
 
 - **Basé sur l'engagement** : Motivation
 
-
-
 - **Basé sur les préférences** : Contenu aimé
-
 
 ---
 
-
 ## 🛠️ Utilisation Technique
-
-
 
 ### Installation et Configuration
 
-
-
 #### 1. Dépendances
-
-
 
 ```bash
 

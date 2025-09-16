@@ -1,0 +1,194 @@
+{
+  "test_player": {
+    "choices": [
+      {
+        "id": "d5914b2b-e2c1-435b-8167-210e5fb9018a",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2025-09-16T16:36:06.635787",
+        "consequences": []
+      },
+      {
+        "id": "e63842c5-b3e3-4b6d-bc92-e931e9b3d487",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2025-09-16T16:36:46.559247",
+        "consequences": []
+      },
+      {
+        "id": "f13bdc38-70f5-482e-b23d-3679b95e3ecd",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2025-09-16T16:37:05.073526",
+        "consequences": []
+      },
+      {
+        "id": "598ee3ae-3004-4f4d-9b6d-d63981eaa3e6",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2025-09-16T16:37:14.784984",
+        "consequences": []
+      },
+      {
+        "id": "637da7fe-6257-4ae6-85f0-c6b39551f405",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2025-09-16T16:37:20.847077",
+        "consequences": []
+      },
+      {
+        "id": "06fc5ee8-599d-4dc1-ba89-ab3371d25986",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2025-09-16T16:37:23.994334",
+        "consequences": []
+      },
+      {
+        "id": "31068c06-1ac5-4c74-9c71-b12ce7730783",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2025-09-16T16:37:27.791441",
+        "consequences": []
+      },
+      {
+        "id": "d8ff0c2f-4f09-4fd0-986f-ff124d0c34fb",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2025-09-16T16:40:12.569544",
+        "consequences": []
+      },
+      {
+        "id": "2532b00f-8165-487a-b1c3-f438f9ce75bd",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2025-09-16T16:40:29.468103",
+        "consequences": []
+      },
+      {
+        "id": "06b9df2c-5a64-486b-a540-03946df14c0f",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2025-09-16T16:40:43.087979",
+        "consequences": []
+      },
+      {
+        "id": "8ca4948c-cc22-4014-b1ff-063a11f7fe94",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2025-09-16T16:41:09.739214",
+        "consequences": []
+      }
+    ],
+    "unlocked_arcs": [],
+    "discovered_easter_eggs": [],
+    "lore_fragments": [],
+    "story_progress": {}
+  },
+  "test_user": {
+    "choices": [
+      {
+        "id": "4cafef7e-be43-4fb6-9cd5-c83e593d5fc8",
+        "story_arc": "althea_sos",
+        "choice": "investigate",
+        "context": {},
+        "timestamp": "2025-09-16T16:39:01.960526",
+        "consequences": [
+          "althea_background",
+          "nexus_connection"
+        ]
+      },
+      {
+        "id": "771610aa-da50-40b4-ade9-0e9e1ff0cc85",
+        "story_arc": "althea_sos",
+        "choice": "investigate",
+        "context": {},
+        "timestamp": "2025-09-16T16:39:37.846271",
+        "consequences": [
+          "althea_background",
+          "nexus_connection"
+        ]
+      },
+      {
+        "id": "d3dd8e1a-86dc-4f84-a9f9-62e7b2fd9347",
+        "story_arc": "althea_sos",
+        "choice": "investigate",
+        "context": {},
+        "timestamp": "2025-09-16T16:39:56.581031",
+        "consequences": [
+          "althea_background",
+          "nexus_connection"
+        ]
+      },
+      {
+        "id": "7621c0be-fa16-4775-8782-713c64c1a718",
+        "story_arc": "althea_sos",
+        "choice": "investigate",
+        "context": {},
+        "timestamp": "2025-09-16T16:40:01.246988",
+        "consequences": [
+          "althea_background",
+          "nexus_connection"
+        ]
+      },
+      {
+        "id": "aa27ca53-3813-44ef-bded-69081ad20d1a",
+        "story_arc": "althea_sos",
+        "choice": "investigate",
+        "context": {},
+        "timestamp": "2025-09-16T16:40:12.445729",
+        "consequences": [
+          "althea_background",
+          "nexus_connection"
+        ]
+      },
+      {
+        "id": "52742709-e7fd-4ad7-ab8b-e02470271bb6",
+        "story_arc": "althea_sos",
+        "choice": "investigate",
+        "context": {},
+        "timestamp": "2025-09-16T16:40:29.453627",
+        "consequences": [
+          "althea_background",
+          "nexus_connection"
+        ]
+      },
+      {
+        "id": "b472ffc6-fb7d-43f3-8552-bcd4255c7dda",
+        "story_arc": "althea_sos",
+        "choice": "investigate",
+        "context": {},
+        "timestamp": "2025-09-16T16:40:43.066175",
+        "consequences": [
+          "althea_background",
+          "nexus_connection"
+        ]
+      },
+      {
+        "id": "83f29fb4-7bb8-43c7-b75a-0a14cdba7edb",
+        "story_arc": "althea_sos",
+        "choice": "investigate",
+        "context": {},
+        "timestamp": "2025-09-16T16:41:09.724535",
+        "consequences": [
+          "althea_background",
+          "nexus_connection"
+        ]
+      }
+    ],
+    "unlocked_arcs": [],
+    "discovered_easter_eggs": [],
+    "lore_fragments": [],
+    "story_progress": {}
+  }
+}

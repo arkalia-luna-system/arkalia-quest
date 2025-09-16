@@ -1,154 +1,81 @@
 
-
 # 🚀 CHANGELOG - ARKALIA QUEST v3.0.0
-
-
 
 ## "L'Éveil des IA" - 17 Janvier 2025
 
-
 ---
-
 
 ## 🎉 **NOUVELLES FONCTIONNALITÉS MAJEURES**
 
-
-
 ### 🌟 **Système de Commandes d'Histoire Complet**
-
-
 
 - **Nouvelles commandes** : `prologue`, `acte_1` à `acte_6`, `epilogue`
 
-
-
 - **Commandes de hacking** : `hack_system`, `kill_virus`, `find_shadow`, `challenge_corp`
-
-
 
 - **Commandes utilitaires** : `decode_portal`, `hacker_coffre`, `boss_final`, `monde`
 
-
-
 - **Progression narrative** : Histoire complète en 7 actes avec badges débloqués
-
-
 
 ### 🎮 **Expérience de Jeu Immersive**
 
-
-
 - **Interface Matrix** : Thème hacker authentique et immersif
-
-
 
 - **IA LUNA v3.0** : Personnalité émotionnelle avec 10 émotions dynamiques
 
-
-
 - **Système de badges** : 50+ badges à débloquer avec progression
-
-
 
 - **Mini-jeux éducatifs** : 9 jeux complets (Logique, Code, Cybersécurité, Cryptographie, Réseau)
 
-
-
 ### 🏗️ **Architecture Technique Robuste**
-
-
 
 - **Modules modulaires** : Structure `core/` bien organisée
 
-
-
 - **APIs REST** : 15+ endpoints fonctionnels
-
-
 
 - **Base de données SQLite** : Migration JSON → SQLite complète
 
-
-
 - **WebSockets** : Défis temps réel opérationnels
 
-
 ---
-
 
 ## 🔧 **AMÉLIORATIONS TECHNIQUES**
 
-
-
 ### 🧹 **Qualité du Code**
-
-
 
 - **Ruff** : Correction automatique des erreurs de style et de logique
 
-
-
 - **Black** : Formatage automatique du code Python
-
-
 
 - **pyproject.toml** : Configuration centralisée des outils de développement
 
-
-
 - **Standards PEP 8** : Code conforme aux bonnes pratiques Python
-
-
 
 ### 📁 **Organisation du Projet**
 
-
-
 - **Racine nettoyée** : 50+ fichiers organisés dans `cleanup/`
-
-
 
 - **Structure modulaire** : Séparation claire des responsabilités
 
-
-
 - **Documentation** : Guides techniques et rapports complets
-
-
 
 - **Scripts automatisés** : Démarrage, tests et préparation push
 
-
-
 ### 🧪 **Tests et Qualité**
-
-
 
 - **Tests automatisés** : 9742 tests collectés et fonctionnels
 
-
-
 - **Validation continue** : Scripts de vérification automatique
-
-
 
 - **Monitoring** : Système de logs et métriques d'engagement
 
-
-
 - **Stabilité** : Aucun crash détecté lors des tests
-
 
 ---
 
-
 ## 🎯 **FONCTIONNALITÉS DÉTAILLÉES**
 
-
-
 ### 📖 **Histoire Narrative Complète**
-
-
 
 ```text
 

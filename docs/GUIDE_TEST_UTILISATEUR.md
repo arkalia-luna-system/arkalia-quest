@@ -1,19 +1,13 @@
 
 # 🧪 GUIDE DE TEST UTILISATEUR - ARKALIA QUEST
 
-
-
 ## 🎯 **OBJECTIF**
 
 Obtenir des retours constructifs de différents profils d'utilisateurs pour améliorer Arkalia Quest.
 
-
 ## 👥 **PROFILS DE TESTEURS RECOMMANDÉS**
 
-
-
 ### **1. 👨‍💻 DÉVELOPPEUR/TECHNICIEN**
-
 
 - **Qui** : Personne avec expérience technique
 
@@ -21,10 +15,7 @@ Obtenir des retours constructifs de différents profils d'utilisateurs pour amé
 
 - **Durée** : 45-60 minutes
 
-
-
 ### **2. 🎓 ÉDUCATEUR/ENSEIGNANT**
-
 
 - **Qui** : Professeur, formateur, parent
 
@@ -32,10 +23,7 @@ Obtenir des retours constructifs de différents profils d'utilisateurs pour amé
 
 - **Durée** : 30-45 minutes
 
-
-
 ### **3. 👶 ADOLESCENT (14-17 ans)**
-
 
 - **Qui** : Utilisateur cible principal
 
@@ -43,10 +31,7 @@ Obtenir des retours constructifs de différents profils d'utilisateurs pour amé
 
 - **Durée** : 20-30 minutes
 
-
-
 ### **4. 👩‍💼 UTILISATEUR LAMBDA**
-
 
 - **Qui** : Personne sans expérience technique
 
@@ -54,10 +39,7 @@ Obtenir des retours constructifs de différents profils d'utilisateurs pour amé
 
 - **Durée** : 20-30 minutes
 
-
-
 ### **5. 🎮 GAMER EXPÉRIMENTÉ**
-
 
 - **Qui** : Joueur habitué aux jeux
 
@@ -65,13 +47,9 @@ Obtenir des retours constructifs de différents profils d'utilisateurs pour amé
 
 - **Durée** : 30-45 minutes
 
-
 ---
 
-
 ## 🚀 **PRÉPARATION DU TEST**
-
-
 
 ### **📋 AVANT LE TEST**
 
@@ -92,7 +70,6 @@ Obtenir des retours constructifs de différents profils d'utilisateurs pour amé
    - [ ] Stylo et papier pour notes
    - [ ] Chronomètre
    - [ ] Captures d'écran si besoin
-
 
 ### **🎮 PENDANT LE TEST**
 
@@ -116,10 +93,7 @@ Obtenir des retours constructifs de différents profils d'utilisateurs pour amé
 
 ---
 
-
 ## 📝 **CHECKLISTS RAPIDES**
-
-
 
 ### **⚡ TEST RAPIDE (15 min)**
 
@@ -144,7 +118,6 @@ Pour un test express :
    - [ ] Recommanderiez-vous ce jeu ?
    - [ ] Qu'est-ce qui vous plaît le plus ?
    - [ ] Qu'est-ce qui vous déplaît ?
-
 
 ### **🔍 TEST COMPLET (45 min)**
 
@@ -173,10 +146,7 @@ Pour un test approfondi :
 
 ---
 
-
 ## 📊 **QUESTIONS CLÉS À POSER**
-
-
 
 ### **🎯 QUESTIONS GÉNÉRALES**
 
@@ -186,7 +156,6 @@ Pour un test approfondi :
 4. **Qu'est-ce qui vous a le plus déplu ?**
 5. **Quelles améliorations suggérez-vous ?**
 
-
 ### **🎮 QUESTIONS SPÉCIFIQUES**
 
 1. **L'interface est-elle intuitive ?**
@@ -194,7 +163,6 @@ Pour un test approfondi :
 3. **Le système de badges vous motive-t-il ?**
 4. **La progression est-elle claire ?**
 5. **Y a-t-il des bugs gênants ?**
-
 
 ### **📚 QUESTIONS ÉDUCATIVES**
 
@@ -206,13 +174,9 @@ Pour un test approfondi :
 
 ---
 
-
 ## 📋 **TEMPLATE DE RAPPORT**
 
-
-
 ### **👤 INFORMATIONS TESTEUR**
-
 
 - **Nom/Prénom** : _______________
 
@@ -224,10 +188,7 @@ Pour un test approfondi :
 
 - **Durée** : _______________
 
-
-
 ### **⭐ NOTATION (1-5 étoiles)**
-
 
 - **Interface et Design** : ⭐⭐⭐⭐⭐
 
@@ -239,10 +200,7 @@ Pour un test approfondi :
 
 - **Performance technique** : ⭐⭐⭐⭐⭐
 
-
-
 ### **✅ POINTS FORTS**
-
 
 - [ ] Point fort 1
 
@@ -250,10 +208,7 @@ Pour un test approfondi :
 
 - [ ] Point fort 3
 
-
-
 ### **❌ POINTS FAIBLES**
-
 
 - [ ] Problème 1
 
@@ -261,10 +216,7 @@ Pour un test approfondi :
 
 - [ ] Problème 3
 
-
-
 ### **🐛 BUGS RENCONTRÉS**
-
 
 - [ ] Bug 1 : Description
 
@@ -272,10 +224,7 @@ Pour un test approfondi :
 
 - [ ] Bug 3 : Description
 
-
-
 ### **💡 SUGGESTIONS**
-
 
 - [ ] Suggestion 1
 
@@ -283,10 +232,7 @@ Pour un test approfondi :
 
 - [ ] Suggestion 3
 
-
-
 ### **📝 COMMENTAIRES LIBRES**
-
 
 ```text
 

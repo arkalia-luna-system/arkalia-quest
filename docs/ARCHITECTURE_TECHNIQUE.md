@@ -1,15 +1,11 @@
 
-
 # 🏗️ **ARCHITECTURE TECHNIQUE - ARKALIA QUEST**
-
 
 > **Guide complet de l'architecture technique, des composants et de l'organisation du code**
 
 ---
 
-
 ## 📋 **Table des Matières**
-
 
 1. [🎯 Vue d'Ensemble](#-vue-densemble)
 2. [🏗️ Architecture Globale](#️-architecture-globale)
@@ -23,15 +19,11 @@
 
 ---
 
-
 ## 🎯 **Vue d'Ensemble**
-
 
 Arkalia Quest suit une **architecture modulaire en couches** avec séparation claire des responsabilités, permettant une maintenance facile et une extensibilité maximale.
 
-
 ### **Principes Architecturaux**
-
 
 | Principe | Description | Implémentation |
 |----------|-------------|----------------|
@@ -43,14 +35,9 @@ Arkalia Quest suit une **architecture modulaire en couches** avec séparation cl
 
 ---
 
-
 ## 🏗️ **Architecture Globale**
 
-
-
 ### **Diagramme d'Architecture Principal**
-
-
 
 ```mermaid
 

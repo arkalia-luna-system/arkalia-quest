@@ -1,56 +1,31 @@
 
-
 # 🤝 Guide de Contribution - Arkalia Quest
-
 
 Merci de votre intérêt pour contribuer à **Arkalia Quest** ! Ce guide vous aidera à participer au développement de ce projet éducatif innovant.
 
-
 ## 📋 **Table des Matières**
-
-
 
 - [🚀 Démarrage Rapide](#-démarrage-rapide)
 
-
-
 - [🔧 Configuration de l'Environnement](#-configuration-de-lenvironnement)
-
-
 
 - [📝 Standards de Code](#-standards-de-code)
 
-
-
 - [🧪 Tests](#-tests)
-
-
 
 - [📚 Documentation](#-documentation)
 
-
-
 - [🔄 Workflow de Contribution](#-workflow-de-contribution)
-
-
 
 - [🏷️ Types de Contributions](#-types-de-contributions)
 
-
-
 - [📞 Support et Questions](#-support-et-questions)
-
 
 ---
 
-
 ## 🚀 **Démarrage Rapide**
 
-
-
 ### **1. Fork et Clone**
-
-
 
 ```bash
 

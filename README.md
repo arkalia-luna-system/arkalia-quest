@@ -1,10 +1,14 @@
 
-
 # 🎮🛡️📊 **ARKALIA QUEST** - Le Serious Game 100% Python
 
-> **🌍 English**: The only open-source educational game built with enterprise-grade security, real-time analytics, and AI-powered learning for teenagers - fully testable and gamified.
 
-> **🇫🇷 Français**: Le seul serious game open-source 100% Python, sécurisé niveau entreprise, avec analytics temps réel et IA éducative pour ados - entièrement testable et gamifié.
+> **🌍 English**: The only open-source educational game built with
+> enterprise-grade security, real-time analytics, and AI-powered learning for
+> teenagers - fully testable and gamified.
+
+> **🇫🇷 Français**: Le seul serious game open-source 100% Python, sécurisé
+> niveau entreprise, avec analytics temps réel et IA éducative pour ados -
+> entièrement testable et gamifié.
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://python.org)
 [![Flask](https://img.shields.io/badge/Flask-3.1+-green.svg)](https://flask.palletsprojects.com)
@@ -19,7 +23,6 @@
 [![Help Wanted](https://img.shields.io/badge/Help-Wanted-orange.svg)](https://github.com/arkalia-luna-system/arkalia-quest/labels/help%20wanted)
 
 ---
-
 
 ## 📋 **Table of Contents**
 
@@ -44,7 +47,6 @@
 > **🌍 English**: Arkalia Quest is an intelligent educational game for teenagers, combining learning, gamification, and AI in a modern, secure architecture. Perfect for cybersecurity education and ethical hacking training.
 
 Arkalia Quest est un jeu éducatif intelligent conçu pour les adolescents, combinant apprentissage, gamification et intelligence artificielle dans une architecture moderne et sécurisée.
-
 
 ```mermaid
 
@@ -372,17 +374,13 @@ Réponse (commande inconnue, avec suggestions):
 ```
 
 Notes:
+
 - Les commandes connues mais non implémentées renvoient un message "🚧 en développement".
 - Les suggestions sont générées côté backend (similarité + préfixe).
 
-
 ## 🧪 **Tests et Qualité**
 
-
-
 ### **Couverture des Tests**
-
-
 
 ```mermaid
 

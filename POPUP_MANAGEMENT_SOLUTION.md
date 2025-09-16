@@ -7,13 +7,15 @@ Les popups du jeu s'ouvraient automatiquement et se chevauchaient, créant une e
 ## 🔧 Solution Implémentée
 
 ### 1. **PopupManager** (`static/js/popup-manager.js`)
+
 - **Gestionnaire centralisé** de tous les popups
 - **Système de priorité** (high, medium, low)
 - **Queue intelligente** pour éviter les chevauchements
 - **Z-index dynamique** pour la superposition correcte
 - **Animations fluides** d'entrée et sortie
 
-#### Fonctionnalités Clés :
+#### Fonctionnalités Clés
+
 - ✅ **Priorités** : Les popups importants passent en premier
 - ✅ **Queue** : Les popups attendent leur tour
 - ✅ **Auto-close** : Fermeture automatique configurable
@@ -22,12 +24,14 @@ Les popups du jeu s'ouvraient automatiquement et se chevauchaient, créant une e
 - ✅ **Fermeture universelle** : Tous les popups sont closables par défaut (bouton X, clic sur l’overlay, touche Escape)
 
 ### 2. **PopupCoordinator** (`static/js/popup-coordinator.js`)
+
 - **Coordinateur intelligent** qui désactive les popups automatiques
 - **Redirection** vers le PopupManager
 - **Délais intelligents** pour éviter les conflits
 - **Nettoyage automatique** des popups en conflit
 
-#### Systèmes Coordonnés :
+#### Systèmes Coordonnés
+
 - 🌙 **LUNA Messages** : Messages de l'IA
 - 🎯 **Missions** : Complétion de missions
 - 🗺️ **Exploration** : Découverte de zones
@@ -35,6 +39,7 @@ Les popups du jeu s'ouvraient automatiquement et se chevauchaient, créant une e
 - 🔔 **Notifications** : Alertes système
 
 ### 3. **Styles Unifiés** (`static/css/popup-manager.css`)
+
 - **Design cohérent** avec le thème Arkalia
 - **Animations fluides** et professionnelles
 - **Responsive design** pour tous les écrans
@@ -43,26 +48,31 @@ Les popups du jeu s'ouvraient automatiquement et se chevauchaient, créant une e
 ## 🎯 Types de Popups Supportés
 
 ### Notifications
+
 ```javascript
 popupManager.showNotification("Message", "success", 3000);
 ```
 
 ### Confirmations
+
 ```javascript
 popupManager.showConfirmation("Êtes-vous sûr ?", onConfirm, onCancel);
 ```
 
 ### Chargement
+
 ```javascript
 popupManager.showLoading("Chargement...");
 ```
 
 ### Messages LUNA
+
 ```javascript
 popupManager.replaceLunaMessage("Salut hacker !", 4000);
 ```
 
 ### Complétion de Mission
+
 ```javascript
 popupManager.replaceMissionCompletion("Mission Alpha", {xp: 100, coins: 50});
 ```
@@ -91,12 +101,14 @@ popupManager.replaceMissionCompletion("Mission Alpha", {xp: 100, coins: 50});
 ## 🛡️ Protection Anti-Chevauchement
 
 ### Limites Imposées
+
 - **Maximum 3 popups** simultanés
 - **Nettoyage automatique** toutes les 30 secondes
 - **Délais intelligents** entre les popups
 - **Vérification de priorité** avant affichage
 
 ### Gestion des Conflits
+
 - **Fermeture automatique** des popups anciens
 - **Queue intelligente** avec retry
 - **Coordination** entre systèmes
@@ -105,12 +117,14 @@ popupManager.replaceMissionCompletion("Mission Alpha", {xp: 100, coins: 50});
 ## 🎨 Améliorations Visuelles
 
 ### Design Unifié
+
 - **Palette de couleurs** cohérente
 - **Animations fluides** (fade, scale, slide)
 - **Backdrop blur** pour l'effet moderne
 - **Borders** et **shadows** harmonisés
 
 ### Responsive
+
 - **Mobile-first** design
 - **Breakpoints** optimisés
 - **Touch-friendly** interactions
@@ -119,6 +133,7 @@ popupManager.replaceMissionCompletion("Mission Alpha", {xp: 100, coins: 50});
 ## 🧪 Tests Implémentés
 
 ### Couverture Complète
+
 - ✅ **Structure** des classes
 - ✅ **Fonctionnalités** principales
 - ✅ **Intégration** HTML/CSS
@@ -128,6 +143,7 @@ popupManager.replaceMissionCompletion("Mission Alpha", {xp: 100, coins: 50});
 - ✅ **Responsive** design
 
 ### 16 Tests Unitaires
+
 - Tous les tests passent ✅
 - Couverture complète des fonctionnalités
 - Validation de l'intégration
@@ -135,12 +151,14 @@ popupManager.replaceMissionCompletion("Mission Alpha", {xp: 100, coins: 50});
 ## 🚀 Impact sur l'Expérience Utilisateur
 
 ### Avant
+
 - ❌ Popups qui se chevauchent
 - ❌ Messages confus
 - ❌ Interface désorganisée
 - ❌ Expérience frustrante
 
 ### Après
+
 - ✅ **Popups coordonnés** et organisés
 - ✅ **Messages clairs** et prioritaires
 - ✅ **Interface professionnelle**
@@ -149,6 +167,7 @@ popupManager.replaceMissionCompletion("Mission Alpha", {xp: 100, coins: 50});
 ## 🔧 Utilisation
 
 ### Pour les Développeurs
+
 ```javascript
 // Utiliser le PopupManager directement
 window.popupManager.showNotification("Test", "info", 3000);
@@ -158,6 +177,7 @@ window.popupManager.showNotification("Test", "info", 3000);
 ```
 
 ### Pour les Utilisateurs
+
 - **Escape** : Fermer le popup actuel
 - **Clic extérieur** : Fermer le popup
 - **Auto-close** : Fermeture automatique
@@ -166,12 +186,14 @@ window.popupManager.showNotification("Test", "info", 3000);
 ## 📈 Métriques de Performance
 
 ### Optimisations
+
 - **Lazy loading** des popups
 - **Debouncing** des événements
 - **Cleanup** automatique
 - **Memory management** intelligent
 
 ### Monitoring
+
 - **Console logs** pour le debugging
 - **Métriques** de performance
 - **Queue status** en temps réel
@@ -180,6 +202,7 @@ window.popupManager.showNotification("Test", "info", 3000);
 ## 🎯 Résultat Final
 
 Le système de gestion des popups d'Arkalia Quest est maintenant :
+
 - **Professionnel** et cohérent
 - **Performant** et optimisé
 - **Accessible** et responsive

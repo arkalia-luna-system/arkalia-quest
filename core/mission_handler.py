@@ -121,7 +121,7 @@ class MissionHandler:
         return result
 
     def execute_commande(
-        self, commande: str, profil: dict[str, Any] | None = None
+        self, commande: str, profil: Optional[dict[str, Any]] = None
     ) -> dict[str, Any]:
         """Exécute une commande de mission"""
         # Simulation des commandes selon le type

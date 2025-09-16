@@ -2666,6 +2666,11 @@ def api_luna_v3_chat():
 def api_get_luna_learning_stats():
     """Retourne les statistiques d'apprentissage de LUNA"""
     try:
+        if luna_ai_v3 is None:
+            return (
+                jsonify({"success": False, "error": "LUNA AI v3 non disponible"}),
+                503,
+            )
         stats = luna_ai_v3.get_learning_stats()
         return jsonify({"success": True, "stats": stats})
     except Exception as e:

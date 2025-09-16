@@ -64,4 +64,4 @@ def test_websocket_challenge_flow_minimal(client):
 
 def test_luna_v3_learning_stats(client):
     resp = client.get("/api/luna-v3/learning-stats")
-    assert resp.status_code in {200, 204}
+    assert resp.status_code in {200, 503}  # 503 si LUNA AI v3 non disponible

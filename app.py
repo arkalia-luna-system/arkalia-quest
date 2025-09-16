@@ -32,6 +32,7 @@ try:
     from core.technical_tutorials import technical_tutorials
     from core.tutorial_manager import tutorial_manager
     from core.websocket_manager import websocket_manager
+
     # from engines.luna_ai_v3 import LunaAIV3  # Module temporairement désactivé
 
     print("✅ All core modules imported successfully")
@@ -193,12 +194,16 @@ gamification = GamificationEngine() if GamificationEngine else None
 command_handler = CommandHandler() if CommandHandler else None
 db_manager = DatabaseManager() if DatabaseManager else None
 
+
 # Fonction de remplacement pour les décorateurs de performance
 def monitor_performance(name):
     """Décorateur de remplacement pour le monitoring de performance"""
+
     def decorator(func):
         return func
+
     return decorator
+
 
 # Variables de disponibilité des modules
 DATABASE_AVAILABLE = True

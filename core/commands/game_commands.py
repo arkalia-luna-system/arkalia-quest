@@ -64,7 +64,7 @@ class GameCommands:
         return {"réussite": True, "ascii_art": "🎮", "message": message}
 
     def handle_play_game(self, profile: dict[str, Any]) -> dict[str, Any]:
-        """Démarre un mini-jeu éducatif"""
+        """Démarre un mini-jeu éducatif (ou explique comment)"""
         return {
             "réussite": True,
             "ascii_art": "🎮",
@@ -88,9 +88,7 @@ class GameCommands:
         }
 
     def handle_play(self, profile: dict[str, Any]) -> dict[str, Any]:
-        """Lance un mini-jeu spécifique"""
-        # Récupérer l'ID du jeu depuis la commande
-        # Pour l'instant, on simule le lancement d'un jeu
+        """Lance un mini-jeu spécifique (simulation)"""
         return {
             "réussite": True,
             "ascii_art": "🎮",

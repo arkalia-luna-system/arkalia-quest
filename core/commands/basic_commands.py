@@ -5,11 +5,15 @@ Commandes essentielles : aide, profil, status, clear, etc.
 
 from typing import Any
 
+from core.customization_engine import CustomizationEngine
+
 
 class BasicCommands:
     """Gestionnaire des commandes de base"""
 
     def __init__(self):
+        self.customization_engine = CustomizationEngine()
+
         self.commands = {
             "aide": self.handle_aide,
             "help": self.handle_aide,
@@ -32,6 +36,9 @@ class BasicCommands:
             "badges": self.handle_badges,
             "leaderboard": self.handle_leaderboard,
             "missions": self.handle_missions,
+            # Personnalisation / thèmes
+            "themes": self.handle_themes,
+            "theme": self.handle_theme_set,
         }
 
     def handle_aide(self, profile: dict[str, Any]) -> dict[str, Any]:
@@ -345,6 +352,78 @@ la vérité sur NEXUS et la menace de PANDORA.
 • Défie tes amis sur le leaderboard
 
 🎮 Continue tes exploits, hacker !""",
+            "profile_updated": False,
+        }
+
+    def handle_themes(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Affiche les thèmes disponibles et comment les activer"""
+        try:
+            available = self.customization_engine.get_available_themes(
+                profile.get("player_id", "default")
+            )
+
+            if not available:
+                return {
+                    "réussite": True,
+                    "ascii_art": "🎨",
+                    "message": (
+                        "🎨 THÈMES DISPONIBLES\n\n"
+                        "Aucun thème débloqué pour l'instant.\n"
+                        "💡 Astuce : progresse pour débloquer des thèmes comme 'Matrix' !"
+                    ),
+                    "profile_updated": False,
+                }
+
+            lines = [
+                "🎨 THÈMES DISPONIBLES\n",
+            ]
+            for theme in available:
+                status = "✅" if theme.get("unlocked") else "🔓"
+                lines.append(
+                    f"{status} {theme.get('name','Thème')} — id: {theme.get('id','?')}"
+                )
+
+            lines.append(
+                "\n💡 Utilise l’interface Accessibilité pour changer de thème."
+            )
+            lines.append(
+                "🌟 Exemple: active le thème Matrix pour le style terminal vert."
+            )
+
+            return {
+                "réussite": True,
+                "ascii_art": "🎨",
+                "message": "\n".join(lines),
+                "profile_updated": False,
+            }
+        except Exception:
+            return {
+                "réussite": True,
+                "ascii_art": "🎨",
+                "message": (
+                    "🎨 THÈMES DISPONIBLES\n\n"
+                    "Arkalia, Matrix, Cyberpunk, Ocean.\n"
+                    "💡 Utilise le menu Accessibilité pour les activer."
+                ),
+                "profile_updated": False,
+            }
+
+    def handle_theme_set(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Change le thème via 'theme <id>' (Matrix, etc.).
+        Cette version lit seulement, car l’API serveur gère la persistance.
+        """
+        # La commande brute ne passe pas l'argument ici; côté terminal, l'API
+        # `/api/customization/themes/<id>/set` est l’endroit idéal. On renvoie
+        # une aide claire pour guider l’utilisateur.
+        return {
+            "réussite": True,
+            "ascii_art": "🎨",
+            "message": (
+                "🎨 CHANGER DE THÈME\n\n"
+                "Utilise le menu Accessibilité (icône ♿) pour activer un thème.\n"
+                "API dispo: POST /api/customization/themes/<id>/set (ex: matrix).\n"
+                "💡 Astuce: le thème Matrix est parfait pour le style terminal vert."
+            ),
             "profile_updated": False,
         }
 

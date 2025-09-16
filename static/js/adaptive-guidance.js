@@ -13,7 +13,8 @@ class AdaptiveGuidanceSystem {
     init() {
         console.log('🎯 Système de guidance adaptative initialisé');
         this.setupEventListeners();
-        this.createGuidanceOverlay();
+        // Désactivé: ne plus créer d'overlay/coachmark
+        // this.createGuidanceOverlay();
         this.startProfileDetection();
     }
 
@@ -58,49 +59,16 @@ class AdaptiveGuidanceSystem {
         );
     }
 
-    // Création de l'overlay de guidance
+    // Création de l'overlay de guidance (désactivée)
     createGuidanceOverlay() {
-        const overlay = document.createElement('div');
-        overlay.id = 'guidance-overlay';
-        overlay.className = 'guidance-overlay';
-        overlay.innerHTML = `
-            <div class="guidance-tooltip" id="guidance-tooltip">
-                <div class="guidance-arrow"></div>
-                <div class="guidance-content">
-                    <div class="guidance-title"></div>
-                    <div class="guidance-description"></div>
-                    <div class="guidance-actions">
-                        <button class="guidance-btn primary" id="guidance-next">Suivant</button>
-                        <button class="guidance-btn secondary" id="guidance-skip">Passer</button>
-                        <button class="guidance-btn tertiary" id="guidance-help">Aide</button>
-                    </div>
-                </div>
-            </div>
-            <div class="guidance-highlight" id="guidance-highlight"></div>
-        `;
-        document.body.appendChild(overlay);
+        // Intentionnellement vide pour désactiver toute création d'overlay/tooltip
+        return;
     }
 
-    // Mise en évidence des éléments importants
+    // Mise en évidence des éléments importants (désactivée)
     highlightElement(selector, message, options = {}) {
-        const element = document.querySelector(selector);
-        if (!element) return;
-
-        // Créer le highlight
-        const highlight = document.getElementById('guidance-highlight');
-        const rect = element.getBoundingClientRect();
-
-        highlight.style.display = 'block';
-        highlight.style.left = `${rect.left - 5}px`;
-        highlight.style.top = `${rect.top - 5}px`;
-        highlight.style.width = `${rect.width + 10}px`;
-        highlight.style.height = `${rect.height + 10}px`;
-
-        // Afficher le tooltip
-        this.showTooltip(element, message, options);
-
-        // Ajouter l'élément à la liste des éléments mis en évidence
-        this.highlightedElements.add(selector);
+        // Ne rien faire: désactivation complète des coachmarks/overlays
+        return;
     }
 
     // Affichage du tooltip

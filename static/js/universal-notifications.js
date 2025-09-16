@@ -6,6 +6,7 @@ class UniversalNotifications {
         this.notifications = new Map();
         this.queue = [];
         this.isProcessing = false;
+        this.recentNotifications = new Map(); // anti-spam/déduplication
         this.settings = this.loadSettings();
         this.init();
     }
@@ -25,7 +26,9 @@ class UniversalNotifications {
             theme: 'arkalia',
             animations: true,
             sound: false,
-            vibration: false
+            vibration: false,
+            rateLimitMs: 1500,       // anti-spam: intervalle mini entre mêmes messages
+            dedupeWindowMs: 3000     // fenêtre pour ignorer les doublons exacts
         };
 
         try {
@@ -312,6 +315,15 @@ class UniversalNotifications {
             ...config
         };
 
+        // Anti-spam / déduplication
+        const now = Date.now();
+        const rateKey = this.getRateKey(notificationConfig);
+        if (this.isRateLimited(rateKey, now)) {
+            return notificationConfig.id; // ignorer silencieusement
+        }
+        this.recentNotifications.set(rateKey, now);
+        this.pruneRecent(now);
+
         // Vérifier la limite de notifications
         if (this.notifications.size >= this.settings.maxNotifications) {
             this.queue.push(notificationConfig);
@@ -319,6 +331,25 @@ class UniversalNotifications {
         }
 
         return this.createNotification(notificationConfig);
+    }
+
+    getRateKey(config) {
+        // Clé basée sur type + titre + début du contenu
+        const contentSnippet = (config.content || '').toString().slice(0, 120);
+        return `${config.type}|${config.title}|${contentSnippet}`;
+    }
+
+    isRateLimited(key, now) {
+        const last = this.recentNotifications.get(key);
+        if (last == null) return false;
+        return (now - last) < (this.settings.rateLimitMs || 1500);
+    }
+
+    pruneRecent(now) {
+        const windowMs = this.settings.dedupeWindowMs || 3000;
+        for (const [key, ts] of this.recentNotifications.entries()) {
+            if (now - ts > windowMs) this.recentNotifications.delete(key);
+        }
     }
 
     createNotification(config) {

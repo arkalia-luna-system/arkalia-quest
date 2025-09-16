@@ -176,6 +176,28 @@
           "althea_background",
           "nexus_connection"
         ]
+      },
+      {
+        "id": "634b32b6-4900-464c-8e1c-7912cec47b67",
+        "type": "choice",
+        "title": "Choix dans althea_sos",
+        "content": "J'ai choisi: investigate",
+        "timestamp": "2025-09-16T16:42:59.891248",
+        "consequences": [
+          "althea_background",
+          "nexus_connection"
+        ]
+      },
+      {
+        "id": "bac3982a-0acd-45ee-9d0b-fab6d73c6278",
+        "type": "choice",
+        "title": "Choix dans althea_sos",
+        "content": "J'ai choisi: investigate",
+        "timestamp": "2025-09-16T16:42:59.891248",
+        "consequences": [
+          "althea_background",
+          "nexus_connection"
+        ]
       }
     ],
     "discoveries": [],

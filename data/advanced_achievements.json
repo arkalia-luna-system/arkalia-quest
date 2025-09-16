@@ -5712,26 +5712,116 @@
           "unlocked_at": "2025-09-16T16:41:16.516109",
           "points": 500,
           "category": "persistence"
+        },
+        {
+          "achievement_id": "first_hack",
+          "unlocked_at": "2025-09-16T16:43:09.798008",
+          "points": 50,
+          "category": "hacking"
+        },
+        {
+          "achievement_id": "hack_master",
+          "unlocked_at": "2025-09-16T16:43:09.798020",
+          "points": 1000,
+          "category": "hacking"
+        },
+        {
+          "achievement_id": "stealth_hacker",
+          "unlocked_at": "2025-09-16T16:43:09.798031",
+          "points": 300,
+          "category": "hacking"
+        },
+        {
+          "achievement_id": "world_explorer",
+          "unlocked_at": "2025-09-16T16:43:09.798042",
+          "points": 750,
+          "category": "exploration"
+        },
+        {
+          "achievement_id": "secret_finder",
+          "unlocked_at": "2025-09-16T16:43:09.798052",
+          "points": 400,
+          "category": "exploration"
+        },
+        {
+          "achievement_id": "guild_leader",
+          "unlocked_at": "2025-09-16T16:43:09.798069",
+          "points": 1200,
+          "category": "social"
+        },
+        {
+          "achievement_id": "knowledge_seeker",
+          "unlocked_at": "2025-09-16T16:43:09.798079",
+          "points": 350,
+          "category": "education"
+        },
+        {
+          "achievement_id": "cyber_expert",
+          "unlocked_at": "2025-09-16T16:43:09.798090",
+          "points": 1500,
+          "category": "education"
+        },
+        {
+          "achievement_id": "luna_friend",
+          "unlocked_at": "2025-09-16T16:43:09.798100",
+          "points": 500,
+          "category": "luna"
+        },
+        {
+          "achievement_id": "luna_soulmate",
+          "unlocked_at": "2025-09-16T16:43:09.798111",
+          "points": 2000,
+          "category": "luna"
+        },
+        {
+          "achievement_id": "speed_demon",
+          "unlocked_at": "2025-09-16T16:43:09.798121",
+          "points": 400,
+          "category": "speed"
+        },
+        {
+          "achievement_id": "lightning_fast",
+          "unlocked_at": "2025-09-16T16:43:09.798131",
+          "points": 600,
+          "category": "speed"
+        },
+        {
+          "achievement_id": "creative_genius",
+          "unlocked_at": "2025-09-16T16:43:09.798142",
+          "points": 700,
+          "category": "creativity"
+        },
+        {
+          "achievement_id": "never_give_up",
+          "unlocked_at": "2025-09-16T16:43:09.798160",
+          "points": 300,
+          "category": "persistence"
+        },
+        {
+          "achievement_id": "comeback_kid",
+          "unlocked_at": "2025-09-16T16:43:09.798170",
+          "points": 500,
+          "category": "persistence"
         }
       ],
       "progress": {
-        "action_count_hack_system": 124
+        "action_count_hack_system": 126
       },
       "statistics": {
-        "total_achievements": 881,
-        "hacking_achievements": 137,
-        "total_points": 605100,
-        "common_achievements": 62,
-        "rare_achievements": 310,
-        "exploration_achievements": 124,
-        "epic_achievements": 310,
-        "social_achievements": 62,
-        "legendary_achievements": 199,
-        "education_achievements": 124,
-        "luna_achievements": 124,
-        "speed_achievements": 124,
-        "creativity_achievements": 62,
-        "persistence_achievements": 124
+        "total_achievements": 896,
+        "hacking_achievements": 140,
+        "total_points": 615650,
+        "common_achievements": 63,
+        "rare_achievements": 315,
+        "exploration_achievements": 126,
+        "epic_achievements": 315,
+        "social_achievements": 63,
+        "legendary_achievements": 203,
+        "education_achievements": 126,
+        "luna_achievements": 126,
+        "speed_achievements": 126,
+        "creativity_achievements": 63,
+        "persistence_achievements": 126
       }
     }
   },

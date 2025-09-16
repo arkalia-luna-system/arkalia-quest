@@ -147,9 +147,12 @@ class PopupManager {
         this.currentZIndex += 10;
         popup.style.zIndex = this.currentZIndex;
 
+        // Rendre tous les popups closables par défaut
+        const isClosable = config.closable !== false;
+
         popup.innerHTML = `
             <div class="popup-content">
-                ${config.closable ? '<button class="popup-close">&times;</button>' : ''}
+                ${isClosable ? '<button class="popup-close" title="Fermer">&times;</button>' : ''}
                 ${config.title ? `<h3>${config.title}</h3>` : ''}
                 <div class="popup-body">${config.content}</div>
             </div>
@@ -157,10 +160,26 @@ class PopupManager {
 
         document.body.appendChild(popup);
 
-        // Ajouter les événements
-        if (config.closable) {
+        // Ajouter les événements de fermeture
+        if (isClosable) {
             const closeBtn = popup.querySelector('.popup-close');
             closeBtn.addEventListener('click', () => this.closePopup(config.id));
+            
+            // Fermer en cliquant sur l'overlay
+            popup.addEventListener('click', (e) => {
+                if (e.target === popup) {
+                    this.closePopup(config.id);
+                }
+            });
+            
+            // Fermer avec Escape
+            const escapeHandler = (e) => {
+                if (e.key === 'Escape') {
+                    this.closePopup(config.id);
+                    document.removeEventListener('keydown', escapeHandler);
+                }
+            };
+            document.addEventListener('keydown', escapeHandler);
         }
 
         // Animation d'apparition

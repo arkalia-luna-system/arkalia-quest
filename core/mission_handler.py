@@ -120,7 +120,9 @@ class MissionHandler:
 
         return result
 
-    def execute_commande(self, commande: str) -> dict[str, Any]:
+    def execute_commande(
+        self, commande: str, profil: Optional[dict[str, Any]] = None
+    ) -> dict[str, Any]:
         """Exécute une commande de mission"""
         # Simulation des commandes selon le type
         if commande.startswith("luna_"):

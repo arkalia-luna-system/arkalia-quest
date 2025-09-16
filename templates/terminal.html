@@ -25,7 +25,7 @@
     <!-- CSS LUNA VISION -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-responsive.css') }}?v=4.0.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/interface-improvements.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/empty-states.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/reward-animations.css') }}">
@@ -627,6 +627,30 @@
             margin-right: 10px;
         }
 
+        .command-line {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 4px;
+            font-family: 'Share Tech Mono', monospace;
+            border-left: 3px solid var(--violet-lunaire);
+        }
+
+        .command-text {
+            color: var(--argent-holographique);
+            font-weight: 500;
+        }
+
+        .error-message {
+            background: rgba(255, 0, 0, 0.1);
+            border-left: 4px solid #ff4444;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            font-style: italic;
+            color: #ff6666;
+        }
+
         @keyframes messageSlideIn {
             from {
                 opacity: 0;
@@ -736,6 +760,7 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/command-effects.css') }}">
 </head>
 
 <body>
@@ -956,13 +981,64 @@
 
         function addMessage(message) {
             const output = document.getElementById('terminal-output');
+
+            // Limiter le nombre de messages pour éviter l'accumulation
+            const maxMessages = 10;
+            const messages = output.querySelectorAll('div');
+            if (messages.length >= maxMessages) {
+                // Supprimer les anciens messages (garder les 5 plus récents)
+                for (let i = 0; i < messages.length - 5; i++) {
+                    messages[i].remove();
+                }
+            }
+
             output.innerHTML += message;
             output.scrollTop = output.scrollHeight;
         }
 
-        function processCommand(command) {
+        async function processCommand(command) {
             const cmd = command.toLowerCase().trim();
 
+            // Afficher la commande dans le terminal
+            addMessage(`
+                <div class="command-line">
+                    <span class="terminal-prompt">luna@arkalia:~$</span>
+                    <span class="command-text">${command}</span>
+                </div>
+            `);
+
+            // Exécuter la commande via l'API
+            try {
+                const response = await fetch('/api/terminal/command', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ command: cmd })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    addMessage(`
+                        <div class="luna-message">
+                            ${result.message}
+                        </div>
+                    `);
+                } else {
+                    addMessage(`
+                        <div class="error-message">
+                            ❌ Erreur: ${result.error}
+                        </div>
+                    `);
+                }
+            } catch (error) {
+                // Fallback vers les commandes statiques si l'API échoue
+                processStaticCommand(cmd);
+            }
+        }
+
+        function processStaticCommand(cmd) {
             // Simuler le traitement de la commande
             setTimeout(() => {
                 if (cmd === 'aide' || cmd === 'help' || cmd === 'commands' || cmd === 'liste' || cmd === 'menu') {
@@ -1247,31 +1323,47 @@
     </script>
 
     <!-- Scripts des systèmes adaptatifs -->
-    <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/progression-feedback.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/competitive-system.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/creative-system.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/casual-system.js') }}"></script>
+    <!-- Guidance adaptative désactivée -->
+    <!-- <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}?v=4.0.0"></script> -->
+    <!-- progression-feedback désactivé (notifications unifiées) -->
+    <!-- <script src="{{ url_for('static', filename='js/progression-feedback.js') }}?v=4.0.0"></script> -->
+    <script src="{{ url_for('static', filename='js/competitive-system.js') }}?v=4.0.0"></script>
+    <script src="{{ url_for('static', filename='js/creative-system.js') }}?v=4.0.0"></script>
+    <script src="{{ url_for('static', filename='js/casual-system.js') }}?v=4.0.0"></script>
+
+    <!-- Gestionnaire de popups pour éviter les chevauchements -->
+    <script src="{{ url_for('static', filename='js/popup-manager.js') }}?v=4.0.0"></script>
+    <script src="{{ url_for('static', filename='js/popup-coordinator.js') }}?v=4.0.0"></script>
 
     <!-- Scripts des améliorations UX contextuelles -->
-    <script src="{{ url_for('static', filename='js/contextual-feedback.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/progression-animations.js') }}"></script>
+    <!-- contextual-feedback et progression-animations désactivés (unifiés) -->
+    <!-- <script src="{{ url_for('static', filename='js/contextual-feedback.js') }}"></script> -->
+    <!-- <script src="{{ url_for('static', filename='js/progression-animations.js') }}"></script> -->
     <script src="{{ url_for('static', filename='js/terminal-integration.js') }}"></script>
     <script src="{{ url_for('static', filename='js/advanced-player-profiles.js') }}"></script>
 
     <!-- Nouveaux scripts V3.3.0 -->
-    <script src="{{ url_for('static', filename='js/visual-guidance.js') }}?v=3.3.0"></script>
+    <!-- Visual guidance désactivé pour éviter les coachmarks -->
+    <!-- <script src="{{ url_for('static', filename='js/visual-guidance.js') }}?v=3.3.0"></script> -->
     <script src="{{ url_for('static', filename='js/tutorial-celebrations.js') }}?v=3.3.0"></script>
     <script src="{{ url_for('static', filename='js/daily-challenges-enhanced.js') }}?v=3.3.0"></script>
     <script src="{{ url_for('static', filename='js/mini-games-interactive.js') }}?v=3.3.0"></script>
-    <script src="{{ url_for('static', filename='js/empty-states-enhanced.js') }}?v=3.3.0"></script>
-    <script src="{{ url_for('static', filename='js/reward-animations.js') }}?v=3.3.0"></script>
+    <!-- empty-states-enhanced remplacé par smart-empty-states -->
+    <script src="{{ url_for('static', filename='js/smart-empty-states.js') }}?v=4.0.0"></script>
+    <!-- reward-animations centralisé dans reward-feedback-system.js -->
+    <!-- <script src="{{ url_for('static', filename='js/reward-animations.js') }}?v=3.3.0"></script> -->
     <script src="{{ url_for('static', filename='js/luna-enhanced.js') }}?v=3.3.0"></script>
 
     <script>
         // Initialisation des systèmes adaptatifs
         document.addEventListener('DOMContentLoaded', function () {
             console.log('🎯 Systèmes UX contextuels initialisés dans le terminal');
+
+            // Initialiser le gestionnaire de popups
+            if (window.PopupCoordinator) {
+                window.popupCoordinator = new PopupCoordinator();
+                console.log('✅ PopupCoordinator initialisé');
+            }
 
             // Initialiser le système de guidance adaptative
             if (window.adaptiveGuidance) {

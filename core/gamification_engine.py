@@ -492,9 +492,7 @@ class GamificationEngine:
             "total_players": leaderboard["statistics"]["total_players"],
             "level_progress": level_progress,
             "badges_count": len(profile.get("badges", [])),
-            "missions_completed": len(
-                profile.get("personnalite", {}).get("missions_completees", [])
-            ),
+            "missions_completed": len(profile.get("missions_completed", [])),
             "achievements_count": len(profile.get("achievements", [])),
             "total_score": profile.get("score", 0),
             "leaderboard_stats": leaderboard["statistics"],

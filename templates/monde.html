@@ -19,30 +19,133 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/icon-16x16.png">
     <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png">
 
-    <!-- CSS LUNA VISION -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/interface-improvements.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/empty-states.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/game-interface.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/mission-interface.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/reward-animations.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/loading-animations.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/progression-animations.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/adaptive-guidance.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/progression-feedback.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/competitive-system.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/creative-system.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/casual-system.css') }}">
+    <!-- CSS ARKALIA CONSOLIDÉ - Version 4.0 -->
+    <!-- Styles de base Luna -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-core.css') }}?v=4.0.0">
+
+    <!-- Thèmes Luna -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-themes.css') }}?v=4.0.0">
+
+    <!-- Composants UI -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-components.css') }}?v=4.0.0">
+
+    <!-- Responsive design -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-responsive.css') }}?v=4.0.0">
+
+    <!-- CSS spécialisés pour le monde -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}?v=4.0.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mini-games.css') }}?v=4.0.0">
 
     <style>
         /* Styles spécifiques au monde immersif */
         .world-workspace {
             min-height: 100vh;
-            background: linear-gradient(135deg, rgba(9, 9, 11, 0.95) 0%, rgba(30, 30, 40, 0.95) 100%);
+            background: linear-gradient(135deg, var(--luna-bg-dark) 0%, var(--luna-bg-medium) 50%, var(--luna-bg-light) 100%);
             position: relative;
             overflow: hidden;
+        }
+
+        /* Zones interactives améliorées */
+        .zone {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .zone:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 32px var(--luna-glow);
+            border-color: var(--luna-cyan);
+        }
+
+        .zone.active {
+            transform: scale(1.1);
+            box-shadow: 0 12px 40px var(--luna-glow);
+            border-color: var(--luna-rose);
+            animation: zonePulse 2s infinite;
+        }
+
+        .zone.locked {
+            cursor: not-allowed;
+            opacity: 0.5;
+            filter: grayscale(50%);
+        }
+
+        .zone.locked:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        @keyframes zonePulse {
+
+            0%,
+            100% {
+                box-shadow: 0 12px 40px var(--luna-glow);
+            }
+
+            50% {
+                box-shadow: 0 16px 50px var(--luna-rose);
+            }
+        }
+
+        /* Effet de clic */
+        .zone:active {
+            transform: scale(0.95);
+        }
+
+        /* Messages LUNA dynamiques */
+        .luna-message-dynamic {
+            background: var(--luna-surface);
+            border: 1px solid var(--luna-border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md);
+            margin: var(--spacing-sm) 0;
+            color: var(--luna-text);
+            font-family: var(--font-secondary);
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animations de récompense */
+        .reward-animation {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--luna-cyan);
+            animation: confettiFall 3s linear infinite;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         .world-background {
@@ -1059,11 +1162,16 @@
     </script>
 
     <!-- Scripts des systèmes adaptatifs -->
-    <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/progression-feedback.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/competitive-system.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/creative-system.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/casual-system.js') }}"></script>
+    <!-- Guidance adaptative désactivée -->
+    <!-- <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}?v=4.0.0"></script> -->
+    <!-- progression-feedback désactivé (notifications unifiées) -->
+    <!-- <script src="{{ url_for('static', filename='js/progression-feedback.js') }}?v=4.0.0"></script> -->
+    <script src="{{ url_for('static', filename='js/competitive-system.js') }}?v=4.0.0"></script>
+    <script src="{{ url_for('static', filename='js/creative-system.js') }}?v=4.0.0"></script>
+    <script src="{{ url_for('static', filename='js/casual-system.js') }}?v=4.0.0"></script>
+
+    <!-- Script d'interactions du monde amélioré -->
+    <script src="{{ url_for('static', filename='js/world-interactions.js') }}?v=4.0.0"></script>
 
     <script>
         // Initialisation des systèmes adaptatifs

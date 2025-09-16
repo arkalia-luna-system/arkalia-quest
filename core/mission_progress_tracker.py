@@ -219,7 +219,7 @@ class MissionProgressTracker:
                         else "pending"
                     ),
                     "icon": "✅" if i < len(progress["completed_steps"]) else "⏳",
-                    "tooltip": f"Étape {i+1}",
+                    "tooltip": f"Étape {i + 1}",
                 }
                 for i in range(progress["total_steps"])
             ],

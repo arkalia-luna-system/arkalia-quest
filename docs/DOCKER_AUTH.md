@@ -1,22 +1,13 @@
 
-
 # 🔐 Authentification Docker - Guide de résolution des erreurs
-
-
 
 ## ❌ Erreur courante : "Cannot perform an interactive login from a non TTY device"
 
-
 Cette erreur se produit quand Docker essaie de faire un login interactif dans un environnement non-TTY (CI/CD, scripts automatisés, etc.).
-
 
 ## ✅ Solutions
 
-
-
 ### 1. **Utiliser --password-stdin (Recommandé)**
-
-
 
 ```bash
 

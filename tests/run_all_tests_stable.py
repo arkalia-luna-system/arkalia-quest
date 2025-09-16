@@ -216,11 +216,11 @@ class StableVersionTestRunner:
 
 📊 RÉSUMÉ GLOBAL
 ----------------
-✅ Tests réussis: {summary['successful_tests']}/{summary['total_tests']}
-❌ Tests échoués: {summary['failed_tests']}/{summary['total_tests']}
-📈 Taux de réussite: {summary['success_rate']:.1f}%
-⏱️ Durée totale: {summary['total_duration']:.2f} secondes
-🕐 Timestamp: {summary['timestamp']}
+✅ Tests réussis: {summary["successful_tests"]}/{summary["total_tests"]}
+❌ Tests échoués: {summary["failed_tests"]}/{summary["total_tests"]}
+📈 Taux de réussite: {summary["success_rate"]:.1f}%
+⏱️ Durée totale: {summary["total_duration"]:.2f} secondes
+🕐 Timestamp: {summary["timestamp"]}
 
 🔍 DÉTAIL PAR TEST
 ------------------

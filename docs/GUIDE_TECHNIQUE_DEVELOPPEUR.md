@@ -1,37 +1,28 @@
 # Document
+
 ---
+
 # **Statut : ACTIF**
+
 # **Dernière mise à jour : Août 2025**
+
 **Résumé :** Guide technique pour les développeurs Arkalia Quest (architecture, bonnes pratiques, outils).
 
 # **Liens utiles :**
 
-
 - [Documentation principale](README.md)
-
-
 
 - [Statut projet](STATUT_PROJET_ACTUEL.md)
 
-
-
 - [Changelog documentation](CHANGELOG_DOCUMENTATION.md)
-
 
 ---
 
-
 # 📚 GUIDE TECHNIQUE DÉVELOPPEUR - ARKALIA QUEST
-
-
 
 ## 🔗 API /commande : Structure de la réponse
 
-
-
 ### Exemple de requête
-
-
 
 ```http
 

@@ -22,7 +22,7 @@
     <!-- CSS LUNA VISION -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-responsive.css') }}?v=4.0.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/interface-improvements.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/empty-states.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/game-interface.css') }}">
@@ -1377,8 +1377,10 @@
     </script>
 
     <!-- Scripts des systèmes adaptatifs -->
-    <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/progression-feedback.js') }}"></script>
+    <!-- Guidance adaptative désactivée -->
+    <!-- <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}"></script> -->
+    <!-- progression-feedback désactivé (notifications unifiées) -->
+    <!-- <script src="{{ url_for('static', filename='js/progression-feedback.js') }}"></script> -->
     <script src="{{ url_for('static', filename='js/competitive-system.js') }}"></script>
     <script src="{{ url_for('static', filename='js/creative-system.js') }}"></script>
     <script src="{{ url_for('static', filename='js/casual-system.js') }}"></script>

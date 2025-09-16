@@ -367,16 +367,19 @@ class LunaAIV3:
             "successful_interactions": 0,
             "user_preferences": {},
             "adaptation_level": 0.0,
+            "interactions": [],
         }
 
     def generate_response(
         self,
         user_input: str,
-        user_profile: dict[str, Any],
+        user_profile: Optional[dict[str, Any]] = None,
         game_context: Optional[dict[str, Any]] = None,
     ) -> dict[str, Any]:
         """Génère une réponse ultra-personnalisée"""
         try:
+            if user_profile is None:
+                user_profile = {"level": 1, "score": 0}
             # Analyser le contexte et l'émotion
             context = self._analyze_advanced_context(
                 user_input, user_profile, game_context
@@ -422,6 +425,49 @@ class LunaAIV3:
                 "error": str(e),
                 "fallback": True,
             }
+
+    # ==== Méthodes de compatibilité (ex-V2) ====
+    @property
+    def personality_traits(self) -> dict[str, float]:
+        return self.personality.base_traits
+
+    def get_personality_traits(self) -> dict[str, float]:
+        return self.personality.base_traits.copy()
+
+    def analyze_emotion(self, text: str) -> dict[str, Any]:
+        tone = self._detect_emotional_tone(text)
+        scores = {
+            "positive": 0.6 if tone in ("excited", "positive") else 0.2,
+            "negative": 0.2,
+        }
+        intensity = 0.8 if tone == "excited" else 0.5
+        return {"emotion": tone, "intensity": intensity, "scores": scores}
+
+    def update_personality(self, trait: str, value: float) -> bool:
+        if trait not in self.personality.base_traits:
+            return False
+        clamped = max(0.0, min(1.0, float(value)))
+        self.personality.base_traits[trait] = clamped
+        return True
+
+    def get_suggestions(self, context: Optional[dict[str, Any]] = None) -> list[str]:
+        suggestion = self.predictive._suggest_content()  # type: ignore[attr-defined]
+        base = ["mini-jeux", "missions", "tutoriel"]
+        if suggestion not in base:
+            base.insert(0, suggestion)
+        return base[:5]
+
+    def learn_from_interaction(
+        self, user_input: str, response: str, emotion: dict[str, Any]
+    ) -> bool:
+        try:
+            ctx = {"emotional_tone": emotion.get("emotion", "neutral")}
+            self._learn_from_interaction(
+                user_input, response, ctx, emotion.get("emotion", "neutral")
+            )
+            return True
+        except Exception:
+            return False
 
     def _analyze_advanced_context(
         self,
@@ -589,6 +635,10 @@ class LunaAIV3:
             / self.learning_data["total_interactions"]
         )
         self.learning_data["adaptation_level"] = success_rate
+        # Conserver une trace simplifiée pour compatibilité tests
+        self.learning_data["interactions"].append(
+            {"input": user_input, "response": response, "emotion": emotion}
+        )
 
         # Stocker dans la mémoire
         outcome = {

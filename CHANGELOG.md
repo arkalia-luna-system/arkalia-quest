@@ -7,7 +7,32 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [3.3.0] - 2025-09-15
 
+## [4.0.0] - 2025-09-16
+
 ### Ajouté
+
+- 🔌 API Terminal: `POST /api/terminal/command` (via `CommandHandlerV2`) avec suggestions intelligentes et messages "en développement" pour commandes WIP.
+- 🎭 Popups closables universellement (X, overlay, Escape) via `popup-manager.js` + coordination `popup-coordinator.js`.
+- 🧠 Smart Empty States: masquage des stats à zéro + placeholders motivants (`smart-empty-states.js` + CSS).
+- 🎉 Reward Feedback System: effets visuels/sonores pour level-up, badges, missions, XP.
+- 🌍 Monde interactif: actions jouables par zone (hack, minage, furtif, puzzle quantique) dans `world-interactions.js`.
+
+### Modifié
+
+- 📱 Responsive consolidé: remplacement de `static/css/responsive.css` par `static/css/arkalia-responsive.css` dans tous les templates.
+- 🚀 Démarrage dev clarifié: utiliser `python -m flask run`.
+
+### Supprimé
+
+- 🧹 Fichiers redondants: `static/js/instant-feedback-system.js`, `engines/luna_ai.py`, `engines/luna_ai_v2.py`, `utils/luna_ai_v2.py`.
+
+### Corrigé
+
+- 🐛 Sécurité: validation d’IP et robustesse de l’endpoint terminal.
+- 🧼 Docs: alignement README/solutions avec l’implémentation actuelle.
+
+### Ajouté
+
 - 👁️ Visual Guidance System (guidage visuel pour débutants)
 - 🎉 Tutorial Celebrations (animations de célébration)
 - 🎮 Mini-games Interactive (vrais jeux jouables)
@@ -18,12 +43,14 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 💻 Terminal Commands Enhanced (commandes variées et intelligentes)
 
 ### Amélioré
+
 - 🔧 Consolidation des doublons (daily-challenges.js, terminal-commands-enhanced.js)
 - ⚡ Optimisation des performances (réduction duplication de code)
 - 🎯 Activation des fonctionnalités inactives
 - 📊 Correction erreur analytics backend (int + str)
 
 ### Corrigé
+
 - ❌ Erreur `this.addPersonalizedGreetings is not a function`
 - ❌ Erreur `Cannot read properties of undefined (reading 'length')`
 - ❌ Erreur analytics `unsupported operand type(s) for +: 'int' and 'str'`
@@ -32,6 +59,7 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [3.2.0] - 2025-09-15
 
 ### Ajouté
+
 - 🌙 LUNA AI V3 avec Machine Learning et mémoire à long terme
 - 🎯 Système de défis quotidiens avec 6 types de défis
 - 🎨 6 thèmes alternatifs (Matrix, Cyberpunk, Neon, Dark, Retro, Ocean)
@@ -40,12 +68,14 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - ⚡ Optimisations de performance (réduction 95% des appels API)
 
 ### Amélioré
+
 - 🔧 Correction des erreurs JavaScript critiques
 - 📈 Performance monitoring avec throttling
 - 🛡️ Gestionnaires d'erreurs unifiés
 - 🎮 Interface utilisateur optimisée
 
 ### Corrigé
+
 - ❌ Erreur `addPersonalizedGreetings` manquante
 - ❌ Erreur de lecture de propriété dans adaptive-guidance.js
 - ❌ Gestionnaires d'erreurs dupliqués dans app.py
@@ -54,6 +84,7 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [3.1.0] - 2025-09-13
 
 ### Ajouté
+
 - 🎮 Nouveau système de gamification avancée
 - 🔒 Sécurité renforcée avec rate limiting
 - 📊 Monitoring performance en temps réel
@@ -61,12 +92,14 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - 🤖 Intégration IA LUNA pour recommandations
 
 ### Amélioré
+
 - ⚡ Performance optimisée (<100ms response time)
 - 🛡️ Architecture sécurisée (Bandit validation)
 - 📱 Interface responsive mobile-first
 - 🌐 Documentation multilingue
 
 ### Corrigé
+
 - 🐛 Correction bugs authentification
 - 🔧 Optimisation base de données
 - 📝 Amélioration logs et monitoring
@@ -74,12 +107,14 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [3.0.0] - 2025-06-01
 
 ### Ajouté
+
 - 🏗️ Architecture Flask moderne
 - 🔐 Système d'authentification complet
 - 🎯 Missions et défis éducatifs
 - 📊 Tableau de bord administrateur
 
 ### Modifié
+
 - **BREAKING**: Migration Python 3.10+
 - **BREAKING**: Nouvelle API REST
 - 🔄 Refactoring complet du code base
@@ -87,6 +122,7 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [2.0.0] - 2024-12-01
 
 ### Ajouté
+
 - 🎮 Interface de jeu intuitive
 - 🧠 Moteur IA pour adaptation difficulté
 - 📚 Contenu éducatif cybersécurité
@@ -94,6 +130,7 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [1.0.0] - 2024-09-01
 
 ### Ajouté
+
 - 🌟 Version initiale d'Arkalia Quest
 - 📖 Documentation de base
 - ⚙️ Configuration CI/CD GitHub Actions
@@ -111,7 +148,6 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## Liens
 
-- [Unreleased]: https://github.com/arkalia-luna-system/arkalia-quest/compare/v3.1.0...HEAD
 - [3.1.0]: https://github.com/arkalia-luna-system/arkalia-quest/compare/v3.0.0...v3.1.0
 - [3.0.0]: https://github.com/arkalia-luna-system/arkalia-quest/compare/v2.0.0...v3.0.0
 - [2.0.0]: https://github.com/arkalia-luna-system/arkalia-quest/compare/v1.0.0...v2.0.0

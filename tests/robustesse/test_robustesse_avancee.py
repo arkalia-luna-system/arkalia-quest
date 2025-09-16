@@ -191,9 +191,9 @@ class TestRobustesseAvancee(unittest.TestCase):
         )
 
         print(
-            f"✅ Mémoire: {initial_memory/1024/1024:.1f}MB → {final_memory/1024/1024:.1f}MB"
+            f"✅ Mémoire: {initial_memory / 1024 / 1024:.1f}MB → {final_memory / 1024 / 1024:.1f}MB"
         )
-        print(f"📊 Augmentation: {total_increase/1024/1024:.1f}MB")
+        print(f"📊 Augmentation: {total_increase / 1024 / 1024:.1f}MB")
 
     def test_error_recovery_mechanisms(self):
         """Test des mécanismes de récupération d'erreurs"""

@@ -22,7 +22,7 @@ def test_performance_optimizations():
         "core/security_enhanced.py",
         "core/performance_optimizer.py",
         "core/database_optimizer.py",
-        "static/js/performance-optimizer.js",
+        "static/js/performance-ux-optimizer.js",
         "static/css/performance-optimized.css",
         "static/js/real-time-monitor.js",
     ]
@@ -378,7 +378,7 @@ def test_application_integration():
     # Test 3: Vérifier les fichiers statiques
     total_tests += 1
     static_files = [
-        "static/js/performance-optimizer.js",
+        "static/js/performance-ux-optimizer.js",
         "static/css/performance-optimized.css",
         "static/js/real-time-monitor.js",
     ]
@@ -432,7 +432,7 @@ def main():
     print("=" * 60)
     print(f"✅ Tests réussis: {total_passed}/{total_tests}")
     print(f"❌ Tests échoués: {total_tests - total_passed}/{total_tests}")
-    print(f"📈 Taux de réussite: {(total_passed/total_tests)*100:.1f}%")
+    print(f"📈 Taux de réussite: {(total_passed / total_tests) * 100:.1f}%")
 
     if total_passed == total_tests:
         print("\n🎉 TOUTES LES OPTIMISATIONS SONT FONCTIONNELLES !")

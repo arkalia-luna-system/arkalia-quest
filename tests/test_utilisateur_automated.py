@@ -59,7 +59,7 @@ def test_performance():
     # Vérifier que les fichiers de performance existent
     performance_files = [
         "static/css/performance-optimized.css",
-        "static/js/performance-optimizer.js",
+        "static/js/performance-ux-optimizer.js",
     ]
 
     performance_ok = True

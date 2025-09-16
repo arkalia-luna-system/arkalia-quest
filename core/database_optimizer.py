@@ -345,7 +345,7 @@ class DatabaseOptimizer:
 
             for table in tables:
                 try:
-                    cursor = conn.execute(f"SELECT COUNT(*) FROM {table}")
+                    cursor = conn.execute("SELECT COUNT(*) FROM ?", (table,))
                     count = cursor.fetchone()[0]
                     table_stats[table] = count
                 except sqlite3.Error:

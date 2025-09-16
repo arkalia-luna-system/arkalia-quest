@@ -95,18 +95,26 @@ class CommandHandlerV2:
     def _handle_unknown_command(
         self, command: str, profile: dict[str, Any]
     ) -> dict[str, Any]:
-        """Gère une commande inconnue avec émotion LUNA"""
+        """Gère une commande inconnue avec émotion LUNA et suggestions intelligentes"""
+
+        # Suggestions intelligentes pour commandes inconnues
+        suggestions = self._get_command_suggestions(command)
+        suggestion_text = ""
+        if suggestions:
+            suggestion_text = f"\n\n💡 Suggestions :\n{chr(10).join([f'• {s}' for s in suggestions[:3]])}"
+
         result = {
             "réussite": False,
-            "ascii_art": "❌",
-            "message": f"❌ Commande '{command}' non reconnue.\n\n💡 Tape 'aide' pour voir toutes les commandes disponibles !",
+            "ascii_art": "❓",
+            "message": f"❓ Commande '{command}' non reconnue.{suggestion_text}\n\n🔍 Tape 'aide' pour voir toutes les commandes disponibles !",
             "score_gagne": 0,
             "profile_updated": False,
         }
 
-        # LUNA s'inquiète pour une commande inconnue
+        # LUNA réagit selon le type de commande
+        emotion_type = "unknown_command"
         luna_emotion_data = self.luna_emotions.analyze_action(
-            "unknown_command", result, profile
+            emotion_type, result, profile
         )
 
         result.update(
@@ -122,6 +130,34 @@ class CommandHandlerV2:
         )
 
         return result
+
+    def _get_command_suggestions(self, command: str) -> list[str]:
+        """Génère des suggestions intelligentes pour une commande inconnue"""
+        all_commands = list(self.all_commands.keys())
+        suggestions = []
+
+        # Recherche par similarité
+        for cmd in all_commands:
+            if self._calculate_similarity(command, cmd) > 0.6:
+                suggestions.append(cmd)
+
+        # Recherche par préfixe
+        for cmd in all_commands:
+            if cmd.startswith(command[:3]) and len(command) >= 3:
+                suggestions.append(cmd)
+
+        # Supprimer les doublons et limiter
+        return list(set(suggestions))[:5]
+
+    def _calculate_similarity(self, str1: str, str2: str) -> float:
+        """Calcule la similarité entre deux chaînes"""
+        if not str1 or not str2:
+            return 0.0
+
+        # Similarité simple basée sur les caractères communs
+        common_chars = sum(1 for c in str1 if c in str2)
+        max_len = max(len(str1), len(str2))
+        return common_chars / max_len if max_len > 0 else 0.0
 
     def _process_command(self, command: str, profile: dict[str, Any]) -> dict[str, Any]:
         """

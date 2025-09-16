@@ -402,7 +402,7 @@ def create_md5_hash(text):
             hint = ""
             if session["attempts"] >= 2:
                 if game["type"] == GameType.LOGIC.value and "hints" in game:
-                    hint = f"💡 Indice : {game['hints'][min(session['attempts']-2, len(game['hints'])-1)]}"
+                    hint = f"💡 Indice : {game['hints'][min(session['attempts'] - 2, len(game['hints']) - 1)]}"
                 elif game["type"] == GameType.CODE.value:
                     hint = "💡 Vérifie la syntaxe et la logique du code"
                 elif game["type"] == GameType.CYBERSECURITY.value:

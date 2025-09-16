@@ -824,7 +824,9 @@ class EducationalGamesManager {
 
             if (data.success) {
                 if (data.correct) {
-                    this.showFeedback(`🎉 ${data.message} +${data.score} points !`, 'success');
+                    if (window.universalNotifications) {
+                        window.universalNotifications.success(`🎉 ${data.message} +${data.score} points !`);
+                    }
 
                     // Effet sonore de succès
                     if (this.audioManager) {

@@ -131,73 +131,8 @@ class UIPerfection {
 
     /* ===== SYSTÈME DE FEEDBACK CONTEXTUEL ===== */
     setupFeedbackSystem() {
-        // Observer les changements de contenu pour afficher des feedbacks
-        this.setupContentChangeObserver();
-    }
-
-    setupContentChangeObserver() {
-        const feedbackContainer = this.createFeedbackContainer();
-
-        // Observer les changements dans les sections importantes
-        const sections = document.querySelectorAll('.section, .card, .panel');
-        sections.forEach(section => {
-            const observer = new MutationObserver((mutations) => {
-                mutations.forEach((mutation) => {
-                    if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-                        this.showFeedback('success', 'Contenu mis à jour !', feedbackContainer);
-                    }
-                });
-            });
-            observer.observe(section, { childList: true, subtree: true });
-        });
-    }
-
-    createFeedbackContainer() {
-        let container = document.getElementById('feedback-container');
-        if (!container) {
-            container = document.createElement('div');
-            container.id = 'feedback-container';
-            container.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                z-index: 10000;
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-            `;
-            document.body.appendChild(container);
-        }
-        return container;
-    }
-
-    showFeedback(type, message, container) {
-        const feedback = document.createElement('div');
-        feedback.className = `feedback-perfect feedback-${type}`;
-        feedback.innerHTML = `
-            <span class="feedback-icon">${this.getFeedbackIcon(type)}</span>
-            <span class="feedback-message">${message}</span>
-        `;
-
-        container.appendChild(feedback);
-
-        // Supprimer après 3 secondes
-        setTimeout(() => {
-            feedback.style.opacity = '0';
-            feedback.style.transform = 'translateY(-10px)';
-            setTimeout(() => feedback.remove(), 300);
-        }, 3000);
-    }
-
-    getFeedbackIcon(type) {
-        const icons = {
-            success: '✅',
-            info: 'ℹ️',
-            warning: '⚠️',
-            error: '❌',
-            neutral: '💡'
-        };
-        return icons[type] || icons.neutral;
+        // Système de feedback désactivé - utilise les systèmes universels
+        console.log('🎨 Système de feedback UI désactivé - utilise les systèmes universels');
     }
 
     /* ===== ÉTATS DE CHARGEMENT ÉLÉGANTS ===== */

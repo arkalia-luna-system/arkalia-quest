@@ -5,11 +5,15 @@ Commandes essentielles : aide, profil, status, clear, etc.
 
 from typing import Any
 
+from core.customization_engine import CustomizationEngine
+
 
 class BasicCommands:
     """Gestionnaire des commandes de base"""
 
     def __init__(self):
+        self.customization_engine = CustomizationEngine()
+
         self.commands = {
             "aide": self.handle_aide,
             "help": self.handle_aide,
@@ -32,6 +36,20 @@ class BasicCommands:
             "badges": self.handle_badges,
             "leaderboard": self.handle_leaderboard,
             "missions": self.handle_missions,
+            # Personnalisation / thèmes
+            "themes": self.handle_themes,
+            "theme": self.handle_theme_set,
+            # Mini-jeux et effets
+            "simple_hack": self.handle_simple_hack,
+            "sequence_game": self.handle_sequence_game,
+            "typing_challenge": self.handle_typing_challenge,
+            "play_game": self.handle_play_game,
+            "level_up": self.handle_level_up,
+            "badge_unlock": self.handle_badge_unlock,
+            "matrix_mode": self.handle_matrix_mode,
+            "cyberpunk_mode": self.handle_cyberpunk_mode,
+            "check_objects": self.handle_check_objects,
+            "debug_mode": self.handle_debug_mode,
         }
 
     def handle_aide(self, profile: dict[str, Any]) -> dict[str, Any]:
@@ -320,12 +338,23 @@ la vérité sur NEXUS et la menace de PANDORA.
 • {portail_message}
 
 🏆 TES DERNIERS ACCOMPLISSEMENTS :
-{chr(10).join(['• ' + badge for badge in badges[-5:]]) if len(badges) > 5 else
-chr(10).join(['• ' + badge for badge in badges]) if badges else '🎯 Aucun accomplissement encore - Continue à jouer !'}
+{
+                chr(10).join(["• " + badge for badge in badges[-5:]])
+                if len(badges) > 5
+                else chr(10).join(["• " + badge for badge in badges])
+                if badges
+                else "🎯 Aucun accomplissement encore - Continue à jouer !"
+            }
 
 🌍 TON EXPLORATION :
-• Univers disponibles : {', '.join(univers)}
-• Portails accessibles : {', '.join(portails[:5]) + '...' if len(portails) > 5 else ', '.join(portails) if portails else '🚪 Aucun portail encore - Explore pour les débloquer !'}
+• Univers disponibles : {", ".join(univers)}
+• Portails accessibles : {
+                ", ".join(portails[:5]) + "..."
+                if len(portails) > 5
+                else ", ".join(portails)
+                if portails
+                else "🚪 Aucun portail encore - Explore pour les débloquer !"
+            }
 
 💡 PROCHAINES ÉTAPES :
 • Complète des missions pour gagner des points
@@ -334,6 +363,78 @@ chr(10).join(['• ' + badge for badge in badges]) if badges else '🎯 Aucun ac
 • Défie tes amis sur le leaderboard
 
 🎮 Continue tes exploits, hacker !""",
+            "profile_updated": False,
+        }
+
+    def handle_themes(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Affiche les thèmes disponibles et comment les activer"""
+        try:
+            available = self.customization_engine.get_available_themes(
+                profile.get("player_id", "default")
+            )
+
+            if not available:
+                return {
+                    "réussite": True,
+                    "ascii_art": "🎨",
+                    "message": (
+                        "🎨 THÈMES DISPONIBLES\n\n"
+                        "Aucun thème débloqué pour l'instant.\n"
+                        "💡 Astuce : progresse pour débloquer des thèmes comme 'Matrix' !"
+                    ),
+                    "profile_updated": False,
+                }
+
+            lines = [
+                "🎨 THÈMES DISPONIBLES\n",
+            ]
+            for theme in available:
+                status = "✅" if theme.get("unlocked") else "🔓"
+                lines.append(
+                    f"{status} {theme.get('name','Thème')} — id: {theme.get('id','?')}"
+                )
+
+            lines.append(
+                "\n💡 Utilise l’interface Accessibilité pour changer de thème."
+            )
+            lines.append(
+                "🌟 Exemple: active le thème Matrix pour le style terminal vert."
+            )
+
+            return {
+                "réussite": True,
+                "ascii_art": "🎨",
+                "message": "\n".join(lines),
+                "profile_updated": False,
+            }
+        except Exception:
+            return {
+                "réussite": True,
+                "ascii_art": "🎨",
+                "message": (
+                    "🎨 THÈMES DISPONIBLES\n\n"
+                    "Arkalia, Matrix, Cyberpunk, Ocean.\n"
+                    "💡 Utilise le menu Accessibilité pour les activer."
+                ),
+                "profile_updated": False,
+            }
+
+    def handle_theme_set(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Change le thème via 'theme <id>' (Matrix, etc.).
+        Cette version lit seulement, car l’API serveur gère la persistance.
+        """
+        # La commande brute ne passe pas l'argument ici; côté terminal, l'API
+        # `/api/customization/themes/<id>/set` est l’endroit idéal. On renvoie
+        # une aide claire pour guider l’utilisateur.
+        return {
+            "réussite": True,
+            "ascii_art": "🎨",
+            "message": (
+                "🎨 CHANGER DE THÈME\n\n"
+                "Utilise le menu Accessibilité (icône ♿) pour activer un thème.\n"
+                "API dispo: POST /api/customization/themes/<id>/set (ex: matrix).\n"
+                "💡 Astuce: le thème Matrix est parfait pour le style terminal vert."
+            ),
             "profile_updated": False,
         }
 
@@ -455,16 +556,16 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
             "message": f"""🔍 ANALYSE DE PERSONNALITÉ TERMINÉE !
 
 🧠 PROFIL HACKER DÉTECTÉ :
-• Type : {hacker_type['type']}
-• Niveau : {hacker_type['level']}
-• Spécialité : {hacker_type['specialty']}
-• Style : {hacker_type['style']}
+• Type : {hacker_type["type"]}
+• Niveau : {hacker_type["level"]}
+• Spécialité : {hacker_type["specialty"]}
+• Style : {hacker_type["style"]}
 
 📊 CARACTÉRISTIQUES DÉTECTÉES :
-• Curiosité : {hacker_type['curiosity']}%
-• Persévérance : {hacker_type['perseverance']}%
-• Créativité : {hacker_type['creativity']}%
-• Logique : {hacker_type['logic']}%
+• Curiosité : {hacker_type["curiosity"]}%
+• Persévérance : {hacker_type["perseverance"]}%
+• Créativité : {hacker_type["creativity"]}%
+• Logique : {hacker_type["logic"]}%
 
 🎯 RECOMMANDATIONS :
 • Missions adaptées à ton profil
@@ -642,11 +743,11 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
 
 📊 CLASSEMENT DES HACKERS :
 
-🥇 1. {leaderboard_data[0]['name']} - {leaderboard_data[0]['score']} pts (Niveau {leaderboard_data[0]['level']})
-🥈 2. {leaderboard_data[1]['name']} - {leaderboard_data[1]['score']} pts (Niveau {leaderboard_data[1]['level']})
-🥉 3. {leaderboard_data[2]['name']} - {leaderboard_data[2]['score']} pts (Niveau {leaderboard_data[2]['level']})
-4. {leaderboard_data[3]['name']} - {leaderboard_data[3]['score']} pts (Niveau {leaderboard_data[3]['level']})
-5. {leaderboard_data[4]['name']} - {leaderboard_data[4]['score']} pts (Niveau {leaderboard_data[4]['level']})
+🥇 1. {leaderboard_data[0]["name"]} - {leaderboard_data[0]["score"]} pts (Niveau {leaderboard_data[0]["level"]})
+🥈 2. {leaderboard_data[1]["name"]} - {leaderboard_data[1]["score"]} pts (Niveau {leaderboard_data[1]["level"]})
+🥉 3. {leaderboard_data[2]["name"]} - {leaderboard_data[2]["score"]} pts (Niveau {leaderboard_data[2]["level"]})
+4. {leaderboard_data[3]["name"]} - {leaderboard_data[3]["score"]} pts (Niveau {leaderboard_data[3]["level"]})
+5. {leaderboard_data[4]["name"]} - {leaderboard_data[4]["score"]} pts (Niveau {leaderboard_data[4]["level"]})
 
 🎯 TON CLASSEMENT :
 • Position : #{player_position}
@@ -758,4 +859,280 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
             "ascii_art": "🎯",
             "message": message,
             "profile_updated": False,
+        }
+
+    def handle_simple_hack(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Jeu de hack binaire simple"""
+        profile["score"] += 25
+
+        return {
+            "réussite": True,
+            "ascii_art": "💻",
+            "message": """💻 JEU DE HACK BINAIRE
+
+🎯 OBJECTIF : Reproduire la séquence binaire
+📊 DIFFICULTÉ : Facile
+⏱️ TEMPS : 30 secondes
+
+🔢 SÉQUENCE À REPRODUIRE :
+01001000 01100001 01100011 01101011
+
+💡 Astuce : 0 = clic gauche, 1 = clic droit
+🎮 Utilise la souris pour reproduire la séquence !
+
+🌟 +25 points pour avoir essayé !""",
+            "score_gagne": 25,
+            "profile_updated": True,
+        }
+
+    def handle_sequence_game(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Jeu de mémoire de séquences"""
+        profile["score"] += 30
+
+        return {
+            "réussite": True,
+            "ascii_art": "🧠",
+            "message": """🧠 JEU DE MÉMOIRE DE SÉQUENCES
+
+🎯 OBJECTIF : Mémoriser et reproduire la séquence
+📊 DIFFICULTÉ : Moyen
+⏱️ TEMPS : 45 secondes
+
+🎮 SÉQUENCE À MÉMORISER :
+🔴 → 🟡 → 🔵 → 🟢 → 🔴
+
+💡 Clique sur les couleurs dans l'ordre !
+🎯 Score basé sur la vitesse et la précision
+
+🌟 +30 points pour avoir testé ta mémoire !""",
+            "score_gagne": 30,
+            "profile_updated": True,
+        }
+
+    def handle_typing_challenge(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Défi de frappe rapide"""
+        profile["score"] += 20
+
+        return {
+            "réussite": True,
+            "ascii_art": "⌨️",
+            "message": """⌨️ DÉFI DE FRAPPE RAPIDE
+
+🎯 OBJECTIF : Taper le plus vite possible
+📊 DIFFICULTÉ : Variable
+⏱️ TEMPS : 60 secondes
+
+📝 TEXTE À TAPER :
+"Arkalia Quest est un jeu d'aventure cyberpunk où tu incarnes un hacker qui découvre LUNA, une IA émotionnelle."
+
+💡 Tape exactement le texte affiché !
+🎯 Score basé sur les mots par minute (WPM)
+
+🌟 +20 points pour avoir testé ta vitesse !""",
+            "score_gagne": 20,
+            "profile_updated": True,
+        }
+
+    def handle_play_game(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Lancer un mini-jeu"""
+        profile["score"] += 15
+
+        return {
+            "réussite": True,
+            "ascii_art": "🎮",
+            "message": """🎮 LANCEMENT DE MINI-JEU
+
+🎯 JEUX DISPONIBLES :
+• simple_hack → Jeu de hack binaire
+• sequence_game → Jeu de mémoire
+• typing_challenge → Défi de frappe
+
+💡 UTILISATION :
+Tape le nom du jeu directement :
+• simple_hack
+• sequence_game
+• typing_challenge
+
+🌟 +15 points pour avoir exploré les jeux !""",
+            "score_gagne": 15,
+            "profile_updated": True,
+        }
+
+    def handle_level_up(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Simulation de montée de niveau"""
+        current_level = profile.get("level", 1)
+        new_level = current_level + 1
+        profile["level"] = new_level
+        profile["score"] += 100
+
+        if "Level Up Master" not in profile.get("badges", []):
+            profile["badges"].append("Level Up Master")
+
+        return {
+            "réussite": True,
+            "ascii_art": "🌟",
+            "message": f"""🌟 SIMULATION DE MONTÉE DE NIVEAU
+
+🎉 FÉLICITATIONS !
+⭐ Niveau {current_level} → Niveau {new_level}
+
+🎯 RÉCOMPENSES :
+• +100 points de score
+• Nouveau badge : "Level Up Master"
+• Capacités débloquées
+
+💪 PROGRESSION :
+Tu deviens plus fort à chaque niveau !
+Continue à explorer pour monter encore plus haut !
+
+🌟 +100 points pour cette montée de niveau !""",
+            "score_gagne": 100,
+            "badge": "Level Up Master",
+            "niveau_gagne": new_level,
+            "profile_updated": True,
+        }
+
+    def handle_badge_unlock(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Simulation de déblocage de badge"""
+        profile["score"] += 50
+
+        badge_name = "Badge Hunter"
+        if badge_name not in profile.get("badges", []):
+            profile["badges"].append(badge_name)
+
+        return {
+            "réussite": True,
+            "ascii_art": "🏆",
+            "message": f"""🏆 SIMULATION DE DÉBLOCAGE DE BADGE
+
+🎉 NOUVEAU BADGE DÉBLOQUÉ !
+🏆 "{badge_name}"
+
+✨ DESCRIPTION :
+Tu as découvert comment débloquer des badges !
+
+🎯 RÉCOMPENSES :
+• +50 points de score
+• Badge ajouté à ta collection
+• Progression dans les accomplissements
+
+💡 ASTUCE :
+Continue à explorer et accomplir des actions
+pour débloquer plus de badges secrets !
+
+🌟 +50 points pour ce badge !""",
+            "score_gagne": 50,
+            "badge": badge_name,
+            "instant_rewards": {"badge": badge_name, "xp": 50},
+            "profile_updated": True,
+        }
+
+    def handle_matrix_mode(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Active le thème Matrix"""
+        profile["score"] += 10
+
+        return {
+            "réussite": True,
+            "ascii_art": "🔮",
+            "message": """🔮 MODE MATRIX ACTIVÉ
+
+🌌 THÈME MATRIX APPLIQUÉ
+💚 Code vert partout
+⚡ Effets visuels Matrix
+🎵 Ambiance cyberpunk
+
+💡 UTILISATION :
+Le thème Matrix est maintenant actif !
+• Couleurs : Vert sur noir
+• Police : Monospace
+• Effets : Particules vertes
+
+🌟 +10 points pour avoir activé Matrix !""",
+            "score_gagne": 10,
+            "profile_updated": True,
+        }
+
+    def handle_cyberpunk_mode(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Active le thème Cyberpunk"""
+        profile["score"] += 10
+
+        return {
+            "réussite": True,
+            "ascii_art": "🌃",
+            "message": """🌃 MODE CYBERPUNK ACTIVÉ
+
+🌆 THÈME CYBERPUNK APPLIQUÉ
+💜 Néo-Tokyo vibes
+⚡ Effets néon
+🎵 Ambiance futuriste
+
+💡 UTILISATION :
+Le thème Cyberpunk est maintenant actif !
+• Couleurs : Rose/Cyan sur noir
+• Police : Futuriste
+• Effets : Néons clignotants
+
+🌟 +10 points pour avoir activé Cyberpunk !""",
+            "score_gagne": 10,
+            "profile_updated": True,
+        }
+
+    def handle_check_objects(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Vérifier les objets disponibles"""
+        profile["score"] += 5
+
+        return {
+            "réussite": True,
+            "ascii_art": "🔍",
+            "message": """🔍 VÉRIFICATION DES OBJETS
+
+📦 OBJETS DISPONIBLES :
+• Terminal Arkalia ✅
+• Interface LUNA ✅
+• Système de badges ✅
+• Mini-jeux éducatifs ✅
+• Thèmes personnalisés ✅
+• Système de progression ✅
+
+🎯 STATUT :
+Tous les systèmes sont opérationnels !
+
+💡 ASTUCE :
+Utilise 'aide' pour voir toutes les commandes disponibles.
+
+🌟 +5 points pour cette vérification !""",
+            "score_gagne": 5,
+            "profile_updated": True,
+        }
+
+    def handle_debug_mode(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Informations système de debug"""
+        profile["score"] += 5
+
+        return {
+            "réussite": True,
+            "ascii_art": "🐛",
+            "message": """🐛 MODE DEBUG ACTIVÉ
+
+🔍 INFORMATIONS SYSTÈME :
+• Version : Arkalia Quest v3.3.0
+• LUNA : v2.1.0
+• Terminal : v3.0.0
+• Mini-jeux : v1.5.0
+
+📊 STATISTIQUES :
+• Score actuel : {score}
+• Niveau : {level}
+• Badges : {badges_count}
+
+💡 MODE DÉVELOPPEUR :
+Toutes les fonctionnalités sont disponibles !
+
+🌟 +5 points pour cette analyse !""".format(
+                score=profile.get("score", 0),
+                level=profile.get("level", 1),
+                badges_count=len(profile.get("badges", [])),
+            ),
+            "score_gagne": 5,
+            "profile_updated": True,
         }

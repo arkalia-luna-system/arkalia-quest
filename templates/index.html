@@ -19,64 +19,32 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/icon-16x16.png">
     <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png">
 
-    <!-- CSS LUNA VISION - Optimisé pour le chargement -->
-    <link rel="preload" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}?v=3.1.1" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}?v=3.1.1">
-    </noscript>
+    <!-- CSS ARKALIA CONSOLIDÉ - Version 4.0 -->
+    <!-- Styles de base Luna -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-core.css') }}?v=4.0.0">
 
-    <!-- Spacing Perfection CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/spacing-perfection.css') }}?v=3.4.0">
+    <!-- Thèmes Luna -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-themes.css') }}?v=4.0.0">
 
-    <!-- Contrast Perfection CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/contrast-perfection.css') }}?v=3.4.0">
+    <!-- Composants UI -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-components.css') }}?v=4.0.0">
 
-    <!-- Animations Perfection CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/animations-perfection.css') }}?v=3.4.0">
+    <!-- Responsive design -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-responsive.css') }}?v=4.0.0">
 
-    <!-- Typography Perfection CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/typography-perfection.css') }}?v=3.4.0">
-
-    <!-- Empty States Perfection CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/empty-states-perfection.css') }}?v=3.4.0">
-
-    <!-- Grid Perfection CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/grid-perfection.css') }}?v=3.4.0">
-
-    <!-- Theme Patterns CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme-patterns.css') }}?v=3.4.0">
-
-    <!-- Nouveaux CSS V3 - Chargement optimisé -->
-    <link rel="preload" href="{{ url_for('static', filename='css/themes.css') }}?v=3.3.0" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/themes.css') }}?v=3.3.0">
-    </noscript>
-
-    <!-- Système de couleurs modernes -->
-    <link rel="preload" href="{{ url_for('static', filename='css/color-system.css') }}?v=3.3.0" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/color-system.css') }}?v=3.3.0">
-    </noscript>
-
-    <!-- Perfection UI/UX 2025 -->
-    <link rel="preload" href="{{ url_for('static', filename='css/ui-perfection.css') }}?v=3.3.1" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/ui-perfection.css') }}?v=3.3.1">
-    </noscript>
-
-    <!-- Systèmes UX avancés -->
-    <script src="{{ url_for('static', filename='js/smart-notifications.js') }}?v=3.3.0"></script>
-    <script src="{{ url_for('static', filename='js/smart-empty-states.js') }}?v=3.3.0"></script>
-    <script src="{{ url_for('static', filename='js/enhanced-feedback.js') }}?v=3.3.0"></script>
+    <!-- Systèmes Universels Unifiés V4.0.0 -->
+    <!-- Remplace 10+ fichiers redondants par 3 systèmes unifiés -->
+    <script src="{{ url_for('static', filename='js/universal-notifications.js') }}?v=4.0.0"></script>
+    <script src="{{ url_for('static', filename='js/universal-empty-states.js') }}?v=4.0.0"></script>
+    <!-- Notifications unifiées: universal-notifications.js conservé, universal-feedback redondant -->
+    <!-- <script src="{{ url_for('static', filename='js/universal-feedback.js') }}?v=4.0.0"></script> -->
+    <script src="{{ url_for('static', filename='js/smart-empty-states.js') }}?v=4.0.0"></script>
+    <script src="{{ url_for('static', filename='js/reward-feedback-system.js') }}?v=4.0.0"></script>
     <script src="{{ url_for('static', filename='js/ui-perfection.js') }}?v=3.3.1"></script>
 
     <!-- CSS critiques chargés immédiatement -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}?v=3.1.1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}?v=3.1.1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/smart-empty-states.css') }}?v=4.0.0">
 
     <!-- CSS non-critiques chargés de manière différée -->
     <link rel="preload" href="{{ url_for('static', filename='css/interface-improvements.css') }}?v=3.1.1" as="style"
@@ -91,11 +59,13 @@
         onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="{{ url_for('static', filename='css/adaptive-guidance.css') }}?v=3.1.1" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/adaptive-ui.css') }}?v=3.3.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/instant-feedback.css') }}?v=3.3.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/interactive-zones.css') }}?v=3.3.1" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="{{ url_for('static', filename='css/progression-feedback.css') }}?v=3.1.1" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="{{ url_for('static', filename='css/competitive-system.css') }}?v=3.1.1" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="{{ url_for('static', filename='css/creative-system.css') }}?v=3.1.1" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="{{ url_for('static', filename='css/casual-system.css') }}?v=3.1.1" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
@@ -110,6 +80,21 @@
         onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="{{ url_for('static', filename='css/performance-optimized.css') }}" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
+
+    <!-- CSS des corrections d'audit visuel -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/audit-visual-fixes.css') }}?v=3.5.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme-selection-enhanced.css') }}?v=3.5.0">
+
+    <!-- CSS des systèmes de gameplay améliorés -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/zone-exploration-enhanced.css') }}?v=3.6.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/daily-missions-enhanced.css') }}?v=3.6.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/motivational-empty-states.css') }}?v=3.6.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/timer-challenges.css') }}?v=3.6.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/interactive-puzzles.css') }}?v=3.6.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gameplay-integration.css') }}?v=3.6.0">
+
+    <!-- CSS du gestionnaire de popups -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/popup-manager.css') }}?v=3.7.0">
 
     <style>
         /* Styles spécifiques au portail d'accueil */
@@ -510,6 +495,7 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/command-effects.css') }}">
 </head>
 
 <body>
@@ -555,16 +541,10 @@
             <p class="hero-subtitle animate-fade-in-up" id="hero-subtitle">Portail d'entrée dans l'esprit de LUNA</p>
             <p class="luna-greeting animate-fade-in-up" id="luna-greeting">"Bienvenue, hacker. Je suis LUNA, ton guide
                 dans cette aventure
-                cybernétique. Commence par le tutoriel pour comprendre comment jouer !"</p>
+                cybernétique. Prêt à commencer l'aventure ?"</p>
 
             <!-- Boutons d'action améliorés avec accessibilité -->
             <div class="cta-buttons horizontal animate-fade-in-up" role="navigation" aria-label="Navigation principale">
-                <a href="/tutorial" class="cta-btn primary btn-perfect cta-perfect hover-lift ripple-effect"
-                    title="Commencer par le tutoriel" role="button" aria-describedby="tutorial-desc">
-                    <span class="cta-icon" aria-hidden="true">🎯</span>
-                    <span class="cta-text">TUTORIEL DÉBUTANT</span>
-                    <span class="cta-subtitle" id="tutorial-desc">Apprends les bases</span>
-                </a>
                 <a href="/terminal" class="cta-btn btn-perfect cta-perfect hover-lift ripple-effect"
                     title="Accéder au terminal de commandes" role="button" aria-describedby="terminal-desc">
                     <span class="cta-icon" aria-hidden="true">🚀</span>
@@ -585,6 +565,9 @@
                 </a>
             </div>
         </div>
+
+        <!-- Séparateur visuel -->
+        <div class="section-divider"></div>
 
         <!-- Grille des fonctionnalités -->
         <div class="features-grid">
@@ -645,7 +628,7 @@
 
     <!-- Scripts critiques chargés immédiatement -->
     <script src="{{ url_for('static', filename='js/accessibility.js') }}?v=3.1.1"></script>
-    <script src="{{ url_for('static', filename='js/performance-optimizer.js') }}?v=3.1.1"></script>
+    <script src="{{ url_for('static', filename='js/performance-ux-optimizer.js') }}?v=3.1.1"></script>
 
     <!-- Scripts non-critiques chargés de manière différée -->
     <script>
@@ -661,12 +644,10 @@
         window.addEventListener('load', function () {
             const scripts = [
                 '{{ url_for("static", filename="js/audio-manager.js") }}?v=3.1.1',
-                '{{ url_for("static", filename="js/tutorial.js") }}?v=3.1.1',
                 '{{ url_for("static", filename="js/real-time-monitor.js") }}?v=3.1.1',
                 '{{ url_for("static", filename="js/game-engine.js") }}',
                 '{{ url_for("static", filename="js/mission-system.js") }}',
                 '{{ url_for("static", filename="js/visual-feedback-system.js") }}',
-                '{{ url_for("static", filename="js/advanced-features.js") }}',
                 '{{ url_for("static", filename="js/ai_engine.js") }}',
                 '{{ url_for("static", filename="js/analytics.js") }}',
                 '{{ url_for("static", filename="js/service-worker.js") }}',
@@ -674,10 +655,12 @@
                 '{{ url_for("static", filename="js/bug-fixes.js") }}',
                 '{{ url_for("static", filename="js/reward-system.js") }}',
                 '{{ url_for("static", filename="js/loading-manager.js") }}',
-                '{{ url_for("static", filename="js/adaptive-guidance.js") }}?v=3.3.1',
-                '{{ url_for("static", filename="js/progression-feedback.js") }}',
-                '{{ url_for("static", filename="js/competitive-system.js") }}',
-                '{{ url_for("static", filename="js/creative-system.js") }}',
+                // Guidance adaptative désactivée
+                // '{{ url_for("static", filename="js/adaptive-guidance.js") }}?v=3.3.1',
+                '{{ url_for("static", filename="js/advanced-player-profiles.js") }}?v=3.3.1',
+                '{{ url_for("static", filename="js/adaptive-ui-manager.js") }}?v=3.3.1',
+                '{{ url_for("static", filename="js/interactive-zones-system.js") }}?v=3.3.1',
+                // '{{ url_for("static", filename="js/progression-feedback.js") }}',
                 '{{ url_for("static", filename="js/casual-system.js") }}',
                 '{{ url_for("static", filename="js/system-integrator.js") }}'
             ];
@@ -746,16 +729,18 @@
     <!-- Nouveaux scripts V3 - Chargement optimisé -->
     <script src="{{ url_for('static', filename='js/theme-manager.js') }}?v=3.3.0" defer></script>
     <script src="{{ url_for('static', filename='js/daily-challenges-enhanced.js') }}?v=3.3.0" defer></script>
-    <script src="{{ url_for('static', filename='js/visual-guidance.js') }}?v=3.3.0" defer></script>
+    <!-- Visual guidance désactivé -->
+    <!-- <script src="{{ url_for('static', filename='js/visual-guidance.js') }}?v=3.3.0" defer></script> -->
     <script src="{{ url_for('static', filename='js/tutorial-celebrations.js') }}?v=3.3.0" defer></script>
     <script src="{{ url_for('static', filename='js/mini-games-interactive.js') }}?v=3.3.0"></script>
-    <script src="{{ url_for('static', filename='js/empty-states-enhanced.js') }}?v=3.3.0" defer></script>
-    <script src="{{ url_for('static', filename='js/reward-animations.js') }}?v=3.3.0" defer></script>
+    <!-- reward-animations non nécessaire: unifié dans reward-feedback-system.js -->
+    <!-- <script src="{{ url_for('static', filename='js/reward-animations.js') }}?v=3.3.0" defer></script> -->
     <script src="{{ url_for('static', filename='js/luna-enhanced.js') }}?v=3.3.0" defer></script>
 
     <!-- Scripts de perfection avancés -->
-    <script src="{{ url_for('static', filename='js/smart-notifications-enhanced.js') }}?v=3.4.0"></script>
-    <script src="{{ url_for('static', filename='js/accessibility-feedback.js') }}?v=3.4.0"></script>
+
+    <!-- Scripts des corrections d'audit visuel -->
+    <script src="{{ url_for('static', filename='js/audit-visual-enhancements.js') }}?v=3.5.0"></script>
 
     <script>
         // Initialisation des nouvelles fonctionnalités
@@ -829,11 +814,57 @@
                 console.log('🔔 Notifications intelligentes initialisées');
             }
 
+            // Initialiser les systèmes de gameplay améliorés
+            if (window.zoneExplorationEnhanced) {
+                console.log('🗺️ Zone Exploration Enhanced initialisé');
+            }
+
+            if (window.dailyMissions) {
+                console.log('🎯 Daily Missions Enhanced initialisé');
+            }
+
+            if (window.motivationalEmptyStates) {
+                console.log('🌟 Motivational Empty States initialisé');
+            }
+
+            if (window.timerChallenges) {
+                console.log('⏱️ Timer Challenges initialisé');
+            }
+
+            if (window.interactivePuzzles) {
+                console.log('🧩 Interactive Puzzles initialisé');
+            }
+
+            if (window.gameplayIntegration) {
+                console.log('🎮 Gameplay Integration initialisé');
+            }
+
+            // Initialiser les systèmes de gestion des popups
+            if (window.popupManager) {
+                console.log('🎭 Popup Manager initialisé');
+            }
+
+            if (window.popupCoordinator) {
+                console.log('🎭 Popup Coordinator initialisé');
+            }
+
             if (window.accessibilityFeedback) {
                 console.log('♿ Feedback d\'accessibilité initialisé');
             }
         });
     </script>
+
+    <!-- Scripts des systèmes de gameplay améliorés -->
+    <script src="{{ url_for('static', filename='js/zone-exploration-enhanced.js') }}?v=3.6.0"></script>
+    <script src="{{ url_for('static', filename='js/daily-missions-enhanced.js') }}?v=3.6.0"></script>
+    <script src="{{ url_for('static', filename='js/motivational-empty-states.js') }}?v=3.6.0"></script>
+    <script src="{{ url_for('static', filename='js/timer-challenges.js') }}?v=3.6.0"></script>
+    <script src="{{ url_for('static', filename='js/interactive-puzzles.js') }}?v=3.6.0"></script>
+    <script src="{{ url_for('static', filename='js/gameplay-integration.js') }}?v=3.6.0"></script>
+
+    <!-- Scripts du gestionnaire de popups -->
+    <script src="{{ url_for('static', filename='js/popup-manager.js') }}?v=3.7.0"></script>
+    <script src="{{ url_for('static', filename='js/popup-coordinator.js') }}?v=3.7.0"></script>
 </body>
 
 </html>

@@ -1,15 +1,11 @@
 
-
 # 🚀 **GUIDE DE DÉPLOIEMENT - ARKALIA QUEST**
-
 
 > **Guide complet pour déployer Arkalia Quest en production**
 
 ---
 
-
 ## 📋 **Table des Matières**
-
 
 1. [🎯 Prérequis](#-prérequis)
 2. [🔧 Configuration](#-configuration)
@@ -20,13 +16,9 @@
 
 ---
 
-
 ## 🎯 **Prérequis**
 
-
-
 ### **Système**
-
 
 | Composant | Version | Description |
 |-----------|---------|-------------|
@@ -35,36 +27,21 @@
 | **Nginx** | 1.18+ | Serveur web (optionnel) |
 | **Gunicorn** | 21.0+ | Serveur WSGI |
 
-
 ### **Sécurité**
-
-
 
 - ✅ **HTTPS/TLS** : Certificat SSL valide
 
-
-
 - ✅ **Firewall** : Ports 80, 443, 5000
-
-
 
 - ✅ **Rate Limiting** : Protection DDoS
 
-
-
 - ✅ **Monitoring** : Logs et alertes
-
 
 ---
 
-
 ## 🔧 **Configuration**
 
-
-
 ### **Variables d'Environnement**
-
-
 
 ```bash
 

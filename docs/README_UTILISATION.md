@@ -1,16 +1,9 @@
 
-
 # 🚀 Guide d'Utilisation - Arkalia Quest
-
-
 
 ## 🌟 Démarrage Rapide
 
-
-
 ### 1. **Démarrage Automatique (Recommandé)**
-
-
 
 ```bash
 

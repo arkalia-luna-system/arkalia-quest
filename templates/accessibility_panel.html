@@ -20,7 +20,7 @@
     <!-- CSS LUNA VISION -->
     <link rel="stylesheet" href="/static/css/arkalia-luna-vision.css">
     <link rel="stylesheet" href="/static/css/accessibility.css">
-    <link rel="stylesheet" href="/static/css/responsive.css">
+    <link rel="stylesheet" href="/static/css/arkalia-responsive.css?v=4.0.0">
 
     <style>
         .accessibility-workspace {
@@ -465,6 +465,34 @@
             const isActive = element.classList.contains('active');
             element.setAttribute('aria-checked', isActive ? 'true' : 'false');
             updateAccessibilitySettings();
+
+            // Toast d'activation
+            const id = element.id;
+            const labels = {
+                'high-contrast': 'Contraste élevé',
+                'high-contrast-enhanced': 'Contraste renforcé',
+                'large-text': 'Texte agrandi',
+                'reduced-motion': 'Animations réduites',
+                'subtitles': 'Sous-titres',
+                'audio-description': 'Audio descriptif',
+                'audio-indicator': 'Indicateur audio',
+                'keyboard-nav': 'Navigation clavier',
+                'focus-visible': 'Focus visible',
+                'keyboard-shortcuts': 'Raccourcis clavier',
+                'dark-mode': 'Mode sombre',
+                'large-spacing': 'Espacement large',
+                'custom-cursor': 'Curseur personnalisé'
+            };
+            const label = labels[id] || 'Option';
+            if (window.universalNotifications) {
+                if (isActive) {
+                    window.universalNotifications.success('Accessibilité', `${label} activé(e)`, { duration: 2000, theme: 'matrix' });
+                } else {
+                    window.universalNotifications.info('Accessibilité', `${label} désactivé(e)`, { duration: 2000, theme: 'matrix' });
+                }
+            } else {
+                showAccessibilityNotification(`${label} ${isActive ? 'activé(e)' : 'désactivé(e)'} `);
+            }
         }
 
         function toggleControlKey(event, element) {
@@ -704,6 +732,22 @@
             // Écouter les changements de paramètres
             document.querySelectorAll('.control-input, .control-toggle').forEach(element => {
                 element.addEventListener('change', updateAccessibilitySettings);
+            });
+
+            // Accordéon: replier toutes les sections par défaut
+            document.querySelectorAll('.accessibility-card').forEach(card => {
+                const controls = card.querySelector('.accessibility-controls');
+                const header = card.querySelector('.accessibility-card-header');
+                if (controls && header) {
+                    controls.style.display = 'none';
+                    header.style.cursor = 'pointer';
+                    header.setAttribute('aria-expanded', 'false');
+                    header.addEventListener('click', () => {
+                        const isOpen = controls.style.display !== 'none';
+                        controls.style.display = isOpen ? 'none' : 'flex';
+                        header.setAttribute('aria-expanded', (!isOpen).toString());
+                    });
+                }
             });
         });
 

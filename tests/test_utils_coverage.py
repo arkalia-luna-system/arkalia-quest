@@ -106,8 +106,8 @@ class TestUtilsCoverage(unittest.TestCase):
             self.assertTrue(mock_warning.called or mock_error.called)
 
     def test_luna_ai_v2_initialization(self):
-        """Test d'initialisation de LunaAIV2"""
-        from engines.luna_ai_v2 import LunaAIV2
+        """Test d'initialisation de LUNA V3 (remplace V2)"""
+        from engines.luna_ai_v3 import LunaAIV3 as LunaAIV2
 
         luna = LunaAIV2()
         self.assertIsNotNone(luna)
@@ -116,8 +116,8 @@ class TestUtilsCoverage(unittest.TestCase):
         self.assertIsInstance(luna.emotion_states, dict)
 
     def test_luna_ai_v2_generate_response(self):
-        """Test de génération de réponse"""
-        from engines.luna_ai_v2 import LunaAIV2
+        """Test de génération de réponse (LUNA V3)"""
+        from engines.luna_ai_v3 import LunaAIV3 as LunaAIV2
 
         luna = LunaAIV2()
         response = luna.generate_response("Salut LUNA !")
@@ -128,8 +128,8 @@ class TestUtilsCoverage(unittest.TestCase):
         self.assertTrue(response["success"])
 
     def test_luna_ai_v2_analyze_emotion(self):
-        """Test d'analyse d'émotion"""
-        from engines.luna_ai_v2 import LunaAIV2
+        """Test d'analyse d'émotion (LUNA V3)"""
+        from engines.luna_ai_v3 import LunaAIV3 as LunaAIV2
 
         luna = LunaAIV2()
         emotion = luna.analyze_emotion("Je suis très content !")
@@ -140,8 +140,8 @@ class TestUtilsCoverage(unittest.TestCase):
         self.assertIn("scores", emotion)
 
     def test_luna_ai_v2_get_suggestions(self):
-        """Test de récupération de suggestions"""
-        from engines.luna_ai_v2 import LunaAIV2
+        """Test de récupération de suggestions (LUNA V3)"""
+        from engines.luna_ai_v3 import LunaAIV3 as LunaAIV2
 
         luna = LunaAIV2()
         suggestions = luna.get_suggestions({"level": 2})
@@ -151,8 +151,8 @@ class TestUtilsCoverage(unittest.TestCase):
         self.assertLessEqual(len(suggestions), 5)
 
     def test_luna_ai_v2_learn_from_interaction(self):
-        """Test d'apprentissage à partir d'interactions"""
-        from engines.luna_ai_v2 import LunaAIV2
+        """Test d'apprentissage à partir d'interactions (LUNA V3)"""
+        from engines.luna_ai_v3 import LunaAIV3 as LunaAIV2
 
         luna = LunaAIV2()
         emotion = {"emotion": "happy", "intensity": 0.8}
@@ -162,8 +162,8 @@ class TestUtilsCoverage(unittest.TestCase):
         self.assertGreater(len(luna.learning_data["interactions"]), 0)
 
     def test_luna_ai_v2_get_personality_traits(self):
-        """Test de récupération des traits de personnalité"""
-        from engines.luna_ai_v2 import LunaAIV2
+        """Test de récupération des traits de personnalité (LUNA V3)"""
+        from engines.luna_ai_v3 import LunaAIV3 as LunaAIV2
 
         luna = LunaAIV2()
         traits = luna.get_personality_traits()
@@ -174,8 +174,8 @@ class TestUtilsCoverage(unittest.TestCase):
         self.assertIn("playfulness", traits)
 
     def test_luna_ai_v2_update_personality(self):
-        """Test de mise à jour de la personnalité"""
-        from engines.luna_ai_v2 import LunaAIV2
+        """Test de mise à jour de la personnalité (LUNA V3)"""
+        from engines.luna_ai_v3 import LunaAIV3 as LunaAIV2
 
         luna = LunaAIV2()
         result = luna.update_personality("curiosity", 0.9)
@@ -184,8 +184,8 @@ class TestUtilsCoverage(unittest.TestCase):
         self.assertEqual(luna.personality_traits["curiosity"], 0.9)
 
     def test_luna_ai_v2_error_handling(self):
-        """Test de gestion d'erreurs dans LunaAIV2"""
-        from engines.luna_ai_v2 import LunaAIV2
+        """Test de gestion d'erreurs (LUNA V3)"""
+        from engines.luna_ai_v3 import LunaAIV3 as LunaAIV2
 
         luna = LunaAIV2()
 
@@ -253,8 +253,8 @@ class TestUtilsCoverage(unittest.TestCase):
             self.assertTrue(mock_info.called)
 
     def test_luna_ai_v2_context_handling(self):
-        """Test de gestion du contexte dans LunaAIV2"""
-        from engines.luna_ai_v2 import LunaAIV2
+        """Test de gestion du contexte (LUNA V3)"""
+        from engines.luna_ai_v3 import LunaAIV3 as LunaAIV2
 
         luna = LunaAIV2()
         context = {"level": 3, "previous_interaction": "test"}

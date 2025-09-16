@@ -485,6 +485,40 @@
             margin-right: 8px;
         }
 
+        /* État vide du dashboard */
+        .empty-state-widget {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(167, 139, 250, 0.05);
+            border: 2px dashed rgba(167, 139, 250, 0.3);
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .empty-state-content {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .empty-state-icon {
+            font-size: 4em;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .empty-state-content h3 {
+            color: var(--violet-lunaire);
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .empty-state-content p {
+            color: var(--argent-holographique);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
         @media (max-width: 768px) {
             .dashboard-title {
                 font-size: 2.2em;
@@ -691,12 +725,44 @@
         }
 
         function updateDashboardMetrics(data) {
-            // Améliorer l'affichage des valeurs par défaut
-            document.getElementById('total-score').textContent = data.total_score > 0 ? data.total_score : 'N/A';
-            document.getElementById('missions-completed').textContent = data.missions_completees > 0 ? data.missions_completees : 'N/A';
-            document.getElementById('badges-count').textContent = data.badges_count > 0 ? data.badges_count : 'N/A';
-            document.getElementById('performance-score').textContent = data.total_score > 0 ? Math.round(data.total_score / 10) : 'N/A';
-            document.getElementById('play-time').textContent = data.total_score > 0 ? Math.round(data.total_score / 100) : 'N/A';
+            // Masquer les widgets avec des valeurs zéro au lieu d'afficher N/A
+            const totalScoreWidget = document.querySelector('.widget:nth-child(1)');
+            const missionsWidget = document.querySelector('.widget:nth-child(2)');
+            const badgesWidget = document.querySelector('.widget:nth-child(3)');
+            const performanceWidget = document.querySelector('.widget:nth-child(4)');
+            const playTimeWidget = document.querySelector('.widget:nth-child(5)');
+
+            // Afficher/masquer les widgets selon les données
+            totalScoreWidget.style.display = data.total_score > 0 ? 'block' : 'none';
+            missionsWidget.style.display = data.missions_completees > 0 ? 'block' : 'none';
+            badgesWidget.style.display = data.badges_count > 0 ? 'block' : 'none';
+            performanceWidget.style.display = data.total_score > 0 ? 'block' : 'none';
+            playTimeWidget.style.display = data.total_score > 0 ? 'block' : 'none';
+
+            // Afficher un message d'encouragement si aucun widget n'est visible
+            const dashboardGrid = document.querySelector('.dashboard-grid');
+            const emptyState = document.getElementById('empty-dashboard-state');
+            if (!emptyState && data.total_score === 0 && data.missions_completees === 0 && data.badges_count === 0) {
+                const emptyStateDiv = document.createElement('div');
+                emptyStateDiv.id = 'empty-dashboard-state';
+                emptyStateDiv.className = 'empty-state-widget';
+                emptyStateDiv.innerHTML = `
+                    <div class="empty-state-content">
+                        <span class="empty-state-icon">🚀</span>
+                        <h3>Prêt à commencer l'aventure ?</h3>
+                        <p>Ton dashboard se remplira au fur et à mesure de tes progrès !</p>
+                        <a href="/terminal" class="cta-btn">Commencer l'aventure</a>
+                    </div>
+                `;
+                dashboardGrid.appendChild(emptyStateDiv);
+            }
+
+            // Mettre à jour les valeurs
+            document.getElementById('total-score').textContent = data.total_score || 0;
+            document.getElementById('missions-completed').textContent = data.missions_completees || 0;
+            document.getElementById('badges-count').textContent = data.badges_count || 0;
+            document.getElementById('performance-score').textContent = data.total_score > 0 ? Math.round(data.total_score / 10) : 0;
+            document.getElementById('play-time').textContent = data.total_score > 0 ? Math.round(data.total_score / 100) : 0;
         }
 
         function updateProgressRing(data) {

@@ -956,6 +956,17 @@
 
         function addMessage(message) {
             const output = document.getElementById('terminal-output');
+
+            // Limiter le nombre de messages pour éviter l'accumulation
+            const maxMessages = 10;
+            const messages = output.querySelectorAll('div');
+            if (messages.length >= maxMessages) {
+                // Supprimer les anciens messages (garder les 5 plus récents)
+                for (let i = 0; i < messages.length - 5; i++) {
+                    messages[i].remove();
+                }
+            }
+
             output.innerHTML += message;
             output.scrollTop = output.scrollHeight;
         }
@@ -1247,11 +1258,15 @@
     </script>
 
     <!-- Scripts des systèmes adaptatifs -->
-    <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/progression-feedback.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/competitive-system.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/creative-system.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/casual-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}?v=4.0.0"></script>
+    <script src="{{ url_for('static', filename='js/progression-feedback.js') }}?v=4.0.0"></script>
+    <script src="{{ url_for('static', filename='js/competitive-system.js') }}?v=4.0.0"></script>
+    <script src="{{ url_for('static', filename='js/creative-system.js') }}?v=4.0.0"></script>
+    <script src="{{ url_for('static', filename='js/casual-system.js') }}?v=4.0.0"></script>
+
+    <!-- Gestionnaire de popups pour éviter les chevauchements -->
+    <script src="{{ url_for('static', filename='js/popup-manager.js') }}?v=4.0.0"></script>
+    <script src="{{ url_for('static', filename='js/popup-coordinator.js') }}?v=4.0.0"></script>
 
     <!-- Scripts des améliorations UX contextuelles -->
     <script src="{{ url_for('static', filename='js/contextual-feedback.js') }}"></script>
@@ -1272,6 +1287,12 @@
         // Initialisation des systèmes adaptatifs
         document.addEventListener('DOMContentLoaded', function () {
             console.log('🎯 Systèmes UX contextuels initialisés dans le terminal');
+
+            // Initialiser le gestionnaire de popups
+            if (window.PopupCoordinator) {
+                window.popupCoordinator = new PopupCoordinator();
+                console.log('✅ PopupCoordinator initialisé');
+            }
 
             // Initialiser le système de guidance adaptative
             if (window.adaptiveGuidance) {

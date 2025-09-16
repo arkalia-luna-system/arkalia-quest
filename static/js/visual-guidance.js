@@ -1,6 +1,6 @@
 /**
- * Système de guidage visuel pour les débutants
- * Ajoute des effets visuels d'attraction et de guidage
+ * LEGACY (DEPRECATED) - Système de guidage visuel pour les débutants
+ * Désactivé au profit des notifications unifiées et d'une UX non-intrusive.
  */
 
 class VisualGuidance {

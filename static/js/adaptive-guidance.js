@@ -1,4 +1,6 @@
-/* ===== ARKALIA QUEST - ADAPTIVE GUIDANCE SYSTEM ===== */
+/* ===== LEGACY (DEPRECATED) - ADAPTIVE GUIDANCE SYSTEM ===== */
+/* Ce fichier est conservé pour compatibilité. Toutes les fonctionnalités
+   d'overlay/coachmarks sont désactivées. */
 
 class AdaptiveGuidanceSystem {
     constructor() {

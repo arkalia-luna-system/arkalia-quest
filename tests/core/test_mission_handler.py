@@ -58,5 +58,3 @@ def test_get_mission_progress(handler):
     progress = handler.get_mission_progress("prologue", profil)
     assert progress["etapes_total"] == 2
     assert progress["progress"] == 50.0
-
-

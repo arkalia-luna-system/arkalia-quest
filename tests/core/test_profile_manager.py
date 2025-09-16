@@ -45,5 +45,3 @@ def test_add_badge_and_add_score_save(pm):
     saved = pm.db_manager.saved["u1"]
     assert saved["score"] >= 250
     assert saved["level"] == (saved["score"] // 100) + 1
-
-

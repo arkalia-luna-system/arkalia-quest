@@ -33,5 +33,3 @@ def test_start_complete_and_end_challenge(wm):
     r2 = wm.complete_mission(room_id, "s2", {"player_name": "B", "completion_time": 8})
     assert r2["type"] == "challenge_ended"
     assert r2.get("winner") in {"A", "B", None}
-
-

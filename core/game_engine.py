@@ -361,7 +361,9 @@ class GameEngine:
             "mission_context": mission_context,
         }
 
-    def can_start_mission(self, mission_id: str, profile: dict[str, Any] | None = None) -> bool:
+    def can_start_mission(
+        self, mission_id: str, profile: dict[str, Any] | None = None
+    ) -> bool:
         """Vérifie si l'utilisateur peut démarrer une mission"""
 
         # Charger la mission

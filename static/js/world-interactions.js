@@ -498,13 +498,35 @@ class WorldInteractions {
             return;
         }
 
-        this.showNotification(`Exploration de ${zone.name}...`, 'info');
-
-        // Simuler l'exploration
-        setTimeout(() => {
-            this.showNotification(`Tu as découvert de nouvelles informations dans ${zone.name} !`, 'success');
-            this.createExplorationEffect();
-        }, 2000);
+        // Lancer un micro‑jeu simple selon la zone
+        switch (zoneId) {
+            case 'terminal':
+                this.launchTerminalHack();
+                break;
+            case 'cyber-city':
+            case 'cyber_city':
+                this.launchDataMining();
+                break;
+            case 'data-center':
+            case 'data_center':
+                this.launchServerHack();
+                break;
+            case 'training':
+                this.launchTrainingChallenge();
+                break;
+            case 'underground':
+                this.launchStealthMission();
+                break;
+            case 'quantum':
+                this.launchQuantumPuzzle();
+                break;
+            default:
+                this.showNotification(`Exploration de ${zone.name}...`, 'info');
+                setTimeout(() => {
+                    this.showNotification(`Tu as découvert de nouvelles informations dans ${zone.name} !`, 'success');
+                    this.createExplorationEffect();
+                }, 2000);
+        }
     }
 
     celebrateZone(zoneId) {

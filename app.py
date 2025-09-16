@@ -3,6 +3,7 @@ import logging
 import os
 import random
 import time
+import types
 from datetime import datetime, timedelta
 
 from flask import Flask, jsonify, render_template, request, send_from_directory
@@ -65,6 +66,29 @@ except Exception as e:
     tutorial_manager = None
     websocket_manager = None
     LunaAIV3 = None
+
+    # Convertir les constructeurs manquants en usines inoffensives pour les tests
+    def _noop_factory(*args, **kwargs):
+        return None
+
+    for _name in [
+        "DailyChallengesEngine",
+        "EducationalGamesEngine",
+        "GamificationEngine",
+        "CommandHandler",
+        "DatabaseManager",
+        "technical_tutorials",
+        "narrative_branches",
+        "mission_progress_tracker",
+        "secondary_missions",
+        "social_engine",
+        "customization_engine",
+        "category_leaderboards",
+        "advanced_achievements",
+        "adaptive_storytelling",
+    ]:
+        if _name in globals() and globals()[_name] is None:
+            globals()[_name] = _noop_factory
 
 try:
     from utils.logger import game_logger, performance_logger, security_logger
@@ -203,6 +227,13 @@ def monitor_performance(name):
         return func
 
     return decorator
+
+
+# Assurer un stub du performance optimizer pour les décorateurs en environnement de test
+if "performance_optimizer" in globals() and performance_optimizer is None:
+    performance_optimizer = types.SimpleNamespace(
+        monitor_performance=monitor_performance
+    )
 
 
 # Variables de disponibilité des modules

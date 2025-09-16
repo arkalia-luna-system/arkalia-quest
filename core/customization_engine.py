@@ -285,6 +285,20 @@ class CustomizationEngine:
 
         return available_themes
 
+    def get_theme(self, theme_id: str) -> dict[str, Any]:
+        """Retourne un thème spécifique"""
+        return self.themes.get(theme_id, {})
+
+    def get_player_theme(self, player_id: str) -> dict[str, Any]:
+        """Retourne le thème actuel d'un joueur"""
+        if player_id not in self.player_customizations:
+            return self.themes.get(self.default_theme, {})
+
+        current_theme_id = self.player_customizations[player_id].get(
+            "current_theme", self.default_theme
+        )
+        return self.themes.get(current_theme_id, {})
+
     def is_theme_unlocked(self, player_id: str, theme_id: str) -> bool:
         """Vérifie si un thème est débloqué pour un joueur"""
         if player_id not in self.player_customizations:
@@ -362,6 +376,20 @@ class CustomizationEngine:
                 available_avatars.append(avatar)
 
         return available_avatars
+
+    def get_avatar(self, avatar_id: str) -> dict[str, Any]:
+        """Retourne un avatar spécifique"""
+        return self.avatars.get(avatar_id, {})
+
+    def get_player_avatar(self, player_id: str) -> dict[str, Any]:
+        """Retourne l'avatar actuel d'un joueur"""
+        if player_id not in self.player_customizations:
+            return self.avatars.get(self.default_avatar, {})
+
+        current_avatar_id = self.player_customizations[player_id].get(
+            "current_avatar", self.default_avatar
+        )
+        return self.avatars.get(current_avatar_id, {})
 
     def is_avatar_unlocked(self, player_id: str, avatar_id: str) -> bool:
         """Vérifie si un avatar est débloqué pour un joueur"""
@@ -446,6 +474,20 @@ class CustomizationEngine:
 
         return available_skins
 
+    def get_skin(self, skin_id: str) -> dict[str, Any]:
+        """Retourne un skin spécifique"""
+        return self.skins.get(skin_id, {})
+
+    def get_player_skin(self, player_id: str) -> dict[str, Any]:
+        """Retourne le skin actuel d'un joueur"""
+        if player_id not in self.player_customizations:
+            return self.skins.get("terminal_basic", {})
+
+        current_skin_id = self.player_customizations[player_id].get(
+            "current_skin", "terminal_basic"
+        )
+        return self.skins.get(current_skin_id, {})
+
     def is_skin_unlocked(self, player_id: str, skin_id: str) -> bool:
         """Vérifie si un skin est débloqué pour un joueur"""
         if player_id not in self.player_customizations:
@@ -487,8 +529,11 @@ class CustomizationEngine:
         if skin_id not in self.skins:
             return {"success": False, "error": "Skin introuvable"}
 
+        # Débloquer le skin s'il ne l'est pas déjà
         if not self.is_skin_unlocked(player_id, skin_id):
-            return {"success": False, "error": "Skin non débloqué"}
+            unlock_result = self.unlock_skin(player_id, skin_id)
+            if not unlock_result["success"]:
+                return unlock_result
 
         if player_id not in self.player_customizations:
             self.player_customizations[player_id] = {
@@ -521,6 +566,20 @@ class CustomizationEngine:
                 available_voices.append(voice)
 
         return available_voices
+
+    def get_voice(self, voice_id: str) -> dict[str, Any]:
+        """Retourne une voix spécifique"""
+        return self.voice_profiles.get(voice_id, {})
+
+    def get_player_voice(self, player_id: str) -> dict[str, Any]:
+        """Retourne la voix actuelle d'un joueur"""
+        if player_id not in self.player_customizations:
+            return self.voice_profiles.get(self.default_voice, {})
+
+        current_voice_id = self.player_customizations[player_id].get(
+            "current_voice", self.default_voice
+        )
+        return self.voice_profiles.get(current_voice_id, {})
 
     def is_voice_unlocked(self, player_id: str, voice_id: str) -> bool:
         """Vérifie si une voix est débloquée pour un joueur"""
@@ -565,8 +624,11 @@ class CustomizationEngine:
         if voice_id not in self.voice_profiles:
             return {"success": False, "error": "Voix introuvable"}
 
+        # Débloquer la voix si elle ne l'est pas déjà
         if not self.is_voice_unlocked(player_id, voice_id):
-            return {"success": False, "error": "Voix non débloquée"}
+            unlock_result = self.unlock_voice(player_id, voice_id)
+            if not unlock_result["success"]:
+                return unlock_result
 
         if player_id not in self.player_customizations:
             self.player_customizations[player_id] = {
@@ -591,14 +653,14 @@ class CustomizationEngine:
     # ===== CUSTOMISATION AVANCÉE =====
 
     def create_custom_theme(
-        self, player_id: str, theme_data: dict[str, Any]
+        self, player_id: str, theme_name: str, theme_data: dict[str, Any]
     ) -> dict[str, Any]:
         """Crée un thème personnalisé"""
         theme_id = f"custom_{player_id}_{uuid.uuid4().hex[:8]}"
 
         custom_theme = {
             "id": theme_id,
-            "name": theme_data.get("name", "Thème Personnalisé"),
+            "name": theme_name,
             "description": theme_data.get(
                 "description", "Thème créé par l'utilisateur"
             ),
@@ -624,6 +686,116 @@ class CustomizationEngine:
             "message": "Thème personnalisé créé !",
         }
 
+    def get_custom_themes(self, player_id: str) -> list[dict[str, Any]]:
+        """Retourne les thèmes personnalisés d'un joueur"""
+        custom_themes = []
+        for theme in self.themes.values():
+            if theme.get("custom", False) and theme.get("creator") == player_id:
+                custom_themes.append(theme)
+        return custom_themes
+
+    def reset_player_customization(self, player_id: str) -> dict[str, Any]:
+        """Réinitialise la customisation d'un joueur"""
+        if player_id in self.player_customizations:
+            self.player_customizations[player_id] = {
+                "unlocked_themes": [self.default_theme],
+                "unlocked_avatars": [self.default_avatar],
+                "unlocked_skins": ["terminal_basic"],
+                "unlocked_voices": [self.default_voice],
+                "current_theme": self.default_theme,
+                "current_avatar": self.default_avatar,
+                "current_skin": "terminal_basic",
+                "current_voice": self.default_voice,
+            }
+            self.save_customization_data()
+            return {"success": True, "message": "Customisation réinitialisée !"}
+        return {"success": False, "error": "Joueur introuvable"}
+
+    def get_unlocked_items(self, player_id: str) -> dict[str, list[dict[str, Any]]]:
+        """Retourne tous les objets débloqués d'un joueur"""
+        if player_id not in self.player_customizations:
+            return {"themes": [], "avatars": [], "skins": [], "voices": []}
+
+        customization = self.player_customizations[player_id]
+
+        return {
+            "themes": [
+                self.themes[t]
+                for t in customization.get("unlocked_themes", [])
+                if t in self.themes
+            ],
+            "avatars": [
+                self.avatars[a]
+                for a in customization.get("unlocked_avatars", [])
+                if a in self.avatars
+            ],
+            "skins": [
+                self.skins[s]
+                for s in customization.get("unlocked_skins", [])
+                if s in self.skins
+            ],
+            "voices": [
+                self.voice_profiles[v]
+                for v in customization.get("unlocked_voices", [])
+                if v in self.voice_profiles
+            ],
+        }
+
+    def export_customization(self, player_id: str) -> dict[str, Any]:
+        """Exporte la customisation d'un joueur"""
+        customization = self.get_player_customization(player_id)
+        return {
+            "success": True,
+            "player_id": player_id,
+            "customization": customization,
+            "exported_at": datetime.now().isoformat(),
+        }
+
+    def import_customization(
+        self, player_id: str, import_data: dict[str, Any]
+    ) -> dict[str, Any]:
+        """Importe une customisation pour un joueur"""
+        try:
+            if "customization" not in import_data:
+                return {"success": False, "error": "Données d'import invalides"}
+
+            # Appliquer la customisation importée
+            self.player_customizations[player_id] = {
+                "unlocked_themes": [
+                    t["id"]
+                    for t in import_data["customization"].get("unlocked_themes", [])
+                ],
+                "unlocked_avatars": [
+                    a["id"]
+                    for a in import_data["customization"].get("unlocked_avatars", [])
+                ],
+                "unlocked_skins": [
+                    s["id"]
+                    for s in import_data["customization"].get("unlocked_skins", [])
+                ],
+                "unlocked_voices": [
+                    v["id"]
+                    for v in import_data["customization"].get("unlocked_voices", [])
+                ],
+                "current_theme": import_data["customization"]
+                .get("current_theme", {})
+                .get("id", self.default_theme),
+                "current_avatar": import_data["customization"]
+                .get("current_avatar", {})
+                .get("id", self.default_avatar),
+                "current_skin": import_data["customization"]
+                .get("current_skin", {})
+                .get("id", "terminal_basic"),
+                "current_voice": import_data["customization"]
+                .get("current_voice", {})
+                .get("id", self.default_voice),
+            }
+
+            self.save_customization_data()
+            return {"success": True, "message": "Customisation importée !"}
+        except Exception as e:
+            return {"success": False, "error": f"Erreur d'import: {str(e)}"}
+
     def get_player_customization(self, player_id: str) -> dict[str, Any]:
         """Retourne la customisation complète d'un joueur"""
         if player_id not in self.player_customizations:
@@ -644,6 +816,10 @@ class CustomizationEngine:
 
         return {
             "player_id": player_id,
+            "theme": self.themes.get(customization["current_theme"], {}),
+            "avatar": self.avatars.get(customization["current_avatar"], {}),
+            "skin": self.skins.get(customization["current_skin"], {}),
+            "voice": self.voice_profiles.get(customization["current_voice"], {}),
             "current_theme": self.themes.get(customization["current_theme"], {}),
             "current_avatar": self.avatars.get(customization["current_avatar"], {}),
             "current_skin": self.skins.get(customization["current_skin"], {}),

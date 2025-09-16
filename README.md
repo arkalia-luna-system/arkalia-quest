@@ -131,10 +131,10 @@ venv\Scripts\activate     # Windows
 pip install -r requirements.txt
 
 
-# Lancer l'application
+# Lancer l'application (mode développement recommandé)
 
 
-python app.py
+python -m flask run --host=0.0.0.0 --port=5001
 
 
 ```text
@@ -227,7 +227,7 @@ graph LR
 
 | Niveau | Fonctionnalité | Description | Statut |
 |--------|----------------|-------------|---------|
-| **🛡️ Protection** | Rate Limiting | 100 req/minute par IP | ✅ Actif |
+| **🛡️ Protection** | Rate Limiting | Tolérant pour l'UX (désactivé en dev) | ✅ Configurable |
 | **🔍 Validation** | Input Sanitization | Protection contre les injections | ✅ Actif |
 | **📊 Monitoring** | Security Logging | Logs structurés en temps réel | ✅ Actif |
 | **🚫 Blocage** | IP Blocking | Blocage automatique des menaces | ✅ Actif |
@@ -328,6 +328,52 @@ graph TB
 
 
 ---
+
+## 🆕 Nouveautés Récentes (v4.0.0)
+
+- Terminal connecté au backend via `POST /api/terminal/command` (gestion par `CommandHandlerV2`).
+- Popups systématiquement closables (bouton X, clic overlay, touche Escape) via `static/js/popup-manager.js`.
+- Masquage automatique des stats à zéro + placeholders motivants (`static/js/smart-empty-states.js` + `static/css/smart-empty-states.css`).
+- Système de récompenses visuelles et sonores (`static/js/reward-feedback-system.js`) pour level-up, badges, missions et XP.
+- Zones du monde interactives avec actions jouables (hack, minage, furtif, puzzle quantique) dans `static/js/world-interactions.js`.
+- Responsive consolidé: `static/css/arkalia-responsive.css` remplace `static/css/responsive.css`.
+- Nettoyage de doublons: suppression de `static/js/instant-feedback-system.js`, `engines/luna_ai.py`, `engines/luna_ai_v2.py`, `utils/luna_ai_v2.py`.
+- Démarrage dev clarifié: privilégier `python -m flask run`.
+
+### API Terminal
+
+Endpoint: `POST /api/terminal/command`
+
+Payload:
+
+```json
+{ "command": "aide" }
+```
+
+Réponse (succès):
+
+```json
+{
+  "success": true,
+  "message": "...",
+  "data": { "réussite": true, "luna_emotion": "..." },
+  "command": "aide"
+}
+```
+
+Réponse (commande inconnue, avec suggestions):
+
+```json
+{
+  "success": false,
+  "error": "❓ Commande 'xyz' non reconnue.\n\n💡 Suggestions : ...",
+  "command": "xyz"
+}
+```
+
+Notes:
+- Les commandes connues mais non implémentées renvoient un message "🚧 en développement".
+- Les suggestions sont générées côté backend (similarité + préfixe).
 
 
 ## 🧪 **Tests et Qualité**

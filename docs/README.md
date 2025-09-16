@@ -30,6 +30,20 @@ Bienvenue dans la documentation d'Arkalia Quest ! Ce projet combine apprentissag
 
 - [Installation](../../README.md) - Vue d'ensemble du projet
 
+> Démarrage dev recommandé:
+
+```bash
+python -m flask run --host=0.0.0.0 --port=5001
+```
+
+### 🆕 Nouveautés (v4.0.0)
+
+- API Terminal: `POST /api/terminal/command` (voir README racine pour payload/réponses)
+- Popups closables universellement (X, overlay, Escape)
+- Smart Empty States (stats à zéro masquées + messages motivants)
+- Reward Feedback System (confetti, sons, toasts)
+- Monde interactif (actions jouables par zone)
+
 
 
 ### **🏗️ Architecture**

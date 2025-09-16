@@ -19,6 +19,7 @@ Les popups du jeu s'ouvraient automatiquement et se chevauchaient, créant une e
 - ✅ **Auto-close** : Fermeture automatique configurable
 - ✅ **Responsive** : Adaptation mobile/desktop
 - ✅ **Accessibilité** : Support clavier (Escape)
+- ✅ **Fermeture universelle** : Tous les popups sont closables par défaut (bouton X, clic sur l’overlay, touche Escape)
 
 ### 2. **PopupCoordinator** (`static/js/popup-coordinator.js`)
 - **Coordinateur intelligent** qui désactive les popups automatiques
@@ -76,6 +77,8 @@ popupManager.replaceMissionCompletion("Mission Alpha", {xp: 100, coins: 50});
 6. **Animation** : Transition fluide
 7. **Fermeture** : Auto-close ou manuelle
 8. **Nettoyage** : Suppression et traitement de la queue
+
+> Remarque: les systèmes automatiques (messages LUNA, missions, exploration) sont coordonnés par `popup-coordinator.js` et redirigés vers le `PopupManager` pour garantir une UX propre et sans chevauchement.
 
 ## 📊 Priorités Définies
 

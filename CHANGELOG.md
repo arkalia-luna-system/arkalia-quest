@@ -6,6 +6,26 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 et ce projet adhère à [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [3.3.0] - 2025-09-15
+## [4.0.0] - 2025-09-16
+
+### Ajouté
+- 🔌 API Terminal: `POST /api/terminal/command` (via `CommandHandlerV2`) avec suggestions intelligentes et messages "en développement" pour commandes WIP.
+- 🎭 Popups closables universellement (X, overlay, Escape) via `popup-manager.js` + coordination `popup-coordinator.js`.
+- 🧠 Smart Empty States: masquage des stats à zéro + placeholders motivants (`smart-empty-states.js` + CSS).
+- 🎉 Reward Feedback System: effets visuels/sonores pour level-up, badges, missions, XP.
+- 🌍 Monde interactif: actions jouables par zone (hack, minage, furtif, puzzle quantique) dans `world-interactions.js`.
+
+### Modifié
+- 📱 Responsive consolidé: remplacement de `static/css/responsive.css` par `static/css/arkalia-responsive.css` dans tous les templates.
+- 🚀 Démarrage dev clarifié: utiliser `python -m flask run`.
+
+### Supprimé
+- 🧹 Fichiers redondants: `static/js/instant-feedback-system.js`, `engines/luna_ai.py`, `engines/luna_ai_v2.py`, `utils/luna_ai_v2.py`.
+
+### Corrigé
+- 🐛 Sécurité: validation d’IP et robustesse de l’endpoint terminal.
+- 🧼 Docs: alignement README/solutions avec l’implémentation actuelle.
+
 
 ### Ajouté
 - 👁️ Visual Guidance System (guidage visuel pour débutants)

@@ -1,3 +1,17 @@
+// DÉLÉGATION: redirige vers universal-notifications s'il est présent
+(function () {
+    function delegate(type, title, content, options) {
+        if (window.universalNotifications) {
+            return window.universalNotifications.show({ type, title, content, ...(options || {}) });
+        }
+    }
+    window.universalFeedback = {
+        success: (t, c, o) => delegate('success', t, c, o),
+        warning: (t, c, o) => delegate('warning', t, c, o),
+        error: (t, c, o) => delegate('error', t, c, o),
+        info: (t, c, o) => delegate('info', t, c, o)
+    };
+})();
 /* ===== ARKALIA QUEST - UNIVERSAL FEEDBACK SYSTEM ===== */
 /* Système unifié pour tous les feedbacks visuels, auditifs et haptiques */
 
@@ -622,7 +636,7 @@ class UniversalFeedback {
     updateSettings(newSettings) {
         this.settings = { ...this.settings, ...newSettings };
         localStorage.setItem('arkalia_feedback_settings', JSON.stringify(this.settings));
-        
+
         // Reconfigurer l'audio si nécessaire
         if (newSettings.audioFeedback && !this.audioContext) {
             this.setupAudioContext();
@@ -692,13 +706,13 @@ class UniversalFeedback {
 // Initialiser le système universel
 document.addEventListener('DOMContentLoaded', () => {
     window.universalFeedback = new UniversalFeedback();
-    
+
     // Intégrer avec les autres systèmes
     setTimeout(() => {
         window.universalFeedback.integrateWithNotifications();
         window.universalFeedback.integrateWithEmptyStates();
     }, 1000);
-    
+
     console.log('⚡ Universal Feedback System prêt');
 });
 

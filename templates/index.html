@@ -36,7 +36,8 @@
     <!-- Remplace 10+ fichiers redondants par 3 systèmes unifiés -->
     <script src="{{ url_for('static', filename='js/universal-notifications.js') }}?v=4.0.0"></script>
     <script src="{{ url_for('static', filename='js/universal-empty-states.js') }}?v=4.0.0"></script>
-    <script src="{{ url_for('static', filename='js/universal-feedback.js') }}?v=4.0.0"></script>
+    <!-- Notifications unifiées: universal-notifications.js conservé, universal-feedback redondant -->
+    <!-- <script src="{{ url_for('static', filename='js/universal-feedback.js') }}?v=4.0.0"></script> -->
     <script src="{{ url_for('static', filename='js/smart-empty-states.js') }}?v=4.0.0"></script>
     <script src="{{ url_for('static', filename='js/reward-feedback-system.js') }}?v=4.0.0"></script>
     <script src="{{ url_for('static', filename='js/ui-perfection.js') }}?v=3.3.1"></script>
@@ -658,7 +659,7 @@
                 '{{ url_for("static", filename="js/advanced-player-profiles.js") }}?v=3.3.1',
                 '{{ url_for("static", filename="js/adaptive-ui-manager.js") }}?v=3.3.1',
                 '{{ url_for("static", filename="js/interactive-zones-system.js") }}?v=3.3.1',
-                '{{ url_for("static", filename="js/progression-feedback.js") }}',
+                // '{{ url_for("static", filename="js/progression-feedback.js") }}',
                 '{{ url_for("static", filename="js/casual-system.js") }}',
                 '{{ url_for("static", filename="js/system-integrator.js") }}'
             ];

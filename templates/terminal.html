@@ -627,6 +627,30 @@
             margin-right: 10px;
         }
 
+        .command-line {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 4px;
+            font-family: 'Share Tech Mono', monospace;
+            border-left: 3px solid var(--violet-lunaire);
+        }
+
+        .command-text {
+            color: var(--argent-holographique);
+            font-weight: 500;
+        }
+
+        .error-message {
+            background: rgba(255, 0, 0, 0.1);
+            border-left: 4px solid #ff4444;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            font-style: italic;
+            color: #ff6666;
+        }
+
         @keyframes messageSlideIn {
             from {
                 opacity: 0;
@@ -971,9 +995,49 @@
             output.scrollTop = output.scrollHeight;
         }
 
-        function processCommand(command) {
+        async function processCommand(command) {
             const cmd = command.toLowerCase().trim();
 
+            // Afficher la commande dans le terminal
+            addMessage(`
+                <div class="command-line">
+                    <span class="terminal-prompt">luna@arkalia:~$</span>
+                    <span class="command-text">${command}</span>
+                </div>
+            `);
+
+            // Exécuter la commande via l'API
+            try {
+                const response = await fetch('/api/terminal/command', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ command: cmd })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    addMessage(`
+                        <div class="luna-message">
+                            ${result.message}
+                        </div>
+                    `);
+                } else {
+                    addMessage(`
+                        <div class="error-message">
+                            ❌ Erreur: ${result.error}
+                        </div>
+                    `);
+                }
+            } catch (error) {
+                // Fallback vers les commandes statiques si l'API échoue
+                processStaticCommand(cmd);
+            }
+        }
+
+        function processStaticCommand(cmd) {
             // Simuler le traitement de la commande
             setTimeout(() => {
                 if (cmd === 'aide' || cmd === 'help' || cmd === 'commands' || cmd === 'liste' || cmd === 'menu') {

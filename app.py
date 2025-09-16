@@ -654,6 +654,60 @@ def get_profil():
     return jsonify(db_manager.load_profile("main_user"))
 
 
+@app.route("/api/terminal/command", methods=["POST"])
+def execute_terminal_command():
+    """Exécute une commande du terminal"""
+    try:
+        data = request.get_json()
+        command = data.get("command", "").lower().strip()
+
+        if not command:
+            return jsonify({"error": "Commande vide"}), 400
+
+        # Charger le profil
+        profile = db_manager.load_profile("main_user")
+
+        # Exécuter la commande via le gestionnaire de commandes
+        from core.command_handler_v2 import CommandHandlerV2
+
+        handler = CommandHandlerV2()
+
+        result = handler.handle_command(command, profile)
+
+        if result.get("réussite", False):
+            return jsonify(
+                {
+                    "success": True,
+                    "message": result.get("message", "Commande exécutée"),
+                    "data": result,
+                    "command": command,
+                }
+            )
+        else:
+            return (
+                jsonify(
+                    {
+                        "success": False,
+                        "error": result.get("message", "Erreur inconnue"),
+                        "command": command,
+                    }
+                ),
+                400,
+            )
+
+    except Exception as e:
+        return (
+            jsonify(
+                {
+                    "success": False,
+                    "error": f"Erreur serveur: {str(e)}",
+                    "command": command if "command" in locals() else "unknown",
+                }
+            ),
+            500,
+        )
+
+
 @app.route("/data/missions/<mission_name>")
 def get_mission(mission_name):
     mission = db_manager.load_mission(mission_name)

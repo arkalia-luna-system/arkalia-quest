@@ -950,7 +950,7 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
 💡 UTILISATION :
 Tape le nom du jeu directement :
 • simple_hack
-• sequence_game  
+• sequence_game
 • typing_challenge
 
 🌟 +15 points pour avoir exploré les jeux !""",
@@ -988,6 +988,7 @@ Continue à explorer pour monter encore plus haut !
 🌟 +100 points pour cette montée de niveau !""",
             "score_gagne": 100,
             "badge": "Level Up Master",
+            "niveau_gagne": new_level,
             "profile_updated": True,
         }
 
@@ -1022,6 +1023,7 @@ pour débloquer plus de badges secrets !
 🌟 +50 points pour ce badge !""",
             "score_gagne": 50,
             "badge": badge_name,
+            "instant_rewards": {"badge": badge_name, "xp": 50},
             "profile_updated": True,
         }
 
@@ -1129,7 +1131,7 @@ Toutes les fonctionnalités sont disponibles !
 🌟 +5 points pour cette analyse !""".format(
                 score=profile.get("score", 0),
                 level=profile.get("level", 1),
-                badges_count=len(profile.get("badges", []))
+                badges_count=len(profile.get("badges", [])),
             ),
             "score_gagne": 5,
             "profile_updated": True,

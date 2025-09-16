@@ -1,6 +1,7 @@
 /**
- * Système d'animations de récompenses
- * Ajoute des effets visuels spectaculaires pour les badges, XP, et progression
+ * LEGACY (DEPRECATED)
+ * Remplacé par reward-feedback-system.js (événements: levelUp, badgeEarned,
+ * missionComplete, xpGained). Conservé pour compatibilité.
  */
 
 class RewardAnimations {

@@ -304,6 +304,23 @@ COMMANDES_AUTORISEES = {
     "decode_portal": "🚪 Décode un portail mystérieux",
     "hacker_coffre": "💎 Hack un coffre-fort numérique",
     "boss_final": "👑 Affronte le boss final",
+    # 🎮 COMMANDES DE JEUX
+    "games": "🎮 Liste les mini-jeux disponibles",
+    "play_game": "🎮 Lance un mini-jeu",
+    "simple_hack": "💻 Jeu de hack binaire",
+    "sequence_game": "🧠 Jeu de mémoire de séquences",
+    "typing_challenge": "⌨️ Défi de frappe rapide",
+    # 🎨 COMMANDES DE THÈMES
+    "themes": "🎨 Liste tous les thèmes",
+    "theme": "🎨 Change de thème",
+    "matrix_mode": "🔮 Active le thème Matrix",
+    "cyberpunk_mode": "🌃 Active le thème Cyberpunk",
+    # 🌟 COMMANDES DE PROGRESSION
+    "level_up": "🌟 Simulation de montée de niveau",
+    "badge_unlock": "🏆 Simulation de déblocage de badge",
+    # 🔧 COMMANDES DE DEBUG
+    "check_objects": "🔍 Vérifie les objets disponibles",
+    "debug_mode": "🐛 Informations système de debug",
     # Commandes utilitaires
     "badges": "🏆 Affiche tes badges gagnés",
     "avatars": "👤 Affiche les avatars disponibles",

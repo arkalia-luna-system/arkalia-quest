@@ -84,6 +84,15 @@ class GameEngine {
             'badges': () => this.showBadges(),
             'games': () => this.showGames(),
             'play_game': () => this.playGame(args[0]),
+            'simple_hack': () => this.playGame('simple_hack'),
+            'sequence_game': () => this.playGame('sequence_game'),
+            'typing_challenge': () => this.playGame('typing_challenge'),
+            'level_up': () => this.simulateLevelUp(),
+            'badge_unlock': () => this.simulateBadgeUnlock(),
+            'matrix_mode': () => this.activateMatrixMode(),
+            'cyberpunk_mode': () => this.activateCyberpunkMode(),
+            'check_objects': () => this.checkObjects(),
+            'debug_mode': () => this.showDebugInfo(),
             'story': () => this.showStory(),
             'prologue': () => this.startPrologue(),
             'acte_1': () => this.startAct1(),
@@ -556,7 +565,10 @@ ${this.gameState.availableGames.join(', ')}
             'code_debug_1': 2,
             'security_quiz_1': 3,
             'hack_simulator_1': 5,
-            'ai_challenge_1': 10
+            'ai_challenge_1': 10,
+            'simple_hack': 1,
+            'sequence_game': 1,
+            'typing_challenge': 1
         };
         return requirements[gameId] || 1;
     }
@@ -566,6 +578,134 @@ ${this.gameState.availableGames.join(', ')}
         if (scoreElement) {
             scoreElement.textContent = score;
         }
+    }
+
+    // NOUVELLES MÉTHODES POUR LES COMMANDES AJOUTÉES
+    simulateLevelUp() {
+        this.player.level++;
+        this.player.xp = 0;
+        this.player.xpToNext = Math.floor(this.player.xpToNext * 1.5);
+        this.player.score += 100;
+
+        this.showLevelUpNotification();
+        this.showSuccess(`Niveau ${this.player.level} atteint ! +100 points`);
+        this.updateUI();
+    }
+
+    simulateBadgeUnlock() {
+        const badgeId = 'simulation_badge_' + Date.now();
+        this.player.badges.push(badgeId);
+        this.player.score += 50;
+
+        this.showBadgeEarned({ id: badgeId, name: 'Badge de Simulation' });
+        this.showSuccess('Nouveau badge débloqué ! +50 points');
+        this.updateUI();
+    }
+
+    activateMatrixMode() {
+        document.body.classList.add('matrix-theme');
+        this.showSuccess('Mode Matrix activé ! Thème vert appliqué');
+
+        // Effet visuel Matrix
+        this.createMatrixEffect();
+    }
+
+    activateCyberpunkMode() {
+        document.body.classList.add('cyberpunk-theme');
+        this.showSuccess('Mode Cyberpunk activé ! Thème néon appliqué');
+
+        // Effet visuel Cyberpunk
+        this.createCyberpunkEffect();
+    }
+
+    checkObjects() {
+        const objects = [
+            'Terminal Arkalia',
+            'Interface LUNA',
+            'Système de badges',
+            'Mini-jeux éducatifs',
+            'Thèmes personnalisés',
+            'Système de progression'
+        ];
+
+        let message = '🔍 OBJETS DISPONIBLES :\n\n';
+        objects.forEach(obj => {
+            message += `• ${obj} ✅\n`;
+        });
+        message += '\n🎯 Tous les systèmes sont opérationnels !';
+
+        this.showTerminalMessage(message, 'info');
+    }
+
+    showDebugInfo() {
+        const debugInfo = `🐛 MODE DEBUG ACTIVÉ
+
+🔍 INFORMATIONS SYSTÈME :
+• Version : Arkalia Quest v3.3.0
+• LUNA : v2.1.0
+• Terminal : v3.0.0
+• Mini-jeux : v1.5.0
+
+📊 STATISTIQUES :
+• Score actuel : ${this.player.score}
+• Niveau : ${this.player.level}
+• Badges : ${this.player.badges.length}
+• Jeux joués : ${this.player.stats.gamesPlayed}
+
+💡 MODE DÉVELOPPEUR :
+Toutes les fonctionnalités sont disponibles !`;
+
+        this.showTerminalMessage(debugInfo, 'info');
+    }
+
+    createMatrixEffect() {
+        // Créer des particules Matrix
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'matrix-particle';
+            particle.style.cssText = `
+                position: fixed;
+                width: 2px;
+                height: 2px;
+                background: #00ff00;
+                pointer-events: none;
+                z-index: 1000;
+                left: ${Math.random() * 100}%;
+                top: ${Math.random() * 100}%;
+                animation: matrixFloat 3s ease-out forwards;
+            `;
+            document.body.appendChild(particle);
+
+            setTimeout(() => {
+                if (particle.parentNode) {
+                    particle.parentNode.removeChild(particle);
+                }
+            }, 3000);
+        }
+    }
+
+    createCyberpunkEffect() {
+        // Créer des effets néon
+        const neon = document.createElement('div');
+        neon.className = 'cyberpunk-neon';
+        neon.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 0, 255, 0.1), rgba(0, 255, 255, 0.1));
+            pointer-events: none;
+            z-index: 1000;
+            animation: cyberpunkGlow 2s ease-out forwards;
+        `;
+        document.body.appendChild(neon);
+
+        setTimeout(() => {
+            if (neon.parentNode) {
+                neon.parentNode.removeChild(neon);
+            }
+        }, 2000);
     }
 }
 

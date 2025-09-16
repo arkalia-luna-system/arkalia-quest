@@ -97,48 +97,22 @@ class CommandHandlerV2:
     ) -> dict[str, Any]:
         """Gère une commande inconnue avec émotion LUNA et suggestions intelligentes"""
 
-        # Commandes non implémentées mais connues
-        non_implemented_commands = {
-            "simple_hack": "Jeu de hack binaire",
-            "play_game": "Lancer un mini-jeu",
-            "game_stats": "Statistiques des jeux",
-            "daily_challenges": "Défis quotidiens",
-            "matrix_mode": "Thème Matrix",
-            "cyberpunk_mode": "Thème Cyberpunk",
-            "level_up": "Montée de niveau",
-            "badge_unlock": "Déblocage de badge",
+        # Suggestions intelligentes pour commandes inconnues
+        suggestions = self._get_command_suggestions(command)
+        suggestion_text = ""
+        if suggestions:
+            suggestion_text = f"\n\n💡 Suggestions :\n{chr(10).join([f'• {s}' for s in suggestions[:3]])}"
+
+        result = {
+            "réussite": False,
+            "ascii_art": "❓",
+            "message": f"❓ Commande '{command}' non reconnue.{suggestion_text}\n\n🔍 Tape 'aide' pour voir toutes les commandes disponibles !",
+            "score_gagne": 0,
+            "profile_updated": False,
         }
 
-        # Vérifier si c'est une commande connue mais non implémentée
-        if command in non_implemented_commands:
-            result = {
-                "réussite": True,
-                "ascii_art": "🚧",
-                "message": f"🚧 Commande '{command}' en développement !\n\n📝 {non_implemented_commands[command]}\n\n⏳ Cette fonctionnalité arrive bientôt ! En attendant, explore les autres commandes disponibles.",
-                "score_gagne": 0,
-                "profile_updated": False,
-            }
-        else:
-            # Suggestions intelligentes
-            suggestions = self._get_command_suggestions(command)
-            suggestion_text = ""
-            if suggestions:
-                suggestion_text = f"\n\n💡 Suggestions :\n{chr(10).join([f'• {s}' for s in suggestions[:3]])}"
-
-            result = {
-                "réussite": False,
-                "ascii_art": "❓",
-                "message": f"❓ Commande '{command}' non reconnue.{suggestion_text}\n\n🔍 Tape 'aide' pour voir toutes les commandes disponibles !",
-                "score_gagne": 0,
-                "profile_updated": False,
-            }
-
         # LUNA réagit selon le type de commande
-        emotion_type = (
-            "unknown_command"
-            if command not in non_implemented_commands
-            else "development_command"
-        )
+        emotion_type = "unknown_command"
         luna_emotion_data = self.luna_emotions.analyze_action(
             emotion_type, result, profile
         )

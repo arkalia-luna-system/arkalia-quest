@@ -32,7 +32,7 @@ try:
     from core.technical_tutorials import technical_tutorials
     from core.tutorial_manager import tutorial_manager
     from core.websocket_manager import websocket_manager
-    from engines.luna_ai_v3 import LunaAIV3
+    # from engines.luna_ai_v3 import LunaAIV3  # Module temporairement désactivé
 
     print("✅ All core modules imported successfully")
 except Exception as e:
@@ -189,9 +189,16 @@ def forbidden(error):
 
 
 # Instances des modules
-gamification = GamificationEngine()
-command_handler = CommandHandler()
-db_manager = DatabaseManager()
+gamification = GamificationEngine() if GamificationEngine else None
+command_handler = CommandHandler() if CommandHandler else None
+db_manager = DatabaseManager() if DatabaseManager else None
+
+# Fonction de remplacement pour les décorateurs de performance
+def monitor_performance(name):
+    """Décorateur de remplacement pour le monitoring de performance"""
+    def decorator(func):
+        return func
+    return decorator
 
 # Variables de disponibilité des modules
 DATABASE_AVAILABLE = True
@@ -2078,7 +2085,7 @@ if __name__ == "__main__":
 
 
 @app.route("/api/performance/stats", methods=["GET"])
-@performance_optimizer.monitor_performance("performance_stats")
+# @performance_optimizer.monitor_performance("performance_stats")  # Désactivé temporairement
 def api_performance_stats():
     """Retourne les statistiques de performance avec cache"""
     try:
@@ -2510,7 +2517,11 @@ def api_update_interaction_preferences():
 
 # Initialisation des nouveaux moteurs
 daily_challenges_engine = DailyChallengesEngine()
-luna_ai_v3 = LunaAIV3()
+# LunaAIV3 peut être indisponible en dev/CI → protéger l'instanciation
+try:
+    luna_ai_v3 = LunaAIV3()  # type: ignore[name-defined]
+except Exception:
+    luna_ai_v3 = None
 
 # ===== ROUTES POUR LES DÉFIS QUOTIDIENS =====
 

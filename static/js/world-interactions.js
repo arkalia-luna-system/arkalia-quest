@@ -679,6 +679,230 @@ class WorldInteractions {
             zoneElement.style.boxShadow = '';
         }, 1000);
     }
+
+    // Nouvelles actions jouables pour les zones
+    exploreZone(zoneId) {
+        const zoneData = this.zones[zoneId];
+        if (!zoneData) return;
+
+        if (zoneData.status === 'locked') {
+            this.showNotification('Cette zone est verrouillée. Progressez ailleurs pour la débloquer.', 'error');
+            return;
+        }
+
+        this.launchZoneAction(zoneId, zoneData);
+    }
+
+    launchZoneAction(zoneId, zoneData) {
+        const actions = {
+            terminal: () => this.launchTerminalHack(),
+            cyber_city: () => this.launchDataMining(),
+            data_center: () => this.launchServerHack(),
+            underground: () => this.launchStealthMission(),
+            training: () => this.launchTrainingChallenge(),
+            quantum: () => this.launchQuantumPuzzle()
+        };
+
+        if (actions[zoneId]) {
+            actions[zoneId]();
+        }
+    }
+
+    launchTerminalHack() {
+        this.showActionModal('💻 HACK TERMINAL', 'Décodez le système de sécurité', () => {
+            this.simulateHackSequence();
+        });
+    }
+
+    launchDataMining() {
+        this.showActionModal('🏙️ MINAGE DE DONNÉES', 'Extrayez des informations sensibles', () => {
+            this.simulateDataMining();
+        });
+    }
+
+    launchServerHack() {
+        this.showActionModal('💾 HACK SERVEUR', 'Infiltrer le centre de données', () => {
+            this.simulateServerHack();
+        });
+    }
+
+    launchStealthMission() {
+        this.showActionModal('🚇 MISSION FURTIVE', 'Naviguez dans les bas-fonds', () => {
+            this.simulateStealthMission();
+        });
+    }
+
+    launchTrainingChallenge() {
+        this.showActionModal('💡 DÉFI D\'ENTRAÎNEMENT', 'Perfectionnez vos compétences', () => {
+            this.simulateTrainingChallenge();
+        });
+    }
+
+    launchQuantumPuzzle() {
+        this.showActionModal('⚛️ PUZZLE QUANTIQUE', 'Résolvez l\'énigme quantique', () => {
+            this.simulateQuantumPuzzle();
+        });
+    }
+
+    showActionModal(title, description, onStart) {
+        const modal = document.createElement('div');
+        modal.className = 'zone-action-modal';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <h3>${title}</h3>
+                <p>${description}</p>
+                <div class="modal-actions">
+                    <button class="btn-start">🚀 COMMENCER</button>
+                    <button class="btn-cancel">❌ ANNULER</button>
+                </div>
+            </div>
+        `;
+
+        // Styles pour le modal
+        modal.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        `;
+
+        const content = modal.querySelector('.modal-content');
+        content.style.cssText = `
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(30, 30, 40, 0.95) 100%);
+            border: 2px solid var(--luna-violet, #8b5cf6);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            color: white;
+            max-width: 400px;
+            width: 90%;
+        `;
+
+        const actions = modal.querySelector('.modal-actions');
+        actions.style.cssText = `
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        `;
+
+        const buttons = modal.querySelectorAll('button');
+        buttons.forEach(btn => {
+            btn.style.cssText = `
+                padding: 10px 20px;
+                border: none;
+                border-radius: 10px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            `;
+        });
+
+        const startBtn = modal.querySelector('.btn-start');
+        startBtn.style.cssText += `
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            color: white;
+        `;
+
+        const cancelBtn = modal.querySelector('.btn-cancel');
+        cancelBtn.style.cssText += `
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+            color: white;
+        `;
+
+        document.body.appendChild(modal);
+
+        // Événements
+        startBtn.addEventListener('click', () => {
+            modal.remove();
+            onStart();
+        });
+
+        cancelBtn.addEventListener('click', () => {
+            modal.remove();
+        });
+
+        // Fermer en cliquant sur l'overlay
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.remove();
+            }
+        });
+    }
+
+    simulateHackSequence() {
+        this.showNotification('🔐 Séquence de hack en cours...', 'info');
+
+        setTimeout(() => {
+            this.showNotification('✅ Système hacké avec succès !', 'success');
+            this.triggerRewardAnimation('Hack réussi ! +50 XP');
+            this.addXP(50);
+        }, 2000);
+    }
+
+    simulateDataMining() {
+        this.showNotification('📊 Extraction de données...', 'info');
+
+        setTimeout(() => {
+            this.showNotification('💎 Données sensibles récupérées !', 'success');
+            this.triggerRewardAnimation('Données extraites ! +75 XP');
+            this.addXP(75);
+        }, 2500);
+    }
+
+    simulateServerHack() {
+        this.showNotification('🖥️ Infiltration du serveur...', 'info');
+
+        setTimeout(() => {
+            this.showNotification('🎯 Serveur compromis !', 'success');
+            this.triggerRewardAnimation('Serveur hacké ! +100 XP');
+            this.addXP(100);
+        }, 3000);
+    }
+
+    simulateStealthMission() {
+        this.showNotification('🥷 Mission furtive en cours...', 'info');
+
+        setTimeout(() => {
+            this.showNotification('👻 Mission accomplie sans être détecté !', 'success');
+            this.triggerRewardAnimation('Mission furtive réussie ! +125 XP');
+            this.addXP(125);
+        }, 3500);
+    }
+
+    simulateTrainingChallenge() {
+        this.showNotification('💪 Défi d\'entraînement...', 'info');
+
+        setTimeout(() => {
+            this.showNotification('🏆 Compétences améliorées !', 'success');
+            this.triggerRewardAnimation('Entraînement terminé ! +25 XP');
+            this.addXP(25);
+        }, 1500);
+    }
+
+    simulateQuantumPuzzle() {
+        this.showNotification('⚛️ Résolution du puzzle quantique...', 'info');
+
+        setTimeout(() => {
+            this.showNotification('🌟 Puzzle quantique résolu !', 'success');
+            this.triggerRewardAnimation('Puzzle résolu ! +200 XP');
+            this.addXP(200);
+        }, 4000);
+    }
+
+    addXP(amount) {
+        // Déclencher l'événement XP
+        const event = new CustomEvent('xpGained', {
+            detail: { amount: amount }
+        });
+        document.dispatchEvent(event);
+    }
 }
 
 // Initialiser le système

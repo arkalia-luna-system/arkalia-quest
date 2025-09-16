@@ -41,7 +41,6 @@
 
     <!-- CSS critiques chargés immédiatement -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}?v=3.1.1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}?v=3.1.1">
 
     <!-- CSS non-critiques chargés de manière différée -->
     <link rel="preload" href="{{ url_for('static', filename='css/interface-improvements.css') }}?v=3.1.1" as="style"
@@ -654,7 +653,6 @@
                 '{{ url_for("static", filename="js/adaptive-guidance.js") }}?v=3.3.1',
                 '{{ url_for("static", filename="js/advanced-player-profiles.js") }}?v=3.3.1',
                 '{{ url_for("static", filename="js/adaptive-ui-manager.js") }}?v=3.3.1',
-                '{{ url_for("static", filename="js/instant-feedback-system.js") }}?v=3.3.1',
                 '{{ url_for("static", filename="js/interactive-zones-system.js") }}?v=3.3.1',
                 '{{ url_for("static", filename="js/progression-feedback.js") }}',
                 '{{ url_for("static", filename="js/casual-system.js") }}',

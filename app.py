@@ -111,11 +111,7 @@ def before_request():
         if security_enhanced.is_ip_blocked(client_ip):
             return jsonify({"error": "Accès refusé"}), 403
 
-    # Vérifier le rate limiting (si le module est disponible)
-    if security_enhanced and hasattr(security_enhanced, "check_rate_limit"):
-        allowed, message = security_enhanced.check_rate_limit(client_ip)
-        if not allowed:
-            return jsonify({"error": message}), 429
+    # Rate limiting désactivé pour une meilleure expérience de jeu
 
     # Valider les entrées (sauf pour les routes des jeux éducatifs)
     if request.method in ["POST", "PUT", "PATCH"]:
@@ -203,10 +199,7 @@ WEBSOCKET_AVAILABLE = True
 TUTORIAL_AVAILABLE = True
 EDUCATIONAL_GAMES_AVAILABLE = False  # Désactivé temporairement
 
-# Rate limiting simple
-request_counts = {}
-RATE_LIMIT = 100  # 100 requêtes par minute par IP
-RATE_LIMIT_WINDOW = 60  # Fenêtre de 60 secondes
+# Rate limiting désactivé pour une meilleure expérience de jeu
 
 # Variable de temps de démarrage pour les métriques
 start_time = time.time()
@@ -717,41 +710,7 @@ def get_mission(mission_name):
         return jsonify({"erreur": f"Mission {mission_name} non trouvée"}), 404
 
 
-def check_rate_limit(ip_address):
-    """Vérifie le rate limiting pour une IP donnée"""
-    global request_counts
-    current_time = time.time()
-
-    # Nettoyer les anciennes entrées
-    request_counts = {
-        ip: (count, timestamp)
-        for ip, (count, timestamp) in request_counts.items()
-        if current_time - timestamp < RATE_LIMIT_WINDOW
-    }
-
-    if ip_address not in request_counts:
-        request_counts[ip_address] = (1, current_time)
-        return True
-
-    # Vérifier que l'entrée existe et est valide
-    entry = request_counts.get(ip_address)
-    if not entry or len(entry) != 2:
-        request_counts[ip_address] = (1, current_time)
-        return True
-
-    count, timestamp = entry
-
-    if current_time - timestamp >= RATE_LIMIT_WINDOW:
-        # Nouvelle fenêtre de temps
-        request_counts[ip_address] = (1, current_time)
-        return True
-
-    if count >= RATE_LIMIT:
-        return False
-
-    # Incrémenter le compteur
-    request_counts[ip_address] = (count + 1, timestamp)
-    return True
+# Fonction de rate limiting supprimée - désactivée pour une meilleure expérience de jeu
 
 
 @app.route("/test-commande", methods=["POST"])
@@ -767,21 +726,7 @@ def test_commande():
 
 @app.route("/commande", methods=["POST"])
 def commande():
-    # Rate limiting
-    client_ip = request.remote_addr
-    if not check_rate_limit(client_ip):
-        return (
-            jsonify(
-                {
-                    "reponse": {
-                        "réussite": False,
-                        "message": "❌ Trop de requêtes. Attendez un peu avant de réessayer.",
-                        "profile_updated": False,
-                    }
-                }
-            ),
-            429,  # Too Many Requests
-        )
+    # Rate limiting désactivé pour une meilleure expérience de jeu
 
     data = request.get_json()
 
@@ -850,6 +795,7 @@ def commande():
         )
 
     # Vérification de sécurité avancée
+    client_ip = request.remote_addr or "unknown"
     security_check = security_manager.check_input_security(cmd, client_ip)
     if not security_check["is_safe"]:
         # Bloquer l'IP si menace critique
@@ -1107,37 +1053,9 @@ def get_leaderboard():
 
 @app.route("/api/leaderboard", methods=["GET"])
 def get_gamification_leaderboard():
-    """Récupère le leaderboard de gamification avec protection anti-spam"""
+    """Récupère le leaderboard de gamification"""
     try:
-        # Protection anti-spam - vérifier le rate limiting
-        client_ip = request.remote_addr
-        current_time = time.time()
-
-        # Nettoyer les anciennes entrées
-        if client_ip in request_counts:
-            if isinstance(request_counts[client_ip], list):
-                request_counts[client_ip] = [
-                    req_time
-                    for req_time in request_counts[client_ip]
-                    if current_time - req_time < RATE_LIMIT_WINDOW
-                ]
-            else:
-                # Convertir de tuple vers liste si nécessaire
-                request_counts[client_ip] = []
-        else:
-            request_counts[client_ip] = []
-
-        # Vérifier la limite
-        if len(request_counts[client_ip]) >= RATE_LIMIT:
-            return (
-                jsonify(
-                    {"success": False, "error": "Trop de requêtes. Veuillez patienter."}
-                ),
-                429,
-            )
-
-        # Ajouter cette requête
-        request_counts[client_ip].append(current_time)
+        # Rate limiting désactivé pour une meilleure expérience de jeu
 
         # Validation des paramètres
         limit = request.args.get("limit", 10, type=int)

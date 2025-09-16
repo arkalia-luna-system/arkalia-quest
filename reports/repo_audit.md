@@ -4,7 +4,7 @@ Date: 2025-09-16
 Portée: inventaire, actifs statiques, doublons, modules Python non référencés, documentation.
 
 ### Synthèse exécutable
-- Aucun changement appliqué. Rapport de recommandations uniquement.
+- Mise à jour V4: références obsolètes corrigées, systèmes unifiés actés.
 - Volumétrie clé: beaucoup de JSON en `data/` (backups et contenus), ~50+ JS, ~35+ CSS, ~100+ Python, ~55+ HTML, ~59 Markdown. Taille totale ~41 Mo (hors venv/.git/DB et fichiers cachés macOS).
 - Problèmes principaux:
   - Fichiers macOS « dot-underscore » (`._*`) détectés en JS/CSS/Python: à supprimer en sécurité.
@@ -25,30 +25,28 @@ Portée: inventaire, actifs statiques, doublons, modules Python non référencé
 
 Observation: La volumétrie JSON masque une base code relativement propre. Les répertoires applicatifs clés sont `core/`, `engines/`, `utils/`, `templates/`, `static/`.
 
-### 2) Actifs statiques — références manquantes / nettoyage
+### 2) Actifs statiques — références manquantes / nettoyage (V4)
 
 Références manquantes relevées dans les templates (véritables manquants + faux positifs avec query string):
 
-Vrais manquants (à confirmer):
-- `static/icons/icon-16x16.png`
-- `static/icons/icon-32x32.png`
-- `static/icons/icon-192x192.png`
-- `static/images/apple-touch-icon.png`
-- `static/js/advanced-features.js`
-- `static/js/competitive-system.js`
-- `static/js/contextual-feedback.js`
-- `static/js/creative-system.js`
-- `static/js/empty-states-enhanced.js`
-- `static/js/luna-personality.js`
-- `static/js/progression-feedback.js`
-- `static/js/terminal-enhancements.js`
-- `static/js/visual-feedback-system.js`
+Vrais manquants (après consolidation):
+- Icônes PWA: à créer ou retirer si non utilisées
+  - `static/icons/icon-16x16.png`
+  - `static/icons/icon-32x32.png`
+  - `static/icons/icon-192x192.png`
+  - `static/images/apple-touch-icon.png`
+- JS legacy remplacés (ne doivent plus être inclus dans templates prod):
+  - `contextual-feedback.js` → remplacé par `universal-notifications.js` (shim OK)
+  - `progression-animations.js` → remplacé par `reward-feedback-system.js`
+  - `empty-states-enhanced.js` → remplacé par `smart-empty-states.js`
+  - `visual-feedback-system.js` → remplacé par `universal-notifications.js`
+  - `advanced-features.js`, `competitive-system.js`, `creative-system.js`, `luna-personality.js`, `terminal-enhancements.js` — historiques; non requis en V4
 
 Faux positifs (query string):
 - `static/css/arkalia-responsive.css?v=4.0.0` — le fichier existe sans query string. Recommandation: strip `?v=*` lors des vérifications ou adapter le script de contrôle.
 
 JS potentiellement non référencé:
-- `static/js/tutorial.js` (aucune inclusion directe trouvée dans `templates/` et autres JS). À valider fonctionnellement avant suppression.
+- `static/js/tutorial.js` (aucune inclusion directe). À valider avant suppression.
 
 Fichiers macOS parasites (doublons exacts via hash):
 - `static/js/._adaptive-guidance.js`
@@ -68,7 +66,7 @@ Ces fichiers sont sans utilité et peuvent être supprimés en sécurité.
 - Aucune alerte sur des modules Python réels via l’heuristique basename. Pour une détection plus fine (fonctions/classes mortes), prévoir `vulture`/`coverage` ciblés.
 
 ### 5) Structure et rationalisation
-- `static/` contient des systèmes unifiés (`universal-*`, `smart-empty-states`, `reward-*`). Vérifier la redondance avec des scripts plus anciens listés comme manquants (si obsolètes, retirer leurs références des templates).
+- `static/` contient les systèmes unifiés V4 (`universal-*`, `smart-empty-states`, `reward-*`). Les scripts legacy ont été neutralisés ou commentés dans les templates; garder pour compat tests jusqu’à retrait définitif.
 - Les templates incluent de nombreux CSS différés. Une passe de consolidation pourrait fusionner certaines feuilles (`progression-*`, `animations-*`) si les règles ne sont pas conflictuelles.
 - `data/` contient backups; conserver, mais exclure de toute chasse aux inutilisés en prod.
 

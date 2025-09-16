@@ -39,6 +39,17 @@ class BasicCommands:
             # Personnalisation / thèmes
             "themes": self.handle_themes,
             "theme": self.handle_theme_set,
+            # Mini-jeux et effets
+            "simple_hack": self.handle_simple_hack,
+            "sequence_game": self.handle_sequence_game,
+            "typing_challenge": self.handle_typing_challenge,
+            "play_game": self.handle_play_game,
+            "level_up": self.handle_level_up,
+            "badge_unlock": self.handle_badge_unlock,
+            "matrix_mode": self.handle_matrix_mode,
+            "cyberpunk_mode": self.handle_cyberpunk_mode,
+            "check_objects": self.handle_check_objects,
+            "debug_mode": self.handle_debug_mode,
         }
 
     def handle_aide(self, profile: dict[str, Any]) -> dict[str, Any]:
@@ -848,4 +859,278 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
             "ascii_art": "🎯",
             "message": message,
             "profile_updated": False,
+        }
+
+    def handle_simple_hack(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Jeu de hack binaire simple"""
+        profile["score"] += 25
+
+        return {
+            "réussite": True,
+            "ascii_art": "💻",
+            "message": """💻 JEU DE HACK BINAIRE
+
+🎯 OBJECTIF : Reproduire la séquence binaire
+📊 DIFFICULTÉ : Facile
+⏱️ TEMPS : 30 secondes
+
+🔢 SÉQUENCE À REPRODUIRE :
+01001000 01100001 01100011 01101011
+
+💡 Astuce : 0 = clic gauche, 1 = clic droit
+🎮 Utilise la souris pour reproduire la séquence !
+
+🌟 +25 points pour avoir essayé !""",
+            "score_gagne": 25,
+            "profile_updated": True,
+        }
+
+    def handle_sequence_game(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Jeu de mémoire de séquences"""
+        profile["score"] += 30
+
+        return {
+            "réussite": True,
+            "ascii_art": "🧠",
+            "message": """🧠 JEU DE MÉMOIRE DE SÉQUENCES
+
+🎯 OBJECTIF : Mémoriser et reproduire la séquence
+📊 DIFFICULTÉ : Moyen
+⏱️ TEMPS : 45 secondes
+
+🎮 SÉQUENCE À MÉMORISER :
+🔴 → 🟡 → 🔵 → 🟢 → 🔴
+
+💡 Clique sur les couleurs dans l'ordre !
+🎯 Score basé sur la vitesse et la précision
+
+🌟 +30 points pour avoir testé ta mémoire !""",
+            "score_gagne": 30,
+            "profile_updated": True,
+        }
+
+    def handle_typing_challenge(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Défi de frappe rapide"""
+        profile["score"] += 20
+
+        return {
+            "réussite": True,
+            "ascii_art": "⌨️",
+            "message": """⌨️ DÉFI DE FRAPPE RAPIDE
+
+🎯 OBJECTIF : Taper le plus vite possible
+📊 DIFFICULTÉ : Variable
+⏱️ TEMPS : 60 secondes
+
+📝 TEXTE À TAPER :
+"Arkalia Quest est un jeu d'aventure cyberpunk où tu incarnes un hacker qui découvre LUNA, une IA émotionnelle."
+
+💡 Tape exactement le texte affiché !
+🎯 Score basé sur les mots par minute (WPM)
+
+🌟 +20 points pour avoir testé ta vitesse !""",
+            "score_gagne": 20,
+            "profile_updated": True,
+        }
+
+    def handle_play_game(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Lancer un mini-jeu"""
+        profile["score"] += 15
+
+        return {
+            "réussite": True,
+            "ascii_art": "🎮",
+            "message": """🎮 LANCEMENT DE MINI-JEU
+
+🎯 JEUX DISPONIBLES :
+• simple_hack → Jeu de hack binaire
+• sequence_game → Jeu de mémoire
+• typing_challenge → Défi de frappe
+
+💡 UTILISATION :
+Tape le nom du jeu directement :
+• simple_hack
+• sequence_game  
+• typing_challenge
+
+🌟 +15 points pour avoir exploré les jeux !""",
+            "score_gagne": 15,
+            "profile_updated": True,
+        }
+
+    def handle_level_up(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Simulation de montée de niveau"""
+        current_level = profile.get("level", 1)
+        new_level = current_level + 1
+        profile["level"] = new_level
+        profile["score"] += 100
+
+        if "Level Up Master" not in profile.get("badges", []):
+            profile["badges"].append("Level Up Master")
+
+        return {
+            "réussite": True,
+            "ascii_art": "🌟",
+            "message": f"""🌟 SIMULATION DE MONTÉE DE NIVEAU
+
+🎉 FÉLICITATIONS !
+⭐ Niveau {current_level} → Niveau {new_level}
+
+🎯 RÉCOMPENSES :
+• +100 points de score
+• Nouveau badge : "Level Up Master"
+• Capacités débloquées
+
+💪 PROGRESSION :
+Tu deviens plus fort à chaque niveau !
+Continue à explorer pour monter encore plus haut !
+
+🌟 +100 points pour cette montée de niveau !""",
+            "score_gagne": 100,
+            "badge": "Level Up Master",
+            "profile_updated": True,
+        }
+
+    def handle_badge_unlock(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Simulation de déblocage de badge"""
+        profile["score"] += 50
+
+        badge_name = "Badge Hunter"
+        if badge_name not in profile.get("badges", []):
+            profile["badges"].append(badge_name)
+
+        return {
+            "réussite": True,
+            "ascii_art": "🏆",
+            "message": f"""🏆 SIMULATION DE DÉBLOCAGE DE BADGE
+
+🎉 NOUVEAU BADGE DÉBLOQUÉ !
+🏆 "{badge_name}"
+
+✨ DESCRIPTION :
+Tu as découvert comment débloquer des badges !
+
+🎯 RÉCOMPENSES :
+• +50 points de score
+• Badge ajouté à ta collection
+• Progression dans les accomplissements
+
+💡 ASTUCE :
+Continue à explorer et accomplir des actions
+pour débloquer plus de badges secrets !
+
+🌟 +50 points pour ce badge !""",
+            "score_gagne": 50,
+            "badge": badge_name,
+            "profile_updated": True,
+        }
+
+    def handle_matrix_mode(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Active le thème Matrix"""
+        profile["score"] += 10
+
+        return {
+            "réussite": True,
+            "ascii_art": "🔮",
+            "message": """🔮 MODE MATRIX ACTIVÉ
+
+🌌 THÈME MATRIX APPLIQUÉ
+💚 Code vert partout
+⚡ Effets visuels Matrix
+🎵 Ambiance cyberpunk
+
+💡 UTILISATION :
+Le thème Matrix est maintenant actif !
+• Couleurs : Vert sur noir
+• Police : Monospace
+• Effets : Particules vertes
+
+🌟 +10 points pour avoir activé Matrix !""",
+            "score_gagne": 10,
+            "profile_updated": True,
+        }
+
+    def handle_cyberpunk_mode(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Active le thème Cyberpunk"""
+        profile["score"] += 10
+
+        return {
+            "réussite": True,
+            "ascii_art": "🌃",
+            "message": """🌃 MODE CYBERPUNK ACTIVÉ
+
+🌆 THÈME CYBERPUNK APPLIQUÉ
+💜 Néo-Tokyo vibes
+⚡ Effets néon
+🎵 Ambiance futuriste
+
+💡 UTILISATION :
+Le thème Cyberpunk est maintenant actif !
+• Couleurs : Rose/Cyan sur noir
+• Police : Futuriste
+• Effets : Néons clignotants
+
+🌟 +10 points pour avoir activé Cyberpunk !""",
+            "score_gagne": 10,
+            "profile_updated": True,
+        }
+
+    def handle_check_objects(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Vérifier les objets disponibles"""
+        profile["score"] += 5
+
+        return {
+            "réussite": True,
+            "ascii_art": "🔍",
+            "message": """🔍 VÉRIFICATION DES OBJETS
+
+📦 OBJETS DISPONIBLES :
+• Terminal Arkalia ✅
+• Interface LUNA ✅
+• Système de badges ✅
+• Mini-jeux éducatifs ✅
+• Thèmes personnalisés ✅
+• Système de progression ✅
+
+🎯 STATUT :
+Tous les systèmes sont opérationnels !
+
+💡 ASTUCE :
+Utilise 'aide' pour voir toutes les commandes disponibles.
+
+🌟 +5 points pour cette vérification !""",
+            "score_gagne": 5,
+            "profile_updated": True,
+        }
+
+    def handle_debug_mode(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Informations système de debug"""
+        profile["score"] += 5
+
+        return {
+            "réussite": True,
+            "ascii_art": "🐛",
+            "message": """🐛 MODE DEBUG ACTIVÉ
+
+🔍 INFORMATIONS SYSTÈME :
+• Version : Arkalia Quest v3.3.0
+• LUNA : v2.1.0
+• Terminal : v3.0.0
+• Mini-jeux : v1.5.0
+
+📊 STATISTIQUES :
+• Score actuel : {score}
+• Niveau : {level}
+• Badges : {badges_count}
+
+💡 MODE DÉVELOPPEUR :
+Toutes les fonctionnalités sont disponibles !
+
+🌟 +5 points pour cette analyse !""".format(
+                score=profile.get("score", 0),
+                level=profile.get("level", 1),
+                badges_count=len(profile.get("badges", []))
+            ),
+            "score_gagne": 5,
+            "profile_updated": True,
         }

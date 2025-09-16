@@ -968,9 +968,7 @@ def get_profile_summary():
                 "level": profil.get("level", 1),
                 "score": profil.get("score", 0),
                 "badges": profil.get("badges", []),
-                "missions_completees": profil.get("progression", {}).get(
-                    "missions_completees", 0
-                ),
+                "missions_completees": len(profil.get("missions_completed", [])),
                 "personnalite": profil.get(
                     "personnalite", {"type": "non_detecte", "traits": []}
                 ),
@@ -1241,9 +1239,7 @@ def get_gamification_summary():
             "success": True,
             "total_score": profil.get("score", 0),
             "current_level": profil.get("level", 1),
-            "missions_completees": len(
-                profil.get("personnalite", {}).get("missions_completees", [])
-            ),
+            "missions_completees": len(profil.get("missions_completed", [])),
             "badges_count": len(profil.get("badges", [])),
             "level_progress": summary.get("level_progress", {}).get(
                 "progress_percentage", 0
@@ -1254,9 +1250,7 @@ def get_gamification_summary():
             "speed": 1200,  # Valeur par défaut en ms
             "efficiency": 75,  # Valeur par défaut
             "recent_badges": profil.get("badges", [])[-3:],  # 3 derniers badges
-            "recent_missions": profil.get("personnalite", {}).get(
-                "missions_completees", []
-            )[
+            "recent_missions": profil.get("missions_completed", [])[
                 -3:
             ],  # 3 dernières missions
             "top_players": summary.get("leaderboard_stats", {}).get("top_players", [])[

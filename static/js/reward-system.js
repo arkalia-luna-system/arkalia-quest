@@ -386,8 +386,25 @@ class RewardSystem {
     }
 }
 
-// Initialiser le système de récompense
+// Initialiser et déléguer au nouveau RewardFeedbackSystem si présent
 window.rewardSystem = new RewardSystem();
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.rewardFeedbackSystem) {
+        // Shims de délégation
+        window.rewardSystem.celebrateLevelUp = (lvl) => {
+            document.dispatchEvent(new CustomEvent('levelUp', { detail: { level: lvl } }));
+        };
+        window.rewardSystem.celebrateBadgeEarned = (name) => {
+            document.dispatchEvent(new CustomEvent('badgeEarned', { detail: { name } }));
+        };
+        window.rewardSystem.celebrateMissionCompleted = (name) => {
+            document.dispatchEvent(new CustomEvent('missionComplete', { detail: { name } }));
+        };
+        window.rewardSystem.celebrateScoreGained = (pts) => {
+            document.dispatchEvent(new CustomEvent('xpGained', { detail: { amount: pts } }));
+        };
+    }
+});
 
 // Exporter pour utilisation dans d'autres modules
 if (typeof module !== 'undefined' && module.exports) {

@@ -25,7 +25,9 @@ try:
     )
 except ImportError:
     print("❌ Erreur : Impossible d'importer le moteur de mini-jeux éducatifs")
-    game_logger.info(r"💡 Vérifiez que le fichier core/educational_games_engine.py existe")
+    game_logger.info(
+        r"💡 Vérifiez que le fichier core/educational_games_engine.py existe"
+    )
     sys.exit(1)
 
 
@@ -197,7 +199,9 @@ class TestEducationalGamesEngine(unittest.TestCase):
     def test_logic_game_validation(self):
         """Test la validation spécifique des jeux de logique"""
         # Test avec indices
-        logic_game = next(g for g in self.engine.games_data["logic"] if g["id"] == "logic_1")
+        logic_game = next(
+            g for g in self.engine.games_data["logic"] if g["id"] == "logic_1"
+        )
 
         # Bonne réponse
         self.assertTrue(self.engine._check_answer(logic_game, "CHAT"))
@@ -206,7 +210,9 @@ class TestEducationalGamesEngine(unittest.TestCase):
         self.assertFalse(self.engine._check_answer(logic_game, "CHIEN"))
 
         # Test avec règles (puzzle de portes)
-        logic_game_2 = next(g for g in self.engine.games_data["logic"] if g["id"] == "logic_2")
+        logic_game_2 = next(
+            g for g in self.engine.games_data["logic"] if g["id"] == "logic_2"
+        )
 
         # Bonne réponse
         self.assertTrue(self.engine._check_answer(logic_game_2, [1, 2, 3]))
@@ -216,15 +222,21 @@ class TestEducationalGamesEngine(unittest.TestCase):
 
     def test_code_game_validation(self):
         """Test la validation spécifique des jeux de code"""
-        code_game = next(g for g in self.engine.games_data["code"] if g["id"] == "code_1")
+        code_game = next(
+            g for g in self.engine.games_data["code"] if g["id"] == "code_1"
+        )
 
         # Réponse contenant la solution
         self.assertTrue(
-            self.engine._check_answer(code_game, "Ajouter une vérification de liste vide"),
+            self.engine._check_answer(
+                code_game, "Ajouter une vérification de liste vide"
+            ),
         )
 
         # Réponse incorrecte
-        self.assertFalse(self.engine._check_answer(code_game, "Changer le nom de la fonction"))
+        self.assertFalse(
+            self.engine._check_answer(code_game, "Changer le nom de la fonction")
+        )
 
     def test_cybersecurity_game_validation(self):
         """Test la validation spécifique des jeux de cybersécurité"""
@@ -252,7 +264,9 @@ class TestEducationalGamesEngine(unittest.TestCase):
 
     def test_network_game_validation(self):
         """Test la validation spécifique des jeux de réseaux"""
-        network_game = next(g for g in self.engine.games_data["network"] if g["id"] == "network_1")
+        network_game = next(
+            g for g in self.engine.games_data["network"] if g["id"] == "network_1"
+        )
 
         # Bonne réponse
         self.assertTrue(self.engine._check_answer(network_game, [0, 0, 0, 2]))
@@ -346,7 +360,9 @@ class TestEducationalGamesAPI(unittest.TestCase):
     def test_start_game(self):
         """Test l'API de démarrage de jeu"""
         # Démarrer un jeu spécifique
-        response = self.app.post("/api/educational-games/start", json={"game_id": "logic_1"})
+        response = self.app.post(
+            "/api/educational-games/start", json={"game_id": "logic_1"}
+        )
 
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.data)
@@ -359,7 +375,9 @@ class TestEducationalGamesAPI(unittest.TestCase):
     def test_start_random_game(self):
         """Test l'API de démarrage de jeu aléatoire"""
         # L'API actuelle nécessite un game_id, testons avec un jeu valide
-        response = self.app.post("/api/educational-games/start", json={"game_id": "logic_1"})
+        response = self.app.post(
+            "/api/educational-games/start", json={"game_id": "logic_1"}
+        )
 
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.data)
@@ -371,7 +389,9 @@ class TestEducationalGamesAPI(unittest.TestCase):
     def test_submit_answer(self):
         """Test l'API de soumission de réponse"""
         # Démarrer un jeu
-        start_response = self.app.post("/api/educational-games/start", json={"game_id": "logic_1"})
+        start_response = self.app.post(
+            "/api/educational-games/start", json={"game_id": "logic_1"}
+        )
         start_data = json.loads(start_response.data)
         session_id = start_data["session_id"]
 
@@ -393,7 +413,9 @@ class TestEducationalGamesAPI(unittest.TestCase):
     def test_submit_incorrect_answer(self):
         """Test l'API de soumission de réponse incorrecte"""
         # Démarrer un jeu
-        start_response = self.app.post("/api/educational-games/start", json={"game_id": "logic_1"})
+        start_response = self.app.post(
+            "/api/educational-games/start", json={"game_id": "logic_1"}
+        )
         start_data = json.loads(start_response.data)
         session_id = start_data["session_id"]
 

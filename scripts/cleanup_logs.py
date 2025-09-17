@@ -14,10 +14,10 @@ def cleanup_logs():
     logs_dir = Path("logs")
 
     if not logs_dir.exists():
-        game_logger.info(r"❌ Dossier logs introuvable")
+        print(r"❌ Dossier logs introuvable")
         return
 
-    game_logger.info(r"🧹 Nettoyage des logs en cours...")
+    print(r"🧹 Nettoyage des logs en cours...")
 
     # Sauvegarder les logs actuels
     backup_dir = logs_dir / "backup"
@@ -34,7 +34,7 @@ def cleanup_logs():
             # Sauvegarder
             backup_path = backup_dir / f"{log_file}.{timestamp}"
             shutil.copy2(log_path, backup_path)
-            game_logger.info(f"📁 Sauvegardé: {log_file} -> {backup_path}")
+            print(f"📁 Sauvegardé: {log_file} -> {backup_path}")
 
             # Nettoyer le fichier (garder seulement les 1000 dernières lignes)
             try:
@@ -45,14 +45,12 @@ def cleanup_logs():
                     # Garder les 1000 dernières lignes
                     with open(log_path, "w", encoding="utf-8") as f:
                         f.writelines(lines[-1000:])
-                    game_logger.info(
-                        f"✂️  Tronqué: {log_file} (gardé 1000 dernières lignes)"
-                    )
+                    print(f"✂️  Tronqué: {log_file} (gardé 1000 dernières lignes)")
                 else:
-                    game_logger.info(f"✅ OK: {log_file} (taille acceptable)")
+                    print(f"✅ OK: {log_file} (taille acceptable)")
 
             except Exception as e:
-                game_logger.info(f"❌ Erreur lors du nettoyage de {log_file}: {e}")
+                print(f"❌ Erreur lors du nettoyage de {log_file}: {e}")
 
     # Nettoyer les anciennes sauvegardes (plus de 7 jours)
     cutoff_date = datetime.now() - timedelta(days=7)
@@ -61,11 +59,11 @@ def cleanup_logs():
             file_time = datetime.fromtimestamp(backup_file.stat().st_mtime)
             if file_time < cutoff_date:
                 backup_file.unlink()
-                game_logger.info(f"🗑️  Supprimé ancienne sauvegarde: {backup_file.name}")
+                print(f"🗑️  Supprimé ancienne sauvegarde: {backup_file.name}")
         except Exception as e:
-            game_logger.info(f"❌ Erreur suppression {backup_file}: {e}")
+            print(f"❌ Erreur suppression {backup_file}: {e}")
 
-    game_logger.info(r"✅ Nettoyage terminé!")
+    print(r"✅ Nettoyage terminé!")
 
 
 if __name__ == "__main__":

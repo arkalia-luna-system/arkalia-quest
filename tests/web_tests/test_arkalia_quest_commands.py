@@ -14,7 +14,9 @@ from pathlib import Path
 import requests
 
 # Ajouter le répertoire racine au path
-project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+project_root = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+)
 sys.path.insert(0, project_root)
 
 from utils.logger import GameLogger  # noqa: E402
@@ -90,7 +92,9 @@ class ArkaliaQuestCommandsTester:
 
         self.navigation_commands = ["monde", "world", "explorer", "naviguer"]
 
-    def log_test(self, test_name: str, status: str, details: str = "", duration: float = 0):
+    def log_test(
+        self, test_name: str, status: str, details: str = "", duration: float = 0
+    ):
         """Enregistre un résultat de test"""
         result = {
             "test": test_name,
@@ -114,7 +118,9 @@ class ArkaliaQuestCommandsTester:
         start_time = time.time()
         try:
             # Tester l'accès à la page terminal
-            response = self.session.get(f"{self.base_url}/terminal", timeout=self.timeout)
+            response = self.session.get(
+                f"{self.base_url}/terminal", timeout=self.timeout
+            )
             duration = time.time() - start_time
 
             if response.status_code == 200:
@@ -206,7 +212,9 @@ class ArkaliaQuestCommandsTester:
         """Test la fonctionnalité du leaderboard"""
         start_time = time.time()
         try:
-            response = self.session.get(f"{self.base_url}/leaderboard", timeout=self.timeout)
+            response = self.session.get(
+                f"{self.base_url}/leaderboard", timeout=self.timeout
+            )
             duration = time.time() - start_time
 
             if response.status_code == 200:
@@ -246,7 +254,9 @@ class ArkaliaQuestCommandsTester:
             return False
         except requests.exceptions.RequestException as e:
             duration = time.time() - start_time
-            self.log_test("Fonctionnalité Leaderboard", "FAIL", f"Erreur: {e!s}", duration)
+            self.log_test(
+                "Fonctionnalité Leaderboard", "FAIL", f"Erreur: {e!s}", duration
+            )
             return False
 
     def test_educational_games(self) -> bool:
@@ -265,7 +275,8 @@ class ArkaliaQuestCommandsTester:
                     "éducatif" in content.lower() or "educational" in content.lower(),
                     "mini-jeu" in content.lower() or "minigame" in content.lower(),
                     "logique" in content.lower() or "logic" in content.lower(),
-                    "cybersécurité" in content.lower() or "cybersecurity" in content.lower(),
+                    "cybersécurité" in content.lower()
+                    or "cybersecurity" in content.lower(),
                 ]
 
                 elements_found = sum(game_elements)
@@ -482,7 +493,9 @@ class ArkaliaQuestCommandsTester:
         # Analyse par catégorie de commandes
         command_categories = {
             "Commandes de Base": [
-                r for r in self.test_results if any(cmd in r["test"] for cmd in self.basic_commands)
+                r
+                for r in self.test_results
+                if any(cmd in r["test"] for cmd in self.basic_commands)
             ],
             "Commandes Tutoriel": [
                 r
@@ -490,10 +503,14 @@ class ArkaliaQuestCommandsTester:
                 if any(cmd in r["test"] for cmd in self.tutorial_commands)
             ],
             "Commandes Jeux": [
-                r for r in self.test_results if any(cmd in r["test"] for cmd in self.game_commands)
+                r
+                for r in self.test_results
+                if any(cmd in r["test"] for cmd in self.game_commands)
             ],
             "Commandes Histoire": [
-                r for r in self.test_results if any(cmd in r["test"] for cmd in self.story_commands)
+                r
+                for r in self.test_results
+                if any(cmd in r["test"] for cmd in self.story_commands)
             ],
             "Commandes Action": [
                 r
@@ -501,7 +518,9 @@ class ArkaliaQuestCommandsTester:
                 if any(cmd in r["test"] for cmd in self.action_commands)
             ],
             "Commandes LUNA": [
-                r for r in self.test_results if any(cmd in r["test"] for cmd in self.luna_commands)
+                r
+                for r in self.test_results
+                if any(cmd in r["test"] for cmd in self.luna_commands)
             ],
             "Commandes Navigation": [
                 r
@@ -533,9 +552,13 @@ class ArkaliaQuestCommandsTester:
                 rate = (passed / total * 100) if total > 0 else 0
 
                 if rate >= EXCELLENT_RATE:
-                    game_logger.info(f"✅ {category}: Excellent ({rate:.0f}% - {passed}/{total})")
+                    game_logger.info(
+                        f"✅ {category}: Excellent ({rate:.0f}% - {passed}/{total})"
+                    )
                 elif rate >= GOOD_RATE:
-                    game_logger.info(f"⚠️ {category}: À améliorer ({rate:.0f}% - {passed}/{total})")
+                    game_logger.info(
+                        f"⚠️ {category}: À améliorer ({rate:.0f}% - {passed}/{total})"
+                    )
                 else:
                     game_logger.info(
                         f"❌ {category}: Problèmes majeurs ({rate:.0f}% - {passed}/{total})"
@@ -561,14 +584,16 @@ class ArkaliaQuestCommandsTester:
         elif success_rate >= GOOD_SUMMARY_RATE:
             game_logger.info(r"👍 Bon état général, quelques commandes à vérifier.")
         elif success_rate >= MEDIUM_RATE:
-            game_logger.info(r"⚠️ État moyen, plusieurs commandes nécessitent des corrections.")
+            game_logger.info(
+                r"⚠️ État moyen, plusieurs commandes nécessitent des corrections."
+            )
         else:
-            game_logger.info(r"🚨 État critique, de nombreuses commandes ne fonctionnent pas.")
+            game_logger.info(
+                r"🚨 État critique, de nombreuses commandes ne fonctionnent pas."
+            )
 
         # Sauvegarde du rapport
-        report_file = (
-            f"commands_test_report_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}.json"
-        )
+        report_file = f"commands_test_report_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}.json"
         with Path(report_file).open("w", encoding="utf-8") as f:
             json.dump(
                 {
@@ -595,7 +620,9 @@ class ArkaliaQuestCommandsTester:
 
 def main():
     """Fonction principale"""
-    base_url = sys.argv[1] if len(sys.argv) > 1 else "https://arkalia-quest.onrender.com"
+    base_url = (
+        sys.argv[1] if len(sys.argv) > 1 else "https://arkalia-quest.onrender.com"
+    )
 
     # game_logger.info(f"🚀 Démarrage des tests commandes Arkalia Quest sur {base_url}")
     # print()

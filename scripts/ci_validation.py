@@ -20,7 +20,7 @@ class CIValidator:
 
     def run_command(self, command, description):
         """Exécute une commande et gère les erreurs"""
-        game_logger.info(f"🔍 {description}...")
+        print(f"🔍 {description}...")
         try:
             # Utiliser shlex pour séparer les arguments de manière sécurisée
             import shlex
@@ -28,11 +28,11 @@ class CIValidator:
             if isinstance(command, str):
                 command = shlex.split(command)
             result = subprocess.run(command, capture_output=True, text=True, check=True)
-            game_logger.info(f"✅ {description} - SUCCÈS")
+            print(f"✅ {description} - SUCCÈS")
             return result.stdout
         except subprocess.CalledProcessError as e:
-            game_logger.info(f"❌ {description} - ÉCHEC")
-            game_logger.info(f"   Erreur: {e.stderr}")
+            print(f"❌ {description} - ÉCHEC")
+            print(f"   Erreur: {e.stderr}")
             self.errors.append(f"{description}: {e.stderr}")
             self.success = False
             return None
@@ -52,7 +52,7 @@ class CIValidator:
 
     def validate_tests(self):
         """Valide l'exécution des tests"""
-        game_logger.info(r"🔍 Exécution des tests avec couverture...")
+        print(r"🔍 Exécution des tests avec couverture...")
         try:
             import shlex
 
@@ -67,11 +67,11 @@ class CIValidator:
             )
 
             if result.returncode == 0:
-                game_logger.info(r"✅ Tests - SUCCÈS")
+                print(r"✅ Tests - SUCCÈS")
                 return result.stdout
-            game_logger.info(f"❌ Tests - ÉCHEC (code: {result.returncode})")
+            print(f"❌ Tests - ÉCHEC (code: {result.returncode})")
             if result.stderr:
-                game_logger.info(f"   Erreurs: {result.stderr[:200]}...")
+                print(f"   Erreurs: {result.stderr[:200]}...")
             self.errors.append(f"Tests échoués (code: {result.returncode})")
             self.success = False
             return result.stdout  # Retourner la sortie même en cas d'échec
@@ -83,7 +83,7 @@ class CIValidator:
 
     def validate_coverage(self):
         """Valide la couverture de code"""
-        game_logger.info(r"🔍 Vérification de la couverture...")
+        print(r"🔍 Vérification de la couverture...")
         try:
             import shlex
 
@@ -98,10 +98,10 @@ class CIValidator:
             )
 
             if result.returncode == 0:
-                game_logger.info(r"✅ Couverture - SUCCÈS")
+                print(r"✅ Couverture - SUCCÈS")
                 output = result.stdout
             else:
-                game_logger.info(f"⚠️  Couverture - ÉCHEC (code: {result.returncode})")
+                print(f"⚠️  Couverture - ÉCHEC (code: {result.returncode})")
                 output = result.stdout or result.stderr
 
             if output:
@@ -117,9 +117,7 @@ class CIValidator:
                                 )
                                 self.success = False
                             else:
-                                game_logger.info(
-                                    f"✅ Couverture de code: {coverage}% (>= 10%)"
-                                )
+                                print(f"✅ Couverture de code: {coverage}% (>= 10%)")
                             break
                         except (ValueError, IndexError):
                             pass
@@ -127,7 +125,7 @@ class CIValidator:
             return output
 
         except Exception as e:
-            game_logger.info(f"❌ Erreur lors de la vérification de la couverture: {e}")
+            print(f"❌ Erreur lors de la vérification de la couverture: {e}")
             self.errors.append(f"Erreur de couverture: {e}")
             self.success = False
             return None
@@ -135,7 +133,7 @@ class CIValidator:
     def validate_dependencies(self):
         """Valide les dépendances"""
         # Vérification simplifiée des dépendances
-        game_logger.info(r"🔍 Vérification des dépendances...")
+        print(r"🔍 Vérification des dépendances...")
         try:
             # Test des imports pour vérifier la disponibilité
             import importlib.util
@@ -146,7 +144,7 @@ class CIValidator:
             utils_spec = importlib.util.find_spec("utils")
 
             if core_spec and engines_spec and utils_spec:
-                game_logger.info(r"✅ Dépendances principales - Disponibles")
+                print(r"✅ Dépendances principales - Disponibles")
                 return True
             missing = []
             if not core_spec:
@@ -156,12 +154,12 @@ class CIValidator:
             if not utils_spec:
                 missing.append("utils")
             error_msg = f"Modules manquants: {', '.join(missing)}"
-            game_logger.info(f"❌ {error_msg}")
+            print(f"❌ {error_msg}")
             self.errors.append(error_msg)
             self.success = False
             return False
         except Exception as e:
-            game_logger.info(f"❌ Erreur lors de la vérification des dépendances: {e}")
+            print(f"❌ Erreur lors de la vérification des dépendances: {e}")
             self.errors.append(f"Erreur de vérification: {e}")
             self.success = False
             return False
@@ -181,20 +179,20 @@ class CIValidator:
             "config/load_test_config.json",
         ]
 
-        game_logger.info(r"🔍 Validation des fichiers de configuration...")
+        print(r"🔍 Validation des fichiers de configuration...")
         for config_file in config_files:
             if os.path.exists(config_file):
                 try:
                     if config_file.endswith(".json"):
                         with open(config_file) as f:
                             json.load(f)
-                    game_logger.info(f"✅ {config_file} - Valide")
+                    print(f"✅ {config_file} - Valide")
                 except Exception as e:
-                    game_logger.info(f"❌ {config_file} - Invalide: {e}")
+                    print(f"❌ {config_file} - Invalide: {e}")
                     self.errors.append(f"Configuration invalide: {config_file}")
                     self.success = False
             else:
-                game_logger.info(f"⚠️  {config_file} - Manquant")
+                print(f"⚠️  {config_file} - Manquant")
                 self.warnings.append(f"Fichier manquant: {config_file}")
 
         return True
@@ -203,12 +201,12 @@ class CIValidator:
         """Valide la structure du projet"""
         required_dirs = ["core", "engines", "utils", "tests", "templates", "static"]
 
-        game_logger.info(r"🔍 Validation de la structure du projet...")
+        print(r"🔍 Validation de la structure du projet...")
         for directory in required_dirs:
             if os.path.isdir(directory):
-                game_logger.info(f"✅ {directory}/ - Présent")
+                print(f"✅ {directory}/ - Présent")
             else:
-                game_logger.info(f"❌ {directory}/ - Manquant")
+                print(f"❌ {directory}/ - Manquant")
                 self.errors.append(f"Répertoire manquant: {directory}")
                 self.success = False
 
@@ -217,26 +215,26 @@ class CIValidator:
     def generate_report(self):
         """Génère un rapport de validation"""
         print("\n" + "=" * 60)
-        game_logger.info(r"📊 RAPPORT DE VALIDATION CI")
+        print(r"📊 RAPPORT DE VALIDATION CI")
         print("=" * 60)
 
         if self.success:
-            game_logger.info(r"🎉 VALIDATION CI RÉUSSIE !")
-            game_logger.info(r"✅ Tous les critères de qualité sont respectés")
-            game_logger.info(r"🚀 Le projet est prêt pour le déploiement")
+            print(r"🎉 VALIDATION CI RÉUSSIE !")
+            print(r"✅ Tous les critères de qualité sont respectés")
+            print(r"🚀 Le projet est prêt pour le déploiement")
         else:
-            game_logger.info(r"❌ VALIDATION CI ÉCHOUÉE !")
-            game_logger.info(r"🔧 Corrections nécessaires avant le déploiement")
+            print(r"❌ VALIDATION CI ÉCHOUÉE !")
+            print(r"🔧 Corrections nécessaires avant le déploiement")
 
         if self.errors:
-            game_logger.info(f"\n❌ ERREURS ({len(self.errors)}):")
+            print(f"\n❌ ERREURS ({len(self.errors)}):")
             for error in self.errors:
-                game_logger.info(f"   • {error}")
+                print(f"   • {error}")
 
         if self.warnings:
-            game_logger.info(f"\n⚠️  AVERTISSEMENTS ({len(self.warnings)}):")
+            print(f"\n⚠️  AVERTISSEMENTS ({len(self.warnings)}):")
             for warning in self.warnings:
-                game_logger.info(f"   • {warning}")
+                print(f"   • {warning}")
 
         print(f"\n📈 STATUT FINAL: {'SUCCÈS' if self.success else 'ÉCHEC'}")
 
@@ -244,7 +242,7 @@ class CIValidator:
 
     def run_full_validation(self):
         """Lance la validation complète"""
-        game_logger.info(r"🚀 DÉMARRAGE DE LA VALIDATION CI COMPLÈTE")
+        print(r"🚀 DÉMARRAGE DE LA VALIDATION CI COMPLÈTE")
         print("=" * 60)
 
         # Validation de la structure
@@ -282,7 +280,7 @@ def main():
         print("\n⏹️  Validation interrompue par l'utilisateur")
         sys.exit(1)
     except Exception as e:
-        game_logger.info(f"\n💥 Erreur lors de la validation: {e}")
+        print(f"\n💥 Erreur lors de la validation: {e}")
         sys.exit(1)
 
 

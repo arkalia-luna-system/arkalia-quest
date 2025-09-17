@@ -98,7 +98,9 @@ class TestManager:
         print("=" * 60)
 
         if not self.check_server():
-            game_logger.info(r"❌ Serveur non accessible. Démarrez le serveur avec: python app.py")
+            game_logger.info(
+                r"❌ Serveur non accessible. Démarrez le serveur avec: python app.py"
+            )
             return None
 
         game_logger.info(r"✅ Serveur accessible")

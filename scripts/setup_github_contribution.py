@@ -9,6 +9,14 @@ import subprocess
 import sys
 from pathlib import Path
 
+# Import du logger
+try:
+    from utils.logger import game_logger
+except ImportError:
+    import logging
+
+    game_logger = logging.getLogger("setup_github_contribution")
+
 
 class GitHubContributionSetup:
     """Configuration complète de la contribution GitHub pour Arkalia Quest"""
@@ -20,7 +28,7 @@ class GitHubContributionSetup:
     def print_header(self, title: str):
         """Affiche un en-tête stylisé"""
         print("\n" + "=" * 60)
-        game_logger.info(f"🎮 {title}")
+        print(f"🎮 {title}")
         print("=" * 60)
 
     def check_environment(self) -> bool:
@@ -29,20 +37,20 @@ class GitHubContributionSetup:
 
         # Vérification du venv
         if not os.environ.get("VIRTUAL_ENV"):
-            game_logger.info(r"❌ Environnement virtuel non activé")
-            game_logger.info(r"💡 Activez le venv : source venv/bin/activate")
+            print(r"❌ Environnement virtuel non activé")
+            print(r"💡 Activez le venv : source venv/bin/activate")
             return False
 
-        game_logger.info(r"✅ Environnement virtuel activé")
+        print(r"✅ Environnement virtuel activé")
 
         # Vérification de Python
         try:
             result = subprocess.run(
                 ["python", "--version"], check=False, capture_output=True, text=True
             )
-            game_logger.info(f"✅ Python: {result.stdout.strip()}")
+            print(f"✅ Python: {result.stdout.strip()}")
         except Exception as e:
-            game_logger.info(f"❌ Erreur Python: {e}")
+            print(f"❌ Erreur Python: {e}")
             return False
 
         # Vérification de Git
@@ -50,22 +58,20 @@ class GitHubContributionSetup:
             result = subprocess.run(
                 ["git", "--version"], check=False, capture_output=True, text=True
             )
-            game_logger.info(f"✅ Git: {result.stdout.strip()}")
+            print(f"✅ Git: {result.stdout.strip()}")
         except Exception as e:
-            game_logger.info(f"❌ Erreur Git: {e}")
+            print(f"❌ Erreur Git: {e}")
             return False
 
         # Vérification du token GitHub
         if not os.environ.get("GITHUB_TOKEN"):
-            game_logger.info(r"⚠️  GITHUB_TOKEN non défini")
-            game_logger.info(r"💡 Définissez votre token GitHub :")
-            game_logger.info(r"   export GITHUB_TOKEN=your_token_here")
-            game_logger.info(
-                r"   ou créez un fichier .env avec GITHUB_TOKEN=your_token_here"
-            )
+            print(r"⚠️  GITHUB_TOKEN non défini")
+            print(r"💡 Définissez votre token GitHub :")
+            print(r"   export GITHUB_TOKEN=your_token_here")
+            print(r"   ou créez un fichier .env avec GITHUB_TOKEN=your_token_here")
             return False
 
-        game_logger.info(r"✅ GITHUB_TOKEN défini")
+        print(r"✅ GITHUB_TOKEN défini")
         return True
 
     def run_code_quality_checks(self) -> bool:
@@ -74,29 +80,29 @@ class GitHubContributionSetup:
 
         try:
             # Black
-            game_logger.info(r"🎨 Vérification Black...")
+            print(r"🎨 Vérification Black...")
             result = subprocess.run(
                 ["black", "--check", "."], check=False, capture_output=True, text=True
             )
             if result.returncode != 0:
-                game_logger.info(r"❌ Black a trouvé des problèmes de formatage")
-                game_logger.info(r"💡 Exécutez: black .")
+                print(r"❌ Black a trouvé des problèmes de formatage")
+                print(r"💡 Exécutez: black .")
                 return False
-            game_logger.info(r"✅ Black: Code bien formaté")
+            print(r"✅ Black: Code bien formaté")
 
             # Ruff
-            game_logger.info(r"🔍 Vérification Ruff...")
+            print(r"🔍 Vérification Ruff...")
             result = subprocess.run(
                 ["ruff", "check", "."], check=False, capture_output=True, text=True
             )
             if result.returncode != 0:
-                game_logger.info(r"❌ Ruff a trouvé des problèmes de linting")
-                game_logger.info(r"💡 Exécutez: ruff check . --fix")
+                print(r"❌ Ruff a trouvé des problèmes de linting")
+                print(r"💡 Exécutez: ruff check . --fix")
                 return False
-            game_logger.info(r"✅ Ruff: Code conforme")
+            print(r"✅ Ruff: Code conforme")
 
             # Tests
-            game_logger.info(r"🧪 Exécution des tests...")
+            print(r"🧪 Exécution des tests...")
             result = subprocess.run(
                 ["python", "-m", "pytest", "tests/", "--tb=no", "-q"],
                 check=False,
@@ -104,15 +110,15 @@ class GitHubContributionSetup:
                 text=True,
             )
             if result.returncode != 0:
-                game_logger.info(r"❌ Certains tests ont échoué")
-                game_logger.info(r"💡 Vérifiez les tests avant de continuer")
+                print(r"❌ Certains tests ont échoué")
+                print(r"💡 Vérifiez les tests avant de continuer")
                 return False
-            game_logger.info(r"✅ Tests: Tous passent")
+            print(r"✅ Tests: Tous passent")
 
             return True
 
         except Exception as e:
-            game_logger.info(f"❌ Erreur lors des vérifications: {e}")
+            print(f"❌ Erreur lors des vérifications: {e}")
             return False
 
     def setup_issue_templates(self) -> bool:
@@ -128,7 +134,7 @@ class GitHubContributionSetup:
         templates = list(templates_dir.glob("*.yml"))
         print(f"✅ {len(templates)} templates d'issues trouvés:")
         for template in templates:
-            game_logger.info(f"   📋 {template.name}")
+            print(f"   📋 {template.name}")
 
         return True
 
@@ -139,10 +145,10 @@ class GitHubContributionSetup:
         pr_template = self.project_root / ".github" / "pull_request_template.md"
 
         if not pr_template.exists():
-            game_logger.info(r"❌ Template de pull request non trouvé")
+            print(r"❌ Template de pull request non trouvé")
             return False
 
-        game_logger.info(r"✅ Template de pull request configuré")
+        print(r"✅ Template de pull request configuré")
         return True
 
     def setup_github_labels(self) -> bool:
@@ -152,11 +158,11 @@ class GitHubContributionSetup:
         labels_script = self.scripts_dir / "setup_github_labels.py"
 
         if not labels_script.exists():
-            game_logger.info(r"❌ Script de configuration des labels non trouvé")
+            print(r"❌ Script de configuration des labels non trouvé")
             return False
 
         try:
-            game_logger.info(r"🏷️  Exécution du script de configuration des labels...")
+            print(r"🏷️  Exécution du script de configuration des labels...")
             result = subprocess.run(
                 ["python", str(labels_script)],
                 check=False,
@@ -165,10 +171,10 @@ class GitHubContributionSetup:
             )
 
             if result.returncode == 0:
-                game_logger.info(r"✅ Labels GitHub configurés avec succès")
+                print(r"✅ Labels GitHub configurés avec succès")
                 return True
-            game_logger.info(r"❌ Erreur lors de la configuration des labels")
-            game_logger.info(f"Erreur: {result.stderr}")
+            print(r"❌ Erreur lors de la configuration des labels")
+            print(f"Erreur: {result.stderr}")
             return False
 
         except Exception as e:
@@ -182,13 +188,11 @@ class GitHubContributionSetup:
         discussions_script = self.scripts_dir / "setup_github_discussions.py"
 
         if not discussions_script.exists():
-            game_logger.info(r"❌ Script de configuration des discussions non trouvé")
+            print(r"❌ Script de configuration des discussions non trouvé")
             return False
 
         try:
-            game_logger.info(
-                r"💬 Exécution du script de configuration des discussions..."
-            )
+            print(r"💬 Exécution du script de configuration des discussions...")
             result = subprocess.run(
                 ["python", str(discussions_script)],
                 check=False,
@@ -197,10 +201,10 @@ class GitHubContributionSetup:
             )
 
             if result.returncode == 0:
-                game_logger.info(r"✅ Discussions GitHub configurées avec succès")
+                print(r"✅ Discussions GitHub configurées avec succès")
                 return True
-            game_logger.info(r"❌ Erreur lors de la configuration des discussions")
-            game_logger.info(f"Erreur: {result.stderr}")
+            print(r"❌ Erreur lors de la configuration des discussions")
+            print(f"Erreur: {result.stderr}")
             return False
 
         except Exception as e:
@@ -299,9 +303,7 @@ Votre projet Arkalia Quest est maintenant parfaitement configuré pour accueilli
 
     def run_complete_setup(self) -> bool:
         """Exécute la configuration complète"""
-        game_logger.info(
-            r"🎮 Configuration Complète de la Contribution - Arkalia Quest"
-        )
+        print(r"🎮 Configuration Complète de la Contribution - Arkalia Quest")
         print("=" * 70)
 
         # Vérification de l'environnement
@@ -310,7 +312,7 @@ Votre projet Arkalia Quest est maintenant parfaitement configuré pour accueilli
 
         # Vérification de la qualité du code
         if not self.run_code_quality_checks():
-            game_logger.info(r"❌ Qualité du code insuffisante - correction requise")
+            print(r"❌ Qualité du code insuffisante - correction requise")
             return False
 
         # Configuration des templates d'issues
@@ -326,7 +328,7 @@ Votre projet Arkalia Quest est maintenant parfaitement configuré pour accueilli
             self.setup_github_labels()
             self.setup_github_discussions()
         else:
-            game_logger.info(
+            print(
                 r"⚠️  GITHUB_TOKEN non défini - configuration des labels et discussions ignorée"
             )
 
@@ -337,8 +339,8 @@ Votre projet Arkalia Quest est maintenant parfaitement configuré pour accueilli
             f.write(summary)
 
         print("\n" + "=" * 70)
-        game_logger.info(r"🎉 Configuration terminée avec succès !")
-        game_logger.info(r"📚 Résumé généré: docs/CONTRIBUTION_SETUP_SUMMARY.md")
+        print(r"🎉 Configuration terminée avec succès !")
+        print(r"📚 Résumé généré: docs/CONTRIBUTION_SETUP_SUMMARY.md")
         print("=" * 70)
 
         return True
@@ -350,12 +352,10 @@ def main():
     success = setup.run_complete_setup()
 
     if success:
-        game_logger.info(r"\n✅ Configuration de contribution terminée avec succès !")
-        game_logger.info(
-            r"🚀 Votre projet est prêt pour accueillir les contributeurs !"
-        )
+        print(r"\n✅ Configuration de contribution terminée avec succès !")
+        print(r"🚀 Votre projet est prêt pour accueillir les contributeurs !")
     else:
-        game_logger.info(r"\n❌ Configuration échouée - vérifiez les erreurs ci-dessus")
+        print(r"\n❌ Configuration échouée - vérifiez les erreurs ci-dessus")
 
     return success
 

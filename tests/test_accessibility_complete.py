@@ -56,7 +56,9 @@ class AccessibilityTester:
             "details": ["#main", "#nav", "#footer", "#search"],
         }
 
-        game_logger.info(f"✅ Skip links: {len(skip_links)}/{expected_links} skip links trouvés")
+        game_logger.info(
+            f"✅ Skip links: {len(skip_links)}/{expected_links} skip links trouvés"
+        )
         return score
 
     def test_keyboard_navigation(self):
@@ -142,7 +144,10 @@ class AccessibilityTester:
             "expected": total_expected,
         }
 
-        print(f"✅ Gestion du focus: {focus_indicators}/{total_expected}" + "indicateurs trouvés")
+        print(
+            f"✅ Gestion du focus: {focus_indicators}/{total_expected}"
+            + "indicateurs trouvés"
+        )
         return score
 
     def test_color_contrast(self):
@@ -167,7 +172,9 @@ class AccessibilityTester:
             "expected": 2,
         }
 
-        game_logger.info(f"✅ Contraste des couleurs: {len(mock_colors)} couleurs définies")
+        game_logger.info(
+            f"✅ Contraste des couleurs: {len(mock_colors)} couleurs définies"
+        )
         return score
 
     def test_semantic_html(self):
@@ -211,7 +218,10 @@ class AccessibilityTester:
             "expected": len(semantic_elements),
         }
 
-        print(f"✅ Sémantique HTML: {found_elements}/{len(semantic_elements)}" + "éléments trouvés")
+        print(
+            f"✅ Sémantique HTML: {found_elements}/{len(semantic_elements)}"
+            + "éléments trouvés"
+        )
         return score
 
     def test_aria_labels(self):
@@ -251,7 +261,9 @@ class AccessibilityTester:
             "expected": len(aria_patterns),
         }
 
-        game_logger.info(f"✅ Labels ARIA: {found_labels}/{len(aria_patterns)} labels trouvés")
+        game_logger.info(
+            f"✅ Labels ARIA: {found_labels}/{len(aria_patterns)} labels trouvés"
+        )
         return score
 
     def test_responsive_design(self):
@@ -360,7 +372,9 @@ class AccessibilityTester:
             "expected": total_expected,
         }
 
-        print(f"✅ Modes d'accessibilité: {accessibility_modes}/{total_expected} modes trouvés")
+        print(
+            f"✅ Modes d'accessibilité: {accessibility_modes}/{total_expected} modes trouvés"
+        )
         return score
 
     def test_haptic_feedback(self):
@@ -475,7 +489,9 @@ class AccessibilityTester:
             "expected": total_expected,
         }
 
-        game_logger.info(f"✅ Raccourcis clavier: {shortcuts}/{total_expected} éléments trouvés")
+        game_logger.info(
+            f"✅ Raccourcis clavier: {shortcuts}/{total_expected} éléments trouvés"
+        )
         return score
 
     def get_css_content(self):
@@ -550,7 +566,9 @@ class AccessibilityTester:
         game_logger.info(f"🏆 Niveau WCAG: {wcag_level}")
 
         # Compter les tests réussis
-        successful_tests = sum(1 for test in self.results["tests"].values() if test["score"] >= 80)
+        successful_tests = sum(
+            1 for test in self.results["tests"].values() if test["score"] >= 80
+        )
         total_tests = len(self.results["tests"])
 
         game_logger.info(f"✅ Tests réussis: {successful_tests}/{total_tests}")
@@ -560,7 +578,8 @@ class AccessibilityTester:
         for test_name, test_result in self.results["tests"].items():
             status = "✅" if test_result["score"] >= 80 else "❌"
             print(
-                f"{status} {test_name.replace('_', ' ').title()}:" "{test_result['score']:.1f}/100",
+                f"{status} {test_name.replace('_', ' ').title()}:"
+                "{test_result['score']:.1f}/100",
             )
 
         if self.results["score"] >= 80:

@@ -145,7 +145,9 @@ class TestRobustesseAvancee(unittest.TestCase):
         self.assertLess(errors, 50, "Trop d'erreurs sous charge")
         self.assertLess(duration, 35, "Performance dégradée sous charge")
 
-        game_logger.info(f"✅ Résilience: {completed}/1000 opérations réussies en {duration:.2f}s")
+        game_logger.info(
+            f"✅ Résilience: {completed}/1000 opérations réussies en {duration:.2f}s"
+        )
         game_logger.info(f"📊 Erreurs: {errors}, Métriques: {self.robustness_metrics}")
 
     def test_memory_leak_prevention(self):
@@ -217,7 +219,9 @@ class TestRobustesseAvancee(unittest.TestCase):
                 test_func()
                 self.robustness_metrics["recovery_success"] += 1
             except Exception as e:
-                game_logger.info(f"❌ Échec du test de récupération {test_func.__name__}: {e}")
+                game_logger.info(
+                    f"❌ Échec du test de récupération {test_func.__name__}: {e}"
+                )
                 self.robustness_metrics["error_count"] += 1
 
         # Vérifier que la plupart des récupérations réussissent
@@ -317,7 +321,9 @@ class TestRobustesseAvancee(unittest.TestCase):
         # Vérifier que tous les cas limites sont gérés
         self.assertEqual(errors_handled, len(edge_cases), "Cas limites non gérés")
 
-        game_logger.info(f"✅ Cas limites: {errors_handled}/{len(edge_cases)} gérés correctement")
+        game_logger.info(
+            f"✅ Cas limites: {errors_handled}/{len(edge_cases)} gérés correctement"
+        )
 
     def _execute_operation_safely(self, func, *args, **kwargs):
         """Exécute une opération avec gestion d'erreur sécurisée"""
@@ -349,7 +355,9 @@ class TestRobustesseAvancee(unittest.TestCase):
         self.assertIsNotNone(recovered_data, "Profil non récupéré")
 
         # Vérifier que les données clés sont présentes
-        self.assertEqual(recovered_data["username"], "recovery_test", "Username incorrect")
+        self.assertEqual(
+            recovered_data["username"], "recovery_test", "Username incorrect"
+        )
         self.assertEqual(recovered_data["score"], 100, "Score incorrect")
         self.assertEqual(recovered_data["level"], 5, "Niveau incorrect")
         self.assertIn("test_badge", recovered_data["badges"], "Badge de test manquant")
@@ -438,7 +446,9 @@ def run_robustness_tests():
     print("\n" + "=" * 60)
     game_logger.info(r"📊 RÉSUMÉ DES TESTS DE ROBUSTESSE")
     game_logger.info(f"Tests exécutés: {result.testsRun}")
-    game_logger.info(f"Succès: {result.testsRun - len(result.failures) - len(result.errors)}")
+    game_logger.info(
+        f"Succès: {result.testsRun - len(result.failures) - len(result.errors)}"
+    )
     game_logger.info(f"Échecs: {len(result.failures)}")
     game_logger.info(f"Erreurs: {len(result.errors)}")
 

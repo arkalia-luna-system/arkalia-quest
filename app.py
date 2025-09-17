@@ -43,9 +43,9 @@ try:
 
     # from engines.luna_ai_v3 import LunaAIV3  # Module temporairement désactivé
 
-    game_logger.info("✅ All core modules imported successfully")
+    print("✅ All core modules imported successfully")
 except Exception as e:
-    game_logger.error(f"❌ Error importing core modules: {e}")
+    print(f"❌ Error importing core modules: {e}")
     import traceback
 
     traceback.print_exc()

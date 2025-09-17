@@ -380,7 +380,9 @@ def run_immersive_effects_tests():
     game_logger.info(f"Tests exécutés: {result.testsRun}")
     game_logger.info(f"Échecs: {len(result.failures)}")
     game_logger.info(f"Erreurs: {len(result.errors)}")
-    game_logger.info(f"Succès: {result.testsRun - len(result.failures) - len(result.errors)}")
+    game_logger.info(
+        f"Succès: {result.testsRun - len(result.failures) - len(result.errors)}"
+    )
 
     if result.failures:
         game_logger.info(r"\n❌ ÉCHECS:")

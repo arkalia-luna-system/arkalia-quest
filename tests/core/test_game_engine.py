@@ -71,7 +71,9 @@ def test_add_effects_success_adds_matrix_effects_and_rewards(engine, monkeypatch
     # Stabilize reward calculation timing bonus
     engine.last_action_time = datetime.now()
     profile = {"xp": 0, "current_streak": 3, "level": 1}
-    res = engine.add_effects({"réussite": True, "difficulty": "hard", "message": "ok"}, profile)
+    res = engine.add_effects(
+        {"réussite": True, "difficulty": "hard", "message": "ok"}, profile
+    )
     eff = res["effect"]
     assert eff["type"] == "success"
     assert eff["color"] == "#00ff00"

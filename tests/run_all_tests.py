@@ -240,7 +240,9 @@ def main():
 
     # Vérifier que le serveur est accessible
     if not check_server():
-        game_logger.info(r"❌ Serveur non accessible. Démarrez le serveur avec: python app.py")
+        game_logger.info(
+            r"❌ Serveur non accessible. Démarrez le serveur avec: python app.py"
+        )
         return
 
     game_logger.info(r"✅ Serveur accessible")

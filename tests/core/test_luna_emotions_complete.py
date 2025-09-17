@@ -11,7 +11,9 @@ import unittest
 from datetime import datetime
 
 # Ajouter le répertoire parent au path
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.insert(
+    0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+)
 
 from utils.logger import GameLogger  # noqa: E402
 
@@ -209,7 +211,9 @@ class TestLunaEmotionsComplete(unittest.TestCase):
         # Le test peut échouer si le moteur d'émotions est trop déterministe
         # Vérifions d'abord que toutes les émotions sont valides
         for emotion in emotions_by_profile.values():
-            self.assertIn(emotion, [e.value for e in LunaEmotion], f"Émotion invalide: {emotion}")
+            self.assertIn(
+                emotion, [e.value for e in LunaEmotion], f"Émotion invalide: {emotion}"
+            )
 
         # Si on a au moins 2 émotions différentes, c'est bon
         # Sinon, c'est acceptable que le moteur soit déterministe
@@ -223,7 +227,9 @@ class TestLunaEmotionsComplete(unittest.TestCase):
             print("⚠️ Moteur d'émotions déterministe - acceptable pour la stabilité")
             # Vérifier au moins que l'émotion est valide
             emotion = list(emotions_by_profile.values())[0]
-            self.assertIn(emotion, [e.value for e in LunaEmotion], f"Émotion invalide: {emotion}")
+            self.assertIn(
+                emotion, [e.value for e in LunaEmotion], f"Émotion invalide: {emotion}"
+            )
 
     def test_learning_adaptation(self):
         """Test de l'adaptation et de l'apprentissage"""
@@ -278,7 +284,9 @@ class TestLunaEmotionsComplete(unittest.TestCase):
         duration = (end_time - start_time).total_seconds()
 
         # 100 actions devraient prendre moins de 1 seconde
-        self.assertLess(duration, 1.0, f"Performance insuffisante: {duration}s pour 100 actions")
+        self.assertLess(
+            duration, 1.0, f"Performance insuffisante: {duration}s pour 100 actions"
+        )
 
     def test_memory_management(self):
         """Test de la gestion de la mémoire"""
@@ -528,10 +536,14 @@ class TestLunaEmotionsComplete(unittest.TestCase):
             thread.join()
 
         # Vérifier qu'il n'y a pas d'erreurs
-        self.assertEqual(len(errors), 0, f"Erreurs lors de l'accès concurrent: {errors}")
+        self.assertEqual(
+            len(errors), 0, f"Erreurs lors de l'accès concurrent: {errors}"
+        )
 
         # Vérifier que tous les résultats sont valides
-        self.assertEqual(len(results), 50, "Tous les threads devraient avoir produit des résultats")
+        self.assertEqual(
+            len(results), 50, "Tous les threads devraient avoir produit des résultats"
+        )
 
         for _worker_id, _iteration, emotion_data in results:
             self.assertIsInstance(emotion_data, dict)

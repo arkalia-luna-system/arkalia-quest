@@ -211,7 +211,9 @@ class TestUtilsCoverage(unittest.TestCase):
             logger.info("")
             logger.warning("")
             logger.error("")
-            self.assertTrue(mock_info.called or mock_warning.called or mock_error.called)
+            self.assertTrue(
+                mock_info.called or mock_warning.called or mock_error.called
+            )
 
     def test_logger_with_different_levels(self):
         """Test des différents niveaux de logging"""

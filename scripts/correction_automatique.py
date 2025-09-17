@@ -22,7 +22,7 @@ except ImportError:
 
 def fix_print_debug():
     """Remplace les prints de debug par des logs"""
-    game_logger.info(r"🔧 Correction des prints de debug...")
+    print(r"🔧 Correction des prints de debug...")
 
     python_files = []
     for root, dirs, files in os.walk("."):
@@ -35,7 +35,7 @@ def fix_print_debug():
 
     for file_path in python_files:
         try:
-            with open(file_path, "r", encoding="utf-8") as f:
+            with open(file_path, encoding="utf-8") as f:
                 content = f.read()
 
             original_content = content
@@ -43,33 +43,33 @@ def fix_print_debug():
             # Remplacer les prints de debug par des logs
             content = re.sub(
                 r'print\s*\(\s*["\']([^"\']*)["\']\s*\)',
-                r'game_logger.info(r"\1")',
+                r'print(r"\1")',
                 content,
             )
 
             content = re.sub(
                 r'print\s*\(\s*f["\']([^"\']*)["\']\s*\)',
-                r'game_logger.info(f"\1")',
+                r'print(f"\1")',
                 content,
             )
 
             if content != original_content:
                 with open(file_path, "w", encoding="utf-8") as f:
                     f.write(content)
-                game_logger.info(f"✅ Corrigé: {file_path}")
+                print(f"✅ Corrigé: {file_path}")
 
         except Exception as e:
-            game_logger.info(f"❌ Erreur {file_path}: {e}")
+            print(f"❌ Erreur {file_path}: {e}")
 
 
 def fix_imports():
     """Corrige les imports problématiques"""
-    game_logger.info(r"🔧 Correction des imports...")
+    print(r"🔧 Correction des imports...")
 
     # Ajouter les imports manquants dans app.py
     app_py = Path("app.py")
     if app_py.exists():
-        with open(app_py, "r", encoding="utf-8") as f:
+        with open(app_py, encoding="utf-8") as f:
             content = f.read()
 
         # Vérifier si game_logger est importé
@@ -85,7 +85,7 @@ def fix_imports():
 
             with open(app_py, "w", encoding="utf-8") as f:
                 f.write(content)
-            game_logger.info(r"✅ Imports corrigés dans app.py")
+            print(r"✅ Imports corrigés dans app.py")
 
 
 def fix_encoding_issues():
@@ -94,40 +94,38 @@ def fix_encoding_issues():
 
     # Supprimer les fichiers cachés macOS
     subprocess.run(["find", ".", "-name", "._*", "-delete"], check=False)
-    game_logger.info(r"✅ Fichiers cachés supprimés")
+    print(r"✅ Fichiers cachés supprimés")
 
 
 def fix_long_functions():
     """Divise les fonctions trop longues"""
-    game_logger.info(r"🔧 Correction des fonctions trop longues...")
+    print(r"🔧 Correction des fonctions trop longues...")
 
     # Pour l'instant, on se contente de logger les fonctions longues
     # Une refactorisation manuelle sera nécessaire
-    game_logger.info(
-        r"⚠️  Refactorisation manuelle nécessaire pour les fonctions longues"
-    )
+    print(r"⚠️  Refactorisation manuelle nécessaire pour les fonctions longues")
 
 
 def run_linting_fixes():
     """Exécute les corrections de linting automatiques"""
-    game_logger.info(r"🔧 Exécution des corrections de linting...")
+    print(r"🔧 Exécution des corrections de linting...")
 
     try:
         # Black
         subprocess.run(["python", "-m", "black", "."], check=True)
-        game_logger.info(r"✅ Black appliqué")
+        print(r"✅ Black appliqué")
 
         # Ruff
         subprocess.run(["python", "-m", "ruff", "check", ".", "--fix"], check=True)
-        game_logger.info(r"✅ Ruff appliqué")
+        print(r"✅ Ruff appliqué")
 
     except subprocess.CalledProcessError as e:
-        game_logger.info(f"❌ Erreur linting: {e}")
+        print(f"❌ Erreur linting: {e}")
 
 
 def main():
     """Fonction principale"""
-    game_logger.info(r"🚀 DÉMARRAGE DES CORRECTIONS AUTOMATIQUES")
+    print(r"🚀 DÉMARRAGE DES CORRECTIONS AUTOMATIQUES")
     print("=" * 50)
 
     fix_encoding_issues()
@@ -137,10 +135,10 @@ def main():
     run_linting_fixes()
 
     print("\n" + "=" * 50)
-    game_logger.info(r"✅ CORRECTIONS AUTOMATIQUES TERMINÉES")
-    game_logger.info(r"📋 Prochaines étapes recommandées :")
-    game_logger.info(r"   1. Refactoriser les fonctions trop longues manuellement")
-    game_logger.info(r"   2. Vérifier les TODO/FIXME restants")
+    print(r"✅ CORRECTIONS AUTOMATIQUES TERMINÉES")
+    print(r"📋 Prochaines étapes recommandées :")
+    print(r"   1. Refactoriser les fonctions trop longues manuellement")
+    print(r"   2. Vérifier les TODO/FIXME restants")
     print("   3. Tester l'application après corrections")
 
 

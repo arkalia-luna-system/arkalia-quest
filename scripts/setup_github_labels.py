@@ -10,6 +10,14 @@ from typing import Any
 
 import requests
 
+# Import du logger
+try:
+    from utils.logger import game_logger
+except ImportError:
+    import logging
+
+    game_logger = logging.getLogger("setup_github_labels")
+
 
 class GitHubLabelsSetup:
     """Configuration des labels GitHub pour Arkalia Quest"""
@@ -212,12 +220,12 @@ class GitHubLabelsSetup:
             response = requests.get(self.base_url, headers=self.headers)
             if response.status_code == 200:
                 return response.json()
-            game_logger.info(
+            print(
                 f"❌ Erreur lors de la récupération des labels: {response.status_code}"
             )
             return []
         except Exception as e:
-            game_logger.info(f"❌ Erreur lors de la récupération des labels: {e}")
+            print(f"❌ Erreur lors de la récupération des labels: {e}")
             return []
 
     def create_label(self, label: dict[str, str]) -> bool:
@@ -256,23 +264,23 @@ class GitHubLabelsSetup:
 
     def setup_labels(self) -> bool:
         """Configure tous les labels"""
-        game_logger.info(r"🎮 Configuration des labels GitHub pour Arkalia Quest")
+        print(r"🎮 Configuration des labels GitHub pour Arkalia Quest")
         print("=" * 60)
 
         # Vérification de l'authentification
         if not self.check_auth():
-            game_logger.info(r"❌ Authentification GitHub échouée")
-            game_logger.info(r"💡 Assurez-vous que GITHUB_TOKEN est défini et valide")
+            print(r"❌ Authentification GitHub échouée")
+            print(r"💡 Assurez-vous que GITHUB_TOKEN est défini et valide")
             return False
 
-        game_logger.info(r"✅ Authentification GitHub réussie")
+        print(r"✅ Authentification GitHub réussie")
 
         # Récupération des labels existants
         existing_labels = self.get_existing_labels()
         existing_names = {label["name"] for label in existing_labels}
 
-        game_logger.info(f"📊 {len(existing_labels)} labels existants trouvés")
-        game_logger.info(f"🎯 {len(self.labels)} labels à configurer")
+        print(f"📊 {len(existing_labels)} labels existants trouvés")
+        print(f"🎯 {len(self.labels)} labels à configurer")
         print()
 
         success_count = 0
@@ -289,12 +297,10 @@ class GitHubLabelsSetup:
 
         print()
         print("=" * 60)
-        game_logger.info(
-            f"📊 Résumé: {success_count}/{total_count} labels configurés avec succès"
-        )
+        print(f"📊 Résumé: {success_count}/{total_count} labels configurés avec succès")
 
         if success_count == total_count:
-            game_logger.info(r"🎉 Tous les labels ont été configurés avec succès !")
+            print(r"🎉 Tous les labels ont été configurés avec succès !")
             return True
         print("⚠️  Certains labels n'ont pas pu être configurés")
         return False
@@ -401,18 +407,16 @@ Pour ajouter de nouveaux labels :
 
 def main():
     """Fonction principale"""
-    game_logger.info(r"🎮 Configuration des labels GitHub - Arkalia Quest")
+    print(r"🎮 Configuration des labels GitHub - Arkalia Quest")
     print("=" * 60)
 
     # Vérification du token GitHub
     token = os.getenv("GITHUB_TOKEN")
     if not token:
-        game_logger.info(r"❌ GITHUB_TOKEN non défini")
-        game_logger.info(r"💡 Définissez votre token GitHub :")
-        game_logger.info(r"   export GITHUB_TOKEN=your_token_here")
-        game_logger.info(
-            r"   ou créez un fichier .env avec GITHUB_TOKEN=your_token_here"
-        )
+        print(r"❌ GITHUB_TOKEN non défini")
+        print(r"💡 Définissez votre token GitHub :")
+        print(r"   export GITHUB_TOKEN=your_token_here")
+        print(r"   ou créez un fichier .env avec GITHUB_TOKEN=your_token_here")
         return False
 
     # Configuration des labels
@@ -424,7 +428,7 @@ def main():
         doc = setup.generate_labels_documentation()
         with open("docs/GITHUB_LABELS.md", "w", encoding="utf-8") as f:
             f.write(doc)
-        game_logger.info(r"📚 Documentation des labels générée: docs/GITHUB_LABELS.md")
+        print(r"📚 Documentation des labels générée: docs/GITHUB_LABELS.md")
 
     return success
 

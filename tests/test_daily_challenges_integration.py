@@ -109,7 +109,9 @@ class TestDailyChallengesIntegration(unittest.TestCase):
         challenge = challenges["challenges"][0]
 
         # Tentative réussie
-        self.engine.attempt_challenge(self.test_user_id, challenge["id"], challenge["answer"])
+        self.engine.attempt_challenge(
+            self.test_user_id, challenge["id"], challenge["answer"]
+        )
 
         # Récupérer le classement
         leaderboard = self.engine.get_leaderboard()
@@ -146,11 +148,17 @@ class TestDailyChallengesIntegration(unittest.TestCase):
 
             # Vérifier que les points augmentent avec la difficulté
             if difficulty == "facile":
-                self.assertLessEqual(challenge["reward_points"], 100)  # Ajusté pour la réalité
+                self.assertLessEqual(
+                    challenge["reward_points"], 100
+                )  # Ajusté pour la réalité
             elif difficulty == "moyen":
-                self.assertLessEqual(challenge["reward_points"], 200)  # Ajusté pour la réalité
+                self.assertLessEqual(
+                    challenge["reward_points"], 200
+                )  # Ajusté pour la réalité
             elif difficulty == "difficile":
-                self.assertLessEqual(challenge["reward_points"], 500)  # Ajusté pour la réalité
+                self.assertLessEqual(
+                    challenge["reward_points"], 500
+                )  # Ajusté pour la réalité
             elif difficulty == "expert":
                 self.assertLessEqual(challenge["reward_points"], 500)
 
@@ -183,7 +191,9 @@ class TestDailyChallengesIntegration(unittest.TestCase):
         challenge = challenges["challenges"][0]
 
         # Tentative réussie
-        self.engine.attempt_challenge(self.test_user_id, challenge["id"], challenge["answer"])
+        self.engine.attempt_challenge(
+            self.test_user_id, challenge["id"], challenge["answer"]
+        )
 
         # Vérifier que le progrès est mis à jour
         updated_progress = self.engine.user_progress.get(self.test_date, {}).get(
@@ -213,7 +223,9 @@ class TestDailyChallengesIntegration(unittest.TestCase):
         self.assertIsInstance(challenges, dict)
 
         # Test avec défi inexistant
-        result = self.engine.attempt_challenge(self.test_user_id, "challenge_inexistant", "reponse")
+        result = self.engine.attempt_challenge(
+            self.test_user_id, "challenge_inexistant", "reponse"
+        )
         self.assertIsInstance(result, dict)
         self.assertIn("success", result)
 

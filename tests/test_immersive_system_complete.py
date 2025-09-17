@@ -160,8 +160,12 @@ class ImmersiveSystemTester:
                         print(f"    ⚠️ {command}: Pas d'émotion LUNA détectée")
                         emotions_test["errors"].append(f"Pas d'émotion pour {command}")
                 else:
-                    game_logger.info(f"    ❌ {command}: Erreur HTTP {response.status_code}")
-                    emotions_test["errors"].append(f"HTTP {response.status_code} pour {command}")
+                    game_logger.info(
+                        f"    ❌ {command}: Erreur HTTP {response.status_code}"
+                    )
+                    emotions_test["errors"].append(
+                        f"HTTP {response.status_code} pour {command}"
+                    )
 
             except Exception as e:
                 game_logger.info(f"    💥 {command}: Erreur - {e!s}")
@@ -228,8 +232,12 @@ class ImmersiveSystemTester:
                         "Couleur {data.get('luna_color', 'N/A')}",
                     )
                 else:
-                    game_logger.info(f"    ❌ {command}: Erreur HTTP {response.status_code}")
-                    effects_test["errors"].append(f"HTTP {response.status_code} pour {command}")
+                    game_logger.info(
+                        f"    ❌ {command}: Erreur HTTP {response.status_code}"
+                    )
+                    effects_test["errors"].append(
+                        f"HTTP {response.status_code} pour {command}"
+                    )
 
             except Exception as e:
                 game_logger.info(f"    💥 {command}: Erreur - {e!s}")
@@ -273,16 +281,22 @@ class ImmersiveSystemTester:
                     # Vérifier la cohérence
                     if self.check_emotion_effect_coherence(data):
                         integration_test["integration_success"] += 1
-                        game_logger.info(f"    ✅ {command}: Cohérence émotion-effet OK")
+                        game_logger.info(
+                            f"    ✅ {command}: Cohérence émotion-effet OK"
+                        )
                     else:
-                        game_logger.info(f"    ⚠️ {command}: Incohérence émotion-effet détectée")
+                        game_logger.info(
+                            f"    ⚠️ {command}: Incohérence émotion-effet détectée"
+                        )
                         integration_test["errors"].append(f"Incohérence pour {command}")
 
                     # Vérifier la structure des données
                     if self.validate_response_structure(data):
                         integration_test["coherence_success"] += 1
                     else:
-                        integration_test["errors"].append(f"Structure invalide pour {command}")
+                        integration_test["errors"].append(
+                            f"Structure invalide pour {command}"
+                        )
 
                     integration_test["coherence_checks"] += 1
 
@@ -292,12 +306,20 @@ class ImmersiveSystemTester:
 
         # Calculer les taux de réussite
         integration_test["integration_rate"] = (
-            (integration_test["integration_success"] / integration_test["integration_checks"]) * 100
+            (
+                integration_test["integration_success"]
+                / integration_test["integration_checks"]
+            )
+            * 100
             if integration_test["integration_checks"] > 0
             else 0
         )
         integration_test["coherence_rate"] = (
-            (integration_test["coherence_success"] / integration_test["coherence_checks"]) * 100
+            (
+                integration_test["coherence_success"]
+                / integration_test["coherence_checks"]
+            )
+            * 100
             if integration_test["coherence_checks"] > 0
             else 0
         )
@@ -384,22 +406,34 @@ class ImmersiveSystemTester:
                 performance_test["successful_requests"] += 1
                 performance_test["response_times"].append(result["response_time"])
             else:
-                performance_test["errors"].append(f"Requête {result['request_id']}: Échec")
+                performance_test["errors"].append(
+                    f"Requête {result['request_id']}: Échec"
+                )
 
         # Calculer les statistiques
         if performance_test["response_times"]:
-            performance_test["avg_response_time"] = sum(performance_test["response_times"]) / len(
+            performance_test["avg_response_time"] = sum(
+                performance_test["response_times"]
+            ) / len(
                 performance_test["response_times"],
             )
-            performance_test["min_response_time"] = min(performance_test["response_times"])
-            performance_test["max_response_time"] = max(performance_test["response_times"])
+            performance_test["min_response_time"] = min(
+                performance_test["response_times"]
+            )
+            performance_test["max_response_time"] = max(
+                performance_test["response_times"]
+            )
         else:
             performance_test["avg_response_time"] = 0
             performance_test["min_response_time"] = 0
             performance_test["max_response_time"] = 0
 
         performance_test["success_rate"] = (
-            (performance_test["successful_requests"] / performance_test["total_requests"]) * 100
+            (
+                performance_test["successful_requests"]
+                / performance_test["total_requests"]
+            )
+            * 100
             if performance_test["total_requests"] > 0
             else 0
         )
@@ -492,7 +526,9 @@ class ImmersiveSystemTester:
             + performance_results.get("successful_requests", 0)
         )
 
-        overall_success_rate = (total_success / total_tests) * 100 if total_tests > 0 else 0
+        overall_success_rate = (
+            (total_success / total_tests) * 100 if total_tests > 0 else 0
+        )
 
         return {
             "total_tests": total_tests,
@@ -514,9 +550,7 @@ class ImmersiveSystemTester:
 
     def save_results(self, results: dict[str, Any]):
         """Sauvegarde les résultats"""
-        filename = (
-            f"tests/results/immersive_system_test_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-        )
+        filename = f"tests/results/immersive_system_test_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
 
         # Créer le dossier si nécessaire
         import os
@@ -547,7 +581,9 @@ class ImmersiveSystemTester:
         print(
             f"• Tests LUNA: {results['luna_emotions']['emotions_detected']}/{results['luna_emotions']['total_commands']} émotions détectées",
         )
-        print(f"• Tests visuels: {results['visual_effects']['effects_detected']} effets détectés")
+        print(
+            f"• Tests visuels: {results['visual_effects']['effects_detected']} effets détectés"
+        )
         print(
             f"• Tests intégration: {results['integration']['integration_success']}/{results['integration']['integration_checks']} cohérences OK",
         )
@@ -556,7 +592,9 @@ class ImmersiveSystemTester:
         )
 
         if summary["status"] == "EXCELLENT":
-            game_logger.info(r"\n🎉 SYSTÈME IMMERSIF PARFAIT ! LUNA est prête à bluffer les ados !")
+            game_logger.info(
+                r"\n🎉 SYSTÈME IMMERSIF PARFAIT ! LUNA est prête à bluffer les ados !"
+            )
         elif summary["status"] == "BON":
             game_logger.info(
                 r"\n👍 SYSTÈME IMMERSIF FONCTIONNEL ! Quelques ajustements mineurs recommandés."

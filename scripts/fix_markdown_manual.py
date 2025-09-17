@@ -6,6 +6,14 @@ Script de correction manuelle des erreurs Markdown les plus critiques
 import glob
 import re
 
+# Import du logger
+try:
+    from utils.logger import game_logger
+except ImportError:
+    import logging
+
+    game_logger = logging.getLogger("fix_markdown_manual")
+
 
 def fix_markdown_file(file_path):
     """Corrige les erreurs Markdown les plus importantes dans un fichier"""
@@ -59,19 +67,19 @@ def fix_markdown_file(file_path):
         if content != original_content:
             with open(file_path, "w", encoding="utf-8") as f:
                 f.write(content)
-            game_logger.info(f"✅ Corrigé: {file_path}")
+            print(f"✅ Corrigé: {file_path}")
             return True
-        game_logger.info(f"⏭️  Aucun changement: {file_path}")
+        print(f"⏭️  Aucun changement: {file_path}")
         return False
 
     except Exception as e:
-        game_logger.info(f"❌ Erreur avec {file_path}: {e}")
+        print(f"❌ Erreur avec {file_path}: {e}")
         return False
 
 
 def main():
     """Fonction principale"""
-    game_logger.info(r"🔧 CORRECTION MANUELLE DES ERREURS MARKDOWN")
+    print(r"🔧 CORRECTION MANUELLE DES ERREURS MARKDOWN")
     print("=" * 50)
 
     # Trouver tous les fichiers Markdown
@@ -82,7 +90,7 @@ def main():
     # Supprimer les doublons
     md_files = list(set(md_files))
 
-    game_logger.info(f"📁 {len(md_files)} fichiers Markdown trouvés")
+    print(f"📁 {len(md_files)} fichiers Markdown trouvés")
 
     corrected_count = 0
     total_count = len(md_files)
@@ -92,18 +100,14 @@ def main():
             corrected_count += 1
 
     print("\n" + "=" * 50)
-    game_logger.info(r"📊 RÉSULTATS:")
-    game_logger.info(f"✅ Fichiers corrigés: {corrected_count}/{total_count}")
-    game_logger.info(
-        f"⏭️  Fichiers inchangés: {total_count - corrected_count}/{total_count}"
-    )
+    print(r"📊 RÉSULTATS:")
+    print(f"✅ Fichiers corrigés: {corrected_count}/{total_count}")
+    print(f"⏭️  Fichiers inchangés: {total_count - corrected_count}/{total_count}")
 
     if corrected_count > 0:
-        game_logger.info(
-            f"\n🎉 {corrected_count} fichiers ont été corrigés avec succès !"
-        )
+        print(f"\n🎉 {corrected_count} fichiers ont été corrigés avec succès !")
     else:
-        game_logger.info(r"\n✨ Tous les fichiers étaient déjà corrects !")
+        print(r"\n✨ Tous les fichiers étaient déjà corrects !")
 
 
 if __name__ == "__main__":

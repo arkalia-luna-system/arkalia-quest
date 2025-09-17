@@ -6,6 +6,14 @@ Script pour identifier les fichiers CSS/JS inutiles dans Arkalia Quest
 import re
 from pathlib import Path
 
+# Import du logger
+try:
+    from utils.logger import game_logger
+except ImportError:
+    import logging
+
+    game_logger = logging.getLogger("identify_unused_files")
+
 
 def find_css_js_references():
     """Trouve toutes les références CSS/JS dans les templates"""
@@ -21,7 +29,7 @@ def find_css_js_references():
                 with open(template_file, encoding="latin-1") as f:
                     content = f.read()
             except Exception as e:
-                game_logger.info(f"⚠️  Impossible de lire {template_file}: {e}")
+                print(f"⚠️  Impossible de lire {template_file}: {e}")
                 continue
 
         # Chercher les références CSS
@@ -57,7 +65,7 @@ def find_existing_files():
 
 
 def main():
-    game_logger.info(r"🔍 Analyse des fichiers CSS/JS inutiles...")
+    print(r"🔍 Analyse des fichiers CSS/JS inutiles...")
 
     # Trouver les références et fichiers existants
     referenced_files = find_css_js_references()
@@ -88,33 +96,33 @@ def main():
         existing_files - referenced_files - consolidated_files - critical_files
     )
 
-    game_logger.info(r"\n📊 STATISTIQUES:")
-    game_logger.info(f"   Fichiers CSS/JS existants: {len(existing_files)}")
-    game_logger.info(f"   Fichiers référencés: {len(referenced_files)}")
-    game_logger.info(f"   Fichiers consolidés: {len(consolidated_files)}")
-    game_logger.info(f"   Fichiers critiques: {len(critical_files)}")
-    game_logger.info(f"   Fichiers potentiellement inutiles: {len(potentially_unused)}")
+    print(r"\n📊 STATISTIQUES:")
+    print(f"   Fichiers CSS/JS existants: {len(existing_files)}")
+    print(f"   Fichiers référencés: {len(referenced_files)}")
+    print(f"   Fichiers consolidés: {len(consolidated_files)}")
+    print(f"   Fichiers critiques: {len(critical_files)}")
+    print(f"   Fichiers potentiellement inutiles: {len(potentially_unused)}")
 
-    game_logger.info(r"\n🗑️  FICHIERS POTENTIELLEMENT INUTILES:")
+    print(r"\n🗑️  FICHIERS POTENTIELLEMENT INUTILES:")
     for file in sorted(potentially_unused):
-        game_logger.info(f"   ❌ {file}")
+        print(f"   ❌ {file}")
 
-    game_logger.info(r"\n✅ FICHIERS CONSOLIDÉS (à conserver):")
+    print(r"\n✅ FICHIERS CONSOLIDÉS (à conserver):")
     for file in sorted(consolidated_files):
         if file in existing_files:
-            game_logger.info(f"   ✅ {file}")
+            print(f"   ✅ {file}")
 
-    game_logger.info(r"\n🔒 FICHIERS CRITIQUES (à conserver):")
+    print(r"\n🔒 FICHIERS CRITIQUES (à conserver):")
     for file in sorted(critical_files):
         if file in existing_files:
-            game_logger.info(f"   🔒 {file}")
+            print(f"   🔒 {file}")
 
     # Vérifier les fichiers manquants
     missing_files = referenced_files - existing_files
     if missing_files:
-        game_logger.info(r"\n⚠️  FICHIERS RÉFÉRENCÉS MAIS MANQUANTS:")
+        print(r"\n⚠️  FICHIERS RÉFÉRENCÉS MAIS MANQUANTS:")
         for file in sorted(missing_files):
-            game_logger.info(f"   ⚠️  {file}")
+            print(f"   ⚠️  {file}")
 
     return potentially_unused
 

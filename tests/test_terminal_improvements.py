@@ -92,7 +92,9 @@ class TerminalImprovementsTester:
                 print(f"❌ {test['name']}: Erreur - {e}")
 
         self.results["feedback_quality"] = (feedback_score / total_tests) * 100
-        print(f"📊 Score feedback intelligent: {self.results['feedback_quality']:.1f}/100")
+        print(
+            f"📊 Score feedback intelligent: {self.results['feedback_quality']:.1f}/100"
+        )
 
     def test_accessibility(self):
         """Test de l'accessibilité"""
@@ -124,8 +126,12 @@ class TerminalImprovementsTester:
                     else:
                         game_logger.info(f"⚠️ {check_name}: {description} manquant")
 
-                self.results["accessibility_score"] = (accessibility_score / total_checks) * 100
-                print(f"📊 Score accessibilité: {self.results['accessibility_score']:.1f}/100")
+                self.results["accessibility_score"] = (
+                    accessibility_score / total_checks
+                ) * 100
+                print(
+                    f"📊 Score accessibilité: {self.results['accessibility_score']:.1f}/100"
+                )
 
             else:
                 game_logger.info(f"❌ Erreur HTTP {response.status_code}")
@@ -174,8 +180,12 @@ class TerminalImprovementsTester:
                     else:
                         game_logger.info(f"⚠️ {check_name}: {description} manquant")
 
-                self.results["responsive_score"] = (responsive_score / total_checks) * 100
-                print(f"📊 Score responsive: {self.results['responsive_score']:.1f}/100")
+                self.results["responsive_score"] = (
+                    responsive_score / total_checks
+                ) * 100
+                print(
+                    f"📊 Score responsive: {self.results['responsive_score']:.1f}/100"
+                )
 
             else:
                 game_logger.info(f"❌ Erreur HTTP {response.status_code}")
@@ -263,7 +273,9 @@ class TerminalImprovementsTester:
         if self.results["overall_score"] >= 85:
             game_logger.info(r"🏆 EXCELLENT: Terminal professionnel et accessible !")
         elif self.results["overall_score"] >= 70:
-            game_logger.info(r"✅ BON: Terminal bien amélioré avec quelques points à optimiser")
+            game_logger.info(
+                r"✅ BON: Terminal bien amélioré avec quelques points à optimiser"
+            )
         elif self.results["overall_score"] >= 50:
             game_logger.info(r"⚠️ MOYEN: Améliorations visibles mais encore du travail")
         else:

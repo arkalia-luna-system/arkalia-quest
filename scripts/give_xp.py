@@ -8,6 +8,14 @@ import sys
 
 import requests
 
+# Import du logger
+try:
+    from utils.logger import game_logger
+except ImportError:
+    import logging
+
+    game_logger = logging.getLogger("give_xp")
+
 # Ajouter le répertoire racine au path
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
@@ -49,9 +57,9 @@ def give_xp_directly():
         final_xp = player_data.get("xp", 0)
         level = player_data.get("level", 1)
 
-        game_logger.info(f"\n📊 XP total: {final_xp}")
-        game_logger.info(f"📊 Niveau: {level}")
-        game_logger.info(f"📈 XP donné: {total_xp_given}")
+        print(f"\n📊 XP total: {final_xp}")
+        print(f"📊 Niveau: {level}")
+        print(f"📈 XP donné: {total_xp_given}")
 
         if final_xp >= 100:
             print("✅ Le joueur a assez d'XP pour tester l'arbre de compétences !")
@@ -61,7 +69,7 @@ def give_xp_directly():
             return False
 
     except Exception as e:
-        game_logger.info(f"❌ Erreur: {e}")
+        print(f"❌ Erreur: {e}")
         return False
 
 
@@ -78,7 +86,7 @@ def test_skill_tree_with_xp():
         data = response.json()
         player_data = data.get("player_data", {})
         xp = player_data.get("xp", 0)
-        game_logger.info(f"📊 XP du joueur: {xp}")
+        print(f"📊 XP du joueur: {xp}")
 
         if xp >= 100:
             # Test 2: Upgrade d'une compétence
@@ -91,7 +99,7 @@ def test_skill_tree_with_xp():
             if response.status_code == 200:
                 result = response.json()
                 if result.get("success"):
-                    game_logger.info(r"✅ Upgrade réussi !")
+                    print(r"✅ Upgrade réussi !")
                     print(f"📈 Nouveau niveau: {result.get('new_level')}")
                     print(f"💰 XP restant: {result.get('remaining_xp')}")
                     return True
@@ -99,13 +107,13 @@ def test_skill_tree_with_xp():
                     print(f"❌ Échec upgrade: {result.get('error')}")
                     return False
             else:
-                game_logger.info(f"❌ Erreur upgrade: {response.status_code}")
+                print(f"❌ Erreur upgrade: {response.status_code}")
                 return False
         else:
             print("❌ Pas assez d'XP pour tester l'upgrade")
             return False
     else:
-        game_logger.info(f"❌ Erreur récupération arbre: {response.status_code}")
+        print(f"❌ Erreur récupération arbre: {response.status_code}")
         return False
 
 
@@ -117,7 +125,7 @@ if __name__ == "__main__":
     if give_xp_directly():
         # Étape 2: Tester l'arbre de compétences
         if test_skill_tree_with_xp():
-            game_logger.info(r"\n🎉 TOUS LES TESTS SONT PASSÉS !")
+            print(r"\n🎉 TOUS LES TESTS SONT PASSÉS !")
             print("✨ Le système d'arbre de compétences fonctionne parfaitement !")
         else:
             print("\n❌ Échec du test de l'arbre de compétences")

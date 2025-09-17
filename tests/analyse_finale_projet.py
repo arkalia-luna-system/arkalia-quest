@@ -199,7 +199,9 @@ class AnalyseurProjet:
             robustesse_dir = self.projet_root / "tests" / "robustesse"
             if robustesse_dir.exists():
                 robustesse_files = list(robustesse_dir.glob("*.py"))
-                game_logger.info(f"📁 Tests de robustesse: {len(robustesse_files)} fichiers")
+                game_logger.info(
+                    f"📁 Tests de robustesse: {len(robustesse_files)} fichiers"
+                )
 
                 # Exécuter un test de robustesse rapide
                 game_logger.info(r"🔍 Test de robustesse rapide...")
@@ -262,18 +264,28 @@ class AnalyseurProjet:
                                 missed_statements = int(parts[2])
                                 coverage_percent = float(parts[3].rstrip("%"))
 
-                                game_logger.info(f"📈 Couverture: {coverage_percent:.1f}%")
+                                game_logger.info(
+                                    f"📈 Couverture: {coverage_percent:.1f}%"
+                                )
                                 game_logger.info(f"   Total: {total_statements} lignes")
-                                game_logger.info(f"   Manquées: {missed_statements} lignes")
+                                game_logger.info(
+                                    f"   Manquées: {missed_statements} lignes"
+                                )
 
                                 if coverage_percent >= 80:
-                                    game_logger.info(r"   🌟 EXCELLENT - Très bonne couverture")
+                                    game_logger.info(
+                                        r"   🌟 EXCELLENT - Très bonne couverture"
+                                    )
                                 elif coverage_percent >= 60:
-                                    game_logger.info(r"   ✅ BON - Couverture acceptable")
+                                    game_logger.info(
+                                        r"   ✅ BON - Couverture acceptable"
+                                    )
                                 elif coverage_percent >= 40:
                                     game_logger.info(r"   ⚠️  MOYEN - À améliorer")
                                 else:
-                                    game_logger.info(r"   ❌ FAIBLE - Couverture insuffisante")
+                                    game_logger.info(
+                                        r"   ❌ FAIBLE - Couverture insuffisante"
+                                    )
 
                                 self.resultats["couverture"] = {
                                     "pourcentage": coverage_percent,
@@ -282,7 +294,9 @@ class AnalyseurProjet:
                                 }
 
                             except (ValueError, IndexError):
-                                game_logger.info(r"⚠️  Impossible de parser la couverture")
+                                game_logger.info(
+                                    r"⚠️  Impossible de parser la couverture"
+                                )
                                 break
                         break
             else:
@@ -303,16 +317,23 @@ class AnalyseurProjet:
         # Score structure (25 points)
         if "structure" in self.resultats:
             score += (self.resultats["structure"]["score"] / 100) * 25
-            print(f"🏗️  Structure: {self.resultats['structure']['score']:.1f}% → {score:.1f}/25")
+            print(
+                f"🏗️  Structure: {self.resultats['structure']['score']:.1f}% → {score:.1f}/25"
+            )
 
         # Score tests (25 points)
         if "tests" in self.resultats and "collectes" in self.resultats["tests"]:
             test_score = min(self.resultats["tests"]["collectes"] / 100, 1.0) * 25
             score += test_score
-            print(f"🧪 Tests: {self.resultats['tests']['collectes']} tests → {test_score:.1f}/25")
+            print(
+                f"🧪 Tests: {self.resultats['tests']['collectes']} tests → {test_score:.1f}/25"
+            )
 
         # Score performance (20 points)
-        if "performance" in self.resultats and "status" in self.resultats["performance"]:
+        if (
+            "performance" in self.resultats
+            and "status" in self.resultats["performance"]
+        ):
             if self.resultats["performance"]["status"] == "accessible":
                 perf_score = 20
                 if "response_time" in self.resultats["performance"]:
@@ -339,7 +360,10 @@ class AnalyseurProjet:
             game_logger.info(f"🛡️  Robustesse: {robust_score}/20")
 
         # Score couverture (10 points)
-        if "couverture" in self.resultats and "pourcentage" in self.resultats["couverture"]:
+        if (
+            "couverture" in self.resultats
+            and "pourcentage" in self.resultats["couverture"]
+        ):
             cov_score = min(self.resultats["couverture"]["pourcentage"] / 10, 10)
             score += cov_score
             print(
@@ -363,7 +387,9 @@ class AnalyseurProjet:
             game_logger.info(r"⚠️  MOYEN - Projet fonctionnel mais à améliorer")
             self.resultats["niveau"] = "moyen"
         else:
-            game_logger.info(r"❌ FAIBLE - Projet nécessite des améliorations importantes")
+            game_logger.info(
+                r"❌ FAIBLE - Projet nécessite des améliorations importantes"
+            )
             self.resultats["niveau"] = "faible"
 
     def generer_recommandations(self):
@@ -374,19 +400,28 @@ class AnalyseurProjet:
         recommendations = []
 
         # Recommandations basées sur la couverture
-        if "couverture" in self.resultats and "pourcentage" in self.resultats["couverture"]:
+        if (
+            "couverture" in self.resultats
+            and "pourcentage" in self.resultats["couverture"]
+        ):
             if self.resultats["couverture"]["pourcentage"] < 60:
-                recommendations.append("📈 Augmenter la couverture de tests (objectif: 80%+)")
+                recommendations.append(
+                    "📈 Augmenter la couverture de tests (objectif: 80%+)"
+                )
 
         # Recommandations basées sur les tests
         if "tests" in self.resultats and "collectes" in self.resultats["tests"]:
             if self.resultats["tests"]["collectes"] < 100:
-                recommendations.append("🧪 Ajouter plus de tests unitaires et d'intégration")
+                recommendations.append(
+                    "🧪 Ajouter plus de tests unitaires et d'intégration"
+                )
 
         # Recommandations basées sur la robustesse
         if "robustesse" in self.resultats and "status" in self.resultats["robustesse"]:
             if self.resultats["robustesse"]["status"] != "succes":
-                recommendations.append("🛡️  Corriger les tests de robustesse qui échouent")
+                recommendations.append(
+                    "🛡️  Corriger les tests de robustesse qui échouent"
+                )
 
         # Recommandations basées sur les erreurs
         if self.resultats["erreurs"]:
@@ -397,7 +432,9 @@ class AnalyseurProjet:
             recommendations.append("🚀 Mettre en place un plan d'amélioration continue")
 
         if not recommendations:
-            recommendations.append("🎉 Aucune recommandation majeure - projet en excellent état !")
+            recommendations.append(
+                "🎉 Aucune recommandation majeure - projet en excellent état !"
+            )
 
         for i, rec in enumerate(recommendations, 1):
             game_logger.info(f"{i}. {rec}")

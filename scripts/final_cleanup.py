@@ -15,6 +15,7 @@ def cleanup_hidden_files():
 
     # Supprimer les fichiers ._* de manière sécurisée
     import shlex
+
     command = shlex.split("find . -name '._*' -delete")
     result = subprocess.run(
         command,
@@ -34,6 +35,7 @@ def cleanup_pycache():
     print("🧹 Nettoyage des __pycache__...")
 
     import shlex
+
     command = shlex.split("find . -name '__pycache__' -type d -exec rm -rf {} +")
     result = subprocess.run(
         command,

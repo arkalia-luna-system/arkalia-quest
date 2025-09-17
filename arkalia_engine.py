@@ -15,7 +15,7 @@ try:
     from utils.logger import game_logger
 except ImportError:
     # Fallback si le module utils est en conflit
-    game_logger = logging.getLogger("arkalia_game")
+    game_logger = logging.getLogger("arkalia_game")  # type: ignore
 
 
 class ProfileManager:

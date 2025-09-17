@@ -388,14 +388,27 @@ class SocialEngine:
 
     def distribute_challenge_rewards(self, challenge: dict[str, Any]):
         """Distribue les récompenses d'un défi terminé"""
-        # rewards = challenge.get("rewards", {})  # TODO: Implémenter la distribution des récompenses
+        rewards = challenge.get("rewards", {})
+
+        # Récompenses par défaut si aucune spécifiée
+        if not rewards:
+            rewards = {"xp": 50, "coins": 25, "badges": ["coop_challenge_completed"]}
 
         for participant in challenge["participants"]:
-            # Ici, on pourrait intégrer avec le système de gamification
-            # pour distribuer les récompenses
-            logger.info(
-                f"🎁 Récompenses distribuées à {participant} pour le défi {challenge['id']}",
-            )
+            try:
+                # Ici, on pourrait intégrer avec le système de gamification
+                # pour distribuer les récompenses réelles
+                logger.info(
+                    f"🎁 Récompenses distribuées à {participant} pour le défi {challenge['id']}: "
+                    f"XP: {rewards.get('xp', 0)}, Coins: {rewards.get('coins', 0)}, "
+                    f"Badges: {rewards.get('badges', [])}"
+                )
+
+                # TODO: Intégrer avec ProgressionEngine pour distribuer les récompenses réelles
+                # progression_engine.update_player_progression(participant, "challenge_completed", rewards)
+
+            except Exception as e:
+                logger.error(f"Erreur distribution récompenses pour {participant}: {e}")
 
     # ===== SYSTÈME D'ÉVÉNEMENTS COLLECTIFS =====
 

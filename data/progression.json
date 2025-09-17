@@ -56,13 +56,21 @@
         {
           "command": "any",
           "timestamp": "2025-09-17T20:15:16.875953"
+        },
+        {
+          "command": "any",
+          "timestamp": "2025-09-17T20:27:23.316980"
+        },
+        {
+          "command": "any",
+          "timestamp": "2025-09-17T20:27:37.332252"
         }
       ],
       "luna_commands_used": [],
       "mini_games_completed": [],
       "daily_challenges_progress": {
         "hacker_speed": {
-          "progress": 11,
+          "progress": 13,
           "completed": true,
           "reward_claimed": false,
           "notified": true
@@ -87,9 +95,9 @@
         "first_step",
         "speed_demon"
       ],
-      "last_activity": "2025-09-17T20:15:16.875946",
+      "last_activity": "2025-09-17T20:27:37.332248",
       "stats": {
-        "total_commands": 11,
+        "total_commands": 13,
         "total_luna_commands": 0,
         "total_zones_explored": 0,
         "total_mini_games": 0,
@@ -303,6 +311,14 @@
         {
           "command": "luna",
           "timestamp": "2025-09-17T20:23:52.840044"
+        },
+        {
+          "command": "help",
+          "timestamp": "2025-09-17T20:27:23.234250"
+        },
+        {
+          "command": "help",
+          "timestamp": "2025-09-17T20:27:37.218121"
         }
       ],
       "luna_commands_used": [
@@ -314,7 +330,7 @@
       "mini_games_completed": [],
       "daily_challenges_progress": {
         "hacker_speed": {
-          "progress": 47,
+          "progress": 49,
           "completed": true,
           "reward_claimed": false,
           "notified": true
@@ -340,9 +356,9 @@
         "first_step",
         "speed_demon"
       ],
-      "last_activity": "2025-09-17T20:24:20.471329",
+      "last_activity": "2025-09-17T20:27:37.218115",
       "stats": {
-        "total_commands": 47,
+        "total_commands": 49,
         "total_luna_commands": 4,
         "total_zones_explored": 0,
         "total_mini_games": 0,

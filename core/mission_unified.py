@@ -103,6 +103,10 @@ class MissionUnified:
         for mission in missions:
             self.missions[mission["mission_id"]] = mission
 
+    def load_all_data(self):
+        """Charge toutes les données nécessaires"""
+        self.load_missions()
+
     # Méthodes de mission_handler
     def get_mission(self, mission_id: str) -> Optional[dict[str, Any]]:
         """Récupère une mission par son ID"""
@@ -295,6 +299,66 @@ class MissionUnified:
             "progress": 0,
             "status": "not_started",
             "last_updated": datetime.now().isoformat(),
+        }
+
+    def get_current_acte(self, profil: dict[str, Any]) -> str:
+        """Détermine l'acte actuel basé sur les missions complétées"""
+        completed_missions = profil.get("missions_completed", [])
+
+        # Logique de progression des actes
+        if "prologue" in completed_missions:
+            if "acte_1" in completed_missions:
+                return "acte_2"
+            return "acte_1"
+        return "prologue"
+
+    def execute_mission_step(
+        self, mission_id: str, step_id: str, profil: dict[str, Any]
+    ) -> dict[str, Any]:
+        """Exécute une étape de mission"""
+        mission = self.get_mission(mission_id)
+        if not mission:
+            return {"success": False, "error": "Mission non trouvée"}
+
+        # Trouver l'étape
+        etapes = mission.get("etapes", [])
+        step = next((s for s in etapes if s["id"] == step_id), None)
+        if not step:
+            return {"success": False, "error": "Étape non trouvée"}
+
+        # Initialiser les structures si nécessaire
+        if "points" not in profil:
+            profil["points"] = 0
+        if "missions_completed" not in profil:
+            profil["missions_completed"] = []
+        if "objets_debloques" not in profil:
+            profil["objets_debloques"] = []
+        if "etapes_completed" not in profil:
+            profil["etapes_completed"] = {}
+
+        # Ajouter les points
+        recompense = step.get("recompense", 0)
+        profil["points"] += recompense
+
+        # Marquer l'étape comme complétée
+        if mission_id not in profil["etapes_completed"]:
+            profil["etapes_completed"][mission_id] = []
+        profil["etapes_completed"][mission_id].append(step_id)
+
+        # Vérifier si la mission est complète
+        completed_steps = profil["etapes_completed"].get(mission_id, [])
+        if len(completed_steps) >= len(etapes):
+            profil["missions_completed"].append(mission_id)
+            # Ajouter l'objet symbolique si présent
+            objet = mission.get("objet_symbolique")
+            if objet:
+                profil["objets_debloques"].append(objet)
+
+        return {
+            "success": True,
+            "step_id": step_id,
+            "recompense": recompense,
+            "mission_complete": len(completed_steps) >= len(etapes),
         }
 
     def update_mission_progress(

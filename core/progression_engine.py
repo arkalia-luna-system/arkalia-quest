@@ -327,8 +327,8 @@ class ProgressionEngine:
                 completed_today.append(
                     {
                         "id": challenge_id,
-                        "title": challenge["title"],
-                        "reward": challenge["reward"],
+                        "title": challenge.get("title", f"Défi {challenge_id}"),
+                        "reward": challenge.get("reward", {}),
                     }
                 )
                 progress["notified"] = True

@@ -54,7 +54,7 @@ class UniversalNotifications {
         style.textContent = `
             .universal-notifications-container {
                 position: fixed;
-                bottom: 20px;
+                top: 20px;
                 right: 20px;
                 z-index: 10000;
                 display: flex;
@@ -117,6 +117,19 @@ class UniversalNotifications {
 
             .universal-notification.info::before {
                 background: linear-gradient(90deg, var(--bleu-spectre), #3b82f6);
+            }
+
+            .universal-notification.gift::before {
+                background: linear-gradient(90deg, #f59e0b, #d97706);
+            }
+
+            .universal-notification.gift {
+                background: rgba(245, 158, 11, 0.1);
+                border-color: rgba(245, 158, 11, 0.5);
+            }
+
+            .universal-notification.gift .universal-notification-title {
+                color: #f59e0b;
             }
 
             .universal-notification-header {
@@ -352,6 +365,11 @@ class UniversalNotifications {
             return notificationConfig.id;
         }
 
+        // Vérifier s'il y a déjà une notification similaire
+        if (this.hasSimilarNotification(notificationConfig)) {
+            return notificationConfig.id;
+        }
+
         // Anti-spam / déduplication amélioré
         const now = Date.now();
         const rateKey = this.getRateKey(notificationConfig);
@@ -496,6 +514,26 @@ class UniversalNotifications {
         }
 
         return true;
+    }
+
+    hasSimilarNotification(config) {
+        // Vérifier s'il y a déjà une notification similaire dans les 5 dernières secondes
+        const now = Date.now();
+        const similarThreshold = 5000; // 5 secondes
+
+        for (const [id, notification] of this.notifications) {
+            const timeDiff = now - notification.timestamp;
+            if (timeDiff < similarThreshold) {
+                // Vérifier si c'est le même type et contenu similaire
+                if (notification.type === config.type &&
+                    notification.title === config.title &&
+                    Math.abs(notification.timestamp - now) < 2000) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     createNotification(config) {

@@ -11,13 +11,15 @@
     font-family: 'Inter', sans-serif;
     font-weight: 500;
     font-size: 1em;
-    z-index: 10000;
+    z-index: 9998;
+    /* Plus bas que universal notifications */
     opacity: 0;
     transform: translateX(400px);
     transition: all 0.5s ease;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(10px);
-    display: flex;
+    display: none;
+    /* Désactivé temporairement */
     align-items: center;
     gap: 12px;
     max-width: 350px;

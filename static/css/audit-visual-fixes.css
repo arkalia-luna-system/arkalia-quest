@@ -353,11 +353,14 @@
     backdrop-filter: blur(15px);
     font-size: 0.9em;
     color: var(--argent-holographique);
-    z-index: 1000;
+    z-index: 9997;
+    /* Plus bas que universal notifications */
     opacity: 0;
     transform: translateX(100%);
     transition: all var(--transition-smooth);
     max-width: 300px;
+    display: none;
+    /* Désactivé temporairement */
 }
 
 .system-notification.show {

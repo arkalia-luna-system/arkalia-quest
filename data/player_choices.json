@@ -144,10 +144,28 @@
         "context": {},
         "timestamp": "2025-09-17T17:58:06.425220",
         "consequences": []
+      },
+      {
+        "id": "a2a653cc-ddfb-4bee-8336-4cbee351dedc",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2025-09-17T18:01:46.245559",
+        "consequences": []
+      },
+      {
+        "id": "9b3b7783-b5ba-436b-bbb7-e92f0aecf000",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2025-09-17T18:01:59.750569",
+        "consequences": []
       }
     ],
     "unlocked_arcs": [],
-    "discovered_easter_eggs": [],
+    "discovered_easter_eggs": [
+      "arkalia_secret"
+    ],
     "lore_fragments": [],
     "story_progress": {}
   },

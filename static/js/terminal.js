@@ -1126,9 +1126,26 @@ function executeCommand(cmdOverride) {
                 if (reponse.instant_rewards) {
                     showMatrixRewards(reponse.instant_rewards);
                 }
-                if (reponse.badge) celebrate('badge', reponse.badge);
-                if (reponse.niveau_gagne) celebrate('level', reponse.niveau_gagne);
+                if (reponse.badge) {
+                    celebrate('badge', reponse.badge);
+                    // Déclencher l'effet visuel de badge
+                    if (window.visualEffects) {
+                        window.visualEffects.showBadgeEffect({ name: reponse.badge });
+                    }
+                }
+                if (reponse.niveau_gagne) {
+                    celebrate('level', reponse.niveau_gagne);
+                    // Déclencher l'effet visuel de montée de niveau
+                    if (window.visualEffects) {
+                        window.visualEffects.showLevelUpEffect({ newLevel: reponse.niveau_gagne });
+                    }
+                }
                 if (reponse.urgent) showUrgentProgressBar(reponse.urgent);
+
+                // Déclencher l'effet de score si des points sont gagnés
+                if (reponse.score_gagne && window.visualEffects) {
+                    window.visualEffects.showScoreEffect({ amount: reponse.score_gagne });
+                }
 
                 // Feedback haptique pour mobile
                 if ('vibrate' in navigator) {

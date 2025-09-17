@@ -20,15 +20,19 @@ class UniversalNotifications {
 
     loadSettings() {
         const defaultSettings = {
-            maxNotifications: 1,
-            defaultDuration: 2000,
+            maxNotifications: 3,        // Augmenté pour permettre plus de notifications
+            defaultDuration: 4000,      // Augmenté pour laisser plus de temps de lecture
             position: 'bottom-right',
             theme: 'arkalia',
             animations: true,
             sound: false,
             vibration: false,
-            rateLimitMs: 1500,       // anti-spam: intervalle mini entre mêmes messages
-            dedupeWindowMs: 3000     // fenêtre pour ignorer les doublons exacts
+            rateLimitMs: 3000,          // Augmenté pour réduire le spam
+            dedupeWindowMs: 5000,       // Augmenté pour mieux dédupliquer
+            autoClose: true,            // Nouveau: fermeture automatique
+            dismissible: true,          // Nouveau: toutes les notifications sont dismissibles
+            groupSimilar: true,         // Nouveau: grouper les notifications similaires
+            maxGroupSize: 5             // Nouveau: max de notifications groupées
         };
 
         try {
@@ -293,7 +297,31 @@ class UniversalNotifications {
             container = document.createElement('div');
             container.id = 'universal-notifications-container';
             container.className = 'universal-notifications-container';
+
+            // Ajouter un bouton "Fermer toutes les notifications"
+            const closeAllBtn = document.createElement('button');
+            closeAllBtn.id = 'close-all-notifications';
+            closeAllBtn.className = 'close-all-notifications-btn';
+            closeAllBtn.innerHTML = '❌ Fermer toutes';
+            closeAllBtn.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                z-index: 10001;
+                background: rgba(239, 68, 68, 0.9);
+                color: white;
+                border: none;
+                border-radius: 8px;
+                padding: 8px 12px;
+                font-size: 0.8em;
+                cursor: pointer;
+                display: none;
+                backdrop-filter: blur(10px);
+            `;
+            closeAllBtn.addEventListener('click', () => this.closeAllNotifications());
+
             document.body.appendChild(container);
+            document.body.appendChild(closeAllBtn);
         }
         return container;
     }
@@ -315,11 +343,15 @@ class UniversalNotifications {
             ...config
         };
 
-        // Anti-spam / déduplication
+        // Anti-spam / déduplication amélioré
         const now = Date.now();
         const rateKey = this.getRateKey(notificationConfig);
         if (this.isRateLimited(rateKey, now)) {
-            return notificationConfig.id; // ignorer silencieusement
+            // Au lieu d'ignorer, grouper avec la notification existante
+            if (this.settings.groupSimilar) {
+                this.groupWithExisting(notificationConfig, rateKey);
+            }
+            return notificationConfig.id;
         }
         this.recentNotifications.set(rateKey, now);
         this.pruneRecent(now);
@@ -349,6 +381,63 @@ class UniversalNotifications {
         const windowMs = this.settings.dedupeWindowMs || 3000;
         for (const [key, ts] of this.recentNotifications.entries()) {
             if (now - ts > windowMs) this.recentNotifications.delete(key);
+        }
+    }
+
+    // Nouvelle méthode pour grouper les notifications similaires
+    groupWithExisting(newConfig, rateKey) {
+        // Trouver la notification existante avec la même clé
+        for (const [id, notification] of this.notifications.entries()) {
+            const existingKey = this.getRateKey(notification.config);
+            if (existingKey === rateKey) {
+                // Incrémenter le compteur de groupe
+                if (!notification.config.groupCount) {
+                    notification.config.groupCount = 1;
+                }
+                notification.config.groupCount++;
+
+                // Mettre à jour l'affichage
+                this.updateGroupedNotification(notification);
+
+                // Réinitialiser le timer
+                this.resetNotificationTimer(id);
+                break;
+            }
+        }
+    }
+
+    updateGroupedNotification(notification) {
+        const titleElement = notification.element.querySelector('.universal-notification-title');
+        if (titleElement && notification.config.groupCount > 1) {
+            const originalTitle = notification.config.title.replace(/ \(\d+\)$/, '');
+            titleElement.textContent = `${originalTitle} (${notification.config.groupCount})`;
+        }
+    }
+
+    resetNotificationTimer(id) {
+        // Annuler le timer existant
+        const notification = this.notifications.get(id);
+        if (notification && notification.timeoutId) {
+            clearTimeout(notification.timeoutId);
+        }
+
+        // Redémarrer le timer
+        if (notification && notification.config.duration > 0) {
+            notification.timeoutId = setTimeout(() => {
+                this.closeNotification(id);
+            }, notification.config.duration);
+        }
+    }
+
+    updateCloseAllButton() {
+        const closeAllBtn = document.getElementById('close-all-notifications');
+        if (closeAllBtn) {
+            if (this.notifications.size > 0) {
+                closeAllBtn.style.display = 'block';
+                closeAllBtn.textContent = `❌ Fermer toutes (${this.notifications.size})`;
+            } else {
+                closeAllBtn.style.display = 'none';
+            }
         }
     }
 
@@ -410,6 +499,9 @@ class UniversalNotifications {
         container.appendChild(notification);
         this.notifications.set(config.id, { element: notification, config });
 
+        // Afficher le bouton "Fermer toutes" s'il y a des notifications
+        this.updateCloseAllButton();
+
         // Animation d'entrée
         requestAnimationFrame(() => {
             notification.classList.add('show');
@@ -458,6 +550,9 @@ class UniversalNotifications {
             element.remove();
             this.notifications.delete(id);
 
+            // Mettre à jour le bouton "Fermer toutes"
+            this.updateCloseAllButton();
+
             if (config.onClose) {
                 config.onClose(config);
             }
@@ -470,6 +565,12 @@ class UniversalNotifications {
         const ids = Array.from(this.notifications.keys());
         ids.forEach(id => this.closeNotification(id));
         this.queue = [];
+
+        // Masquer le bouton "Fermer toutes"
+        const closeAllBtn = document.getElementById('close-all-notifications');
+        if (closeAllBtn) {
+            closeAllBtn.style.display = 'none';
+        }
     }
 
     processQueue() {

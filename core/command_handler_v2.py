@@ -13,6 +13,7 @@ from .commands.basic_commands import BasicCommands
 from .commands.easter_egg_commands import EasterEggCommands
 from .commands.game_commands import GameCommands
 from .commands.luna_commands import LunaCommands
+from .commands.missing_commands import MissingCommands
 from .commands.story_commands import StoryCommands
 from .commands.system_commands import SystemCommands
 from .luna_emotions_engine import luna_emotions
@@ -30,6 +31,7 @@ class CommandHandlerV2:
         self.easter_egg_commands = EasterEggCommands()
         self.analytics_commands = AnalyticsCommands()
         self.story_commands = StoryCommands()
+        self.missing_commands = MissingCommands()
 
         # Fusion de toutes les commandes
         self.all_commands = {}
@@ -40,6 +42,7 @@ class CommandHandlerV2:
         self.all_commands.update(self.easter_egg_commands.commands)
         self.all_commands.update(self.analytics_commands.commands)
         self.all_commands.update(self.story_commands.commands)
+        self.all_commands.update(self.missing_commands.commands)
 
         # Whitelist des commandes autorisées
         self.command_whitelist = set(self.all_commands.keys())

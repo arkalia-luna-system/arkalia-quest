@@ -1,0 +1,65 @@
+[
+  {
+    "id": "eval_001",
+    "tester_name": "Testeur Multi-Profil",
+    "profile": "technical",
+    "timestamp": "2025-09-16T16:53:52.666454",
+    "duration_hours": 2,
+    "devices": [
+      "Desktop",
+      "Mobile"
+    ],
+    "browser": "Chrome",
+    "gameplay": 7.0,
+    "engagement": 5.25,
+    "luna": 6.0,
+    "design": 7.0,
+    "performance": 8.25,
+    "global_score": 6.0,
+    "recommendation": "needs_improvement",
+    "strengths": [
+      "Univers riche et immersif, thématique cohérente",
+      "Système de profil/XP/leaderboard motivant sur la durée",
+      "Tutoriel bien structuré et narration personnalisable",
+      "Navigation rapide, apps stables sur desktop/mobile",
+      "Accessibilité fonctionnelle, options nombreuses"
+    ],
+    "improvements": [
+      "Trop de commandes fake dans l'aide/terminal",
+      "Manque d'animations/effects à chaque étape clé",
+      "Gameplay du Monde et des zones inexistant",
+      "Notifications répétitives, peu dismissables",
+      "Dashboard et profil : trop de blocs à zéro/vides"
+    ],
+    "bugs": [
+      {
+        "description": "Commandes (themes, play_game, debug_mode, etc.) listées mais non reconnues",
+        "severity": "Critique",
+        "steps": "Taper aide dans le terminal, essayer les commandes listées"
+      },
+      {
+        "description": "Défis quotidiens impossibles à valider",
+        "severity": "Majeur",
+        "steps": "Aller dans les défis, essayer de les compléter"
+      },
+      {
+        "description": "Notifications de progression s'empilent",
+        "severity": "Mineur",
+        "steps": "Jouer quelques minutes, observer les notifications"
+      },
+      {
+        "description": "Options accessibilité sans indicateur visuel",
+        "severity": "Mineur",
+        "steps": "Changer les options d'accessibilité, vérifier l'affichage"
+      }
+    ],
+    "suggestions": [
+      "Afficher dans l'aide UNIQUEMENT les commandes actives",
+      "Ajouter effets visuels/sonores pour récompenses",
+      "Instancier au moins UNE action réelle par zone du Monde",
+      "Alléger notifications, plus contextualisées",
+      "Remplacer les stats nulles par encouragement original"
+    ],
+    "comments": "L'ossature du jeu est solide, l'immersion fonctionne, mais tout l'enjeu sera de rendre chaque action vraiment fun/récompensante (game-feel), de nettoyer les commandes fake, de donner du reward réel, et de rendre le Monde interactif. Arkalia Quest a un vrai potentiel — il ne manque que le wow UX de la dopamine du gamer !"
+  }
+]

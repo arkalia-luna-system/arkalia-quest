@@ -1,86 +1,28 @@
 {
-  "timestamp": "2025-09-17T20:40:07.770235",
+  "timestamp": "2025-09-17T22:31:00.726180",
   "stats": {
-    "files_analyzed": 197,
-    "lines_of_code": 50386,
+    "files_analyzed": 139,
+    "lines_of_code": 50394,
     "functions": 1895,
     "classes": 133,
-    "imports": 376,
-    "start_time": 1758134331.9093702,
-    "duration": 75.86084985733032
+    "imports": 377,
+    "start_time": 1758140961.896653,
+    "duration": 98.8295030593872
   },
   "issue_counts": {
-    "errors": 61,
+    "errors": 3,
     "warnings": 740,
     "performance": 258,
     "security": 0,
     "architecture": 1,
     "bugs": 0,
-    "code_quality": 1128
+    "code_quality": 1112
   },
   "issues": {
     "errors": [
       "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
       "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Erreur import app: 2025-09-17 20:40:07,749 - arkalia_security - INFO - Configuration de sécurité chargée\nTraceback (most recent call last):\n  File \"/Volumes/T7/devstation/arkalia-quest/app.py\", line 46, in <module>\n    game_logger.info(\"✅ All core modules imported successfully\")\nNameError: name 'game_logger' is not defined\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/Volumes/T7/devstation/arkalia-quest/app.py\", line 48, in <module>\n    game_logger.error(f\"❌ Error importing core modules: {e}\")\nNameError: name 'game_logger' is not defined\n"
+      "Erreur import app: 2025-09-17 22:31:00,706 - arkalia_security - INFO - Configuration de sécurité chargée\nTraceback (most recent call last):\n  File \"/Volumes/T7/devstation/arkalia-quest/app.py\", line 46, in <module>\n    game_logger.info(\"✅ All core modules imported successfully\")\nNameError: name 'game_logger' is not defined\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/Volumes/T7/devstation/arkalia-quest/app.py\", line 48, in <module>\n    game_logger.error(f\"❌ Error importing core modules: {e}\")\nNameError: name 'game_logger' is not defined\n"
     ],
     "warnings": [
       "TODO/FIXME détecté (ligne 478): \"hack_system\": \"💻 Hack le système de La Corp (8s max)\",",
@@ -664,11 +606,11 @@
       "Print de debug détecté (ligne 89)",
       "Print de debug détecté (ligne 117)",
       "Print de debug détecté (ligne 119)",
-      "Print de debug détecté (ligne 85)",
-      "Print de debug détecté (ligne 123)",
+      "Print de debug détecté (ligne 93)",
       "Print de debug détecté (ligne 131)",
-      "TODO/FIXME détecté (ligne 135): game_logger.info(r\"   2. Vérifier les TODO/FIXME restants\")",
-      "Print de debug détecté (ligne 136)",
+      "Print de debug détecté (ligne 139)",
+      "TODO/FIXME détecté (ligne 143): game_logger.info(r\"   2. Vérifier les TODO/FIXME restants\")",
+      "Print de debug détecté (ligne 144)",
       "Print de debug détecté (ligne 22)",
       "Print de debug détecté (ligne 24)",
       "Print de debug détecté (ligne 125)",
@@ -1436,135 +1378,16 @@
       {
         "type": "ruff",
         "file": "/Volumes/T7/devstation/arkalia-quest/scripts/correction_automatique.py",
-        "line": 17,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/scripts/correction_automatique.py",
-        "line": 30,
+        "line": 38,
         "message": "Unnecessary mode argument",
         "severity": "UP015"
       },
       {
         "type": "ruff",
         "file": "/Volumes/T7/devstation/arkalia-quest/scripts/correction_automatique.py",
-        "line": 51,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/scripts/correction_automatique.py",
-        "line": 54,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/scripts/correction_automatique.py",
-        "line": 59,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/scripts/correction_automatique.py",
-        "line": 64,
+        "line": 72,
         "message": "Unnecessary mode argument",
         "severity": "UP015"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/scripts/correction_automatique.py",
-        "line": 80,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/scripts/correction_automatique.py",
-        "line": 89,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/scripts/correction_automatique.py",
-        "line": 94,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/scripts/correction_automatique.py",
-        "line": 98,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/scripts/correction_automatique.py",
-        "line": 105,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/scripts/correction_automatique.py",
-        "line": 110,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/scripts/correction_automatique.py",
-        "line": 114,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/scripts/correction_automatique.py",
-        "line": 117,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/scripts/correction_automatique.py",
-        "line": 122,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/scripts/correction_automatique.py",
-        "line": 132,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/scripts/correction_automatique.py",
-        "line": 133,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/scripts/correction_automatique.py",
-        "line": 134,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/scripts/correction_automatique.py",
-        "line": 135,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
       },
       {
         "type": "ruff",
@@ -8697,6 +8520,11 @@
       },
       {
         "type": "mypy",
+        "message": "scripts/correction_automatique.py:20:19: error: Incompatible types in",
+        "severity": "error"
+      },
+      {
+        "type": "mypy",
         "message": "scripts/test_skill_tree.py:117:9: error: Name \"game_logger\" is not defined",
         "severity": "error"
       },
@@ -8843,8 +8671,8 @@
     ]
   },
   "summary": {
-    "total_issues": 2188,
-    "critical_issues": 61,
+    "total_issues": 2114,
+    "critical_issues": 3,
     "warnings": 740,
     "performance_issues": 258
   }

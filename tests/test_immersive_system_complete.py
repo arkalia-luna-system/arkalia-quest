@@ -5,12 +5,23 @@ Test intégré du système d'émotions LUNA et des effets visuels
 """
 
 import json
+import os
 import random
+import sys
 import time
 from datetime import datetime
 from typing import Any
 
 import requests
+
+# Ajouter le répertoire racine au path
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, project_root)
+
+from utils.logger import GameLogger
+
+# Initialiser le logger
+game_logger = GameLogger()
 
 
 class ImmersiveSystemTester:

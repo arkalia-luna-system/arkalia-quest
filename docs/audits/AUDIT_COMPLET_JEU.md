@@ -1,36 +1,41 @@
 # 🔍 AUDIT COMPLET ARKALIA QUEST
 
-**Date:** 2025-09-17T20:40:07.770235
-**Durée:** 75.86s
+**Date:** 2025-09-17T22:31:00.726180
+**Durée:** 98.83s
 
 ## 📊 RÉSUMÉ EXÉCUTIF
 
-- **Fichiers analysés:** 197
-- **Lignes de code:** 50,386
+- **Fichiers analysés:** 139
+- **Lignes de code:** 50,394
 - **Fonctions:** 1895
 - **Classes:** 133
-- **Imports:** 376
+- **Imports:** 377
 
 ### 🚨 PROBLÈMES DÉTECTÉS
 
-- **Erreurs critiques:** 61
+- **Erreurs critiques:** 3
 - **Avertissements:** 740
 - **Problèmes de performance:** 258
-- **Total:** 2188
+- **Total:** 2114
 
 ## ERRORS
 
 - Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte
 - Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte
-- Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte
-- Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte
-- Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte
-- Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte
-- Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte
-- Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte
-- Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte
-- Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte
-- ... et 51 autres
+- Erreur import app: 2025-09-17 22:31:00,706 - arkalia_security - INFO - Configuration de sécurité chargée
+Traceback (most recent call last):
+  File "/Volumes/T7/devstation/arkalia-quest/app.py", line 46, in <module>
+    game_logger.info("✅ All core modules imported successfully")
+NameError: name 'game_logger' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Volumes/T7/devstation/arkalia-quest/app.py", line 48, in <module>
+    game_logger.error(f"❌ Error importing core modules: {e}")
+NameError: name 'game_logger' is not defined
+
 
 ## WARNINGS
 
@@ -76,5 +81,5 @@
 - **/Volumes/T7/devstation/arkalia-quest/scripts/ci_validation.py:** Undefined name `game_logger`
 - **/Volumes/T7/devstation/arkalia-quest/scripts/ci_validation.py:** Undefined name `game_logger`
 - **/Volumes/T7/devstation/arkalia-quest/scripts/ci_validation.py:** Undefined name `game_logger`
-- ... et 1118 autres
+- ... et 1102 autres
 

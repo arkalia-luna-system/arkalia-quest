@@ -11,6 +11,14 @@ import re
 import subprocess
 from pathlib import Path
 
+# Import du logger
+try:
+    from utils.logger import game_logger
+except ImportError:
+    import logging
+
+    game_logger = logging.getLogger("correction_automatique")
+
 
 def fix_print_debug():
     """Remplace les prints de debug par des logs"""

@@ -11,6 +11,15 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
+# Ajouter le répertoire racine au path
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, project_root)
+
+from utils.logger import GameLogger  # noqa: E402
+
+# Initialiser le logger
+game_logger = GameLogger()
+
 
 def check_structure():
     """Vérifie la structure des dossiers"""

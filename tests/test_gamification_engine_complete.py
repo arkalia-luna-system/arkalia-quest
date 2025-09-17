@@ -11,6 +11,11 @@ import unittest
 # Ajouter le répertoire parent au path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from utils.logger import GameLogger
+
+# Initialiser le logger
+game_logger = GameLogger()
+
 try:
     from core.gamification_engine import GamificationEngine
 except ImportError as e:

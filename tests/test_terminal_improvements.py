@@ -5,10 +5,21 @@ Valide le feedback intelligent, l'accessibilité et le responsive design
 """
 
 import json
+import os
+import sys
 import time
 from datetime import datetime
 
 import requests
+
+# Ajouter le répertoire racine au path
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, project_root)
+
+from utils.logger import GameLogger
+
+# Initialiser le logger
+game_logger = GameLogger()
 
 
 class TerminalImprovementsTester:

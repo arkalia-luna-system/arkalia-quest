@@ -11,6 +11,11 @@ import unittest
 # Ajouter le répertoire parent au path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from utils.logger import GameLogger
+
+# Initialiser le logger
+game_logger = GameLogger()
+
 
 class TestImmersiveEffects(unittest.TestCase):
     """Tests pour le système d'effets immersifs"""

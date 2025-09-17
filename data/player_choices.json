@@ -128,6 +128,14 @@
         "context": {},
         "timestamp": "2025-09-17T17:34:43.648218",
         "consequences": []
+      },
+      {
+        "id": "eae2dfbd-3725-4078-a823-dcf8105c9b1c",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2025-09-17T17:45:09.123168",
+        "consequences": []
       }
     ],
     "unlocked_arcs": [],

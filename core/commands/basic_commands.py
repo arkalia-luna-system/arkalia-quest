@@ -862,28 +862,55 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
         }
 
     def handle_simple_hack(self, profile: dict[str, Any]) -> dict[str, Any]:
-        """Jeu de hack binaire simple"""
-        profile["score"] += 25
+        """Jeu de hack binaire interactif"""
+        import random
 
-        return {
-            "réussite": True,
-            "ascii_art": "💻",
-            "message": """💻 JEU DE HACK BINAIRE
+        # Générer un problème binaire
+        a = random.randint(1, 15)  # 1 à 15 en décimal
+        b = random.randint(1, 15)
+        correct_answer = a + b
 
-🎯 OBJECTIF : Reproduire la séquence binaire
-📊 DIFFICULTÉ : Facile
-⏱️ TEMPS : 30 secondes
+        # Convertir en binaire
+        a_binary = bin(a)[2:]  # Enlever le '0b'
+        b_binary = bin(b)[2:]
+        correct_binary = bin(correct_answer)[2:]
 
-🔢 SÉQUENCE À REPRODUIRE :
-01001000 01100001 01100011 01101011
+        # Simuler la réussite (80% de chance)
+        if random.random() < 0.8:
+            message = f"""🔐 HACK BINAIRE RÉUSSI !
 
-💡 Astuce : 0 = clic gauche, 1 = clic droit
-🎮 Utilise la souris pour reproduire la séquence !
+🎯 PROBLÈME : {a_binary} + {b_binary} = ?
+✅ RÉPONSE : {correct_binary} (décimal: {correct_answer})
 
-🌟 +25 points pour avoir essayé !""",
-            "score_gagne": 25,
-            "profile_updated": True,
-        }
+🎉 VICTOIRE ! Vous avez cracké le code !
+🏆 +100 points pour cette réussite !
+💡 Mini-jeu ajouté à votre collection !"""
+
+            return {
+                "réussite": True,
+                "ascii_art": "🔐",
+                "message": message,
+                "score_gagne": 100,
+                "profile_updated": True,
+            }
+        else:
+            message = f"""🔐 HACK BINAIRE ÉCHOUÉ !
+
+🎯 PROBLÈME : {a_binary} + {b_binary} = ?
+❌ RÉPONSE : {bin(random.randint(1, 30))[2:]} (incorrecte)
+✅ BONNE RÉPONSE : {correct_binary} (décimal: {correct_answer})
+
+😔 ÉCHEC ! Mais ne vous découragez pas !
+💡 Réessayez ! La pratique rend parfait !
+Utilisez 'simple_hack' pour réessayer."""
+
+            return {
+                "réussite": False,
+                "ascii_art": "🔐",
+                "message": message,
+                "score_gagne": 0,
+                "profile_updated": False,
+            }
 
     def handle_sequence_game(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Jeu de mémoire de séquences"""

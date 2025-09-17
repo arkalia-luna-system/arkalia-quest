@@ -180,11 +180,17 @@ class ProgressionEngine:
                 player["luna_commands_used"].append(command)
                 player["stats"]["total_luna_commands"] += 1
 
+            # Mettre à jour les défis quotidiens automatiquement
+            self.update_daily_challenges_progress(player_id, action, metadata)
+
         elif action == "zone_explored":
             zone = metadata.get("zone", "")
             if zone not in player["zones_explored"]:
                 player["zones_explored"].append(zone)
                 player["stats"]["total_zones_explored"] += 1
+
+            # Mettre à jour les défis quotidiens automatiquement
+            self.update_daily_challenges_progress(player_id, action, metadata)
 
         elif action == "mini_game_completed":
             game = metadata.get("game", "")
@@ -192,6 +198,9 @@ class ProgressionEngine:
                 {"game": game, "timestamp": datetime.now().isoformat()}
             )
             player["stats"]["total_mini_games"] += 1
+
+            # Mettre à jour les défis quotidiens automatiquement
+            self.update_daily_challenges_progress(player_id, action, metadata)
 
         elif action == "score_earned":
             points = metadata.get("points", 0)
@@ -213,9 +222,6 @@ class ProgressionEngine:
             badge = metadata.get("badge", "")
             if badge not in player["badges"]:
                 player["badges"].append(badge)
-
-        # Mettre à jour les défis quotidiens
-        self.update_daily_challenges_progress(player_id, action, metadata)
 
         # Vérifier les achievements
         self.check_achievements(player_id)

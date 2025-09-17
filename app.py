@@ -368,27 +368,44 @@ COMMANDES_AUTORISEES = {
 # Chargement du profil joueur amélioré
 def charger_profil():
     try:
-        profil = arkalia_engine.profiles.load_main_profile()
+        # Utiliser le nouveau système de progression
+        from core.progression_engine import progression_engine
 
-        # S'assurer que la structure personnalite est présente
-        if "personnalite" not in profil:
-            profil["personnalite"] = {
+        # Récupérer le profil depuis le système de progression
+        player_id = "main_user"
+        progression_data = progression_engine.get_player_progression(player_id)
+
+        # Convertir au format attendu par le frontend
+        profil = {
+            "id": player_id,
+            "name": "Hacker",
+            "username": "Hacker",
+            "level": progression_data.get("level", 1),
+            "niveau": progression_data.get("level", 1),
+            "score": progression_data.get("score", 0),
+            "xp": progression_data.get("xp", 0),
+            "coins": progression_data.get("coins", 0),
+            "badges": progression_data.get("badges", []),
+            "personnalite": {
                 "type": "non_detecte",
                 "traits": [],
-                "missions_completees": [],
+                "missions_completees": progression_data.get(
+                    "achievements_unlocked", []
+                ),
                 "monde_debloque": "arkalia_base",
-            }
-
-        # S'assurer que la structure progression est présente
-        if "progression" not in profil:
-            profil["progression"] = {
-                "niveau": profil.get("level", 1),
-                "experience": 0,
-                "missions_completees": 0,
-                "univers_debloques": ["arkalia_base"],
+            },
+            "progression": {
+                "niveau": progression_data.get("level", 1),
+                "experience": progression_data.get("xp", 0),
+                "missions_completees": len(
+                    progression_data.get("achievements_unlocked", [])
+                ),
+                "univers_debloques": ["arkalia_base"]
+                + progression_data.get("zones_explored", []),
                 "portails_ouverts": [],
                 "zones_debloquees": [],
-            }
+            },
+        }
 
         # S'assurer que les badges sont une liste
         if "badges" not in profil:
@@ -708,9 +725,34 @@ def get_profil():
     return jsonify(db_manager.load_profile("main_user"))
 
 
+@app.route("/api/progression/data")
+def get_progression_data():
+    """Récupère les données de progression en temps réel"""
+    try:
+        from core.progression_engine import progression_engine
+
+        player_id = "main_user"
+        progression_data = progression_engine.get_player_progression(player_id)
+        daily_challenges = progression_engine.get_daily_challenges(player_id)
+        achievements = progression_engine.get_achievements(player_id)
+        leaderboard = progression_engine.get_leaderboard(10)
+
+        return jsonify(
+            {
+                "success": True,
+                "progression": progression_data,
+                "daily_challenges": daily_challenges,
+                "achievements": achievements,
+                "leaderboard": leaderboard,
+            }
+        )
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
 @app.route("/api/terminal/command", methods=["POST"])
 def execute_terminal_command():
-    """Exécute une commande du terminal"""
+    """Exécute une commande du terminal avec progression"""
     try:
         data = request.get_json()
         command = data.get("command", "").lower().strip()
@@ -718,15 +760,11 @@ def execute_terminal_command():
         if not command:
             return jsonify({"error": "Commande vide"}), 400
 
-        # Charger le profil
-        profile = db_manager.load_profile("main_user")
+        # Utiliser le game engine qui gère la progression
+        from core.game_engine import GameEngine
 
-        # Exécuter la commande via le gestionnaire de commandes
-        from core.command_handler_v2 import CommandHandlerV2
-
-        handler = CommandHandlerV2()
-
-        result = handler.handle_command(command, profile)
+        game_engine = GameEngine()
+        result = game_engine.process_command(command, "main_user")
 
         if result.get("réussite", False):
             return jsonify(
@@ -735,6 +773,8 @@ def execute_terminal_command():
                     "message": result.get("message", "Commande exécutée"),
                     "data": result,
                     "command": command,
+                    "profile_updated": result.get("profile_updated", False),
+                    "score_gagne": result.get("score_gagne", 0),
                 }
             )
         else:

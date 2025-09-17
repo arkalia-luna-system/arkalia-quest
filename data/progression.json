@@ -17,13 +17,17 @@
         {
           "command": "any",
           "timestamp": "2025-09-17T17:34:43.720202"
+        },
+        {
+          "command": "any",
+          "timestamp": "2025-09-17T17:45:09.177756"
         }
       ],
       "luna_commands_used": [],
       "mini_games_completed": [],
       "daily_challenges_progress": {
         "hacker_speed": {
-          "progress": 2,
+          "progress": 3,
           "completed": false,
           "reward_claimed": false
         },
@@ -46,9 +50,60 @@
       "achievements_unlocked": [
         "first_step"
       ],
-      "last_activity": "2025-09-17T17:34:43.720198",
+      "last_activity": "2025-09-17T17:45:09.177752",
       "stats": {
-        "total_commands": 2,
+        "total_commands": 3,
+        "total_luna_commands": 0,
+        "total_zones_explored": 0,
+        "total_mini_games": 0,
+        "total_play_time": 0
+      }
+    },
+    "main_user": {
+      "score": 100,
+      "level": 1,
+      "xp": 100,
+      "coins": 0,
+      "badges": [
+        "Premier pas"
+      ],
+      "zones_explored": [],
+      "commands_used": [
+        {
+          "command": "help",
+          "timestamp": "2025-09-17T17:45:09.091610"
+        }
+      ],
+      "luna_commands_used": [],
+      "mini_games_completed": [],
+      "daily_challenges_progress": {
+        "hacker_speed": {
+          "progress": 1,
+          "completed": false,
+          "reward_claimed": false
+        },
+        "luna_friend": {
+          "progress": 0,
+          "completed": false,
+          "reward_claimed": false
+        },
+        "explorer": {
+          "progress": 0,
+          "completed": false,
+          "reward_claimed": false
+        },
+        "code_master": {
+          "progress": 0,
+          "completed": false,
+          "reward_claimed": false
+        }
+      },
+      "achievements_unlocked": [
+        "first_step"
+      ],
+      "last_activity": "2025-09-17T17:45:09.093214",
+      "stats": {
+        "total_commands": 1,
         "total_luna_commands": 0,
         "total_zones_explored": 0,
         "total_mini_games": 0,

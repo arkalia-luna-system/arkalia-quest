@@ -1154,6 +1154,11 @@ function executeCommand(cmdOverride) {
 
                 // Effets visuels instantanés
                 triggerSuccessAnimations();
+
+                // Rafraîchir les données de progression si nécessaire
+                if (reponse.profile_updated || reponse.score_gagne > 0) {
+                    refreshProgressionData();
+                }
             } else {
                 playMatrixErrorEffect();
                 addMatrixErrorMessage(reponse.message || 'Erreur inconnue.');
@@ -2290,4 +2295,95 @@ class TerminalCommandsEnhanced {
 }
 
 // Initialiser le système de commandes amélioré
-window.terminalCommandsEnhanced = new TerminalCommandsEnhanced(); 
+window.terminalCommandsEnhanced = new TerminalCommandsEnhanced();
+
+// Fonction pour rafraîchir les données de progression
+function refreshProgressionData() {
+    fetch('/api/progression/data')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Mettre à jour l'affichage des stats
+                updateProgressionDisplay(data.progression);
+
+                // Mettre à jour les défis quotidiens
+                updateDailyChallengesDisplay(data.daily_challenges);
+
+                // Mettre à jour les achievements
+                updateAchievementsDisplay(data.achievements);
+
+                // Mettre à jour le leaderboard
+                updateLeaderboardDisplay(data.leaderboard);
+
+                // Afficher une notification de progression
+                showProgressionNotification(data.progression);
+            }
+        })
+        .catch(error => {
+            console.error('Erreur lors du rafraîchissement de la progression:', error);
+        });
+}
+
+// Fonction pour mettre à jour l'affichage de la progression
+function updateProgressionDisplay(progression) {
+    // Mettre à jour le niveau
+    const levelElements = document.querySelectorAll('.level, .niveau, [data-level]');
+    levelElements.forEach(el => {
+        el.textContent = progression.level || 1;
+    });
+
+    // Mettre à jour le score
+    const scoreElements = document.querySelectorAll('.score, [data-score]');
+    scoreElements.forEach(el => {
+        el.textContent = progression.score || 0;
+    });
+
+    // Mettre à jour l'XP
+    const xpElements = document.querySelectorAll('.xp, [data-xp]');
+    xpElements.forEach(el => {
+        el.textContent = progression.xp || 0;
+    });
+
+    // Mettre à jour les coins
+    const coinsElements = document.querySelectorAll('.coins, [data-coins]');
+    coinsElements.forEach(el => {
+        el.textContent = progression.coins || 0;
+    });
+
+    // Mettre à jour les badges
+    const badgesElements = document.querySelectorAll('.badges, [data-badges]');
+    badgesElements.forEach(el => {
+        el.textContent = progression.badges ? progression.badges.length : 0;
+    });
+}
+
+// Fonction pour mettre à jour l'affichage des défis quotidiens
+function updateDailyChallengesDisplay(challenges) {
+    // Cette fonction sera appelée si on a des éléments de défis quotidiens sur la page
+    console.log('Défis quotidiens mis à jour:', challenges);
+}
+
+// Fonction pour mettre à jour l'affichage des achievements
+function updateAchievementsDisplay(achievements) {
+    // Cette fonction sera appelée si on a des éléments d'achievements sur la page
+    console.log('Achievements mis à jour:', achievements);
+}
+
+// Fonction pour mettre à jour l'affichage du leaderboard
+function updateLeaderboardDisplay(leaderboard) {
+    // Cette fonction sera appelée si on a des éléments de leaderboard sur la page
+    console.log('Leaderboard mis à jour:', leaderboard);
+}
+
+// Fonction pour afficher une notification de progression
+function showProgressionNotification(progression) {
+    if (window.universalNotifications) {
+        window.universalNotifications.show({
+            type: 'success',
+            title: '📈 Progression mise à jour !',
+            content: `Niveau ${progression.level} - Score: ${progression.score} - XP: ${progression.xp}`,
+            duration: 3000,
+            importance: 3
+        });
+    }
+} 

@@ -54,7 +54,10 @@ class DailyChallengesEngine:
         logger.info("✅ Moteur de défis quotidiens initialisé")
 
     def generate_challenge(
-        self, challenge_type: str, frequency: str, difficulty: str
+        self,
+        challenge_type: str,
+        frequency: str,
+        difficulty: str,
     ) -> dict[str, Any]:
         """Génère un défi aléatoire"""
         try:
@@ -84,7 +87,8 @@ class DailyChallengesEngine:
 
             # Récupérer les défis disponibles
             available_challenges = self.challenges.get(challenge_type_enum, {}).get(
-                difficulty_key, []
+                difficulty_key,
+                [],
             )
 
             if not available_challenges:
@@ -174,7 +178,7 @@ class DailyChallengesEngine:
                         "reward_badge": "Ninja Hacker",
                         "time_limit": 600,
                         "attempts_limit": 2,
-                    }
+                    },
                 ],
                 "hard": [
                     {
@@ -187,7 +191,7 @@ class DailyChallengesEngine:
                         "reward_badge": "Elite Hacker",
                         "time_limit": 1200,
                         "attempts_limit": 1,
-                    }
+                    },
                 ],
             },
             ChallengeType.PROGRAMMING: {
@@ -202,7 +206,7 @@ class DailyChallengesEngine:
                         "reward_badge": "Codeur Python",
                         "time_limit": 300,
                         "attempts_limit": 3,
-                    }
+                    },
                 ],
                 "medium": [
                     {
@@ -215,7 +219,7 @@ class DailyChallengesEngine:
                         "reward_badge": "Debug Master",
                         "time_limit": 450,
                         "attempts_limit": 2,
-                    }
+                    },
                 ],
             },
             ChallengeType.LOGIC: {
@@ -230,7 +234,7 @@ class DailyChallengesEngine:
                         "reward_badge": "Logique Pure",
                         "time_limit": 240,
                         "attempts_limit": 3,
-                    }
+                    },
                 ],
                 "medium": [
                     {
@@ -243,7 +247,7 @@ class DailyChallengesEngine:
                         "reward_badge": "Détective",
                         "time_limit": 600,
                         "attempts_limit": 2,
-                    }
+                    },
                 ],
             },
             ChallengeType.CYBERSECURITY: {
@@ -258,7 +262,7 @@ class DailyChallengesEngine:
                         "reward_badge": "Auditeur",
                         "time_limit": 360,
                         "attempts_limit": 2,
-                    }
+                    },
                 ],
                 "hard": [
                     {
@@ -271,7 +275,7 @@ class DailyChallengesEngine:
                         "reward_badge": "Incident Commander",
                         "time_limit": 900,
                         "attempts_limit": 1,
-                    }
+                    },
                 ],
             },
             ChallengeType.EXPLORATION: {
@@ -286,8 +290,8 @@ class DailyChallengesEngine:
                         "reward_badge": "Explorateur",
                         "time_limit": 480,
                         "attempts_limit": 2,
-                    }
-                ]
+                    },
+                ],
             },
             ChallengeType.SOCIAL: {
                 "medium": [
@@ -301,8 +305,8 @@ class DailyChallengesEngine:
                         "reward_badge": "Team Player",
                         "time_limit": 1800,
                         "attempts_limit": 1,
-                    }
-                ]
+                    },
+                ],
             },
             ChallengeType.CREATIVE: {
                 "easy": [
@@ -316,8 +320,8 @@ class DailyChallengesEngine:
                         "reward_badge": "Artiste Digital",
                         "time_limit": 600,
                         "attempts_limit": 2,
-                    }
-                ]
+                    },
+                ],
             },
         }
 
@@ -432,7 +436,11 @@ class DailyChallengesEngine:
         return challenges[:3]  # Maximum 3 défis par jour
 
     def attempt_challenge(
-        self, user_id: str, challenge_id: str, answer: str, date: Optional[str] = None
+        self,
+        user_id: str,
+        challenge_id: str,
+        answer: str,
+        date: Optional[str] = None,
     ) -> dict[str, Any]:
         """Tente de résoudre un défi quotidien"""
         if date is None:
@@ -521,16 +529,15 @@ class DailyChallengesEngine:
                 "streak": self._get_user_streak(user_id),
                 "rewards": rewards,
             }
-        else:
-            remaining_attempts = challenge["attempts_limit"] - (attempts + 1)
-            return {
-                "success": True,
-                "correct": False,
-                "points_earned": 0,
-                "message": f"❌ Incorrect. Il te reste {remaining_attempts} tentative(s).",
-                "hint": random.choice(challenge.get("hints", ["Essaie encore !"])),
-                "remaining_attempts": remaining_attempts,
-            }
+        remaining_attempts = challenge["attempts_limit"] - (attempts + 1)
+        return {
+            "success": True,
+            "correct": False,
+            "points_earned": 0,
+            "message": f"❌ Incorrect. Il te reste {remaining_attempts} tentative(s).",
+            "hint": random.choice(challenge.get("hints", ["Essaie encore !"])),
+            "remaining_attempts": remaining_attempts,
+        }
 
     def _check_answer(self, challenge: dict[str, Any], answer: str) -> bool:
         """Vérifie si la réponse est correcte (logique simplifiée)"""
@@ -539,24 +546,24 @@ class DailyChallengesEngine:
         answer_lower = answer.lower()
 
         # Logique de vérification basique
-        if "arkalia" in objective and "arkalia" in answer_lower:
-            return True
-        elif "fibonacci" in objective and any(
-            word in answer_lower for word in ["fib", "récursion", "memo"]
+        if ("arkalia" in objective and "arkalia" in answer_lower) or (
+            "fibonacci" in objective
+            and any(word in answer_lower for word in ["fib", "récursion", "memo"])
         ):
             return True
-        elif "vulnérabilité" in objective and any(
-            word in answer_lower for word in ["injection", "xss", "csrf"]
-        ):
+        if (
+            "vulnérabilité" in objective
+            and any(word in answer_lower for word in ["injection", "xss", "csrf"])
+        ) or ("port" in objective and any(char.isdigit() for char in answer)):
             return True
-        elif "port" in objective and any(char.isdigit() for char in answer):
-            return True
-        else:
-            # Vérification par similarité simple
-            return len(set(objective.split()) & set(answer_lower.split())) >= 2
+        # Vérification par similarité simple
+        return len(set(objective.split()) & set(answer_lower.split())) >= 2
 
     def _calculate_rewards(
-        self, challenge: dict[str, Any], user_id: str, date: str
+        self,
+        challenge: dict[str, Any],
+        user_id: str,
+        date: str,
     ) -> dict[str, Any]:
         """Calcule les récompenses pour un défi complété"""
         base_points = challenge.get("reward_points", 50)
@@ -568,7 +575,8 @@ class DailyChallengesEngine:
 
         # Bonus de difficulté
         difficulty_bonus = {"easy": 0, "medium": 25, "hard": 50, "expert": 100}.get(
-            challenge.get("difficulty", "easy"), 0
+            challenge.get("difficulty", "easy"),
+            0,
         )
 
         total_points = base_points + streak_bonus + difficulty_bonus
@@ -663,7 +671,7 @@ class DailyChallengesEngine:
                     "total": total,
                     "completion_rate": completed / total if total > 0 else 0,
                     "streak": self._get_user_streak(user_id),
-                }
+                },
             )
 
         # Trier par points décroissants

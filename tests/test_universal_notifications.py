@@ -253,6 +253,7 @@ class TestUniversalNotifications(unittest.TestCase):
 
         result = subprocess.run(
             ["node", "-c", "static/js/universal-notifications.js"],
+            check=False,
             capture_output=True,
             text=True,
         )

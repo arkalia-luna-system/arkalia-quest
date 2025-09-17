@@ -60,9 +60,8 @@ class MissionHandler:
 
             if contexte_dialogues:
                 return random.choice(contexte_dialogues)
-            else:
-                # Dialogue par défaut
-                return f"{personnage}: Je n'ai rien à dire pour le moment."
+            # Dialogue par défaut
+            return f"{personnage}: Je n'ai rien à dire pour le moment."
         except Exception:
             return f"{personnage}: ..."
 
@@ -74,13 +73,15 @@ class MissionHandler:
 
             if emotion_reactions:
                 return random.choice(emotion_reactions)
-            else:
-                return "..."
+            return "..."
         except Exception:
             return "..."
 
     def execute_mission_step(
-        self, mission_id: str, step_id: str, profil: dict[str, Any]
+        self,
+        mission_id: str,
+        step_id: str,
+        profil: dict[str, Any],
     ) -> dict[str, Any]:
         """Exécute une étape de mission"""
         mission = self.get_mission(mission_id)
@@ -121,7 +122,9 @@ class MissionHandler:
         return result
 
     def execute_commande(
-        self, commande: str, profil: Optional[dict[str, Any]] = None
+        self,
+        commande: str,
+        profil: Optional[dict[str, Any]] = None,
     ) -> dict[str, Any]:
         """Exécute une commande de mission"""
         # Simulation des commandes selon le type
@@ -131,20 +134,19 @@ class MissionHandler:
                 "message": "Commande LUNA exécutée",
                 "ascii": "luna_contact",
             }
-        elif commande.startswith("analyser_"):
+        if commande.startswith("analyser_"):
             return {"success": True, "message": "Analyse terminée", "ascii": "success"}
-        elif commande.startswith("decrypter_"):
+        if commande.startswith("decrypter_"):
             return {"success": True, "message": "Décryptage réussi", "ascii": "success"}
-        elif commande.startswith("coder_"):
+        if commande.startswith("coder_"):
             return {"success": True, "message": "Code exécuté", "ascii": "success"}
-        elif commande.startswith("generer_"):
+        if commande.startswith("generer_"):
             return {
                 "success": True,
                 "message": "Génération terminée",
                 "ascii": "success",
             }
-        else:
-            return {"success": True, "message": f"Commande {commande} exécutée"}
+        return {"success": True, "message": f"Commande {commande} exécutée"}
 
     def is_mission_completed(self, mission_id: str, profil: dict[str, Any]) -> bool:
         """Vérifie si une mission est complétée"""

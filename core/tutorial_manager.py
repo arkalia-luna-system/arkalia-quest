@@ -174,7 +174,10 @@ class TutorialManager:
         return None
 
     def execute_step(
-        self, user_id: str, step_id: int, choice: Optional[str] = None
+        self,
+        user_id: str,
+        step_id: int,
+        choice: Optional[str] = None,
     ) -> dict[str, Any]:
         """Exécute une étape du tutoriel"""
         progress = self.get_user_progress(user_id)
@@ -305,7 +308,8 @@ class TutorialManager:
                 if user_analytics.get("completed", False):
                     analytics["completed_tutorials"] += 1
                     if "total_time" in user_analytics and isinstance(
-                        user_analytics["total_time"], (int, float)
+                        user_analytics["total_time"],
+                        (int, float),
                     ):
                         total_time += user_analytics["total_time"]
 

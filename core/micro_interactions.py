@@ -124,7 +124,7 @@ class MicroInteractionsEngine:
                         "message": "Action réussie !",
                         "duration": 3000,
                         "position": "top-right",
-                    }
+                    },
                 ],
             },
             "error_action": {
@@ -155,7 +155,7 @@ class MicroInteractionsEngine:
                         "duration": 4000,
                         "position": "top-right",
                         "style": "error",
-                    }
+                    },
                 ],
             },
             "level_up": {
@@ -189,7 +189,7 @@ class MicroInteractionsEngine:
                         "message": "Félicitations ! Vous avez atteint un nouveau niveau !",
                         "duration": 5000,
                         "style": "celebration",
-                    }
+                    },
                 ],
             },
             "badge_earned": {
@@ -220,7 +220,7 @@ class MicroInteractionsEngine:
                         "message": "Vous avez gagné un nouveau badge !",
                         "duration": 4000,
                         "style": "badge",
-                    }
+                    },
                 ],
             },
             "mission_complete": {
@@ -251,7 +251,7 @@ class MicroInteractionsEngine:
                         "message": "Félicitations ! Mission terminée avec succès !",
                         "duration": 5000,
                         "style": "mission",
-                    }
+                    },
                 ],
             },
         }
@@ -335,7 +335,9 @@ class MicroInteractionsEngine:
         }
 
     def _generate_immediate_effects(
-        self, interaction_type: str, context: dict[str, Any] = None
+        self,
+        interaction_type: str,
+        context: dict[str, Any] = None,
     ) -> dict[str, Any]:
         """Génère des effets immédiats selon le type d'interaction"""
 
@@ -355,7 +357,7 @@ class MicroInteractionsEngine:
                     "scale_animation": True,
                     "sound": "click",
                     "vibration": [50],
-                }
+                },
             )
         elif interaction_type == "success":
             effects.update(
@@ -365,7 +367,7 @@ class MicroInteractionsEngine:
                     "sound": "success",
                     "vibration": [100, 50, 100],
                     "screen_flash": True,
-                }
+                },
             )
         elif interaction_type == "error":
             effects.update(
@@ -374,7 +376,7 @@ class MicroInteractionsEngine:
                     "red_flash": True,
                     "sound": "error",
                     "vibration": [200],
-                }
+                },
             )
         elif interaction_type == "hover":
             effects.update(
@@ -382,7 +384,7 @@ class MicroInteractionsEngine:
                     "glow_effect": True,
                     "scale_animation": True,
                     "sound": "hover",
-                }
+                },
             )
         elif interaction_type == "luna_interaction":
             effects.update(
@@ -391,7 +393,7 @@ class MicroInteractionsEngine:
                     "sparkle_effect": True,
                     "sound": "luna_chime",
                     "vibration": [75, 25, 75],
-                }
+                },
             )
         elif interaction_type == "hack_success":
             effects.update(
@@ -401,7 +403,7 @@ class MicroInteractionsEngine:
                     "sound": "hack_success",
                     "vibration": [100, 50, 100, 50, 100],
                     "text_effect": "ACCESS GRANTED",
-                }
+                },
             )
         elif interaction_type == "badge_unlock":
             effects.update(
@@ -412,7 +414,7 @@ class MicroInteractionsEngine:
                     "sound": "badge_unlock",
                     "vibration": [150, 100, 150],
                     "screen_flash": True,
-                }
+                },
             )
 
         # Intensité selon le contexte
@@ -423,7 +425,7 @@ class MicroInteractionsEngine:
                     "duration": 2000,
                     "screen_flash": True,
                     "vibration": [200, 100, 200],
-                }
+                },
             )
         elif context and context.get("intensity") == "low":
             effects.update(
@@ -431,14 +433,14 @@ class MicroInteractionsEngine:
                     "intensity": "low",
                     "duration": 500,
                     "vibration": [50],
-                }
+                },
             )
         else:
             effects.update(
                 {
                     "intensity": "medium",
                     "duration": 1000,
-                }
+                },
             )
 
         return effects
@@ -471,7 +473,7 @@ class MicroInteractionsEngine:
                 "interaction": interaction,
                 "type": "animation",
                 "priority": self.get_animation_priority(interaction["type"]),
-            }
+            },
         )
 
     def add_to_sound_queue(self, interaction: dict[str, Any]):
@@ -484,7 +486,7 @@ class MicroInteractionsEngine:
                 "interaction": interaction,
                 "type": "sound",
                 "priority": self.get_sound_priority(interaction["type"]),
-            }
+            },
         )
 
     def add_to_notification_queue(self, interaction: dict[str, Any]):
@@ -497,7 +499,7 @@ class MicroInteractionsEngine:
                 "interaction": interaction,
                 "type": "notification",
                 "priority": self.get_notification_priority(interaction["type"]),
-            }
+            },
         )
 
     def get_animation_priority(self, interaction_type: str) -> int:
@@ -577,7 +579,7 @@ class MicroInteractionsEngine:
                     "easing": anim["easing"],
                     "params": anim.get("params", {}),
                     "delay": anim.get("delay", 0),
-                }
+                },
             )
 
         return animation_data
@@ -617,7 +619,7 @@ class MicroInteractionsEngine:
                     "volume": sound["volume"] * self.sound_volume,
                     "delay": sound.get("delay", 0),
                     "loop": sound.get("loop", False),
-                }
+                },
             )
 
         return sound_data
@@ -662,7 +664,7 @@ class MicroInteractionsEngine:
                     "position": notif.get("position", "top-right"),
                     "style": notif.get("style", "default"),
                     "delay": notif.get("delay", 0),
-                }
+                },
             )
 
         return notification_data
@@ -670,7 +672,9 @@ class MicroInteractionsEngine:
     # ===== GESTION DES PRÉFÉRENCES =====
 
     def update_user_preferences(
-        self, player_id: str, preferences: dict[str, Any]
+        self,
+        player_id: str,
+        preferences: dict[str, Any],
     ) -> dict[str, Any]:
         """Met à jour les préférences d'un utilisateur"""
         if player_id not in self.user_preferences:
@@ -700,7 +704,10 @@ class MicroInteractionsEngine:
     # ===== INTERACTIONS CONTEXTUELLES =====
 
     def create_contextual_interaction(
-        self, player_id: str, context: str, target_element: str = None
+        self,
+        player_id: str,
+        context: str,
+        target_element: str = None,
     ) -> dict[str, Any]:
         """Crée une interaction contextuelle basée sur la situation"""
         contextual_templates = {
@@ -718,11 +725,16 @@ class MicroInteractionsEngine:
         interaction_type = contextual_templates.get(context, "button_click")
 
         return self.trigger_interaction(
-            player_id, interaction_type, target_element, {"context": context}
+            player_id,
+            interaction_type,
+            target_element,
+            {"context": context},
         )
 
     def create_custom_interaction(
-        self, player_id: str, interaction_data: dict[str, Any]
+        self,
+        player_id: str,
+        interaction_data: dict[str, Any],
     ) -> dict[str, Any]:
         """Crée une interaction personnalisée"""
         interaction_id = str(uuid.uuid4())

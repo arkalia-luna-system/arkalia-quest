@@ -4,8 +4,6 @@ Tests simplifiés pour analytics_commands.py
 
 from unittest.mock import Mock, patch
 
-import pytest
-
 from core.commands.analytics_commands import AnalyticsCommands
 
 

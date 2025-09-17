@@ -189,7 +189,7 @@ class TutorielExperienceTester:
             tutorial_results["steps"]
         )
         tutorial_results["frustration_level"] = self._calculate_frustration(
-            tutorial_results["steps"]
+            tutorial_results["steps"],
         )
 
         self.results["profiles_tested"].append(tutorial_results)
@@ -342,7 +342,9 @@ class TutorielExperienceTester:
         try:
             # Test de la commande aide
             response = requests.post(
-                f"{self.base_url}/commande", json={"commande": "aide"}, timeout=5
+                f"{self.base_url}/commande",
+                json={"commande": "aide"},
+                timeout=5,
             )
             step["duration"] = time.time() - start_time
 
@@ -400,7 +402,9 @@ class TutorielExperienceTester:
         try:
             # Test de la commande profil pour voir la progression
             response = requests.post(
-                f"{self.base_url}/commande", json={"commande": "profil"}, timeout=5
+                f"{self.base_url}/commande",
+                json={"commande": "profil"},
+                timeout=5,
             )
             step["duration"] = time.time() - start_time
 
@@ -458,7 +462,9 @@ class TutorielExperienceTester:
 
             for cmd in commands:
                 response = requests.post(
-                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=3
+                    f"{self.base_url}/commande",
+                    json={"commande": cmd},
+                    timeout=3,
                 )
                 if response.status_code == 200:
                     responses.append(response.json())
@@ -506,7 +512,9 @@ class TutorielExperienceTester:
 
             for cmd in special_commands:
                 response = requests.post(
-                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=3
+                    f"{self.base_url}/commande",
+                    json={"commande": cmd},
+                    timeout=3,
                 )
                 if response.status_code == 200:
                     data = response.json()
@@ -911,10 +919,9 @@ class TutorielExperienceTester:
 
         if positives > issues * 2:
             return "Élevé"
-        elif positives > issues:
+        if positives > issues:
             return "Moyen"
-        else:
-            return "Faible"
+        return "Faible"
 
     def _calculate_frustration(self, steps):
         """Calcule le niveau de frustration basé sur les étapes"""
@@ -923,10 +930,9 @@ class TutorielExperienceTester:
 
         if issues > positives * 2:
             return "Élevé"
-        elif issues > positives:
+        if issues > positives:
             return "Moyen"
-        else:
-            return "Faible"
+        return "Faible"
 
     def run_all_tests(self):
         """Lance tous les tests de profils"""

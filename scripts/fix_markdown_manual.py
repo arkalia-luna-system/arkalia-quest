@@ -61,9 +61,8 @@ def fix_markdown_file(file_path):
                 f.write(content)
             print(f"✅ Corrigé: {file_path}")
             return True
-        else:
-            print(f"⏭️  Aucun changement: {file_path}")
-            return False
+        print(f"⏭️  Aucun changement: {file_path}")
+        return False
 
     except Exception as e:
         print(f"❌ Erreur avec {file_path}: {e}")

@@ -20,7 +20,7 @@ def test_imports():
         assert True
     except Exception as e:
         print(f"❌ Erreur d'import: {e}")
-        raise AssertionError(f"Erreur d'import: {e}")
+        raise AssertionError(f"Erreur d'import: {e}") from e
 
 
 def test_missions():
@@ -46,7 +46,7 @@ def test_missions():
         assert len(missions) > 0, "Aucune mission trouvée"
     except Exception as e:
         print(f"❌ Erreur missions: {e}")
-        raise AssertionError(f"Erreur missions: {e}")
+        raise AssertionError(f"Erreur missions: {e}") from e
 
 
 def test_mini_jeux():
@@ -64,7 +64,7 @@ def test_mini_jeux():
         assert len(games) > 0, "Aucun mini-jeu disponible"
     except Exception as e:
         print(f"❌ Erreur mini-jeux: {e}")
-        raise AssertionError(f"Erreur mini-jeux: {e}")
+        raise AssertionError(f"Erreur mini-jeux: {e}") from e
 
 
 def test_badges():
@@ -86,7 +86,7 @@ def test_badges():
         assert len(badges["badges_secrets"]) > 0, "Aucun badge trouvé"
     except Exception as e:
         print(f"❌ Erreur badges: {e}")
-        raise AssertionError(f"Erreur badges: {e}")
+        raise AssertionError(f"Erreur badges: {e}") from e
 
 
 def test_commandes():
@@ -115,7 +115,7 @@ def test_commandes():
         assert True, "Commandes testées avec succès"
     except Exception as e:
         print(f"❌ Erreur commandes: {e}")
-        raise AssertionError(f"Erreur commandes: {e}")
+        raise AssertionError(f"Erreur commandes: {e}") from e
 
 
 def test_interface_js():
@@ -154,7 +154,7 @@ def test_interface_js():
         assert True, "Interface testée avec succès"
     except Exception as e:
         print(f"❌ Erreur interface: {e}")
-        raise AssertionError(f"Erreur interface: {e}")
+        raise AssertionError(f"Erreur interface: {e}") from e
 
 
 def main():
@@ -188,9 +188,8 @@ def main():
         print("\n🎉 TOUS LES TESTS SONT PASSÉS !")
         print("🚀 Arkalia Quest v3.1.0 est prêt pour la production !")
         return True
-    else:
-        print(f"\n⚠️  {total - passed} test(s) ont échoué")
-        return False
+    print(f"\n⚠️  {total - passed} test(s) ont échoué")
+    return False
 
 
 if __name__ == "__main__":

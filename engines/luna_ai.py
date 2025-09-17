@@ -5,7 +5,7 @@ Fournit une API simple attendue par les tests historiques en
 se basant sur l'implémentation moderne `LunaAIV3`.
 """
 
-from typing import Any, Optional
+from typing import Any
 
 from .luna_ai_v3 import LunaAIV3
 
@@ -26,7 +26,10 @@ class LunaAI:
         self.relationship_level: int = 0
 
     def respond(
-        self, text: str, user_context: dict[str, Any], game_ctx: dict[str, Any]
+        self,
+        text: str,
+        user_context: dict[str, Any],
+        game_ctx: dict[str, Any],
     ) -> dict[str, Any]:
         """API historique: renvoie un dict contenant au moins 'message'."""
         result = self._engine.generate_response(text, user_context, game_ctx)
@@ -53,7 +56,9 @@ class LunaAI:
             else "Salut LUNA !"
         )
         result = self._engine.generate_response(
-            text, {"level": 1}, context if isinstance(context, dict) else None
+            text,
+            {"level": 1},
+            context if isinstance(context, dict) else None,
         )
         return str(result.get("response", "Prête à t'aider !"))
 

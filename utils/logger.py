@@ -3,12 +3,14 @@ Système de logging professionnel pour Arkalia Quest
 Version 2.0.0
 """
 
+from __future__ import annotations
+
 import json
 import logging
 import logging.config
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 # Configuration de logging simplifiée
 LOGS_DIR = Path("logs")
@@ -88,24 +90,25 @@ class ArkaliaLogger:
         logging.config.dictConfig(LOGGING_CONFIG)
         self.logger = logging.getLogger(self.name)
 
-    def info(self, message: str, extra: Optional[dict[str, Any]] = None):
+    def info(self, message: str, extra: dict[str, Any] | None = None):
         """Log un message d'information"""
         self._log("INFO", message, extra)
 
-    def warning(self, message: str, extra: Optional[dict[str, Any]] = None):
+    def warning(self, message: str, extra: dict[str, Any] | None = None):
         """Log un avertissement"""
         self._log("WARNING", message, extra)
 
     def error(
         self,
         message: str,
-        extra: Optional[dict[str, Any]] = None,
+        extra: dict[str, Any] | None = None,
+        *,
         exc_info: bool = False,
     ):
         """Log une erreur"""
-        self._log("ERROR", message, extra, exc_info)
+        self._log("ERROR", message, extra, exc_info=exc_info)
 
-    def debug(self, message: str, extra: Optional[dict[str, Any]] = None):
+    def debug(self, message: str, extra: dict[str, Any] | None = None):
         """Log un message de debug"""
         self._log("DEBUG", message, extra)
 
@@ -113,7 +116,8 @@ class ArkaliaLogger:
         self,
         level: str,
         message: str,
-        extra: Optional[dict[str, Any]] = None,
+        extra: dict[str, Any] | None = None,
+        *,
         exc_info: bool = False,
     ):
         """Méthode interne de logging"""
@@ -122,7 +126,10 @@ class ArkaliaLogger:
 
         # Ajout d'informations contextuelles
         extra.update(
-            {"timestamp": datetime.now().isoformat(), "module_name": self.name}
+            {
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+                "module_name": self.name,
+            }
         )
 
         if self.logger is not None:
@@ -182,7 +189,9 @@ class GameLogger(ArkaliaLogger):
         }
         self.info(f"Badge obtenu: {badge_name}", extra)
 
-    def command_executed(self, command: str, success: bool, player_id: str = "default"):
+    def command_executed(
+        self, command: str, *, success: bool, player_id: str = "default"
+    ):
         """Log l'exécution d'une commande"""
         extra = {
             "event_type": "command_executed",
@@ -261,7 +270,7 @@ class PerformanceLogger(ArkaliaLogger):
         self.info(f"Utilisation mémoire: {memory_mb:.2f}MB", extra)
 
     def database_query(
-        self, query_type: str, execution_time: float, success: bool = True
+        self, query_type: str, execution_time: float, *, success: bool = True
     ):
         """Log une requête base de données"""
         extra = {
@@ -288,7 +297,7 @@ def log_exception(func):
         try:
             return func(*args, **kwargs)
         except Exception as e:
-            game_logger.error(f"Exception dans {func.__name__}: {e!s}", exc_info=True)
+            game_logger.exception(f"Exception dans {func.__name__}: {e!s}")
             raise
 
     return wrapper
@@ -302,19 +311,21 @@ def log_function_call(func):
         try:
             result = func(*args, **kwargs)
             game_logger.debug(f"Fonction {func.__name__} terminée avec succès")
-            return result
         except Exception as e:
-            game_logger.error(f"Erreur dans {func.__name__}: {e!s}")
+            game_logger.exception(f"Erreur dans {func.__name__}: {e!s}")
             raise
+        else:
+            return result
 
     return wrapper
 
 
-def export_logs_to_json(output_file: Optional[str] = None):
+def export_logs_to_json(output_file: str | None = None):
     """Exporte les logs en JSON"""
     if output_file is None:
         output_file = str(
-            LOGS_DIR / f"logs_export_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+            LOGS_DIR
+            / f"logs_export_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}.json"
         )
 
     logs_data = []
@@ -322,18 +333,18 @@ def export_logs_to_json(output_file: Optional[str] = None):
     # Lire le fichier de log principal
     log_file = LOGS_DIR / "arkalia.log"
     if log_file.exists():
-        with open(log_file, encoding="utf-8", mode="a") as f:
+        with log_file.open(encoding="utf-8", mode="a") as f:
             for line in f:
                 if line.strip():
                     logs_data.append(
                         {
-                            "timestamp": datetime.now().isoformat(),
+                            "timestamp": datetime.now(timezone.utc).isoformat(),
                             "log_entry": line.strip(),
-                        }
+                        },
                     )
 
     # Sauvegarder en JSON
-    with open(output_file, "w", encoding="utf-8") as f:
+    with Path(output_file).open("w", encoding="utf-8") as f:
         json.dump(logs_data, f, indent=2, ensure_ascii=False)
 
     return output_file
@@ -341,7 +352,7 @@ def export_logs_to_json(output_file: Optional[str] = None):
 
 def cleanup_old_logs(days_to_keep: int = 30):
     """Nettoie les anciens logs"""
-    cutoff_date = datetime.now().timestamp() - (days_to_keep * 24 * 60 * 60)
+    cutoff_date = datetime.now(timezone.utc).timestamp() - (days_to_keep * 24 * 60 * 60)
 
     for log_file in LOGS_DIR.glob("*.log"):
         if log_file.stat().st_mtime < cutoff_date:

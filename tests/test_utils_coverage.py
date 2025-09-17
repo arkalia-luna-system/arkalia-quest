@@ -236,7 +236,7 @@ class TestUtilsCoverage(unittest.TestCase):
                 mock_error.called
                 and mock_warning.called
                 and mock_info.called
-                and mock_debug.called
+                and mock_debug.called,
             )
 
     def test_game_logger_specialized_logging(self):
@@ -249,7 +249,7 @@ class TestUtilsCoverage(unittest.TestCase):
             logger.mission_completed("tutorial_1", "player123", score=100)
             logger.personality_detected("hacker_creatif", "player123")
             logger.badge_earned("first_mission", "player123")
-            logger.command_executed("help", True, "player123")
+            logger.command_executed("help", success=True)
             self.assertTrue(mock_info.called)
 
     def test_luna_ai_v2_context_handling(self):

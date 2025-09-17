@@ -210,7 +210,7 @@ class PWAMobileExperienceTester:
 
             else:
                 install_result["issues"].append(
-                    f"Page d'accueil inaccessible: {response.status_code}"
+                    f"Page d'accueil inaccessible: {response.status_code}",
                 )
 
         except Exception as e:

@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "arkalia-quest"
-version = "3.0.0"
+version = "3.1.0"
 description = "Jeu éducatif intelligent pour adolescents - Architecture Flask/Python/IA modulaire, sécurité avancée, gamification"
 readme = "README.md"
-license = {text = "MIT"}
+license = "MIT"
 authors = [
     {name = "Arkalia Luna System", email = "arkalia.luna.system@gmail.com"}
 ]
@@ -28,7 +28,6 @@ classifiers = [
     "Topic :: Education :: Computer Aided Instruction (CAI)",
     "Topic :: Games/Entertainment :: Educational",
     "Topic :: Software Development :: Libraries :: Application Frameworks",
-    "License :: OSI Approved :: MIT License",
 ]
 requires-python = ">=3.9"
 dependencies = [
@@ -86,11 +85,11 @@ Issues = "https://github.com/arkalia-luna-system/arkalia-quest/issues"
 Changelog = "https://github.com/arkalia-luna-system/arkalia-quest/blob/main/docs/CHANGELOG.md"
 
 [project.scripts]
-arkalia-quest = "app:main"
+arkalia-quest = "app:app"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["core*", "engines*", "utils*"]
+include = ["core.*", "engines.*", "utils.*"]
 exclude = ["tests*", "docs*", "scripts*", "venv*", "__pycache__*"]
 
 [tool.setuptools.package-data]
@@ -98,7 +97,7 @@ exclude = ["tests*", "docs*", "scripts*", "venv*", "__pycache__*"]
 
 # === PYTEST ===
 [tool.pytest.ini_options]
-minversion = "8.0"
+minversion = "7.0"
 addopts = "-ra -q --strict-markers --strict-config"
 testpaths = ["tests"]
 python_files = ["test_*.py", "*_test.py"]
@@ -156,12 +155,7 @@ select = [
 ]
 ignore = [
     "E501",  # line too long, handled by black
-    "F401",  # imported but unused
-    "F403",  # star import used
-    "F405",  # name may be undefined, or defined from star imports
-    "B008",  # do not perform function calls in argument defaults
-    "C901",  # too complex
-    "B904",  # Within an `except` clause, raise exceptions with `raise ... from err`
+    "C901",  # too complex (justified for game logic)
 ]
 exclude = [
     ".bzr",

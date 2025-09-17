@@ -132,7 +132,9 @@ class EffectsEngine:
         }
 
     def generate_effect(
-        self, effect_type: str, context: Optional[dict[str, Any]] = None
+        self,
+        effect_type: str,
+        context: Optional[dict[str, Any]] = None,
     ) -> dict[str, Any]:
         """
         Génère un effet selon le type et le contexte
@@ -202,8 +204,7 @@ class EffectsEngine:
 
         if name in self.ascii_arts:
             return self.ascii_arts[name]
-        else:
-            return self.get_default_ascii(name)
+        return self.get_default_ascii(name)
 
     def get_default_ascii(self, name: str) -> str:
         """Retourne un ASCII art par défaut"""
@@ -272,7 +273,8 @@ class EffectsEngine:
         """Récupère la configuration d'une animation"""
 
         return self.animations.get(
-            animation_name, {"type": "fade", "duration": 1000, "easing": "ease-in-out"}
+            animation_name,
+            {"type": "fade", "duration": 1000, "easing": "ease-in-out"},
         )
 
     def get_sound_path(self, sound_name: str) -> Optional[str]:

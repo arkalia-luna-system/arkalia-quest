@@ -2,20 +2,20 @@
 Tests pour core/commands/basic_commands.py
 """
 
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
 import pytest
 
 from core.commands.basic_commands import BasicCommands
 
 
-@pytest.fixture()
+@pytest.fixture
 def basic_commands():
     with patch("core.commands.basic_commands.CustomizationEngine"):
         return BasicCommands()
 
 
-@pytest.fixture()
+@pytest.fixture
 def mock_profile():
     return {
         "level": 2,

@@ -103,9 +103,9 @@ class WebSocketManager:
         # Traiter l'action selon le type
         if action == "start_challenge":
             return self.start_challenge(room_id, session_id)
-        elif action == "complete_mission":
+        if action == "complete_mission":
             return self.complete_mission(room_id, session_id, data)
-        elif action == "timeout":
+        if action == "timeout":
             return self.handle_timeout(room_id, session_id)
 
         # Diffuser l'action aux autres joueurs
@@ -175,7 +175,10 @@ class WebSocketManager:
         return {"type": "error", "message": "Challenge not found"}
 
     def complete_mission(
-        self, room_id: str, session_id: str, data: dict[str, Any]
+        self,
+        room_id: str,
+        session_id: str,
+        data: dict[str, Any],
     ) -> dict[str, Any]:
         """Marque une mission comme complétée"""
         player_name = data.get("player_name", "Anonymous")
@@ -252,7 +255,7 @@ class WebSocketManager:
                         "player_name": player_name,
                         "completion_time": result["completion_time"],
                         "status": "completed",
-                    }
+                    },
                 )
             else:
                 ranking.append({"player_name": player_name, "status": "timeout"})
@@ -269,7 +272,8 @@ class WebSocketManager:
 
         # Informer tous les joueurs
         self.broadcast_to_room(
-            room_id, {"type": "challenge_ended", "ranking": ranking, "winner": winner}
+            room_id,
+            {"type": "challenge_ended", "ranking": ranking, "winner": winner},
         )
 
         return {"type": "challenge_ended", "ranking": ranking, "winner": winner}

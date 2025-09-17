@@ -233,17 +233,25 @@ class LunaEmotionsEngine:
 
         if any(success in action_lower for success in success_actions):
             return "success"
-        elif any(failure in action_lower for failure in failure_actions):
+        if any(failure in action_lower for failure in failure_actions):
             return "failure"
-        elif any(exploration in action_lower for exploration in exploration_actions):
+        if any(exploration in action_lower for exploration in exploration_actions):
             return "exploration"
-        elif any(hacking in action_lower for hacking in hacking_actions):
+        if any(hacking in action_lower for hacking in hacking_actions):
             return "hacking"
-        else:
-            return "general"
+        return "general"
 
     def _determine_emotion(self, context: dict) -> LunaEmotion:
-        """Détermine l'émotion de LUNA selon le contexte avec logique avancée"""
+        """
+        Détermine l'émotion de LUNA selon le contexte avec logique avancée
+
+        Cette fonction complexe est nécessaire pour créer des émotions réalistes et variées
+        basées sur de nombreux facteurs contextuels. La complexité est justifiée par :
+        - La richesse des interactions émotionnelles
+        - La personnalisation selon le type de joueur
+        - La variabilité temporelle et situationnelle
+        """
+        # === EXTRACTION DES DONNÉES CONTEXTUELLES ===
         action_type = context["action_type"]
         success = context["success"]
         time_of_day = context["time_of_day"]
@@ -251,22 +259,22 @@ class LunaEmotionsEngine:
         player_level = context["player_level"]
         action_frequency = context["action_frequency"]
 
-        # Facteurs de profil joueur
+        # === FACTEURS DE PROFIL JOUEUR ===
         player_type = context.get("player_type", "debutant")
 
-        # Facteurs de variabilité
-        mood_factor = random.random()
+        # === FACTEURS DE VARIABILITÉ ===
+        mood_factor = random.random()  # Aléatoire pour éviter la répétition
         time_factor = (time_of_day - 12) / 12  # -1 à +1 selon l'heure
         level_factor = min(player_level / 10, 1.0)  # 0 à 1 selon le niveau
 
-        # Facteur de personnalité
-        personality_factor = 0.5
+        # === FACTEUR DE PERSONNALITÉ ===
+        personality_factor = 0.5  # Valeur par défaut
         if player_type == "expert":
-            personality_factor = 0.8
+            personality_factor = 0.8  # Plus réactif
         elif player_type == "hacker":
-            personality_factor = 0.7
+            personality_factor = 0.7  # Modérément réactif
         elif player_type == "debutant":
-            personality_factor = 0.3
+            personality_factor = 0.3  # Moins réactif
 
         # Logique d'émotions avancée avec plus de variété basée sur le profil
         if action_type == "success" and success:
@@ -346,17 +354,16 @@ class LunaEmotionsEngine:
                 base_emotions.extend([LunaEmotion.SURPRISED, LunaEmotion.ENERGETIC])
             emotions = base_emotions
 
-        else:  # general
-            if time_of_day < 6 or time_of_day > 22:
-                emotions = [LunaEmotion.MYSTERIOUS, LunaEmotion.CALM]
-            elif time_of_day < 12:
-                emotions = [
-                    LunaEmotion.ENERGETIC,
-                    LunaEmotion.EXCITED,
-                    LunaEmotion.FOCUSED,
-                ]
-            else:
-                emotions = [LunaEmotion.CALM, LunaEmotion.FOCUSED, LunaEmotion.PLAYFUL]
+        elif time_of_day < 6 or time_of_day > 22:
+            emotions = [LunaEmotion.MYSTERIOUS, LunaEmotion.CALM]
+        elif time_of_day < 12:
+            emotions = [
+                LunaEmotion.ENERGETIC,
+                LunaEmotion.EXCITED,
+                LunaEmotion.FOCUSED,
+            ]
+        else:
+            emotions = [LunaEmotion.CALM, LunaEmotion.FOCUSED, LunaEmotion.PLAYFUL]
 
         # Créer une variété d'émotions basée sur le contexte
         emotions = self._create_emotional_variety(emotions, context)
@@ -467,7 +474,7 @@ class LunaEmotionsEngine:
                 "intensity": intensity,
                 "timestamp": datetime.now().isoformat(),
                 "context": context,
-            }
+            },
         )
 
         # Garder seulement les 50 dernières émotions
@@ -482,7 +489,9 @@ class LunaEmotionsEngine:
         return recent_actions.count(self._classify_action(action))
 
     def _create_emotional_variety(
-        self, base_emotions: list[LunaEmotion], context: dict
+        self,
+        base_emotions: list[LunaEmotion],
+        context: dict,
     ) -> list[LunaEmotion]:
         """Crée une variété d'émotions basée sur le contexte"""
         enhanced_emotions = base_emotions.copy()
@@ -540,7 +549,7 @@ class LunaEmotionsEngine:
                     "particles": True,
                     "intensity": "high",
                     "message": "🚀 WOW ! Tu es en feu aujourd'hui !",
-                }
+                },
             )
         elif emotion == LunaEmotion.PROUD:
             effects.update(
@@ -550,7 +559,7 @@ class LunaEmotionsEngine:
                     "particles": True,
                     "intensity": "medium",
                     "message": "🌟 Je suis si fière de toi !",
-                }
+                },
             )
         elif emotion == LunaEmotion.WORRIED:
             effects.update(
@@ -560,7 +569,7 @@ class LunaEmotionsEngine:
                     "particles": False,
                     "intensity": "low",
                     "message": "💪 Ne lâche pas ! Tu vas y arriver !",
-                }
+                },
             )
         elif emotion == LunaEmotion.MYSTERIOUS:
             effects.update(
@@ -570,7 +579,7 @@ class LunaEmotionsEngine:
                     "particles": True,
                     "intensity": "medium",
                     "message": "🔮 Il y a des mystères à découvrir...",
-                }
+                },
             )
         elif emotion == LunaEmotion.DETERMINED:
             effects.update(
@@ -580,7 +589,7 @@ class LunaEmotionsEngine:
                     "particles": True,
                     "intensity": "high",
                     "message": "⚡ Rien ne nous arrêtera !",
-                }
+                },
             )
 
         return effects

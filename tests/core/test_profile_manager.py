@@ -15,7 +15,7 @@ class DummyDB:
         self.saved[user_id] = dict(profile)
 
 
-@pytest.fixture()
+@pytest.fixture
 def pm():
     p = ProfileManager()
     p.db_manager = DummyDB()

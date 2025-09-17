@@ -111,7 +111,7 @@ class DevToolsConfig:
                 "if __name__ == .__main__.:",
                 "class .*\\bProtocol\\):",
                 "@(abc\\.)?abstractmethod",
-            ]
+            ],
         },
     }
 
@@ -144,7 +144,7 @@ class DevToolsConfig:
                 "rev": "v1.5.1",
                 "hooks": [{"id": "mypy", "additional_dependencies": ["types-all"]}],
             },
-        ]
+        ],
     }
 
     # Configuration des outils de qualité

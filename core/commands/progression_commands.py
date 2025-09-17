@@ -243,7 +243,9 @@ Utilisez 'progression' pour voir vos zones explorées."""
         # Simuler la réussite (90% de chance)
         if random.random() < 0.9:
             progression_engine.update_player_progression(
-                player_id, "mini_game_completed", {"game": game}
+                player_id,
+                "mini_game_completed",
+                {"game": game},
             )
 
             message = f"""🎮 MINI-JEU TERMINÉ !
@@ -263,8 +265,7 @@ Utilisez 'progression' pour voir vos statistiques."""
                 "score_gagne": 100,
                 "profile_updated": True,
             }
-        else:
-            message = f"""🎮 MINI-JEU ÉCHOUÉ !
+        message = f"""🎮 MINI-JEU ÉCHOUÉ !
 
 Jeu : {game}
 Résultat : ÉCHEC ! 😔
@@ -273,13 +274,13 @@ Résultat : ÉCHEC ! 😔
 
 Utilisez 'play_mini_game' pour réessayer."""
 
-            return {
-                "réussite": False,
-                "ascii_art": "🎮",
-                "message": message,
-                "score_gagne": 0,
-                "profile_updated": False,
-            }
+        return {
+            "réussite": False,
+            "ascii_art": "🎮",
+            "message": message,
+            "score_gagne": 0,
+            "profile_updated": False,
+        }
 
     def handle_claim_reward(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Récupère les récompenses des défis complétés"""
@@ -313,18 +314,17 @@ Vous avez réclamé {rewards_claimed} récompense(s) !
                 "score_gagne": 0,
                 "profile_updated": True,
             }
-        else:
-            message = """🎁 RÉCOMPENSES
+        message = """🎁 RÉCOMPENSES
 
 Aucune récompense à réclamer pour le moment.
 
 💡 Complétez vos défis quotidiens pour débloquer des récompenses !
 Utilisez 'daily_challenges' pour voir vos défis."""
 
-            return {
-                "réussite": True,
-                "ascii_art": "🎁",
-                "message": message,
-                "score_gagne": 0,
-                "profile_updated": False,
-            }
+        return {
+            "réussite": True,
+            "ascii_art": "🎁",
+            "message": message,
+            "score_gagne": 0,
+            "profile_updated": False,
+        }

@@ -11,7 +11,7 @@ class DummyDB:
         return list(self._missions.values())
 
 
-@pytest.fixture()
+@pytest.fixture
 def handler():
     missions = {
         "prologue": {

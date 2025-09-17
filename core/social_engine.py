@@ -113,17 +113,19 @@ class SocialEngine:
 
         if month <= 3:
             return f"Spring_{year}"
-        elif month <= 6:
+        if month <= 6:
             return f"Summer_{year}"
-        elif month <= 9:
+        if month <= 9:
             return f"Autumn_{year}"
-        else:
-            return f"Winter_{year}"
+        return f"Winter_{year}"
 
     # ===== SYSTÈME DE GUILDES =====
 
     def create_guild(
-        self, creator_id: str, guild_name: str, description: str = ""
+        self,
+        creator_id: str,
+        guild_name: str,
+        description: str = "",
     ) -> dict[str, Any]:
         """Crée une nouvelle guilde"""
         guild_id = str(uuid.uuid4())
@@ -206,7 +208,11 @@ class SocialEngine:
         return {"success": True, "message": "Vous avez quitté la guilde"}
 
     def add_guild_message(
-        self, guild_id: str, sender: str, message: str, message_type: str = "chat"
+        self,
+        guild_id: str,
+        sender: str,
+        message: str,
+        message_type: str = "chat",
     ):
         """Ajoute un message au chat de guilde"""
         if guild_id not in self.guilds:
@@ -255,7 +261,7 @@ class SocialEngine:
                         ),
                         "level": guild["level"],
                         "member_count": len(guild["members"]),
-                    }
+                    },
                 )
 
         return player_guilds
@@ -263,7 +269,9 @@ class SocialEngine:
     # ===== SYSTÈME DE DÉFIS COOPÉRATIFS =====
 
     def create_coop_challenge(
-        self, creator_id: str, challenge_data: dict[str, Any]
+        self,
+        creator_id: str,
+        challenge_data: dict[str, Any],
     ) -> dict[str, Any]:
         """Crée un défi coopératif"""
         challenge_id = str(uuid.uuid4())
@@ -345,7 +353,10 @@ class SocialEngine:
         self.save_social_data()
 
     def update_challenge_progress(
-        self, challenge_id: str, player_id: str, progress_data: dict[str, Any]
+        self,
+        challenge_id: str,
+        player_id: str,
+        progress_data: dict[str, Any],
     ) -> dict[str, Any]:
         """Met à jour le progrès d'un joueur dans un défi"""
         if challenge_id not in self.challenges:
@@ -377,14 +388,27 @@ class SocialEngine:
 
     def distribute_challenge_rewards(self, challenge: dict[str, Any]):
         """Distribue les récompenses d'un défi terminé"""
-        # rewards = challenge.get("rewards", {})  # TODO: Implémenter la distribution des récompenses
+        rewards = challenge.get("rewards", {})
+
+        # Récompenses par défaut si aucune spécifiée
+        if not rewards:
+            rewards = {"xp": 50, "coins": 25, "badges": ["coop_challenge_completed"]}
 
         for participant in challenge["participants"]:
-            # Ici, on pourrait intégrer avec le système de gamification
-            # pour distribuer les récompenses
-            logger.info(
-                f"🎁 Récompenses distribuées à {participant} pour le défi {challenge['id']}"
-            )
+            try:
+                # Ici, on pourrait intégrer avec le système de gamification
+                # pour distribuer les récompenses réelles
+                logger.info(
+                    f"🎁 Récompenses distribuées à {participant} pour le défi {challenge['id']}: "
+                    f"XP: {rewards.get('xp', 0)}, Coins: {rewards.get('coins', 0)}, "
+                    f"Badges: {rewards.get('badges', [])}"
+                )
+
+                # TODO: Intégrer avec ProgressionEngine pour distribuer les récompenses réelles
+                # progression_engine.update_player_progression(participant, "challenge_completed", rewards)
+
+            except Exception as e:
+                logger.error(f"Erreur distribution récompenses pour {participant}: {e}")
 
     # ===== SYSTÈME D'ÉVÉNEMENTS COLLECTIFS =====
 
@@ -448,7 +472,10 @@ class SocialEngine:
         return {"success": True, "message": "Vous avez rejoint l'événement !"}
 
     def update_event_progress(
-        self, event_id: str, player_id: str, contribution: int
+        self,
+        event_id: str,
+        player_id: str,
+        contribution: int,
     ) -> dict[str, Any]:
         """Met à jour le progrès d'un joueur dans un événement"""
         current_season = self.get_current_season()
@@ -500,7 +527,10 @@ class SocialEngine:
     # ===== SYSTÈME DE CHAT SÉCURISÉ =====
 
     def send_global_message(
-        self, sender_id: str, message: str, message_type: str = "chat"
+        self,
+        sender_id: str,
+        message: str,
+        message_type: str = "chat",
     ) -> dict[str, Any]:
         """Envoie un message dans le chat global"""
         # Validation du message
@@ -586,7 +616,8 @@ class SocialEngine:
     def get_player_relationships(self, player_id: str) -> dict[str, Any]:
         """Retourne les relations d'un joueur"""
         return self.player_relationships.get(
-            player_id, {"friends": [], "blocked": [], "rivals": []}
+            player_id,
+            {"friends": [], "blocked": [], "rivals": []},
         )
 
     # ===== API PUBLIQUE =====

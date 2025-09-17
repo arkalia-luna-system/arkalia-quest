@@ -3,7 +3,6 @@
 Tests pour les améliorations de gameplay d'Arkalia Quest
 """
 
-import json
 import os
 import sys
 import unittest
@@ -29,7 +28,7 @@ class TestGameplayEnhancements(unittest.TestCase):
                 "missions_completed": [],
                 "puzzles_solved": [],
                 "challenges_completed": [],
-            }
+            },
         }
 
     def test_zone_exploration_data_structure(self):

@@ -62,7 +62,7 @@ class BoutonsActionsExperienceTester:
 
         terminal_result["total_time"] = time.time() - start_time
         terminal_result["success_rate"] = self._calculate_button_success_rate(
-            terminal_result["buttons_tested"]
+            terminal_result["buttons_tested"],
         )
 
         self.results["pages_tested"].append(terminal_result)
@@ -118,7 +118,7 @@ class BoutonsActionsExperienceTester:
 
         monde_result["total_time"] = time.time() - start_time
         monde_result["success_rate"] = self._calculate_button_success_rate(
-            monde_result["buttons_tested"]
+            monde_result["buttons_tested"],
         )
 
         self.results["pages_tested"].append(monde_result)
@@ -174,7 +174,7 @@ class BoutonsActionsExperienceTester:
 
         profil_result["total_time"] = time.time() - start_time
         profil_result["success_rate"] = self._calculate_button_success_rate(
-            profil_result["buttons_tested"]
+            profil_result["buttons_tested"],
         )
 
         self.results["pages_tested"].append(profil_result)
@@ -219,7 +219,7 @@ class BoutonsActionsExperienceTester:
 
         special_result["total_time"] = time.time() - start_time
         special_result["success_rate"] = self._calculate_button_success_rate(
-            special_result["buttons_tested"]
+            special_result["buttons_tested"],
         )
 
         self.results["pages_tested"].append(special_result)
@@ -268,7 +268,7 @@ class BoutonsActionsExperienceTester:
 
         advanced_result["total_time"] = time.time() - start_time
         advanced_result["success_rate"] = self._calculate_button_success_rate(
-            advanced_result["buttons_tested"]
+            advanced_result["buttons_tested"],
         )
 
         self.results["pages_tested"].append(advanced_result)

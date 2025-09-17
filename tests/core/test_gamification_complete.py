@@ -178,18 +178,17 @@ class TestGamificationComplete(unittest.TestCase):
         """Calcule le niveau basé sur le score (simulation)"""
         if score < 100:
             return 1
-        elif score < 500:
+        if score < 500:
             return 2
-        elif score < 1000:
+        if score < 1000:
             return 3
-        elif score < 2000:
+        if score < 2000:
             return 4
-        elif score < 4000:
+        if score < 4000:
             return 5
-        elif score < 8000:
+        if score < 8000:
             return 6
-        else:
-            return min(7 + (score // 8000), 100)
+        return min(7 + (score // 8000), 100)
 
     # ===== TESTS DU SYSTÈME DE POINTS ET RÉCOMPENSES =====
 
@@ -313,8 +312,7 @@ class TestGamificationComplete(unittest.TestCase):
 
         if days_since == 0 or days_since == 1:
             return profile.get("streak", 0)
-        else:
-            return 0  # Streak cassé
+        return 0  # Streak cassé
 
     def test_engagement_metrics_calculation(self):
         """Test du calcul des métriques d'engagement"""
@@ -377,7 +375,9 @@ class TestGamificationComplete(unittest.TestCase):
 
         # 1000 opérations devraient prendre moins de 2 secondes
         self.assertLess(
-            duration, 2.0, f"Performance insuffisante: {duration}s pour 1000 opérations"
+            duration,
+            2.0,
+            f"Performance insuffisante: {duration}s pour 1000 opérations",
         )
 
         # Vérifier que le profil est cohérent
@@ -680,7 +680,7 @@ class TestGamificationComplete(unittest.TestCase):
                     "score": test_profile["score"],
                     "level": test_profile["level"],
                     "bonus": details["bonus"],
-                }
+                },
             )
 
         # Validations finales

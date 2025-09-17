@@ -142,7 +142,13 @@ def calculer_moyenne(nombres):
 import hashlib
 
 def create_md5_hash(text):
+    # ATTENTION: MD5 est obsolète pour la sécurité, utiliser SHA-256
+    # Ceci est uniquement à des fins éducatives
     return hashlib.md5(text.encode()).hexdigest()
+
+def create_secure_hash(text):
+    # Version sécurisée recommandée
+    return hashlib.sha256(text.encode()).hexdigest()
 """,
                 "points": 80,
                 "badge": "Codeur",
@@ -239,7 +245,7 @@ def create_md5_hash(text):
                 "explanation": "192.168.x.x et 10.x.x.x sont des réseaux privés, 8.8.8.8 est DNS Google",
                 "points": 50,
                 "badge": "Réseau",
-            }
+            },
         ]
 
     def get_available_games(self, user_level: int = 1) -> list[dict[str, Any]]:
@@ -381,7 +387,9 @@ def create_md5_hash(text):
 
             # SYSTÈME DE RÉCOMPENSES MATRIX AMÉLIORÉ
             matrix_bonus = self._calculate_matrix_bonus(
-                session.get("user_id", "default"), game, session["attempts"]
+                session.get("user_id", "default"),
+                game,
+                session["attempts"],
             )
             total_score = game["points"] + matrix_bonus["total"]
 
@@ -397,28 +405,27 @@ def create_md5_hash(text):
                 "particles": True,
                 "matrix_effect": "success_pulse",
             }
-        else:
-            # Donner un indice après 2 tentatives
-            hint = ""
-            if session["attempts"] >= 2:
-                if game["type"] == GameType.LOGIC.value and "hints" in game:
-                    hint = f"💡 Indice : {game['hints'][min(session['attempts'] - 2, len(game['hints']) - 1)]}"
-                elif game["type"] == GameType.CODE.value:
-                    hint = "💡 Vérifie la syntaxe et la logique du code"
-                elif game["type"] == GameType.CYBERSECURITY.value:
-                    hint = "💡 Analyse les patterns dans les données"
-                elif game["type"] == GameType.CRYPTOGRAPHY.value:
-                    hint = "💡 Pense à la méthode de chiffrement utilisée"
-                elif game["type"] == GameType.NETWORK.value:
-                    hint = "💡 Regarde les plages d'adresses IP"
+        # Donner un indice après 2 tentatives
+        hint = ""
+        if session["attempts"] >= 2:
+            if game["type"] == GameType.LOGIC.value and "hints" in game:
+                hint = f"💡 Indice : {game['hints'][min(session['attempts'] - 2, len(game['hints']) - 1)]}"
+            elif game["type"] == GameType.CODE.value:
+                hint = "💡 Vérifie la syntaxe et la logique du code"
+            elif game["type"] == GameType.CYBERSECURITY.value:
+                hint = "💡 Analyse les patterns dans les données"
+            elif game["type"] == GameType.CRYPTOGRAPHY.value:
+                hint = "💡 Pense à la méthode de chiffrement utilisée"
+            elif game["type"] == GameType.NETWORK.value:
+                hint = "💡 Regarde les plages d'adresses IP"
 
-            return {
-                "success": True,
-                "correct": False,
-                "attempts": session["attempts"],
-                "hint": hint,
-                "message": "❌ Incorrect. Essaie encore !",
-            }
+        return {
+            "success": True,
+            "correct": False,
+            "attempts": session["attempts"],
+            "hint": hint,
+            "message": "❌ Incorrect. Essaie encore !",
+        }
 
     def _check_answer(self, game: dict[str, Any], answer: Any) -> bool:
         """Vérifie si la réponse est correcte"""
@@ -433,18 +440,18 @@ def create_md5_hash(text):
         # Vérification selon le type de jeu
         if game["type"] == GameType.LOGIC.value:
             return answer == solution
-        elif game["type"] == GameType.CODE.value:
+        if game["type"] == GameType.CODE.value:
             # Pour les jeux de code, vérifier si la réponse contient les éléments clés
             if isinstance(solution, str) and isinstance(answer, str):
                 return solution.lower() in answer.lower()
             return answer == solution
-        elif game["type"] == GameType.CYBERSECURITY.value:
+        if game["type"] == GameType.CYBERSECURITY.value:
             if isinstance(solution, list):
                 return answer in solution
             return answer == solution
-        elif game["type"] == GameType.CRYPTOGRAPHY.value:
+        if game["type"] == GameType.CRYPTOGRAPHY.value:
             return answer == solution
-        elif game["type"] == GameType.NETWORK.value:
+        if game["type"] == GameType.NETWORK.value:
             if isinstance(solution, list):
                 # Pour les jeux réseau, vérifier l'égalité des listes
                 return answer == solution
@@ -476,7 +483,7 @@ def create_md5_hash(text):
                     "games_completed": progress["games_completed"],
                     "total_score": progress["total_score"],
                     "badges_count": len(progress["badges_earned"]),
-                }
+                },
             )
 
         # Trier par score décroissant
@@ -504,7 +511,10 @@ def create_md5_hash(text):
         }
 
     def _calculate_matrix_bonus(
-        self, user_id: str, game: dict[str, Any], attempts: int
+        self,
+        user_id: str,
+        game: dict[str, Any],
+        attempts: int,
     ) -> dict[str, Any]:
         """Calcule les bonus Matrix pour l'engagement adolescent"""
         base_bonus = 10
@@ -557,10 +567,9 @@ def create_md5_hash(text):
         # Choisir selon le nombre de tentatives
         if attempts == 1:
             return encouragements[0]  # Premier encouragement
-        elif attempts == 2:
+        if attempts == 2:
             return encouragements[1]  # Encouragement de persévérance
-        else:
-            return encouragements[2]  # Encouragement général
+        return encouragements[2]  # Encouragement général
 
     def _get_user_data(self, user_id: str) -> dict[str, Any]:
         """Récupère les données utilisateur"""
@@ -589,7 +598,7 @@ def create_md5_hash(text):
             return True
         except Exception as e:
             game_logger.error(
-                f"Erreur lors de la sauvegarde des données utilisateur {user_id}: {e}"
+                f"Erreur lors de la sauvegarde des données utilisateur {user_id}: {e}",
             )
             return False
 
@@ -640,7 +649,12 @@ def create_md5_hash(text):
         return max(10, final_score)  # Score minimum de 10
 
     def _update_user_statistics(
-        self, user_id: str, game_id: str, score: int, attempts: int, time_taken: float
+        self,
+        user_id: str,
+        game_id: str,
+        score: int,
+        attempts: int,
+        time_taken: float,
     ) -> bool:
         """Met à jour les statistiques utilisateur"""
         try:
@@ -673,7 +687,9 @@ def create_md5_hash(text):
         return user_data.get("statistics", {})
 
     def _filter_games_by_criteria(
-        self, games: list[dict[str, Any]], criteria: dict[str, Any]
+        self,
+        games: list[dict[str, Any]],
+        criteria: dict[str, Any],
     ) -> list[dict[str, Any]]:
         """Filtre les jeux selon des critères spécifiques"""
         filtered_games = []

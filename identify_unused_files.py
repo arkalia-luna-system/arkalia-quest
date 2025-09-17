@@ -3,7 +3,6 @@
 Script pour identifier les fichiers CSS/JS inutiles dans Arkalia Quest
 """
 
-import os
 import re
 from pathlib import Path
 

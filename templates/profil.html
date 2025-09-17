@@ -632,25 +632,25 @@
             <div class="profile-stats">
                 <div class="stat-card">
                     <span class="stat-icon">🏆</span>
-                    <span class="stat-value" id="total-score">--</span>
+                    <span class="stat-value" id="total-score" data-stat-type="score">--</span>
                     <div class="stat-label">Score Total</div>
                 </div>
 
                 <div class="stat-card">
                     <span class="stat-icon">⭐</span>
-                    <span class="stat-value" id="current-level">--</span>
+                    <span class="stat-value" id="current-level" data-stat-type="level">--</span>
                     <div class="stat-label">Niveau Actuel</div>
                 </div>
 
                 <div class="stat-card">
                     <span class="stat-icon">🎯</span>
-                    <span class="stat-value" id="missions-completed">--</span>
+                    <span class="stat-value" id="missions-completed" data-stat-type="achievements">--</span>
                     <div class="stat-label">Missions Complétées</div>
                 </div>
 
                 <div class="stat-card">
                     <span class="stat-icon">🏅</span>
-                    <span class="stat-value" id="badges-count">--</span>
+                    <span class="stat-value" id="badges-count" data-stat-type="badges">--</span>
                     <div class="stat-label">Badges Obtenus</div>
                 </div>
             </div>
@@ -963,6 +963,9 @@
     <!-- Scripts des systèmes adaptatifs -->
     <!-- Guidance adaptative désactivée -->
     <!-- <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}"></script> -->
+
+    <!-- Scripts de continuité -->
+    {% include 'components/continuity_scripts.html' %}
     <!-- progression-feedback désactivé (notifications unifiées) -->
     <!-- <script src="{{ url_for('static', filename='js/progression-feedback.js') }}"></script> -->
     <script src="{{ url_for('static', filename='js/competitive-system.js') }}"></script>

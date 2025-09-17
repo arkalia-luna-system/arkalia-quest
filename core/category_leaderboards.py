@@ -12,8 +12,7 @@ Version: 1.0
 
 import json
 import logging
-import random
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import Any, Optional
 
 logger = logging.getLogger(__name__)
@@ -268,7 +267,7 @@ class CategoryLeaderboards:
                         "last_updated": player_data["categories"][category][
                             "last_updated"
                         ],
-                    }
+                    },
                 )
 
         # Trier par score décroissant
@@ -287,7 +286,10 @@ class CategoryLeaderboards:
         }
 
     def get_leaderboard(
-        self, category: str, period: str = "all_time", limit: int = 50
+        self,
+        category: str,
+        period: str = "all_time",
+        limit: int = 50,
     ) -> dict[str, Any]:
         """Retourne le classement d'une catégorie"""
 
@@ -369,7 +371,7 @@ class CategoryLeaderboards:
                     "score": category_data["score"],
                     "rank": category_data["rank"],
                     "metrics": category_data["metrics"],
-                }
+                },
             )
 
         # Trier par score décroissant
@@ -429,7 +431,7 @@ class CategoryLeaderboards:
                     "rank": rank,
                     "percentile": percentile,
                     "performance_level": performance_level,
-                }
+                },
             )
 
         # Trier par percentile décroissant
@@ -453,7 +455,7 @@ class CategoryLeaderboards:
                     "overall_score": player_data["overall_score"],
                     "categories_count": len(player_data["categories"]),
                     "last_updated": player_data["last_updated"],
-                }
+                },
             )
 
         # Trier par score global décroissant

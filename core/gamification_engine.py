@@ -36,7 +36,7 @@ class GamificationEngine:
                         "total_score": 0,
                         "average_score": 0,
                     },
-                }
+                },
             )
 
         # Badges secrets
@@ -95,8 +95,8 @@ class GamificationEngine:
                             "condition": "all_modules",
                             "seuil": 3,
                         },
-                    }
-                }
+                    },
+                },
             )
 
         # Achievements
@@ -134,8 +134,8 @@ class GamificationEngine:
                             "points": 300,
                             "icone": "🤝",
                         },
-                    }
-                }
+                    },
+                },
             )
 
     def _load_leaderboard(self) -> dict[str, Any]:
@@ -201,10 +201,10 @@ class GamificationEngine:
                 "level": profile.get("level", 1),
                 "badges_count": len(profile.get("badges", [])),
                 "missions_completed": len(
-                    profile.get("personnalite", {}).get("missions_completees", [])
+                    profile.get("personnalite", {}).get("missions_completees", []),
                 ),
                 "last_activity": datetime.now().isoformat(),
-            }
+            },
         )
 
         # Trier par score décroissant
@@ -250,13 +250,22 @@ class GamificationEngine:
         for badge_id, badge_data in badges_secrets["badges_secrets"].items():
             if badge_id not in profile.get(
                 "badges", []
-            ) and self._check_badge_condition(badge_data, profile, action, **kwargs):
+            ) and self._check_badge_condition(
+                badge_data,
+                profile,
+                action,
+                **kwargs,
+            ):
                 unlocked_badges.append(badge_id)
 
         return unlocked_badges
 
     def _check_badge_condition(
-        self, badge_data: dict[str, Any], profile: dict[str, Any], action: str, **kwargs
+        self,
+        badge_data: dict[str, Any],
+        profile: dict[str, Any],
+        action: str,
+        **kwargs,
     ) -> bool:
         """Vérifie si une condition de badge est remplie"""
 
@@ -305,7 +314,8 @@ class GamificationEngine:
 
         for achievement_id, _achievement_data in achievements["achievements"].items():
             if achievement_id not in profile.get(
-                "achievements", []
+                "achievements",
+                [],
             ) and self._check_achievement_condition(achievement_id, profile):
                 unlocked_achievements.append(achievement_id)
 
@@ -320,17 +330,17 @@ class GamificationEngine:
             missions = profile.get("personnalite", {}).get("missions_completees", [])
             return len(missions) >= 1
 
-        elif achievement_id == "score_1000":
+        if achievement_id == "score_1000":
             return profile.get("score", 0) >= 1000
 
-        elif achievement_id == "badge_collector":
+        if achievement_id == "badge_collector":
             return len(profile.get("badges", [])) >= 5
 
-        elif achievement_id == "speed_runner":
+        if achievement_id == "speed_runner":
             missions = profile.get("personnalite", {}).get("missions_completees", [])
             return len(missions) >= 3
 
-        elif achievement_id == "social_expert":
+        if achievement_id == "social_expert":
             social_commands = ["aide", "profil", "monde", "status"]
             commands_used = profile.get("commands_used", [])
             return all(cmd in commands_used for cmd in social_commands)
@@ -393,7 +403,7 @@ class GamificationEngine:
                     "badge_animation": True,
                     "special_effect": "badge_glow",
                     "message": "🏆 NOUVEAU BADGE DÉBLOQUÉ ! 🏆",
-                }
+                },
             )
         elif action == "mission_complete":
             rewards.update(
@@ -402,7 +412,7 @@ class GamificationEngine:
                     "confetti": True,
                     "special_effect": "mission_complete",
                     "message": "🎉 MISSION ACCOMPLIE ! 🎉",
-                }
+                },
             )
         elif action == "hack_success":
             rewards.update(
@@ -410,7 +420,7 @@ class GamificationEngine:
                     "matrix_effect": True,
                     "special_effect": "hack_success",
                     "message": "💚 HACK RÉUSSI ! 💚",
-                }
+                },
             )
         elif action == "luna_interaction":
             rewards.update(
@@ -418,7 +428,7 @@ class GamificationEngine:
                     "luna_glow": True,
                     "special_effect": "luna_happy",
                     "message": "🌟 LUNA est contente ! 🌟",
-                }
+                },
             )
 
         # Bonus visuels pour les gros gains
@@ -428,7 +438,7 @@ class GamificationEngine:
                     "big_reward": True,
                     "screen_flash": True,
                     "vibration": True,
-                }
+                },
             )
 
         return rewards

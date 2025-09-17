@@ -30,7 +30,10 @@ class LoadTester:
         self.lock = threading.Lock()
 
     def make_request(
-        self, endpoint: str, method: str = "GET", data: Optional[dict[str, Any]] = None
+        self,
+        endpoint: str,
+        method: str = "GET",
+        data: Optional[dict[str, Any]] = None,
     ) -> dict[str, Any]:
         """Effectue une requête et mesure le temps de réponse"""
         start_time = time.time()
@@ -60,7 +63,7 @@ class LoadTester:
                             "endpoint": endpoint,
                             "status_code": response.status_code,
                             "response": response.text[:200],
-                        }
+                        },
                     )
 
             return {
@@ -168,7 +171,7 @@ class LoadTester:
         ) * 100
         if success_rate < 95:
             recommendations.append(
-                "🔴 Taux de succès trop faible - Vérifier la stabilité du système"
+                "🔴 Taux de succès trop faible - Vérifier la stabilité du système",
             )
 
         avg_response_time = statistics.mean(self.results["response_times"])

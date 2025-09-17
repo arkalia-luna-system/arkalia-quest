@@ -115,7 +115,7 @@ class GitHubDiscussionsSetup:
             "⚠️  L'activation des discussions nécessite des permissions d'administrateur"
         )
         print(
-            "💡 Veuillez activer manuellement les discussions dans les paramètres du repository :"
+            "💡 Veuillez activer manuellement les discussions dans les paramètres du repository :",
         )
         print(f"   https://github.com/{self.repo}/settings")
         print("   → Features → Discussions → Enable discussions")

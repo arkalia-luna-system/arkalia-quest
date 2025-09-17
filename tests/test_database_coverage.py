@@ -46,7 +46,6 @@ class TestDatabaseCoverage(unittest.TestCase):
         except (PermissionError, OSError) as e:
             # Ignorer les erreurs de permission sur Windows
             print(f"⚠️ Impossible de supprimer {self.temp_db.name}: {e}")
-            pass
 
     def test_database_initialization(self):
         """Test l'initialisation de la base de données"""
@@ -96,7 +95,7 @@ class TestDatabaseCoverage(unittest.TestCase):
         try:
             # Tester avec un chemin invalide
             with self.assertRaises(
-                (OSError, FileNotFoundError, PermissionError, sqlite3.OperationalError)
+                (OSError, FileNotFoundError, PermissionError, sqlite3.OperationalError),
             ):
                 # Créer un nouveau DatabaseManager avec un chemin invalide
                 invalid_db = DatabaseManager(invalid_db_path)

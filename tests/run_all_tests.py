@@ -34,6 +34,7 @@ def run_test_script(script_path, test_name):
         # Exécuter le script
         result = subprocess.run(
             [sys.executable, str(script_path)],
+            check=False,
             capture_output=True,
             text=True,
             timeout=300,  # 5 minutes max
@@ -280,13 +281,13 @@ def main():
     # Afficher les détails par catégorie
     print("\n📈 DÉTAILS PAR CATÉGORIE:")
     print(
-        f"🎮 Tests d'expérience: {report['categories']['experience_tests']['successful']}/{report['categories']['experience_tests']['count']}"
+        f"🎮 Tests d'expérience: {report['categories']['experience_tests']['successful']}/{report['categories']['experience_tests']['count']}",
     )
     print(
-        f"🔧 Tests de stabilité: {report['categories']['stable_tests']['successful']}/{report['categories']['stable_tests']['count']}"
+        f"🔧 Tests de stabilité: {report['categories']['stable_tests']['successful']}/{report['categories']['stable_tests']['count']}",
     )
     print(
-        f"📜 Tests de scripts: {report['categories']['script_tests']['successful']}/{report['categories']['script_tests']['count']}"
+        f"📜 Tests de scripts: {report['categories']['script_tests']['successful']}/{report['categories']['script_tests']['count']}",
     )
 
     # Afficher les tests échoués

@@ -147,7 +147,9 @@ class GameEngine:
         return {}
 
     def _execute_random_event(
-        self, event: dict[str, Any], profile: dict[str, Any]
+        self,
+        event: dict[str, Any],
+        profile: dict[str, Any],
     ) -> dict[str, Any]:
         """Exécute un événement aléatoire"""
         effect = event["effect"]
@@ -201,7 +203,9 @@ class GameEngine:
         # Mettre à jour la progression avec les points gagnés
         if result.get("score_gagne", 0) > 0:
             progression_engine.update_player_progression(
-                user_id, "score_earned", {"points": result["score_gagne"]}
+                user_id,
+                "score_earned",
+                {"points": result["score_gagne"]},
             )
 
         # Ajouter des effets visuels/audio
@@ -286,7 +290,9 @@ class GameEngine:
         return random.choice(encouragements)
 
     def _generate_instant_rewards(
-        self, profile: dict[str, Any], result: Optional[dict[str, Any]] = None
+        self,
+        profile: dict[str, Any],
+        result: Optional[dict[str, Any]] = None,
     ) -> dict[str, Any]:
         """Génère des récompenses instantanées visuelles"""
         rewards = {"badge": None, "achievement": None, "special_effect": None}
@@ -316,7 +322,7 @@ class GameEngine:
         current_streak = profile.get("current_streak", 0)
         if current_streak >= 7:
             return 50  # Bonus hebdomadaire
-        elif current_streak >= 3:
+        if current_streak >= 3:
             return 20  # Bonus de série
         return 0
 

@@ -50,6 +50,13 @@ class BasicCommands:
             "cyberpunk_mode": self.handle_cyberpunk_mode,
             "check_objects": self.handle_check_objects,
             "debug_mode": self.handle_debug_mode,
+            # Nouvelles commandes de gameplay amélioré
+            "skill_tree": self.handle_skill_tree,
+            "skills": self.handle_skill_tree,
+            "daily_challenges": self.handle_daily_challenges,
+            "challenges": self.handle_daily_challenges,
+            "zone_challenges": self.handle_zone_challenges,
+            "missions_interactive": self.handle_missions_interactive,
         }
 
     def handle_aide(self, profile: dict[str, Any]) -> dict[str, Any]:
@@ -230,12 +237,14 @@ la vérité sur NEXUS et la menace de PANDORA.
         else:
             badges_text = (
                 f"🎖️ {len(badges)} badges - Collection impressionnante !\n"
-                + "\n".join(["• " + badge for badge in badges])
+                + "\n".join(
+                    ["• " + badge for badge in badges],
+                )
             )
 
         # Messages pour la progression
         univers_count = len(
-            profile.get("progression", {}).get("univers_debloques", ["arkalia_base"])
+            profile.get("progression", {}).get("univers_debloques", ["arkalia_base"]),
         )
         portails_count = len(profile.get("progression", {}).get("portails_ouverts", []))
 
@@ -370,7 +379,7 @@ la vérité sur NEXUS et la menace de PANDORA.
         """Affiche les thèmes disponibles et comment les activer"""
         try:
             available = self.customization_engine.get_available_themes(
-                profile.get("player_id", "default")
+                profile.get("player_id", "default"),
             )
 
             if not available:
@@ -599,7 +608,7 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
                 "creativity": 60,
                 "logic": 65,
             }
-        elif score < 500:
+        if score < 500:
             return {
                 "type": "Hacker Intermédiaire",
                 "level": "Confirmé",
@@ -610,17 +619,16 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
                 "creativity": 70,
                 "logic": 80,
             }
-        else:
-            return {
-                "type": "Hacker Expert",
-                "level": "Maître",
-                "specialty": "Innovation",
-                "style": "Génie",
-                "curiosity": 90,
-                "perseverance": 95,
-                "creativity": 90,
-                "logic": 95,
-            }
+        return {
+            "type": "Hacker Expert",
+            "level": "Maître",
+            "specialty": "Innovation",
+            "style": "Génie",
+            "curiosity": 90,
+            "perseverance": 95,
+            "creativity": 90,
+            "logic": 95,
+        }
 
     def handle_badges(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande badges - Affiche tous les badges obtenus"""
@@ -886,6 +894,9 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
 🏆 +100 points pour cette réussite !
 💡 Mini-jeu ajouté à votre collection !"""
 
+            # Déclencher l'événement de gain d'XP pour les compétences
+            self._trigger_skill_xp_event("hacking", "code_breaking", 25)
+
             return {
                 "réussite": True,
                 "ascii_art": "🔐",
@@ -893,8 +904,7 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
                 "score_gagne": 100,
                 "profile_updated": True,
             }
-        else:
-            message = f"""🔐 HACK BINAIRE ÉCHOUÉ !
+        message = f"""🔐 HACK BINAIRE ÉCHOUÉ !
 
 🎯 PROBLÈME : {a_binary} + {b_binary} = ?
 ❌ RÉPONSE : {bin(random.randint(1, 30))[2:]} (incorrecte)
@@ -904,60 +914,127 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
 💡 Réessayez ! La pratique rend parfait !
 Utilisez 'simple_hack' pour réessayer."""
 
-            return {
-                "réussite": False,
-                "ascii_art": "🔐",
-                "message": message,
-                "score_gagne": 0,
-                "profile_updated": False,
-            }
+        return {
+            "réussite": False,
+            "ascii_art": "🔐",
+            "message": message,
+            "score_gagne": 0,
+            "profile_updated": False,
+        }
 
     def handle_sequence_game(self, profile: dict[str, Any]) -> dict[str, Any]:
-        """Jeu de mémoire de séquences"""
-        profile["score"] += 30
+        """Jeu de mémoire de séquences interactif"""
+        import random
+
+        # Générer une séquence aléatoire de couleurs
+        colors = ["🔴", "🟡", "🔵", "🟢", "🟣", "🟠", "⚫", "⚪"]
+        sequence_length = random.randint(4, 8)
+        sequence = [random.choice(colors) for _ in range(sequence_length)]
+        sequence_str = " → ".join(sequence)
+
+        # Simuler la réussite (60% de chance)
+        if random.random() < 0.6:
+            message = f"""🧠 SÉQUENCE MÉMORISÉE !
+
+🎯 SÉQUENCE : {sequence_str}
+✅ RÉPONSE : {sequence_str}
+
+🎉 VICTOIRE ! Votre mémoire est excellente !
+🏆 +{50 + sequence_length * 5} points gagnés !
+💡 Mini-jeu ajouté à votre collection !"""
+
+            # Déclencher l'événement de gain d'XP pour les compétences
+            self._trigger_skill_xp_event("hacking", "code_breaking", 20)
+
+            return {
+                "réussite": True,
+                "ascii_art": "🧠",
+                "message": message,
+                "score_gagne": 50 + sequence_length * 5,
+                "profile_updated": True,
+            }
+        wrong_sequence = [random.choice(colors) for _ in range(sequence_length)]
+        wrong_str = " → ".join(wrong_sequence)
+
+        message = f"""🧠 SÉQUENCE ÉCHOUÉE !
+
+🎯 SÉQUENCE : {sequence_str}
+❌ RÉPONSE : {wrong_str}
+✅ BONNE RÉPONSE : {sequence_str}
+
+😔 ÉCHEC ! Mais ne vous découragez pas !
+💡 Réessayez ! La mémoire s'améliore avec la pratique !
+Utilisez 'sequence_game' pour réessayer."""
 
         return {
-            "réussite": True,
+            "réussite": False,
             "ascii_art": "🧠",
-            "message": """🧠 JEU DE MÉMOIRE DE SÉQUENCES
-
-🎯 OBJECTIF : Mémoriser et reproduire la séquence
-📊 DIFFICULTÉ : Moyen
-⏱️ TEMPS : 45 secondes
-
-🎮 SÉQUENCE À MÉMORISER :
-🔴 → 🟡 → 🔵 → 🟢 → 🔴
-
-💡 Clique sur les couleurs dans l'ordre !
-🎯 Score basé sur la vitesse et la précision
-
-🌟 +30 points pour avoir testé ta mémoire !""",
-            "score_gagne": 30,
-            "profile_updated": True,
+            "message": message,
+            "score_gagne": 0,
+            "profile_updated": False,
         }
 
     def handle_typing_challenge(self, profile: dict[str, Any]) -> dict[str, Any]:
-        """Défi de frappe rapide"""
-        profile["score"] += 20
+        """Défi de frappe rapide interactif"""
+        import random
+
+        # Textes à taper variés
+        texts = [
+            "Hello World! Je suis un hacker!",
+            "Arkalia Quest est le meilleur jeu!",
+            "Matrix mode activé! Code en cours...",
+            "Hack the planet! Liberté pour tous!",
+            "LUNA est mon IA préférée!",
+            "Je code donc je suis!",
+            "Terminal power! Commandes magiques!",
+            "Cybersécurité niveau expert!",
+        ]
+
+        chosen_text = random.choice(texts)
+        text_length = len(chosen_text)
+
+        # Simuler la réussite (70% de chance)
+        if random.random() < 0.7:
+            # Simuler une vitesse de frappe
+            wpm = random.randint(40, 80)  # mots par minute
+            accuracy = random.randint(85, 100)  # précision en %
+
+            message = f"""⌨️ FRAPPE RÉUSSIE !
+
+🎯 TEXTE : "{chosen_text}"
+✅ VITESSE : {wpm} mots/min
+🎯 PRÉCISION : {accuracy}%
+
+🎉 VICTOIRE ! Vos doigts sont rapides !
+🏆 +{30 + text_length} points gagnés !
+💡 Mini-jeu ajouté à votre collection !"""
+
+            # Déclencher l'événement de gain d'XP pour les compétences
+            self._trigger_skill_xp_event("hacking", "code_breaking", 15)
+
+            return {
+                "réussite": True,
+                "ascii_art": "⌨️",
+                "message": message,
+                "score_gagne": 30 + text_length,
+                "profile_updated": True,
+            }
+        message = f"""⌨️ FRAPPE ÉCHOUÉE !
+
+🎯 TEXTE : "{chosen_text}"
+❌ VITESSE : {random.randint(20, 35)} mots/min
+🎯 PRÉCISION : {random.randint(60, 80)}%
+
+😔 ÉCHEC ! Mais ne vous découragez pas !
+💡 Réessayez ! La vitesse s'améliore avec la pratique !
+Utilisez 'typing_challenge' pour réessayer."""
 
         return {
-            "réussite": True,
+            "réussite": False,
             "ascii_art": "⌨️",
-            "message": """⌨️ DÉFI DE FRAPPE RAPIDE
-
-🎯 OBJECTIF : Taper le plus vite possible
-📊 DIFFICULTÉ : Variable
-⏱️ TEMPS : 60 secondes
-
-📝 TEXTE À TAPER :
-"Arkalia Quest est un jeu d'aventure cyberpunk où tu incarnes un hacker qui découvre LUNA, une IA émotionnelle."
-
-💡 Tape exactement le texte affiché !
-🎯 Score basé sur les mots par minute (WPM)
-
-🌟 +20 points pour avoir testé ta vitesse !""",
-            "score_gagne": 20,
-            "profile_updated": True,
+            "message": message,
+            "score_gagne": 0,
+            "profile_updated": False,
         }
 
     def handle_play_game(self, profile: dict[str, Any]) -> dict[str, Any]:
@@ -1163,3 +1240,191 @@ Toutes les fonctionnalités sont disponibles !
             "score_gagne": 5,
             "profile_updated": True,
         }
+
+    def handle_skill_tree(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Gère la commande skill_tree - Affiche l'arbre de compétences"""
+        profile["score"] += 10
+
+        # Simuler l'ouverture de l'arbre de compétences
+        return {
+            "réussite": True,
+            "ascii_art": "🌳",
+            "message": """🌳 ARBRE DE COMPÉTENCES ARKALIA QUEST
+
+🎯 COMPÉTENCES DISPONIBLES :
+
+💻 HACKING :
+• Cassage de Code (Niveau 1/5) - Débloqué
+• Pénétration Système (Niveau 0/5) - Verrouillé
+• Cryptographie (Niveau 0/5) - Verrouillé
+• Ingénierie Sociale (Niveau 0/5) - Verrouillé
+
+⚔️ COMBAT :
+• Défense (Niveau 1/5) - Débloqué
+• Offensive (Niveau 0/5) - Verrouillé
+• Stratégie (Niveau 0/5) - Verrouillé
+• Tactiques (Niveau 0/5) - Verrouillé
+
+💬 SOCIAL :
+• Persuasion (Niveau 1/5) - Débloqué
+• Négociation (Niveau 0/5) - Verrouillé
+• Leadership (Niveau 0/5) - Verrouillé
+• Diplomatie (Niveau 0/5) - Verrouillé
+
+💡 UTILISATION :
+• Utilise l'interface web pour voir l'arbre complet
+• Gagne de l'XP pour améliorer tes compétences
+• Chaque compétence améliore tes chances de succès
+
+🌟 +10 points pour avoir exploré l'arbre de compétences !""",
+            "score_gagne": 10,
+            "profile_updated": True,
+        }
+
+    def handle_daily_challenges(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Gère la commande daily_challenges - Affiche les défis quotidiens"""
+        profile["score"] += 15
+
+        return {
+            "réussite": True,
+            "ascii_art": "🎯",
+            "message": """🎯 DÉFIS QUOTIDIENS ARKALIA QUEST
+
+📅 DÉFIS DU JOUR :
+
+💻 HACKING SPRINT :
+• Résolvez 3 puzzles de hacking en moins de 5 minutes
+• Récompense : +150 XP, +50 Coins
+• Difficulté : Moyen
+
+🧠 MAÎTRE DE LA MÉMOIRE :
+• Mémorisez une séquence de 10 éléments
+• Récompense : +100 XP, +30 Coins
+• Difficulté : Facile
+
+⌨️ FRAPPE RAPIDE :
+• Tapez 200 caractères en moins de 30 secondes
+• Récompense : +80 XP, +25 Coins
+• Difficulté : Facile
+
+💡 UTILISATION :
+• Cliquez sur un défi pour le commencer
+• Les défis se renouvellent chaque jour
+• Gagnez des bonus de performance
+
+🌟 +15 points pour avoir exploré les défis !""",
+            "score_gagne": 15,
+            "profile_updated": True,
+        }
+
+    def handle_zone_challenges(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Gère la commande zone_challenges - Affiche les défis de zone"""
+        profile["score"] += 20
+
+        return {
+            "réussite": True,
+            "ascii_art": "🗺️",
+            "message": """🗺️ DÉFIS DE ZONE ARKALIA QUEST
+
+🌍 DÉFIS PAR ZONE :
+
+🏠 BASE ARKALIA :
+• Séquence de Mémoire - Facile (+50 XP, +15 Coins)
+• Cassage de Code - Moyen (+75 XP, +25 Coins)
+
+🚀 STATION NEXUS :
+• Mini-Hack - Moyen (+100 XP, +30 Coins)
+• Reconnaissance de Motifs - Difficile (+150 XP, +50 Coins)
+
+🌙 ATELIER LUNA :
+• Communication avec LUNA - Facile (+60 XP, +20 Coins)
+• Réparation Système - Moyen (+120 XP, +40 Coins)
+
+💎 CŒUR PANDORA :
+• Puzzle Final - Expert (+300 XP, +100 Coins)
+
+💡 UTILISATION :
+• Explorez les zones pour découvrir les défis
+• Cliquez sur les zones pour voir les défis disponibles
+• Chaque défi améliore tes compétences
+
+🌟 +20 points pour avoir exploré les défis de zone !""",
+            "score_gagne": 20,
+            "profile_updated": True,
+        }
+
+    def handle_missions_interactive(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Gère la commande missions_interactive - Affiche les missions interactives"""
+        profile["score"] += 25
+
+        return {
+            "réussite": True,
+            "ascii_art": "🎮",
+            "message": """🎮 MISSIONS INTERACTIVES ARKALIA QUEST
+
+🎯 MISSIONS DISPONIBLES :
+
+💻 PÉNÉTRATION DU SYSTÈME :
+• Infiltrez le système de sécurité de la Station Nexus
+• Choix : Furtif, Force brute, Ingénierie sociale
+• Récompense : +100 XP, +25 Coins
+
+🌙 RELATION AVEC LUNA :
+• Aidez LUNA avec un problème personnel
+• Choix : Empathique, Logique, Dismissive
+• Récompense : +75 XP, +20 Coins
+
+⚔️ DÉFENSE DE LA BASE :
+• Repoussez l'attaque de pirates (2 min)
+• Choix : Défensif, Agressif, Hacker leurs systèmes
+• Récompense : +200 XP, +50 Coins
+
+🧩 DÉFI DE PUZZLE :
+• Résolvez un puzzle logique pour débloquer un système
+• Choix : Systématique, Intuition, Demander l'aide de LUNA
+• Récompense : +120 XP, +30 Coins
+
+💡 UTILISATION :
+• Chaque mission a des choix multiples
+• Vos choix affectent le succès et les récompenses
+• Échec possible - réessayez pour améliorer
+
+🌟 +25 points pour avoir exploré les missions interactives !""",
+            "score_gagne": 25,
+            "profile_updated": True,
+        }
+
+    def _trigger_skill_xp_event(self, category: str, skill_id: str, xp: int) -> None:
+        """Déclenche un événement de gain d'XP pour les compétences"""
+        try:
+            # Créer un événement personnalisé pour le gain d'XP
+            event = {
+                "type": "skill_xp_gained",
+                "skill_category": category,
+                "skill_id": skill_id,
+                "xp": xp,
+            }
+
+            # Déclencher l'événement côté client
+            if hasattr(self, "_trigger_client_event"):
+                self._trigger_client_event("arkalia:progression:update", event)
+            else:
+                # Fallback : stocker l'événement pour qu'il soit récupéré côté client
+                if not hasattr(self, "_pending_events"):
+                    self._pending_events = []
+                self._pending_events.append(event)
+
+            # Déclencher l'événement côté client via le système de compétences
+            if hasattr(self, "skill_tree_system"):
+                self.skill_tree_system.gainSkillXP(category, skill_id, xp)
+            else:
+                # Déclencher l'événement global
+                import threading
+
+                def trigger_global_event():
+                    # Note: window sera disponible côté client JavaScript
+                    pass
+
+                threading.Thread(target=trigger_global_event).start()
+        except Exception as e:
+            print(f"Erreur lors du déclenchement de l'événement XP: {e}")

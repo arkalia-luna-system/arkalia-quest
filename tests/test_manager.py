@@ -37,7 +37,7 @@ class TestManager:
                 "timestamp": datetime.now().isoformat(),
                 "session_id": self.session_id,
                 "test_name": test_name,
-            }
+            },
         )
 
         with open(filepath, "w", encoding="utf-8") as f:
@@ -91,7 +91,7 @@ class TestManager:
 
         if not self.check_server():
             print("❌ Serveur non accessible. Démarrez le serveur avec: python app.py")
-            return
+            return None
 
         print("✅ Serveur accessible")
 

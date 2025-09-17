@@ -4,12 +4,10 @@
 Tests pour les améliorations UX prioritaires implémentées
 """
 
-import json
 import os
 import sys
-import tempfile
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
 # Ajouter le répertoire parent au path
 sys.path.insert(

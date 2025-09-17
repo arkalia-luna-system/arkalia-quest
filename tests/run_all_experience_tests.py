@@ -31,6 +31,7 @@ class ExperienceTestRunner:
         try:
             result = subprocess.run(
                 [sys.executable, "tests/test_ui_tutoriel_experience.py"],
+                check=False,
                 capture_output=True,
                 text=True,
                 timeout=60,
@@ -83,6 +84,7 @@ class ExperienceTestRunner:
         try:
             result = subprocess.run(
                 [sys.executable, "tests/test_ui_terminal_experience.py"],
+                check=False,
                 capture_output=True,
                 text=True,
                 timeout=60,
@@ -135,6 +137,7 @@ class ExperienceTestRunner:
         try:
             result = subprocess.run(
                 [sys.executable, "tests/test_ui_navigation_experience.py"],
+                check=False,
                 capture_output=True,
                 text=True,
                 timeout=60,
@@ -187,6 +190,7 @@ class ExperienceTestRunner:
         try:
             result = subprocess.run(
                 [sys.executable, "tests/test_ui_boutons_actions_experience.py"],
+                check=False,
                 capture_output=True,
                 text=True,
                 timeout=60,
@@ -239,6 +243,7 @@ class ExperienceTestRunner:
         try:
             result = subprocess.run(
                 [sys.executable, "tests/test_ui_pwa_mobile_experience.py"],
+                check=False,
                 capture_output=True,
                 text=True,
                 timeout=60,
@@ -350,16 +355,16 @@ class ExperienceTestRunner:
             if score < 40:
                 recommendations.append(
                     f"❌ {test_name}: Nécessite une amélioration majeure (score:"
-                    + "{score:.1f}/100)"
+                    "{score:.1f}/100)",
                 )
             elif score < 60:
                 recommendations.append(
                     f"⚠️ {test_name}: Amélioration recommandée (score:"
-                    + "{score:.1f}/100)"
+                    + "{score:.1f}/100)",
                 )
             elif score < 80:
                 recommendations.append(
-                    f"👍 {test_name}: Bon, peut être optimisé (score: {score:.1f}/100)"
+                    f"👍 {test_name}: Bon, peut être optimisé (score: {score:.1f}/100)",
                 )
             else:
                 recommendations.append(

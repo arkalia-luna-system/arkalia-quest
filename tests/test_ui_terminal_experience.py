@@ -249,7 +249,9 @@ class TerminalExperienceTester:
         try:
             # Test de la commande aide (commande simple)
             response = requests.post(
-                f"{self.base_url}/commande", json={"commande": "aide"}, timeout=5
+                f"{self.base_url}/commande",
+                json={"commande": "aide"},
+                timeout=5,
             )
             test["duration"] = time.time() - start_time
 
@@ -313,7 +315,9 @@ class TerminalExperienceTester:
 
             for cmd in commands:
                 response = requests.post(
-                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=3
+                    f"{self.base_url}/commande",
+                    json={"commande": cmd},
+                    timeout=3,
                 )
 
                 if response.status_code == 200:
@@ -357,7 +361,9 @@ class TerminalExperienceTester:
         try:
             # Test de la commande aide
             response = requests.post(
-                f"{self.base_url}/commande", json={"commande": "aide"}, timeout=3
+                f"{self.base_url}/commande",
+                json={"commande": "aide"},
+                timeout=3,
             )
             test["duration"] = time.time() - start_time
 
@@ -423,7 +429,9 @@ class TerminalExperienceTester:
 
             for cmd in commands:
                 response = requests.post(
-                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=2
+                    f"{self.base_url}/commande",
+                    json={"commande": cmd},
+                    timeout=2,
                 )
 
                 if response.status_code == 200:
@@ -483,7 +491,9 @@ class TerminalExperienceTester:
 
             for cmd in special_commands:
                 response = requests.post(
-                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=2
+                    f"{self.base_url}/commande",
+                    json={"commande": cmd},
+                    timeout=2,
                 )
 
                 if response.status_code == 200:
@@ -525,7 +535,9 @@ class TerminalExperienceTester:
 
             for egg in easter_eggs:
                 response = requests.post(
-                    f"{self.base_url}/commande", json={"commande": egg}, timeout=2
+                    f"{self.base_url}/commande",
+                    json={"commande": egg},
+                    timeout=2,
                 )
 
                 if response.status_code == 200:
@@ -567,7 +579,9 @@ class TerminalExperienceTester:
 
             for cmd in invalid_commands:
                 response = requests.post(
-                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=2
+                    f"{self.base_url}/commande",
+                    json={"commande": cmd},
+                    timeout=2,
                 )
 
                 if response.status_code == 200:
@@ -656,7 +670,9 @@ class TerminalExperienceTester:
 
             for _i, cmd in enumerate(commands):
                 response = requests.post(
-                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=1
+                    f"{self.base_url}/commande",
+                    json={"commande": cmd},
+                    timeout=1,
                 )
 
                 if response.status_code == 200:
@@ -769,7 +785,9 @@ class TerminalExperienceTester:
 
             for cmd in advanced_commands:
                 response = requests.post(
-                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=3
+                    f"{self.base_url}/commande",
+                    json={"commande": cmd},
+                    timeout=3,
                 )
 
                 if response.status_code == 200:
@@ -818,7 +836,9 @@ class TerminalExperienceTester:
 
             for cmd in personalization_commands:
                 response = requests.post(
-                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=2
+                    f"{self.base_url}/commande",
+                    json={"commande": cmd},
+                    timeout=2,
                 )
 
                 if response.status_code == 200:
@@ -866,7 +886,9 @@ class TerminalExperienceTester:
 
             for cmd in hidden_commands:
                 response = requests.post(
-                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=2
+                    f"{self.base_url}/commande",
+                    json={"commande": cmd},
+                    timeout=2,
                 )
 
                 if response.status_code == 200:
@@ -915,7 +937,9 @@ class TerminalExperienceTester:
 
             for cmd in scenario_commands:
                 response = requests.post(
-                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=3
+                    f"{self.base_url}/commande",
+                    json={"commande": cmd},
+                    timeout=3,
                 )
 
                 if response.status_code == 200:

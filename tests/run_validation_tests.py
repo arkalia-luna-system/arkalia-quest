@@ -26,10 +26,9 @@ def main():
             print("\n🎉 VALIDATION COMPLÈTE RÉUSSIE !")
             print("🚀 Arkalia Quest v3.1.0 est prêt pour la production !")
             return 0
-        else:
-            print("\n❌ VALIDATION ÉCHOUÉE !")
-            print("⚠️  Des problèmes ont été détectés.")
-            return 1
+        print("\n❌ VALIDATION ÉCHOUÉE !")
+        print("⚠️  Des problèmes ont été détectés.")
+        return 1
 
     except Exception as e:
         print(f"\n💥 ERREUR CRITIQUE: {e}")

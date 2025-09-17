@@ -22,9 +22,12 @@ class CIValidator:
         """Exécute une commande et gère les erreurs"""
         print(f"🔍 {description}...")
         try:
-            result = subprocess.run(
-                command, shell=True, capture_output=True, text=True, check=True
-            )
+            # Utiliser shlex pour séparer les arguments de manière sécurisée
+            import shlex
+
+            if isinstance(command, str):
+                command = shlex.split(command)
+            result = subprocess.run(command, capture_output=True, text=True, check=True)
             print(f"✅ {description} - SUCCÈS")
             return result.stdout
         except subprocess.CalledProcessError as e:
@@ -37,7 +40,8 @@ class CIValidator:
     def validate_ruff(self):
         """Valide le linting avec Ruff"""
         return self.run_command(
-            "ruff check . --output-format=concise", "Vérification Ruff (Linting)"
+            "ruff check . --output-format=concise",
+            "Vérification Ruff (Linting)",
         )
 
     def validate_black(self):
@@ -50,9 +54,13 @@ class CIValidator:
         """Valide l'exécution des tests"""
         print("🔍 Exécution des tests avec couverture...")
         try:
+            import shlex
+
+            command = shlex.split(
+                "python -m pytest tests/ --tb=short -v --cov=core --cov=engines --cov=utils --cov-report=term-missing --cov-fail-under=10"
+            )
             result = subprocess.run(
-                "python -m pytest tests/ --tb=short -v --cov=core --cov=engines --cov=utils --cov-report=term-missing --cov-fail-under=10",
-                shell=True,
+                command,
                 capture_output=True,
                 text=True,
                 check=False,  # Ne pas échouer sur les erreurs de tests
@@ -61,13 +69,12 @@ class CIValidator:
             if result.returncode == 0:
                 print("✅ Tests - SUCCÈS")
                 return result.stdout
-            else:
-                print(f"❌ Tests - ÉCHEC (code: {result.returncode})")
-                if result.stderr:
-                    print(f"   Erreurs: {result.stderr[:200]}...")
-                self.errors.append(f"Tests échoués (code: {result.returncode})")
-                self.success = False
-                return result.stdout  # Retourner la sortie même en cas d'échec
+            print(f"❌ Tests - ÉCHEC (code: {result.returncode})")
+            if result.stderr:
+                print(f"   Erreurs: {result.stderr[:200]}...")
+            self.errors.append(f"Tests échoués (code: {result.returncode})")
+            self.success = False
+            return result.stdout  # Retourner la sortie même en cas d'échec
         except Exception as e:
             print(f"❌ Erreur lors de l'exécution des tests: {e}")
             self.errors.append(f"Erreur d'exécution des tests: {e}")
@@ -78,9 +85,13 @@ class CIValidator:
         """Valide la couverture de code"""
         print("🔍 Vérification de la couverture...")
         try:
+            import shlex
+
+            command = shlex.split(
+                "python -m pytest tests/ --cov=core --cov=engines --cov=utils --cov-report=term"
+            )
             result = subprocess.run(
-                "python -m pytest tests/ --cov=core --cov=engines --cov=utils --cov-report=term",
-                shell=True,
+                command,
                 capture_output=True,
                 text=True,
                 check=False,  # Ne pas échouer sur les erreurs de tests
@@ -135,19 +146,18 @@ class CIValidator:
             if core_spec and engines_spec and utils_spec:
                 print("✅ Dépendances principales - Disponibles")
                 return True
-            else:
-                missing = []
-                if not core_spec:
-                    missing.append("core")
-                if not engines_spec:
-                    missing.append("engines")
-                if not utils_spec:
-                    missing.append("utils")
-                error_msg = f"Modules manquants: {', '.join(missing)}"
-                print(f"❌ {error_msg}")
-                self.errors.append(error_msg)
-                self.success = False
-                return False
+            missing = []
+            if not core_spec:
+                missing.append("core")
+            if not engines_spec:
+                missing.append("engines")
+            if not utils_spec:
+                missing.append("utils")
+            error_msg = f"Modules manquants: {', '.join(missing)}"
+            print(f"❌ {error_msg}")
+            self.errors.append(error_msg)
+            self.success = False
+            return False
         except Exception as e:
             print(f"❌ Erreur lors de la vérification des dépendances: {e}")
             self.errors.append(f"Erreur de vérification: {e}")

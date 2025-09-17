@@ -24,6 +24,7 @@ def run_automated_tests():
     try:
         result = subprocess.run(
             [sys.executable, "tests/test_utilisateur_automated.py"],
+            check=False,
             capture_output=True,
             text=True,
         )

@@ -12,9 +12,8 @@ Version: 1.0
 
 import json
 import logging
-import random
-from datetime import datetime, timedelta
-from typing import Any, Optional
+from datetime import datetime
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -43,7 +42,7 @@ class SecondaryMissions:
                 self.special_events = data.get("special_events", {})
         except FileNotFoundError:
             logger.info(
-                "Fichier de missions secondaires non trouvé, création des données par défaut"
+                "Fichier de missions secondaires non trouvé, création des données par défaut",
             )
             self._create_default_missions()
         except Exception as e:
@@ -266,7 +265,7 @@ class SecondaryMissions:
                         "description": "Hack 3 systèmes",
                         "target": 3,
                         "current": 0,
-                    }
+                    },
                 ],
                 "expires_at": "end_of_day",
             },
@@ -283,7 +282,7 @@ class SecondaryMissions:
                         "description": "Parle avec LUNA 5 fois",
                         "target": 5,
                         "current": 0,
-                    }
+                    },
                 ],
                 "expires_at": "end_of_day",
             },
@@ -304,10 +303,10 @@ class SecondaryMissions:
                         "description": "Complète 10 missions",
                         "target": 10,
                         "current": 0,
-                    }
+                    },
                 ],
                 "expires_at": "end_of_week",
-            }
+            },
         }
 
     def get_available_missions(self, player_id: str) -> dict[str, list[dict[str, Any]]]:
@@ -390,15 +389,13 @@ class SecondaryMissions:
         # Logique simplifiée - à intégrer avec le système de progression
         if condition == "level_2_reached":
             return True  # Valeur par défaut
-        elif condition == "acte_2_completed":
-            return True
-        elif condition == "level_5_reached":
-            return True
-        elif condition == "security_interest_detected":
-            return True
-        elif condition == "world_access_granted":
-            return True
-        elif condition == "acte_3_completed":
+        if (
+            condition == "acte_2_completed"
+            or condition == "level_5_reached"
+            or condition == "security_interest_detected"
+            or condition == "world_access_granted"
+            or condition == "acte_3_completed"
+        ):
             return True
 
         return True
@@ -485,7 +482,11 @@ class SecondaryMissions:
         }
 
     def update_mission_progress(
-        self, player_id: str, mission_id: str, objective_id: str, completed: bool = True
+        self,
+        player_id: str,
+        mission_id: str,
+        objective_id: str,
+        completed: bool = True,
     ) -> dict[str, Any]:
         """Met à jour la progression d'une mission"""
         if player_id not in self.player_progress:
@@ -517,18 +518,18 @@ class SecondaryMissions:
                 "rewards": self._calculate_rewards(player_id, mission_id),
                 "message": "Mission terminée ! Félicitations !",
             }
-        else:
-            return {
-                "success": True,
-                "mission_completed": False,
-                "progress": self._calculate_mission_progress(
-                    {"objectives": objectives}
-                ),
-                "message": "Progression mise à jour !",
-            }
+        return {
+            "success": True,
+            "mission_completed": False,
+            "progress": self._calculate_mission_progress({"objectives": objectives}),
+            "message": "Progression mise à jour !",
+        }
 
     def _complete_mission(
-        self, player_id: str, mission_id: str, mission_progress: dict[str, Any]
+        self,
+        player_id: str,
+        mission_id: str,
+        mission_progress: dict[str, Any],
     ) -> None:
         """Marque une mission comme terminée"""
         # Ajouter aux missions complétées
@@ -537,7 +538,7 @@ class SecondaryMissions:
                 "mission_id": mission_id,
                 "completed_at": datetime.now().isoformat(),
                 "type": mission_progress["type"],
-            }
+            },
         )
 
         # Retirer des missions actives
@@ -590,13 +591,11 @@ class SecondaryMissions:
         """Génère de nouvelles missions quotidiennes"""
         # Logique pour générer des missions quotidiennes aléatoires
         # À implémenter selon les besoins
-        pass
 
     def generate_weekly_missions(self) -> None:
         """Génère de nouvelles missions hebdomadaires"""
         # Logique pour générer des missions hebdomadaires
         # À implémenter selon les besoins
-        pass
 
     def save_mission_data(self) -> bool:
         """Sauvegarde les données de missions"""

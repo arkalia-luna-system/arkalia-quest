@@ -7,7 +7,7 @@ import pytest
 from core.customization_engine import CustomizationEngine
 
 
-@pytest.fixture()
+@pytest.fixture
 def customization_engine():
     """Fixture pour créer un moteur de customisation de test"""
     return CustomizationEngine()

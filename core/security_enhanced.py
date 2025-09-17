@@ -37,7 +37,7 @@ class SecurityEnhanced:
             "username": re.compile(r"^[a-zA-Z0-9_-]{3,20}$"),
             "email": re.compile(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"),
             "password": re.compile(
-                r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
             ),
             "game_id": re.compile(r"^[a-zA-Z0-9_-]+$"),
             "command": re.compile(
@@ -220,9 +220,8 @@ class SecurityEnhanced:
             block_until = self.blocked_ips[ip_address]
             if time.time() < block_until:
                 return True
-            else:
-                # Débloquer l'IP
-                del self.blocked_ips[ip_address]
+            # Débloquer l'IP
+            del self.blocked_ips[ip_address]
 
         return False
 
@@ -275,7 +274,7 @@ class SecurityEnhanced:
         current_time = time.time()
 
         self.suspicious_activities[ip_address].append(
-            {"timestamp": current_time, "type": activity_type, "details": details}
+            {"timestamp": current_time, "type": activity_type, "details": details},
         )
 
         # Nettoyer les anciennes activités
@@ -376,7 +375,7 @@ class SecurityEnhanced:
                 ip
                 for ip, requests in self.rate_limits.items()
                 if requests and current_time - requests[-1] < 3600
-            ]
+            ],
         )
 
         # Compter les IPs bloquées
@@ -385,7 +384,7 @@ class SecurityEnhanced:
                 ip
                 for ip, block_until in self.blocked_ips.items()
                 if current_time < block_until
-            ]
+            ],
         )
 
         # Compter les activités suspectes
@@ -394,7 +393,7 @@ class SecurityEnhanced:
                 ip
                 for ip, activities in self.suspicious_activities.items()
                 if activities and current_time - activities[-1]["timestamp"] < 3600
-            ]
+            ],
         )
 
         return {

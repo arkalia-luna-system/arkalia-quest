@@ -15,11 +15,11 @@ from .test_config import TestConfig
 
 __all__ = [
     "Config",
-    "DevelopmentConfig",
-    "TestingConfig",
-    "ProductionConfig",
-    "TestConfig",
     "DeploymentConfig",
     "DevToolsConfig",
+    "DevelopmentConfig",
+    "ProductionConfig",
+    "TestConfig",
+    "TestingConfig",
     "get_config",
 ]

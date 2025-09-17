@@ -240,21 +240,32 @@ class SkillTreeSystem {
         // Créer l'interface pour la page dédiée
         const skillTreeGrid = document.getElementById('skill-tree-grid');
         if (skillTreeGrid) {
-            skillTreeGrid.innerHTML = Object.entries(this.skillTree).map(([categoryId, category]) =>
+            // Vider le contenu existant
+            skillTreeGrid.innerHTML = '';
+
+            // Créer les catégories de compétences
+            const categoriesHTML = Object.entries(this.skillTree).map(([categoryId, category]) =>
                 this.createCategorySection(categoryId, category)
             ).join('');
 
+            skillTreeGrid.innerHTML = categoriesHTML;
+
             // Ajouter les événements
             skillTreeGrid.addEventListener('click', (e) => {
-                if (e.target.classList.contains('upgrade-skill')) {
-                    const skillId = e.target.dataset.skillId;
-                    const categoryId = e.target.dataset.categoryId;
+                if (e.target.classList.contains('upgrade-skill') || e.target.closest('.upgrade-skill')) {
+                    const button = e.target.classList.contains('upgrade-skill') ? e.target : e.target.closest('.upgrade-skill');
+                    const skillId = button.dataset.skillId;
+                    const categoryId = button.dataset.categoryId;
                     this.upgradeSkill(categoryId, skillId);
                 }
             });
 
             // Mettre à jour les statistiques
             this.updatePlayerStats();
+
+            console.log('🌳 Interface dédiée créée avec succès');
+        } else {
+            console.error('❌ Élément skill-tree-grid non trouvé');
         }
     }
 
@@ -719,7 +730,7 @@ class SkillTreeSystem {
         }
 
         // Vérifier si le joueur a assez d'XP
-        const requiredXP = skill.xp_required[playerSkill.level];
+        const requiredXP = skill.xp_required[playerSkill.level + 1] || skill.xp_required[playerSkill.level];
         const playerXP = this.getPlayerTotalXP();
         return playerXP >= requiredXP;
     }
@@ -743,8 +754,8 @@ class SkillTreeSystem {
 
         if (!skill || playerSkill.level >= skill.max_level) return 100;
 
-        const currentLevelXP = skill.xp_required[playerSkill.level];
-        const nextLevelXP = skill.xp_required[playerSkill.level + 1];
+        const currentLevelXP = skill.xp_required[playerSkill.level] || 0;
+        const nextLevelXP = skill.xp_required[playerSkill.level + 1] || skill.xp_required[playerSkill.level] || 100;
         const progress = (playerSkill.xp - currentLevelXP) / (nextLevelXP - currentLevelXP) * 100;
 
         return Math.max(0, Math.min(100, progress));
@@ -756,7 +767,7 @@ class SkillTreeSystem {
 
         if (!skill || playerSkill.level >= skill.max_level) return 0;
 
-        return skill.xp_required[playerSkill.level + 1];
+        return skill.xp_required[playerSkill.level + 1] || skill.xp_required[playerSkill.level] || 100;
     }
 
     getUpgradeCost(categoryId, skillId) {
@@ -765,7 +776,7 @@ class SkillTreeSystem {
 
         if (!skill || playerSkill.level >= skill.max_level) return 0;
 
-        return skill.xp_required[playerSkill.level + 1];
+        return skill.xp_required[playerSkill.level + 1] || skill.xp_required[playerSkill.level] || 100;
     }
 
     getSkillEffectsText(categoryId, skillId, level) {
@@ -1146,7 +1157,17 @@ class SkillTreeSystem {
 // Initialiser le système
 document.addEventListener('DOMContentLoaded', () => {
     window.skillTreeSystem = new SkillTreeSystem();
+    console.log('🌳 Skill Tree System initialisé globalement');
 });
+
+// Initialiser immédiatement si le DOM est déjà chargé
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        window.skillTreeSystem = new SkillTreeSystem();
+    });
+} else {
+    window.skillTreeSystem = new SkillTreeSystem();
+}
 
 // Exporter pour utilisation globale
 window.SkillTreeSystem = SkillTreeSystem;

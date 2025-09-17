@@ -95,32 +95,56 @@ class DatabaseOptimizer:
     def _optimize_database(self):
         """Optimise la base de données avec des index et des vues"""
         with self.get_connection() as conn:
-            # Créer les index pour optimiser les requêtes
-            indexes = [
-                "CREATE INDEX IF NOT EXISTS idx_users_username ON users(username)",
-                "CREATE INDEX IF NOT EXISTS idx_users_email ON users(email)",
-                "CREATE INDEX IF NOT EXISTS idx_users_score ON users(score)",
-                "CREATE INDEX IF NOT EXISTS idx_users_level ON users(level)",
-                "CREATE INDEX IF NOT EXISTS idx_users_created_at ON users(created_at)",
-                "CREATE INDEX IF NOT EXISTS idx_games_user_id ON games(user_id)",
-                "CREATE INDEX IF NOT EXISTS idx_games_type ON games(type)",
-                "CREATE INDEX IF NOT EXISTS idx_games_score ON games(score)",
-                "CREATE INDEX IF NOT EXISTS idx_games_created_at ON games(created_at)",
-                "CREATE INDEX IF NOT EXISTS idx_badges_user_id ON badges(user_id)",
-                "CREATE INDEX IF NOT EXISTS idx_badges_type ON badges(type)",
-                "CREATE INDEX IF NOT EXISTS idx_badges_earned_at ON badges(earned_at)",
-                "CREATE INDEX IF NOT EXISTS idx_missions_user_id ON missions(user_id)",
-                "CREATE INDEX IF NOT EXISTS idx_missions_status ON missions(status)",
-                "CREATE INDEX IF NOT EXISTS idx_missions_created_at ON missions(created_at)",
-                "CREATE INDEX IF NOT EXISTS idx_leaderboard_score ON leaderboard(score)",
-                "CREATE INDEX IF NOT EXISTS idx_leaderboard_updated_at ON leaderboard(updated_at)",
-            ]
+            # Vérifier quelles tables existent avant de créer les index
+            cursor = conn.cursor()
+            cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+            existing_tables = [row[0] for row in cursor.fetchall()]
+            
+            # Créer les index seulement pour les tables qui existent
+            indexes = []
+            
+            if 'users' in existing_tables:
+                indexes.extend([
+                    "CREATE INDEX IF NOT EXISTS idx_users_username ON users(username)",
+                    "CREATE INDEX IF NOT EXISTS idx_users_email ON users(email)",
+                    "CREATE INDEX IF NOT EXISTS idx_users_score ON users(score)",
+                    "CREATE INDEX IF NOT EXISTS idx_users_level ON users(level)",
+                    "CREATE INDEX IF NOT EXISTS idx_users_created_at ON users(created_at)",
+                ])
+            
+            if 'games' in existing_tables:
+                indexes.extend([
+                    "CREATE INDEX IF NOT EXISTS idx_games_user_id ON games(user_id)",
+                    "CREATE INDEX IF NOT EXISTS idx_games_type ON games(type)",
+                    "CREATE INDEX IF NOT EXISTS idx_games_score ON games(score)",
+                    "CREATE INDEX IF NOT EXISTS idx_games_created_at ON games(created_at)",
+                ])
+            
+            if 'badges' in existing_tables:
+                indexes.extend([
+                    "CREATE INDEX IF NOT EXISTS idx_badges_user_id ON badges(user_id)",
+                    "CREATE INDEX IF NOT EXISTS idx_badges_type ON badges(type)",
+                    "CREATE INDEX IF NOT EXISTS idx_badges_earned_at ON badges(earned_at)",
+                ])
+            
+            if 'missions' in existing_tables:
+                indexes.extend([
+                    "CREATE INDEX IF NOT EXISTS idx_missions_user_id ON missions(user_id)",
+                    "CREATE INDEX IF NOT EXISTS idx_missions_status ON missions(status)",
+                    "CREATE INDEX IF NOT EXISTS idx_missions_created_at ON missions(created_at)",
+                ])
+            
+            if 'leaderboard' in existing_tables:
+                indexes.extend([
+                    "CREATE INDEX IF NOT EXISTS idx_leaderboard_score ON leaderboard(score)",
+                    "CREATE INDEX IF NOT EXISTS idx_leaderboard_updated_at ON leaderboard(updated_at)",
+                ])
 
             for index_sql in indexes:
                 try:
                     conn.execute(index_sql)
                 except sqlite3.Error as e:
-                    logging.warning(f"Erreur création index: {e}")
+                    logging.debug(f"Index non créé (table peut-être vide): {e}")
 
             conn.commit()
 

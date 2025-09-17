@@ -204,7 +204,9 @@ class MissionHandler:
 
         return available
 
-    def get_mission_progress(self, mission_id: str, profil: dict[str, Any]) -> dict[str, Any]:
+    def get_mission_progress(
+        self, mission_id: str, profil: dict[str, Any]
+    ) -> dict[str, Any]:
         """Récupère la progression d'une mission"""
         mission = self.get_mission(mission_id)
         if not mission:

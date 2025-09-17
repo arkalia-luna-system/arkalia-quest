@@ -76,7 +76,9 @@ class SocialEngine:
                 json.dump(self.guilds, f, indent=2, ensure_ascii=False)
 
             # Sauvegarder les défis
-            with open(os.path.join("data", "challenges.json"), "w", encoding="utf-8") as f:
+            with open(
+                os.path.join("data", "challenges.json"), "w", encoding="utf-8"
+            ) as f:
                 json.dump(self.challenges, f, indent=2, ensure_ascii=False)
 
             # Sauvegarder les événements
@@ -172,7 +174,9 @@ class SocialEngine:
         self.save_social_data()
 
         # Ajouter message de bienvenue
-        self.add_guild_message(guild_id, "system", f"🎉 {player_id} a rejoint la guilde !")
+        self.add_guild_message(
+            guild_id, "system", f"🎉 {player_id} a rejoint la guilde !"
+        )
 
         return {
             "success": True,
@@ -249,7 +253,11 @@ class SocialEngine:
                         "role": (
                             "creator"
                             if guild["creator"] == player_id
-                            else ("officer" if player_id in guild["officers"] else "member")
+                            else (
+                                "officer"
+                                if player_id in guild["officers"]
+                                else "member"
+                            )
                         ),
                         "level": guild["level"],
                         "member_count": len(guild["members"]),
@@ -314,7 +322,9 @@ class SocialEngine:
         challenge["progress"][player_id] = {"status": "active", "contribution": 0}
 
         # Message dans le chat du défi
-        self.add_challenge_message(challenge_id, "system", f"🎯 {player_id} a rejoint le défi !")
+        self.add_challenge_message(
+            challenge_id, "system", f"🎯 {player_id} a rejoint le défi !"
+        )
 
         self.save_social_data()
 
@@ -627,7 +637,9 @@ class SocialEngine:
             ],
             "seasonal_events": [
                 e
-                for e in self.season_data.get(current_season, {}).get("seasonal_events", [])
+                for e in self.season_data.get(current_season, {}).get(
+                    "seasonal_events", []
+                )
                 if player_id in e["participants"]
             ],
             "recent_messages": self.get_recent_messages(20),

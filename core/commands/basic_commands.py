@@ -50,6 +50,13 @@ class BasicCommands:
             "cyberpunk_mode": self.handle_cyberpunk_mode,
             "check_objects": self.handle_check_objects,
             "debug_mode": self.handle_debug_mode,
+            # Nouvelles commandes de gameplay amélioré
+            "skill_tree": self.handle_skill_tree,
+            "skills": self.handle_skill_tree,
+            "daily_challenges": self.handle_daily_challenges,
+            "challenges": self.handle_daily_challenges,
+            "zone_challenges": self.handle_zone_challenges,
+            "missions_interactive": self.handle_missions_interactive,
         }
 
     def handle_aide(self, profile: dict[str, Any]) -> dict[str, Any]:

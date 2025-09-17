@@ -1,0 +1,293 @@
+{
+    "missions": {
+        "hack_system_choice": {
+            "id": "hack_system_choice",
+            "name": "Pénétration du Système",
+            "description": "Vous devez infiltrer le système de sécurité de la Station Nexus. Choisissez votre approche !",
+            "type": "interactive",
+            "difficulty": "moyen",
+            "required_level": 2,
+            "skill_requirements": {
+                "hacking": 1
+            },
+            "choices": [
+                {
+                    "id": "stealth_approach",
+                    "text": "Approche furtive - Utiliser des exploits cachés",
+                    "success_modifier": 0.1,
+                    "reward_bonus": {
+                        "xp": 20,
+                        "coins": 5
+                    },
+                    "consequence": "stealth_success",
+                    "failure_consequence": "detected",
+                    "failure_penalty": {
+                        "xp": -5,
+                        "coins": -2
+                    }
+                },
+                {
+                    "id": "brute_force",
+                    "text": "Force brute - Attaquer directement les défenses",
+                    "success_modifier": -0.1,
+                    "reward_bonus": {
+                        "xp": 10,
+                        "coins": 3
+                    },
+                    "consequence": "brute_success",
+                    "failure_consequence": "system_lockdown",
+                    "failure_penalty": {
+                        "xp": -15,
+                        "coins": -5
+                    }
+                },
+                {
+                    "id": "social_engineering",
+                    "text": "Ingénierie sociale - Manipuler les utilisateurs",
+                    "success_modifier": 0.2,
+                    "reward_bonus": {
+                        "xp": 30,
+                        "coins": 8
+                    },
+                    "consequence": "social_success",
+                    "failure_consequence": "trust_lost",
+                    "failure_penalty": {
+                        "xp": -10,
+                        "coins": -3
+                    }
+                }
+            ],
+            "time_limit": 300,
+            "rewards": {
+                "xp": 100,
+                "coins": 25
+            },
+            "skill_xp_gain": 15
+        },
+        "luna_relationship_choice": {
+            "id": "luna_relationship_choice",
+            "name": "Relation avec LUNA",
+            "description": "LUNA vous demande de l'aide pour un problème personnel. Comment réagissez-vous ?",
+            "type": "interactive",
+            "difficulty": "facile",
+            "required_level": 1,
+            "skill_requirements": {
+                "social": 1
+            },
+            "choices": [
+                {
+                    "id": "empathetic",
+                    "text": "Être empathique et compréhensif",
+                    "success_modifier": 0.3,
+                    "reward_bonus": {
+                        "xp": 25,
+                        "coins": 10
+                    },
+                    "consequence": "luna_friendship",
+                    "failure_consequence": "luna_disappointed",
+                    "failure_penalty": {
+                        "xp": -5,
+                        "coins": -2
+                    }
+                },
+                {
+                    "id": "logical",
+                    "text": "Analyser le problème de manière logique",
+                    "success_modifier": 0.1,
+                    "reward_bonus": {
+                        "xp": 15,
+                        "coins": 5
+                    },
+                    "consequence": "luna_respect",
+                    "failure_consequence": "luna_confused",
+                    "failure_penalty": {
+                        "xp": -3,
+                        "coins": -1
+                    }
+                },
+                {
+                    "id": "dismissive",
+                    "text": "Minimiser le problème",
+                    "success_modifier": -0.2,
+                    "reward_bonus": {
+                        "xp": 5,
+                        "coins": 2
+                    },
+                    "consequence": "luna_distant",
+                    "failure_consequence": "luna_angry",
+                    "failure_penalty": {
+                        "xp": -20,
+                        "coins": -8
+                    }
+                }
+            ],
+            "rewards": {
+                "xp": 75,
+                "coins": 20
+            },
+            "skill_xp_gain": 10
+        },
+        "defend_base_timer": {
+            "id": "defend_base_timer",
+            "name": "Défense de la Base",
+            "description": "Des pirates attaquent la base ! Vous avez 2 minutes pour les repousser.",
+            "type": "timer_challenge",
+            "difficulty": "difficile",
+            "required_level": 3,
+            "skill_requirements": {
+                "combat": 2
+            },
+            "time_limit": 120,
+            "choices": [
+                {
+                    "id": "defensive_stance",
+                    "text": "Position défensive - Protéger les systèmes critiques",
+                    "success_modifier": 0.2,
+                    "reward_bonus": {
+                        "xp": 40,
+                        "coins": 15
+                    },
+                    "consequence": "base_protected",
+                    "failure_consequence": "systems_damaged",
+                    "failure_penalty": {
+                        "xp": -25,
+                        "coins": -10
+                    }
+                },
+                {
+                    "id": "aggressive_counter",
+                    "text": "Contre-attaque agressive - Les repousser activement",
+                    "success_modifier": 0.0,
+                    "reward_bonus": {
+                        "xp": 30,
+                        "coins": 12
+                    },
+                    "consequence": "pirates_repelled",
+                    "failure_consequence": "base_compromised",
+                    "failure_penalty": {
+                        "xp": -30,
+                        "coins": -15
+                    }
+                },
+                {
+                    "id": "hack_their_systems",
+                    "text": "Hacker leurs systèmes - Désactiver leurs armes",
+                    "success_modifier": 0.1,
+                    "reward_bonus": {
+                        "xp": 50,
+                        "coins": 20
+                    },
+                    "consequence": "pirates_disabled",
+                    "failure_consequence": "counter_hack",
+                    "failure_penalty": {
+                        "xp": -20,
+                        "coins": -8
+                    }
+                }
+            ],
+            "rewards": {
+                "xp": 200,
+                "coins": 50
+            },
+            "skill_xp_gain": 25
+        },
+        "puzzle_solving_challenge": {
+            "id": "puzzle_solving_challenge",
+            "name": "Défi de Puzzle",
+            "description": "Résolvez ce puzzle logique pour débloquer un nouveau système.",
+            "type": "puzzle",
+            "difficulty": "moyen",
+            "required_level": 2,
+            "skill_requirements": {
+                "hacking": 1
+            },
+            "choices": [
+                {
+                    "id": "systematic_approach",
+                    "text": "Approche systématique - Analyser chaque élément",
+                    "success_modifier": 0.3,
+                    "reward_bonus": {
+                        "xp": 35,
+                        "coins": 12
+                    },
+                    "consequence": "puzzle_solved_elegantly",
+                    "failure_consequence": "puzzle_timeout",
+                    "failure_penalty": {
+                        "xp": -10,
+                        "coins": -3
+                    }
+                },
+                {
+                    "id": "intuitive_guess",
+                    "text": "Intuition - Deviner la solution",
+                    "success_modifier": -0.1,
+                    "reward_bonus": {
+                        "xp": 20,
+                        "coins": 8
+                    },
+                    "consequence": "puzzle_solved_luckily",
+                    "failure_consequence": "puzzle_failed",
+                    "failure_penalty": {
+                        "xp": -15,
+                        "coins": -5
+                    }
+                },
+                {
+                    "id": "ask_luna_help",
+                    "text": "Demander l'aide de LUNA",
+                    "success_modifier": 0.4,
+                    "reward_bonus": {
+                        "xp": 25,
+                        "coins": 10
+                    },
+                    "consequence": "puzzle_solved_with_help",
+                    "failure_consequence": "luna_busy",
+                    "failure_penalty": {
+                        "xp": -5,
+                        "coins": -2
+                    }
+                }
+            ],
+            "rewards": {
+                "xp": 120,
+                "coins": 30
+            },
+            "skill_xp_gain": 20
+        }
+    },
+    "daily_challenges": {
+        "hacking_sprint": {
+            "id": "hacking_sprint",
+            "name": "Sprint Hacking",
+            "description": "Résolvez 3 puzzles de hacking en moins de 5 minutes",
+            "difficulty": "moyen",
+            "reward": {
+                "xp": 150,
+                "coins": 50
+            },
+            "time_limit": 300
+        },
+        "memory_master": {
+            "id": "memory_master",
+            "name": "Maître de la Mémoire",
+            "description": "Mémorisez une séquence de 10 éléments",
+            "difficulty": "facile",
+            "reward": {
+                "xp": 100,
+                "coins": 30
+            },
+            "time_limit": 180
+        },
+        "speed_typing": {
+            "id": "speed_typing",
+            "name": "Frappe Rapide",
+            "description": "Tapez 200 caractères en moins de 30 secondes",
+            "difficulty": "facile",
+            "reward": {
+                "xp": 80,
+                "coins": 25
+            },
+            "time_limit": 30
+        }
+    }
+}

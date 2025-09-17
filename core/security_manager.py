@@ -44,6 +44,9 @@ class SecurityManager:
         self.blocked_ips = set()
         self.suspicious_activities = []
         self.rate_limit_violations = []
+        # Système de déduplication pour éviter les alertes répétitives
+        self.recent_events = {}  # {event_key: timestamp}
+        self.duplicate_threshold = 300  # 5 minutes
         self.security_config = {
             "max_failed_attempts": 5,
             "block_duration": 3600,  # 1 heure
@@ -66,6 +69,16 @@ class SecurityManager:
         # Charger la configuration depuis un fichier si disponible
         self._load_security_config()
 
+    def _cleanup_old_events(self, current_time: float):
+        """Nettoie les anciens événements du cache de déduplication"""
+        to_remove = []
+        for event_key, timestamp in self.recent_events.items():
+            if current_time - timestamp > self.duplicate_threshold:
+                to_remove.append(event_key)
+        
+        for event_key in to_remove:
+            del self.recent_events[event_key]
+
     def _load_security_config(self):
         """Charge la configuration de sécurité depuis un fichier"""
         config_file = Path("config/security.json")
@@ -85,7 +98,25 @@ class SecurityManager:
         ip_address: str = "unknown",
         severity: str = "info",
     ):
-        """Enregistre un événement de sécurité"""
+        """Enregistre un événement de sécurité avec déduplication"""
+        current_time = time.time()
+        
+        # Créer une clé unique pour l'événement
+        event_key = f"{event_type}:{ip_address}:{details.get('input_preview', '')[:50]}"
+        
+        # Vérifier si c'est un doublon récent
+        if event_key in self.recent_events:
+            last_time = self.recent_events[event_key]
+            if current_time - last_time < self.duplicate_threshold:
+                # Événement dupliqué récent, ne pas logger
+                return False
+        
+        # Mettre à jour le timestamp
+        self.recent_events[event_key] = current_time
+        
+        # Nettoyer les anciens événements
+        self._cleanup_old_events(current_time)
+        
         event = {
             "timestamp": datetime.now().isoformat(),
             "event_type": event_type,
@@ -134,9 +165,9 @@ class SecurityManager:
                 result["threats_detected"].append(f"pattern_{pattern}")
                 result["risk_level"] = "critical"
 
-        # Log si menace détectée
+        # Log si menace détectée (avec déduplication)
         if not result["is_safe"]:
-            self.log_security_event(
+            logged = self.log_security_event(
                 "input_threat_detected",
                 {
                     "input_preview": input_data[:100],
@@ -146,6 +177,10 @@ class SecurityManager:
                 ip_address,
                 "warning" if result["risk_level"] != "critical" else "critical",
             )
+            
+            # Si l'événement n'a pas été loggé (doublon), on peut ajouter un compteur
+            if not logged:
+                result["duplicate_detected"] = True
 
         return result
 

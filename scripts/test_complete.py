@@ -12,7 +12,7 @@ def test_complete_system():
     base_url = "http://127.0.0.1:5001"
     session = requests.Session()  # Utiliser une session pour maintenir les cookies
 
-    print("🧪 Test complet du système Arkalia Quest")
+    game_logger.info(r"🧪 Test complet du système Arkalia Quest")
     print("=" * 50)
 
     # Test 1: Donner de l'XP au joueur via le terminal
@@ -22,9 +22,9 @@ def test_complete_system():
     )
 
     if response.status_code == 200:
-        print("✅ Commande terminal exécutée")
+        game_logger.info(r"✅ Commande terminal exécutée")
     else:
-        print(f"❌ Erreur terminal: {response.status_code}")
+        game_logger.info(f"❌ Erreur terminal: {response.status_code}")
         return False
 
     # Test 2: Vérifier l'arbre de compétences
@@ -33,7 +33,7 @@ def test_complete_system():
 
     if response.status_code == 200:
         data = response.json()
-        print("✅ Arbre de compétences récupéré")
+        game_logger.info(r"✅ Arbre de compétences récupéré")
 
         # Afficher les données du joueur
         player_data = data.get("player_data", {})
@@ -49,7 +49,7 @@ def test_complete_system():
                 f"🔧 Code Breaking - Débloqué: {code_breaking.get('unlocked', False)}"
             )
     else:
-        print(f"❌ Erreur arbre de compétences: {response.status_code}")
+        game_logger.info(f"❌ Erreur arbre de compétences: {response.status_code}")
         return False
 
     # Test 3: Upgrade d'une compétence
@@ -62,7 +62,7 @@ def test_complete_system():
     if response.status_code == 200:
         result = response.json()
         if result.get("success"):
-            print("✅ Upgrade réussi !")
+            game_logger.info(r"✅ Upgrade réussi !")
             print(f"📈 Nouveau niveau: {result.get('new_level')}")
             print(f"💰 XP restant: {result.get('remaining_xp')}")
             print(f"💸 Coût XP: {result.get('xp_cost')}")
@@ -70,11 +70,11 @@ def test_complete_system():
             print(f"❌ Échec upgrade: {result.get('error')}")
             return False
     else:
-        print(f"❌ Erreur upgrade: {response.status_code}")
+        game_logger.info(f"❌ Erreur upgrade: {response.status_code}")
         return False
 
     # Test 4: Vérifier la synchronisation
-    print("\n4. Vérification de la synchronisation...")
+    game_logger.info(r"\n4. Vérification de la synchronisation...")
     response = session.get(f"{base_url}/api/skill-tree")
 
     if response.status_code == 200:
@@ -82,16 +82,16 @@ def test_complete_system():
         code_breaking = data["skill_tree"]["hacking"]["skills"]["code_breaking"]
 
         if code_breaking.get("level") > 0:
-            print("✅ Synchronisation réussie")
+            game_logger.info(r"✅ Synchronisation réussie")
             print(f"🔧 Niveau actuel: {code_breaking.get('level')}")
         else:
-            print("❌ Problème de synchronisation")
+            game_logger.info(r"❌ Problème de synchronisation")
             return False
     else:
-        print("❌ Erreur vérification")
+        game_logger.info(r"❌ Erreur vérification")
         return False
 
-    print("\n🎉 TOUS LES TESTS SONT PASSÉS !")
+    game_logger.info(r"\n🎉 TOUS LES TESTS SONT PASSÉS !")
     print("✨ Le système d'arbre de compétences fonctionne parfaitement !")
     return True
 
@@ -101,5 +101,5 @@ if __name__ == "__main__":
         success = test_complete_system()
         exit(0 if success else 1)
     except Exception as e:
-        print(f"❌ Erreur lors du test: {e}")
+        game_logger.info(f"❌ Erreur lors du test: {e}")
         exit(1)

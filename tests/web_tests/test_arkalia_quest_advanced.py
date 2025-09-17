@@ -39,11 +39,11 @@ class ArkaliaQuestAdvancedTester:
         self.test_results.append(result)
 
         status_emoji = "✅" if status == "PASS" else "❌" if status == "FAIL" else "⏭️"
-        print(f"{status_emoji} {test_name}: {status}")
+        game_logger.info(f"{status_emoji} {test_name}: {status}")
         if details:
-            print(f"   📝 {details}")
+            game_logger.info(f"   📝 {details}")
         if duration > 0:
-            print(f"   ⏱️ {duration:.2f}s")
+            game_logger.info(f"   ⏱️ {duration:.2f}s")
         print()
 
     def test_design_matrix_colors(self) -> bool:
@@ -483,46 +483,46 @@ class ArkaliaQuestAdvancedTester:
 
     def run_advanced_test_suite(self):
         """Exécute la suite de tests avancés"""
-        print("🌌 ARKALIA QUEST - TESTS AVANCÉS FONCTIONNALITÉS")
+        game_logger.info(r"🌌 ARKALIA QUEST - TESTS AVANCÉS FONCTIONNALITÉS")
         print("=" * 60)
-        print(f"🎯 URL de test: {self.base_url}")
+        game_logger.info(f"🎯 URL de test: {self.base_url}")
         print(f"⏰ Début des tests: {self.start_time.strftime('%Y-%m-%d %H:%M:%S')}")
         print()
 
         # Tests des fonctionnalités spécifiques
-        print("🎨 1. TESTS DESIGN ET COULEURS")
+        game_logger.info(r"🎨 1. TESTS DESIGN ET COULEURS")
         print("-" * 40)
         self.test_design_matrix_colors()
 
-        print("🎯 2. TESTS TUTORIEL")
+        game_logger.info(r"🎯 2. TESTS TUTORIEL")
         print("-" * 40)
         self.test_tutorial_functionality()
 
-        print("⌨️ 3. TESTS TERMINAL")
+        game_logger.info(r"⌨️ 3. TESTS TERMINAL")
         print("-" * 40)
         self.test_terminal_commands()
 
-        print("🌍 4. TESTS MONDE ET PROGRESSION")
+        game_logger.info(r"🌍 4. TESTS MONDE ET PROGRESSION")
         print("-" * 40)
         self.test_world_progression()
 
-        print("📊 5. TESTS DASHBOARD")
+        game_logger.info(r"📊 5. TESTS DASHBOARD")
         print("-" * 40)
         self.test_dashboard_na_values()
 
-        print("🔊 6. TESTS AUDIO")
+        game_logger.info(r"🔊 6. TESTS AUDIO")
         print("-" * 40)
         self.test_audio_functionality()
 
-        print("♿ 7. TESTS ACCESSIBILITÉ")
+        game_logger.info(r"♿ 7. TESTS ACCESSIBILITÉ")
         print("-" * 40)
         self.test_accessibility_features()
 
-        print("📱 8. TESTS RESPONSIVE")
+        game_logger.info(r"📱 8. TESTS RESPONSIVE")
         print("-" * 40)
         self.test_responsive_breakpoints()
 
-        print("🤖 9. TESTS IA LUNA")
+        game_logger.info(r"🤖 9. TESTS IA LUNA")
         print("-" * 40)
         self.test_luna_ai_features()
 
@@ -543,19 +543,19 @@ class ArkaliaQuestAdvancedTester:
         success_rate = (passed_tests / total_tests * 100) if total_tests > 0 else 0
 
         print("=" * 60)
-        print("📊 RAPPORT FINAL DES TESTS AVANCÉS")
+        game_logger.info(r"📊 RAPPORT FINAL DES TESTS AVANCÉS")
         print("=" * 60)
-        print(f"⏰ Durée totale: {total_duration:.2f}s")
-        print(f"🧪 Tests exécutés: {total_tests}")
-        print(f"✅ Tests réussis: {passed_tests}")
-        print(f"❌ Tests échoués: {failed_tests}")
-        print(f"⏭️ Tests ignorés: {skipped_tests}")
-        print(f"📈 Taux de réussite: {success_rate:.1f}%")
+        game_logger.info(f"⏰ Durée totale: {total_duration:.2f}s")
+        game_logger.info(f"🧪 Tests exécutés: {total_tests}")
+        game_logger.info(f"✅ Tests réussis: {passed_tests}")
+        game_logger.info(f"❌ Tests échoués: {failed_tests}")
+        game_logger.info(f"⏭️ Tests ignorés: {skipped_tests}")
+        game_logger.info(f"📈 Taux de réussite: {success_rate:.1f}%")
         print()
 
         # Tests échoués
         if failed_tests > 0:
-            print("❌ TESTS ÉCHOUÉS:")
+            game_logger.info(r"❌ TESTS ÉCHOUÉS:")
             print("-" * 30)
             for result in self.test_results:
                 if result["status"] == "FAIL":
@@ -563,7 +563,7 @@ class ArkaliaQuestAdvancedTester:
             print()
 
         # Recommandations spécifiques
-        print("💡 RECOMMANDATIONS SPÉCIFIQUES:")
+        game_logger.info(r"💡 RECOMMANDATIONS SPÉCIFIQUES:")
         print("-" * 30)
 
         # Analyser les résultats par catégorie
@@ -588,11 +588,11 @@ class ArkaliaQuestAdvancedTester:
                 rate = (passed / total * 100) if total > 0 else 0
 
                 if rate >= 80:
-                    print(f"✅ {category}: Excellent ({rate:.0f}%)")
+                    game_logger.info(f"✅ {category}: Excellent ({rate:.0f}%)")
                 elif rate >= 60:
-                    print(f"⚠️ {category}: À améliorer ({rate:.0f}%)")
+                    game_logger.info(f"⚠️ {category}: À améliorer ({rate:.0f}%)")
                 else:
-                    print(f"❌ {category}: Problèmes majeurs ({rate:.0f}%)")
+                    game_logger.info(f"❌ {category}: Problèmes majeurs ({rate:.0f}%)")
 
         # Sauvegarde du rapport
         report_file = (
@@ -619,7 +619,7 @@ class ArkaliaQuestAdvancedTester:
                 ensure_ascii=False,
             )
 
-        print(f"📄 Rapport détaillé sauvegardé: {report_file}")
+        game_logger.info(f"📄 Rapport détaillé sauvegardé: {report_file}")
 
 
 def main():
@@ -629,7 +629,7 @@ def main():
     else:
         base_url = "https://arkalia-quest.onrender.com"
 
-    print(f"🚀 Démarrage des tests avancés Arkalia Quest sur {base_url}")
+    game_logger.info(f"🚀 Démarrage des tests avancés Arkalia Quest sur {base_url}")
     print()
 
     tester = ArkaliaQuestAdvancedTester(base_url)

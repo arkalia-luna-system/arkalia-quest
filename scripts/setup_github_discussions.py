@@ -106,7 +106,7 @@ class GitHubDiscussionsSetup:
             )
             return response.status_code == 200
         except Exception as e:
-            print(f"❌ Erreur lors de la vérification des discussions: {e}")
+            game_logger.info(f"❌ Erreur lors de la vérification des discussions: {e}")
             return False
 
     def enable_discussions(self) -> bool:
@@ -117,13 +117,13 @@ class GitHubDiscussionsSetup:
         print(
             "💡 Veuillez activer manuellement les discussions dans les paramètres du repository :",
         )
-        print(f"   https://github.com/{self.repo}/settings")
-        print("   → Features → Discussions → Enable discussions")
+        game_logger.info(f"   https://github.com/{self.repo}/settings")
+        game_logger.info(r"   → Features → Discussions → Enable discussions")
         return True
 
     def create_discussion_categories(self) -> bool:
         """Crée les catégories de discussions"""
-        print("📋 Création des catégories de discussions...")
+        game_logger.info(r"📋 Création des catégories de discussions...")
 
         success_count = 0
         total_count = len(self.categories)
@@ -139,12 +139,12 @@ class GitHubDiscussionsSetup:
             except Exception as e:
                 print(f"❌ Erreur pour la catégorie {category['name']}: {e}")
 
-        print(f"📊 {success_count}/{total_count} catégories documentées")
+        game_logger.info(f"📊 {success_count}/{total_count} catégories documentées")
         return True
 
     def create_discussion_templates(self) -> bool:
         """Crée des templates de discussions"""
-        print("📝 Création des templates de discussions...")
+        game_logger.info(r"📝 Création des templates de discussions...")
 
         # Template pour les questions
         qa_template = """# ❓ Question
@@ -240,7 +240,7 @@ class GitHubDiscussionsSetup:
             filepath = os.path.join(templates_dir, filename)
             with open(filepath, "w", encoding="utf-8") as f:
                 f.write(content)
-            print(f"✅ Template créé: {filepath}")
+            game_logger.info(f"✅ Template créé: {filepath}")
 
         return True
 
@@ -356,22 +356,22 @@ Partagez, collaborez et contribuez à faire d'Arkalia Quest un projet encore mei
 
     def setup_discussions(self) -> bool:
         """Configure les discussions GitHub"""
-        print("💬 Configuration des Discussions GitHub - Arkalia Quest")
+        game_logger.info(r"💬 Configuration des Discussions GitHub - Arkalia Quest")
         print("=" * 60)
 
         # Vérification de l'authentification
         if not self.check_auth():
-            print("❌ Authentification GitHub échouée")
-            print("💡 Assurez-vous que GITHUB_TOKEN est défini et valide")
+            game_logger.info(r"❌ Authentification GitHub échouée")
+            game_logger.info(r"💡 Assurez-vous que GITHUB_TOKEN est défini et valide")
             return False
 
-        print("✅ Authentification GitHub réussie")
+        game_logger.info(r"✅ Authentification GitHub réussie")
 
         # Vérification des discussions
         if self.check_discussions_enabled():
-            print("✅ Discussions déjà activées")
+            game_logger.info(r"✅ Discussions déjà activées")
         else:
-            print("⚠️  Discussions non activées")
+            game_logger.info(r"⚠️  Discussions non activées")
             self.enable_discussions()
 
         # Création des catégories
@@ -384,11 +384,13 @@ Partagez, collaborez et contribuez à faire d'Arkalia Quest un projet encore mei
         guide = self.generate_discussions_guide()
         with open("docs/GITHUB_DISCUSSIONS_GUIDE.md", "w", encoding="utf-8") as f:
             f.write(guide)
-        print("📚 Guide des discussions généré: docs/GITHUB_DISCUSSIONS_GUIDE.md")
+        game_logger.info(
+            r"📚 Guide des discussions généré: docs/GITHUB_DISCUSSIONS_GUIDE.md"
+        )
 
         print()
         print("=" * 60)
-        print("🎉 Configuration des discussions terminée !")
+        game_logger.info(r"🎉 Configuration des discussions terminée !")
         print(
             "💡 N'oubliez pas d'activer les discussions manuellement dans les paramètres GitHub"
         )
@@ -398,16 +400,18 @@ Partagez, collaborez et contribuez à faire d'Arkalia Quest un projet encore mei
 
 def main():
     """Fonction principale"""
-    print("💬 Configuration des Discussions GitHub - Arkalia Quest")
+    game_logger.info(r"💬 Configuration des Discussions GitHub - Arkalia Quest")
     print("=" * 60)
 
     # Vérification du token GitHub
     token = os.getenv("GITHUB_TOKEN")
     if not token:
-        print("❌ GITHUB_TOKEN non défini")
-        print("💡 Définissez votre token GitHub :")
-        print("   export GITHUB_TOKEN=your_token_here")
-        print("   ou créez un fichier .env avec GITHUB_TOKEN=your_token_here")
+        game_logger.info(r"❌ GITHUB_TOKEN non défini")
+        game_logger.info(r"💡 Définissez votre token GitHub :")
+        game_logger.info(r"   export GITHUB_TOKEN=your_token_here")
+        game_logger.info(
+            r"   ou créez un fichier .env avec GITHUB_TOKEN=your_token_here"
+        )
         return False
 
     # Configuration des discussions

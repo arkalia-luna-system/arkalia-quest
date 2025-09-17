@@ -25,7 +25,7 @@ try:
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False
-    print("⚠️ psutil non disponible - tests de mémoire limités")
+    game_logger.info(r"⚠️ psutil non disponible - tests de mémoire limités")
 
 try:
     from core.database import DatabaseManager
@@ -121,7 +121,7 @@ class TestPerformanceComplete(unittest.TestCase):
             avg_response = sum(self.performance_metrics["response_times"]) / len(
                 self.performance_metrics["response_times"],
             )
-            print(f"📊 Temps de réponse moyen: {avg_response:.3f}s")
+            game_logger.info(f"📊 Temps de réponse moyen: {avg_response:.3f}s")
 
     # ===== TESTS DE PERFORMANCE DES MOTEURS =====
 
@@ -173,7 +173,7 @@ class TestPerformanceComplete(unittest.TestCase):
 
     def test_gamification_engine_performance(self):
         """Test de performance du moteur de gamification"""
-        print("🏆 Test de performance du moteur de gamification...")
+        game_logger.info(r"🏆 Test de performance du moteur de gamification...")
 
         # Test de performance sous charge
         start_time = time.time()
@@ -231,7 +231,7 @@ class TestPerformanceComplete(unittest.TestCase):
 
     def test_database_performance(self):
         """Test de performance de la base de données"""
-        print("💾 Test de performance de la base de données...")
+        game_logger.info(r"💾 Test de performance de la base de données...")
 
         # Test de performance des opérations de base de données
         start_time = time.time()
@@ -348,7 +348,7 @@ class TestPerformanceComplete(unittest.TestCase):
 
     def test_throughput_measurement(self):
         """Test de mesure du débit (throughput)"""
-        print("📊 Test de mesure du débit...")
+        game_logger.info(r"📊 Test de mesure du débit...")
 
         # Test de débit pour différentes opérations
         operations = [
@@ -412,7 +412,7 @@ class TestPerformanceComplete(unittest.TestCase):
 
     def test_stress_test_high_load(self):
         """Test de stress sous charge élevée"""
-        print("🔥 Test de stress sous charge élevée...")
+        game_logger.info(r"🔥 Test de stress sous charge élevée...")
 
         # Test sous charge très élevée
         start_time = time.time()
@@ -464,13 +464,13 @@ class TestPerformanceComplete(unittest.TestCase):
             total_duration, 30.0, f"Test de stress trop long: {total_duration:.2f}s"
         )
 
-        print(f"✅ Opérations réussies: {successful_operations}")
-        print(f"❌ Opérations échouées: {failed_operations}")
-        print(f"📊 Taux de succès: {success_rate:.2%}")
+        game_logger.info(f"✅ Opérations réussies: {successful_operations}")
+        game_logger.info(f"❌ Opérations échouées: {failed_operations}")
+        game_logger.info(f"📊 Taux de succès: {success_rate:.2%}")
 
     def test_memory_leak_detection(self):
         """Test de détection de fuites mémoire"""
-        print("🔍 Test de détection de fuites mémoire...")
+        game_logger.info(r"🔍 Test de détection de fuites mémoire...")
 
         if not PSUTIL_AVAILABLE:
             self.skipTest("psutil non disponible")
@@ -522,7 +522,7 @@ class TestPerformanceComplete(unittest.TestCase):
 
     def test_performance_metrics_validation(self):
         """Test de validation des métriques de performance"""
-        print("📊 Test de validation des métriques de performance...")
+        game_logger.info(r"📊 Test de validation des métriques de performance...")
 
         # Remplir les métriques avec des données de test si elles sont vides
         if len(self.performance_metrics["response_times"]) == 0:
@@ -573,10 +573,10 @@ class TestPerformanceComplete(unittest.TestCase):
         max_response = max(response_times)
         min_response = min(response_times)
 
-        print("📊 Métriques de temps de réponse:")
-        print(f"   Moyenne: {avg_response:.3f}s")
-        print(f"   Maximum: {max_response:.3f}s")
-        print(f"   Minimum: {min_response:.3f}s")
+        game_logger.info(r"📊 Métriques de temps de réponse:")
+        game_logger.info(f"   Moyenne: {avg_response:.3f}s")
+        game_logger.info(f"   Maximum: {max_response:.3f}s")
+        game_logger.info(f"   Minimum: {min_response:.3f}s")
 
         # Vérifier que les métriques sont cohérentes
         self.assertGreaterEqual(max_response, min_response)
@@ -589,7 +589,7 @@ class TestPerformanceComplete(unittest.TestCase):
             operation_name = operation_data["operation"]
             throughput = operation_data["throughput"]
 
-            print(f"📊 Débit {operation_name}: {throughput:.1f} ops/s")
+            game_logger.info(f"📊 Débit {operation_name}: {throughput:.1f} ops/s")
 
             # Vérifier que le débit est raisonnable
             self.assertGreater(throughput, 0)
@@ -597,7 +597,7 @@ class TestPerformanceComplete(unittest.TestCase):
 
     def test_performance_baselines(self):
         """Test des seuils de performance de base"""
-        print("🎯 Test des seuils de performance de base...")
+        game_logger.info(r"🎯 Test des seuils de performance de base...")
 
         # Définir les seuils de performance
         performance_baselines = {
@@ -654,7 +654,7 @@ class TestPerformanceComplete(unittest.TestCase):
 
     def test_final_performance_validation(self):
         """Test de validation finale des performances"""
-        print("🎯 Test de validation finale des performances...")
+        game_logger.info(r"🎯 Test de validation finale des performances...")
 
         # Vérifier que tous les tests de performance ont été exécutés
         self.assertGreater(len(self.performance_metrics["response_times"]), 0)
@@ -693,17 +693,17 @@ class TestPerformanceComplete(unittest.TestCase):
         )
 
         # Afficher le rapport final
-        print("\n📊 RAPPORT FINAL DE PERFORMANCE:")
+        game_logger.info(r"\n📊 RAPPORT FINAL DE PERFORMANCE:")
         print(f"   Total d'opérations: {total_operations}")
-        print(f"   Temps de réponse moyen: {avg_response_time:.3f}s")
-        print(f"   Temps de réponse maximum: {max_response_time:.3f}s")
-        print(f"   Débit moyen: {avg_throughput:.1f} ops/s")
+        game_logger.info(f"   Temps de réponse moyen: {avg_response_time:.3f}s")
+        game_logger.info(f"   Temps de réponse maximum: {max_response_time:.3f}s")
+        game_logger.info(f"   Débit moyen: {avg_throughput:.1f} ops/s")
 
         if PSUTIL_AVAILABLE and self.performance_metrics["memory_usage"]:
             memory_growth = max(self.performance_metrics["memory_usage"]) - min(
                 self.performance_metrics["memory_usage"],
             )
-            print(f"   Croissance mémoire: {memory_growth:.1f}MB")
+            game_logger.info(f"   Croissance mémoire: {memory_growth:.1f}MB")
 
         # Sauvegarder les métriques
         self.save_performance_metrics()
@@ -740,7 +740,7 @@ class TestPerformanceComplete(unittest.TestCase):
         with open(filepath, "w", encoding="utf-8") as f:
             json.dump(save_data, f, indent=2, ensure_ascii=False)
 
-        print(f"💾 Métriques sauvegardées: {filepath}")
+        game_logger.info(f"💾 Métriques sauvegardées: {filepath}")
 
     def get_memory_usage(self):
         """Obtient l'utilisation mémoire actuelle en MB"""

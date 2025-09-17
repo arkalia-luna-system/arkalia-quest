@@ -11,12 +11,12 @@ import sys
 
 def test_imports():
     """Test des imports principaux"""
-    print("🔧 Test des imports...")
+    game_logger.info(r"🔧 Test des imports...")
     try:
         # Ajouter le répertoire parent au path pour les imports
         sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-        print("✅ Tous les imports fonctionnent")
+        game_logger.info(r"✅ Tous les imports fonctionnent")
         assert True
     except Exception as e:
         print(f"❌ Erreur d'import: {e}")
@@ -25,7 +25,7 @@ def test_imports():
 
 def test_missions():
     """Test des missions"""
-    print("\n🎯 Test des missions...")
+    game_logger.info(r"\n🎯 Test des missions...")
     try:
         # Chemin relatif depuis le dossier tests/
         missions_dir = os.path.join(
@@ -40,36 +40,36 @@ def test_missions():
                     mission = json.load(f)
                     missions.append(mission)
 
-        print(f"✅ {len(missions)} missions chargées")
+        game_logger.info(f"✅ {len(missions)} missions chargées")
         for mission in missions:
             print(f"  - {mission['title']} (difficulté: {mission['difficulty']})")
         assert len(missions) > 0, "Aucune mission trouvée"
     except Exception as e:
-        print(f"❌ Erreur missions: {e}")
+        game_logger.info(f"❌ Erreur missions: {e}")
         raise AssertionError(f"Erreur missions: {e}") from e
 
 
 def test_mini_jeux():
     """Test des mini-jeux"""
-    print("\n🎮 Test des mini-jeux...")
+    game_logger.info(r"\n🎮 Test des mini-jeux...")
     try:
         from core.educational_games_engine import EducationalGamesEngine
 
         ege = EducationalGamesEngine()
         games = ege.get_available_games(1)
 
-        print(f"✅ {len(games)} mini-jeux disponibles")
+        game_logger.info(f"✅ {len(games)} mini-jeux disponibles")
         for game in games:
             print(f"  - {game['title']} ({game['type']}) - {game['points']}pts")
         assert len(games) > 0, "Aucun mini-jeu disponible"
     except Exception as e:
-        print(f"❌ Erreur mini-jeux: {e}")
+        game_logger.info(f"❌ Erreur mini-jeux: {e}")
         raise AssertionError(f"Erreur mini-jeux: {e}") from e
 
 
 def test_badges():
     """Test des badges"""
-    print("\n🏆 Test des badges...")
+    game_logger.info(r"\n🏆 Test des badges...")
     try:
         # Chemin relatif depuis le dossier tests/
         badges_file = os.path.join(
@@ -85,13 +85,13 @@ def test_badges():
             print(f"  - {badge['nom']} ({badge['rarete']})")
         assert len(badges["badges_secrets"]) > 0, "Aucun badge trouvé"
     except Exception as e:
-        print(f"❌ Erreur badges: {e}")
+        game_logger.info(f"❌ Erreur badges: {e}")
         raise AssertionError(f"Erreur badges: {e}") from e
 
 
 def test_commandes():
     """Test des commandes"""
-    print("\n💻 Test des commandes...")
+    game_logger.info(r"\n💻 Test des commandes...")
     try:
         from core.commands.basic_commands import BasicCommands
         from core.commands.game_commands import GameCommands
@@ -114,7 +114,7 @@ def test_commandes():
 
         assert True, "Commandes testées avec succès"
     except Exception as e:
-        print(f"❌ Erreur commandes: {e}")
+        game_logger.info(f"❌ Erreur commandes: {e}")
         raise AssertionError(f"Erreur commandes: {e}") from e
 
 
@@ -135,9 +135,9 @@ def test_interface_js():
         for js_file in js_files:
             full_path = os.path.join(base_dir, js_file)
             if os.path.exists(full_path):
-                print(f"✅ {js_file} existe")
+                game_logger.info(f"✅ {js_file} existe")
             else:
-                print(f"❌ {js_file} manquant")
+                game_logger.info(f"❌ {js_file} manquant")
                 raise AssertionError(f"Fichier manquant: {js_file}")
 
         # Vérifier que les fichiers CSS existent
@@ -146,14 +146,14 @@ def test_interface_js():
         for css_file in css_files:
             full_path = os.path.join(base_dir, css_file)
             if os.path.exists(full_path):
-                print(f"✅ {css_file} existe")
+                game_logger.info(f"✅ {css_file} existe")
             else:
-                print(f"❌ {css_file} manquant")
+                game_logger.info(f"❌ {css_file} manquant")
                 raise AssertionError(f"Fichier manquant: {css_file}")
 
         assert True, "Interface testée avec succès"
     except Exception as e:
-        print(f"❌ Erreur interface: {e}")
+        game_logger.info(f"❌ Erreur interface: {e}")
         raise AssertionError(f"Erreur interface: {e}") from e
 
 
@@ -176,19 +176,19 @@ def main():
         results.append(test())
 
     print("\n" + "=" * 50)
-    print("📊 RÉSULTATS FINAUX:")
+    game_logger.info(r"📊 RÉSULTATS FINAUX:")
 
     passed = sum(results)
     total = len(results)
 
-    print(f"✅ Tests réussis: {passed}/{total}")
-    print(f"❌ Tests échoués: {total - passed}/{total}")
+    game_logger.info(f"✅ Tests réussis: {passed}/{total}")
+    game_logger.info(f"❌ Tests échoués: {total - passed}/{total}")
 
     if passed == total:
-        print("\n🎉 TOUS LES TESTS SONT PASSÉS !")
-        print("🚀 Arkalia Quest v3.1.0 est prêt pour la production !")
+        game_logger.info(r"\n🎉 TOUS LES TESTS SONT PASSÉS !")
+        game_logger.info(r"🚀 Arkalia Quest v3.1.0 est prêt pour la production !")
         return True
-    print(f"\n⚠️  {total - passed} test(s) ont échoué")
+    game_logger.info(f"\n⚠️  {total - passed} test(s) ont échoué")
     return False
 
 

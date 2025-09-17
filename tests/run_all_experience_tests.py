@@ -25,7 +25,7 @@ class ExperienceTestRunner:
 
     def run_tutoriel_test(self):
         """Lance le test d'expérience tutoriel"""
-        print("🎮 LANCEMENT TEST EXPÉRIENCE TUTORIEL")
+        game_logger.info(r"🎮 LANCEMENT TEST EXPÉRIENCE TUTORIEL")
         print("=" * 50)
 
         try:
@@ -78,7 +78,7 @@ class ExperienceTestRunner:
 
     def run_terminal_test(self):
         """Lance le test d'expérience terminal"""
-        print("🎮 LANCEMENT TEST EXPÉRIENCE TERMINAL")
+        game_logger.info(r"🎮 LANCEMENT TEST EXPÉRIENCE TERMINAL")
         print("=" * 50)
 
         try:
@@ -131,7 +131,7 @@ class ExperienceTestRunner:
 
     def run_navigation_test(self):
         """Lance le test d'expérience navigation"""
-        print("🎮 LANCEMENT TEST EXPÉRIENCE NAVIGATION")
+        game_logger.info(r"🎮 LANCEMENT TEST EXPÉRIENCE NAVIGATION")
         print("=" * 50)
 
         try:
@@ -184,7 +184,7 @@ class ExperienceTestRunner:
 
     def run_boutons_test(self):
         """Lance le test d'expérience boutons et actions"""
-        print("🎮 LANCEMENT TEST EXPÉRIENCE BOUTONS ET ACTIONS")
+        game_logger.info(r"🎮 LANCEMENT TEST EXPÉRIENCE BOUTONS ET ACTIONS")
         print("=" * 50)
 
         try:
@@ -237,7 +237,7 @@ class ExperienceTestRunner:
 
     def run_pwa_mobile_test(self):
         """Lance le test d'expérience PWA et mobile"""
-        print("🎮 LANCEMENT TEST EXPÉRIENCE PWA ET MOBILE")
+        game_logger.info(r"🎮 LANCEMENT TEST EXPÉRIENCE PWA ET MOBILE")
         print("=" * 50)
 
         try:
@@ -399,37 +399,37 @@ class ExperienceTestRunner:
         print(f"✅ Tests réussis: {self.results['summary']['successful_tests']}")
         print(f"📈 Taux de réussite: {self.results['summary']['success_rate']:.1f}%")
 
-        print("\n📋 DÉTAIL PAR TEST:")
+        game_logger.info(r"\n📋 DÉTAIL PAR TEST:")
         print("-" * 50)
 
         for test in self.results["tests_run"]:
             status = "✅" if test["success"] else "❌"
             print(f"{status} {test['name']}: {test['score']:.1f}/100")
 
-        print("\n💡 RECOMMANDATIONS:")
+        game_logger.info(r"\n💡 RECOMMANDATIONS:")
         print("-" * 50)
 
         for recommendation in self.results["recommendations"]:
-            print(f"  {recommendation}")
+            game_logger.info(f"  {recommendation}")
 
         # Évaluation finale
-        print("\n🏁 CONCLUSION:")
+        game_logger.info(r"\n🏁 CONCLUSION:")
         print("-" * 50)
 
         if self.results["overall_score"] >= 85:
-            print("🎉 EXPÉRIENCE UTILISATEUR EXCELLENTE !")
-            print("   Le jeu offre une expérience immersive et fluide.")
+            game_logger.info(r"🎉 EXPÉRIENCE UTILISATEUR EXCELLENTE !")
+            game_logger.info(r"   Le jeu offre une expérience immersive et fluide.")
         elif self.results["overall_score"] >= 70:
-            print("👍 EXPÉRIENCE UTILISATEUR BONNE")
+            game_logger.info(r"👍 EXPÉRIENCE UTILISATEUR BONNE")
             print("   Quelques améliorations peuvent optimiser l'expérience.")
         elif self.results["overall_score"] >= 50:
-            print("⚠️  EXPÉRIENCE UTILISATEUR MOYENNE")
-            print(
-                "   Des améliorations sont nécessaires pour une meilleure expérience."
+            game_logger.info(r"⚠️  EXPÉRIENCE UTILISATEUR MOYENNE")
+            game_logger.info(
+                r"   Des améliorations sont nécessaires pour une meilleure expérience."
             )
         else:
-            print("❌ EXPÉRIENCE UTILISATEUR À AMÉLIORER")
-            print("   Des améliorations majeures sont nécessaires.")
+            game_logger.info(r"❌ EXPÉRIENCE UTILISATEUR À AMÉLIORER")
+            game_logger.info(r"   Des améliorations majeures sont nécessaires.")
 
         # Sauvegarde du rapport
         filename = (
@@ -438,7 +438,7 @@ class ExperienceTestRunner:
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(self.results, f, indent=2, ensure_ascii=False)
 
-        print(f"\n💾 Rapport complet sauvegardé: {filename}")
+        game_logger.info(f"\n💾 Rapport complet sauvegardé: {filename}")
 
 
 def main():

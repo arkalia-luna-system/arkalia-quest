@@ -188,7 +188,7 @@ class TestLunaV3Integration(unittest.TestCase):
 
         # Vérifier que c'est raisonnablement rapide (< 10 secondes)
         self.assertLess(duration, 10.0)
-        print(f"⏱️ Performance: {duration:.2f}s pour 100 réponses")
+        game_logger.info(f"⏱️ Performance: {duration:.2f}s pour 100 réponses")
 
 
 if __name__ == "__main__":

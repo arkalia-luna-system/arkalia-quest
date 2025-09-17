@@ -20,15 +20,15 @@ def test_skill_tree_api():
     response = requests.get(f"{base_url}/api/skill-tree")
     if response.status_code == 200:
         data = response.json()
-        print("✅ API skill-tree fonctionne")
+        game_logger.info(r"✅ API skill-tree fonctionne")
 
         # Vérifier la structure
         if "skill_tree" in data and "hacking" in data["skill_tree"]:
-            print("✅ Structure de données correcte")
+            game_logger.info(r"✅ Structure de données correcte")
 
             # Vérifier les compétences
             hacking_skills = data["skill_tree"]["hacking"]["skills"]
-            print(f"📊 Compétences hacking: {list(hacking_skills.keys())}")
+            game_logger.info(f"📊 Compétences hacking: {list(hacking_skills.keys())}")
 
             # Vérifier code_breaking
             code_breaking = hacking_skills.get("code_breaking", {})
@@ -37,10 +37,10 @@ def test_skill_tree_api():
                 f"🔧 Code Breaking - Débloqué: {code_breaking.get('unlocked', False)}"
             )
         else:
-            print("❌ Structure de données incorrecte")
+            game_logger.info(r"❌ Structure de données incorrecte")
             return False
     else:
-        print(f"❌ Erreur API: {response.status_code}")
+        game_logger.info(f"❌ Erreur API: {response.status_code}")
         return False
 
     # Test 2: Upgrade d'une compétence
@@ -56,7 +56,7 @@ def test_skill_tree_api():
     if response.status_code == 200:
         result = response.json()
         if result.get("success"):
-            print("✅ Upgrade réussi !")
+            game_logger.info(r"✅ Upgrade réussi !")
             print(f"📈 Nouveau niveau: {result.get('new_level')}")
             print(f"💰 XP restant: {result.get('remaining_xp')}")
             print(f"💸 Coût XP: {result.get('xp_cost')}")
@@ -64,11 +64,11 @@ def test_skill_tree_api():
             print(f"❌ Échec upgrade: {result.get('error')}")
             return False
     else:
-        print(f"❌ Erreur upgrade: {response.status_code}")
+        game_logger.info(f"❌ Erreur upgrade: {response.status_code}")
         return False
 
     # Test 3: Vérifier la synchronisation
-    print("\n3. Vérification de la synchronisation...")
+    game_logger.info(r"\n3. Vérification de la synchronisation...")
     time.sleep(1)  # Attendre un peu
 
     response = requests.get(f"{base_url}/api/skill-tree")
@@ -77,34 +77,34 @@ def test_skill_tree_api():
         code_breaking = data["skill_tree"]["hacking"]["skills"]["code_breaking"]
 
         if code_breaking.get("level") > 0:
-            print("✅ Synchronisation réussie")
+            game_logger.info(r"✅ Synchronisation réussie")
             print(f"🔧 Niveau actuel: {code_breaking.get('level')}")
         else:
-            print("❌ Problème de synchronisation")
+            game_logger.info(r"❌ Problème de synchronisation")
             return False
     else:
-        print("❌ Erreur vérification")
+        game_logger.info(r"❌ Erreur vérification")
         return False
 
     # Test 4: Test des données de progression
-    print("\n4. Test des données de progression...")
+    game_logger.info(r"\n4. Test des données de progression...")
     response = requests.get(f"{base_url}/api/progression-data")
     if response.status_code == 200:
         data = response.json()
         if data.get("success"):
             progression = data.get("progression", {})
-            print("✅ Données de progression récupérées")
+            game_logger.info(r"✅ Données de progression récupérées")
             print(f"📊 Niveau joueur: {progression.get('level')}")
             print(f"⭐ XP total: {progression.get('xp')}")
             print(f"🏆 Badges: {len(progression.get('badges', []))}")
         else:
-            print("❌ Erreur données de progression")
+            game_logger.info(r"❌ Erreur données de progression")
             return False
     else:
-        print("❌ Erreur API progression")
+        game_logger.info(r"❌ Erreur API progression")
         return False
 
-    print("\n🎉 TOUS LES TESTS SONT PASSÉS !")
+    game_logger.info(r"\n🎉 TOUS LES TESTS SONT PASSÉS !")
     print("✨ L'arbre de compétences fonctionne parfaitement !")
     return True
 
@@ -114,5 +114,5 @@ if __name__ == "__main__":
         success = test_skill_tree_api()
         exit(0 if success else 1)
     except Exception as e:
-        print(f"❌ Erreur lors du test: {e}")
+        game_logger.info(f"❌ Erreur lors du test: {e}")
         exit(1)

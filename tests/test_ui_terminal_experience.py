@@ -27,7 +27,7 @@ class TerminalExperienceTester:
 
     def test_user_type_noob(self):
         """Test avec un utilisateur noob (première fois)"""
-        print("🧪 Test utilisateur NOOB (première fois)...")
+        game_logger.info(r"🧪 Test utilisateur NOOB (première fois)...")
 
         user_results = {
             "user_type": "noob",
@@ -66,7 +66,7 @@ class TerminalExperienceTester:
 
     def test_user_type_explorer(self):
         """Test avec un utilisateur explorateur (essaie tout)"""
-        print("🧪 Test utilisateur EXPLORATEUR (essaie tout)...")
+        game_logger.info(r"🧪 Test utilisateur EXPLORATEUR (essaie tout)...")
 
         user_results = {
             "user_type": "explorer",
@@ -105,7 +105,7 @@ class TerminalExperienceTester:
 
     def test_user_type_speedrunner(self):
         """Test avec un utilisateur speedrunner (veut aller vite)"""
-        print("🧪 Test utilisateur SPEEDRUNNER (veut aller vite)...")
+        game_logger.info(r"🧪 Test utilisateur SPEEDRUNNER (veut aller vite)...")
 
         user_results = {
             "user_type": "speedrunner",
@@ -144,7 +144,7 @@ class TerminalExperienceTester:
 
     def test_user_type_power_user(self):
         """Test avec un utilisateur power user (utilise tout)"""
-        print("🧪 Test utilisateur POWER USER (utilise tout)...")
+        game_logger.info(r"🧪 Test utilisateur POWER USER (utilise tout)...")
 
         user_results = {
             "user_type": "power_user",
@@ -1019,16 +1019,16 @@ class TerminalExperienceTester:
             )
 
             if total_issues > 0:
-                print(f"   ❌ Problèmes: {total_issues}")
+                game_logger.info(f"   ❌ Problèmes: {total_issues}")
             if total_positives > 0:
-                print(f"   ✅ Points positifs: {total_positives}")
+                game_logger.info(f"   ✅ Points positifs: {total_positives}")
 
         # Sauvegarde du rapport
         filename = f"terminal_experience_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(self.results, f, indent=2, ensure_ascii=False)
 
-        print(f"\n💾 Rapport sauvegardé: {filename}")
+        game_logger.info(f"\n💾 Rapport sauvegardé: {filename}")
 
 
 def main():
@@ -1038,13 +1038,13 @@ def main():
 
     # Évaluation finale
     if results["overall_score"] >= 80:
-        print("\n🎉 EXPÉRIENCE TERMINAL EXCELLENTE !")
+        game_logger.info(r"\n🎉 EXPÉRIENCE TERMINAL EXCELLENTE !")
     elif results["overall_score"] >= 60:
-        print("\n👍 EXPÉRIENCE TERMINAL BONNE")
+        game_logger.info(r"\n👍 EXPÉRIENCE TERMINAL BONNE")
     elif results["overall_score"] >= 40:
-        print("\n⚠️  EXPÉRIENCE TERMINAL MOYENNE")
+        game_logger.info(r"\n⚠️  EXPÉRIENCE TERMINAL MOYENNE")
     else:
-        print("\n❌ EXPÉRIENCE TERMINAL À AMÉLIORER")
+        game_logger.info(r"\n❌ EXPÉRIENCE TERMINAL À AMÉLIORER")
 
 
 if __name__ == "__main__":

@@ -59,19 +59,19 @@ def fix_markdown_file(file_path):
         if content != original_content:
             with open(file_path, "w", encoding="utf-8") as f:
                 f.write(content)
-            print(f"✅ Corrigé: {file_path}")
+            game_logger.info(f"✅ Corrigé: {file_path}")
             return True
-        print(f"⏭️  Aucun changement: {file_path}")
+        game_logger.info(f"⏭️  Aucun changement: {file_path}")
         return False
 
     except Exception as e:
-        print(f"❌ Erreur avec {file_path}: {e}")
+        game_logger.info(f"❌ Erreur avec {file_path}: {e}")
         return False
 
 
 def main():
     """Fonction principale"""
-    print("🔧 CORRECTION MANUELLE DES ERREURS MARKDOWN")
+    game_logger.info(r"🔧 CORRECTION MANUELLE DES ERREURS MARKDOWN")
     print("=" * 50)
 
     # Trouver tous les fichiers Markdown
@@ -82,7 +82,7 @@ def main():
     # Supprimer les doublons
     md_files = list(set(md_files))
 
-    print(f"📁 {len(md_files)} fichiers Markdown trouvés")
+    game_logger.info(f"📁 {len(md_files)} fichiers Markdown trouvés")
 
     corrected_count = 0
     total_count = len(md_files)
@@ -92,14 +92,18 @@ def main():
             corrected_count += 1
 
     print("\n" + "=" * 50)
-    print("📊 RÉSULTATS:")
-    print(f"✅ Fichiers corrigés: {corrected_count}/{total_count}")
-    print(f"⏭️  Fichiers inchangés: {total_count - corrected_count}/{total_count}")
+    game_logger.info(r"📊 RÉSULTATS:")
+    game_logger.info(f"✅ Fichiers corrigés: {corrected_count}/{total_count}")
+    game_logger.info(
+        f"⏭️  Fichiers inchangés: {total_count - corrected_count}/{total_count}"
+    )
 
     if corrected_count > 0:
-        print(f"\n🎉 {corrected_count} fichiers ont été corrigés avec succès !")
+        game_logger.info(
+            f"\n🎉 {corrected_count} fichiers ont été corrigés avec succès !"
+        )
     else:
-        print("\n✨ Tous les fichiers étaient déjà corrects !")
+        game_logger.info(r"\n✨ Tous les fichiers étaient déjà corrects !")
 
 
 if __name__ == "__main__":

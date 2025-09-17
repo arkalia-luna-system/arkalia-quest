@@ -94,7 +94,7 @@ class EnhancedMissionSystem:
             for mission in missions:
                 self.missions[mission["mission_id"]] = mission
         except Exception as e:
-            print(f"Erreur chargement missions: {e}")
+            game_logger.info(f"Erreur chargement missions: {e}")
 
     def create_interactive_mission(
         self,

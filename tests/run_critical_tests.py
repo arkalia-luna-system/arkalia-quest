@@ -70,11 +70,11 @@ def print_header():
     """Affiche l'en-tête du lanceur de tests"""
     print(f"{COLORS['bold']}{COLORS['cyan']}")
     print("=" * 80)
-    print("🚀 LANCEUR DES TESTS CRITIQUES - ARKALIA QUEST")
+    game_logger.info(r"🚀 LANCEUR DES TESTS CRITIQUES - ARKALIA QUEST")
     print("=" * 80)
     print(f"{COLORS['reset']}")
     print(f"📅 Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    print("🎯 Objectif: Validation complète de la qualité du jeu")
+    game_logger.info(r"🎯 Objectif: Validation complète de la qualité du jeu")
     print(f"📊 Couverture cible: {TEST_CONFIG['coverage_target']}%")
     print(f"⚡ Mode parallèle: {'Activé' if TEST_CONFIG['parallel'] else 'Désactivé'}")
     print()
@@ -87,7 +87,7 @@ def check_environment():
 
     # Vérifier Python
     python_version = sys.version_info
-    print(
+    game_logger.info(
         f"🐍 Python: {python_version.major}.{python_version.minor}.{python_version.micro}"
     )
 
@@ -134,7 +134,7 @@ def run_code_quality_checks():
     print("-" * 50)
 
     # Vérifier le formatage avec Black
-    print("🎨 Vérification du formatage avec Black...")
+    game_logger.info(r"🎨 Vérification du formatage avec Black...")
     try:
         result = subprocess.run(
             ["black", "--check", "."],
@@ -161,7 +161,7 @@ def run_code_quality_checks():
         print(f"{COLORS['red']}❌ Erreur Black: {e}{COLORS['reset']}")
 
     # Vérifier la qualité avec Ruff
-    print("🧹 Vérification de la qualité avec Ruff...")
+    game_logger.info(r"🧹 Vérification de la qualité avec Ruff...")
     try:
         result = subprocess.run(
             ["ruff", "check", "."],
@@ -217,7 +217,7 @@ def run_test_category(category_name, category_info):
             )
             continue
 
-        print(f"🧪 Exécution: {test_file}")
+        game_logger.info(f"🧪 Exécution: {test_file}")
 
         try:
             # Exécuter le test avec pytest
@@ -268,7 +268,7 @@ def run_test_category(category_name, category_info):
     results["duration"] = end_time - start_time
 
     # Afficher le résumé de la catégorie
-    print(f"\n📊 Résumé {category_name}:")
+    game_logger.info(f"\n📊 Résumé {category_name}:")
     print(f"   Total: {results['total']}")
     print(f"   Réussis: {results['passed']}")
     print(f"   Échoués: {results['failed']}")
@@ -325,7 +325,7 @@ def run_coverage_analysis():
             print(result.stdout)
 
         # Afficher le rapport de couverture
-        print("\n📈 Rapport de couverture:")
+        game_logger.info(r"\n📈 Rapport de couverture:")
         print(result.stdout)
 
     except subprocess.TimeoutExpired:

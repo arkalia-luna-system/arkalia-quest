@@ -13,7 +13,7 @@ sys.path.append(str(Path(__file__).parent))
 
 def test_progression_engine():
     """Test du moteur de progression"""
-    print("🧪 Test du moteur de progression...")
+    game_logger.info(r"🧪 Test du moteur de progression...")
 
     try:
         from core.progression_engine import ProgressionEngine
@@ -27,7 +27,7 @@ def test_progression_engine():
         )
 
         if result["success"]:
-            print("✅ Moteur de progression fonctionnel")
+            game_logger.info(r"✅ Moteur de progression fonctionnel")
 
             # Test de récupération des données
             player_data = engine.get_player_progression(player_id)
@@ -37,11 +37,11 @@ def test_progression_engine():
 
             return True
         else:
-            print("❌ Erreur dans le moteur de progression")
+            game_logger.info(r"❌ Erreur dans le moteur de progression")
             return False
 
     except Exception as e:
-        print(f"❌ Erreur importation moteur de progression: {e}")
+        game_logger.info(f"❌ Erreur importation moteur de progression: {e}")
         return False
 
 
@@ -75,7 +75,7 @@ def test_skill_tree_system():
 
 def test_gamification_engine():
     """Test du moteur de gamification"""
-    print("\n🧪 Test du moteur de gamification...")
+    game_logger.info(r"\n🧪 Test du moteur de gamification...")
 
     try:
         from core.gamification_engine import GamificationEngine
@@ -86,21 +86,21 @@ def test_gamification_engine():
         badges = engine._load_badges_secrets()
 
         if badges and "badges_secrets" in badges:
-            print("✅ Moteur de gamification fonctionnel")
+            game_logger.info(r"✅ Moteur de gamification fonctionnel")
             print(f"🏆 Badges disponibles: {len(badges['badges_secrets'])}")
             return True
         else:
-            print("❌ Erreur dans le moteur de gamification")
+            game_logger.info(r"❌ Erreur dans le moteur de gamification")
             return False
 
     except Exception as e:
-        print(f"❌ Erreur importation moteur de gamification: {e}")
+        game_logger.info(f"❌ Erreur importation moteur de gamification: {e}")
         return False
 
 
 def test_js_files():
     """Test de l'existence des fichiers JavaScript"""
-    print("\n🧪 Test des fichiers JavaScript...")
+    game_logger.info(r"\n🧪 Test des fichiers JavaScript...")
 
     js_files = [
         "static/js/skill-tree-system.js",
@@ -111,9 +111,9 @@ def test_js_files():
     all_exist = True
     for file_path in js_files:
         if os.path.exists(file_path):
-            print(f"✅ {file_path} existe")
+            game_logger.info(f"✅ {file_path} existe")
         else:
-            print(f"❌ {file_path} manquant")
+            game_logger.info(f"❌ {file_path} manquant")
             all_exist = False
 
     return all_exist
@@ -121,7 +121,7 @@ def test_js_files():
 
 def test_api_routes():
     """Test des routes API"""
-    print("\n🧪 Test des routes API...")
+    game_logger.info(r"\n🧪 Test des routes API...")
 
     # Vérifier que les routes sont définies dans app.py
     with open("app.py", encoding="utf-8") as f:
@@ -137,9 +137,9 @@ def test_api_routes():
     all_routes_exist = True
     for route in routes:
         if route in content:
-            print(f"✅ Route {route} définie")
+            game_logger.info(f"✅ Route {route} définie")
         else:
-            print(f"❌ Route {route} manquante")
+            game_logger.info(f"❌ Route {route} manquante")
             all_routes_exist = False
 
     return all_routes_exist
@@ -164,25 +164,27 @@ def main():
             result = test()
             results.append(result)
         except Exception as e:
-            print(f"❌ Erreur dans le test: {e}")
+            game_logger.info(f"❌ Erreur dans le test: {e}")
             results.append(False)
 
     print("\n" + "=" * 50)
-    print("📊 RÉSULTATS DES TESTS")
+    game_logger.info(r"📊 RÉSULTATS DES TESTS")
     print("=" * 50)
 
     passed = sum(results)
     total = len(results)
 
-    print(f"✅ Tests réussis: {passed}/{total}")
-    print(f"❌ Tests échoués: {total - passed}/{total}")
+    game_logger.info(f"✅ Tests réussis: {passed}/{total}")
+    game_logger.info(f"❌ Tests échoués: {total - passed}/{total}")
 
     if passed == total:
-        print("\n🎉 TOUS LES TESTS SONT PASSÉS !")
-        print("✨ Les améliorations sont prêtes à être testées dans le navigateur")
+        game_logger.info(r"\n🎉 TOUS LES TESTS SONT PASSÉS !")
+        game_logger.info(
+            r"✨ Les améliorations sont prêtes à être testées dans le navigateur"
+        )
     else:
-        print("\n⚠️  Certains tests ont échoué")
-        print("🔧 Vérifiez les erreurs ci-dessus")
+        game_logger.info(r"\n⚠️  Certains tests ont échoué")
+        game_logger.info(r"🔧 Vérifiez les erreurs ci-dessus")
 
     return passed == total
 

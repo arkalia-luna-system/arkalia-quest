@@ -13,7 +13,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 def main():
     """Exécute les tests de validation"""
-    print("🚀 LANCEMENT DES TESTS DE VALIDATION ARKALIA QUEST")
+    game_logger.info(r"🚀 LANCEMENT DES TESTS DE VALIDATION ARKALIA QUEST")
     print("=" * 60)
 
     try:
@@ -23,15 +23,15 @@ def main():
         success = run_validation()
 
         if success:
-            print("\n🎉 VALIDATION COMPLÈTE RÉUSSIE !")
-            print("🚀 Arkalia Quest v3.1.0 est prêt pour la production !")
+            game_logger.info(r"\n🎉 VALIDATION COMPLÈTE RÉUSSIE !")
+            game_logger.info(r"🚀 Arkalia Quest v3.1.0 est prêt pour la production !")
             return 0
-        print("\n❌ VALIDATION ÉCHOUÉE !")
-        print("⚠️  Des problèmes ont été détectés.")
+        game_logger.info(r"\n❌ VALIDATION ÉCHOUÉE !")
+        game_logger.info(r"⚠️  Des problèmes ont été détectés.")
         return 1
 
     except Exception as e:
-        print(f"\n💥 ERREUR CRITIQUE: {e}")
+        game_logger.info(f"\n💥 ERREUR CRITIQUE: {e}")
         return 1
 
 

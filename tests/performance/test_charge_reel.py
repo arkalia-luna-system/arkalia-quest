@@ -111,11 +111,11 @@ class TestChargeReel:
 
     async def run_load_test(self):
         """Lance le test de charge complet"""
-        print(
+        game_logger.info(
             f"🚀 Démarrage du test de charge avec {CONCURRENT_USERS} utilisateurs simultanés"
         )
-        print(f"📊 {REQUESTS_PER_USER} requêtes par utilisateur")
-        print(f"⏱️  Timeout: {TIMEOUT}s")
+        game_logger.info(f"📊 {REQUESTS_PER_USER} requêtes par utilisateur")
+        game_logger.info(f"⏱️  Timeout: {TIMEOUT}s")
         print("-" * 60)
 
         self.start_time = time.time()
@@ -134,7 +134,7 @@ class TestChargeReel:
                 tasks.append(task)
 
             # Exécuter toutes les tâches en parallèle
-            print("🔄 Exécution des sessions utilisateur...")
+            game_logger.info(r"🔄 Exécution des sessions utilisateur...")
             user_sessions = await asyncio.gather(*tasks, return_exceptions=True)
 
             # Collecter tous les résultats
@@ -142,7 +142,7 @@ class TestChargeReel:
                 if isinstance(session_result, list):
                     self.results.extend(session_result)
                 else:
-                    print(f"❌ Erreur dans la session: {session_result}")
+                    game_logger.info(f"❌ Erreur dans la session: {session_result}")
 
         self.end_time = time.time()
 
@@ -152,7 +152,7 @@ class TestChargeReel:
     def analyze_results(self):
         """Analyse les résultats du test de charge"""
         if not self.results:
-            print("❌ Aucun résultat à analyser")
+            game_logger.info(r"❌ Aucun résultat à analyser")
             return
 
         total_requests = len(self.results)
@@ -195,12 +195,12 @@ class TestChargeReel:
 
         # Affichage des résultats
         print("\n" + "=" * 60)
-        print("📊 RÉSULTATS DU TEST DE CHARGE")
+        game_logger.info(r"📊 RÉSULTATS DU TEST DE CHARGE")
         print("=" * 60)
 
-        print(f"⏱️  Durée totale: {total_time:.2f}s")
-        print(f"📈 Débit: {throughput:.2f} req/s")
-        print(f"📊 Total des requêtes: {total_requests}")
+        game_logger.info(f"⏱️  Durée totale: {total_time:.2f}s")
+        game_logger.info(f"📈 Débit: {throughput:.2f} req/s")
+        game_logger.info(f"📊 Total des requêtes: {total_requests}")
         print(
             f"✅ Requêtes réussies: {successful_requests} ({successful_requests / total_requests * 100:.1f}%)",
         )
@@ -208,57 +208,61 @@ class TestChargeReel:
             f"❌ Requêtes échouées: {failed_requests} ({failed_requests / total_requests * 100:.1f}%)",
         )
 
-        print("\n⏱️  TEMPS DE RÉPONSE:")
-        print(f"   Moyenne: {avg_response_time * 1000:.1f}ms")
-        print(f"   Médiane: {median_response_time * 1000:.1f}ms")
-        print(f"   Min: {min_response_time * 1000:.1f}ms")
-        print(f"   Max: {max_response_time * 1000:.1f}ms")
-        print(f"   95e percentile: {p95_response_time * 1000:.1f}ms")
+        game_logger.info(r"\n⏱️  TEMPS DE RÉPONSE:")
+        game_logger.info(f"   Moyenne: {avg_response_time * 1000:.1f}ms")
+        game_logger.info(f"   Médiane: {median_response_time * 1000:.1f}ms")
+        game_logger.info(f"   Min: {min_response_time * 1000:.1f}ms")
+        game_logger.info(f"   Max: {max_response_time * 1000:.1f}ms")
+        game_logger.info(f"   95e percentile: {p95_response_time * 1000:.1f}ms")
 
-        print("\n🌐 STATISTIQUES PAR ENDPOINT:")
+        game_logger.info(r"\n🌐 STATISTIQUES PAR ENDPOINT:")
         for endpoint, stats in endpoint_stats.items():
             success_rate = (
                 stats["success"] / stats["total"] * 100 if stats["total"] > 0 else 0
             )
             avg_time = statistics.mean(stats["times"]) * 1000 if stats["times"] else 0
-            print(f"   {endpoint}: {success_rate:.1f}% succès, {avg_time:.1f}ms moy")
+            game_logger.info(
+                f"   {endpoint}: {success_rate:.1f}% succès, {avg_time:.1f}ms moy"
+            )
 
         # Évaluation de la performance
-        print("\n🎯 ÉVALUATION DE LA PERFORMANCE:")
+        game_logger.info(r"\n🎯 ÉVALUATION DE LA PERFORMANCE:")
 
         if successful_requests / total_requests >= 0.95:
-            print("   ✅ Taux de succès: EXCELLENT (>95%)")
+            game_logger.info(r"   ✅ Taux de succès: EXCELLENT (>95%)")
         elif successful_requests / total_requests >= 0.90:
-            print("   🟡 Taux de succès: BON (90-95%)")
+            game_logger.info(r"   🟡 Taux de succès: BON (90-95%)")
         else:
-            print("   ❌ Taux de succès: À AMÉLIORER (<90%)")
+            game_logger.info(r"   ❌ Taux de succès: À AMÉLIORER (<90%)")
 
         if avg_response_time < 0.5:
-            print("   ✅ Temps de réponse: EXCELLENT (<500ms)")
+            game_logger.info(r"   ✅ Temps de réponse: EXCELLENT (<500ms)")
         elif avg_response_time < 1.0:
-            print("   🟡 Temps de réponse: BON (500ms-1s)")
+            game_logger.info(r"   🟡 Temps de réponse: BON (500ms-1s)")
         else:
-            print("   ❌ Temps de réponse: À AMÉLIORER (>1s)")
+            game_logger.info(r"   ❌ Temps de réponse: À AMÉLIORER (>1s)")
 
         if throughput >= 10:
-            print("   ✅ Débit: EXCELLENT (>10 req/s)")
+            game_logger.info(r"   ✅ Débit: EXCELLENT (>10 req/s)")
         elif throughput >= 5:
-            print("   🟡 Débit: BON (5-10 req/s)")
+            game_logger.info(r"   🟡 Débit: BON (5-10 req/s)")
         else:
-            print("   ❌ Débit: À AMÉLIORER (<5 req/s)")
+            game_logger.info(r"   ❌ Débit: À AMÉLIORER (<5 req/s)")
 
         # Recommandations
-        print("\n💡 RECOMMANDATIONS:")
+        game_logger.info(r"\n💡 RECOMMANDATIONS:")
         if failed_requests > 0:
-            print("   • Analyser les erreurs pour identifier les points faibles")
+            game_logger.info(
+                r"   • Analyser les erreurs pour identifier les points faibles"
+            )
 
         if avg_response_time > 1.0:
-            print("   • Optimiser les requêtes lentes")
-            print("   • Vérifier la base de données et les requêtes")
+            game_logger.info(r"   • Optimiser les requêtes lentes")
+            game_logger.info(r"   • Vérifier la base de données et les requêtes")
 
         if throughput < 5:
-            print("   • Augmenter la capacité du serveur")
-            print("   • Optimiser le code et la base de données")
+            game_logger.info(r"   • Augmenter la capacité du serveur")
+            game_logger.info(r"   • Optimiser le code et la base de données")
 
         # Sauvegarder les résultats
         self.save_results()
@@ -287,9 +291,9 @@ class TestChargeReel:
         try:
             with open(filename, "w", encoding="utf-8") as f:
                 json.dump(results_summary, f, indent=2, ensure_ascii=False)
-            print(f"\n💾 Résultats sauvegardés dans: {filename}")
+            game_logger.info(f"\n💾 Résultats sauvegardés dans: {filename}")
         except Exception as e:
-            print(f"❌ Erreur lors de la sauvegarde: {e}")
+            game_logger.info(f"❌ Erreur lors de la sauvegarde: {e}")
 
     def test_load_test_class_initialization(self):
         """Test que la classe TestChargeReel s'initialise correctement"""
@@ -308,7 +312,7 @@ class TestChargeReel:
 
 async def main():
     """Fonction principale"""
-    print("🌌 ARKALIA QUEST - TEST DE CHARGE RÉEL")
+    game_logger.info(r"🌌 ARKALIA QUEST - TEST DE CHARGE RÉEL")
     print("=" * 50)
 
     # Vérifier que l'application est accessible
@@ -322,7 +326,7 @@ async def main():
                     f"❌ L'application n'est pas accessible (status: {response.status})"
                 )
                 return
-            print("✅ Application accessible, démarrage du test...")
+            game_logger.info(r"✅ Application accessible, démarrage du test...")
     except Exception as e:
         print(f"❌ Impossible de se connecter à l'application: {e}")
         print(
@@ -341,4 +345,4 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("\n⏹️  Test interrompu par l'utilisateur")
     except Exception as e:
-        print(f"\n❌ Erreur lors du test: {e}")
+        game_logger.info(f"\n❌ Erreur lors du test: {e}")

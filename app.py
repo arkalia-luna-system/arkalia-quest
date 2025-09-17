@@ -43,9 +43,9 @@ try:
 
     # from engines.luna_ai_v3 import LunaAIV3  # Module temporairement désactivé
 
-    print("✅ All core modules imported successfully")
+    game_logger.info("✅ All core modules imported successfully")
 except Exception as e:
-    print(f"❌ Error importing core modules: {e}")
+    game_logger.error(f"❌ Error importing core modules: {e}")
     import traceback
 
     traceback.print_exc()
@@ -138,9 +138,9 @@ Compress(app)
 # Instance globale du moteur de jeux éducatifs
 try:
     games_engine = EducationalGamesEngine() if EducationalGamesEngine else None
-    print("✅ Games engine initialized")
+    game_logger.info("✅ Games engine initialized")
 except Exception as e:
-    print(f"❌ Error initializing games engine: {e}")
+    game_logger.error(f"❌ Error initializing games engine: {e}")
     games_engine = None
 
 
@@ -3589,10 +3589,12 @@ def api_get_tutorial_concepts():
 
 if __name__ == "__main__":
     # Mode production optimisé - serveur de développement désactivé
-    print("🚀 Utilisez Gunicorn pour la production :")
-    print("   gunicorn -c gunicorn.conf.py app:app")
-    print("   ou Docker : docker-compose up")
-    print()
-    print("⚠️  Serveur de développement désactivé pour éviter les fuites de ressources")
-    print("   Utilisez 'python -m flask run' pour le développement")
+    game_logger.info("🚀 Utilisez Gunicorn pour la production :")
+    game_logger.info("   gunicorn -c gunicorn.conf.py app:app")
+    game_logger.info("   ou Docker : docker-compose up")
+    game_logger.info("")
+    game_logger.info(
+        "⚠️  Serveur de développement désactivé pour éviter les fuites de ressources"
+    )
+    game_logger.info("   Utilisez 'python -m flask run' pour le développement")
     # app.run(host="0.0.0.0", port=5001, debug=False, threaded=True)

@@ -20,7 +20,9 @@ try:
     )
 except ImportError:
     print("❌ Erreur : Impossible d'importer le moteur de mini-jeux éducatifs")
-    print("💡 Vérifiez que le fichier core/educational_games_engine.py existe")
+    game_logger.info(
+        r"💡 Vérifiez que le fichier core/educational_games_engine.py existe"
+    )
     sys.exit(1)
 
 
@@ -467,7 +469,7 @@ class TestEducationalGamesAPI(unittest.TestCase):
 
 def run_educational_games_tests():
     """Lance tous les tests des mini-jeux éducatifs"""
-    print("🧪 TESTS MINI-JEUX ÉDUCATIFS - ARKALIA QUEST")
+    game_logger.info(r"🧪 TESTS MINI-JEUX ÉDUCATIFS - ARKALIA QUEST")
     print("=" * 50)
 
     # Créer la suite de tests
@@ -485,25 +487,25 @@ def run_educational_games_tests():
 
     # Résumé
     print("\n" + "=" * 50)
-    print("📊 RÉSUMÉ DES TESTS")
-    print(
+    game_logger.info(r"📊 RÉSUMÉ DES TESTS")
+    game_logger.info(
         f"✅ Tests réussis : {result.testsRun - len(result.failures) - len(result.errors)}"
     )
-    print(f"❌ Échecs : {len(result.failures)}")
-    print(f"🚨 Erreurs : {len(result.errors)}")
+    game_logger.info(f"❌ Échecs : {len(result.failures)}")
+    game_logger.info(f"🚨 Erreurs : {len(result.errors)}")
     print(
         f"📈 Taux de réussite : {((result.testsRun - len(result.failures) - len(result.errors)) / result.testsRun * 100):.1f}%",
     )
 
     if result.failures:
-        print("\n❌ ÉCHECS DÉTAILLÉS :")
+        game_logger.info(r"\n❌ ÉCHECS DÉTAILLÉS :")
         for test, traceback in result.failures:
-            print(f"  - {test}: {traceback}")
+            game_logger.info(f"  - {test}: {traceback}")
 
     if result.errors:
-        print("\n🚨 ERREURS DÉTAILLÉES :")
+        game_logger.info(r"\n🚨 ERREURS DÉTAILLÉES :")
         for test, traceback in result.errors:
-            print(f"  - {test}: {traceback}")
+            game_logger.info(f"  - {test}: {traceback}")
 
     return result.wasSuccessful()
 

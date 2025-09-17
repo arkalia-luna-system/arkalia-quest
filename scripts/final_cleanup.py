@@ -11,7 +11,7 @@ import sys
 
 def cleanup_hidden_files():
     """Supprime tous les fichiers cachés macOS"""
-    print("🧹 Nettoyage des fichiers cachés...")
+    game_logger.info(r"🧹 Nettoyage des fichiers cachés...")
 
     # Supprimer les fichiers ._* de manière sécurisée
     import shlex
@@ -25,14 +25,14 @@ def cleanup_hidden_files():
     )
 
     if result.returncode == 0:
-        print("✅ Fichiers cachés supprimés")
+        game_logger.info(r"✅ Fichiers cachés supprimés")
     else:
-        print(f"⚠️ Erreur suppression fichiers cachés: {result.stderr}")
+        game_logger.info(f"⚠️ Erreur suppression fichiers cachés: {result.stderr}")
 
 
 def cleanup_pycache():
     """Supprime les dossiers __pycache__"""
-    print("🧹 Nettoyage des __pycache__...")
+    game_logger.info(r"🧹 Nettoyage des __pycache__...")
 
     import shlex
 
@@ -45,14 +45,14 @@ def cleanup_pycache():
     )
 
     if result.returncode == 0:
-        print("✅ Dossiers __pycache__ supprimés")
+        game_logger.info(r"✅ Dossiers __pycache__ supprimés")
     else:
-        print(f"⚠️ Erreur suppression __pycache__: {result.stderr}")
+        game_logger.info(f"⚠️ Erreur suppression __pycache__: {result.stderr}")
 
 
 def cleanup_logs():
     """Nettoie les logs anciens"""
-    print("🧹 Nettoyage des logs...")
+    game_logger.info(r"🧹 Nettoyage des logs...")
 
     log_files = ["logs/arkalia.log", "logs/error.log", "logs/security.log"]
 
@@ -66,11 +66,13 @@ def cleanup_logs():
                 if len(lines) > 1000:
                     with open(log_file, "w", encoding="utf-8") as f:
                         f.writelines(lines[-1000:])
-                    print(f"✅ {log_file} nettoyé ({len(lines)} → 1000 lignes)")
+                    game_logger.info(
+                        f"✅ {log_file} nettoyé ({len(lines)} → 1000 lignes)"
+                    )
                 else:
-                    print(f"✅ {log_file} déjà optimisé")
+                    game_logger.info(f"✅ {log_file} déjà optimisé")
             except Exception as e:
-                print(f"⚠️ Erreur nettoyage {log_file}: {e}")
+                game_logger.info(f"⚠️ Erreur nettoyage {log_file}: {e}")
 
 
 def verify_integration():
@@ -93,19 +95,19 @@ def verify_integration():
 
         for module in modules_to_test:
             if hasattr(app, module):
-                print(f"✅ {module} intégré")
+                game_logger.info(f"✅ {module} intégré")
             else:
-                print(f"❌ {module} manquant")
+                game_logger.info(f"❌ {module} manquant")
 
-        print("✅ Vérification terminée")
+        game_logger.info(r"✅ Vérification terminée")
 
     except Exception as e:
-        print(f"❌ Erreur vérification: {e}")
+        game_logger.info(f"❌ Erreur vérification: {e}")
 
 
 def main():
     """Fonction principale"""
-    print("🚀 NETTOYAGE FINAL ARKALIA QUEST")
+    game_logger.info(r"🚀 NETTOYAGE FINAL ARKALIA QUEST")
     print("=" * 50)
 
     cleanup_hidden_files()
@@ -113,8 +115,8 @@ def main():
     cleanup_logs()
     verify_integration()
 
-    print("\n🎉 Nettoyage final terminé!")
-    print("✨ Projet optimisé et prêt pour la production")
+    game_logger.info(r"\n🎉 Nettoyage final terminé!")
+    game_logger.info(r"✨ Projet optimisé et prêt pour la production")
 
 
 if __name__ == "__main__":

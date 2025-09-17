@@ -110,10 +110,12 @@ class SimpleIntelligentTester:
 
                 # Afficher le résultat avec plus de détails
                 if success:
-                    print(f"✅ SUCCÈS! Score: +{score_gained}, Badge: {badge}")
-                    print(f"   💬 {message[:80]}...")
+                    game_logger.info(
+                        f"✅ SUCCÈS! Score: +{score_gained}, Badge: {badge}"
+                    )
+                    game_logger.info(f"   💬 {message[:80]}...")
                 else:
-                    print(f"❌ ÉCHEC: {message[:80]}...")
+                    game_logger.info(f"❌ ÉCHEC: {message[:80]}...")
 
                 return {
                     "personality": personality,
@@ -124,7 +126,7 @@ class SimpleIntelligentTester:
                     "badge": badge,
                     "timestamp": datetime.now().isoformat(),
                 }
-            print(f"❌ Erreur HTTP: {response.status_code}")
+            game_logger.info(f"❌ Erreur HTTP: {response.status_code}")
             return {
                 "personality": personality,
                 "command": command,
@@ -134,7 +136,7 @@ class SimpleIntelligentTester:
             }
 
         except Exception as e:
-            print(f"❌ Exception: {e}")
+            game_logger.info(f"❌ Exception: {e}")
             return {
                 "personality": personality,
                 "command": command,
@@ -262,10 +264,10 @@ class SimpleIntelligentTester:
         badges_earned = len([r for r in all_results if r.get("badge")])
 
         print(f"\n📊 RÉSULTATS DE {personality_data['name']}:")
-        print(f"   • Commandes testées: {total_commands}")
-        print(f"   • Commandes réussies: {successful_commands}")
-        print(f"   • Score total gagné: {total_score}")
-        print(f"   • Badges gagnés: {badges_earned}")
+        game_logger.info(f"   • Commandes testées: {total_commands}")
+        game_logger.info(f"   • Commandes réussies: {successful_commands}")
+        game_logger.info(f"   • Score total gagné: {total_score}")
+        game_logger.info(f"   • Badges gagnés: {badges_earned}")
 
         return {
             "personality": personality,
@@ -286,7 +288,7 @@ class SimpleIntelligentTester:
     def run_all_tests(self) -> dict:
         """Lance tous les tests avec toutes les personnalités"""
         print("🎮" + "=" * 60 + "🎮")
-        print("🧠 TESTEUR INTELLIGENT SIMPLIFIÉ - ARKALIA QUEST")
+        game_logger.info(r"🧠 TESTEUR INTELLIGENT SIMPLIFIÉ - ARKALIA QUEST")
         print("🎯 Test avec 4 personnalités d'ados de 13 ans")
         print("=" * 64)
 
@@ -307,7 +309,7 @@ class SimpleIntelligentTester:
                 time.sleep(1)  # Pause entre les personnalités
 
             except Exception as e:
-                print(f"❌ Erreur avec {personality}: {e}")
+                game_logger.info(f"❌ Erreur avec {personality}: {e}")
                 all_results[personality] = {
                     "personality": personality,
                     "error": str(e),
@@ -321,7 +323,7 @@ class SimpleIntelligentTester:
 
     def generate_final_report(self, all_results: dict):
         """Génère un rapport final"""
-        print("\n🎉 RAPPORT FINAL")
+        game_logger.info(r"\n🎉 RAPPORT FINAL")
         print("=" * 50)
 
         total_commands = 0
@@ -346,9 +348,9 @@ class SimpleIntelligentTester:
                 print(f"   • Score: {stats['total_score']} points")
                 print(f"   • Badges: {stats['badges_earned']}")
 
-        print("\n📊 TOTAL GLOBAL:")
-        print(f"   • Commandes testées: {total_commands}")
-        print(f"   • Commandes réussies: {total_successful}")
+        game_logger.info(r"\n📊 TOTAL GLOBAL:")
+        game_logger.info(f"   • Commandes testées: {total_commands}")
+        game_logger.info(f"   • Commandes réussies: {total_successful}")
         print(
             (
                 f"   • Taux de succès: {total_successful / total_commands * 100:.1f}%"
@@ -356,15 +358,15 @@ class SimpleIntelligentTester:
                 else "   • Taux de succès: 0%"
             ),
         )
-        print(f"   • Score total: {total_score}")
-        print(f"   • Badges total: {total_badges}")
+        game_logger.info(f"   • Score total: {total_score}")
+        game_logger.info(f"   • Badges total: {total_badges}")
 
         # Sauvegarder le rapport
         filename = f"tests/reports/simple_test_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(all_results, f, indent=2, ensure_ascii=False)
 
-        print(f"\n💾 Rapport sauvegardé: {filename}")
+        game_logger.info(f"\n💾 Rapport sauvegardé: {filename}")
 
         # Messages des "faux joueurs"
         print("\n🎭 CE QUE DISENT TES 'FAUX JOUEURS':")

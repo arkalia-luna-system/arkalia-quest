@@ -25,7 +25,7 @@ def check_server():
 
 def run_test_script(script_path, test_name):
     """Exécute un script de test et capture le résultat"""
-    print(f"\n🧪 EXÉCUTION: {test_name}")
+    game_logger.info(f"\n🧪 EXÉCUTION: {test_name}")
     print("=" * 50)
 
     start_time = time.time()
@@ -94,14 +94,14 @@ def run_experience_tests():
             result = run_test_script(test_path, test_file.replace(".py", ""))
             results.append(result)
         else:
-            print(f"⚠️ Test non trouvé: {test_file}")
+            game_logger.info(f"⚠️ Test non trouvé: {test_file}")
 
     return results
 
 
 def run_stable_tests():
     """Exécute les tests de stabilité"""
-    print("\n🔧 TESTS DE STABILITÉ")
+    game_logger.info(r"\n🔧 TESTS DE STABILITÉ")
     print("=" * 30)
 
     stable_tests = [
@@ -120,14 +120,14 @@ def run_stable_tests():
             result = run_test_script(test_path, test_file.replace(".py", ""))
             results.append(result)
         else:
-            print(f"⚠️ Test non trouvé: {test_file}")
+            game_logger.info(f"⚠️ Test non trouvé: {test_file}")
 
     return results
 
 
 def run_script_tests():
     """Exécute les tests de scripts"""
-    print("\n📜 TESTS DE SCRIPTS")
+    game_logger.info(r"\n📜 TESTS DE SCRIPTS")
     print("=" * 25)
 
     script_tests = [
@@ -146,7 +146,7 @@ def run_script_tests():
             result = run_test_script(test_path, test_file.replace(".py", ""))
             results.append(result)
         else:
-            print(f"⚠️ Test non trouvé: {test_file}")
+            game_logger.info(f"⚠️ Test non trouvé: {test_file}")
 
     return results
 
@@ -228,15 +228,17 @@ def generate_report(all_results):
 
 def main():
     """Fonction principale"""
-    print("🚀 LANCEMENT DE TOUS LES TESTS - ARKALIA QUEST")
+    game_logger.info(r"🚀 LANCEMENT DE TOUS LES TESTS - ARKALIA QUEST")
     print("=" * 60)
 
     # Vérifier que le serveur est accessible
     if not check_server():
-        print("❌ Serveur non accessible. Démarrez le serveur avec: python app.py")
+        game_logger.info(
+            r"❌ Serveur non accessible. Démarrez le serveur avec: python app.py"
+        )
         return
 
-    print("✅ Serveur accessible")
+    game_logger.info(r"✅ Serveur accessible")
 
     # Créer les dossiers nécessaires
     Path("results").mkdir(exist_ok=True)
@@ -263,23 +265,23 @@ def main():
 
     # Générer le rapport global
     print("\n" + "=" * 60)
-    print("📋 GÉNÉRATION DU RAPPORT GLOBAL")
+    game_logger.info(r"📋 GÉNÉRATION DU RAPPORT GLOBAL")
     print("=" * 60)
 
     report, filepath = generate_report(all_results)
 
     # Afficher le résumé
-    print("\n🎯 RÉSUMÉ FINAL")
+    game_logger.info(r"\n🎯 RÉSUMÉ FINAL")
     print("=" * 30)
     print(f"📊 Total des tests: {report['summary']['total_tests']}")
     print(f"✅ Tests réussis: {report['summary']['successful_tests']}")
     print(f"❌ Tests échoués: {report['summary']['failed_tests']}")
     print(f"⏱️ Durée totale: {report['summary']['total_duration']}s")
 
-    print(f"\n📋 RAPPORT SAUVEGARDÉ: {filepath}")
+    game_logger.info(f"\n📋 RAPPORT SAUVEGARDÉ: {filepath}")
 
     # Afficher les détails par catégorie
-    print("\n📈 DÉTAILS PAR CATÉGORIE:")
+    game_logger.info(r"\n📈 DÉTAILS PAR CATÉGORIE:")
     print(
         f"🎮 Tests d'expérience: {report['categories']['experience_tests']['successful']}/{report['categories']['experience_tests']['count']}",
     )
@@ -293,11 +295,11 @@ def main():
     # Afficher les tests échoués
     failed_tests = [r for r in all_results if not r.get("success")]
     if failed_tests:
-        print("\n❌ TESTS ÉCHOUÉS:")
+        game_logger.info(r"\n❌ TESTS ÉCHOUÉS:")
         for test in failed_tests:
             print(f"  - {test['test_name']}: {test.get('error', 'Erreur inconnue')}")
 
-    print("\n🎉 EXÉCUTION TERMINÉE !")
+    game_logger.info(r"\n🎉 EXÉCUTION TERMINÉE !")
 
 
 if __name__ == "__main__":

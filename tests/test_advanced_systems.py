@@ -664,12 +664,12 @@ def run_tests():
 
 
 if __name__ == "__main__":
-    print("🧪 Lancement des tests des systèmes avancés...")
+    game_logger.info(r"🧪 Lancement des tests des systèmes avancés...")
     success = run_tests()
 
     if success:
-        print("\n✅ Tous les tests sont passés avec succès !")
+        game_logger.info(r"\n✅ Tous les tests sont passés avec succès !")
         sys.exit(0)
     else:
-        print("\n❌ Certains tests ont échoué.")
+        game_logger.info(r"\n❌ Certains tests ont échoué.")
         sys.exit(1)

@@ -241,7 +241,7 @@ class TestDailyChallengesIntegration(unittest.TestCase):
 
         # Vérifier que c'est raisonnablement rapide (< 5 secondes)
         self.assertLess(duration, 5.0)
-        print(f"⏱️ Performance: {duration:.2f}s pour 100 défis générés")
+        game_logger.info(f"⏱️ Performance: {duration:.2f}s pour 100 défis générés")
 
 
 if __name__ == "__main__":

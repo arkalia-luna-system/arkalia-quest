@@ -19,11 +19,11 @@ def test_critical_fixes():
     base_url = "http://127.0.0.1:5001"
     session = requests.Session()
 
-    print("🔧 TEST DES CORRECTIONS CRITIQUES")
+    game_logger.info(r"🔧 TEST DES CORRECTIONS CRITIQUES")
     print("=" * 50)
 
     # Test 1: Vérifier la synchronisation des stats
-    print("1. 🔄 Test de synchronisation des stats...")
+    game_logger.info(r"1. 🔄 Test de synchronisation des stats...")
 
     # Donner de l'XP via le terminal
     print("   📊 Donner de l'XP via le terminal...")
@@ -40,7 +40,7 @@ def test_critical_fixes():
         time.sleep(0.5)
 
     # Vérifier les données de progression
-    print("   📈 Vérification des données de progression...")
+    game_logger.info(r"   📈 Vérification des données de progression...")
     response = session.get(f"{base_url}/api/progression-data")
 
     if response.status_code == 200:
@@ -53,12 +53,12 @@ def test_critical_fixes():
         print(f"   📊 Badges: {len(progression.get('badges', []))}")
 
         if progression.get("xp", 0) > 0:
-            print("   ✅ Synchronisation des stats fonctionnelle")
+            game_logger.info(r"   ✅ Synchronisation des stats fonctionnelle")
         else:
-            print("   ❌ Problème de synchronisation des stats")
+            game_logger.info(r"   ❌ Problème de synchronisation des stats")
             return False
     else:
-        print(f"   ❌ Erreur API progression: {response.status_code}")
+        game_logger.info(f"   ❌ Erreur API progression: {response.status_code}")
         return False
 
     # Test 2: Vérifier l'arbre de compétences
@@ -83,24 +83,24 @@ def test_critical_fixes():
             if response.status_code == 200:
                 result = response.json()
                 if result.get("success"):
-                    print("   ✅ Upgrade de compétence réussi")
+                    game_logger.info(r"   ✅ Upgrade de compétence réussi")
                     print(f"   📈 Nouveau niveau: {result.get('new_level')}")
                     print(f"   💰 XP restant: {result.get('remaining_xp')}")
                 else:
                     print(f"   ❌ Échec upgrade: {result.get('error')}")
                     return False
             else:
-                print(f"   ❌ Erreur upgrade: {response.status_code}")
+                game_logger.info(f"   ❌ Erreur upgrade: {response.status_code}")
                 return False
         else:
             print("   ❌ Pas d'XP pour tester l'upgrade")
             return False
     else:
-        print(f"   ❌ Erreur API skill-tree: {response.status_code}")
+        game_logger.info(f"   ❌ Erreur API skill-tree: {response.status_code}")
         return False
 
     # Test 3: Vérifier les systèmes JavaScript
-    print("\n3. 🌐 Test des systèmes JavaScript...")
+    game_logger.info(r"\n3. 🌐 Test des systèmes JavaScript...")
 
     # Vérifier que les nouveaux scripts sont chargés
     response = session.get(f"{base_url}/")
@@ -115,16 +115,16 @@ def test_critical_fixes():
 
         for script in scripts_to_check:
             if script in content:
-                print(f"   ✅ Script {script} chargé")
+                game_logger.info(f"   ✅ Script {script} chargé")
             else:
-                print(f"   ❌ Script {script} manquant")
+                game_logger.info(f"   ❌ Script {script} manquant")
                 return False
     else:
-        print(f"   ❌ Erreur chargement page: {response.status_code}")
+        game_logger.info(f"   ❌ Erreur chargement page: {response.status_code}")
         return False
 
     # Test 4: Vérifier la cohérence des données
-    print("\n4. 🔍 Test de cohérence des données...")
+    game_logger.info(r"\n4. 🔍 Test de cohérence des données...")
 
     # Récupérer les données de plusieurs sources
     progression_response = session.get(f"{base_url}/api/progression-data")
@@ -141,20 +141,20 @@ def test_critical_fixes():
         xp_progression = progression_data.get("xp", 0)
         xp_skill_tree = skill_tree_data.get("xp", 0)
 
-        print(f"   📊 XP progression: {xp_progression}")
-        print(f"   📊 XP skill-tree: {xp_skill_tree}")
+        game_logger.info(f"   📊 XP progression: {xp_progression}")
+        game_logger.info(f"   📊 XP skill-tree: {xp_skill_tree}")
 
         if xp_progression == xp_skill_tree:
-            print("   ✅ Données cohérentes entre les APIs")
+            game_logger.info(r"   ✅ Données cohérentes entre les APIs")
         else:
-            print("   ❌ Incohérence des données entre les APIs")
+            game_logger.info(r"   ❌ Incohérence des données entre les APIs")
             return False
     else:
-        print("   ❌ Erreur récupération des données")
+        game_logger.info(r"   ❌ Erreur récupération des données")
         return False
 
-    print("\n🎉 TOUS LES TESTS SONT PASSÉS !")
-    print("✅ Les corrections critiques fonctionnent parfaitement !")
+    game_logger.info(r"\n🎉 TOUS LES TESTS SONT PASSÉS !")
+    game_logger.info(r"✅ Les corrections critiques fonctionnent parfaitement !")
     return True
 
 
@@ -163,22 +163,26 @@ def main():
     try:
         success = test_critical_fixes()
         if success:
-            print("\n🚀 Les corrections critiques sont opérationnelles !")
-            print("📋 Prochaines étapes recommandées :")
+            game_logger.info(r"\n🚀 Les corrections critiques sont opérationnelles !")
+            game_logger.info(r"📋 Prochaines étapes recommandées :")
             print("   1. Tester l'interface web manuellement")
-            print("   2. Vérifier que les notifications LUNA ne sont plus redondantes")
+            game_logger.info(
+                r"   2. Vérifier que les notifications LUNA ne sont plus redondantes"
+            )
             print("   3. Confirmer que les blocs 'Prêt à commencer !' disparaissent")
-            print("   4. Valider la synchronisation en temps réel")
+            game_logger.info(r"   4. Valider la synchronisation en temps réel")
         else:
-            print("\n❌ Des problèmes persistent dans les corrections critiques")
-            print("📋 Actions recommandées :")
-            print("   1. Vérifier les logs du serveur")
-            print("   2. Contrôler la console du navigateur")
-            print("   3. Tester les APIs individuellement")
+            game_logger.info(
+                r"\n❌ Des problèmes persistent dans les corrections critiques"
+            )
+            game_logger.info(r"📋 Actions recommandées :")
+            game_logger.info(r"   1. Vérifier les logs du serveur")
+            game_logger.info(r"   2. Contrôler la console du navigateur")
+            game_logger.info(r"   3. Tester les APIs individuellement")
 
         return 0 if success else 1
     except Exception as e:
-        print(f"\n❌ Erreur lors du test: {e}")
+        game_logger.info(f"\n❌ Erreur lors du test: {e}")
         return 1
 
 

@@ -310,7 +310,7 @@ class SecurityEnhanced:
             data: Données de l'événement
         """
         # Log l'événement de sécurité
-        print(f"🔒 SECURITY EVENT: {event_type} - {data}")
+        game_logger.info(f"🔒 SECURITY EVENT: {event_type} - {data}")
 
     def generate_secure_token(self, length: int = 32) -> str:
         """

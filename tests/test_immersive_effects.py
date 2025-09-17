@@ -319,7 +319,7 @@ class TestImmersiveEffectsPerformance(unittest.TestCase):
 
         # La génération doit être rapide (< 1 seconde pour 100 émotions)
         self.assertLess(duration, 1.0)
-        print(f"⏱️ Génération de 100 émotions en {duration:.3f} secondes")
+        game_logger.info(f"⏱️ Génération de 100 émotions en {duration:.3f} secondes")
 
     def test_effect_data_consistency(self):
         """Test de cohérence des données d'effets"""
@@ -372,25 +372,27 @@ def run_immersive_effects_tests():
     # Résumé
     print("\n" + "=" * 50)
     print("📊 RÉSUMÉ DES TESTS D'EFFETS IMMERSIFS")
-    print(f"Tests exécutés: {result.testsRun}")
-    print(f"Échecs: {len(result.failures)}")
-    print(f"Erreurs: {len(result.errors)}")
-    print(f"Succès: {result.testsRun - len(result.failures) - len(result.errors)}")
+    game_logger.info(f"Tests exécutés: {result.testsRun}")
+    game_logger.info(f"Échecs: {len(result.failures)}")
+    game_logger.info(f"Erreurs: {len(result.errors)}")
+    game_logger.info(
+        f"Succès: {result.testsRun - len(result.failures) - len(result.errors)}"
+    )
 
     if result.failures:
-        print("\n❌ ÉCHECS:")
+        game_logger.info(r"\n❌ ÉCHECS:")
         for test, traceback in result.failures:
-            print(f"  - {test}: {traceback}")
+            game_logger.info(f"  - {test}: {traceback}")
 
     if result.errors:
-        print("\n💥 ERREURS:")
+        game_logger.info(r"\n💥 ERREURS:")
         for test, traceback in result.errors:
-            print(f"  - {test}: {traceback}")
+            game_logger.info(f"  - {test}: {traceback}")
 
     success_rate = (
         (result.testsRun - len(result.failures) - len(result.errors)) / result.testsRun
     ) * 100
-    print(f"\n🎯 TAUX DE RÉUSSITE: {success_rate:.1f}%")
+    game_logger.info(f"\n🎯 TAUX DE RÉUSSITE: {success_rate:.1f}%")
 
     return result.wasSuccessful()
 

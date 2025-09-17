@@ -232,6 +232,28 @@ class ProgressionEngine:
             if badge not in player["badges"]:
                 player["badges"].append(badge)
 
+        elif action == "skill_upgrade":
+            category = metadata.get("category", "")
+            skill = metadata.get("skill", "")
+            new_level = metadata.get("new_level", 1)
+            xp_cost = metadata.get("xp_cost", 0)
+            
+            # Dépenser l'XP
+            player["xp"] = max(0, player["xp"] - xp_cost)
+            
+            # Mettre à jour les compétences
+            if "skills" not in player:
+                player["skills"] = {}
+            if category not in player["skills"]:
+                player["skills"][category] = {}
+            player["skills"][category][skill] = new_level
+            
+            # Vérifier si le niveau du joueur a changé
+            new_player_level = self.calculate_level_from_xp(player["xp"])
+            if new_player_level > player["level"]:
+                player["level"] = new_player_level
+                self.unlock_zones_for_level(player_id, new_player_level)
+
         # Vérifier les achievements
         self.check_achievements(player_id)
 
@@ -384,6 +406,12 @@ class ProgressionEngine:
             and "explorer" not in player["achievements_unlocked"]
         ):
             self.unlock_achievement(player_id, "explorer", "Explorer", "3 zones explorées !")
+
+    def calculate_level_from_xp(self, xp: int) -> int:
+        """Calcule le niveau du joueur basé sur son XP"""
+        # Formule de progression : niveau = sqrt(xp / 100) + 1
+        level = int((xp / 100) ** 0.5) + 1
+        return max(1, level)  # Niveau minimum de 1
 
     def unlock_achievement(self, player_id: str, achievement_id: str, name: str, description: str):
         """Débloque un achievement"""

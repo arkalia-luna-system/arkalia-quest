@@ -13,7 +13,34 @@ class SkillTreeSystem {
         this.setupEventListeners();
         this.createSkillTreeUI();
         this.syncWithTerminal();
+        this.loadServerData();
         console.log('🌳 Skill Tree System initialisé');
+    }
+
+    async loadServerData() {
+        // Charger les données depuis le serveur
+        try {
+            const response = await fetch('/api/skill-tree');
+            const data = await response.json();
+
+            if (data.success && data.player_data) {
+                // Mettre à jour les données locales avec celles du serveur
+                this.updateFromServerData(data.player_data);
+            }
+        } catch (error) {
+            console.log('Impossible de charger les données du serveur:', error);
+        }
+    }
+
+    updateFromServerData(playerData) {
+        // Mettre à jour les compétences avec les données du serveur
+        if (playerData.skills) {
+            this.playerSkills = playerData.skills;
+        }
+
+        // Mettre à jour l'affichage
+        this.updatePlayerStats();
+        this.updateSkillTreeDisplay();
     }
 
     initializeSkillTree() {
@@ -817,7 +844,7 @@ class SkillTreeSystem {
         return names[effectName] || effectName;
     }
 
-    upgradeSkill(categoryId, skillId) {
+    async upgradeSkill(categoryId, skillId) {
         if (!this.canUpgradeSkill(categoryId, skillId)) {
             this.showUpgradeError('Prérequis non remplis ou XP insuffisant');
             return;
@@ -826,40 +853,69 @@ class SkillTreeSystem {
         const skill = this.skillTree[categoryId]?.skills?.[skillId];
         const requiredXP = this.getUpgradeCost(categoryId, skillId);
 
-        // Initialiser la catégorie si nécessaire
-        if (!this.playerSkills[categoryId]) {
-            this.playerSkills[categoryId] = {};
+        try {
+            // Envoyer la requête au serveur
+            const response = await fetch('/api/skill-tree/upgrade', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    category: categoryId,
+                    skill: skillId
+                })
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                // Mettre à jour localement avec les données du serveur
+                if (!this.playerSkills[categoryId]) {
+                    this.playerSkills[categoryId] = {};
+                }
+                if (!this.playerSkills[categoryId][skillId]) {
+                    this.playerSkills[categoryId][skillId] = { level: 0, xp: 0 };
+                }
+
+                const oldLevel = this.playerSkills[categoryId][skillId].level;
+                this.playerSkills[categoryId][skillId].level = result.new_level;
+                this.playerSkills[categoryId][skillId].xp = result.remaining_xp || 0;
+
+                // Sauvegarder
+                this.savePlayerSkills();
+
+                // Effet visuel d'amélioration
+                this.showUpgradeAnimation(categoryId, skillId, oldLevel, result.new_level);
+
+                // Mettre à jour l'affichage
+                if (window.location.pathname === '/skill-tree') {
+                    this.createDedicatedPageUI();
+                    this.updatePlayerStats();
+                } else {
+                    this.updateSkillTreeDisplay();
+                }
+
+                // Notification avec effet sonore
+                this.showUpgradeNotification(skill.name, result.new_level);
+
+                // Afficher les confettis si c'est un level up
+                if (result.level_up) {
+                    this.showLevelUpConfetti();
+                    this.showNotification(`🎉 LEVEL UP ! Vous êtes maintenant niveau ${result.new_player_level} !`, 'success');
+                }
+
+                // Déclencher un événement personnalisé
+                this.triggerUpgradeEvent(categoryId, skillId, result.new_level);
+
+                // Synchroniser avec les autres modules
+                this.syncWithOtherModules();
+            } else {
+                this.showNotification(result.error || 'Erreur lors de l\'amélioration', 'error');
+            }
+        } catch (error) {
+            console.error('Erreur upgrade skill:', error);
+            this.showNotification('Erreur de connexion', 'error');
         }
-
-        // Initialiser la compétence si nécessaire
-        if (!this.playerSkills[categoryId][skillId]) {
-            this.playerSkills[categoryId][skillId] = { level: 0, xp: 0 };
-        }
-
-        // Améliorer la compétence
-        const oldLevel = this.playerSkills[categoryId][skillId].level;
-        this.playerSkills[categoryId][skillId].level++;
-        this.playerSkills[categoryId][skillId].xp = requiredXP;
-
-        // Sauvegarder
-        this.savePlayerSkills();
-
-        // Effet visuel d'amélioration
-        this.showUpgradeAnimation(categoryId, skillId, oldLevel, this.playerSkills[categoryId][skillId].level);
-
-        // Mettre à jour l'affichage
-        if (window.location.pathname === '/skill-tree') {
-            this.createDedicatedPageUI();
-            this.updatePlayerStats();
-        } else {
-            this.updateSkillTreeDisplay();
-        }
-
-        // Notification avec effet sonore
-        this.showUpgradeNotification(skill.name, this.playerSkills[categoryId][skillId].level);
-
-        // Déclencher un événement personnalisé
-        this.triggerUpgradeEvent(categoryId, skillId, this.playerSkills[categoryId][skillId].level);
     }
 
     updatePlayerStats() {
@@ -1027,6 +1083,76 @@ class SkillTreeSystem {
             }
         });
         document.dispatchEvent(event);
+    }
+
+    showLevelUpConfetti() {
+        // Créer des confettis pour le level up
+        const confettiContainer = document.createElement('div');
+        confettiContainer.style.position = 'fixed';
+        confettiContainer.style.top = '0';
+        confettiContainer.style.left = '0';
+        confettiContainer.style.width = '100%';
+        confettiContainer.style.height = '100%';
+        confettiContainer.style.pointerEvents = 'none';
+        confettiContainer.style.zIndex = '9999';
+        confettiContainer.id = 'confetti-container';
+
+        document.body.appendChild(confettiContainer);
+
+        // Créer des confettis
+        for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            confetti.style.position = 'absolute';
+            confetti.style.width = '10px';
+            confetti.style.height = '10px';
+            confetti.style.backgroundColor = ['#00ff00', '#ff00ff', '#ffff00', '#00ffff', '#ff8000'][Math.floor(Math.random() * 5)];
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.top = '-10px';
+            confetti.style.borderRadius = '50%';
+            confetti.style.animation = `confettiFall ${2 + Math.random() * 3}s linear forwards`;
+
+            confettiContainer.appendChild(confetti);
+        }
+
+        // Ajouter l'animation CSS
+        if (!document.getElementById('confetti-style')) {
+            const style = document.createElement('style');
+            style.id = 'confetti-style';
+            style.textContent = `
+                @keyframes confettiFall {
+                    to {
+                        transform: translateY(100vh) rotate(360deg);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // Supprimer les confettis après 5 secondes
+        setTimeout(() => {
+            if (confettiContainer.parentNode) {
+                confettiContainer.parentNode.removeChild(confettiContainer);
+            }
+        }, 5000);
+    }
+
+    syncWithOtherModules() {
+        // Synchroniser avec les autres modules du jeu
+        fetch('/api/sync-progression')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Déclencher un événement de synchronisation
+                    const event = new CustomEvent('arkalia:progression:synced', {
+                        detail: data.player_data
+                    });
+                    document.dispatchEvent(event);
+                }
+            })
+            .catch(error => {
+                console.log('Erreur synchronisation:', error);
+            });
     }
 
     syncWithTerminal() {

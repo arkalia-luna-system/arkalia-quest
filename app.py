@@ -31,6 +31,7 @@ try:
     from core.narrative_branches import narrative_branches
     from core.performance_optimizer import performance_optimizer
     from core.profile_manager import ProfileManager
+    from core.progression_engine import ProgressionEngine
     from core.secondary_missions import secondary_missions
     from core.security_enhanced import security_enhanced
     from core.security_manager import security_manager
@@ -121,6 +122,9 @@ app.config.update(
 # Initialisation du système de missions amélioré
 enhanced_mission_system = EnhancedMissionSystem()
 
+# Initialisation du système de progression
+progression_engine = ProgressionEngine()
+
 # Initialisation des modules supplémentaires
 database_optimizer = DatabaseOptimizer()
 luna_emotions_engine = LunaEmotionsEngine()
@@ -144,44 +148,146 @@ except Exception as e:
 @app.before_request
 def before_request():
     """Middleware exécuté avant chaque requête"""
-    # Vérifier la sécurité
+    # Vérifier la sécurité IP
+    if not _check_ip_security():
+        return jsonify({"error": "Accès refusé"}), 403
+
+    # Valider les entrées JSON
+    validation_result = _validate_json_inputs()
+    if validation_result is not True:
+        return validation_result
+
+
+def _check_ip_security() -> bool:
+    """Vérifie si l'IP est autorisée"""
     client_ip = request.environ.get("HTTP_X_FORWARDED_FOR", request.remote_addr)
-
-    # Vérifier si l'IP est bloquée (si le module est disponible)
+    
     if security_enhanced and hasattr(security_enhanced, "is_ip_blocked"):
-        if security_enhanced.is_ip_blocked(client_ip):
-            return jsonify({"error": "Accès refusé"}), 403
+        return not security_enhanced.is_ip_blocked(client_ip)
+    
+    return True
 
-    # Rate limiting désactivé pour une meilleure expérience de jeu
 
-    # Valider les entrées (sauf pour les routes des jeux éducatifs)
-    if request.method in ["POST", "PUT", "PATCH"]:
-        if (
-            request.is_json
-            and not request.path.startswith("/api/educational-games")
-            and not request.path.startswith("/api/luna-v3/")
-        ):
-            data = request.get_json()
-            if data:
-                for key, value in data.items():
-                    if isinstance(value, str):
-                        # Validation renforcée selon le type de champ
-                        input_type = "command"  # Par défaut
-                        if "username" in key.lower():
-                            input_type = "username"
-                        elif "email" in key.lower():
-                            input_type = "email"
-                        elif "password" in key.lower():
-                            input_type = "password"
-                        elif "game_id" in key.lower():
-                            input_type = "game_id"
+def _validate_json_inputs():
+    """Valide les entrées JSON si nécessaire"""
+    if request.method not in ["POST", "PUT", "PATCH"]:
+        return True
+        
+    if not request.is_json:
+        return True
+        
+    if request.path.startswith("/api/educational-games") or request.path.startswith("/api/luna-v3/"):
+        return True
+        
+    data = request.get_json()
+    if not data:
+        return True
+        
+    for key, value in data.items():
+        if isinstance(value, str):
+            input_type = _get_input_type(key)
+            is_valid, error_msg = security_enhanced.validate_input(input_type, value)
+            if not is_valid:
+                return jsonify({"error": f"Entrée invalide ({key}): {error_msg}"}), 400
+                
+    return True
 
-                        is_valid, error_msg = security_enhanced.validate_input(input_type, value)
-                        if not is_valid:
-                            return (
-                                jsonify({"error": f"Entrée invalide ({key}): {error_msg}"}),
-                                400,
-                            )
+
+def _get_input_type(key: str) -> str:
+    """Détermine le type d'entrée basé sur la clé"""
+    key_lower = key.lower()
+    if "username" in key_lower:
+        return "username"
+    elif "email" in key_lower:
+        return "email"
+    elif "password" in key_lower:
+        return "password"
+    elif "game_id" in key_lower:
+        return "game_id"
+    else:
+        return "command"
+
+
+def _validate_command_data(data):
+    """Valide les données de commande et retourne la commande ou une erreur"""
+    if not data or not isinstance(data, dict):
+        return None, _error_response("❌ Données invalides. Envoie un objet JSON valide.", 400)
+
+    cmd = data.get("cmd", data.get("commande", ""))
+    
+    if not isinstance(cmd, str):
+        return None, _error_response("❌ Commande invalide. La commande doit être une chaîne de caractères.", 400)
+
+    cmd = cmd.strip()
+    
+    if not cmd:
+        return None, _error_response("❌ Commande vide. Utilise la clé 'commande' ou 'cmd' avec une valeur non vide.", 400)
+
+    if len(cmd) > 1000:
+        return None, _error_response("❌ Commande trop longue. Maximum 1000 caractères.", 400)
+
+    return cmd, None
+
+
+def _error_response(message, status_code):
+    """Crée une réponse d'erreur standardisée"""
+    return jsonify({
+        "reponse": {
+            "réussite": False,
+            "message": message,
+            "profile_updated": False,
+        },
+    }), status_code
+
+
+def _check_command_security(cmd, client_ip):
+    """Vérifie la sécurité de la commande"""
+    security_check = security_manager.check_input_security(cmd, client_ip)
+    if not security_check["is_safe"]:
+        if security_check["risk_level"] == "critical":
+            security_manager.block_ip(
+                client_ip, f"Commande dangereuse: {security_check['threats_detected']}",
+            )
+        return _error_response("❌ Commande rejetée pour des raisons de sécurité.", 400)
+    return None
+
+
+def _execute_command(cmd, profil):
+    """Exécute la commande et retourne la réponse"""
+    try:
+        reponse = command_handler.handle_command(cmd, profil)
+        game_logger.debug(f"Réponse du handler: {reponse}")
+        return reponse
+    except Exception as e:
+        game_logger.error(f"Erreur lors du traitement de la commande: {e}")
+        return {
+            "réussite": False,
+            "message": "❌ Erreur interne lors du traitement de la commande.",
+            "profile_updated": False,
+        }
+
+
+def _update_gamification(cmd, profil, reponse):
+    """Met à jour la gamification (badges et achievements)"""
+    if reponse.get("réussite", False):
+        # Vérifier les badges secrets et achievements
+        unlocked_badges = gamification.check_badges_secrets(profil, "command_used", command=cmd)
+        unlocked_achievements = gamification.check_achievements(
+            profil.get("id", "default"), profil, "command_used", command=cmd,
+        )
+
+        # Ajouter les nouveaux badges et achievements
+        if unlocked_badges:
+            reponse["nouveaux_badges"] = unlocked_badges
+        if unlocked_achievements:
+            reponse["nouveaux_achievements"] = unlocked_achievements
+
+        # Mettre à jour le profil si nécessaire
+        if reponse.get("profile_updated", False):
+            session["profile"] = reponse.get("profile", profil)
+            sauvegarder_profil(reponse.get("profile", profil))
+    
+    return reponse
 
 
 @app.after_request
@@ -372,7 +478,6 @@ COMMANDES_AUTORISEES = {
 def charger_profil():
     try:
         # Utiliser le nouveau système de progression
-        from core.progression_engine import progression_engine
 
         # Récupérer le profil depuis le système de progression
         player_id = "main_user"
@@ -719,8 +824,6 @@ def get_profil():
 def get_progression_data():
     """Récupère les données de progression en temps réel"""
     try:
-        from core.progression_engine import progression_engine
-
         player_id = "main_user"
         progression_data = progression_engine.get_player_progression(player_id)
         daily_challenges = progression_engine.get_daily_challenges(player_id)
@@ -815,73 +918,13 @@ def test_commande():
 
 @app.route("/commande", methods=["POST"])
 def commande():
-    # Rate limiting désactivé pour une meilleure expérience de jeu
-
+    """Route principale pour l'exécution des commandes"""
     data = request.get_json()
-
-    # Validation stricte des entrées
-    if not data or not isinstance(data, dict):
-        return (
-            jsonify(
-                {
-                    "reponse": {
-                        "réussite": False,
-                        "message": "❌ Données invalides. Envoie un objet JSON valide.",
-                        "profile_updated": False,
-                    },
-                },
-            ),
-            400,
-        )
-
-    # Accepter soit 'cmd' soit 'commande' comme clé
-    cmd = data.get("cmd", data.get("commande", ""))
-
-    # Validation de la commande
-    if not isinstance(cmd, str):
-        return (
-            jsonify(
-                {
-                    "reponse": {
-                        "réussite": False,
-                        "message": "❌ Commande invalide. La commande doit être une chaîne de caractères.",
-                        "profile_updated": False,
-                    },
-                },
-            ),
-            400,
-        )
-
-    cmd = cmd.strip()
-
-    # Validation de la longueur et du contenu
-    if not cmd:
-        return (
-            jsonify(
-                {
-                    "reponse": {
-                        "réussite": False,
-                        "message": "❌ Commande vide. Utilise la clé 'commande' ou 'cmd' avec une valeur non vide.",
-                        "profile_updated": False,
-                    },
-                },
-            ),
-            400,
-        )
-
-    if len(cmd) > 1000:
-        return (
-            jsonify(
-                {
-                    "reponse": {
-                        "réussite": False,
-                        "message": "❌ Commande trop longue. Maximum 1000 caractères.",
-                        "profile_updated": False,
-                    },
-                },
-            ),
-            400,
-        )
+    
+    # Validation des données
+    cmd, error_response = _validate_command_data(data)
+    if error_response:
+        return error_response
 
     # Vérification de sécurité avancée
     client_ip = request.remote_addr or "unknown"
@@ -1266,8 +1309,26 @@ def api_skill_tree():
                 "skills": {},
             },
         )
+        
+        # Synchroniser avec les données de progression réelles
+        player_id = profile.get("id", "default")
+        player_data = progression_engine.get_player_progression(player_id)
+        
+        # Mettre à jour le profil avec les données réelles
+        profile.update({
+            "level": player_data.get("level", 1),
+            "xp": player_data.get("xp", 0),
+            "score": player_data.get("score", 0),
+            "coins": player_data.get("coins", 0),
+            "badges": player_data.get("badges", []),
+            "skills": player_data.get("skills", {})
+        })
+        
+        # Mettre à jour la session
+        session["profile"] = profile
+        
         skill_tree_data = enhanced_mission_system.get_skill_tree(profile)
-        return jsonify({"success": True, "skill_tree": skill_tree_data})
+        return jsonify({"success": True, "skill_tree": skill_tree_data, "player_data": player_data})
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
 
@@ -1283,31 +1344,156 @@ def api_skill_tree_upgrade():
         if not category or not skill:
             return jsonify({"error": "Category et skill requis"}), 400
 
-        # Récupérer le profil du joueur
-        session.get(
-            "profile",
-            {
-                "username": "default_user",
-                "level": 1,
-                "xp": 0,
-                "badges": [],
-                "missions_completed": [],
-                "skills": {},
-            },
-        )
+        # Récupérer le profil du joueur depuis la session
+        profile = session.get("profile", {
+            "username": "default_user",
+            "level": 1,
+            "xp": 0,
+            "badges": [],
+            "missions_completed": [],
+            "skills": {},
+        })
 
-        # Simuler l'amélioration (à remplacer par la vraie logique)
+        # Récupérer les données de progression réelles
+        player_id = profile.get("id", "default")
+        player_data = progression_engine.get_player_progression(player_id)
+        
+        # Vérifier si le joueur a assez d'XP
+        current_xp = player_data.get("xp", 0)
+        skill_data = enhanced_mission_system.get_skill_tree(profile)
+        
+        if category not in skill_data or skill not in skill_data[category]["skills"]:
+            return jsonify({"error": "Compétence non trouvée"}), 400
+            
+        skill_info = skill_data[category]["skills"][skill]
+        current_level = skill_info.get("level", 0)
+        max_level = skill_info.get("max_level", 5)
+        
+        if current_level >= max_level:
+            return jsonify({"error": "Compétence déjà au niveau maximum"}), 400
+            
+        # Calculer le coût XP pour le prochain niveau
+        xp_required = skill_info.get("xp_required", [0, 100, 250, 500, 1000])
+        next_level_xp = xp_required[current_level + 1] if current_level + 1 < len(xp_required) else xp_required[-1]
+        
+        if current_xp < next_level_xp:
+            return jsonify({"error": f"XP insuffisant. Nécessaire: {next_level_xp}, Disponible: {current_xp}"}), 400
+
+        # Effectuer l'upgrade
+        new_level = current_level + 1
+        xp_cost = next_level_xp
+        
+        # Mettre à jour les données de progression
+        progression_engine.update_player_progression(player_id, "skill_upgrade", {
+            "category": category,
+            "skill": skill,
+            "new_level": new_level,
+            "xp_cost": xp_cost
+        })
+        
+        # Mettre à jour le profil de session
+        if "skills" not in profile:
+            profile["skills"] = {}
+        if category not in profile["skills"]:
+            profile["skills"][category] = {}
+        profile["skills"][category][skill] = new_level
+        profile["xp"] = current_xp - xp_cost
+        
+        # Sauvegarder le profil mis à jour
+        session["profile"] = profile
+        
+        # Vérifier si un niveau de joueur a été atteint
+        new_player_level = progression_engine.calculate_level_from_xp(profile["xp"])
+        level_up = new_player_level > player_data.get("level", 1)
+        
         result = {
             "success": True,
-            "message": f"Compétence {skill} améliorée !",
-            "new_level": 1,
-            "xp_cost": 100,
+            "message": f"Compétence {skill} améliorée au niveau {new_level} !",
+            "new_level": new_level,
+            "xp_cost": xp_cost,
+            "remaining_xp": profile["xp"],
+            "level_up": level_up,
+            "new_player_level": new_player_level if level_up else None
         }
 
         return jsonify(result)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+
+@app.route("/api/sync-progression")
+def api_sync_progression():
+    """API pour synchroniser les données de progression"""
+    try:
+        # Récupérer le profil du joueur depuis la session
+        profile = session.get("profile", {
+            "username": "default_user",
+            "level": 1,
+            "xp": 0,
+            "badges": [],
+            "missions_completed": [],
+            "skills": {},
+        })
+        
+        # Récupérer les données de progression réelles
+        player_id = profile.get("id", "default")
+        player_data = progression_engine.get_player_progression(player_id)
+        
+        # Mettre à jour le profil avec les données réelles
+        profile.update({
+            "level": player_data.get("level", 1),
+            "xp": player_data.get("xp", 0),
+            "score": player_data.get("score", 0),
+            "coins": player_data.get("coins", 0),
+            "badges": player_data.get("badges", []),
+            "skills": player_data.get("skills", {}),
+            "missions_completed": player_data.get("missions_completed", [])
+        })
+        
+        # Mettre à jour la session
+        session["profile"] = profile
+        
+        return jsonify({
+            "success": True, 
+            "player_data": player_data,
+            "profile": profile
+        })
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+@app.route("/api/progression-data")
+def api_progression_data():
+    """API pour récupérer les données de progression pour l'affichage"""
+    try:
+        # Récupérer le profil du joueur depuis la session
+        profile = session.get("profile", {
+            "username": "default_user",
+            "level": 1,
+            "xp": 0,
+            "badges": [],
+            "missions_completed": [],
+            "skills": {},
+        })
+        
+        # Récupérer les données de progression réelles
+        player_id = profile.get("id", "default")
+        player_data = progression_engine.get_player_progression(player_id)
+        
+        return jsonify({
+            "success": True,
+            "progression": {
+                "level": player_data.get("level", 1),
+                "xp": player_data.get("xp", 0),
+                "score": player_data.get("score", 0),
+                "coins": player_data.get("coins", 0),
+                "badges": player_data.get("badges", []),
+                "skills": player_data.get("skills", {}),
+                "missions_completed": player_data.get("missions_completed", []),
+                "stats": player_data.get("stats", {})
+            }
+        })
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
 
 @app.route("/api/enhanced-missions")
 def api_enhanced_missions():

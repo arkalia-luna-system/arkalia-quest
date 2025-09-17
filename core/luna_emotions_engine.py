@@ -242,7 +242,16 @@ class LunaEmotionsEngine:
         return "general"
 
     def _determine_emotion(self, context: dict) -> LunaEmotion:
-        """Détermine l'émotion de LUNA selon le contexte avec logique avancée"""
+        """
+        Détermine l'émotion de LUNA selon le contexte avec logique avancée
+        
+        Cette fonction complexe est nécessaire pour créer des émotions réalistes et variées
+        basées sur de nombreux facteurs contextuels. La complexité est justifiée par :
+        - La richesse des interactions émotionnelles
+        - La personnalisation selon le type de joueur
+        - La variabilité temporelle et situationnelle
+        """
+        # === EXTRACTION DES DONNÉES CONTEXTUELLES ===
         action_type = context["action_type"]
         success = context["success"]
         time_of_day = context["time_of_day"]
@@ -250,22 +259,22 @@ class LunaEmotionsEngine:
         player_level = context["player_level"]
         action_frequency = context["action_frequency"]
 
-        # Facteurs de profil joueur
+        # === FACTEURS DE PROFIL JOUEUR ===
         player_type = context.get("player_type", "debutant")
 
-        # Facteurs de variabilité
-        mood_factor = random.random()
+        # === FACTEURS DE VARIABILITÉ ===
+        mood_factor = random.random()  # Aléatoire pour éviter la répétition
         time_factor = (time_of_day - 12) / 12  # -1 à +1 selon l'heure
         level_factor = min(player_level / 10, 1.0)  # 0 à 1 selon le niveau
 
-        # Facteur de personnalité
-        personality_factor = 0.5
+        # === FACTEUR DE PERSONNALITÉ ===
+        personality_factor = 0.5  # Valeur par défaut
         if player_type == "expert":
-            personality_factor = 0.8
+            personality_factor = 0.8  # Plus réactif
         elif player_type == "hacker":
-            personality_factor = 0.7
+            personality_factor = 0.7  # Modérément réactif
         elif player_type == "debutant":
-            personality_factor = 0.3
+            personality_factor = 0.3  # Moins réactif
 
         # Logique d'émotions avancée avec plus de variété basée sur le profil
         if action_type == "success" and success:

@@ -112,7 +112,7 @@
     "main_user": {
       "score": 1155,
       "level": 4,
-      "xp": 1055,
+      "xp": 155,
       "coins": 125,
       "badges": [
         "Premier pas",
@@ -356,7 +356,7 @@
         "first_step",
         "speed_demon"
       ],
-      "last_activity": "2025-09-17T20:27:37.218115",
+      "last_activity": "2025-09-17T23:07:34.329249",
       "stats": {
         "total_commands": 49,
         "total_luna_commands": 4,
@@ -366,7 +366,7 @@
       },
       "skills": {
         "hacking": {
-          "code_breaking": 1
+          "code_breaking": 4
         }
       }
     },

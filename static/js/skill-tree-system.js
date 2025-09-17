@@ -45,7 +45,11 @@ class SkillTreeSystem {
 
         // Mettre à jour l'affichage
         this.updatePlayerStats();
-        this.updateSkillTreeDisplay();
+        if (window.location.pathname === '/skill-tree') {
+            this.createDedicatedPageUI();
+        } else {
+            this.updateSkillTreeDisplay();
+        }
     }
 
     async syncPlayerData() {
@@ -362,9 +366,10 @@ class SkillTreeSystem {
         skillTreeContainer.addEventListener('click', (e) => {
             if (e.target.classList.contains('close-skill-tree')) {
                 this.hideSkillTree();
-            } else if (e.target.classList.contains('upgrade-skill')) {
-                const skillId = e.target.dataset.skillId;
-                const categoryId = e.target.dataset.categoryId;
+            } else if (e.target.classList.contains('upgrade-skill') || e.target.closest('.upgrade-skill')) {
+                const button = e.target.classList.contains('upgrade-skill') ? e.target : e.target.closest('.upgrade-skill');
+                const skillId = button.dataset.skillId;
+                const categoryId = button.dataset.categoryId;
                 this.upgradeSkill(categoryId, skillId);
             }
         });
@@ -412,7 +417,7 @@ class SkillTreeSystem {
                     <div class="progress-text">${playerSkill.xp}/${upgradeCost} XP</div>
                 </div>
                 ${canUpgrade ?
-                `<button class="upgrade-skill" data-category="${categoryId}" data-skill="${skillId}">
+                `<button class="upgrade-skill" data-category-id="${categoryId}" data-skill-id="${skillId}">
                         <span class="upgrade-icon">⚡</span>
                         <span class="upgrade-text">Améliorer</span>
                         <span class="upgrade-cost">${upgradeCost} XP</span>
@@ -797,16 +802,9 @@ class SkillTreeSystem {
             if (!prereqSkill || prereqSkill.level === 0) return false;
         }
 
-        // Vérifier si le joueur a assez d'XP (utiliser les données synchronisées)
+        // Vérifier si le joueur a assez d'XP
         const requiredXP = skill.xp_required[playerSkill.level + 1] || skill.xp_required[playerSkill.level];
         const playerXP = this.getPlayerTotalXP();
-
-        // Si pas d'XP local, vérifier avec les données du serveur
-        if (playerXP === 0) {
-            // Récupérer les données de progression depuis le serveur
-            this.syncPlayerData();
-            return false; // Retourner false pour l'instant, sera mis à jour après sync
-        }
 
         return playerXP >= requiredXP;
     }
@@ -929,6 +927,9 @@ class SkillTreeSystem {
                 const oldLevel = this.playerSkills[categoryId][skillId].level;
                 this.playerSkills[categoryId][skillId].level = result.new_level;
                 this.playerSkills[categoryId][skillId].xp = result.remaining_xp || 0;
+
+                // Mettre à jour l'XP total
+                this.playerTotalXP = result.remaining_xp || 0;
 
                 // Sauvegarder
                 this.savePlayerSkills();
@@ -1152,7 +1153,36 @@ class SkillTreeSystem {
                 message,
                 { duration: 3000 }
             );
+        } else {
+            this.showNotification(`❌ ${message}`, 'error');
         }
+    }
+
+    showNotification(message, type = 'info') {
+        // Créer une notification simple si le système de notifications n'est pas disponible
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${type === 'error' ? '#ef4444' : type === 'success' ? '#22c55e' : '#3b82f6'};
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            z-index: 10000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            animation: slideInRight 0.5s ease-out;
+        `;
+        notification.textContent = message;
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 3000);
     }
 
     playUpgradeSound() {
@@ -1367,14 +1397,9 @@ class SkillTreeSystem {
             return this.playerTotalXP;
         }
 
-        // Fallback : calculer l'XP total du joueur
-        let totalXP = 0;
-        for (const categorySkills of Object.values(this.playerSkills)) {
-            for (const skill of Object.values(categorySkills)) {
-                totalXP += skill.xp;
-            }
-        }
-        return totalXP;
+        // Fallback : récupérer depuis le serveur
+        this.syncPlayerData();
+        return 0; // Retourner 0 temporairement, sera mis à jour après sync
     }
 
     getSkillBonus(categoryId, skillId, effectName) {

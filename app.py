@@ -1506,13 +1506,16 @@ def api_skill_tree_upgrade():
             },
         )
 
+        # Récupérer les données mises à jour
+        updated_player_data = progression_engine.get_player_progression(player_id)
+
         # Mettre à jour le profil de session
         if "skills" not in profile:
             profile["skills"] = {}
         if category not in profile["skills"]:
             profile["skills"][category] = {}
         profile["skills"][category][skill] = new_level
-        profile["xp"] = current_xp - xp_cost
+        profile["xp"] = updated_player_data.get("xp", 0)
 
         # Sauvegarder le profil mis à jour
         session["profile"] = profile
@@ -1561,22 +1564,21 @@ def api_sync_progression():
         # Mettre à jour le profil avec les données réelles
         profile.update(
             {
+                "username": player_data.get("username", "main_user"),
                 "level": player_data.get("level", 1),
                 "xp": player_data.get("xp", 0),
                 "score": player_data.get("score", 0),
                 "coins": player_data.get("coins", 0),
                 "badges": player_data.get("badges", []),
-                "skills": player_data.get("skills", {}),
                 "missions_completed": player_data.get("missions_completed", []),
+                "skills": player_data.get("skills", {}),
             }
         )
 
-        # Mettre à jour la session
+        # Sauvegarder le profil mis à jour
         session["profile"] = profile
 
-        return jsonify(
-            {"success": True, "player_data": player_data, "profile": profile}
-        )
+        return jsonify({"success": True, "player_data": profile})
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
 

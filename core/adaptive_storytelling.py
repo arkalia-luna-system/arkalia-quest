@@ -338,7 +338,7 @@ class AdaptiveStorytelling:
                 self.trigger_easter_egg(player_id, egg_id)
 
     def check_easter_egg_conditions(
-        self, player_id: str, egg: dict[str, Any], choices: list[dict[str, Any]]
+        self, player_id: str, egg: dict[str, Any], choices: list[dict[str, Any]],
     ) -> bool:
         """Vérifie les conditions d'un Easter egg"""
         conditions = egg["trigger_conditions"]
@@ -350,7 +350,7 @@ class AdaptiveStorytelling:
         return True
 
     def evaluate_condition(
-        self, player_id: str, condition: str, choices: list[dict[str, Any]]
+        self, player_id: str, condition: str, choices: list[dict[str, Any]],
     ) -> bool:
         """Évalue une condition d'Easter egg"""
         if condition == "luna_mentioned_10_times":
@@ -359,7 +359,7 @@ class AdaptiveStorytelling:
             )
             return luna_mentions >= 10
 
-        elif condition == "deep_analysis":
+        if condition == "deep_analysis":
             deep_choices = sum(
                 1
                 for choice in choices
@@ -368,15 +368,15 @@ class AdaptiveStorytelling:
             )
             return deep_choices >= 3
 
-        elif condition == "all_missions_complete":
+        if condition == "all_missions_complete":
             # Vérifier avec le système de missions
             return len(choices) >= 20  # Approximation
 
-        elif condition == "perfect_scores":
+        if condition == "perfect_scores":
             # Vérifier les scores parfaits
             return True  # À implémenter avec le système de scoring
 
-        elif condition == "quantum_commands":
+        if condition == "quantum_commands":
             quantum_choices = sum(
                 1 for choice in choices if "quantum" in choice.get("choice", "").lower()
             )
@@ -480,7 +480,7 @@ class AdaptiveStorytelling:
             return any(choice_type in choice.get("choice", "") for choice in player_choices)
 
         # Conditions basées sur le temps
-        elif condition.startswith("time_"):
+        if condition.startswith("time_"):
             # À implémenter selon les besoins
             return True
 
@@ -539,7 +539,7 @@ class AdaptiveStorytelling:
         }
 
     def create_contextual_dialogue(
-        self, context: str, playstyle: dict[str, Any], choices: list[dict[str, Any]]
+        self, context: str, playstyle: dict[str, Any], choices: list[dict[str, Any]],
     ) -> str:
         """Crée un dialogue contextuel"""
         # Templates de dialogue adaptatifs
@@ -567,12 +567,11 @@ class AdaptiveStorytelling:
         # Sélectionner le dialogue approprié au contexte
         if "greeting" in context:
             return templates["greeting"]
-        elif "challenge" in context:
+        if "challenge" in context:
             return templates["challenge"]
-        elif "success" in context:
+        if "success" in context:
             return templates["success"]
-        else:
-            return "Votre approche unique continue de m'étonner."
+        return "Votre approche unique continue de m'étonner."
 
     # ===== API PUBLIQUE =====
 
@@ -609,7 +608,7 @@ class AdaptiveStorytelling:
                         "title": choice_data["title"],
                         "description": choice_data["description"],
                         "consequences": choice_data.get("consequences", []),
-                    }
+                    },
                 )
 
         return available_choices

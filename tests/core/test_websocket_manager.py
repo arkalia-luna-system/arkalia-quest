@@ -3,7 +3,7 @@ import pytest
 from core.websocket_manager import WebSocketManager
 
 
-@pytest.fixture()
+@pytest.fixture
 def wm():
     return WebSocketManager()
 

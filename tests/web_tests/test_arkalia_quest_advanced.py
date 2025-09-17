@@ -55,7 +55,7 @@ class ArkaliaQuestAdvancedTester:
                 content = response.text
                 # Rechercher les couleurs Matrix
                 matrix_colors = re.findall(
-                    r"#00ff00|#0f0|rgb\(0,\s*255,\s*0\)", content, re.IGNORECASE
+                    r"#00ff00|#0f0|rgb\(0,\s*255,\s*0\)", content, re.IGNORECASE,
                 )
 
                 if matrix_colors:
@@ -66,25 +66,23 @@ class ArkaliaQuestAdvancedTester:
                         duration,
                     )
                     return True
-                else:
-                    self.log_test(
-                        "Design Matrix (#00ff00)",
-                        "FAIL",
-                        "Aucune couleur Matrix (#00ff00) trouvée",
-                        duration,
-                    )
-                    return False
-            else:
                 self.log_test(
                     "Design Matrix (#00ff00)",
                     "FAIL",
-                    f"Page inaccessible: {response.status_code}",
+                    "Aucune couleur Matrix (#00ff00) trouvée",
                     duration,
                 )
                 return False
+            self.log_test(
+                "Design Matrix (#00ff00)",
+                "FAIL",
+                f"Page inaccessible: {response.status_code}",
+                duration,
+            )
+            return False
         except requests.exceptions.RequestException as e:
             duration = time.time() - start_time
-            self.log_test("Design Matrix (#00ff00)", "FAIL", f"Erreur: {str(e)}", duration)
+            self.log_test("Design Matrix (#00ff00)", "FAIL", f"Erreur: {e!s}", duration)
             return False
 
     def test_tutorial_functionality(self) -> bool:
@@ -115,25 +113,23 @@ class ArkaliaQuestAdvancedTester:
                         duration,
                     )
                     return True
-                else:
-                    self.log_test(
-                        "Fonctionnalités Tutoriel",
-                        "FAIL",
-                        f"Peu d'éléments tutoriel: {elements_found}/4",
-                        duration,
-                    )
-                    return False
-            else:
                 self.log_test(
                     "Fonctionnalités Tutoriel",
                     "FAIL",
-                    f"Page tutoriel inaccessible: {response.status_code}",
+                    f"Peu d'éléments tutoriel: {elements_found}/4",
                     duration,
                 )
                 return False
+            self.log_test(
+                "Fonctionnalités Tutoriel",
+                "FAIL",
+                f"Page tutoriel inaccessible: {response.status_code}",
+                duration,
+            )
+            return False
         except requests.exceptions.RequestException as e:
             duration = time.time() - start_time
-            self.log_test("Fonctionnalités Tutoriel", "FAIL", f"Erreur: {str(e)}", duration)
+            self.log_test("Fonctionnalités Tutoriel", "FAIL", f"Erreur: {e!s}", duration)
             return False
 
     def test_terminal_commands(self) -> bool:
@@ -164,25 +160,23 @@ class ArkaliaQuestAdvancedTester:
                         duration,
                     )
                     return True
-                else:
-                    self.log_test(
-                        "Fonctionnalités Terminal",
-                        "FAIL",
-                        f"Éléments terminal manquants: {elements_found}/4",
-                        duration,
-                    )
-                    return False
-            else:
                 self.log_test(
                     "Fonctionnalités Terminal",
                     "FAIL",
-                    f"Page terminal inaccessible: {response.status_code}",
+                    f"Éléments terminal manquants: {elements_found}/4",
                     duration,
                 )
                 return False
+            self.log_test(
+                "Fonctionnalités Terminal",
+                "FAIL",
+                f"Page terminal inaccessible: {response.status_code}",
+                duration,
+            )
+            return False
         except requests.exceptions.RequestException as e:
             duration = time.time() - start_time
-            self.log_test("Fonctionnalités Terminal", "FAIL", f"Erreur: {str(e)}", duration)
+            self.log_test("Fonctionnalités Terminal", "FAIL", f"Erreur: {e!s}", duration)
             return False
 
     def test_world_progression(self) -> bool:
@@ -213,25 +207,23 @@ class ArkaliaQuestAdvancedTester:
                         duration,
                     )
                     return True
-                else:
-                    self.log_test(
-                        "Progression Monde",
-                        "FAIL",
-                        f"Éléments progression manquants: {elements_found}/4",
-                        duration,
-                    )
-                    return False
-            else:
                 self.log_test(
                     "Progression Monde",
                     "FAIL",
-                    f"Page monde inaccessible: {response.status_code}",
+                    f"Éléments progression manquants: {elements_found}/4",
                     duration,
                 )
                 return False
+            self.log_test(
+                "Progression Monde",
+                "FAIL",
+                f"Page monde inaccessible: {response.status_code}",
+                duration,
+            )
+            return False
         except requests.exceptions.RequestException as e:
             duration = time.time() - start_time
-            self.log_test("Progression Monde", "FAIL", f"Erreur: {str(e)}", duration)
+            self.log_test("Progression Monde", "FAIL", f"Erreur: {e!s}", duration)
             return False
 
     def test_dashboard_na_values(self) -> bool:
@@ -262,25 +254,23 @@ class ArkaliaQuestAdvancedTester:
                         duration,
                     )
                     return True
-                else:
-                    self.log_test(
-                        "Valeurs N/A Dashboard",
-                        "FAIL",
-                        "Valeurs N/A manquantes dans le dashboard",
-                        duration,
-                    )
-                    return False
-            else:
                 self.log_test(
                     "Valeurs N/A Dashboard",
                     "FAIL",
-                    f"Page dashboard inaccessible: {response.status_code}",
+                    "Valeurs N/A manquantes dans le dashboard",
                     duration,
                 )
                 return False
+            self.log_test(
+                "Valeurs N/A Dashboard",
+                "FAIL",
+                f"Page dashboard inaccessible: {response.status_code}",
+                duration,
+            )
+            return False
         except requests.exceptions.RequestException as e:
             duration = time.time() - start_time
-            self.log_test("Valeurs N/A Dashboard", "FAIL", f"Erreur: {str(e)}", duration)
+            self.log_test("Valeurs N/A Dashboard", "FAIL", f"Erreur: {e!s}", duration)
             return False
 
     def test_audio_functionality(self) -> bool:
@@ -311,25 +301,23 @@ class ArkaliaQuestAdvancedTester:
                         duration,
                     )
                     return True
-                else:
-                    self.log_test(
-                        "Fonctionnalités Audio",
-                        "FAIL",
-                        f"Éléments audio manquants: {elements_found}/4",
-                        duration,
-                    )
-                    return False
-            else:
                 self.log_test(
                     "Fonctionnalités Audio",
                     "FAIL",
-                    f"Page inaccessible: {response.status_code}",
+                    f"Éléments audio manquants: {elements_found}/4",
                     duration,
                 )
                 return False
+            self.log_test(
+                "Fonctionnalités Audio",
+                "FAIL",
+                f"Page inaccessible: {response.status_code}",
+                duration,
+            )
+            return False
         except requests.exceptions.RequestException as e:
             duration = time.time() - start_time
-            self.log_test("Fonctionnalités Audio", "FAIL", f"Erreur: {str(e)}", duration)
+            self.log_test("Fonctionnalités Audio", "FAIL", f"Erreur: {e!s}", duration)
             return False
 
     def test_accessibility_features(self) -> bool:
@@ -361,25 +349,23 @@ class ArkaliaQuestAdvancedTester:
                         duration,
                     )
                     return True
-                else:
-                    self.log_test(
-                        "Fonctionnalités Accessibilité",
-                        "FAIL",
-                        f"Fonctionnalités accessibilité manquantes: {features_found}/5",
-                        duration,
-                    )
-                    return False
-            else:
                 self.log_test(
                     "Fonctionnalités Accessibilité",
                     "FAIL",
-                    f"Page inaccessible: {response.status_code}",
+                    f"Fonctionnalités accessibilité manquantes: {features_found}/5",
                     duration,
                 )
                 return False
+            self.log_test(
+                "Fonctionnalités Accessibilité",
+                "FAIL",
+                f"Page inaccessible: {response.status_code}",
+                duration,
+            )
+            return False
         except requests.exceptions.RequestException as e:
             duration = time.time() - start_time
-            self.log_test("Fonctionnalités Accessibilité", "FAIL", f"Erreur: {str(e)}", duration)
+            self.log_test("Fonctionnalités Accessibilité", "FAIL", f"Erreur: {e!s}", duration)
             return False
 
     def test_responsive_breakpoints(self) -> bool:
@@ -412,25 +398,23 @@ class ArkaliaQuestAdvancedTester:
                         duration,
                     )
                     return True
-                else:
-                    self.log_test(
-                        "Breakpoints Responsive",
-                        "FAIL",
-                        f"Breakpoints manquants: {breakpoints_found}/6",
-                        duration,
-                    )
-                    return False
-            else:
                 self.log_test(
                     "Breakpoints Responsive",
                     "FAIL",
-                    f"Page inaccessible: {response.status_code}",
+                    f"Breakpoints manquants: {breakpoints_found}/6",
                     duration,
                 )
                 return False
+            self.log_test(
+                "Breakpoints Responsive",
+                "FAIL",
+                f"Page inaccessible: {response.status_code}",
+                duration,
+            )
+            return False
         except requests.exceptions.RequestException as e:
             duration = time.time() - start_time
-            self.log_test("Breakpoints Responsive", "FAIL", f"Erreur: {str(e)}", duration)
+            self.log_test("Breakpoints Responsive", "FAIL", f"Erreur: {e!s}", duration)
             return False
 
     def test_luna_ai_features(self) -> bool:
@@ -461,25 +445,23 @@ class ArkaliaQuestAdvancedTester:
                         duration,
                     )
                     return True
-                else:
-                    self.log_test(
-                        "Fonctionnalités LUNA IA",
-                        "FAIL",
-                        f"Fonctionnalités LUNA manquantes: {features_found}/4",
-                        duration,
-                    )
-                    return False
-            else:
                 self.log_test(
                     "Fonctionnalités LUNA IA",
                     "FAIL",
-                    f"Page inaccessible: {response.status_code}",
+                    f"Fonctionnalités LUNA manquantes: {features_found}/4",
                     duration,
                 )
                 return False
+            self.log_test(
+                "Fonctionnalités LUNA IA",
+                "FAIL",
+                f"Page inaccessible: {response.status_code}",
+                duration,
+            )
+            return False
         except requests.exceptions.RequestException as e:
             duration = time.time() - start_time
-            self.log_test("Fonctionnalités LUNA IA", "FAIL", f"Erreur: {str(e)}", duration)
+            self.log_test("Fonctionnalités LUNA IA", "FAIL", f"Erreur: {e!s}", duration)
             return False
 
     def run_advanced_test_suite(self):

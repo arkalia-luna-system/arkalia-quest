@@ -67,14 +67,13 @@ class AnalyticsCommands:
                     "score_gagne": 5,
                     "profile_updated": False,
                 }
-            else:
-                return {
-                    "réussite": False,
-                    "ascii_art": "❌",
-                    "message": "❌ Erreur lors de la récupération des analytics",
-                    "score_gagne": 0,
-                    "profile_updated": False,
-                }
+            return {
+                "réussite": False,
+                "ascii_art": "❌",
+                "message": "❌ Erreur lors de la récupération des analytics",
+                "score_gagne": 0,
+                "profile_updated": False,
+            }
         except Exception as e:
             return {
                 "réussite": False,
@@ -144,14 +143,13 @@ class AnalyticsCommands:
                     "score_gagne": 10,
                     "profile_updated": False,
                 }
-            else:
-                return {
-                    "réussite": False,
-                    "ascii_art": "❌",
-                    "message": "❌ Erreur lors de la récupération des insights",
-                    "score_gagne": 0,
-                    "profile_updated": False,
-                }
+            return {
+                "réussite": False,
+                "ascii_art": "❌",
+                "message": "❌ Erreur lors de la récupération des insights",
+                "score_gagne": 0,
+                "profile_updated": False,
+            }
         except Exception as e:
             return {
                 "réussite": False,
@@ -206,14 +204,13 @@ class AnalyticsCommands:
                     "score_gagne": 8,
                     "profile_updated": False,
                 }
-            else:
-                return {
-                    "réussite": False,
-                    "ascii_art": "❌",
-                    "message": "❌ Erreur lors de la récupération des statistiques",
-                    "score_gagne": 0,
-                    "profile_updated": False,
-                }
+            return {
+                "réussite": False,
+                "ascii_art": "❌",
+                "message": "❌ Erreur lors de la récupération des statistiques",
+                "score_gagne": 0,
+                "profile_updated": False,
+            }
         except Exception as e:
             return {
                 "réussite": False,
@@ -276,14 +273,13 @@ class AnalyticsCommands:
                     "score_gagne": 7,
                     "profile_updated": False,
                 }
-            else:
-                return {
-                    "réussite": False,
-                    "ascii_art": "❌",
-                    "message": "❌ Erreur lors de la récupération de la progression",
-                    "score_gagne": 0,
-                    "profile_updated": False,
-                }
+            return {
+                "réussite": False,
+                "ascii_art": "❌",
+                "message": "❌ Erreur lors de la récupération de la progression",
+                "score_gagne": 0,
+                "profile_updated": False,
+            }
         except Exception as e:
             return {
                 "réussite": False,
@@ -329,14 +325,13 @@ class AnalyticsCommands:
                     "score_gagne": 6,
                     "profile_updated": False,
                 }
-            else:
-                return {
-                    "réussite": False,
-                    "ascii_art": "❌",
-                    "message": "❌ Erreur lors de la récupération des recommandations",
-                    "score_gagne": 0,
-                    "profile_updated": False,
-                }
+            return {
+                "réussite": False,
+                "ascii_art": "❌",
+                "message": "❌ Erreur lors de la récupération des recommandations",
+                "score_gagne": 0,
+                "profile_updated": False,
+            }
         except Exception as e:
             return {
                 "réussite": False,
@@ -402,14 +397,13 @@ class AnalyticsCommands:
                     "score_gagne": 9,
                     "profile_updated": False,
                 }
-            else:
-                return {
-                    "réussite": False,
-                    "ascii_art": "❌",
-                    "message": "❌ Erreur lors de l'analyse du style d'apprentissage",
-                    "score_gagne": 0,
-                    "profile_updated": False,
-                }
+            return {
+                "réussite": False,
+                "ascii_art": "❌",
+                "message": "❌ Erreur lors de l'analyse du style d'apprentissage",
+                "score_gagne": 0,
+                "profile_updated": False,
+            }
         except Exception as e:
             return {
                 "réussite": False,
@@ -471,14 +465,13 @@ class AnalyticsCommands:
                     "score_gagne": 8,
                     "profile_updated": False,
                 }
-            else:
-                return {
-                    "réussite": False,
-                    "ascii_art": "❌",
-                    "message": "❌ Erreur lors de la récupération des métriques d'engagement",
-                    "score_gagne": 0,
-                    "profile_updated": False,
-                }
+            return {
+                "réussite": False,
+                "ascii_art": "❌",
+                "message": "❌ Erreur lors de la récupération des métriques d'engagement",
+                "score_gagne": 0,
+                "profile_updated": False,
+            }
         except Exception as e:
             return {
                 "réussite": False,
@@ -515,14 +508,13 @@ class AnalyticsCommands:
                     "score_gagne": 5,
                     "profile_updated": False,
                 }
-            else:
-                return {
-                    "réussite": False,
-                    "ascii_art": "❌",
-                    "message": "❌ Erreur lors de l'export des données",
-                    "score_gagne": 0,
-                    "profile_updated": False,
-                }
+            return {
+                "réussite": False,
+                "ascii_art": "❌",
+                "message": "❌ Erreur lors de l'export des données",
+                "score_gagne": 0,
+                "profile_updated": False,
+            }
         except Exception as e:
             return {
                 "réussite": False,

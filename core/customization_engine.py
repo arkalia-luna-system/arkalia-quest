@@ -295,7 +295,7 @@ class CustomizationEngine:
             return self.themes.get(self.default_theme, {})
 
         current_theme_id = self.player_customizations[player_id].get(
-            "current_theme", self.default_theme
+            "current_theme", self.default_theme,
         )
         return self.themes.get(current_theme_id, {})
 
@@ -385,7 +385,7 @@ class CustomizationEngine:
             return self.avatars.get(self.default_avatar, {})
 
         current_avatar_id = self.player_customizations[player_id].get(
-            "current_avatar", self.default_avatar
+            "current_avatar", self.default_avatar,
         )
         return self.avatars.get(current_avatar_id, {})
 
@@ -478,7 +478,7 @@ class CustomizationEngine:
             return self.skins.get("terminal_basic", {})
 
         current_skin_id = self.player_customizations[player_id].get(
-            "current_skin", "terminal_basic"
+            "current_skin", "terminal_basic",
         )
         return self.skins.get(current_skin_id, {})
 
@@ -571,7 +571,7 @@ class CustomizationEngine:
             return self.voice_profiles.get(self.default_voice, {})
 
         current_voice_id = self.player_customizations[player_id].get(
-            "current_voice", self.default_voice
+            "current_voice", self.default_voice,
         )
         return self.voice_profiles.get(current_voice_id, {})
 
@@ -645,7 +645,7 @@ class CustomizationEngine:
     # ===== CUSTOMISATION AVANCÉE =====
 
     def create_custom_theme(
-        self, player_id: str, theme_name: str, theme_data: dict[str, Any]
+        self, player_id: str, theme_name: str, theme_data: dict[str, Any],
     ) -> dict[str, Any]:
         """Crée un thème personnalisé"""
         theme_id = f"custom_{player_id}_{uuid.uuid4().hex[:8]}"
@@ -774,7 +774,7 @@ class CustomizationEngine:
             self.save_customization_data()
             return {"success": True, "message": "Customisation importée !"}
         except Exception as e:
-            return {"success": False, "error": f"Erreur d'import: {str(e)}"}
+            return {"success": False, "error": f"Erreur d'import: {e!s}"}
 
     def get_player_customization(self, player_id: str) -> dict[str, Any]:
         """Retourne la customisation complète d'un joueur"""
@@ -853,7 +853,7 @@ class CustomizationEngine:
     # ===== SYSTÈME DE RÉCOMPENSES =====
 
     def unlock_random_customization(
-        self, player_id: str, category: str = "random"
+        self, player_id: str, category: str = "random",
     ) -> dict[str, Any]:
         """Débloque une customisation aléatoire"""
         if category == "random":

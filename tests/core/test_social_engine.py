@@ -7,7 +7,7 @@ import pytest
 from core.social_engine import SocialEngine
 
 
-@pytest.fixture()
+@pytest.fixture
 def social_engine():
     """Fixture pour créer un moteur social de test"""
     return SocialEngine()

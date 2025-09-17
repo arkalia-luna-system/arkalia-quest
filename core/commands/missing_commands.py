@@ -188,8 +188,7 @@ class MissingCommands:
                 "score_gagne": game["points"],
                 "profile_updated": True,
             }
-        else:
-            message = f"""🎮 MINI-JEU ÉCHOUÉ !
+        message = f"""🎮 MINI-JEU ÉCHOUÉ !
 
 🎯 JEU : {game['name']} ({game['type']})
 ❓ QUESTION : {game['question']}
@@ -200,13 +199,13 @@ class MissingCommands:
 💡 Réessayez ! La pratique rend parfait !
 Utilisez 'play_game' pour réessayer."""
 
-            return {
-                "réussite": False,
-                "ascii_art": "🎮",
-                "message": message,
-                "score_gagne": 0,
-                "profile_updated": False,
-            }
+        return {
+            "réussite": False,
+            "ascii_art": "🎮",
+            "message": message,
+            "score_gagne": 0,
+            "profile_updated": False,
+        }
 
     def handle_games_list(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Liste détaillée des jeux disponibles"""
@@ -252,7 +251,7 @@ Utilisez 'play_game' pour réessayer."""
 
         for game in games:
             diff_emoji = {"Facile": "🟢", "Moyen": "🟡", "Difficile": "🔴"}.get(
-                game["difficulty"], "⚪"
+                game["difficulty"], "⚪",
             )
             message += f"🎯 {game['name']}\n"
             message += f"   Type: {game['type']}\n"

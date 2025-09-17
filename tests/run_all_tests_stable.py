@@ -74,9 +74,8 @@ class StableVersionTestRunner:
             if response.status_code == 200:
                 self.log("✅ Serveur accessible", "SUCCESS")
                 return True
-            else:
-                self.log(f"❌ Serveur répond avec code {response.status_code}", "ERROR")
-                return False
+            self.log(f"❌ Serveur répond avec code {response.status_code}", "ERROR")
+            return False
         except Exception as e:
             self.log(f"❌ Serveur inaccessible: {e}", "ERROR")
             return False
@@ -91,7 +90,7 @@ class StableVersionTestRunner:
             # Exécuter le test
             result = subprocess.run(
                 [sys.executable, f"tests/{module['file']}"],
-                capture_output=True,
+                check=False, capture_output=True,
                 text=True,
                 timeout=300,  # 5 minutes max par test
             )
@@ -177,11 +176,11 @@ class StableVersionTestRunner:
             recommendations.append("🎉 Version stable excellente ! Prête pour la production.")
         elif summary["success_rate"] >= 80:
             recommendations.append(
-                "✅ Version stable correcte. Quelques améliorations mineures" + "recommandées."
+                "✅ Version stable correcte. Quelques améliorations mineures" + "recommandées.",
             )
         elif summary["success_rate"] >= 60:
             recommendations.append(
-                "⚠️ Version stable avec des problèmes. Corrections" + "nécessaires avant production."
+                "⚠️ Version stable avec des problèmes. Corrections" + "nécessaires avant production.",
             )
         else:
             recommendations.append("❌ Version instable. Corrections majeures requises.")
@@ -299,9 +298,8 @@ def main():
     if success:
         print("\n🎉 VERSION STABLE VALIDÉE !")
         return 0
-    else:
-        print("\n⚠️ VERSION NÉCESSITE DES CORRECTIONS")
-        return 1
+    print("\n⚠️ VERSION NÉCESSITE DES CORRECTIONS")
+    return 1
 
 
 if __name__ == "__main__":

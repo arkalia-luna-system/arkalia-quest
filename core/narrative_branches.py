@@ -12,7 +12,6 @@ Version: 1.0
 
 import json
 import logging
-import random
 from datetime import datetime
 from typing import Any, Optional
 
@@ -258,11 +257,11 @@ class NarrativeBranches:
         # Logique simplifiée - à étendre selon les besoins
         if condition == "luna_contact_completed":
             return self._has_completed_mission(player_id, "luna_contact")
-        elif condition == "prologue_completed":
+        if condition == "prologue_completed":
             return self._has_completed_mission(player_id, "prologue")
-        elif condition == "luna_relationship_high":
+        if condition == "luna_relationship_high":
             return self._get_luna_relationship(player_id) > 50
-        elif condition == "trust_issues_detected":
+        if condition == "trust_issues_detected":
             return self._has_trust_issues(player_id)
 
         return True  # Condition par défaut
@@ -283,7 +282,7 @@ class NarrativeBranches:
         return self.character_relationships.get(player_id, {}).get("trust_issues", False)
 
     def _apply_consequences(
-        self, player_id: str, choice: dict[str, Any], branch: dict[str, Any]
+        self, player_id: str, choice: dict[str, Any], branch: dict[str, Any],
     ) -> dict[str, Any]:
         """Applique les conséquences d'un choix"""
         consequences = choice.get("effects", {})
@@ -367,7 +366,7 @@ class NarrativeBranches:
                 "branch_id": branch_id,
                 "choice_id": choice_id,
                 "timestamp": datetime.now().isoformat(),
-            }
+            },
         )
 
         # Mettre à jour le chemin narratif
@@ -454,7 +453,7 @@ class NarrativeBranches:
                             "branch_id": branch_id,
                             "title": branch["title"],
                             "description": branch["description"],
-                        }
+                        },
                     )
 
         return unlocked
@@ -479,7 +478,7 @@ class NarrativeBranches:
                             }
                             for choice in branch["choices"]
                         ],
-                    }
+                    },
                 )
 
         return available
@@ -500,7 +499,7 @@ class NarrativeBranches:
     def get_character_relationships(self, player_id: str) -> dict[str, Any]:
         """Retourne les relations du personnage"""
         return self.character_relationships.get(
-            player_id, {"luna": 0, "skills": {}, "traits": [], "trust_issues": False}
+            player_id, {"luna": 0, "skills": {}, "traits": [], "trust_issues": False},
         )
 
     def save_branch_data(self) -> bool:

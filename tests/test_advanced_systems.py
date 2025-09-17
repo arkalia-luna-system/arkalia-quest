@@ -15,12 +15,9 @@ Auteur: Assistant IA
 Version: 1.0
 """
 
-import json
 import os
 import sys
 import unittest
-from datetime import datetime, timedelta
-from unittest.mock import Mock, patch
 
 # Ajouter le répertoire parent au path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -59,7 +56,7 @@ class TestMissionProgressTracker(unittest.TestCase):
 
         # Mettre à jour la progression
         result = self.tracker.update_mission_progress(
-            self.mission_id, self.player_id, "step_1", "step_completed", True
+            self.mission_id, self.player_id, "step_1", "step_completed", True,
         )
 
         self.assertTrue(result["success"])
@@ -72,7 +69,7 @@ class TestMissionProgressTracker(unittest.TestCase):
         self.tracker.initialize_mission_progress(self.mission_id, self.player_id)
 
         result = self.tracker.update_mission_progress(
-            self.mission_id, self.player_id, "step_1", "step_failed", False
+            self.mission_id, self.player_id, "step_1", "step_failed", False,
         )
 
         self.assertTrue(result["success"])
@@ -85,7 +82,7 @@ class TestMissionProgressTracker(unittest.TestCase):
         # Simuler quelques étapes complétées
         for i in range(3):
             self.tracker.update_mission_progress(
-                self.mission_id, self.player_id, f"step_{i}", "step_completed", True
+                self.mission_id, self.player_id, f"step_{i}", "step_completed", True,
             )
 
         progress_key = f"{self.player_id}_{self.mission_id}"
@@ -123,7 +120,7 @@ class TestMissionProgressTracker(unittest.TestCase):
             # Compléter quelques étapes
             for j in range(2):
                 self.tracker.update_mission_progress(
-                    mission_id, self.player_id, f"step_{j}", "step_completed", True
+                    mission_id, self.player_id, f"step_{j}", "step_completed", True,
                 )
 
         analytics = self.tracker.get_mission_analytics(self.player_id)
@@ -249,7 +246,7 @@ class TestSecondaryMissions(unittest.TestCase):
 
             # Mettre à jour la progression
             result = self.missions.update_mission_progress(
-                self.player_id, mission_id, "find_code_1", True
+                self.player_id, mission_id, "find_code_1", True,
             )
 
             self.assertTrue(result["success"])
@@ -283,7 +280,7 @@ class TestAdvancedAchievements(unittest.TestCase):
     def test_check_achievement_progress(self):
         """Test de vérification de progression d'achievements"""
         new_achievements = self.achievements.check_achievement_progress(
-            self.player_id, "hack_system", {}
+            self.player_id, "hack_system", {},
         )
 
         self.assertIsInstance(new_achievements, list)
@@ -353,7 +350,7 @@ class TestCategoryLeaderboards(unittest.TestCase):
         """Test de récupération d'un classement"""
         # Ajouter quelques métriques
         self.leaderboards.update_player_metrics(
-            self.player_id, "hacking", {"hack_success_rate": 85.0}
+            self.player_id, "hacking", {"hack_success_rate": 85.0},
         )
 
         leaderboard = self.leaderboards.get_leaderboard("hacking")
@@ -365,7 +362,7 @@ class TestCategoryLeaderboards(unittest.TestCase):
         """Test de récupération du rang d'un joueur"""
         # Ajouter des métriques
         self.leaderboards.update_player_metrics(
-            self.player_id, "hacking", {"hack_success_rate": 85.0}
+            self.player_id, "hacking", {"hack_success_rate": 85.0},
         )
 
         rank_info = self.leaderboards.get_player_rank(self.player_id, "hacking")
@@ -378,7 +375,7 @@ class TestCategoryLeaderboards(unittest.TestCase):
         """Test de récupération de l'aperçu d'un joueur"""
         # Ajouter des métriques pour plusieurs catégories
         self.leaderboards.update_player_metrics(
-            self.player_id, "hacking", {"hack_success_rate": 85.0}
+            self.player_id, "hacking", {"hack_success_rate": 85.0},
         )
         self.leaderboards.update_player_metrics(self.player_id, "speed", {"mission_time": 300.0})
 
@@ -392,7 +389,7 @@ class TestCategoryLeaderboards(unittest.TestCase):
         """Test de comparaison des performances par catégorie"""
         # Ajouter des métriques
         self.leaderboards.update_player_metrics(
-            self.player_id, "hacking", {"hack_success_rate": 85.0}
+            self.player_id, "hacking", {"hack_success_rate": 85.0},
         )
         self.leaderboards.update_player_metrics(self.player_id, "speed", {"mission_time": 300.0})
 
@@ -539,20 +536,20 @@ class TestIntegration(unittest.TestCase):
 
         # 3. Mettre à jour la progression de mission
         progress_result = self.tracker.update_mission_progress(
-            mission_id, self.player_id, "step_1", "step_completed", True
+            mission_id, self.player_id, "step_1", "step_completed", True,
         )
         self.assertTrue(progress_result["success"])
 
         # 4. Vérifier les achievements
         achievements = self.achievements.check_achievement_progress(
-            self.player_id, "hack_system", {}
+            self.player_id, "hack_system", {},
         )
         self.assertIsInstance(achievements, list)
 
         # 5. Mettre à jour les métriques de classement
         metrics = {"hack_success_rate": 90.0}
         leaderboard_result = self.leaderboards.update_player_metrics(
-            self.player_id, "hacking", metrics
+            self.player_id, "hacking", metrics,
         )
         self.assertTrue(leaderboard_result["success"])
 

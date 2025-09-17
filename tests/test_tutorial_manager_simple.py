@@ -44,8 +44,8 @@ class TestTutorialManagerSimple(unittest.TestCase):
                     "title": "Test Step",
                     "content": "Test content",
                     "type": "info",
-                }
-            ]
+                },
+            ],
         }
 
         tutorial_file = os.path.join(self.temp_dir, "test_tutorial.json")
@@ -76,8 +76,8 @@ class TestTutorialManagerSimple(unittest.TestCase):
                     "title": "Test Step",
                     "content": "Test content",
                     "type": "info",
-                }
-            ]
+                },
+            ],
         }
 
         tutorial_file = os.path.join(self.temp_dir, "test_tutorial.json")

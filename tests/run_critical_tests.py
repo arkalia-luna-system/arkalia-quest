@@ -92,8 +92,7 @@ def check_environment():
     if python_version < (3, 8):
         print(f"{COLORS['red']}❌ Python 3.8+ requis{COLORS['reset']}")
         return False
-    else:
-        print(f"{COLORS['green']}✅ Version Python compatible{COLORS['reset']}")
+    print(f"{COLORS['green']}✅ Version Python compatible{COLORS['reset']}")
 
     # Vérifier les dépendances
     required_packages = ["pytest", "black", "ruff"]
@@ -134,7 +133,7 @@ def run_code_quality_checks():
     try:
         result = subprocess.run(
             ["black", "--check", "."],
-            capture_output=True,
+            check=False, capture_output=True,
             text=True,
             timeout=60,
         )
@@ -144,7 +143,7 @@ def run_code_quality_checks():
         else:
             print(
                 f"{COLORS['yellow']}⚠️ Code non formaté, application de"
-                + "Black...{COLORS['reset']}"
+                 "Black...{COLORS['reset']}",
             )
             subprocess.run(["black", "."], check=True)
             print(f"{COLORS['green']}✅ Formatage appliqué{COLORS['reset']}")
@@ -158,7 +157,7 @@ def run_code_quality_checks():
     try:
         result = subprocess.run(
             ["ruff", "check", "."],
-            capture_output=True,
+            check=False, capture_output=True,
             text=True,
             timeout=60,
         )
@@ -219,7 +218,7 @@ def run_test_category(category_name, category_info):
 
             result = subprocess.run(
                 cmd,
-                capture_output=True,
+                check=False, capture_output=True,
                 text=True,
                 timeout=TEST_CONFIG["timeout"] * 60,
             )
@@ -291,7 +290,7 @@ def run_coverage_analysis():
 
         result = subprocess.run(
             cmd,
-            capture_output=True,
+            check=False, capture_output=True,
             text=True,
             timeout=300,  # 5 minutes pour la couverture
         )

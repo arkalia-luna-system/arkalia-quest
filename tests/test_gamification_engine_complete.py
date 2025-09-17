@@ -97,14 +97,13 @@ class TestGamificationEngineComplete(unittest.TestCase):
         """Calcule le niveau basé sur le score (simulation)"""
         if score < 100:
             return 1
-        elif score < 500:
+        if score < 500:
             return 2
-        elif score < 1000:
+        if score < 1000:
             return 3
-        elif score < 2000:
+        if score < 2000:
             return 4
-        else:
-            return 5
+        return 5
 
     def test_achievement_system(self):
         """Test du système d'achievements"""
@@ -181,14 +180,13 @@ class TestGamificationEngineComplete(unittest.TestCase):
         """Calcule le multiplicateur de streak (simulation)"""
         if days < 3:
             return 1.0
-        elif days < 7:
+        if days < 7:
             return 1.2
-        elif days < 14:
+        if days < 14:
             return 1.5
-        elif days < 30:
+        if days < 30:
             return 2.0
-        else:
-            return 3.0
+        return 3.0
 
     def test_reward_system(self):
         """Test du système de récompenses"""
@@ -237,14 +235,13 @@ class TestGamificationEngineComplete(unittest.TestCase):
         """Simule une valeur de métrique d'engagement"""
         if "users" in metric:
             return 150  # Nombre d'utilisateurs
-        elif "duration" in metric:
+        if "duration" in metric:
             return 25.5  # Minutes
-        elif "rate" in metric:
+        if "rate" in metric:
             return 0.85  # Pourcentage
-        elif "sharing" in metric:
+        if "sharing" in metric:
             return 12  # Nombre de partages
-        else:
-            return 100  # Valeur par défaut
+        return 100  # Valeur par défaut
 
     def test_motivation_system(self):
         """Test du système de motivation"""
@@ -322,16 +319,15 @@ class TestGamificationEngineComplete(unittest.TestCase):
         """Simule une valeur de performance"""
         if "time" in metric:
             return 0.15  # Secondes
-        elif "memory" in metric:
+        if "memory" in metric:
             return 45.2  # MB
-        elif "cpu" in metric:
+        if "cpu" in metric:
             return 12.5  # Pourcentage
-        elif "queries" in metric:
+        if "queries" in metric:
             return 8  # Nombre de requêtes
-        elif "cache" in metric:
+        if "cache" in metric:
             return 0.92  # Taux de cache
-        else:
-            return 100  # Valeur par défaut
+        return 100  # Valeur par défaut
 
     def test_error_handling(self):
         """Test de la gestion des erreurs"""

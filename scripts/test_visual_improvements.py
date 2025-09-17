@@ -145,7 +145,7 @@ def test_visual_improvements():
                     print(f"❌ {name}: {description} - MANQUANT")
 
             print(
-                f"\n📊 Améliorations JavaScript trouvées: {found_js_improvements}/{len(js_improvements)}"
+                f"\n📊 Améliorations JavaScript trouvées: {found_js_improvements}/{len(js_improvements)}",
             )
 
         else:

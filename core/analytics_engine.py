@@ -136,7 +136,7 @@ class AnalyticsEngine:
                     anonymized BOOLEAN DEFAULT 1,
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
-            """
+            """,
             )
 
             # Table des profils utilisateurs
@@ -157,7 +157,7 @@ class AnalyticsEngine:
                     created_at REAL,
                     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
-            """
+            """,
             )
 
             # Table des sessions
@@ -175,18 +175,18 @@ class AnalyticsEngine:
                     commands_used TEXT DEFAULT '[]',
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
-            """
+            """,
             )
 
             # Index pour optimiser les requêtes
             cursor.execute(
-                "CREATE INDEX IF NOT EXISTS idx_events_user_time ON analytics_events(user_id, timestamp)"
+                "CREATE INDEX IF NOT EXISTS idx_events_user_time ON analytics_events(user_id, timestamp)",
             )
             cursor.execute(
-                "CREATE INDEX IF NOT EXISTS idx_events_type ON analytics_events(event_type)"
+                "CREATE INDEX IF NOT EXISTS idx_events_type ON analytics_events(event_type)",
             )
             cursor.execute(
-                "CREATE INDEX IF NOT EXISTS idx_sessions_user ON analytics_sessions(user_id)"
+                "CREATE INDEX IF NOT EXISTS idx_sessions_user ON analytics_sessions(user_id)",
             )
 
             conn.commit()
@@ -261,7 +261,7 @@ class AnalyticsEngine:
                 session.commands_used.append(command)
 
     def start_session(
-        self, user_id: str, session_id: str, context: Optional[dict[str, Any]] = None
+        self, user_id: str, session_id: str, context: Optional[dict[str, Any]] = None,
     ):
         """Démarrer une session"""
         self.track_event(
@@ -286,7 +286,7 @@ class AnalyticsEngine:
             self._update_user_profile(user_id, session)
 
         self.track_event(
-            EventType.SESSION_END, user_id, session_id, data={"session_id": session_id}
+            EventType.SESSION_END, user_id, session_id, data={"session_id": session_id},
         )
 
     def _save_session(self, session: SessionData):
@@ -521,12 +521,11 @@ class AnalyticsEngine:
 
                 if tutorial_events > game_events:
                     return "guided_learner"
-                elif help_events > 0 or hint_events > 0:
+                if help_events > 0 or hint_events > 0:
                     return "support_seeker"
-                elif game_events > tutorial_events:
+                if game_events > tutorial_events:
                     return "hands_on_learner"
-                else:
-                    return "balanced_learner"
+                return "balanced_learner"
 
         except Exception as e:
             logger.error(f"Erreur lors de l'analyse du style d'apprentissage: {e}")
@@ -582,7 +581,7 @@ class AnalyticsEngine:
                     GROUP BY event_type
                     ORDER BY count DESC
                     LIMIT 10
-                """
+                """,
                 )
                 popular_events = dict(cursor.fetchall())
 
@@ -706,7 +705,7 @@ class AnalyticsEngine:
                 conn.commit()
 
                 logger.info(
-                    f"Nettoyage des données antérieures à {self.retention_days}" + "jours effectué"
+                    f"Nettoyage des données antérieures à {self.retention_days}" + "jours effectué",
                 )
 
         except Exception as e:
@@ -722,16 +721,13 @@ class AnalyticsEngine:
 
                 if format == "json":
                     return json.dumps(data, indent=2, ensure_ascii=False)
-                else:
-                    return str(data)
-            else:
-                # Export global
-                data = self.get_global_analytics()
+                return str(data)
+            # Export global
+            data = self.get_global_analytics()
 
-                if format == "json":
-                    return json.dumps(data, indent=2, ensure_ascii=False)
-                else:
-                    return str(data)
+            if format == "json":
+                return json.dumps(data, indent=2, ensure_ascii=False)
+            return str(data)
 
         except Exception as e:
             logger.error(f"Erreur lors de l'export des données: {e}")

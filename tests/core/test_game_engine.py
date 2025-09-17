@@ -1,4 +1,3 @@
-import types
 from datetime import datetime, timedelta
 
 import pytest
@@ -26,7 +25,7 @@ class DummyCommandHandler:
         return dict(self.response)
 
 
-@pytest.fixture()
+@pytest.fixture
 def engine():
     ge = GameEngine()
     # Monkeypatch DB and command handler to avoid real IO
@@ -91,7 +90,7 @@ def test_add_effects_error_branch_has_encouragement(engine, monkeypatch):
 def test_process_command_saves_profile_when_updated(engine, monkeypatch):
     # Inject command handler to set profile_updated
     engine.command_handler = DummyCommandHandler(
-        {"profile_updated": True, "réussite": True, "message": "ok"}
+        {"profile_updated": True, "réussite": True, "message": "ok"},
     )
     out = engine.process_command("any", user_id="u1")
     # DB save should have been called

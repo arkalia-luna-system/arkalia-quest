@@ -89,7 +89,7 @@ class CommandHandlerV2:
                 "luna_sound": luna_emotion_data["sound"],
                 "luna_intensity": luna_emotion_data["intensity"],
                 "relationship_change": luna_emotion_data["relationship_change"],
-            }
+            },
         )
 
         return result
@@ -126,7 +126,7 @@ class CommandHandlerV2:
                 "luna_sound": luna_emotion_data["sound"],
                 "luna_intensity": luna_emotion_data["intensity"],
                 "relationship_change": luna_emotion_data["relationship_change"],
-            }
+            },
         )
 
         return result
@@ -182,15 +182,14 @@ class CommandHandlerV2:
                 result = self.format_response(result)
 
                 return result
-            else:
-                # Commande non trouvée
-                return {
-                    "réussite": False,
-                    "ascii_art": "❌",
-                    "message": f"❌ Erreur interne : Commande '{command}' non implémentée.",
-                    "score_gagne": 0,
-                    "profile_updated": False,
-                }
+            # Commande non trouvée
+            return {
+                "réussite": False,
+                "ascii_art": "❌",
+                "message": f"❌ Erreur interne : Commande '{command}' non implémentée.",
+                "score_gagne": 0,
+                "profile_updated": False,
+            }
 
         except Exception as e:
             # Gestion d'erreur

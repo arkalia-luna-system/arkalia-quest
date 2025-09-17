@@ -68,7 +68,7 @@ class TestDailyChallengesIntegration(unittest.TestCase):
 
         # Tenter le défi avec la bonne réponse
         result = self.engine.attempt_challenge(
-            self.test_user_id, challenge["id"], challenge["answer"]
+            self.test_user_id, challenge["id"], challenge["answer"],
         )
 
         self.assertIsInstance(result, dict)
@@ -85,7 +85,7 @@ class TestDailyChallengesIntegration(unittest.TestCase):
 
         # Tenter le défi avec une mauvaise réponse
         result = self.engine.attempt_challenge(
-            self.test_user_id, challenge["id"], "mauvaise_reponse"
+            self.test_user_id, challenge["id"], "mauvaise_reponse",
         )
 
         self.assertIsInstance(result, dict)
@@ -180,7 +180,7 @@ class TestDailyChallengesIntegration(unittest.TestCase):
 
         # Vérifier que le progrès est mis à jour
         updated_progress = self.engine.user_progress.get(self.test_date, {}).get(
-            self.test_user_id, {}
+            self.test_user_id, {},
         )
         self.assertIsInstance(updated_progress, dict)
         # Le progrès peut être dans différents formats

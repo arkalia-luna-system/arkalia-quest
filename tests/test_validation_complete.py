@@ -188,9 +188,8 @@ def main():
         print("\n🎉 TOUS LES TESTS SONT PASSÉS !")
         print("🚀 Arkalia Quest v3.1.0 est prêt pour la production !")
         return True
-    else:
-        print(f"\n⚠️  {total - passed} test(s) ont échoué")
-        return False
+    print(f"\n⚠️  {total - passed} test(s) ont échoué")
+    return False
 
 
 if __name__ == "__main__":

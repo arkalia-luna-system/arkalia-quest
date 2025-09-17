@@ -70,7 +70,7 @@ class PerformanceOptimizer:
                                     "timestamp": datetime.now().isoformat(),
                                     "args": str(args)[:100],  # Limiter la taille
                                     "kwargs": str(kwargs)[:100],
-                                }
+                                },
                             )
 
                             # Garder seulement les 100 dernières requêtes lentes
@@ -90,7 +90,7 @@ class PerformanceOptimizer:
                                 "error": str(e),
                                 "execution_time": execution_time,
                                 "timestamp": datetime.now().isoformat(),
-                            }
+                            },
                         )
 
                         # Garder seulement les 100 dernières erreurs
@@ -151,7 +151,7 @@ class PerformanceOptimizer:
         return query
 
     def batch_process(
-        self, items: list[Any], batch_size: int = 100, process_func: Callable = None
+        self, items: list[Any], batch_size: int = 100, process_func: Callable = None,
     ) -> list[Any]:
         """
         Traite une liste d'éléments par lots pour optimiser les performances
@@ -220,7 +220,7 @@ class PerformanceOptimizer:
                         for e in self.error_log
                         if datetime.fromisoformat(e["timestamp"])
                         > datetime.now() - timedelta(hours=1)
-                    ]
+                    ],
                 ),
             }
 
@@ -287,7 +287,7 @@ class PerformanceOptimizer:
         # Vérifier les requêtes lentes
         if stats["slow_queries_count"] > 10:
             suggestions.append(
-                "⚠️ Nombreuses requêtes lentes - Optimisez les requêtes de base de données"
+                "⚠️ Nombreuses requêtes lentes - Optimisez les requêtes de base de données",
             )
 
         # Vérifier l'utilisation du cache
@@ -319,10 +319,9 @@ class PerformanceOptimizer:
                 if time.time() - self.cache_ttl.get(key, 0) < ttl_seconds:
                     self.metrics["cache_hits"] += 1
                     return self.cache[key]
-                else:
-                    # Expiré, supprimer
-                    del self.cache[key]
-                    del self.cache_ttl[key]
+                # Expiré, supprimer
+                del self.cache[key]
+                del self.cache_ttl[key]
 
             self.metrics["cache_misses"] += 1
             return None

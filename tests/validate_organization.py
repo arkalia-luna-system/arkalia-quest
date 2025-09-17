@@ -111,7 +111,7 @@ def test_quick_script():
         # Lancer le test
         result = subprocess.run(
             [sys.executable, "scripts/test_boutons_rapide.py"],
-            capture_output=True,
+            check=False, capture_output=True,
             text=True,
             timeout=60,
         )
@@ -140,9 +140,8 @@ def test_quick_script():
                     if not missing_fields:
                         print("✅ Structure JSON correcte")
                         return True
-                    else:
-                        print(f"❌ Champs manquants: {missing_fields}")
-                        return False
+                    print(f"❌ Champs manquants: {missing_fields}")
+                    return False
 
                 except Exception as e:
                     print(f"❌ Erreur lecture JSON: {e}")

@@ -4,7 +4,6 @@ Script de nettoyage des logs pour Arkalia Quest
 Supprime les logs anciens et optimise les fichiers de log
 """
 
-import os
 import shutil
 from datetime import datetime, timedelta
 from pathlib import Path

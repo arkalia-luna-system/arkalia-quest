@@ -2,9 +2,7 @@
 Tests simplifiés pour adaptive_storytelling.py
 """
 
-from unittest.mock import Mock, patch
 
-import pytest
 
 from core.adaptive_storytelling import AdaptiveStorytelling
 

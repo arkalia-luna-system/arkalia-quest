@@ -111,7 +111,7 @@ class DatabaseOptimizer:
                         "CREATE INDEX IF NOT EXISTS idx_users_score ON users(score)",
                         "CREATE INDEX IF NOT EXISTS idx_users_level ON users(level)",
                         "CREATE INDEX IF NOT EXISTS idx_users_created_at ON users(created_at)",
-                    ]
+                    ],
                 )
 
             if "games" in existing_tables:
@@ -121,7 +121,7 @@ class DatabaseOptimizer:
                         "CREATE INDEX IF NOT EXISTS idx_games_type ON games(type)",
                         "CREATE INDEX IF NOT EXISTS idx_games_score ON games(score)",
                         "CREATE INDEX IF NOT EXISTS idx_games_created_at ON games(created_at)",
-                    ]
+                    ],
                 )
 
             if "badges" in existing_tables:
@@ -130,7 +130,7 @@ class DatabaseOptimizer:
                         "CREATE INDEX IF NOT EXISTS idx_badges_user_id ON badges(user_id)",
                         "CREATE INDEX IF NOT EXISTS idx_badges_type ON badges(type)",
                         "CREATE INDEX IF NOT EXISTS idx_badges_earned_at ON badges(earned_at)",
-                    ]
+                    ],
                 )
 
             if "missions" in existing_tables:
@@ -139,7 +139,7 @@ class DatabaseOptimizer:
                         "CREATE INDEX IF NOT EXISTS idx_missions_user_id ON missions(user_id)",
                         "CREATE INDEX IF NOT EXISTS idx_missions_status ON missions(status)",
                         "CREATE INDEX IF NOT EXISTS idx_missions_created_at ON missions(created_at)",
-                    ]
+                    ],
                 )
 
             if "leaderboard" in existing_tables:
@@ -147,7 +147,7 @@ class DatabaseOptimizer:
                     [
                         "CREATE INDEX IF NOT EXISTS idx_leaderboard_score ON leaderboard(score)",
                         "CREATE INDEX IF NOT EXISTS idx_leaderboard_updated_at ON leaderboard(updated_at)",
-                    ]
+                    ],
                 )
 
             for index_sql in indexes:
@@ -178,8 +178,7 @@ class DatabaseOptimizer:
             if time.time() - cache_entry["timestamp"] < self.cache_ttl:
                 self.stats["cache_hits"] += 1
                 return cache_entry["data"]
-            else:
-                del self.query_cache[cache_key]
+            del self.query_cache[cache_key]
 
         self.stats["cache_misses"] += 1
 
@@ -210,13 +209,13 @@ class DatabaseOptimizer:
                 if execution_time > 1.0:  # > 1 seconde
                     self.stats["slow_queries"] += 1
                     logging.warning(
-                        f"Requête lente détectée: {execution_time:.2f}s - {query[:100]}"
+                        f"Requête lente détectée: {execution_time:.2f}s - {query[:100]}",
                     )
 
                 return results
 
             except sqlite3.Error as e:
-                logging.error(f"Erreur requête SQL: {e}")
+                logging.exception(f"Erreur requête SQL: {e}")
                 raise
 
     def execute_update(self, query: str, params: tuple = None) -> int:
@@ -253,14 +252,14 @@ class DatabaseOptimizer:
                 if execution_time > 1.0:
                     self.stats["slow_queries"] += 1
                     logging.warning(
-                        f"Requête lente détectée: {execution_time:.2f}s - {query[:100]}"
+                        f"Requête lente détectée: {execution_time:.2f}s - {query[:100]}",
                     )
 
                 return cursor.rowcount
 
             except sqlite3.Error as e:
                 conn.rollback()
-                logging.error(f"Erreur requête SQL: {e}")
+                logging.exception(f"Erreur requête SQL: {e}")
                 raise
 
     def _invalidate_cache(self):
@@ -426,8 +425,7 @@ class DatabaseOptimizer:
             if time.time() - self.query_cache[cache_key]["timestamp"] < self.cache_ttl:
                 self.stats["cache_hits"] += 1
                 return self.query_cache[cache_key]["data"]
-            else:
-                del self.query_cache[cache_key]
+            del self.query_cache[cache_key]
 
         self.stats["cache_misses"] += 1
 
@@ -476,12 +474,12 @@ class DatabaseOptimizer:
 
                 execution_time = time.time() - start_time
                 logging.info(
-                    f"Batch de {len(operations)} opérations exécuté en {execution_time:.3f}s"
+                    f"Batch de {len(operations)} opérations exécuté en {execution_time:.3f}s",
                 )
 
             except sqlite3.Error as e:
                 conn.rollback()
-                logging.error(f"Erreur lors de l'exécution du batch: {e}")
+                logging.exception(f"Erreur lors de l'exécution du batch: {e}")
                 raise
 
     def close_all_connections(self):

@@ -196,7 +196,7 @@ class GitHubLabelsSetup:
         """Vérifie l'authentification GitHub"""
         try:
             response = requests.get(
-                f"https://api.github.com/repos/{self.repo}", headers=self.headers
+                f"https://api.github.com/repos/{self.repo}", headers=self.headers,
             )
             return response.status_code == 200
         except Exception as e:
@@ -209,9 +209,8 @@ class GitHubLabelsSetup:
             response = requests.get(self.base_url, headers=self.headers)
             if response.status_code == 200:
                 return response.json()
-            else:
-                print(f"❌ Erreur lors de la récupération des labels: {response.status_code}")
-                return []
+            print(f"❌ Erreur lors de la récupération des labels: {response.status_code}")
+            return []
         except Exception as e:
             print(f"❌ Erreur lors de la récupération des labels: {e}")
             return []
@@ -223,14 +222,13 @@ class GitHubLabelsSetup:
             if response.status_code == 201:
                 print(f"✅ Label créé: {label['name']}")
                 return True
-            elif response.status_code == 422:
+            if response.status_code == 422:
                 print(f"⚠️  Label déjà existant: {label['name']}")
                 return True
-            else:
-                print(
-                    f"❌ Erreur lors de la création du label {label['name']}: {response.status_code}"
-                )
-                return False
+            print(
+                f"❌ Erreur lors de la création du label {label['name']}: {response.status_code}",
+            )
+            return False
         except Exception as e:
             print(f"❌ Erreur lors de la création du label {label['name']}: {e}")
             return False
@@ -243,11 +241,10 @@ class GitHubLabelsSetup:
             if response.status_code == 200:
                 print(f"🔄 Label mis à jour: {label['name']}")
                 return True
-            else:
-                print(
-                    f"❌ Erreur lors de la mise à jour du label {label['name']}: {response.status_code}"
-                )
-                return False
+            print(
+                f"❌ Erreur lors de la mise à jour du label {label['name']}: {response.status_code}",
+            )
+            return False
         except Exception as e:
             print(f"❌ Erreur lors de la mise à jour du label {label['name']}: {e}")
             return False
@@ -281,10 +278,9 @@ class GitHubLabelsSetup:
                 # Mise à jour du label existant
                 if self.update_label(label["name"], label):
                     success_count += 1
-            else:
-                # Création d'un nouveau label
-                if self.create_label(label):
-                    success_count += 1
+            # Création d'un nouveau label
+            elif self.create_label(label):
+                success_count += 1
 
         print()
         print("=" * 60)
@@ -293,9 +289,8 @@ class GitHubLabelsSetup:
         if success_count == total_count:
             print("🎉 Tous les labels ont été configurés avec succès !")
             return True
-        else:
-            print("⚠️  Certains labels n'ont pas pu être configurés")
-            return False
+        print("⚠️  Certains labels n'ont pas pu être configurés")
+        return False
 
     def generate_labels_documentation(self) -> str:
         """Génère la documentation des labels"""

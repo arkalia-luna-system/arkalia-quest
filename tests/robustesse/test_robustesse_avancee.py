@@ -191,7 +191,7 @@ class TestRobustesseAvancee(unittest.TestCase):
         )
 
         print(
-            f"✅ Mémoire: {initial_memory / 1024 / 1024:.1f}MB → {final_memory / 1024 / 1024:.1f}MB"
+            f"✅ Mémoire: {initial_memory / 1024 / 1024:.1f}MB → {final_memory / 1024 / 1024:.1f}MB",
         )
         print(f"📊 Augmentation: {total_increase / 1024 / 1024:.1f}MB")
 
@@ -220,7 +220,7 @@ class TestRobustesseAvancee(unittest.TestCase):
         self.assertGreater(success_rate, 0.8, "Taux de récupération trop faible")
 
         print(
-            f"✅ Récupération: {self.robustness_metrics['recovery_success']}/{len(recovery_tests)}"
+            f"✅ Récupération: {self.robustness_metrics['recovery_success']}/{len(recovery_tests)}",
         )
         print(f"📊 Taux de succès: {success_rate:.1%}")
 
@@ -261,7 +261,7 @@ class TestRobustesseAvancee(unittest.TestCase):
             "Corruption des données concurrentes",
         )
         self.assertEqual(
-            len(shared_data["data"]), expected_counter, "Perte de données concurrentes"
+            len(shared_data["data"]), expected_counter, "Perte de données concurrentes",
         )
 
         print(f"✅ Concurrence: {shared_data['counter']} opérations thread-safe")

@@ -12,8 +12,7 @@ Version: 1.0
 
 import json
 import logging
-import random
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import Any, Optional
 
 logger = logging.getLogger(__name__)
@@ -426,7 +425,7 @@ class AdvancedAchievements:
         }
 
     def check_achievement_progress(
-        self, player_id: str, action: str, context: Optional[dict[str, Any]] = None
+        self, player_id: str, action: str, context: Optional[dict[str, Any]] = None,
     ) -> list[dict[str, Any]]:
         """Vérifie la progression des achievements pour une action"""
         new_achievements = []
@@ -466,39 +465,39 @@ class AdvancedAchievements:
 
         if req_type == "action_count":
             return self._check_action_count_requirement(player_id, requirements, action)
-        elif req_type == "consecutive_success":
+        if req_type == "consecutive_success":
             return self._check_consecutive_success_requirement(player_id, requirements, action)
-        elif req_type == "zone_discovery":
+        if req_type == "zone_discovery":
             return self._check_zone_discovery_requirement(player_id, requirements)
-        elif req_type == "secret_count":
+        if req_type == "secret_count":
             return self._check_secret_count_requirement(player_id, requirements)
-        elif req_type == "unique_interactions":
+        if req_type == "unique_interactions":
             return self._check_unique_interactions_requirement(player_id, requirements, action)
-        elif req_type == "guild_leadership":
+        if req_type == "guild_leadership":
             return self._check_guild_leadership_requirement(player_id, requirements)
-        elif req_type == "game_completion":
+        if req_type == "game_completion":
             return self._check_game_completion_requirement(player_id, requirements)
-        elif req_type == "skill_mastery":
+        if req_type == "skill_mastery":
             return self._check_skill_mastery_requirement(player_id, requirements)
-        elif req_type == "relationship_level":
+        if req_type == "relationship_level":
             return self._check_relationship_level_requirement(player_id, requirements)
-        elif req_type == "speed_challenge":
+        if req_type == "speed_challenge":
             return self._check_speed_challenge_requirement(player_id, requirements)
-        elif req_type == "single_speed_challenge":
+        if req_type == "single_speed_challenge":
             return self._check_single_speed_challenge_requirement(player_id, requirements)
-        elif req_type == "creative_solutions":
+        if req_type == "creative_solutions":
             return self._check_creative_solutions_requirement(player_id, requirements)
-        elif req_type == "unexpected_solution":
+        if req_type == "unexpected_solution":
             return self._check_unexpected_solution_requirement(player_id, requirements, context)
-        elif req_type == "retry_count":
+        if req_type == "retry_count":
             return self._check_retry_count_requirement(player_id, requirements)
-        elif req_type == "comeback_success":
+        if req_type == "comeback_success":
             return self._check_comeback_success_requirement(player_id, requirements)
 
         return False
 
     def _check_action_count_requirement(
-        self, player_id: str, requirements: dict[str, Any], action: str
+        self, player_id: str, requirements: dict[str, Any], action: str,
     ) -> bool:
         """Vérifie les exigences de comptage d'actions"""
         required_action = requirements.get("action")
@@ -523,7 +522,7 @@ class AdvancedAchievements:
         return current_count >= required_count
 
     def _check_consecutive_success_requirement(
-        self, player_id: str, requirements: dict[str, Any], action: str
+        self, player_id: str, requirements: dict[str, Any], action: str,
     ) -> bool:
         """Vérifie les exigences de succès consécutifs"""
         required_action = requirements.get("action")
@@ -537,7 +536,7 @@ class AdvancedAchievements:
         return True
 
     def _check_zone_discovery_requirement(
-        self, player_id: str, requirements: dict[str, Any]
+        self, player_id: str, requirements: dict[str, Any],
     ) -> bool:
         """Vérifie les exigences de découverte de zones"""
         required_zones = requirements.get("zones", [])
@@ -556,7 +555,7 @@ class AdvancedAchievements:
         return True
 
     def _check_unique_interactions_requirement(
-        self, player_id: str, requirements: dict[str, Any], action: str
+        self, player_id: str, requirements: dict[str, Any], action: str,
     ) -> bool:
         """Vérifie les exigences d'interactions uniques"""
         required_action = requirements.get("action")
@@ -570,7 +569,7 @@ class AdvancedAchievements:
         return True
 
     def _check_guild_leadership_requirement(
-        self, player_id: str, requirements: dict[str, Any]
+        self, player_id: str, requirements: dict[str, Any],
     ) -> bool:
         """Vérifie les exigences de leadership de guilde"""
         # Logique pour vérifier le leadership de guilde
@@ -578,7 +577,7 @@ class AdvancedAchievements:
         return True
 
     def _check_game_completion_requirement(
-        self, player_id: str, requirements: dict[str, Any]
+        self, player_id: str, requirements: dict[str, Any],
     ) -> bool:
         """Vérifie les exigences de completion de jeux"""
         # Logique pour vérifier la completion de jeux
@@ -586,7 +585,7 @@ class AdvancedAchievements:
         return True
 
     def _check_skill_mastery_requirement(
-        self, player_id: str, requirements: dict[str, Any]
+        self, player_id: str, requirements: dict[str, Any],
     ) -> bool:
         """Vérifie les exigences de maîtrise de compétences"""
         # Logique pour vérifier la maîtrise de compétences
@@ -594,7 +593,7 @@ class AdvancedAchievements:
         return True
 
     def _check_relationship_level_requirement(
-        self, player_id: str, requirements: dict[str, Any]
+        self, player_id: str, requirements: dict[str, Any],
     ) -> bool:
         """Vérifie les exigences de niveau de relation"""
         # Logique pour vérifier le niveau de relation
@@ -602,7 +601,7 @@ class AdvancedAchievements:
         return True
 
     def _check_speed_challenge_requirement(
-        self, player_id: str, requirements: dict[str, Any]
+        self, player_id: str, requirements: dict[str, Any],
     ) -> bool:
         """Vérifie les exigences de défi de vitesse"""
         # Logique pour vérifier les défis de vitesse
@@ -610,7 +609,7 @@ class AdvancedAchievements:
         return True
 
     def _check_single_speed_challenge_requirement(
-        self, player_id: str, requirements: dict[str, Any]
+        self, player_id: str, requirements: dict[str, Any],
     ) -> bool:
         """Vérifie les exigences de défi de vitesse unique"""
         # Logique pour vérifier le défi de vitesse unique
@@ -618,7 +617,7 @@ class AdvancedAchievements:
         return True
 
     def _check_creative_solutions_requirement(
-        self, player_id: str, requirements: dict[str, Any]
+        self, player_id: str, requirements: dict[str, Any],
     ) -> bool:
         """Vérifie les exigences de solutions créatives"""
         # Logique pour vérifier les solutions créatives
@@ -647,7 +646,7 @@ class AdvancedAchievements:
         return True
 
     def _check_comeback_success_requirement(
-        self, player_id: str, requirements: dict[str, Any]
+        self, player_id: str, requirements: dict[str, Any],
     ) -> bool:
         """Vérifie les exigences de succès après échecs"""
         # Logique pour vérifier le succès après échecs
@@ -655,7 +654,7 @@ class AdvancedAchievements:
         return True
 
     def _unlock_achievement(
-        self, player_id: str, achievement_id: str, achievement: dict[str, Any]
+        self, player_id: str, achievement_id: str, achievement: dict[str, Any],
     ) -> None:
         """Débloque un achievement pour un joueur"""
         if player_id not in self.player_achievements:
@@ -672,7 +671,7 @@ class AdvancedAchievements:
                 "unlocked_at": datetime.now().isoformat(),
                 "points": achievement.get("points", 0),
                 "category": achievement.get("category", "general"),
-            }
+            },
         )
 
         # Mettre à jour les statistiques
@@ -725,7 +724,7 @@ class AdvancedAchievements:
 
             if category:
                 category_achievements = player_data.get("statistics", {}).get(
-                    f"{category}_achievements", 0
+                    f"{category}_achievements", 0,
                 )
                 score = category_achievements
             else:
@@ -743,7 +742,7 @@ class AdvancedAchievements:
                             if category
                             else 0
                         ),
-                    }
+                    },
                 )
 
         # Trier par score décroissant

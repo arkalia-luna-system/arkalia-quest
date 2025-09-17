@@ -231,7 +231,7 @@ class TestUtilsCoverage(unittest.TestCase):
 
             # Vérifier que les méthodes de logging ont été appelées
             self.assertTrue(
-                mock_error.called and mock_warning.called and mock_info.called and mock_debug.called
+                mock_error.called and mock_warning.called and mock_info.called and mock_debug.called,
             )
 
     def test_game_logger_specialized_logging(self):

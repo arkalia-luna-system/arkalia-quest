@@ -12,8 +12,7 @@ Version: 1.0
 
 import json
 import logging
-import random
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import Any, Optional
 
 logger = logging.getLogger(__name__)
@@ -144,8 +143,8 @@ class TechnicalTutorials:
                             ],
                             "correct": 1,
                             "explanation": "Le chiffrement de César utilise un décalage fixe dans l'alphabet pour chiffrer les messages.",
-                        }
-                    ]
+                        },
+                    ],
                 },
                 "references": [
                     {
@@ -212,15 +211,15 @@ class TechnicalTutorials:
                             ],
                             "correct": 0,
                             "explanation": "DDoS signifie Distributed Denial of Service - une attaque qui surcharge un serveur avec du trafic.",
-                        }
-                    ]
+                        },
+                    ],
                 },
                 "references": [
                     {
                         "title": "Sécurité Réseau - OWASP",
                         "url": "https://owasp.org/www-project-top-ten/",
                         "type": "documentation",
-                    }
+                    },
                 ],
             },
             "ethical_hacking_intro": {
@@ -273,15 +272,15 @@ class TechnicalTutorials:
                             ],
                             "correct": 1,
                             "explanation": "Un test de pénétration est un test de sécurité autorisé pour identifier les vulnérabilités.",
-                        }
-                    ]
+                        },
+                    ],
                 },
                 "references": [
                     {
                         "title": "Certified Ethical Hacker (CEH)",
                         "url": "https://www.eccouncil.org/programs/certified-ethical-hacker-ceh/",
                         "type": "certification",
-                    }
+                    },
                 ],
             },
         }
@@ -450,7 +449,7 @@ class TechnicalTutorials:
         }
 
     def get_tutorial_content(
-        self, player_id: str, tutorial_id: str, step: int = 0
+        self, player_id: str, tutorial_id: str, step: int = 0,
     ) -> dict[str, Any]:
         """Retourne le contenu d'un tutoriel à une étape donnée"""
         if tutorial_id not in self.tutorials:
@@ -525,13 +524,12 @@ class TechnicalTutorials:
                 "message": "Tutoriel terminé ! Félicitations !",
                 "rewards": self._calculate_tutorial_rewards(tutorial),
             }
-        else:
-            return {
-                "success": True,
-                "tutorial_completed": False,
-                "message": "Étape terminée ! Continue !",
-                "next_step": step + 1,
-            }
+        return {
+            "success": True,
+            "tutorial_completed": False,
+            "message": "Étape terminée ! Continue !",
+            "next_step": step + 1,
+        }
 
     def _calculate_tutorial_rewards(self, tutorial: dict[str, Any]) -> dict[str, Any]:
         """Calcule les récompenses d'un tutoriel"""
@@ -559,7 +557,7 @@ class TechnicalTutorials:
         }
 
     def submit_quiz(
-        self, player_id: str, tutorial_id: str, answers: dict[str, int]
+        self, player_id: str, tutorial_id: str, answers: dict[str, int],
     ) -> dict[str, Any]:
         """Soumet les réponses d'un quiz"""
         if tutorial_id not in self.tutorials:
@@ -612,8 +610,7 @@ class TechnicalTutorials:
         """Retourne les références d'apprentissage"""
         if category:
             return {category: self.references.get(category, [])}
-        else:
-            return self.references
+        return self.references
 
     def get_concepts(self) -> dict[str, Any]:
         """Retourne tous les concepts disponibles"""

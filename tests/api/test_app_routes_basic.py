@@ -8,7 +8,7 @@ except Exception:
     flask_app = None
 
 
-@pytest.fixture()
+@pytest.fixture
 def client():
     if flask_app is None:
         pytest.skip("app non importable dans cet environnement de test")

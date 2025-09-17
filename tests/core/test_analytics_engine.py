@@ -15,13 +15,13 @@ from core.analytics_engine import (
 )
 
 
-@pytest.fixture()
+@pytest.fixture
 def analytics_engine():
     with patch("core.analytics_engine.sqlite3.connect"):
         return AnalyticsEngine(db_path=":memory:")
 
 
-@pytest.fixture()
+@pytest.fixture
 def sample_event():
     return AnalyticsEvent(
         event_type=EventType.COMMAND_EXECUTED,
@@ -33,7 +33,7 @@ def sample_event():
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def sample_profile():
     return UserProfile(
         user_id="test_user",

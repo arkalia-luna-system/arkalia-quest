@@ -215,7 +215,7 @@ class TestEducationalGamesEngine(unittest.TestCase):
 
         # Réponse contenant la solution
         self.assertTrue(
-            self.engine._check_answer(code_game, "Ajouter une vérification de liste vide")
+            self.engine._check_answer(code_game, "Ajouter une vérification de liste vide"),
         )
 
         # Réponse incorrecte
@@ -470,7 +470,7 @@ def run_educational_games_tests():
     print(f"❌ Échecs : {len(result.failures)}")
     print(f"🚨 Erreurs : {len(result.errors)}")
     print(
-        f"📈 Taux de réussite : {((result.testsRun - len(result.failures) - len(result.errors)) / result.testsRun * 100):.1f}%"
+        f"📈 Taux de réussite : {((result.testsRun - len(result.failures) - len(result.errors)) / result.testsRun * 100):.1f}%",
     )
 
     if result.failures:

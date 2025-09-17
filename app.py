@@ -1,7 +1,6 @@
 import json
 import logging
 import os
-import random
 import secrets
 import time
 import types
@@ -567,14 +566,14 @@ def executer_chapitre_6(etape):
             "urgence": "CRITIQUE",
             "timer": chapitre.get("timer", 30),
         }
-    elif etape == "mission_principale":
+    if etape == "mission_principale":
         return {
             "mission_principale": True,
             "commande": chapitre.get("mission_principale", {}).get("commande", "save_luna"),
             "timer": chapitre.get("mission_principale", {}).get("timer", 30),
             "difficulte": "extreme",
         }
-    elif etape.startswith("etape_"):
+    if etape.startswith("etape_"):
         numero_etape = int(etape.split("_")[1])
         etapes = chapitre.get("etapes", [])
         if 0 <= numero_etape - 1 < len(etapes):
@@ -735,7 +734,7 @@ def get_progression_data():
                 "daily_challenges": daily_challenges,
                 "achievements": achievements,
                 "leaderboard": leaderboard,
-            }
+            },
         )
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
@@ -766,28 +765,27 @@ def execute_terminal_command():
                     "command": command,
                     "profile_updated": result.get("profile_updated", False),
                     "score_gagne": result.get("score_gagne", 0),
-                }
+                },
             )
-        else:
-            return (
-                jsonify(
-                    {
-                        "success": False,
-                        "error": result.get("message", "Erreur inconnue"),
-                        "command": command,
-                    }
-                ),
-                400,
-            )
+        return (
+            jsonify(
+                {
+                    "success": False,
+                    "error": result.get("message", "Erreur inconnue"),
+                    "command": command,
+                },
+            ),
+            400,
+        )
 
     except Exception as e:
         return (
             jsonify(
                 {
                     "success": False,
-                    "error": f"Erreur serveur: {str(e)}",
+                    "error": f"Erreur serveur: {e!s}",
                     "command": command if "command" in locals() else "unknown",
-                }
+                },
             ),
             500,
         )
@@ -798,8 +796,7 @@ def get_mission(mission_name):
     mission = db_manager.load_mission(mission_name)
     if mission:
         return jsonify(mission)
-    else:
-        return jsonify({"erreur": f"Mission {mission_name} non trouvée"}), 404
+    return jsonify({"erreur": f"Mission {mission_name} non trouvée"}), 404
 
 
 # Fonction de rate limiting supprimée - désactivée pour une meilleure expérience de jeu
@@ -831,8 +828,8 @@ def commande():
                         "réussite": False,
                         "message": "❌ Données invalides. Envoie un objet JSON valide.",
                         "profile_updated": False,
-                    }
-                }
+                    },
+                },
             ),
             400,
         )
@@ -849,8 +846,8 @@ def commande():
                         "réussite": False,
                         "message": "❌ Commande invalide. La commande doit être une chaîne de caractères.",
                         "profile_updated": False,
-                    }
-                }
+                    },
+                },
             ),
             400,
         )
@@ -866,8 +863,8 @@ def commande():
                         "réussite": False,
                         "message": "❌ Commande vide. Utilise la clé 'commande' ou 'cmd' avec une valeur non vide.",
                         "profile_updated": False,
-                    }
-                }
+                    },
+                },
             ),
             400,
         )
@@ -880,8 +877,8 @@ def commande():
                         "réussite": False,
                         "message": "❌ Commande trop longue. Maximum 1000 caractères.",
                         "profile_updated": False,
-                    }
-                }
+                    },
+                },
             ),
             400,
         )
@@ -893,7 +890,7 @@ def commande():
         # Bloquer l'IP si menace critique
         if security_check["risk_level"] == "critical":
             security_manager.block_ip(
-                client_ip, f"Commande dangereuse: {security_check['threats_detected']}"
+                client_ip, f"Commande dangereuse: {security_check['threats_detected']}",
             )
 
         return (
@@ -903,8 +900,8 @@ def commande():
                         "réussite": False,
                         "message": "❌ Commande rejetée pour des raisons de sécurité.",
                         "profile_updated": False,
-                    }
-                }
+                    },
+                },
             ),
             400,
         )
@@ -926,8 +923,8 @@ def commande():
                         "réussite": False,
                         "message": "❌ Erreur interne lors du traitement de la commande.",
                         "profile_updated": False,
-                    }
-                }
+                    },
+                },
             ),
             500,
         )
@@ -941,7 +938,7 @@ def commande():
             # Vérifier les badges secrets et achievements
             unlocked_badges = gamification.check_badges_secrets(profil, "command_used", command=cmd)
             unlocked_achievements = gamification.check_achievements(
-                profil.get("id", "default"), profil, "command_used", command=cmd
+                profil.get("id", "default"), profil, "command_used", command=cmd,
             )
 
             # Ajouter les badges débloqués au profil
@@ -979,8 +976,7 @@ def get_mission_via_engine(mission_name):
     result = arkalia_engine.get_mission_info(mission_name)
     if result["success"]:
         return jsonify(result["mission"])
-    else:
-        return jsonify({"erreur": result["message"]}), 404
+    return jsonify({"erreur": result["message"]}), 404
 
 
 @app.route("/api/profile/summary")
@@ -1022,7 +1018,7 @@ def get_profile_summary():
                     "created_at": "2025-01-01T00:00:00",
                     "last_login": "2025-01-01T00:00:00",
                 },
-            }
+            },
         )
 
 
@@ -1100,8 +1096,7 @@ def get_profile_from_db(username):
         profile = db_manager.load_profile(username)
         if profile:
             return jsonify(profile)
-        else:
-            return jsonify({"error": "Profile not found"}), 404
+        return jsonify({"error": "Profile not found"}), 404
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -1117,8 +1112,7 @@ def save_profile_to_db(username):
         success = db_manager.save_profile(username, data)
         if success:
             return jsonify({"success": True, "message": "Profile sauvegardé"})
-        else:
-            return jsonify({"error": "Failed to save profile"}), 500
+        return jsonify({"error": "Failed to save profile"}), 500
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -1193,7 +1187,7 @@ def get_gamification_leaderboard():
                             "level": int(player.get("level", 1)),
                             "badges_count": int(player.get("badges_count", 0)),
                             "is_current": bool(player.get("is_current", False)),
-                        }
+                        },
                     )
 
         # Statistiques globales avec protection contre division par zéro
@@ -1227,7 +1221,7 @@ def get_gamification_leaderboard():
                 "success": True,
                 "leaderboard": formatted_leaderboard,
                 "stats": formatted_stats,
-            }
+            },
         )
 
     except Exception as e:
@@ -1238,7 +1232,7 @@ def get_gamification_leaderboard():
                 {
                     "success": False,
                     "error": "Erreur temporaire du serveur. Veuillez réessayer.",
-                }
+                },
             ),
             500,
         )
@@ -1343,8 +1337,7 @@ def api_enhanced_mission_detail(mission_id):
         mission_data = enhanced_mission_system.get_mission_details(mission_id)
         if mission_data:
             return jsonify({"success": True, "mission": mission_data})
-        else:
-            return jsonify({"success": False, "error": "Mission non trouvée"}), 404
+        return jsonify({"success": False, "error": "Mission non trouvée"}), 404
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
 
@@ -1444,8 +1437,7 @@ def get_challenge_info(room_id):
         info = websocket_manager.get_room_info(room_id)
         if info:
             return jsonify(info)
-        else:
-            return jsonify({"error": "Challenge not found"}), 404
+        return jsonify({"error": "Challenge not found"}), 404
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -1617,10 +1609,9 @@ def test_database():
                     "status": "working",
                     "message": "Database test successful",
                     "profile": loaded_profile,
-                }
+                },
             )
-        else:
-            return jsonify({"status": "error", "message": "Failed to save profile"})
+        return jsonify({"status": "error", "message": "Failed to save profile"})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
 
@@ -1649,7 +1640,7 @@ def test_websocket():
                 "message": "WebSocket test successful",
                 "room_id": room_id,
                 "room_info": room_info,
-            }
+            },
         )
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
@@ -1677,7 +1668,7 @@ def test_ai():
                 "status": "working",
                 "message": "AI test successful",
                 "analysis": test_analysis,
-            }
+            },
         )
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
@@ -1712,8 +1703,7 @@ def get_tutorial_step(step_id):
         step = tutorial_manager.get_step(step_id)
         if step:
             return jsonify({"success": True, "step": step})
-        else:
-            return jsonify({"error": "Step not found"}), 404
+        return jsonify({"error": "Step not found"}), 404
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -2151,37 +2141,36 @@ def get_tutorial_steps():
                 # Fallback si l'import échoue
                 tutorial_data = None
             return jsonify(tutorial_data)
-        else:
-            # Fallback vers les données locales
-            return jsonify(
-                {
-                    "tutoriel": {
-                        "etapes": [
-                            {
-                                "id": 1,
-                                "titre": "Bienvenue dans Arkalia Quest",
-                                "message": "Salut hacker ! Je suis LUNA, ton assistant IA. Prêt pour l'aventure ?",
-                                "commande": "luna_contact",
-                                "aide": "Tape 'luna_contact' pour me parler",
-                            },
-                            {
-                                "id": 2,
-                                "titre": "Première mission",
-                                "message": "Découvre le SOS mystérieux du Dr Althea Voss",
-                                "commande": "prologue",
-                                "aide": "Tape 'prologue' pour commencer l'histoire",
-                            },
-                            {
-                                "id": 3,
-                                "titre": "Répare le site de LUNA",
-                                "message": "Aide-moi à réparer mon site web compromis",
-                                "commande": "acte_1",
-                                "aide": "Tape 'acte_1' pour la première mission",
-                            },
-                        ]
-                    }
-                }
-            )
+        # Fallback vers les données locales
+        return jsonify(
+            {
+                "tutoriel": {
+                    "etapes": [
+                        {
+                            "id": 1,
+                            "titre": "Bienvenue dans Arkalia Quest",
+                            "message": "Salut hacker ! Je suis LUNA, ton assistant IA. Prêt pour l'aventure ?",
+                            "commande": "luna_contact",
+                            "aide": "Tape 'luna_contact' pour me parler",
+                        },
+                        {
+                            "id": 2,
+                            "titre": "Première mission",
+                            "message": "Découvre le SOS mystérieux du Dr Althea Voss",
+                            "commande": "prologue",
+                            "aide": "Tape 'prologue' pour commencer l'histoire",
+                        },
+                        {
+                            "id": 3,
+                            "titre": "Répare le site de LUNA",
+                            "message": "Aide-moi à réparer mon site web compromis",
+                            "commande": "acte_1",
+                            "aide": "Tape 'acte_1' pour la première mission",
+                        },
+                    ],
+                },
+            },
+        )
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -2208,7 +2197,7 @@ def health_check():
                         "tutorial": tutorial_status,
                     },
                     "uptime": (time.time() - start_time if "start_time" in globals() else 0),
-                }
+                },
             ),
             200,
         )
@@ -2219,7 +2208,7 @@ def health_check():
                     "status": "unhealthy",
                     "error": str(e),
                     "timestamp": datetime.now().isoformat(),
-                }
+                },
             ),
             500,
         )
@@ -2238,7 +2227,7 @@ def metrics():
                     "code_quality": "A+",
                     "ci_status": "passing",
                     "last_deploy": datetime.now().isoformat(),
-                }
+                },
             ),
             200,
         )
@@ -2369,7 +2358,7 @@ def api_security_stats():
                 "success": True,
                 "security_stats": stats,
                 "timestamp": datetime.now().isoformat(),
-            }
+            },
         )
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
@@ -2651,7 +2640,7 @@ def api_trigger_interaction():
             )
 
         result = micro_interactions.trigger_interaction(
-            player_id, interaction_type, target_element, context
+            player_id, interaction_type, target_element, context,
         )
         return jsonify(result)
     except Exception as e:
@@ -2939,7 +2928,7 @@ def api_update_mission_progress():
             return jsonify({"error": "Paramètres manquants"}), 400
 
         result = mission_progress_tracker.update_mission_progress(
-            mission_id, player_id, step_id, action, success, metadata
+            mission_id, player_id, step_id, action, success, metadata,
         )
 
         return jsonify(result)
@@ -3041,7 +3030,7 @@ def api_update_secondary_mission():
             return jsonify({"error": "Paramètres manquants"}), 400
 
         result = secondary_missions.update_mission_progress(
-            player_id, mission_id, objective_id, completed
+            player_id, mission_id, objective_id, completed,
         )
         return jsonify(result)
     except Exception as e:
@@ -3061,7 +3050,7 @@ def api_check_achievements():
             return jsonify({"error": "Action manquante"}), 400
 
         new_achievements = advanced_achievements.check_achievement_progress(
-            player_id, action, context
+            player_id, action, context,
         )
 
         return jsonify({"new_achievements": new_achievements, "count": len(new_achievements)})
@@ -3189,7 +3178,7 @@ def api_complete_tutorial_step():
             return jsonify({"error": "Paramètres manquants"}), 400
 
         result = technical_tutorials.complete_tutorial_step(
-            player_id, tutorial_id, step, exercise_result
+            player_id, tutorial_id, step, exercise_result,
         )
         return jsonify(result)
     except Exception as e:
@@ -3251,7 +3240,7 @@ if __name__ == "__main__":
     print("🚀 Utilisez Gunicorn pour la production :")
     print("   gunicorn -c gunicorn.conf.py app:app")
     print("   ou Docker : docker-compose up")
-    print("")
+    print()
     print("⚠️  Serveur de développement désactivé pour éviter les fuites de ressources")
     print("   Utilisez 'python -m flask run' pour le développement")
     # app.run(host="0.0.0.0", port=5001, debug=False, threaded=True)

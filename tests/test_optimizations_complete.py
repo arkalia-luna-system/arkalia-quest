@@ -438,10 +438,9 @@ def main():
         print("\n🎉 TOUTES LES OPTIMISATIONS SONT FONCTIONNELLES !")
         print("🚀 Arkalia Quest est prêt pour la production !")
         return 0
-    else:
-        print(f"\n⚠️ {total_tests - total_passed} test(s) ont échoué")
-        print("🔧 Des corrections sont nécessaires")
-        return 1
+    print(f"\n⚠️ {total_tests - total_passed} test(s) ont échoué")
+    print("🔧 Des corrections sont nécessaires")
+    return 1
 
 
 if __name__ == "__main__":

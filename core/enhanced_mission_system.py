@@ -4,11 +4,9 @@ Enhanced Mission System - Système de missions amélioré pour Arkalia Quest
 Ajoute des choix multiples, des échecs possibles et des récompenses variables
 """
 
-import json
 import random
-import time
-from datetime import datetime, timedelta
-from typing import Any, Optional
+from datetime import datetime
+from typing import Any
 
 from core.database import DatabaseManager
 
@@ -99,7 +97,7 @@ class EnhancedMissionSystem:
             print(f"Erreur chargement missions: {e}")
 
     def create_interactive_mission(
-        self, mission_id: str, mission_data: dict[str, Any]
+        self, mission_id: str, mission_data: dict[str, Any],
     ) -> dict[str, Any]:
         """Crée une mission interactive avec choix multiples"""
         return {
@@ -118,7 +116,7 @@ class EnhancedMissionSystem:
         }
 
     def execute_mission_choice(
-        self, mission_id: str, choice_id: str, profile: dict[str, Any]
+        self, mission_id: str, choice_id: str, profile: dict[str, Any],
     ) -> dict[str, Any]:
         """Exécute un choix dans une mission interactive"""
         mission = self.missions.get(mission_id)
@@ -170,12 +168,12 @@ class EnhancedMissionSystem:
         return True
 
     def _calculate_success_rate(
-        self, mission: dict[str, Any], choice: dict[str, Any], profile: dict[str, Any]
+        self, mission: dict[str, Any], choice: dict[str, Any], profile: dict[str, Any],
     ) -> float:
         """Calcule le taux de succès basé sur les compétences et le choix"""
         base_rate = 0.7  # 70% de base
         difficulty_modifier = {"facile": 0.2, "moyen": 0.0, "difficile": -0.2}.get(
-            mission.get("difficulty", "moyen"), 0.0
+            mission.get("difficulty", "moyen"), 0.0,
         )
         skill_bonus = self._calculate_skill_bonus(mission, profile)
         choice_modifier = choice.get("success_modifier", 0.0)
@@ -199,7 +197,7 @@ class EnhancedMissionSystem:
         return min(0.3, bonus)  # Maximum 30% de bonus
 
     def _handle_mission_success(
-        self, mission: dict[str, Any], choice: dict[str, Any], profile: dict[str, Any]
+        self, mission: dict[str, Any], choice: dict[str, Any], profile: dict[str, Any],
     ) -> dict[str, Any]:
         """Gère le succès d'une mission"""
         # Calculer les récompenses variables
@@ -233,7 +231,7 @@ class EnhancedMissionSystem:
         }
 
     def _handle_mission_failure(
-        self, mission: dict[str, Any], choice: dict[str, Any], profile: dict[str, Any]
+        self, mission: dict[str, Any], choice: dict[str, Any], profile: dict[str, Any],
     ) -> dict[str, Any]:
         """Gère l'échec d'une mission"""
         # Pénalités d'échec
@@ -313,7 +311,7 @@ class EnhancedMissionSystem:
         }
 
     def complete_daily_challenge(
-        self, challenge_id: str, profile: dict[str, Any], performance: dict[str, Any]
+        self, challenge_id: str, profile: dict[str, Any], performance: dict[str, Any],
     ) -> dict[str, Any]:
         """Complète un défi quotidien"""
         challenge = self.daily_challenges.get(challenge_id)

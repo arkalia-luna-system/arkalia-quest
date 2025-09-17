@@ -156,7 +156,7 @@ class TeenUXImprovementsTester:
         try:
             # Test de la commande acte_1
             response = requests.post(
-                f"{self.base_url}/commande", json={"commande": "acte_1"}, timeout=5
+                f"{self.base_url}/commande", json={"commande": "acte_1"}, timeout=5,
             )
 
             if response.status_code == 200:
@@ -215,7 +215,7 @@ class TeenUXImprovementsTester:
         try:
             # Test de la commande hack_system (étape 1)
             response = requests.post(
-                f"{self.base_url}/commande", json={"commande": "hack_system"}, timeout=5
+                f"{self.base_url}/commande", json={"commande": "hack_system"}, timeout=5,
             )
 
             if response.status_code == 200:

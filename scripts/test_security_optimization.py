@@ -14,6 +14,7 @@ sys.path.insert(0, project_root)
 # Changer le répertoire de travail
 os.chdir(project_root)
 
+# Import après configuration du path
 from core.security_manager import SecurityManager
 
 

@@ -464,7 +464,7 @@ Tu es maintenant un héros légendaire !
                 "next_step": "cleanup_files",
             }
 
-        elif hack_progress["step"] == 2:
+        if hack_progress["step"] == 2:
             # Étape 2 : Nettoyage des fichiers
             hack_progress["step"] = 3
             hack_progress["completed"].append("files_cleanup")
@@ -497,28 +497,27 @@ Tu es maintenant un héros légendaire !
                 "next_step": "fix_vulnerabilities",
             }
 
-        else:
-            # Étape 3 : Finalisation
-            profile["missions_completed"].append("hack_system_completed")
-            profile["score"] += 150
+        # Étape 3 : Finalisation
+        profile["missions_completed"].append("hack_system_completed")
+        profile["score"] += 150
 
-            if "badges" not in profile:
-                profile["badges"] = []
-            if "System Hacker" not in profile["badges"]:
-                profile["badges"].append("System Hacker")
+        if "badges" not in profile:
+            profile["badges"] = []
+        if "System Hacker" not in profile["badges"]:
+            profile["badges"].append("System Hacker")
 
-            # Réinitialiser le hack_progress
-            profile["hack_progress"] = {
-                "step": 1,
-                "total_steps": 3,
-                "completed": [],
-                "current_objective": "Mission terminée",
-            }
+        # Réinitialiser le hack_progress
+        profile["hack_progress"] = {
+            "step": 1,
+            "total_steps": 3,
+            "completed": [],
+            "current_objective": "Mission terminée",
+        }
 
-            return {
-                "réussite": True,
-                "ascii_art": "✅",
-                "message": """✅ HACK SYSTÈME - MISSION TERMINÉE !
+        return {
+            "réussite": True,
+            "ascii_art": "✅",
+            "message": """✅ HACK SYSTÈME - MISSION TERMINÉE !
 
 🌐 LUNA : "Parfait ! Le système est maintenant sécurisé !"
 
@@ -536,12 +535,12 @@ Tu es maintenant un héros légendaire !
 • acte_2 → Décrypte les logs de NEXUS
 
 🌙 LUNA : "Tu es un vrai hacker, mon ami ! Continuons l'aventure !" """,
-                "score_gagne": 150,
-                "badge": "System Hacker",
-                "profile_updated": True,
-                "mission_complete": True,
-                "next_mission": "acte_2",
-            }
+            "score_gagne": 150,
+            "badge": "System Hacker",
+            "profile_updated": True,
+            "mission_complete": True,
+            "next_mission": "acte_2",
+        }
 
     def handle_kill_virus(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande kill_virus - Élimination des virus"""

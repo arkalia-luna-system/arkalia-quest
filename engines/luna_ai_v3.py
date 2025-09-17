@@ -141,7 +141,7 @@ class PersonalityEvolution:
                 "timestamp": datetime.now().isoformat(),
                 "traits": self.base_traits.copy(),
                 "trigger": user_emotion,
-            }
+            },
         )
 
         logger.info(f"🧬 Personnalité évoluée: {self.base_traits}")
@@ -192,7 +192,7 @@ class PredictiveEngine:
                 "input": user_input,
                 "context": context,
                 "timestamp": datetime.now().isoformat(),
-            }
+            },
         )
 
     def _extract_topics(self, text: str) -> list[str]:
@@ -287,12 +287,11 @@ class PredictiveEngine:
 
         if 6 <= avg_hour < 12:
             return "matin"
-        elif 12 <= avg_hour < 18:
+        if 12 <= avg_hour < 18:
             return "après-midi"
-        elif 18 <= avg_hour < 22:
+        if 18 <= avg_hour < 22:
             return "soirée"
-        else:
-            return "nuit"
+        return "nuit"
 
 
 class LunaAIV3:
@@ -385,7 +384,7 @@ class LunaAIV3:
 
             # Générer la réponse personnalisée
             response = self._generate_personalized_response(
-                user_input, context, emotion, relevant_memories
+                user_input, context, emotion, relevant_memories,
             )
 
             # Prédire la prochaine action
@@ -450,12 +449,12 @@ class LunaAIV3:
         return base[:5]
 
     def learn_from_interaction(
-        self, user_input: str, response: str, emotion: dict[str, Any]
+        self, user_input: str, response: str, emotion: dict[str, Any],
     ) -> bool:
         try:
             ctx = {"emotional_tone": emotion.get("emotion", "neutral")}
             self._learn_from_interaction(
-                user_input, response, ctx, emotion.get("emotion", "neutral")
+                user_input, response, ctx, emotion.get("emotion", "neutral"),
             )
             return True
         except Exception:
@@ -489,16 +488,15 @@ class LunaAIV3:
 
         if any(word in message_lower for word in ["aide", "help", "problème"]):
             return "help_request"
-        elif any(word in message_lower for word in ["jeu", "game", "jouer"]):
+        if any(word in message_lower for word in ["jeu", "game", "jouer"]):
             return "game_request"
-        elif any(word in message_lower for word in ["merci", "thanks", "bravo"]):
+        if any(word in message_lower for word in ["merci", "thanks", "bravo"]):
             return "gratitude"
-        elif any(word in message_lower for word in ["comment", "why", "pourquoi"]):
+        if any(word in message_lower for word in ["comment", "why", "pourquoi"]):
             return "question"
-        elif any(word in message_lower for word in ["salut", "hello", "bonjour"]):
+        if any(word in message_lower for word in ["salut", "hello", "bonjour"]):
             return "greeting"
-        else:
-            return "general"
+        return "general"
 
     def _calculate_complexity(self, message: str) -> float:
         """Calcule la complexité du message"""
@@ -521,12 +519,11 @@ class LunaAIV3:
 
         if any(word in message_lower for word in excited_words):
             return "excited"
-        elif any(word in message_lower for word in positive_words):
+        if any(word in message_lower for word in positive_words):
             return "positive"
-        elif any(word in message_lower for word in negative_words):
+        if any(word in message_lower for word in negative_words):
             return "negative"
-        else:
-            return "neutral"
+        return "neutral"
 
     def _detect_intent(self, message: str) -> str:
         """Détecte l'intention du message"""
@@ -534,12 +531,11 @@ class LunaAIV3:
 
         if "?" in message:
             return "question"
-        elif any(word in message_lower for word in ["veux", "peux", "peut"]):
+        if any(word in message_lower for word in ["veux", "peux", "peut"]):
             return "request"
-        elif any(word in message_lower for word in ["stop", "arrête", "fin"]):
+        if any(word in message_lower for word in ["stop", "arrête", "fin"]):
             return "stop"
-        else:
-            return "statement"
+        return "statement"
 
     def _determine_emotion(self, user_input: str, context: dict[str, Any]) -> str:
         """Détermine l'émotion de LUNA basée sur le contexte"""
@@ -550,21 +546,19 @@ class LunaAIV3:
         # Logique de détermination d'émotion
         if user_tone == "excited" or message_type == "gratitude":
             return "excited"
-        elif user_tone == "negative" or message_type == "help_request":
+        if user_tone == "negative" or message_type == "help_request":
             return "worried"
-        elif message_type == "game_request":
+        if message_type == "game_request":
             return "playful"
-        elif context.get("current_mission") and "secret" in str(context.get("current_mission")):
+        if context.get("current_mission") and "secret" in str(context.get("current_mission")):
             return "mysterious"
-        else:
-            # Utiliser les traits de personnalité pour influencer l'émotion
-            dominant_traits = self.personality.get_dominant_traits()
-            if "playfulness" in dominant_traits:
-                return "playful"
-            elif "mystery" in dominant_traits:
-                return "mysterious"
-            else:
-                return "proud"
+        # Utiliser les traits de personnalité pour influencer l'émotion
+        dominant_traits = self.personality.get_dominant_traits()
+        if "playfulness" in dominant_traits:
+            return "playful"
+        if "mystery" in dominant_traits:
+            return "mysterious"
+        return "proud"
 
     def _generate_personalized_response(
         self,
@@ -600,7 +594,7 @@ class LunaAIV3:
         return base_response
 
     def _learn_from_interaction(
-        self, user_input: str, response: str, context: dict[str, Any], emotion: str
+        self, user_input: str, response: str, context: dict[str, Any], emotion: str,
     ):
         """Apprend de l'interaction"""
         # Mettre à jour les statistiques
@@ -618,7 +612,7 @@ class LunaAIV3:
         self.learning_data["adaptation_level"] = success_rate
         # Conserver une trace simplifiée pour compatibilité tests
         self.learning_data["interactions"].append(
-            {"input": user_input, "response": response, "emotion": emotion}
+            {"input": user_input, "response": response, "emotion": emotion},
         )
 
         # Stocker dans la mémoire

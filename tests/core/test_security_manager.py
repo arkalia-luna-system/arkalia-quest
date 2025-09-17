@@ -3,7 +3,7 @@ import pytest
 from core.security_manager import SecurityManager
 
 
-@pytest.fixture()
+@pytest.fixture
 def sm():
     return SecurityManager()
 

@@ -15,7 +15,7 @@ def cleanup_hidden_files():
 
     # Supprimer les fichiers ._*
     result = subprocess.run(
-        "find . -name '._*' -delete", shell=True, capture_output=True, text=True
+        "find . -name '._*' -delete", check=False, shell=True, capture_output=True, text=True,
     )
 
     if result.returncode == 0:
@@ -30,7 +30,7 @@ def cleanup_pycache():
 
     subprocess.run(
         "find . -name '__pycache__' -type d -exec rm -rf {} + 2>/dev/null || true",
-        shell=True,
+        check=False, shell=True,
         capture_output=True,
         text=True,
     )

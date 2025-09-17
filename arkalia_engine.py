@@ -29,8 +29,7 @@ class ProfileManager:
         profile = self.db_manager.load_profile("main_user")
         if profile:
             return profile
-        else:
-            return self._create_default_profile()
+        return self._create_default_profile()
 
     def save_main_profile(self, profile: dict[str, Any]) -> bool:
         """Sauvegarde le profil principal dans SQLite avec vérification de structure"""
@@ -47,7 +46,7 @@ class ProfileManager:
         for key in required_keys:
             if key not in profile:
                 game_logger.error(
-                    f"Erreur sauvegarde profil: clé manquante '{key}' dans le profil !"
+                    f"Erreur sauvegarde profil: clé manquante '{key}' dans le profil !",
                 )
                 return False
         if not isinstance(profile.get("badges", []), list):
@@ -59,7 +58,7 @@ class ProfileManager:
         # Vérification de la sous-structure 'personnalite'
         if not isinstance(profile.get("personnalite", {}), dict):
             game_logger.error(
-                "Erreur sauvegarde profil: 'personnalite' doit être un dictionnaire !"
+                "Erreur sauvegarde profil: 'personnalite' doit être un dictionnaire !",
             )
             return False
         # Vérification de la sous-structure 'progression'
@@ -181,8 +180,7 @@ class ContentManager:
             mission = db_manager.load_mission(mission_name)
             if mission:
                 return mission
-            else:
-                return {"error": f"Mission {mission_name} non trouvée"}
+            return {"error": f"Mission {mission_name} non trouvée"}
         except Exception as e:
             game_logger.error(f"Erreur mission info: {e}")
             return {"error": str(e)}
@@ -197,7 +195,7 @@ class ContentManager:
                 "score": profile.get("score", 0),
                 "badges_count": len(profile.get("badges", [])),
                 "missions_completed": len(
-                    profile.get("personnalite", {}).get("missions_completees", [])
+                    profile.get("personnalite", {}).get("missions_completees", []),
                 ),
                 "last_login": profile.get("last_login", "unknown"),
                 "summary_date": datetime.now().isoformat(),

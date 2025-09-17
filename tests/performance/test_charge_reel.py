@@ -33,7 +33,7 @@ class TestChargeReel:
 
         try:
             async with session.get(
-                f"{BASE_URL}{endpoint}", timeout=aiohttp.ClientTimeout(total=TIMEOUT)
+                f"{BASE_URL}{endpoint}", timeout=aiohttp.ClientTimeout(total=TIMEOUT),
             ) as response:
                 response_time = time.time() - start_time
                 status_code = response.status
@@ -61,7 +61,7 @@ class TestChargeReel:
             }
 
     async def simulate_user_session(
-        self, session: aiohttp.ClientSession, user_id: int
+        self, session: aiohttp.ClientSession, user_id: int,
     ) -> list[dict]:
         """Simule une session utilisateur complète"""
         user_results = []
@@ -193,10 +193,10 @@ class TestChargeReel:
         print(f"📈 Débit: {throughput:.2f} req/s")
         print(f"📊 Total des requêtes: {total_requests}")
         print(
-            f"✅ Requêtes réussies: {successful_requests} ({successful_requests / total_requests * 100:.1f}%)"
+            f"✅ Requêtes réussies: {successful_requests} ({successful_requests / total_requests * 100:.1f}%)",
         )
         print(
-            f"❌ Requêtes échouées: {failed_requests} ({failed_requests / total_requests * 100:.1f}%)"
+            f"❌ Requêtes échouées: {failed_requests} ({failed_requests / total_requests * 100:.1f}%)",
         )
 
         print("\n⏱️  TEMPS DE RÉPONSE:")

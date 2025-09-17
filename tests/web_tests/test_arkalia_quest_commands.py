@@ -7,10 +7,17 @@ Teste spécifiquement les commandes du terminal et les missions du jeu
 import json
 import sys
 import time
-from datetime import datetime
+from datetime import datetime, timezone
+from pathlib import Path
 
 import requests
 
+# Constantes
+EXCELLENT_RATE = 80
+GOOD_RATE = 60
+MEDIUM_RATE = 50
+EXCELLENT_SUMMARY_RATE = 90
+GOOD_SUMMARY_RATE = 75
 
 class ArkaliaQuestCommandsTester:
     """Testeur des commandes et missions d'Arkalia Quest"""
@@ -83,13 +90,13 @@ class ArkaliaQuestCommandsTester:
         }
         self.test_results.append(result)
 
-        status_emoji = "✅" if status == "PASS" else "❌" if status == "FAIL" else "⏭️"
-        print(f"{status_emoji} {test_name}: {status}")
+        # status_emoji = "✅" if status == "PASS" else "❌" if status == "FAIL" else "⏭️"
+        # print(f"{status_emoji} {test_name}: {status}")
         if details:
             print(f"   📝 {details}")
         if duration > 0:
             print(f"   ⏱️ {duration:.2f}s")
-        print()
+        # print()
 
     def test_command_availability(self, command: str) -> bool:
         """Test la disponibilité d'une commande"""
@@ -117,25 +124,23 @@ class ArkaliaQuestCommandsTester:
                         duration,
                     )
                     return True
-                else:
-                    self.log_test(
-                        f"Commande: {command}",
-                        "FAIL",
-                        "Commande non trouvée dans le terminal",
-                        duration,
-                    )
-                    return False
-            else:
                 self.log_test(
                     f"Commande: {command}",
                     "FAIL",
-                    f"Page terminal inaccessible: {response.status_code}",
+                    "Commande non trouvée dans le terminal",
                     duration,
                 )
                 return False
+            self.log_test(
+                f"Commande: {command}",
+                "FAIL",
+                f"Page terminal inaccessible: {response.status_code}",
+                duration,
+            )
+            return False
         except requests.exceptions.RequestException as e:
             duration = time.time() - start_time
-            self.log_test(f"Commande: {command}", "FAIL", f"Erreur: {str(e)}", duration)
+            self.log_test(f"Commande: {command}", "FAIL", f"Erreur: {e!s}", duration)
             return False
 
     def test_mission_progression(self) -> bool:
@@ -167,25 +172,23 @@ class ArkaliaQuestCommandsTester:
                         duration,
                     )
                     return True
-                else:
-                    self.log_test(
-                        "Progression Missions",
-                        "FAIL",
-                        f"Éléments progression manquants: {elements_found}/5",
-                        duration,
-                    )
-                    return False
-            else:
                 self.log_test(
                     "Progression Missions",
                     "FAIL",
-                    f"Page profil inaccessible: {response.status_code}",
+                    f"Éléments progression manquants: {elements_found}/5",
                     duration,
                 )
                 return False
+            self.log_test(
+                "Progression Missions",
+                "FAIL",
+                f"Page profil inaccessible: {response.status_code}",
+                duration,
+            )
+            return False
         except requests.exceptions.RequestException as e:
             duration = time.time() - start_time
-            self.log_test("Progression Missions", "FAIL", f"Erreur: {str(e)}", duration)
+            self.log_test("Progression Missions", "FAIL", f"Erreur: {e!s}", duration)
             return False
 
     def test_leaderboard_functionality(self) -> bool:
@@ -216,25 +219,23 @@ class ArkaliaQuestCommandsTester:
                         duration,
                     )
                     return True
-                else:
-                    self.log_test(
-                        "Fonctionnalité Leaderboard",
-                        "FAIL",
-                        f"Éléments leaderboard manquants: {elements_found}/4",
-                        duration,
-                    )
-                    return False
-            else:
                 self.log_test(
                     "Fonctionnalité Leaderboard",
                     "FAIL",
-                    f"Page leaderboard inaccessible: {response.status_code}",
+                    f"Éléments leaderboard manquants: {elements_found}/4",
                     duration,
                 )
                 return False
+            self.log_test(
+                "Fonctionnalité Leaderboard",
+                "FAIL",
+                f"Page leaderboard inaccessible: {response.status_code}",
+                duration,
+            )
+            return False
         except requests.exceptions.RequestException as e:
             duration = time.time() - start_time
-            self.log_test("Fonctionnalité Leaderboard", "FAIL", f"Erreur: {str(e)}", duration)
+            self.log_test("Fonctionnalité Leaderboard", "FAIL", f"Erreur: {e!s}", duration)
             return False
 
     def test_educational_games(self) -> bool:
@@ -266,25 +267,23 @@ class ArkaliaQuestCommandsTester:
                         duration,
                     )
                     return True
-                else:
-                    self.log_test(
-                        "Jeux Éducatifs",
-                        "FAIL",
-                        f"Éléments jeux manquants: {elements_found}/5",
-                        duration,
-                    )
-                    return False
-            else:
                 self.log_test(
                     "Jeux Éducatifs",
                     "FAIL",
-                    f"Page inaccessible: {response.status_code}",
+                    f"Éléments jeux manquants: {elements_found}/5",
                     duration,
                 )
                 return False
+            self.log_test(
+                "Jeux Éducatifs",
+                "FAIL",
+                f"Page inaccessible: {response.status_code}",
+                duration,
+            )
+            return False
         except requests.exceptions.RequestException as e:
             duration = time.time() - start_time
-            self.log_test("Jeux Éducatifs", "FAIL", f"Erreur: {str(e)}", duration)
+            self.log_test("Jeux Éducatifs", "FAIL", f"Erreur: {e!s}", duration)
             return False
 
     def test_luna_ai_interaction(self) -> bool:
@@ -316,25 +315,23 @@ class ArkaliaQuestCommandsTester:
                         duration,
                     )
                     return True
-                else:
-                    self.log_test(
-                        "Interaction LUNA IA",
-                        "FAIL",
-                        f"Éléments LUNA manquants: {elements_found}/5",
-                        duration,
-                    )
-                    return False
-            else:
                 self.log_test(
                     "Interaction LUNA IA",
                     "FAIL",
-                    f"Page inaccessible: {response.status_code}",
+                    f"Éléments LUNA manquants: {elements_found}/5",
                     duration,
                 )
                 return False
+            self.log_test(
+                "Interaction LUNA IA",
+                "FAIL",
+                f"Page inaccessible: {response.status_code}",
+                duration,
+            )
+            return False
         except requests.exceptions.RequestException as e:
             duration = time.time() - start_time
-            self.log_test("Interaction LUNA IA", "FAIL", f"Erreur: {str(e)}", duration)
+            self.log_test("Interaction LUNA IA", "FAIL", f"Erreur: {e!s}", duration)
             return False
 
     def test_game_objectives(self) -> bool:
@@ -366,80 +363,78 @@ class ArkaliaQuestCommandsTester:
                         duration,
                     )
                     return True
-                else:
-                    self.log_test(
-                        "Objectifs du Jeu",
-                        "FAIL",
-                        f"Objectifs manquants: {elements_found}/5",
-                        duration,
-                    )
-                    return False
-            else:
                 self.log_test(
                     "Objectifs du Jeu",
                     "FAIL",
-                    f"Page inaccessible: {response.status_code}",
+                    f"Objectifs manquants: {elements_found}/5",
                     duration,
                 )
                 return False
+            self.log_test(
+                "Objectifs du Jeu",
+                "FAIL",
+                f"Page inaccessible: {response.status_code}",
+                duration,
+            )
+            return False
         except requests.exceptions.RequestException as e:
             duration = time.time() - start_time
-            self.log_test("Objectifs du Jeu", "FAIL", f"Erreur: {str(e)}", duration)
+            self.log_test("Objectifs du Jeu", "FAIL", f"Erreur: {e!s}", duration)
             return False
 
     def run_commands_test_suite(self):
         """Exécute la suite de tests des commandes"""
-        print("🌌 ARKALIA QUEST - TESTS COMMANDES ET MISSIONS")
-        print("=" * 60)
-        print(f"🎯 URL de test: {self.base_url}")
-        print(f"⏰ Début des tests: {self.start_time.strftime('%Y-%m-%d %H:%M:%S')}")
-        print()
+        # print("🌌 ARKALIA QUEST - TESTS COMMANDES ET MISSIONS")
+        # print("=" * 60)
+        # print(f"🎯 URL de test: {self.base_url}")
+        # print(f"⏰ Début des tests: {self.start_time.strftime('%Y-%m-%d %H:%M:%S')}")
+        # print()
 
         # Tests des commandes de base
-        print("⌨️ 1. TESTS COMMANDES DE BASE")
-        print("-" * 40)
+        # print("⌨️ 1. TESTS COMMANDES DE BASE")
+        # print("-" * 40)
         for command in self.basic_commands:
             self.test_command_availability(command)
 
         # Tests des commandes tutoriel
-        print("🎯 2. TESTS COMMANDES TUTORIEL")
-        print("-" * 40)
+        # print("🎯 2. TESTS COMMANDES TUTORIEL")
+        # print("-" * 40)
         for command in self.tutorial_commands:
             self.test_command_availability(command)
 
         # Tests des commandes de jeux
-        print("🎮 3. TESTS COMMANDES JEUX")
-        print("-" * 40)
+        # print("🎮 3. TESTS COMMANDES JEUX")
+        # print("-" * 40)
         for command in self.game_commands:
             self.test_command_availability(command)
 
         # Tests des commandes d'histoire
-        print("📖 4. TESTS COMMANDES HISTOIRE")
-        print("-" * 40)
+        # print("📖 4. TESTS COMMANDES HISTOIRE")
+        # print("-" * 40)
         for command in self.story_commands:
             self.test_command_availability(command)
 
         # Tests des commandes d'action
-        print("⚡ 5. TESTS COMMANDES ACTION")
-        print("-" * 40)
+        # print("⚡ 5. TESTS COMMANDES ACTION")
+        # print("-" * 40)
         for command in self.action_commands:
             self.test_command_availability(command)
 
         # Tests des commandes LUNA
-        print("🤖 6. TESTS COMMANDES LUNA")
-        print("-" * 40)
+        # print("🤖 6. TESTS COMMANDES LUNA")
+        # print("-" * 40)
         for command in self.luna_commands:
             self.test_command_availability(command)
 
         # Tests des commandes de navigation
-        print("🌍 7. TESTS COMMANDES NAVIGATION")
-        print("-" * 40)
+        # print("🌍 7. TESTS COMMANDES NAVIGATION")
+        # print("-" * 40)
         for command in self.navigation_commands:
             self.test_command_availability(command)
 
         # Tests des fonctionnalités du jeu
-        print("🎯 8. TESTS FONCTIONNALITÉS JEU")
-        print("-" * 40)
+        # print("🎯 8. TESTS FONCTIONNALITÉS JEU")
+        # print("-" * 40)
         self.test_mission_progression()
         self.test_leaderboard_functionality()
         self.test_educational_games()
@@ -451,7 +446,7 @@ class ArkaliaQuestCommandsTester:
 
     def generate_final_report(self):
         """Génère le rapport final des tests"""
-        end_time = datetime.now()
+        end_time = datetime.now(timezone.utc)
         total_duration = (end_time - self.start_time).total_seconds()
 
         # Statistiques
@@ -462,16 +457,16 @@ class ArkaliaQuestCommandsTester:
 
         success_rate = (passed_tests / total_tests * 100) if total_tests > 0 else 0
 
-        print("=" * 60)
-        print("📊 RAPPORT FINAL DES TESTS COMMANDES")
-        print("=" * 60)
-        print(f"⏰ Durée totale: {total_duration:.2f}s")
-        print(f"🧪 Tests exécutés: {total_tests}")
-        print(f"✅ Tests réussis: {passed_tests}")
-        print(f"❌ Tests échoués: {failed_tests}")
-        print(f"⏭️ Tests ignorés: {skipped_tests}")
-        print(f"📈 Taux de réussite: {success_rate:.1f}%")
-        print()
+        # print("=" * 60)
+        # print("📊 RAPPORT FINAL DES TESTS COMMANDES")
+        # print("=" * 60)
+        # print(f"⏰ Durée totale: {total_duration:.2f}s")
+        # print(f"🧪 Tests exécutés: {total_tests}")
+        # print(f"✅ Tests réussis: {passed_tests}")
+        # print(f"❌ Tests échoués: {failed_tests}")
+        # print(f"⏭️ Tests ignorés: {skipped_tests}")
+        # print(f"📈 Taux de réussite: {success_rate:.1f}%")
+        # print()
 
         # Analyse par catégorie de commandes
         command_categories = {
@@ -518,17 +513,17 @@ class ArkaliaQuestCommandsTester:
             ],
         }
 
-        print("📋 ANALYSE PAR CATÉGORIE:")
-        print("-" * 30)
+        # print("📋 ANALYSE PAR CATÉGORIE:")
+        # print("-" * 30)
         for category, tests in command_categories.items():
             if tests:
                 passed = len([t for t in tests if t["status"] == "PASS"])
                 total = len(tests)
                 rate = (passed / total * 100) if total > 0 else 0
 
-                if rate >= 80:
+                if rate >= EXCELLENT_RATE:
                     print(f"✅ {category}: Excellent ({rate:.0f}% - {passed}/{total})")
-                elif rate >= 60:
+                elif rate >= GOOD_RATE:
                     print(f"⚠️ {category}: À améliorer ({rate:.0f}% - {passed}/{total})")
                 else:
                     print(f"❌ {category}: Problèmes majeurs ({rate:.0f}% - {passed}/{total})")
@@ -543,23 +538,23 @@ class ArkaliaQuestCommandsTester:
                     print(f"• {result['test']}: {result['details']}")
 
         # Recommandations
-        print()
-        print("💡 RECOMMANDATIONS:")
-        print("-" * 30)
-        if success_rate >= 90:
+        # print()
+        # print("💡 RECOMMANDATIONS:")
+        # print("-" * 30)
+        if success_rate >= EXCELLENT_SUMMARY_RATE:
             print(
-                "🎉 Excellent! Toutes les commandes et fonctionnalités fonctionnent parfaitement."
+                "🎉 Excellent! Toutes les commandes et fonctionnalités fonctionnent parfaitement.",
             )
-        elif success_rate >= 75:
+        elif success_rate >= GOOD_SUMMARY_RATE:
             print("👍 Bon état général, quelques commandes à vérifier.")
-        elif success_rate >= 50:
+        elif success_rate >= MEDIUM_RATE:
             print("⚠️ État moyen, plusieurs commandes nécessitent des corrections.")
         else:
             print("🚨 État critique, de nombreuses commandes ne fonctionnent pas.")
 
         # Sauvegarde du rapport
-        report_file = f"commands_test_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-        with open(report_file, "w", encoding="utf-8") as f:
+        report_file = f"commands_test_report_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}.json"
+        with Path(report_file).open("w", encoding="utf-8") as f:
             json.dump(
                 {
                     "summary": {
@@ -580,18 +575,15 @@ class ArkaliaQuestCommandsTester:
                 ensure_ascii=False,
             )
 
-        print(f"📄 Rapport détaillé sauvegardé: {report_file}")
+        # print(f"📄 Rapport détaillé sauvegardé: {report_file}")
 
 
 def main():
     """Fonction principale"""
-    if len(sys.argv) > 1:
-        base_url = sys.argv[1]
-    else:
-        base_url = "https://arkalia-quest.onrender.com"
+    base_url = sys.argv[1] if len(sys.argv) > 1 else "https://arkalia-quest.onrender.com"
 
-    print(f"🚀 Démarrage des tests commandes Arkalia Quest sur {base_url}")
-    print()
+    # print(f"🚀 Démarrage des tests commandes Arkalia Quest sur {base_url}")
+    # print()
 
     tester = ArkaliaQuestCommandsTester(base_url)
     tester.run_commands_test_suite()

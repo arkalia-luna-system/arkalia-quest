@@ -50,7 +50,7 @@ class DatabaseManager:
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
-            """
+            """,
             )
 
             # Table des missions
@@ -67,7 +67,7 @@ class DatabaseManager:
                     completed_by TEXT DEFAULT '[]',
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
-            """
+            """,
             )
 
             # Table des défis sociaux
@@ -85,7 +85,7 @@ class DatabaseManager:
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     completed_at TIMESTAMP
                 )
-            """
+            """,
             )
 
             # Table des logs d'apprentissage LUNA
@@ -101,7 +101,7 @@ class DatabaseManager:
                     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     FOREIGN KEY (user_id) REFERENCES profiles (id)
                 )
-            """
+            """,
             )
 
             # Créer des index pour optimiser les performances
@@ -109,11 +109,11 @@ class DatabaseManager:
             cursor.execute("CREATE INDEX IF NOT EXISTS idx_profiles_score ON profiles(score)")
             cursor.execute("CREATE INDEX IF NOT EXISTS idx_profiles_level ON profiles(level)")
             cursor.execute(
-                "CREATE INDEX IF NOT EXISTS idx_missions_difficulty ON missions(difficulty)"
+                "CREATE INDEX IF NOT EXISTS idx_missions_difficulty ON missions(difficulty)",
             )
             cursor.execute("CREATE INDEX IF NOT EXISTS idx_challenges_status ON challenges(status)")
             cursor.execute(
-                "CREATE INDEX IF NOT EXISTS idx_luna_learning_user_time ON luna_learning(user_id, timestamp)"
+                "CREATE INDEX IF NOT EXISTS idx_luna_learning_user_time ON luna_learning(user_id, timestamp)",
             )
 
             conn.commit()
@@ -399,7 +399,7 @@ class DatabaseManager:
                             "rewards": json.loads(row[6]),
                             "completed_by": json.loads(row[7]),
                             "created_at": row[8],
-                        }
+                        },
                     )
                 return missions
         except Exception as e:
@@ -452,7 +452,7 @@ class DatabaseManager:
                             "preferences": json.loads(row[6]),
                             "created_at": row[7],
                             "updated_at": row[8],
-                        }
+                        },
                     )
                 return profiles
         except Exception as e:

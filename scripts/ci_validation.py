@@ -35,7 +35,7 @@ class CIValidator:
     def validate_ruff(self):
         """Valide le linting avec Ruff"""
         return self.run_command(
-            "ruff check . --output-format=concise", "Vérification Ruff (Linting)"
+            "ruff check . --output-format=concise", "Vérification Ruff (Linting)",
         )
 
     def validate_black(self):
@@ -57,13 +57,12 @@ class CIValidator:
             if result.returncode == 0:
                 print("✅ Tests - SUCCÈS")
                 return result.stdout
-            else:
-                print(f"❌ Tests - ÉCHEC (code: {result.returncode})")
-                if result.stderr:
-                    print(f"   Erreurs: {result.stderr[:200]}...")
-                self.errors.append(f"Tests échoués (code: {result.returncode})")
-                self.success = False
-                return result.stdout  # Retourner la sortie même en cas d'échec
+            print(f"❌ Tests - ÉCHEC (code: {result.returncode})")
+            if result.stderr:
+                print(f"   Erreurs: {result.stderr[:200]}...")
+            self.errors.append(f"Tests échoués (code: {result.returncode})")
+            self.success = False
+            return result.stdout  # Retourner la sortie même en cas d'échec
         except Exception as e:
             print(f"❌ Erreur lors de l'exécution des tests: {e}")
             self.errors.append(f"Erreur d'exécution des tests: {e}")
@@ -129,19 +128,18 @@ class CIValidator:
             if core_spec and engines_spec and utils_spec:
                 print("✅ Dépendances principales - Disponibles")
                 return True
-            else:
-                missing = []
-                if not core_spec:
-                    missing.append("core")
-                if not engines_spec:
-                    missing.append("engines")
-                if not utils_spec:
-                    missing.append("utils")
-                error_msg = f"Modules manquants: {', '.join(missing)}"
-                print(f"❌ {error_msg}")
-                self.errors.append(error_msg)
-                self.success = False
-                return False
+            missing = []
+            if not core_spec:
+                missing.append("core")
+            if not engines_spec:
+                missing.append("engines")
+            if not utils_spec:
+                missing.append("utils")
+            error_msg = f"Modules manquants: {', '.join(missing)}"
+            print(f"❌ {error_msg}")
+            self.errors.append(error_msg)
+            self.success = False
+            return False
         except Exception as e:
             print(f"❌ Erreur lors de la vérification des dépendances: {e}")
             self.errors.append(f"Erreur de vérification: {e}")

@@ -18,8 +18,7 @@ class ProfileManager:
         if profile:
             # S'assurer que le profil a toutes les clés nécessaires
             return self.ensure_profile_structure(profile)
-        else:
-            return self.create_default_profile()
+        return self.create_default_profile()
 
     def save_profile(self, user_id: str, profile: dict[str, Any]):
         # S'assurer que le profil a la structure complète avant sauvegarde

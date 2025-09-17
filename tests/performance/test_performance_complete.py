@@ -79,17 +79,17 @@ class TestPerformanceComplete(unittest.TestCase):
             start_time = time.time()
             # Simuler une opération simple
             _ = self.luna_engine.analyze_action(
-                "test_action", {"réussite": True}, self.test_profile
+                "test_action", {"réussite": True}, self.test_profile,
             )
             end_time = time.time()
             self.performance_metrics["response_times"].append(end_time - start_time)
 
         # Collecter des métriques de débit de base
         self.performance_metrics["throughput"].append(
-            {"operation": "emotion_analysis", "throughput": 100.0}
+            {"operation": "emotion_analysis", "throughput": 100.0},
         )
         self.performance_metrics["throughput"].append(
-            {"operation": "gamification", "throughput": 200.0}
+            {"operation": "gamification", "throughput": 200.0},
         )
         self.performance_metrics["throughput"].append({"operation": "database", "throughput": 50.0})
 
@@ -97,7 +97,7 @@ class TestPerformanceComplete(unittest.TestCase):
         if PSUTIL_AVAILABLE:
             process = psutil.Process()
             self.performance_metrics["memory_usage"].append(
-                process.memory_info().rss / 1024 / 1024
+                process.memory_info().rss / 1024 / 1024,
             )  # MB
             self.performance_metrics["cpu_usage"].append(process.cpu_percent())
         else:
@@ -115,7 +115,7 @@ class TestPerformanceComplete(unittest.TestCase):
         # Afficher les métriques de performance
         if self.performance_metrics["response_times"]:
             avg_response = sum(self.performance_metrics["response_times"]) / len(
-                self.performance_metrics["response_times"]
+                self.performance_metrics["response_times"],
             )
             print(f"📊 Temps de réponse moyen: {avg_response:.3f}s")
 
@@ -157,7 +157,7 @@ class TestPerformanceComplete(unittest.TestCase):
 
         # Vérifier que le temps de réponse moyen est acceptable
         avg_response = sum(self.performance_metrics["response_times"]) / len(
-            self.performance_metrics["response_times"]
+            self.performance_metrics["response_times"],
         )
         self.assertLess(
             avg_response,
@@ -215,7 +215,7 @@ class TestPerformanceComplete(unittest.TestCase):
 
         # Vérifier que le temps de réponse moyen est acceptable
         avg_response = sum(self.performance_metrics["response_times"]) / len(
-            self.performance_metrics["response_times"]
+            self.performance_metrics["response_times"],
         )
         self.assertLess(
             avg_response,
@@ -388,7 +388,7 @@ class TestPerformanceComplete(unittest.TestCase):
                         "count": count,
                         "duration": duration,
                         "throughput": throughput,
-                    }
+                    },
                 )
 
                 # Vérifier que le débit est acceptable
@@ -595,7 +595,7 @@ class TestPerformanceComplete(unittest.TestCase):
                     # Vérifier les métriques globales
                     if PSUTIL_AVAILABLE and self.performance_metrics["memory_usage"]:
                         memory_growth = max(self.performance_metrics["memory_usage"]) - min(
-                            self.performance_metrics["memory_usage"]
+                            self.performance_metrics["memory_usage"],
                         )
                         self.assertLess(
                             memory_growth,
@@ -626,7 +626,7 @@ class TestPerformanceComplete(unittest.TestCase):
                             operation_throughput,
                             baselines["min_throughput"],
                             f"Débit insuffisant pour {operation}:"
-                            + "{operation_throughput:.1f} ops/s",
+                             "{operation_throughput:.1f} ops/s",
                         )
 
     # ===== TESTS DE VALIDATION FINALE =====
@@ -662,7 +662,7 @@ class TestPerformanceComplete(unittest.TestCase):
         avg_throughput = total_throughput / len(self.performance_metrics["throughput"])
 
         self.assertGreater(
-            avg_throughput, 100, f"Débit moyen insuffisant: {avg_throughput:.1f} ops/s"
+            avg_throughput, 100, f"Débit moyen insuffisant: {avg_throughput:.1f} ops/s",
         )
 
         # Afficher le rapport final
@@ -674,7 +674,7 @@ class TestPerformanceComplete(unittest.TestCase):
 
         if PSUTIL_AVAILABLE and self.performance_metrics["memory_usage"]:
             memory_growth = max(self.performance_metrics["memory_usage"]) - min(
-                self.performance_metrics["memory_usage"]
+                self.performance_metrics["memory_usage"],
             )
             print(f"   Croissance mémoire: {memory_growth:.1f}MB")
 

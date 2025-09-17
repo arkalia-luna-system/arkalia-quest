@@ -199,7 +199,7 @@ class SecurityManager:
                     "timestamp": datetime.now().isoformat(),
                     "count": current_count,
                     "limit": limit,
-                }
+                },
             )
 
             return True

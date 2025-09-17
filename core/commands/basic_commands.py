@@ -236,12 +236,12 @@ la vérité sur NEXUS et la menace de PANDORA.
             )
         else:
             badges_text = f"🎖️ {len(badges)} badges - Collection impressionnante !\n" + "\n".join(
-                ["• " + badge for badge in badges]
+                ["• " + badge for badge in badges],
             )
 
         # Messages pour la progression
         univers_count = len(
-            profile.get("progression", {}).get("univers_debloques", ["arkalia_base"])
+            profile.get("progression", {}).get("univers_debloques", ["arkalia_base"]),
         )
         portails_count = len(profile.get("progression", {}).get("portails_ouverts", []))
 
@@ -364,7 +364,7 @@ la vérité sur NEXUS et la menace de PANDORA.
         """Affiche les thèmes disponibles et comment les activer"""
         try:
             available = self.customization_engine.get_available_themes(
-                profile.get("player_id", "default")
+                profile.get("player_id", "default"),
             )
 
             if not available:
@@ -587,7 +587,7 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
                 "creativity": 60,
                 "logic": 65,
             }
-        elif score < 500:
+        if score < 500:
             return {
                 "type": "Hacker Intermédiaire",
                 "level": "Confirmé",
@@ -598,17 +598,16 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
                 "creativity": 70,
                 "logic": 80,
             }
-        else:
-            return {
-                "type": "Hacker Expert",
-                "level": "Maître",
-                "specialty": "Innovation",
-                "style": "Génie",
-                "curiosity": 90,
-                "perseverance": 95,
-                "creativity": 90,
-                "logic": 95,
-            }
+        return {
+            "type": "Hacker Expert",
+            "level": "Maître",
+            "specialty": "Innovation",
+            "style": "Génie",
+            "curiosity": 90,
+            "perseverance": 95,
+            "creativity": 90,
+            "logic": 95,
+        }
 
     def handle_badges(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Gère la commande badges - Affiche tous les badges obtenus"""
@@ -873,8 +872,7 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
                 "score_gagne": 100,
                 "profile_updated": True,
             }
-        else:
-            message = f"""🔐 HACK BINAIRE ÉCHOUÉ !
+        message = f"""🔐 HACK BINAIRE ÉCHOUÉ !
 
 🎯 PROBLÈME : {a_binary} + {b_binary} = ?
 ❌ RÉPONSE : {bin(random.randint(1, 30))[2:]} (incorrecte)
@@ -884,13 +882,13 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
 💡 Réessayez ! La pratique rend parfait !
 Utilisez 'simple_hack' pour réessayer."""
 
-            return {
-                "réussite": False,
-                "ascii_art": "🔐",
-                "message": message,
-                "score_gagne": 0,
-                "profile_updated": False,
-            }
+        return {
+            "réussite": False,
+            "ascii_art": "🔐",
+            "message": message,
+            "score_gagne": 0,
+            "profile_updated": False,
+        }
 
     def handle_sequence_game(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Jeu de mémoire de séquences interactif"""
@@ -923,11 +921,10 @@ Utilisez 'simple_hack' pour réessayer."""
                 "score_gagne": 50 + sequence_length * 5,
                 "profile_updated": True,
             }
-        else:
-            wrong_sequence = [random.choice(colors) for _ in range(sequence_length)]
-            wrong_str = " → ".join(wrong_sequence)
+        wrong_sequence = [random.choice(colors) for _ in range(sequence_length)]
+        wrong_str = " → ".join(wrong_sequence)
 
-            message = f"""🧠 SÉQUENCE ÉCHOUÉE !
+        message = f"""🧠 SÉQUENCE ÉCHOUÉE !
 
 🎯 SÉQUENCE : {sequence_str}
 ❌ RÉPONSE : {wrong_str}
@@ -937,13 +934,13 @@ Utilisez 'simple_hack' pour réessayer."""
 💡 Réessayez ! La mémoire s'améliore avec la pratique !
 Utilisez 'sequence_game' pour réessayer."""
 
-            return {
-                "réussite": False,
-                "ascii_art": "🧠",
-                "message": message,
-                "score_gagne": 0,
-                "profile_updated": False,
-            }
+        return {
+            "réussite": False,
+            "ascii_art": "🧠",
+            "message": message,
+            "score_gagne": 0,
+            "profile_updated": False,
+        }
 
     def handle_typing_challenge(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Défi de frappe rapide interactif"""
@@ -990,8 +987,7 @@ Utilisez 'sequence_game' pour réessayer."""
                 "score_gagne": 30 + text_length,
                 "profile_updated": True,
             }
-        else:
-            message = f"""⌨️ FRAPPE ÉCHOUÉE !
+        message = f"""⌨️ FRAPPE ÉCHOUÉE !
 
 🎯 TEXTE : "{chosen_text}"
 ❌ VITESSE : {random.randint(20, 35)} mots/min
@@ -1001,13 +997,13 @@ Utilisez 'sequence_game' pour réessayer."""
 💡 Réessayez ! La vitesse s'améliore avec la pratique !
 Utilisez 'typing_challenge' pour réessayer."""
 
-            return {
-                "réussite": False,
-                "ascii_art": "⌨️",
-                "message": message,
-                "score_gagne": 0,
-                "profile_updated": False,
-            }
+        return {
+            "réussite": False,
+            "ascii_art": "⌨️",
+            "message": message,
+            "score_gagne": 0,
+            "profile_updated": False,
+        }
 
     def handle_play_game(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Lancer un mini-jeu"""

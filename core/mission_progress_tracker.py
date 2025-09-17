@@ -12,7 +12,7 @@ Version: 1.0
 
 import json
 import logging
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import Any, Optional
 
 logger = logging.getLogger(__name__)
@@ -28,7 +28,7 @@ class MissionProgressTracker:
         self.achievement_triggers = {}
 
     def initialize_mission_progress(
-        self, mission_id: str, player_id: str, total_steps: int = 5
+        self, mission_id: str, player_id: str, total_steps: int = 5,
     ) -> dict[str, Any]:
         """Initialise le suivi de progression pour une mission"""
         progress_key = f"{player_id}_{mission_id}"
@@ -114,7 +114,7 @@ class MissionProgressTracker:
                     "choice": choice_data.get("choice"),
                     "timestamp": datetime.now().isoformat(),
                     "consequence": choice_data.get("consequence"),
-                }
+                },
             )
             self._trigger_progress_effects(progress, "choice_made")
 
@@ -193,7 +193,7 @@ class MissionProgressTracker:
                     "type": effect_type,
                     "effect": effects[effect_type],
                     "timestamp": datetime.now().isoformat(),
-                }
+                },
             )
 
     def _generate_visual_indicators(self, progress: dict[str, Any]) -> dict[str, Any]:
@@ -236,12 +236,11 @@ class MissionProgressTracker:
         """Retourne la couleur selon le pourcentage de progression"""
         if percentage < 25:
             return "#ff4444"  # Rouge
-        elif percentage < 50:
+        if percentage < 50:
             return "#ffaa00"  # Orange
-        elif percentage < 75:
+        if percentage < 75:
             return "#ffff00"  # Jaune
-        else:
-            return "#00ff00"  # Vert
+        return "#00ff00"  # Vert
 
     def _estimate_remaining_time(self, progress: dict[str, Any]) -> float:
         """Estime le temps restant pour terminer la mission"""
@@ -261,21 +260,19 @@ class MissionProgressTracker:
 
         if steps_per_minute > 2:
             return "excellent"
-        elif steps_per_minute > 1:
+        if steps_per_minute > 1:
             return "good"
-        elif steps_per_minute > 0.5:
+        if steps_per_minute > 0.5:
             return "average"
-        else:
-            return "needs_improvement"
+        return "needs_improvement"
 
     def _calculate_adaptive_difficulty(self, progress: dict[str, Any]) -> str:
         """Calcule la difficulté adaptative basée sur les performances"""
         if progress["failed_attempts"] == 0 and progress["hints_used"] == 0:
             return "increase"
-        elif progress["failed_attempts"] > 3 or progress["hints_used"] > 2:
+        if progress["failed_attempts"] > 3 or progress["hints_used"] > 2:
             return "decrease"
-        else:
-            return "maintain"
+        return "maintain"
 
     def _get_difficulty_recommendations(self, progress: dict[str, Any]) -> list[str]:
         """Retourne des recommandations de difficulté"""
@@ -320,7 +317,7 @@ class MissionProgressTracker:
                     "description": "Mission terminée en moins de 10 minutes !",
                     "icon": "⚡",
                     "points": 100,
-                }
+                },
             )
 
         # Achievement de précision
@@ -332,13 +329,13 @@ class MissionProgressTracker:
                     "description": "Mission terminée sans erreur !",
                     "icon": "🎯",
                     "points": 150,
-                }
+                },
             )
 
         return new_achievements
 
     def _generate_contextual_feedback(
-        self, progress: dict[str, Any], action: str, success: bool
+        self, progress: dict[str, Any], action: str, success: bool,
     ) -> dict[str, Any]:
         """Génère un feedback contextuel basé sur la progression"""
         feedback = {
@@ -397,7 +394,7 @@ class MissionProgressTracker:
 
         total_missions = len(player_missions)
         completed_missions = len(
-            [p for p in player_missions.values() if p["status"] == "completed"]
+            [p for p in player_missions.values() if p["status"] == "completed"],
         )
         total_time = sum(p["time_spent"] for p in player_missions.values())
         total_achievements = sum(len(p["achievements_earned"]) for p in player_missions.values())
@@ -430,12 +427,11 @@ class MissionProgressTracker:
 
         if average_efficiency > 2:
             return "excellent"
-        elif average_efficiency > 1:
+        if average_efficiency > 1:
             return "good"
-        elif average_efficiency > 0.5:
+        if average_efficiency > 0.5:
             return "average"
-        else:
-            return "needs_improvement"
+        return "needs_improvement"
 
     def _get_favorite_mission_type(self, missions: dict[str, Any]) -> str:
         """Détermine le type de mission préféré du joueur"""

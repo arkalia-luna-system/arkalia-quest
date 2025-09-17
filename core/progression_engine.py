@@ -183,6 +183,9 @@ class ProgressionEngine:
             # Mettre à jour les défis quotidiens automatiquement
             self.update_daily_challenges_progress(player_id, action, metadata)
 
+            # Vérifier si des défis sont complétés
+            self.check_daily_challenges_completion(player_id)
+
         elif action == "zone_explored":
             zone = metadata.get("zone", "")
             if zone not in player["zones_explored"]:
@@ -191,6 +194,9 @@ class ProgressionEngine:
 
             # Mettre à jour les défis quotidiens automatiquement
             self.update_daily_challenges_progress(player_id, action, metadata)
+
+            # Vérifier si des défis sont complétés
+            self.check_daily_challenges_completion(player_id)
 
         elif action == "mini_game_completed":
             game = metadata.get("game", "")
@@ -201,6 +207,9 @@ class ProgressionEngine:
 
             # Mettre à jour les défis quotidiens automatiquement
             self.update_daily_challenges_progress(player_id, action, metadata)
+
+            # Vérifier si des défis sont complétés
+            self.check_daily_challenges_completion(player_id)
 
         elif action == "score_earned":
             points = metadata.get("points", 0)
@@ -295,6 +304,40 @@ class ProgressionEngine:
                     self.update_player_progression(
                         player_id, "badge_earned", {"badge": reward["badge"]}
                     )
+
+    def check_daily_challenges_completion(self, player_id: str):
+        """Vérifie et notifie les défis quotidiens complétés"""
+        if player_id not in self.progression_data["players"]:
+            return
+
+        player = self.progression_data["players"][player_id]
+        challenges = self.daily_challenges_data["challenges"]
+        completed_today = []
+
+        for challenge_id, challenge in challenges.items():
+            if not challenge.get("active", True):
+                continue
+
+            if challenge_id not in player["daily_challenges_progress"]:
+                continue
+
+            progress = player["daily_challenges_progress"][challenge_id]
+
+            if progress["completed"] and not progress.get("notified", False):
+                completed_today.append(
+                    {
+                        "id": challenge_id,
+                        "title": challenge["title"],
+                        "reward": challenge["reward"],
+                    }
+                )
+                progress["notified"] = True
+
+        # Sauvegarder les changements
+        if completed_today:
+            self.save_progression_data()
+
+        return completed_today
 
     def unlock_zones_for_level(self, player_id: str, level: int):
         """Débloque des zones selon le niveau"""

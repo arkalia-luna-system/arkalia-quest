@@ -742,6 +742,17 @@
         // Charger les données du profil
         async function loadProfileData() {
             try {
+                // Essayer d'abord l'API de progression
+                const progressionResponse = await fetch('/api/progression/data');
+                if (progressionResponse.ok) {
+                    const progressionData = await progressionResponse.json();
+                    if (progressionData.success) {
+                        updateProfileFromProgression(progressionData);
+                        return;
+                    }
+                }
+                
+                // Fallback sur l'API profile/summary
                 const response = await fetch('/api/profile/summary');
                 const data = await response.json();
 
@@ -754,6 +765,42 @@
                 }
             } catch (error) {
                 console.error('Erreur chargement profil:', error);
+            }
+        }
+        
+        // Mettre à jour le profil avec les données de progression
+        function updateProfileFromProgression(data) {
+            const progression = data.progression;
+            
+            // Mettre à jour les stats
+            document.getElementById('total_score').textContent = progression.score || 0;
+            document.getElementById('current_level').textContent = progression.level || 1;
+            document.getElementById('missions_completees').textContent = progression.achievements_unlocked ? progression.achievements_unlocked.length : 0;
+            document.getElementById('badges_count').textContent = progression.badges ? progression.badges.length : 0;
+            
+            // Mettre à jour les barres de progression
+            updateProgressBarsFromProgression(progression);
+            
+            // Mettre à jour les badges
+            if (progression.badges) {
+                updateBadges(progression.badges);
+            }
+        }
+        
+        // Mettre à jour les barres de progression
+        function updateProgressBarsFromProgression(progression) {
+            // Barre de niveau
+            const levelProgress = document.querySelector('.level-progress .progress-fill');
+            if (levelProgress) {
+                const levelPercent = ((progression.xp || 0) % 1000) / 10; // 1000 XP par niveau
+                levelProgress.style.width = `${levelPercent}%`;
+            }
+            
+            // Barre de score
+            const scoreProgress = document.querySelector('.score-progress .progress-fill');
+            if (scoreProgress) {
+                const scorePercent = Math.min((progression.score || 0) / 10000 * 100, 100);
+                scoreProgress.style.width = `${scorePercent}%`;
             }
         }
 

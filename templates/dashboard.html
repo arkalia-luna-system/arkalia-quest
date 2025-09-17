@@ -709,6 +709,17 @@
         // Charger les données du dashboard
         async function loadDashboardData() {
             try {
+                // Essayer d'abord l'API de progression
+                const progressionResponse = await fetch('/api/progression/data');
+                if (progressionResponse.ok) {
+                    const progressionData = await progressionResponse.json();
+                    if (progressionData.success) {
+                        updateDashboardFromProgression(progressionData);
+                        return;
+                    }
+                }
+
+                // Fallback sur l'API gamification
                 const response = await fetch('/api/gamification/summary');
                 const data = await response.json();
 
@@ -721,6 +732,27 @@
                 }
             } catch (error) {
                 console.error('Erreur chargement dashboard:', error);
+            }
+        }
+
+        // Mettre à jour le dashboard avec les données de progression
+        function updateDashboardFromProgression(data) {
+            const progression = data.progression;
+
+            // Mettre à jour les métriques
+            document.getElementById('total_score').textContent = progression.score || 0;
+            document.getElementById('current_level').textContent = progression.level || 1;
+            document.getElementById('missions_completees').textContent = progression.achievements_unlocked ? progression.achievements_unlocked.length : 0;
+            document.getElementById('badges_count').textContent = progression.badges ? progression.badges.length : 0;
+
+            // Mettre à jour les défis quotidiens
+            if (data.daily_challenges) {
+                updateDailyChallengesDisplay(data.daily_challenges);
+            }
+
+            // Mettre à jour le leaderboard
+            if (data.leaderboard) {
+                updateLeaderboardDisplay(data.leaderboard);
             }
         }
 

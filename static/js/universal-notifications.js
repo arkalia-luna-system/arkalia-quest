@@ -462,7 +462,11 @@ class UniversalNotifications {
             'score a évolué en douceur',
             'votre progression vous attend',
             'pause bien méritée',
-            'progression en douceur'
+            'progression en douceur',
+            'chargement',
+            'loading',
+            'veuillez patienter',
+            'en cours de traitement'
         ];
 
         for (const pattern of spamPatterns) {

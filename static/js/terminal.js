@@ -1147,6 +1147,12 @@ function executeCommand(cmdOverride) {
                     window.visualEffects.showScoreEffect({ amount: reponse.score_gagne });
                 }
 
+                // Déclencher des effets visuels pour les mini-jeux
+                if (reponse.score_gagne > 50 && window.visualEffects) {
+                    // Effet de confetti pour les gros gains
+                    window.visualEffects.showConfetti();
+                }
+
                 // Feedback haptique pour mobile
                 if ('vibrate' in navigator) {
                     navigator.vibrate([100, 50, 100]);
@@ -1158,6 +1164,8 @@ function executeCommand(cmdOverride) {
                 // Rafraîchir les données de progression si nécessaire
                 if (reponse.profile_updated || reponse.score_gagne > 0) {
                     refreshProgressionData();
+                    // Rafraîchir aussi le profil classique
+                    refreshProfileData();
                 }
             } else {
                 playMatrixErrorEffect();
@@ -2297,6 +2305,21 @@ class TerminalCommandsEnhanced {
 // Initialiser le système de commandes amélioré
 window.terminalCommandsEnhanced = new TerminalCommandsEnhanced();
 
+// Fonction pour rafraîchir les données du profil classique
+function refreshProfileData() {
+    fetch('/api/profile/summary')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Mettre à jour les éléments de l'interface
+                updateProfileDisplay(data.profile);
+            }
+        })
+        .catch(error => {
+            console.error('Erreur lors du rafraîchissement du profil:', error);
+        });
+}
+
 // Fonction pour rafraîchir les données de progression
 function refreshProgressionData() {
     fetch('/api/progression/data')
@@ -2386,4 +2409,43 @@ function showProgressionNotification(progression) {
             importance: 3
         });
     }
+}
+
+// Fonction pour mettre à jour l'affichage du profil classique
+function updateProfileDisplay(profile) {
+    // Mettre à jour le niveau
+    const levelElements = document.querySelectorAll('.level, .niveau, [data-level], #current_level');
+    levelElements.forEach(el => {
+        el.textContent = profile.level || profile.niveau || 1;
+    });
+
+    // Mettre à jour le score
+    const scoreElements = document.querySelectorAll('.score, [data-score], #total_score');
+    scoreElements.forEach(el => {
+        el.textContent = profile.score || 0;
+    });
+
+    // Mettre à jour l'XP
+    const xpElements = document.querySelectorAll('.xp, [data-xp]');
+    xpElements.forEach(el => {
+        el.textContent = profile.xp || 0;
+    });
+
+    // Mettre à jour les coins
+    const coinsElements = document.querySelectorAll('.coins, [data-coins]');
+    coinsElements.forEach(el => {
+        el.textContent = profile.coins || 0;
+    });
+
+    // Mettre à jour les badges
+    const badgesElements = document.querySelectorAll('.badges, [data-badges], #badges_count');
+    badgesElements.forEach(el => {
+        el.textContent = profile.badges ? profile.badges.length : 0;
+    });
+
+    // Mettre à jour les missions complétées
+    const missionsElements = document.querySelectorAll('.missions, [data-missions], #missions_completees');
+    missionsElements.forEach(el => {
+        el.textContent = profile.missions_completees || 0;
+    });
 } 

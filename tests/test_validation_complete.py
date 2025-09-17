@@ -8,14 +8,17 @@ import json
 import os
 import sys
 
+# Ajouter le répertoire parent au path pour les imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Import du logger
+from utils.logger import game_logger
+
 
 def test_imports():
     """Test des imports principaux"""
     game_logger.info(r"🔧 Test des imports...")
     try:
-        # Ajouter le répertoire parent au path pour les imports
-        sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
         game_logger.info(r"✅ Tous les imports fonctionnent")
         assert True
     except Exception as e:

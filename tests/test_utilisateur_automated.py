@@ -12,6 +12,9 @@ from datetime import datetime
 # Ajouter le répertoire parent au path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# Import du logger
+from utils.logger import game_logger
+
 
 def test_interface_responsive():
     """Test de la responsivité de l'interface"""

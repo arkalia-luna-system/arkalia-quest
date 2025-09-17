@@ -5,11 +5,18 @@ Gère l'exécution, les résultats et les rapports de tous les tests
 """
 
 import json
+import os
 import subprocess
 import sys
 import time
 from datetime import datetime
 from pathlib import Path
+
+# Ajouter le répertoire racine au path
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, project_root)
+
+from utils.logger import game_logger  # noqa: E402
 
 
 def check_server():
@@ -233,9 +240,7 @@ def main():
 
     # Vérifier que le serveur est accessible
     if not check_server():
-        game_logger.info(
-            r"❌ Serveur non accessible. Démarrez le serveur avec: python app.py"
-        )
+        game_logger.info(r"❌ Serveur non accessible. Démarrez le serveur avec: python app.py")
         return
 
     game_logger.info(r"✅ Serveur accessible")

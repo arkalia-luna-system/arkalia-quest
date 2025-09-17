@@ -13,6 +13,15 @@ import time
 from datetime import datetime
 from pathlib import Path
 
+# Ajouter le répertoire parent au path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Import du logger
+from utils.logger import GameLogger  # noqa: E402
+
+# Initialiser le logger
+game_logger = GameLogger()
+
 # Configuration des tests
 TEST_CONFIG = {
     "base_url": "http://localhost:5001",
@@ -109,10 +118,7 @@ def check_environment():
             missing_packages.append(package)
 
     if missing_packages:
-        print(
-            f"\n{COLORS['yellow']}⚠️ Installez les packages"
-            + "manquants:{COLORS['reset']}"
-        )
+        print(f"\n{COLORS['yellow']}⚠️ Installez les packages" + "manquants:{COLORS['reset']}")
         print(f"pip install {' '.join(missing_packages)}")
         return False
 
@@ -148,15 +154,12 @@ def run_code_quality_checks():
             print(f"{COLORS['green']}✅ Code correctement formaté{COLORS['reset']}")
         else:
             print(
-                f"{COLORS['yellow']}⚠️ Code non formaté, application de"
-                "Black...{COLORS['reset']}",
+                f"{COLORS['yellow']}⚠️ Code non formaté, application de" "Black...{COLORS['reset']}",
             )
             subprocess.run(["black", "."], check=True)
             print(f"{COLORS['green']}✅ Formatage appliqué{COLORS['reset']}")
     except subprocess.TimeoutExpired:
-        print(
-            f"{COLORS['red']}❌ Timeout lors de la vérification Black{COLORS['reset']}"
-        )
+        print(f"{COLORS['red']}❌ Timeout lors de la vérification Black{COLORS['reset']}")
     except Exception as e:
         print(f"{COLORS['red']}❌ Erreur Black: {e}{COLORS['reset']}")
 
@@ -174,17 +177,13 @@ def run_code_quality_checks():
         if result.returncode == 0:
             print(f"{COLORS['green']}✅ Code conforme aux standards{COLORS['reset']}")
         else:
-            print(
-                f"{COLORS['yellow']}⚠️  Problèmes de qualité détectés{COLORS['reset']}"
-            )
+            print(f"{COLORS['yellow']}⚠️  Problèmes de qualité détectés{COLORS['reset']}")
             print(result.stdout)
             print(f"{COLORS['yellow']}⚠️  Correction automatique...{COLORS['reset']}")
             subprocess.run(["ruff", "check", "--fix", "."], check=True)
             print(f"{COLORS['green']}✅ Corrections appliquées{COLORS['reset']}")
     except subprocess.TimeoutExpired:
-        print(
-            f"{COLORS['red']}❌ Timeout lors de la vérification Ruff{COLORS['reset']}"
-        )
+        print(f"{COLORS['red']}❌ Timeout lors de la vérification Ruff{COLORS['reset']}")
     except Exception as e:
         print(f"{COLORS['red']}❌ Erreur Ruff: {e}{COLORS['reset']}")
 
@@ -193,10 +192,7 @@ def run_code_quality_checks():
 
 def run_test_category(category_name, category_info):
     """Exécute une catégorie de tests"""
-    print(
-        f"{COLORS['blue']}{category_name} -"
-        + "{category_info['description']}{COLORS['reset']}"
-    )
+    print(f"{COLORS['blue']}{category_name} -" + "{category_info['description']}{COLORS['reset']}")
     print("-" * 60)
 
     results = {
@@ -211,10 +207,7 @@ def run_test_category(category_name, category_info):
 
     for test_file in category_info["tests"]:
         if not os.path.exists(test_file):
-            print(
-                f"{COLORS['yellow']}⚠️ Fichier de test manquant:"
-                + "{test_file}{COLORS['reset']}"
-            )
+            print(f"{COLORS['yellow']}⚠️ Fichier de test manquant:" + "{test_file}{COLORS['reset']}")
             continue
 
         game_logger.info(f"🧪 Exécution: {test_file}")
@@ -277,9 +270,7 @@ def run_test_category(category_name, category_info):
 
     # Vérifier si la catégorie est critique
     if category_info["required"]:
-        success_rate = (
-            results["passed"] / results["total"] if results["total"] > 0 else 0
-        )
+        success_rate = results["passed"] / results["total"] if results["total"] > 0 else 0
         if success_rate < 0.8:  # 80% de succès minimum
             print(f"{COLORS['red']}❌ Catégorie critique échouée{COLORS['reset']}")
             return False
@@ -359,9 +350,7 @@ def generate_test_report():
                 len(cat["tests"]) for cat in TEST_PRIORITIES.values() if cat["required"]
             ),
             "optional_tests": sum(
-                len(cat["tests"])
-                for cat in TEST_PRIORITIES.values()
-                if not cat["required"]
+                len(cat["tests"]) for cat in TEST_PRIORITIES.values() if not cat["required"]
             ),
         },
     }
@@ -373,9 +362,7 @@ def generate_test_report():
 
         print(f"{COLORS['green']}✅ Rapport généré: {report_file}{COLORS['reset']}")
     except Exception as e:
-        print(
-            f"{COLORS['red']}❌ Erreur de génération du rapport: {e}{COLORS['reset']}"
-        )
+        print(f"{COLORS['red']}❌ Erreur de génération du rapport: {e}{COLORS['reset']}")
 
     print()
 
@@ -386,9 +373,7 @@ def main():
 
     # Vérifier l'environnement
     if not check_environment():
-        print(
-            f"{COLORS['red']}❌ Environnement invalide, arrêt des tests{COLORS['reset']}"
-        )
+        print(f"{COLORS['red']}❌ Environnement invalide, arrêt des tests{COLORS['reset']}")
         sys.exit(1)
 
     # Exécuter les vérifications de qualité
@@ -414,20 +399,12 @@ def main():
     print("=" * 80)
 
     if all_tests_passed:
-        print(
-            f"{COLORS['green']}🎉 TOUS LES TESTS CRITIQUES ONT RÉUSSI !{COLORS['reset']}"
-        )
-        print(
-            f"{COLORS['green']}✅ Arkalia Quest est prêt pour la"
-            + "production{COLORS['reset']}"
-        )
+        print(f"{COLORS['green']}🎉 TOUS LES TESTS CRITIQUES ONT RÉUSSI !{COLORS['reset']}")
+        print(f"{COLORS['green']}✅ Arkalia Quest est prêt pour la" + "production{COLORS['reset']}")
         sys.exit(0)
     else:
         print(f"{COLORS['red']}❌ CERTAINS TESTS CRITIQUES ONT ÉCHOUÉ{COLORS['reset']}")
-        print(
-            f"{COLORS['yellow']}⚠️ Vérifiez les erreurs avant le"
-            + "déploiement{COLORS['reset']}"
-        )
+        print(f"{COLORS['yellow']}⚠️ Vérifiez les erreurs avant le" + "déploiement{COLORS['reset']}")
         sys.exit(1)
 
 

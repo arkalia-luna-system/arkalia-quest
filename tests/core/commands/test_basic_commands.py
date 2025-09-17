@@ -98,9 +98,7 @@ def test_handle_typing_challenge(basic_commands):
     """Test défi de frappe"""
     profile = {"score": 0}
     result = basic_commands.handle_typing_challenge(profile)
-    assert (
-        "frappe" in result["message"].lower() or "typing" in result["message"].lower()
-    )
+    assert "frappe" in result["message"].lower() or "typing" in result["message"].lower()
 
 
 def test_handle_level_up(basic_commands, mock_profile):
@@ -138,45 +136,31 @@ def test_handle_debug_mode(basic_commands, mock_profile):
 def test_handle_check_objects(basic_commands, mock_profile):
     """Test vérification des objets"""
     result = basic_commands.handle_check_objects(mock_profile)
-    assert (
-        "objets" in result["message"].lower() or "objects" in result["message"].lower()
-    )
+    assert "objets" in result["message"].lower() or "objects" in result["message"].lower()
 
 
 def test_handle_unlock_universe(basic_commands, mock_profile):
     """Test déverrouillage univers"""
     result = basic_commands.handle_unlock_universe(mock_profile)
-    assert (
-        "univers" in result["message"].lower()
-        or "universe" in result["message"].lower()
-    )
+    assert "univers" in result["message"].lower() or "universe" in result["message"].lower()
 
 
 def test_handle_scan_persona(basic_commands, mock_profile):
     """Test scan de personnalité"""
     result = basic_commands.handle_scan_persona(mock_profile)
-    assert (
-        "personnalité" in result["message"].lower()
-        or "persona" in result["message"].lower()
-    )
+    assert "personnalité" in result["message"].lower() or "persona" in result["message"].lower()
 
 
 def test_handle_missions(basic_commands, mock_profile):
     """Test affichage des missions"""
     result = basic_commands.handle_missions(mock_profile)
-    assert (
-        "missions" in result["message"].lower()
-        or "mission" in result["message"].lower()
-    )
+    assert "missions" in result["message"].lower() or "mission" in result["message"].lower()
 
 
 def test_handle_leaderboard(basic_commands):
     """Test classement"""
     result = basic_commands.handle_leaderboard({})
-    assert (
-        "classement" in result["message"].lower()
-        or "leaderboard" in result["message"].lower()
-    )
+    assert "classement" in result["message"].lower() or "leaderboard" in result["message"].lower()
 
 
 def test_handle_play_game(basic_commands):
@@ -189,7 +173,4 @@ def test_handle_play_game(basic_commands):
 def test_handle_start_tutorial(basic_commands, mock_profile):
     """Test démarrage tutoriel"""
     result = basic_commands.handle_start_tutorial(mock_profile)
-    assert (
-        "tutorial" in result["message"].lower()
-        or "tutorial" in result["message"].lower()
-    )
+    assert "tutorial" in result["message"].lower() or "tutorial" in result["message"].lower()

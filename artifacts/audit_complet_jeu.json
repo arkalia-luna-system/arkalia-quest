@@ -1,28 +1,56 @@
 {
-  "timestamp": "2025-09-17T22:31:00.726180",
+  "timestamp": "2025-09-17T22:36:17.769370",
   "stats": {
-    "files_analyzed": 139,
-    "lines_of_code": 50394,
+    "files_analyzed": 167,
+    "lines_of_code": 50609,
     "functions": 1895,
     "classes": 133,
-    "imports": 377,
-    "start_time": 1758140961.896653,
-    "duration": 98.8295030593872
+    "imports": 405,
+    "start_time": 1758141251.842004,
+    "duration": 125.9273009300232
   },
   "issue_counts": {
-    "errors": 3,
+    "errors": 31,
     "warnings": 740,
     "performance": 258,
     "security": 0,
     "architecture": 1,
     "bugs": 0,
-    "code_quality": 1112
+    "code_quality": 541
   },
   "issues": {
     "errors": [
       "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
       "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
-      "Erreur import app: 2025-09-17 22:31:00,706 - arkalia_security - INFO - Configuration de sécurité chargée\nTraceback (most recent call last):\n  File \"/Volumes/T7/devstation/arkalia-quest/app.py\", line 46, in <module>\n    game_logger.info(\"✅ All core modules imported successfully\")\nNameError: name 'game_logger' is not defined\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/Volumes/T7/devstation/arkalia-quest/app.py\", line 48, in <module>\n    game_logger.error(f\"❌ Error importing core modules: {e}\")\nNameError: name 'game_logger' is not defined\n"
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Impossible d'analyser le fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+      "Erreur import app: 2025-09-17 22:36:17,732 - arkalia_security - INFO - Configuration de sécurité chargée\nTraceback (most recent call last):\n  File \"/Volumes/T7/devstation/arkalia-quest/app.py\", line 46, in <module>\n    game_logger.info(\"✅ All core modules imported successfully\")\nNameError: name 'game_logger' is not defined\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/Volumes/T7/devstation/arkalia-quest/app.py\", line 48, in <module>\n    game_logger.error(f\"❌ Error importing core modules: {e}\")\nNameError: name 'game_logger' is not defined\n"
     ],
     "warnings": [
       "TODO/FIXME détecté (ligne 478): \"hack_system\": \"💻 Hack le système de La Corp (8s max)\",",
@@ -64,229 +92,229 @@
       "Print de debug détecté (ligne 90)",
       "Print de debug détecté (ligne 221)",
       "Print de debug détecté (ligne 222)",
-      "Print de debug détecté (ligne 136)",
-      "Print de debug détecté (ligne 210)",
-      "Print de debug détecté (ligne 288)",
-      "Print de debug détecté (ligne 296)",
-      "Print de debug détecté (ligne 327)",
-      "Print de debug détecté (ligne 334)",
-      "Print de debug détecté (ligne 364)",
-      "Print de debug détecté (ligne 516)",
-      "Print de debug détecté (ligne 517)",
-      "Print de debug détecté (ligne 541)",
-      "Print de debug détecté (ligne 542)",
-      "Print de debug détecté (ligne 543)",
-      "Print de debug détecté (ligne 545)",
-      "Print de debug détecté (ligne 564)",
-      "Print de debug détecté (ligne 569)",
-      "Print de debug détecté (ligne 578)",
-      "Print de debug détecté (ligne 579)",
-      "Print de debug détecté (ligne 586)",
-      "Print de debug détecté (ligne 660)",
-      "Print de debug détecté (ligne 662)",
-      "Print de debug détecté (ligne 17)",
-      "Print de debug détecté (ligne 21)",
-      "Print de debug détecté (ligne 436)",
-      "Print de debug détecté (ligne 437)",
-      "Print de debug détecté (ligne 454)",
-      "Print de debug détecté (ligne 455)",
+      "Print de debug détecté (ligne 147)",
+      "Print de debug détecté (ligne 221)",
+      "Print de debug détecté (ligne 299)",
+      "Print de debug détecté (ligne 307)",
+      "Print de debug détecté (ligne 338)",
+      "Print de debug détecté (ligne 345)",
+      "Print de debug détecté (ligne 375)",
+      "Print de debug détecté (ligne 527)",
+      "Print de debug détecté (ligne 528)",
+      "Print de debug détecté (ligne 552)",
+      "Print de debug détecté (ligne 553)",
+      "Print de debug détecté (ligne 554)",
+      "Print de debug détecté (ligne 556)",
+      "Print de debug détecté (ligne 575)",
+      "Print de debug détecté (ligne 580)",
+      "Print de debug détecté (ligne 589)",
+      "Print de debug détecté (ligne 590)",
+      "Print de debug détecté (ligne 597)",
+      "Print de debug détecté (ligne 671)",
+      "Print de debug détecté (ligne 673)",
       "Print de debug détecté (ligne 22)",
-      "Print de debug détecté (ligne 45)",
-      "Print de debug détecté (ligne 63)",
-      "Print de debug détecté (ligne 83)",
-      "Print de debug détecté (ligne 85)",
-      "Print de debug détecté (ligne 108)",
-      "Print de debug détecté (ligne 113)",
-      "Print de debug détecté (ligne 123)",
-      "Print de debug détecté (ligne 162)",
-      "Print de debug détecté (ligne 163)",
-      "Print de debug détecté (ligne 178)",
-      "Print de debug détecté (ligne 22)",
-      "Print de debug détecté (ligne 473)",
-      "Print de debug détecté (ligne 489)",
-      "Print de debug détecté (ligne 496)",
-      "Print de debug détecté (ligne 351)",
-      "Print de debug détecté (ligne 352)",
-      "Print de debug détecté (ligne 373)",
-      "Print de debug détecté (ligne 374)",
-      "Print de debug détecté (ligne 29)",
-      "Print de debug détecté (ligne 82)",
-      "Print de debug détecté (ligne 135)",
-      "Print de debug détecté (ligne 188)",
-      "Print de debug détecté (ligne 241)",
-      "Print de debug détecté (ligne 293)",
-      "Print de debug détecté (ligne 294)",
-      "Print de debug détecté (ligne 295)",
-      "Print de debug détecté (ligne 296)",
-      "Print de debug détecté (ligne 392)",
-      "Print de debug détecté (ligne 393)",
-      "Print de debug détecté (ligne 394)",
-      "Print de debug détecté (ligne 396)",
-      "Print de debug détecté (ligne 397)",
-      "Print de debug détecté (ligne 398)",
-      "Print de debug détecté (ligne 399)",
-      "Print de debug détecté (ligne 400)",
+      "Print de debug détecté (ligne 26)",
+      "Print de debug détecté (ligne 441)",
+      "Print de debug détecté (ligne 442)",
+      "Print de debug détecté (ligne 459)",
+      "Print de debug détecté (ligne 460)",
+      "Print de debug détecté (ligne 25)",
+      "Print de debug détecté (ligne 48)",
+      "Print de debug détecté (ligne 66)",
+      "Print de debug détecté (ligne 86)",
+      "Print de debug détecté (ligne 88)",
+      "Print de debug détecté (ligne 111)",
+      "Print de debug détecté (ligne 116)",
+      "Print de debug détecté (ligne 126)",
+      "Print de debug détecté (ligne 165)",
+      "Print de debug détecté (ligne 166)",
+      "Print de debug détecté (ligne 181)",
+      "Print de debug détecté (ligne 27)",
+      "Print de debug détecté (ligne 478)",
+      "Print de debug détecté (ligne 494)",
+      "Print de debug détecté (ligne 501)",
+      "Print de debug détecté (ligne 356)",
+      "Print de debug détecté (ligne 357)",
+      "Print de debug détecté (ligne 378)",
+      "Print de debug détecté (ligne 379)",
+      "Print de debug détecté (ligne 39)",
+      "Print de debug détecté (ligne 92)",
+      "Print de debug détecté (ligne 145)",
+      "Print de debug détecté (ligne 198)",
+      "Print de debug détecté (ligne 251)",
+      "Print de debug détecté (ligne 303)",
+      "Print de debug détecté (ligne 304)",
+      "Print de debug détecté (ligne 305)",
+      "Print de debug détecté (ligne 306)",
+      "Print de debug détecté (ligne 402)",
       "Print de debug détecté (ligne 403)",
+      "Print de debug détecté (ligne 404)",
+      "Print de debug détecté (ligne 406)",
       "Print de debug détecté (ligne 407)",
+      "Print de debug détecté (ligne 408)",
+      "Print de debug détecté (ligne 409)",
       "Print de debug détecté (ligne 410)",
+      "Print de debug détecté (ligne 413)",
       "Print de debug détecté (ligne 417)",
-      "Print de debug détecté (ligne 424)",
-      "Print de debug détecté (ligne 18)",
-      "Print de debug détecté (ligne 53)",
-      "Print de debug détecté (ligne 103)",
-      "Print de debug détecté (ligne 104)",
-      "Print de debug détecté (ligne 158)",
-      "Print de debug détecté (ligne 162)",
+      "Print de debug détecté (ligne 420)",
+      "Print de debug détecté (ligne 427)",
+      "Print de debug détecté (ligne 434)",
+      "Print de debug détecté (ligne 27)",
+      "Print de debug détecté (ligne 62)",
+      "Print de debug détecté (ligne 112)",
+      "Print de debug détecté (ligne 113)",
+      "Print de debug détecté (ligne 167)",
       "Print de debug détecté (ligne 171)",
-      "Print de debug détecté (ligne 172)",
-      "Print de debug détecté (ligne 202)",
-      "Print de debug détecté (ligne 238)",
-      "Print de debug détecté (ligne 239)",
-      "Print de debug détecté (ligne 246)",
+      "Print de debug détecté (ligne 180)",
+      "Print de debug détecté (ligne 181)",
+      "Print de debug détecté (ligne 211)",
       "Print de debug détecté (ligne 247)",
       "Print de debug détecté (ligne 248)",
       "Print de debug détecté (ligne 255)",
-      "Print de debug détecté (ligne 259)",
-      "Print de debug détecté (ligne 261)",
-      "Print de debug détecté (ligne 266)",
+      "Print de debug détecté (ligne 256)",
+      "Print de debug détecté (ligne 257)",
+      "Print de debug détecté (ligne 264)",
       "Print de debug détecté (ligne 268)",
-      "Print de debug détecté (ligne 44)",
-      "Print de debug détecté (ligne 49)",
-      "Print de debug détecté (ligne 144)",
-      "Print de debug détecté (ligne 149)",
-      "Print de debug détecté (ligne 219)",
-      "Print de debug détecté (ligne 244)",
-      "Print de debug détecté (ligne 430)",
-      "Print de debug détecté (ligne 558)",
-      "Print de debug détecté (ligne 560)",
-      "Print de debug détecté (ligne 562)",
-      "Print de debug détecté (ligne 563)",
-      "Print de debug détecté (ligne 564)",
-      "Print de debug détecté (ligne 565)",
-      "Print de debug détecté (ligne 566)",
-      "Print de debug détecté (ligne 567)",
-      "Print de debug détecté (ligne 570)",
-      "Print de debug détecté (ligne 573)",
-      "Print de debug détecté (ligne 576)",
-      "Print de debug détecté (ligne 579)",
-      "Print de debug détecté (ligne 600)",
-      "Print de debug détecté (ligne 606)",
-      "Print de debug détecté (ligne 611)",
-      "Print de debug détecté (ligne 17)",
-      "TODO/FIXME détecté (ligne 57): \"name\": \"Premier Hack\",",
-      "TODO/FIXME détecté (ligne 58): \"description\": \"A réussi son premier hack\",",
-      "Print de debug détecté (ligne 110)",
-      "Print de debug détecté (ligne 213)",
-      "Print de debug détecté (ligne 268)",
-      "Print de debug détecté (ligne 297)",
-      "Print de debug détecté (ligne 365)",
-      "Print de debug détecté (ligne 33)",
-      "Print de debug détecté (ligne 72)",
-      "Print de debug détecté (ligne 77)",
-      "Print de debug détecté (ligne 132)",
-      "Print de debug détecté (ligne 184)",
-      "Print de debug détecté (ligne 230)",
-      "Print de debug détecté (ligne 302)",
-      "Print de debug détecté (ligne 309)",
-      "Print de debug détecté (ligne 317)",
-      "Print de debug détecté (ligne 358)",
-      "Print de debug détecté (ligne 386)",
-      "Print de debug détecté (ligne 387)",
-      "Print de debug détecté (ligne 445)",
-      "Print de debug détecté (ligne 446)",
-      "Print de debug détecté (ligne 448)",
-      "Print de debug détecté (ligne 465)",
-      "Print de debug détecté (ligne 476)",
-      "Print de debug détecté (ligne 478)",
-      "Print de debug détecté (ligne 29)",
-      "Print de debug détecté (ligne 78)",
-      "Print de debug détecté (ligne 79)",
-      "Print de debug détecté (ligne 105)",
-      "Print de debug détecté (ligne 131)",
-      "Print de debug détecté (ligne 232)",
-      "Print de debug détecté (ligne 250)",
-      "Print de debug détecté (ligne 251)",
-      "Print de debug détecté (ligne 252)",
-      "Print de debug détecté (ligne 267)",
-      "Print de debug détecté (ligne 269)",
+      "Print de debug détecté (ligne 270)",
       "Print de debug détecté (ligne 275)",
-      "Print de debug détecté (ligne 276)",
       "Print de debug détecté (ligne 277)",
-      "Print de debug détecté (ligne 278)",
+      "Print de debug détecté (ligne 55)",
+      "Print de debug détecté (ligne 60)",
+      "Print de debug détecté (ligne 155)",
+      "Print de debug détecté (ligne 160)",
+      "Print de debug détecté (ligne 230)",
+      "Print de debug détecté (ligne 255)",
+      "Print de debug détecté (ligne 441)",
+      "Print de debug détecté (ligne 569)",
+      "Print de debug détecté (ligne 571)",
+      "Print de debug détecté (ligne 573)",
+      "Print de debug détecté (ligne 574)",
+      "Print de debug détecté (ligne 575)",
+      "Print de debug détecté (ligne 576)",
+      "Print de debug détecté (ligne 577)",
+      "Print de debug détecté (ligne 578)",
+      "Print de debug détecté (ligne 581)",
+      "Print de debug détecté (ligne 584)",
+      "Print de debug détecté (ligne 587)",
+      "Print de debug détecté (ligne 590)",
+      "Print de debug détecté (ligne 611)",
+      "Print de debug détecté (ligne 617)",
+      "Print de debug détecté (ligne 622)",
+      "Print de debug détecté (ligne 22)",
+      "TODO/FIXME détecté (ligne 62): \"name\": \"Premier Hack\",",
+      "TODO/FIXME détecté (ligne 63): \"description\": \"A réussi son premier hack\",",
+      "Print de debug détecté (ligne 115)",
+      "Print de debug détecté (ligne 218)",
+      "Print de debug détecté (ligne 273)",
+      "Print de debug détecté (ligne 302)",
+      "Print de debug détecté (ligne 370)",
+      "Print de debug détecté (ligne 44)",
+      "Print de debug détecté (ligne 83)",
+      "Print de debug détecté (ligne 88)",
+      "Print de debug détecté (ligne 143)",
+      "Print de debug détecté (ligne 195)",
+      "Print de debug détecté (ligne 241)",
+      "Print de debug détecté (ligne 313)",
+      "Print de debug détecté (ligne 320)",
+      "Print de debug détecté (ligne 328)",
+      "Print de debug détecté (ligne 369)",
+      "Print de debug détecté (ligne 397)",
+      "Print de debug détecté (ligne 398)",
+      "Print de debug détecté (ligne 456)",
+      "Print de debug détecté (ligne 457)",
+      "Print de debug détecté (ligne 459)",
+      "Print de debug détecté (ligne 476)",
+      "Print de debug détecté (ligne 487)",
+      "Print de debug détecté (ligne 489)",
+      "Print de debug détecté (ligne 39)",
+      "Print de debug détecté (ligne 88)",
+      "Print de debug détecté (ligne 89)",
+      "Print de debug détecté (ligne 115)",
+      "Print de debug détecté (ligne 141)",
+      "Print de debug détecté (ligne 242)",
+      "Print de debug détecté (ligne 260)",
+      "Print de debug détecté (ligne 261)",
+      "Print de debug détecté (ligne 262)",
+      "Print de debug détecté (ligne 277)",
       "Print de debug détecté (ligne 279)",
       "Print de debug détecté (ligne 285)",
+      "Print de debug détecté (ligne 286)",
+      "Print de debug détecté (ligne 287)",
       "Print de debug détecté (ligne 288)",
-      "Print de debug détecté (ligne 291)",
-      "Print de debug détecté (ligne 300)",
-      "TODO/FIXME détecté (ligne 99): \"name\": \"Bouton Hack\",",
-      "TODO/FIXME détecté (ligne 101): \"expected\": \"hack coffre\",",
-      "TODO/FIXME détecté (ligne 255): {\"name\": \"Neural Hack\", \"action\": \"neural_hack\", \"expected\": \"hack neural\"},",
-      "Print de debug détecté (ligne 421)",
-      "Print de debug détecté (ligne 469)",
-      "Print de debug détecté (ligne 470)",
-      "Print de debug détecté (ligne 503)",
-      "Print de debug détecté (ligne 504)",
-      "Print de debug détecté (ligne 505)",
-      "Print de debug détecté (ligne 506)",
-      "Print de debug détecté (ligne 509)",
+      "Print de debug détecté (ligne 289)",
+      "Print de debug détecté (ligne 295)",
+      "Print de debug détecté (ligne 298)",
+      "Print de debug détecté (ligne 301)",
+      "Print de debug détecté (ligne 310)",
+      "TODO/FIXME détecté (ligne 107): \"name\": \"Bouton Hack\",",
+      "TODO/FIXME détecté (ligne 109): \"expected\": \"hack coffre\",",
+      "TODO/FIXME détecté (ligne 263): {\"name\": \"Neural Hack\", \"action\": \"neural_hack\", \"expected\": \"hack neural\"},",
+      "Print de debug détecté (ligne 429)",
+      "Print de debug détecté (ligne 477)",
+      "Print de debug détecté (ligne 478)",
+      "Print de debug détecté (ligne 511)",
       "Print de debug détecté (ligne 512)",
-      "Print de debug détecté (ligne 515)",
-      "Print de debug détecté (ligne 518)",
-      "Print de debug détecté (ligne 524)",
-      "Print de debug détecté (ligne 527)",
-      "Print de debug détecté (ligne 529)",
-      "Print de debug détecté (ligne 92)",
-      "TODO/FIXME détecté (ligne 220): \"\"\"Test du système de hack progressif\"\"\"",
-      "TODO/FIXME détecté (ligne 221): game_logger.info(r\"💻 Test du système de hack progressif...\")",
-      "TODO/FIXME détecté (ligne 224): \"name\": \"Hack progressif\",",
-      "TODO/FIXME détecté (ligne 250): test[\"features_tested\"].append(\"Progression hack présente\")",
-      "TODO/FIXME détecté (ligne 252): test[\"issues\"].append(\"Progression hack manquante\")",
-      "TODO/FIXME détecté (ligne 266): \"Progression visuelle hack présente\"",
-      "TODO/FIXME détecté (ligne 269): test[\"issues\"].append(\"Progression visuelle hack manquante\")",
-      "Print de debug détecté (ligne 337)",
+      "Print de debug détecté (ligne 513)",
+      "Print de debug détecté (ligne 514)",
+      "Print de debug détecté (ligne 517)",
+      "Print de debug détecté (ligne 520)",
+      "Print de debug détecté (ligne 523)",
+      "Print de debug détecté (ligne 526)",
+      "Print de debug détecté (ligne 532)",
+      "Print de debug détecté (ligne 535)",
+      "Print de debug détecté (ligne 537)",
+      "Print de debug détecté (ligne 100)",
+      "TODO/FIXME détecté (ligne 228): \"\"\"Test du système de hack progressif\"\"\"",
+      "TODO/FIXME détecté (ligne 229): game_logger.info(r\"💻 Test du système de hack progressif...\")",
+      "TODO/FIXME détecté (ligne 232): \"name\": \"Hack progressif\",",
+      "TODO/FIXME détecté (ligne 258): test[\"features_tested\"].append(\"Progression hack présente\")",
+      "TODO/FIXME détecté (ligne 260): test[\"issues\"].append(\"Progression hack manquante\")",
+      "TODO/FIXME détecté (ligne 274): \"Progression visuelle hack présente\"",
+      "TODO/FIXME détecté (ligne 277): test[\"issues\"].append(\"Progression visuelle hack manquante\")",
+      "Print de debug détecté (ligne 345)",
+      "Print de debug détecté (ligne 373)",
+      "Print de debug détecté (ligne 374)",
+      "Print de debug détecté (ligne 375)",
+      "Print de debug détecté (ligne 378)",
+      "Print de debug détecté (ligne 379)",
+      "Print de debug détecté (ligne 380)",
+      "Print de debug détecté (ligne 383)",
+      "Print de debug détecté (ligne 388)",
+      "Print de debug détecté (ligne 168)",
+      "Print de debug détecté (ligne 409)",
+      "Print de debug détecté (ligne 537)",
+      "Print de debug détecté (ligne 538)",
+      "Print de debug détecté (ligne 572)",
+      "Print de debug détecté (ligne 573)",
+      "Print de debug détecté (ligne 574)",
+      "Print de debug détecté (ligne 575)",
+      "Print de debug détecté (ligne 578)",
+      "Print de debug détecté (ligne 579)",
+      "Print de debug détecté (ligne 587)",
+      "Print de debug détecté (ligne 589)",
+      "Print de debug détecté (ligne 17)",
+      "Print de debug détecté (ligne 332)",
+      "Print de debug détecté (ligne 333)",
+      "Print de debug détecté (ligne 364)",
       "Print de debug détecté (ligne 365)",
       "Print de debug détecté (ligne 366)",
       "Print de debug détecté (ligne 367)",
       "Print de debug détecté (ligne 370)",
-      "Print de debug détecté (ligne 371)",
       "Print de debug détecté (ligne 372)",
-      "Print de debug détecté (ligne 375)",
-      "Print de debug détecté (ligne 380)",
-      "Print de debug détecté (ligne 160)",
-      "Print de debug détecté (ligne 401)",
-      "Print de debug détecté (ligne 529)",
-      "Print de debug détecté (ligne 530)",
-      "Print de debug détecté (ligne 564)",
-      "Print de debug détecté (ligne 565)",
-      "Print de debug détecté (ligne 566)",
-      "Print de debug détecté (ligne 567)",
-      "Print de debug détecté (ligne 570)",
-      "Print de debug détecté (ligne 571)",
-      "Print de debug détecté (ligne 579)",
-      "Print de debug détecté (ligne 581)",
-      "Print de debug détecté (ligne 17)",
-      "Print de debug détecté (ligne 324)",
-      "Print de debug détecté (ligne 325)",
-      "Print de debug détecté (ligne 356)",
-      "Print de debug détecté (ligne 357)",
-      "Print de debug détecté (ligne 358)",
-      "Print de debug détecté (ligne 359)",
-      "Print de debug détecté (ligne 362)",
-      "Print de debug détecté (ligne 364)",
-      "Print de debug détecté (ligne 366)",
       "Print de debug détecté (ligne 374)",
-      "Print de debug détecté (ligne 376)",
-      "Print de debug détecté (ligne 379)",
-      "Print de debug détecté (ligne 381)",
-      "Print de debug détecté (ligne 973)",
-      "Print de debug détecté (ligne 974)",
-      "Print de debug détecté (ligne 1001)",
-      "Print de debug détecté (ligne 1002)",
-      "Print de debug détecté (ligne 1003)",
-      "Print de debug détecté (ligne 1004)",
+      "Print de debug détecté (ligne 382)",
+      "Print de debug détecté (ligne 384)",
+      "Print de debug détecté (ligne 387)",
+      "Print de debug détecté (ligne 389)",
+      "Print de debug détecté (ligne 981)",
+      "Print de debug détecté (ligne 982)",
       "Print de debug détecté (ligne 1009)",
       "Print de debug détecté (ligne 1010)",
       "Print de debug détecté (ligne 1011)",
+      "Print de debug détecté (ligne 1012)",
+      "Print de debug détecté (ligne 1017)",
+      "Print de debug détecté (ligne 1018)",
+      "Print de debug détecté (ligne 1019)",
       "Print de debug détecté (ligne 17)",
       "TODO/FIXME détecté (ligne 38): challenge = self.engine.generate_challenge(\"hack\", \"daily\", \"moyen\")",
       "TODO/FIXME détecté (ligne 143): challenge = self.engine.generate_challenge(\"hack\", \"daily\", difficulty)",
@@ -294,60 +322,60 @@
       "TODO/FIXME détecté (ligne 237): self.engine.generate_challenge(\"hack\", \"daily\", \"moyen\")",
       "Print de debug détecté (ligne 248)",
       "Print de debug détecté (ligne 249)",
-      "Print de debug détecté (ligne 37)",
-      "Print de debug détecté (ligne 40)",
-      "Print de debug détecté (ligne 74)",
-      "Print de debug détecté (ligne 77)",
-      "Print de debug détecté (ligne 269)",
-      "Print de debug détecté (ligne 272)",
-      "Print de debug détecté (ligne 340)",
-      "Print de debug détecté (ligne 406)",
-      "Print de debug détecté (ligne 430)",
-      "Print de debug détecté (ligne 432)",
-      "Print de debug détecté (ligne 73)",
-      "Print de debug détecté (ligne 75)",
-      "Print de debug détecté (ligne 78)",
-      "Print de debug détecté (ligne 81)",
+      "Print de debug détecté (ligne 43)",
+      "Print de debug détecté (ligne 46)",
+      "Print de debug détecté (ligne 80)",
+      "Print de debug détecté (ligne 83)",
+      "Print de debug détecté (ligne 275)",
+      "Print de debug détecté (ligne 278)",
+      "Print de debug détecté (ligne 346)",
+      "Print de debug détecté (ligne 412)",
+      "Print de debug détecté (ligne 436)",
+      "Print de debug détecté (ligne 438)",
       "Print de debug détecté (ligne 84)",
-      "Print de debug détecté (ligne 90)",
-      "Print de debug détecté (ligne 121)",
-      "Print de debug détecté (ligne 175)",
-      "Print de debug détecté (ligne 221)",
-      "Print de debug détecté (ligne 222)",
-      "Print de debug détecté (ligne 225)",
-      "Print de debug détecté (ligne 228)",
-      "Print de debug détecté (ligne 231)",
-      "Print de debug détecté (ligne 234)",
-      "Print de debug détecté (ligne 251)",
-      "Print de debug détecté (ligne 252)",
-      "Print de debug détecté (ligne 253)",
-      "Print de debug détecté (ligne 255)",
-      "Print de debug détecté (ligne 256)",
-      "Print de debug détecté (ligne 257)",
-      "Print de debug détecté (ligne 258)",
-      "Print de debug détecté (ligne 259)",
-      "Print de debug détecté (ligne 271)",
-      "Print de debug détecté (ligne 279)",
-      "Print de debug détecté (ligne 939)",
-      "Print de debug détecté (ligne 940)",
-      "Print de debug détecté (ligne 985)",
-      "Print de debug détecté (ligne 986)",
-      "Print de debug détecté (ligne 987)",
-      "Print de debug détecté (ligne 988)",
-      "Print de debug détecté (ligne 991)",
-      "Print de debug détecté (ligne 992)",
+      "Print de debug détecté (ligne 86)",
+      "Print de debug détecté (ligne 89)",
+      "Print de debug détecté (ligne 92)",
+      "Print de debug détecté (ligne 95)",
+      "Print de debug détecté (ligne 101)",
+      "Print de debug détecté (ligne 132)",
+      "Print de debug détecté (ligne 186)",
+      "Print de debug détecté (ligne 232)",
+      "Print de debug détecté (ligne 233)",
+      "Print de debug détecté (ligne 236)",
+      "Print de debug détecté (ligne 239)",
+      "Print de debug détecté (ligne 242)",
+      "Print de debug détecté (ligne 245)",
+      "Print de debug détecté (ligne 262)",
+      "Print de debug détecté (ligne 263)",
+      "Print de debug détecté (ligne 264)",
+      "Print de debug détecté (ligne 266)",
+      "Print de debug détecté (ligne 267)",
+      "Print de debug détecté (ligne 268)",
+      "Print de debug détecté (ligne 269)",
+      "Print de debug détecté (ligne 270)",
+      "Print de debug détecté (ligne 282)",
+      "Print de debug détecté (ligne 290)",
+      "Print de debug détecté (ligne 947)",
+      "Print de debug détecté (ligne 948)",
       "Print de debug détecté (ligne 993)",
       "Print de debug détecté (ligne 994)",
-      "Print de debug détecté (ligne 997)",
+      "Print de debug détecté (ligne 995)",
+      "Print de debug détecté (ligne 996)",
       "Print de debug détecté (ligne 999)",
+      "Print de debug détecté (ligne 1000)",
+      "Print de debug détecté (ligne 1001)",
+      "Print de debug détecté (ligne 1002)",
+      "Print de debug détecté (ligne 1005)",
+      "Print de debug détecté (ligne 1007)",
       "Print de debug détecté (ligne 21)",
       "Print de debug détecté (ligne 17)",
       "Print de debug détecté (ligne 195)",
       "Print de debug détecté (ligne 196)",
-      "Print de debug détecté (ligne 36)",
-      "Print de debug détecté (ligne 122)",
-      "Print de debug détecté (ligne 160)",
-      "Print de debug détecté (ligne 161)",
+      "Print de debug détecté (ligne 39)",
+      "Print de debug détecté (ligne 125)",
+      "Print de debug détecté (ligne 163)",
+      "Print de debug détecté (ligne 164)",
       "Print de debug détecté (ligne 71)",
       "Print de debug détecté (ligne 72)",
       "Print de debug détecté (ligne 74)",
@@ -421,110 +449,110 @@
       "Print de debug détecté (ligne 427)",
       "Print de debug détecté (ligne 24)",
       "TODO/FIXME détecté (ligne 61): \"hack\",",
-      "Print de debug détecté (ligne 38)",
-      "Print de debug détecté (ligne 133)",
-      "Print de debug détecté (ligne 195)",
-      "Print de debug détecté (ligne 202)",
-      "Print de debug détecté (ligne 226)",
-      "Print de debug détecté (ligne 273)",
-      "Print de debug détecté (ligne 274)",
-      "Print de debug détecté (ligne 430)",
-      "Print de debug détecté (ligne 441)",
-      "Print de debug détecté (ligne 47)",
-      "Print de debug détecté (ligne 487)",
-      "Print de debug détecté (ligne 489)",
-      "Print de debug détecté (ligne 490)",
-      "Print de debug détecté (ligne 494)",
-      "Print de debug détecté (ligne 498)",
-      "Print de debug détecté (ligne 502)",
-      "Print de debug détecté (ligne 506)",
-      "Print de debug détecté (ligne 510)",
-      "Print de debug détecté (ligne 514)",
-      "Print de debug détecté (ligne 518)",
-      "Print de debug détecté (ligne 522)",
-      "Print de debug détecté (ligne 526)",
-      "Print de debug détecté (ligne 545)",
-      "Print de debug détecté (ligne 547)",
-      "Print de debug détecté (ligne 554)",
-      "Print de debug détecté (ligne 559)",
-      "Print de debug détecté (ligne 562)",
-      "Print de debug détecté (ligne 563)",
-      "Print de debug détecté (ligne 567)",
-      "Print de debug détecté (ligne 633)",
-      "Print de debug détecté (ligne 102)",
-      "Print de debug détecté (ligne 398)",
-      "Print de debug détecté (ligne 400)",
-      "Print de debug détecté (ligne 401)",
-      "Print de debug détecté (ligne 405)",
-      "Print de debug détecté (ligne 411)",
-      "Print de debug détecté (ligne 417)",
-      "Print de debug détecté (ligne 423)",
-      "Print de debug détecté (ligne 429)",
+      "Print de debug détecté (ligne 43)",
+      "Print de debug détecté (ligne 138)",
+      "Print de debug détecté (ligne 200)",
+      "Print de debug détecté (ligne 207)",
+      "Print de debug détecté (ligne 231)",
+      "Print de debug détecté (ligne 278)",
+      "Print de debug détecté (ligne 279)",
       "Print de debug détecté (ligne 435)",
-      "Print de debug détecté (ligne 441)",
-      "Print de debug détecté (ligne 447)",
-      "Print de debug détecté (ligne 470)",
-      "Print de debug détecté (ligne 472)",
-      "Print de debug détecté (ligne 479)",
-      "Print de debug détecté (ligne 535)",
+      "Print de debug détecté (ligne 446)",
+      "Print de debug détecté (ligne 57)",
+      "Print de debug détecté (ligne 497)",
+      "Print de debug détecté (ligne 499)",
+      "Print de debug détecté (ligne 500)",
+      "Print de debug détecté (ligne 504)",
+      "Print de debug détecté (ligne 508)",
+      "Print de debug détecté (ligne 512)",
+      "Print de debug détecté (ligne 516)",
+      "Print de debug détecté (ligne 520)",
+      "Print de debug détecté (ligne 524)",
+      "Print de debug détecté (ligne 528)",
+      "Print de debug détecté (ligne 532)",
+      "Print de debug détecté (ligne 536)",
+      "Print de debug détecté (ligne 555)",
       "Print de debug détecté (ligne 557)",
-      "Print de debug détecté (ligne 559)",
-      "Print de debug détecté (ligne 562)",
-      "Print de debug détecté (ligne 565)",
+      "Print de debug détecté (ligne 564)",
+      "Print de debug détecté (ligne 569)",
+      "Print de debug détecté (ligne 572)",
+      "Print de debug détecté (ligne 573)",
+      "Print de debug détecté (ligne 577)",
+      "Print de debug détecté (ligne 643)",
+      "Print de debug détecté (ligne 112)",
+      "Print de debug détecté (ligne 408)",
+      "Print de debug détecté (ligne 410)",
+      "Print de debug détecté (ligne 411)",
+      "Print de debug détecté (ligne 415)",
+      "Print de debug détecté (ligne 421)",
+      "Print de debug détecté (ligne 427)",
+      "Print de debug détecté (ligne 433)",
+      "Print de debug détecté (ligne 439)",
+      "Print de debug détecté (ligne 445)",
+      "Print de debug détecté (ligne 451)",
+      "Print de debug détecté (ligne 457)",
+      "Print de debug détecté (ligne 480)",
+      "Print de debug détecté (ligne 482)",
+      "Print de debug détecté (ligne 489)",
+      "Print de debug détecté (ligne 545)",
       "Print de debug détecté (ligne 567)",
       "Print de debug détecté (ligne 569)",
-      "Print de debug détecté (ligne 616)",
-      "Print de debug détecté (ligne 24)",
-      "TODO/FIXME détecté (ligne 76): \"name\": \"Premier Hack\",",
-      "TODO/FIXME détecté (ligne 77): \"description\": \"A réussi son premier hack\",",
-      "Print de debug détecté (ligne 114)",
+      "Print de debug détecté (ligne 572)",
+      "Print de debug détecté (ligne 575)",
+      "Print de debug détecté (ligne 577)",
+      "Print de debug détecté (ligne 579)",
+      "Print de debug détecté (ligne 626)",
+      "Print de debug détecté (ligne 29)",
+      "TODO/FIXME détecté (ligne 81): \"name\": \"Premier Hack\",",
+      "TODO/FIXME détecté (ligne 82): \"description\": \"A réussi son premier hack\",",
+      "Print de debug détecté (ligne 119)",
+      "Print de debug détecté (ligne 232)",
+      "Print de debug détecté (ligne 324)",
+      "Print de debug détecté (ligne 396)",
+      "Print de debug détecté (ligne 436)",
+      "Print de debug détecté (ligne 491)",
+      "Print de debug détecté (ligne 524)",
+      "Print de debug détecté (ligne 601)",
+      "Print de debug détecté (ligne 27)",
+      "Print de debug détecté (ligne 80)",
+      "Print de debug détecté (ligne 95)",
+      "Print de debug détecté (ligne 121)",
+      "Print de debug détecté (ligne 193)",
       "Print de debug détecté (ligne 227)",
-      "Print de debug détecté (ligne 319)",
-      "Print de debug détecté (ligne 391)",
-      "Print de debug détecté (ligne 431)",
-      "Print de debug détecté (ligne 486)",
-      "Print de debug détecté (ligne 519)",
-      "Print de debug détecté (ligne 596)",
-      "Print de debug détecté (ligne 22)",
-      "Print de debug détecté (ligne 75)",
-      "Print de debug détecté (ligne 90)",
-      "Print de debug détecté (ligne 116)",
-      "Print de debug détecté (ligne 188)",
-      "Print de debug détecté (ligne 222)",
-      "Print de debug détecté (ligne 231)",
-      "Print de debug détecté (ligne 309)",
-      "Print de debug détecté (ligne 394)",
-      "Print de debug détecté (ligne 449)",
-      "Print de debug détecté (ligne 502)",
+      "Print de debug détecté (ligne 236)",
+      "Print de debug détecté (ligne 314)",
+      "Print de debug détecté (ligne 399)",
+      "Print de debug détecté (ligne 454)",
+      "Print de debug détecté (ligne 507)",
       "TODO/FIXME détecté (ligne 46): preferred_games=[\"hack\", \"sequence\"],",
       "TODO/FIXME détecté (ligne 84): \"\"\"Test mini-jeu simple hack\"\"\"",
       "TODO/FIXME détecté (ligne 87): assert \"hack\" in result[\"message\"].lower()",
-      "Print de debug détecté (ligne 35)",
+      "Print de debug détecté (ligne 40)",
+      "Print de debug détecté (ligne 135)",
+      "Print de debug détecté (ligne 282)",
+      "Print de debug détecté (ligne 320)",
+      "Print de debug détecté (ligne 702)",
       "Print de debug détecté (ligne 130)",
-      "Print de debug détecté (ligne 277)",
-      "Print de debug détecté (ligne 315)",
-      "Print de debug détecté (ligne 697)",
-      "Print de debug détecté (ligne 119)",
-      "Print de debug détecté (ligne 197)",
-      "Print de debug détecté (ligne 199)",
-      "Print de debug détecté (ligne 204)",
-      "Print de debug détecté (ligne 207)",
-      "Print de debug détecté (ligne 310)",
-      "Print de debug détecté (ligne 316)",
-      "Print de debug détecté (ligne 325)",
-      "Print de debug détecté (ligne 331)",
-      "Print de debug détecté (ligne 332)",
-      "Print de debug détecté (ligne 346)",
-      "Print de debug détecté (ligne 199)",
-      "Print de debug détecté (ligne 225)",
-      "Print de debug détecté (ligne 228)",
-      "Print de debug détecté (ligne 241)",
-      "Print de debug détecté (ligne 242)",
-      "Print de debug détecté (ligne 243)",
-      "Print de debug détecté (ligne 244)",
-      "Print de debug détecté (ligne 247)",
+      "Print de debug détecté (ligne 208)",
+      "Print de debug détecté (ligne 210)",
+      "Print de debug détecté (ligne 215)",
+      "Print de debug détecté (ligne 218)",
+      "Print de debug détecté (ligne 321)",
+      "Print de debug détecté (ligne 327)",
+      "Print de debug détecté (ligne 336)",
+      "Print de debug détecté (ligne 342)",
+      "Print de debug détecté (ligne 343)",
+      "Print de debug détecté (ligne 357)",
+      "Print de debug détecté (ligne 210)",
+      "Print de debug détecté (ligne 236)",
+      "Print de debug détecté (ligne 239)",
+      "Print de debug détecté (ligne 252)",
+      "Print de debug détecté (ligne 253)",
       "Print de debug détecté (ligne 254)",
+      "Print de debug détecté (ligne 255)",
       "Print de debug détecté (ligne 258)",
+      "Print de debug détecté (ligne 265)",
+      "Print de debug détecté (ligne 269)",
       "Fonction '__init__' avec trop de paramètres (9)",
       "TODO/FIXME détecté (ligne 422): \"message\": \"💚 HACK RÉUSSI ! 💚\",",
       "TODO/FIXME détecté (ligne 452): \"hack_success\": f\"💚 Hack réussi ! +{xp_gained} XP\",",
@@ -784,7 +812,7 @@
       "Classe 'AccessibilityTester' trop longue (575 lignes)",
       "Classe 'TestLunaEmotionsEngine' trop longue (339 lignes)",
       "Classe 'TestEducationalGamesEngine' trop longue (296 lignes)",
-      "Import dans une boucle (ligne 293)",
+      "Import dans une boucle (ligne 298)",
       "Fonction 'run_tutoriel_test' trop longue (51 lignes)",
       "Fonction 'run_terminal_test' trop longue (51 lignes)",
       "Fonction 'run_navigation_test' trop longue (51 lignes)",
@@ -804,8 +832,8 @@
       "Fonction 'analyser_couverture' trop longue (70 lignes)",
       "Fonction 'calculer_score_global' trop longue (83 lignes)",
       "Classe 'AnalyseurProjet' trop longue (452 lignes)",
-      "Import dans une boucle (ligne 135)",
-      "Boucles imbriquées détectées (ligne 328)",
+      "Import dans une boucle (ligne 146)",
+      "Boucles imbriquées détectées (ligne 339)",
       "Fonction 'generate_report' trop longue (72 lignes)",
       "Fonction 'main' trop longue (73 lignes)",
       "Fonction 'test_full_workflow' trop longue (55 lignes)",
@@ -3967,1469 +3995,6 @@
       },
       {
         "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 32,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 49,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 51,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 55,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 64,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 76,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 85,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 93,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 95,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 98,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 116,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 119,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 126,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 131,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 141,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 151,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 154,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 157,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 160,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 167,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 173,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 178,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 183,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 191,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 196,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 207,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 210,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 217,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 220,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 224,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 229,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 234,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 256,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 259,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 260,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 265,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 269,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 273,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 275,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 286,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 292,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 296,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 301,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 338,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 349,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 364,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 367,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 370,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 373,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 376,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 379,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 429,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 440,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 444,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 447,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 464,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/analyse_finale_projet.py",
-        "line": 466,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/core/test_gamification_complete.py",
-        "line": 131,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/core/test_gamification_complete.py",
-        "line": 155,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/core/test_gamification_complete.py",
-        "line": 197,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/core/test_gamification_complete.py",
-        "line": 276,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/core/test_gamification_complete.py",
-        "line": 351,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/core/test_gamification_complete.py",
-        "line": 461,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/core/test_gamification_complete.py",
-        "line": 542,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/core/test_gamification_complete.py",
-        "line": 566,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/core/test_gamification_complete.py",
-        "line": 648,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/core/test_luna_emotions_complete.py",
-        "line": 154,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/core/test_luna_emotions_complete.py",
-        "line": 203,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/core/test_luna_emotions_complete.py",
-        "line": 204,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/core/test_luna_emotions_complete.py",
-        "line": 263,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/core/test_luna_emotions_complete.py",
-        "line": 288,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/core/test_luna_emotions_complete.py",
-        "line": 335,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/core/test_luna_emotions_complete.py",
-        "line": 341,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/core/test_luna_emotions_complete.py",
-        "line": 374,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/core/test_luna_emotions_complete.py",
-        "line": 424,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/core/test_luna_emotions_complete.py",
-        "line": 476,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/core/test_luna_emotions_complete.py",
-        "line": 551,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 114,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 117,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 118,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 137,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 145,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 155,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 198,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 201,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 202,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 203,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 211,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 212,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 213,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 214,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 215,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 216,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 218,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 224,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 229,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 232,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 234,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 236,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 239,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 241,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 243,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 246,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 248,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 250,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 253,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 255,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 260,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 261,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 264,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 265,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 294,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 296,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 315,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 329,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_charge_reel.py",
-        "line": 348,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_load_testing.py",
-        "line": 93,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_load_testing.py",
-        "line": 122,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_load_testing.py",
-        "line": 198,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_load_testing.py",
-        "line": 240,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_load_testing.py",
-        "line": 250,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_load_testing.py",
-        "line": 252,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_load_testing.py",
-        "line": 257,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_performance_complete.py",
-        "line": 28,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_performance_complete.py",
-        "line": 124,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_performance_complete.py",
-        "line": 176,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_performance_complete.py",
-        "line": 234,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_performance_complete.py",
-        "line": 351,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_performance_complete.py",
-        "line": 415,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_performance_complete.py",
-        "line": 467,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_performance_complete.py",
-        "line": 468,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_performance_complete.py",
-        "line": 469,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_performance_complete.py",
-        "line": 473,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_performance_complete.py",
-        "line": 525,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_performance_complete.py",
-        "line": 576,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_performance_complete.py",
-        "line": 577,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_performance_complete.py",
-        "line": 578,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_performance_complete.py",
-        "line": 579,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_performance_complete.py",
-        "line": 592,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_performance_complete.py",
-        "line": 600,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_performance_complete.py",
-        "line": 657,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_performance_complete.py",
-        "line": 696,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_performance_complete.py",
-        "line": 698,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_performance_complete.py",
-        "line": 699,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_performance_complete.py",
-        "line": 700,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_performance_complete.py",
-        "line": 706,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/performance/test_performance_complete.py",
-        "line": 743,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 29,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 47,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 80,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 93,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 97,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 143,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 146,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 150,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 198,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 217,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 229,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 233,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 278,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 314,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 319,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 329,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 429,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 442,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 443,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 444,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 447,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 448,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 451,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 453,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 456,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 458,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 463,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 466,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 468,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/robustesse/test_robustesse_avancee.py",
-        "line": 470,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_experience_tests.py",
-        "line": 28,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_experience_tests.py",
-        "line": 81,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_experience_tests.py",
-        "line": 134,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_experience_tests.py",
-        "line": 187,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_experience_tests.py",
-        "line": 240,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_experience_tests.py",
-        "line": 402,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_experience_tests.py",
-        "line": 409,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_experience_tests.py",
-        "line": 413,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_experience_tests.py",
-        "line": 416,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_experience_tests.py",
-        "line": 420,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_experience_tests.py",
-        "line": 421,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_experience_tests.py",
-        "line": 423,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_experience_tests.py",
-        "line": 426,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_experience_tests.py",
-        "line": 427,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_experience_tests.py",
-        "line": 431,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_experience_tests.py",
-        "line": 432,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_experience_tests.py",
-        "line": 441,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_tests.py",
-        "line": 28,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_tests.py",
-        "line": 97,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_tests.py",
-        "line": 104,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_tests.py",
-        "line": 123,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_tests.py",
-        "line": 130,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_tests.py",
-        "line": 149,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_tests.py",
-        "line": 231,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_tests.py",
-        "line": 236,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_tests.py",
-        "line": 241,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_tests.py",
-        "line": 268,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_tests.py",
-        "line": 274,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_tests.py",
-        "line": 281,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_tests.py",
-        "line": 284,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_tests.py",
-        "line": 298,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_tests.py",
-        "line": 302,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
         "file": "/Volumes/T7/devstation/arkalia-quest/tests/run_all_tests_stable.py",
         "line": 64,
         "message": "Undefined name `game_logger`",
@@ -5682,202 +4247,6 @@
       },
       {
         "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 22,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 48,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 55,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 99,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 106,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 144,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 164,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 171,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 218,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 253,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 260,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 371,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 403,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 410,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 447,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 454,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 481,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 555,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 563,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 566,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 575,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 576,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 577,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 580,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 582,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 584,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 658,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_accessibility_complete.py",
-        "line": 665,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
         "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_advanced_systems.py",
         "line": 667,
         "message": "Undefined name `game_logger`",
@@ -5908,510 +4277,6 @@
         "type": "ruff",
         "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_database_coverage.py",
         "line": 48,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_educational_games.py",
-        "line": 23,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_educational_games.py",
-        "line": 472,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_educational_games.py",
-        "line": 490,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_educational_games.py",
-        "line": 491,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_educational_games.py",
-        "line": 494,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_educational_games.py",
-        "line": 495,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_educational_games.py",
-        "line": 501,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_educational_games.py",
-        "line": 503,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_educational_games.py",
-        "line": 506,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_educational_games.py",
-        "line": 508,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_gamification_engine_complete.py",
-        "line": 52,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_gamification_engine_complete.py",
-        "line": 78,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_gamification_engine_complete.py",
-        "line": 142,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_gamification_engine_complete.py",
-        "line": 162,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_gamification_engine_complete.py",
-        "line": 193,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_gamification_engine_complete.py",
-        "line": 248,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_gamification_engine_complete.py",
-        "line": 334,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_gamification_engine_complete.py",
-        "line": 385,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_gamification_engine_complete.py",
-        "line": 419,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_gamification_engine_complete.py",
-        "line": 430,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_gamification_engine_complete.py",
-        "line": 431,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_gamification_engine_complete.py",
-        "line": 432,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_gamification_engine_complete.py",
-        "line": 435,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_gamification_engine_complete.py",
-        "line": 436,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_gamification_engine_complete.py",
-        "line": 439,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_gamification_engine_complete.py",
-        "line": 441,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_gamification_engine_complete.py",
-        "line": 444,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_gamification_engine_complete.py",
-        "line": 446,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_effects.py",
-        "line": 322,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_effects.py",
-        "line": 375,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_effects.py",
-        "line": 376,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_effects.py",
-        "line": 377,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_effects.py",
-        "line": 378,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_effects.py",
-        "line": 383,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_effects.py",
-        "line": 385,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_effects.py",
-        "line": 388,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_effects.py",
-        "line": 390,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_effects.py",
-        "line": 395,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_system_complete.py",
-        "line": 43,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_system_complete.py",
-        "line": 53,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_system_complete.py",
-        "line": 57,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_system_complete.py",
-        "line": 61,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_system_complete.py",
-        "line": 93,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_system_complete.py",
-        "line": 152,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_system_complete.py",
-        "line": 160,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_system_complete.py",
-        "line": 180,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_system_complete.py",
-        "line": 224,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_system_complete.py",
-        "line": 232,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_system_complete.py",
-        "line": 273,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_system_complete.py",
-        "line": 277,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_system_complete.py",
-        "line": 293,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_system_complete.py",
-        "line": 320,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_system_complete.py",
-        "line": 331,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_system_complete.py",
-        "line": 552,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_system_complete.py",
-        "line": 559,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_system_complete.py",
-        "line": 569,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_system_complete.py",
-        "line": 584,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_system_complete.py",
-        "line": 588,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_system_complete.py",
-        "line": 592,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_immersive_system_complete.py",
-        "line": 599,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_luna_emotions.py",
-        "line": 18,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_luna_emotions.py",
-        "line": 19,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_luna_emotions.py",
-        "line": 20,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_luna_emotions.py",
-        "line": 456,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_luna_emotions.py",
-        "line": 457,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_luna_emotions.py",
-        "line": 458,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_luna_emotions.py",
-        "line": 459,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_luna_emotions.py",
-        "line": 464,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_luna_emotions.py",
-        "line": 466,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_luna_emotions.py",
-        "line": 469,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_luna_emotions.py",
-        "line": 471,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_luna_emotions.py",
-        "line": 476,
         "message": "Undefined name `game_logger`",
         "severity": "F821"
       },
@@ -6461,1840 +4326,6 @@
         "type": "ruff",
         "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_manager.py",
         "line": 220,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 13,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 33,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 57,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 61,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 64,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 86,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 99,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 102,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 107,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 109,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 114,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 116,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 119,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 129,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 132,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 135,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 144,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 147,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 150,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 159,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 174,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 177,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 180,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 192,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 195,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 198,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 207,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 210,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 213,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 222,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 239,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 242,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 245,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 254,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 257,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 260,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 275,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 284,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 295,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 298,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 301,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 310,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 313,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 316,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 325,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 328,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 331,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 350,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 353,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 370,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 373,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 376,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 389,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 393,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 396,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 405,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 427,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 431,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 433,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 434,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 435,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 438,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 439,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 441,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_optimizations_complete.py",
-        "line": 442,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_terminal_improvements.py",
-        "line": 32,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_terminal_improvements.py",
-        "line": 114,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_terminal_improvements.py",
-        "line": 116,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_terminal_improvements.py",
-        "line": 126,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_terminal_improvements.py",
-        "line": 129,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_terminal_improvements.py",
-        "line": 133,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_terminal_improvements.py",
-        "line": 168,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_terminal_improvements.py",
-        "line": 170,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_terminal_improvements.py",
-        "line": 180,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_terminal_improvements.py",
-        "line": 183,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_terminal_improvements.py",
-        "line": 187,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_terminal_improvements.py",
-        "line": 198,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_terminal_improvements.py",
-        "line": 201,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_terminal_improvements.py",
-        "line": 204,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_terminal_improvements.py",
-        "line": 207,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_terminal_improvements.py",
-        "line": 210,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_terminal_improvements.py",
-        "line": 211,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_terminal_improvements.py",
-        "line": 214,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_terminal_improvements.py",
-        "line": 217,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_terminal_improvements.py",
-        "line": 263,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_terminal_improvements.py",
-        "line": 265,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_terminal_improvements.py",
-        "line": 269,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_terminal_improvements.py",
-        "line": 278,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_boutons_actions_experience.py",
-        "line": 29,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_boutons_actions_experience.py",
-        "line": 73,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_boutons_actions_experience.py",
-        "line": 129,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_boutons_actions_experience.py",
-        "line": 185,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_boutons_actions_experience.py",
-        "line": 230,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_boutons_actions_experience.py",
-        "line": 375,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_boutons_actions_experience.py",
-        "line": 536,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_boutons_actions_experience.py",
-        "line": 546,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_boutons_actions_experience.py",
-        "line": 548,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_boutons_actions_experience.py",
-        "line": 550,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_boutons_actions_experience.py",
-        "line": 552,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_improvements_teen.py",
-        "line": 30,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_improvements_teen.py",
-        "line": 158,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_improvements_teen.py",
-        "line": 221,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_improvements_teen.py",
-        "line": 284,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_improvements_teen.py",
-        "line": 336,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_improvements_teen.py",
-        "line": 364,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_improvements_teen.py",
-        "line": 377,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_improvements_teen.py",
-        "line": 382,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_improvements_teen.py",
-        "line": 389,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_improvements_teen.py",
-        "line": 399,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_improvements_teen.py",
-        "line": 401,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_improvements_teen.py",
-        "line": 403,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_improvements_teen.py",
-        "line": 405,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_navigation_experience.py",
-        "line": 29,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_navigation_experience.py",
-        "line": 87,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_navigation_experience.py",
-        "line": 136,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_navigation_experience.py",
-        "line": 369,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_navigation_experience.py",
-        "line": 371,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_navigation_experience.py",
-        "line": 388,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_navigation_experience.py",
-        "line": 398,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_navigation_experience.py",
-        "line": 400,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_navigation_experience.py",
-        "line": 402,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_navigation_experience.py",
-        "line": 404,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_pwa_mobile_experience.py",
-        "line": 30,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_pwa_mobile_experience.py",
-        "line": 103,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_pwa_mobile_experience.py",
-        "line": 224,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_pwa_mobile_experience.py",
-        "line": 284,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_pwa_mobile_experience.py",
-        "line": 345,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_pwa_mobile_experience.py",
-        "line": 467,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_pwa_mobile_experience.py",
-        "line": 574,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_pwa_mobile_experience.py",
-        "line": 576,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_pwa_mobile_experience.py",
-        "line": 588,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_pwa_mobile_experience.py",
-        "line": 598,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_pwa_mobile_experience.py",
-        "line": 600,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_pwa_mobile_experience.py",
-        "line": 602,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_pwa_mobile_experience.py",
-        "line": 604,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_terminal_experience.py",
-        "line": 30,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_terminal_experience.py",
-        "line": 69,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_terminal_experience.py",
-        "line": 108,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_terminal_experience.py",
-        "line": 147,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_terminal_experience.py",
-        "line": 1022,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_terminal_experience.py",
-        "line": 1024,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_terminal_experience.py",
-        "line": 1031,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_terminal_experience.py",
-        "line": 1041,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_terminal_experience.py",
-        "line": 1043,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_terminal_experience.py",
-        "line": 1045,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_terminal_experience.py",
-        "line": 1047,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_tutoriel_experience.py",
-        "line": 30,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_tutoriel_experience.py",
-        "line": 75,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_tutoriel_experience.py",
-        "line": 114,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_tutoriel_experience.py",
-        "line": 153,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_tutoriel_experience.py",
-        "line": 1006,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_tutoriel_experience.py",
-        "line": 1016,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_tutoriel_experience.py",
-        "line": 1018,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_tutoriel_experience.py",
-        "line": 1020,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_ui_tutoriel_experience.py",
-        "line": 1022,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_utilisateur_automated.py",
-        "line": 18,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_utilisateur_automated.py",
-        "line": 26,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_utilisateur_automated.py",
-        "line": 29,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_utilisateur_automated.py",
-        "line": 47,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_utilisateur_automated.py",
-        "line": 50,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_utilisateur_automated.py",
-        "line": 57,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_utilisateur_automated.py",
-        "line": 68,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_utilisateur_automated.py",
-        "line": 71,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_utilisateur_automated.py",
-        "line": 78,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_utilisateur_automated.py",
-        "line": 90,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_utilisateur_automated.py",
-        "line": 93,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_utilisateur_automated.py",
-        "line": 100,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_utilisateur_automated.py",
-        "line": 111,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_utilisateur_automated.py",
-        "line": 114,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_utilisateur_automated.py",
-        "line": 121,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_utilisateur_automated.py",
-        "line": 143,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_utilisateur_automated.py",
-        "line": 150,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_utilisateur_automated.py",
-        "line": 159,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_validation_complete.py",
-        "line": 14,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_validation_complete.py",
-        "line": 19,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_validation_complete.py",
-        "line": 28,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_validation_complete.py",
-        "line": 43,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_validation_complete.py",
-        "line": 48,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_validation_complete.py",
-        "line": 54,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_validation_complete.py",
-        "line": 61,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_validation_complete.py",
-        "line": 66,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_validation_complete.py",
-        "line": 72,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_validation_complete.py",
-        "line": 88,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_validation_complete.py",
-        "line": 94,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_validation_complete.py",
-        "line": 117,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_validation_complete.py",
-        "line": 138,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_validation_complete.py",
-        "line": 140,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_validation_complete.py",
-        "line": 149,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_validation_complete.py",
-        "line": 151,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_validation_complete.py",
-        "line": 156,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_validation_complete.py",
-        "line": 179,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_validation_complete.py",
-        "line": 184,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_validation_complete.py",
-        "line": 185,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_validation_complete.py",
-        "line": 188,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_validation_complete.py",
-        "line": 189,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/test_validation_complete.py",
-        "line": 191,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 17,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 34,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 36,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 42,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 44,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 52,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 89,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 92,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 94,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 95,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 96,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 107,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 121,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 126,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 146,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 148,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 152,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 155,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 165,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 178,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 179,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 188,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 190,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 192,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 194,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 201,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 231,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 245,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/validate_organization.py",
-        "line": 270,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 42,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 44,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 46,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 486,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 488,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 493,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 497,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 501,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 505,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 509,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 513,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 517,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 521,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 525,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 546,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 548,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 549,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 550,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 551,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 552,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 553,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 558,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 566,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 591,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 593,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 595,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 622,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_advanced.py",
-        "line": 632,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_commands.py",
-        "line": 99,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_commands.py",
-        "line": 101,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_commands.py",
-        "line": 543,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_commands.py",
-        "line": 547,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_commands.py",
-        "line": 551,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_commands.py",
-        "line": 558,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_commands.py",
-        "line": 573,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_commands.py",
-        "line": 575,
-        "message": "Undefined name `game_logger`",
-        "severity": "F821"
-      },
-      {
-        "type": "ruff",
-        "file": "/Volumes/T7/devstation/arkalia-quest/tests/web_tests/test_arkalia_quest_commands.py",
-        "line": 579,
         "message": "Undefined name `game_logger`",
         "severity": "F821"
       },
@@ -8671,8 +4702,8 @@
     ]
   },
   "summary": {
-    "total_issues": 2114,
-    "critical_issues": 3,
+    "total_issues": 1571,
+    "critical_issues": 31,
     "warnings": 740,
     "performance_issues": 258
   }

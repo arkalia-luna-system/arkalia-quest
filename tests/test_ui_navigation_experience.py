@@ -4,10 +4,18 @@ Teste la navigation entre toutes les pages et évalue l'UX
 """
 
 import json
+import os
+import sys
 import time
 from datetime import datetime
 
 import requests
+
+# Ajouter le répertoire parent au path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Import du logger
+from utils.logger import game_logger
 
 
 class NavigationExperienceTester:
@@ -115,9 +123,7 @@ class NavigationExperienceTester:
             flow_result["steps"].append(step_result)
 
         flow_result["total_time"] = time.time() - start_time
-        flow_result["success"] = all(
-            step.get("success", False) for step in flow_result["steps"]
-        )
+        flow_result["success"] = all(step.get("success", False) for step in flow_result["steps"])
 
         # Évaluer la fluidité
         if flow_result["success"]:
@@ -205,14 +211,10 @@ class NavigationExperienceTester:
                     page_result["issues"].append("Chargement lent")
 
                 # Évaluer la présence d'éléments clés
-                if (
-                    len(page_result["elements_found"])
-                    >= len(page_info["expected_elements"]) * 0.8
-                ):
+                if len(page_result["elements_found"]) >= len(page_info["expected_elements"]) * 0.8:
                     page_result["positives"].append("Contenu complet")
                 elif (
-                    len(page_result["elements_found"])
-                    >= len(page_info["expected_elements"]) * 0.5
+                    len(page_result["elements_found"]) >= len(page_info["expected_elements"]) * 0.5
                 ):
                     page_result["positives"].append("Contenu partiel")
                 else:
@@ -268,9 +270,7 @@ class NavigationExperienceTester:
                     step_result["issues"].append("Transition lente")
 
             else:
-                step_result["issues"].append(
-                    f"Erreur navigation: {response.status_code}"
-                )
+                step_result["issues"].append(f"Erreur navigation: {response.status_code}")
 
         except Exception as e:
             step_result["issues"].append(f"Erreur transition: {e!s}")

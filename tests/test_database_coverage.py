@@ -12,7 +12,9 @@ from unittest.mock import patch
 # Ajouter le chemin du projet
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# Import du logger
 from core.database import DatabaseManager
+from utils.logger import game_logger
 
 
 class TestDatabaseCoverage(unittest.TestCase):

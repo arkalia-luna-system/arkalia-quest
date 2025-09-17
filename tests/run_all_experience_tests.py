@@ -4,10 +4,20 @@ Exécute tous les testeurs d'expérience et génère un rapport global
 """
 
 import json
+import os
 import subprocess
 import sys
 import time
 from datetime import datetime
+
+# Ajouter le répertoire racine au path
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, project_root)
+
+from utils.logger import GameLogger  # noqa: E402
+
+# Initialiser le logger
+game_logger = GameLogger()
 
 
 class ExperienceTestRunner:
@@ -52,9 +62,7 @@ class ExperienceTestRunner:
 
                 report_files = glob.glob("tutoriel_experience_report_*.json")
                 if report_files:
-                    latest_report = max(
-                        report_files, key=lambda x: x.split("_")[-1].split(".")[0]
-                    )
+                    latest_report = max(report_files, key=lambda x: x.split("_")[-1].split(".")[0])
                     with open(latest_report, encoding="utf-8") as f:
                         report_data = json.load(f)
                         test_result["score"] = report_data.get("overall_score", 0)
@@ -105,9 +113,7 @@ class ExperienceTestRunner:
 
                 report_files = glob.glob("terminal_experience_report_*.json")
                 if report_files:
-                    latest_report = max(
-                        report_files, key=lambda x: x.split("_")[-1].split(".")[0]
-                    )
+                    latest_report = max(report_files, key=lambda x: x.split("_")[-1].split(".")[0])
                     with open(latest_report, encoding="utf-8") as f:
                         report_data = json.load(f)
                         test_result["score"] = report_data.get("overall_score", 0)
@@ -158,9 +164,7 @@ class ExperienceTestRunner:
 
                 report_files = glob.glob("navigation_experience_report_*.json")
                 if report_files:
-                    latest_report = max(
-                        report_files, key=lambda x: x.split("_")[-1].split(".")[0]
-                    )
+                    latest_report = max(report_files, key=lambda x: x.split("_")[-1].split(".")[0])
                     with open(latest_report, encoding="utf-8") as f:
                         report_data = json.load(f)
                         test_result["score"] = report_data.get("overall_score", 0)
@@ -211,9 +215,7 @@ class ExperienceTestRunner:
 
                 report_files = glob.glob("boutons_actions_experience_report_*.json")
                 if report_files:
-                    latest_report = max(
-                        report_files, key=lambda x: x.split("_")[-1].split(".")[0]
-                    )
+                    latest_report = max(report_files, key=lambda x: x.split("_")[-1].split(".")[0])
                     with open(latest_report, encoding="utf-8") as f:
                         report_data = json.load(f)
                         test_result["score"] = report_data.get("overall_score", 0)
@@ -264,9 +266,7 @@ class ExperienceTestRunner:
 
                 report_files = glob.glob("pwa_mobile_experience_report_*.json")
                 if report_files:
-                    latest_report = max(
-                        report_files, key=lambda x: x.split("_")[-1].split(".")[0]
-                    )
+                    latest_report = max(report_files, key=lambda x: x.split("_")[-1].split(".")[0])
                     with open(latest_report, encoding="utf-8") as f:
                         report_data = json.load(f)
                         test_result["score"] = report_data.get("overall_score", 0)
@@ -316,9 +316,7 @@ class ExperienceTestRunner:
                 successful_tests += 1
 
         self.results["overall_score"] = (
-            total_score / len(self.results["tests_run"])
-            if self.results["tests_run"]
-            else 0
+            total_score / len(self.results["tests_run"]) if self.results["tests_run"] else 0
         )
 
         # Génération du résumé
@@ -347,9 +345,7 @@ class ExperienceTestRunner:
         recommendations = []
 
         # Analyser les scores par test
-        test_scores = {
-            test["name"]: test["score"] for test in self.results["tests_run"]
-        }
+        test_scores = {test["name"]: test["score"] for test in self.results["tests_run"]}
 
         for test_name, score in test_scores.items():
             if score < 40:
@@ -359,29 +355,22 @@ class ExperienceTestRunner:
                 )
             elif score < 60:
                 recommendations.append(
-                    f"⚠️ {test_name}: Amélioration recommandée (score:"
-                    + "{score:.1f}/100)",
+                    f"⚠️ {test_name}: Amélioration recommandée (score:" + "{score:.1f}/100)",
                 )
             elif score < 80:
                 recommendations.append(
                     f"👍 {test_name}: Bon, peut être optimisé (score: {score:.1f}/100)",
                 )
             else:
-                recommendations.append(
-                    f"🎉 {test_name}: Excellent (score: {score:.1f}/100)"
-                )
+                recommendations.append(f"🎉 {test_name}: Excellent (score: {score:.1f}/100)")
 
         # Recommandations générales
         if self.results["overall_score"] < 50:
-            recommendations.append(
-                "🚨 EXPÉRIENCE GLOBALE: Amélioration majeure nécessaire"
-            )
+            recommendations.append("🚨 EXPÉRIENCE GLOBALE: Amélioration majeure nécessaire")
         elif self.results["overall_score"] < 70:
             recommendations.append("⚠️  EXPÉRIENCE GLOBALE: Amélioration recommandée")
         elif self.results["overall_score"] < 85:
-            recommendations.append(
-                "👍 EXPÉRIENCE GLOBALE: Bonne, optimisations possibles"
-            )
+            recommendations.append("👍 EXPÉRIENCE GLOBALE: Bonne, optimisations possibles")
         else:
             recommendations.append("🎉 EXPÉRIENCE GLOBALE: Excellente !")
 
@@ -432,9 +421,7 @@ class ExperienceTestRunner:
             game_logger.info(r"   Des améliorations majeures sont nécessaires.")
 
         # Sauvegarde du rapport
-        filename = (
-            f"experience_tests_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-        )
+        filename = f"experience_tests_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(self.results, f, indent=2, ensure_ascii=False)
 

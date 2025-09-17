@@ -4,10 +4,18 @@ Teste tous les boutons et actions contextuelles de chaque page
 """
 
 import json
+import os
+import sys
 import time
 from datetime import datetime
 
 import requests
+
+# Ajouter le répertoire parent au path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Import du logger
+from utils.logger import game_logger
 
 
 class BoutonsActionsExperienceTester:
@@ -364,9 +372,7 @@ class BoutonsActionsExperienceTester:
 
     def _calculate_button_success_rate(self, buttons):
         """Calcule le taux de réussite des boutons"""
-        successful_buttons = sum(
-            1 for button in buttons if button.get("success", False)
-        )
+        successful_buttons = sum(1 for button in buttons if button.get("success", False))
         total_buttons = len(buttons)
         return (successful_buttons / total_buttons * 100) if total_buttons > 0 else 0
 
@@ -392,9 +398,7 @@ class BoutonsActionsExperienceTester:
         for cmd in quick_commands:
             cmd_start = time.time()
             try:
-                requests.post(
-                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=2
-                )
+                requests.post(f"{self.base_url}/commande", json={"commande": cmd}, timeout=2)
                 response_times.append(time.time() - cmd_start)
             except Exception:
                 response_times.append(5.0)  # Timeout
@@ -489,9 +493,7 @@ class BoutonsActionsExperienceTester:
                 total_success_rate += page["success_rate"]
                 total_pages += 1
 
-        self.results["overall_score"] = (
-            total_success_rate / total_pages if total_pages > 0 else 0
-        )
+        self.results["overall_score"] = total_success_rate / total_pages if total_pages > 0 else 0
 
         # Génération du rapport
         self._generate_report()
@@ -529,7 +531,9 @@ class BoutonsActionsExperienceTester:
                 print(f"   👍 Points positifs: {len(page['positives'])}")
 
         # Sauvegarde du rapport
-        filename = f"boutons_actions_experience_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+        filename = (
+            f"boutons_actions_experience_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+        )
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(self.results, f, indent=2, ensure_ascii=False)
 

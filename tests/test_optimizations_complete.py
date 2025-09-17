@@ -7,6 +7,12 @@ import os
 import sys
 import time
 
+# Ajouter le répertoire parent au path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Import du logger
+from utils.logger import game_logger
+
 
 def test_performance_optimizations():
     """Test des optimisations de performance"""

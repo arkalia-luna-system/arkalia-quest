@@ -5,11 +5,19 @@ Gère l'exécution, les résultats et les rapports de tous les tests
 """
 
 import json
+import os
+import sys
 import time
 from datetime import datetime
 from pathlib import Path
 
 import requests
+
+# Ajouter le répertoire parent au path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Import du logger
+from utils.logger import game_logger
 
 
 class TestManager:
@@ -90,9 +98,7 @@ class TestManager:
         print("=" * 60)
 
         if not self.check_server():
-            game_logger.info(
-                r"❌ Serveur non accessible. Démarrez le serveur avec: python app.py"
-            )
+            game_logger.info(r"❌ Serveur non accessible. Démarrez le serveur avec: python app.py")
             return None
 
         game_logger.info(r"✅ Serveur accessible")

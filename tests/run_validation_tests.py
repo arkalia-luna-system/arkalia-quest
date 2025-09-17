@@ -10,6 +10,9 @@ import sys
 # Ajouter le répertoire parent au path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# Import du logger
+from utils.logger import game_logger
+
 
 def main():
     """Exécute les tests de validation"""

@@ -156,12 +156,7 @@ select = [
 ]
 ignore = [
     "E501",  # line too long, handled by black
-    "F401",  # imported but unused
-    "F403",  # star import used
-    "F405",  # name may be undefined, or defined from star imports
-    "B008",  # do not perform function calls in argument defaults
-    "C901",  # too complex
-    "B904",  # Within an `except` clause, raise exceptions with `raise ... from err`
+    "C901",  # too complex (justified for game logic)
 ]
 exclude = [
     ".bzr",

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "arkalia-quest"
-version = "3.0.0"
+version = "3.1.0"
 description = "Jeu éducatif intelligent pour adolescents - Architecture Flask/Python/IA modulaire, sécurité avancée, gamification"
 readme = "README.md"
 license = {text = "MIT"}
@@ -86,11 +86,11 @@ Issues = "https://github.com/arkalia-luna-system/arkalia-quest/issues"
 Changelog = "https://github.com/arkalia-luna-system/arkalia-quest/blob/main/docs/CHANGELOG.md"
 
 [project.scripts]
-arkalia-quest = "app:main"
+arkalia-quest = "app:app"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["core*", "engines*", "utils*"]
+include = ["core.*", "engines.*", "utils.*"]
 exclude = ["tests*", "docs*", "scripts*", "venv*", "__pycache__*"]
 
 [tool.setuptools.package-data]

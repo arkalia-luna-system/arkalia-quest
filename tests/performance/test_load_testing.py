@@ -39,9 +39,7 @@ class LoadTester:
             if method == "GET":
                 response = requests.get(f"{self.base_url}{endpoint}", timeout=10)
             elif method == "POST":
-                response = requests.post(
-                    f"{self.base_url}{endpoint}", json=data, timeout=10
-                )
+                response = requests.post(f"{self.base_url}{endpoint}", json=data, timeout=10)
             else:
                 raise ValueError(f"Méthode non supportée: {method}")
 
@@ -87,9 +85,7 @@ class LoadTester:
         duration: int = 60,
     ) -> dict[str, Any]:
         """Lance un test de charge"""
-        print(
-            f"🚀 Démarrage du test de charge: {concurrent_users} utilisateurs, {duration}s"
-        )
+        print(f"🚀 Démarrage du test de charge: {concurrent_users} utilisateurs, {duration}s")
 
         self.results["start_time"] = time.time()
         end_time = self.results["start_time"] + duration
@@ -146,12 +142,8 @@ class LoadTester:
                 "median_response_time": statistics.median(response_times),
                 "min_response_time": min(response_times),
                 "max_response_time": max(response_times),
-                "p95_response_time": sorted(response_times)[
-                    int(len(response_times) * 0.95)
-                ],
-                "p99_response_time": sorted(response_times)[
-                    int(len(response_times) * 0.99)
-                ],
+                "p95_response_time": sorted(response_times)[int(len(response_times) * 0.95)],
+                "p99_response_time": sorted(response_times)[int(len(response_times) * 0.99)],
             },
             "errors": self.results["errors"][:10],  # Top 10 erreurs
             "recommendations": self._generate_recommendations(),
@@ -163,9 +155,7 @@ class LoadTester:
         """Génère des recommandations basées sur les résultats"""
         recommendations = []
 
-        success_rate = (
-            self.results["successful_requests"] / self.results["total_requests"]
-        ) * 100
+        success_rate = (self.results["successful_requests"] / self.results["total_requests"]) * 100
         if success_rate < 95:
             recommendations.append(
                 "🔴 Taux de succès trop faible - Vérifier la stabilité du système"
@@ -173,19 +163,13 @@ class LoadTester:
 
         avg_response_time = statistics.mean(self.results["response_times"])
         if avg_response_time > 1.0:
-            recommendations.append(
-                "⚠️ Temps de réponse moyen élevé - Optimiser les performances"
-            )
+            recommendations.append("⚠️ Temps de réponse moyen élevé - Optimiser les performances")
 
         if self.results["failed_requests"] > 0:
-            recommendations.append(
-                "🔧 Erreurs détectées - Analyser les logs et corriger"
-            )
+            recommendations.append("🔧 Erreurs détectées - Analyser les logs et corriger")
 
         if not recommendations:
-            recommendations.append(
-                "✅ Performance excellente - Système stable et rapide"
-            )
+            recommendations.append("✅ Performance excellente - Système stable et rapide")
 
         return recommendations
 
@@ -219,9 +203,7 @@ def run_comprehensive_load_test():
     tester = LoadTester()
 
     for scenario in test_scenarios:
-        print(
-            f"\n🎯 {scenario['name']}: {scenario['users']} utilisateurs, {scenario['duration']}s"
-        )
+        print(f"\n🎯 {scenario['name']}: {scenario['users']} utilisateurs, {scenario['duration']}s")
         print("-" * 40)
 
         report = tester.run_load_test(
@@ -238,9 +220,7 @@ def run_comprehensive_load_test():
             print(f"   Requêtes totales: {summary['total_requests']}")
             print(f"   Taux de succès: {summary['success_rate']:.1f}%")
             print(f"   Requêtes/seconde: {performance['requests_per_second']:.1f}")
-            print(
-                f"   Temps réponse moyen: {performance['average_response_time']:.3f}s"
-            )
+            print(f"   Temps réponse moyen: {performance['average_response_time']:.3f}s")
             print(f"   Temps réponse P95: {performance['p95_response_time']:.3f}s")
 
             if report["recommendations"]:

@@ -166,9 +166,7 @@ class TestEducationalGamesSimple(unittest.TestCase):
 
     def test_update_user_statistics_method(self):
         """Test la méthode _update_user_statistics"""
-        result = self.games_engine._update_user_statistics(
-            "test_user", "logic_1", 100, 1, 30.0
-        )
+        result = self.games_engine._update_user_statistics("test_user", "logic_1", 100, 1, 30.0)
         self.assertTrue(result)
 
     def test_get_user_statistics_method(self):

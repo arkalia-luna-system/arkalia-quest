@@ -85,9 +85,7 @@ def main():
     }
 
     # Fichiers potentiellement inutiles
-    potentially_unused = (
-        existing_files - referenced_files - consolidated_files - critical_files
-    )
+    potentially_unused = existing_files - referenced_files - consolidated_files - critical_files
 
     print("\n📊 STATISTIQUES:")
     print(f"   Fichiers CSS/JS existants: {len(existing_files)}")

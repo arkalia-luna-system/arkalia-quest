@@ -66,9 +66,7 @@ class EffectsEngine:
                 if filename.endswith(".txt"):
                     name = filename.replace(".txt", "")
                     try:
-                        with open(
-                            os.path.join(ascii_dir, filename), encoding="utf-8"
-                        ) as f:
+                        with open(os.path.join(ascii_dir, filename), encoding="utf-8") as f:
                             ascii_arts[name] = f.read()
                     except Exception:
                         ascii_arts[name] = self.get_default_ascii(name)
@@ -149,24 +147,18 @@ class EffectsEngine:
             context = {}
 
         # Récupérer l'effet de base
-        base_effect = self.default_effects.get(
-            effect_type, self.default_effects["success"]
-        ).copy()
+        base_effect = self.default_effects.get(effect_type, self.default_effects["success"]).copy()
 
         # Personnaliser selon le contexte
         if context.get("user_personality"):
-            base_effect = self.personalize_effect(
-                base_effect, context["user_personality"]
-            )
+            base_effect = self.personalize_effect(base_effect, context["user_personality"])
 
         # Ajouter des variations aléatoires
         base_effect = self.add_random_variations(base_effect)
 
         return base_effect
 
-    def personalize_effect(
-        self, effect: dict[str, Any], personality: str
-    ) -> dict[str, Any]:
+    def personalize_effect(self, effect: dict[str, Any], personality: str) -> dict[str, Any]:
         """Personnalise un effet selon la personnalité de l'utilisateur"""
 
         personality_colors = {

@@ -101,9 +101,7 @@ class TutorialManager:
         try:
             progress_path = os.path.join(self.progress_dir, f"{user_id}_progress.json")
             with open(progress_path, encoding="utf-8", mode="w") as f:
-                json.dump(
-                    self._serialize_progress(progress), f, indent=2, ensure_ascii=False
-                )
+                json.dump(self._serialize_progress(progress), f, indent=2, ensure_ascii=False)
             return True
         except Exception as e:
             game_logger.error(f"Erreur sauvegarde progression {user_id}: {e}")
@@ -115,12 +113,8 @@ class TutorialManager:
             "user_id": progress.user_id,
             "current_step": progress.current_step,
             "total_steps": progress.total_steps,
-            "started_at": (
-                progress.started_at.isoformat() if progress.started_at else None
-            ),
-            "completed_at": (
-                progress.completed_at.isoformat() if progress.completed_at else None
-            ),
+            "started_at": (progress.started_at.isoformat() if progress.started_at else None),
+            "completed_at": (progress.completed_at.isoformat() if progress.completed_at else None),
             "skipped": progress.skipped,
             "user_choices": progress.user_choices,
             "analytics": progress.analytics,
@@ -272,9 +266,7 @@ class TutorialManager:
         }
 
         if progress.started_at and progress.completed_at:
-            analytics["total_time"] = (
-                progress.completed_at - progress.started_at
-            ).total_seconds()
+            analytics["total_time"] = (progress.completed_at - progress.started_at).total_seconds()
 
         return analytics
 
@@ -323,9 +315,7 @@ class TutorialManager:
                         analytics["popular_choices"][choice_key][choice_value] += 1
 
         if analytics["completed_tutorials"] > 0:
-            analytics["average_completion_time"] = (
-                total_time / analytics["completed_tutorials"]
-            )
+            analytics["average_completion_time"] = total_time / analytics["completed_tutorials"]
 
         return analytics
 

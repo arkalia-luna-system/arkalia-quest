@@ -241,9 +241,7 @@ class ProgressionEngine:
         return {
             "success": True,
             "player": player,
-            "level_up": (
-                new_level > player["level"] if action == "score_earned" else False
-            ),
+            "level_up": (new_level > player["level"] if action == "score_earned" else False),
         }
 
     def update_daily_challenges_progress(
@@ -285,10 +283,7 @@ class ProgressionEngine:
                 progress["progress"] += 1
 
             # Vérifier si le défi est complété
-            if (
-                progress["progress"] >= challenge["target"]
-                and not progress["completed"]
-            ):
+            if progress["progress"] >= challenge["target"] and not progress["completed"]:
                 progress["completed"] = True
                 # Donner la récompense
                 reward = challenge["reward"]
@@ -394,13 +389,9 @@ class ProgressionEngine:
             player["stats"]["total_zones_explored"] >= 3
             and "explorer" not in player["achievements_unlocked"]
         ):
-            self.unlock_achievement(
-                player_id, "explorer", "Explorer", "3 zones explorées !"
-            )
+            self.unlock_achievement(player_id, "explorer", "Explorer", "3 zones explorées !")
 
-    def unlock_achievement(
-        self, player_id: str, achievement_id: str, name: str, description: str
-    ):
+    def unlock_achievement(self, player_id: str, achievement_id: str, name: str, description: str):
         """Débloque un achievement"""
         player = self.progression_data["players"][player_id]
 
@@ -416,9 +407,7 @@ class ProgressionEngine:
     def get_player_progression(self, player_id: str) -> dict[str, Any]:
         """Récupère la progression d'un joueur"""
         if player_id not in self.progression_data["players"]:
-            return self.update_player_progression(player_id, "command_used", {})[
-                "player"
-            ]
+            return self.update_player_progression(player_id, "command_used", {})["player"]
         return self.progression_data["players"][player_id]
 
     def get_daily_challenges(self, player_id: str) -> dict[str, Any]:

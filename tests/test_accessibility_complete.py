@@ -94,9 +94,7 @@ class AccessibilityTester:
             "expected": total_expected,
         }
 
-        print(
-            f"✅ Navigation clavier: {found_elements}/{total_expected} éléments trouvés"
-        )
+        print(f"✅ Navigation clavier: {found_elements}/{total_expected} éléments trouvés")
         return score
 
     def test_focus_management(self):
@@ -131,10 +129,7 @@ class AccessibilityTester:
             "expected": total_expected,
         }
 
-        print(
-            f"✅ Gestion du focus: {focus_indicators}/{total_expected}"
-            + "indicateurs trouvés"
-        )
+        print(f"✅ Gestion du focus: {focus_indicators}/{total_expected}" + "indicateurs trouvés")
         return score
 
     def test_color_contrast(self):
@@ -203,10 +198,7 @@ class AccessibilityTester:
             "expected": len(semantic_elements),
         }
 
-        print(
-            f"✅ Sémantique HTML: {found_elements}/{len(semantic_elements)}"
-            + "éléments trouvés"
-        )
+        print(f"✅ Sémantique HTML: {found_elements}/{len(semantic_elements)}" + "éléments trouvés")
         return score
 
     def test_aria_labels(self):
@@ -280,8 +272,7 @@ class AccessibilityTester:
         }
 
         print(
-            f"✅ Design responsive: {found_queries}/{len(media_queries)}"
-            + "media queries trouvées"
+            f"✅ Design responsive: {found_queries}/{len(media_queries)}" + "media queries trouvées"
         )
         return score
 
@@ -355,9 +346,7 @@ class AccessibilityTester:
             "expected": total_expected,
         }
 
-        print(
-            f"✅ Modes d'accessibilité: {accessibility_modes}/{total_expected} modes trouvés"
-        )
+        print(f"✅ Modes d'accessibilité: {accessibility_modes}/{total_expected} modes trouvés")
         return score
 
     def test_haptic_feedback(self):
@@ -394,9 +383,7 @@ class AccessibilityTester:
             "expected": total_expected,
         }
 
-        print(
-            f"✅ Feedback haptique: {haptic_elements}/{total_expected} éléments trouvés"
-        )
+        print(f"✅ Feedback haptique: {haptic_elements}/{total_expected} éléments trouvés")
         return score
 
     def test_advanced_accessibility(self):
@@ -438,9 +425,7 @@ class AccessibilityTester:
             "expected": total_expected,
         }
 
-        print(
-            f"✅ Fonctionnalités avancées: {advanced_features}/{total_expected} éléments trouvés"
-        )
+        print(f"✅ Fonctionnalités avancées: {advanced_features}/{total_expected} éléments trouvés")
         return score
 
     def test_keyboard_shortcuts(self):
@@ -547,9 +532,7 @@ class AccessibilityTester:
         print(f"🏆 Niveau WCAG: {wcag_level}")
 
         # Compter les tests réussis
-        successful_tests = sum(
-            1 for test in self.results["tests"].values() if test["score"] >= 80
-        )
+        successful_tests = sum(1 for test in self.results["tests"].values() if test["score"] >= 80)
         total_tests = len(self.results["tests"])
 
         print(f"✅ Tests réussis: {successful_tests}/{total_tests}")

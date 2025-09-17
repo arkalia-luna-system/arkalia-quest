@@ -48,9 +48,7 @@ class LunaAI:
         Ici on réutilise respond() avec un input dérivé du contexte.
         """
         text = (
-            context.get("prompt", "Salut LUNA !")
-            if isinstance(context, dict)
-            else "Salut LUNA !"
+            context.get("prompt", "Salut LUNA !") if isinstance(context, dict) else "Salut LUNA !"
         )
         result = self._engine.generate_response(
             text, {"level": 1}, context if isinstance(context, dict) else None

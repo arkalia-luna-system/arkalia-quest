@@ -27,9 +27,7 @@ class TestAnalyticsCommands:
         """Test de cmd_analytics avec succès"""
         mock_response = Mock()
         mock_response.status_code = 200
-        mock_response.json.return_value = {
-            "analytics": {"total_users": 100, "active_users": 50}
-        }
+        mock_response.json.return_value = {"analytics": {"total_users": 100, "active_users": 50}}
         mock_get.return_value = mock_response
 
         result = self.analytics_commands.cmd_analytics()
@@ -38,9 +36,7 @@ class TestAnalyticsCommands:
         assert "réussite" in result
         assert "message" in result
         assert "ANALYTICS GLOBAUX" in result["message"]
-        mock_get.assert_called_once_with(
-            "http://localhost:5001/api/analytics/global", timeout=10
-        )
+        mock_get.assert_called_once_with("http://localhost:5001/api/analytics/global", timeout=10)
 
     @patch("requests.get")
     def test_cmd_analytics_error(self, mock_get):
@@ -61,9 +57,7 @@ class TestAnalyticsCommands:
         """Test de cmd_insights avec succès"""
         mock_response = Mock()
         mock_response.status_code = 200
-        mock_response.json.return_value = {
-            "insights": {"learning_patterns": ["pattern1"]}
-        }
+        mock_response.json.return_value = {"insights": {"learning_patterns": ["pattern1"]}}
         mock_get.return_value = mock_response
 
         result = self.analytics_commands.cmd_insights()

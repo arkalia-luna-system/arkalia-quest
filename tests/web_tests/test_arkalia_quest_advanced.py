@@ -25,9 +25,7 @@ class ArkaliaQuestAdvancedTester:
         # Configuration des tests
         self.timeout = 10
 
-    def log_test(
-        self, test_name: str, status: str, details: str = "", duration: float = 0
-    ):
+    def log_test(self, test_name: str, status: str, details: str = "", duration: float = 0):
         """Enregistre un résultat de test"""
         result = {
             "test": test_name,
@@ -86,18 +84,14 @@ class ArkaliaQuestAdvancedTester:
                 return False
         except requests.exceptions.RequestException as e:
             duration = time.time() - start_time
-            self.log_test(
-                "Design Matrix (#00ff00)", "FAIL", f"Erreur: {str(e)}", duration
-            )
+            self.log_test("Design Matrix (#00ff00)", "FAIL", f"Erreur: {str(e)}", duration)
             return False
 
     def test_tutorial_functionality(self) -> bool:
         """Test les fonctionnalités du tutoriel"""
         start_time = time.time()
         try:
-            response = self.session.get(
-                f"{self.base_url}/tutorial", timeout=self.timeout
-            )
+            response = self.session.get(f"{self.base_url}/tutorial", timeout=self.timeout)
             duration = time.time() - start_time
 
             if response.status_code == 200:
@@ -139,18 +133,14 @@ class ArkaliaQuestAdvancedTester:
                 return False
         except requests.exceptions.RequestException as e:
             duration = time.time() - start_time
-            self.log_test(
-                "Fonctionnalités Tutoriel", "FAIL", f"Erreur: {str(e)}", duration
-            )
+            self.log_test("Fonctionnalités Tutoriel", "FAIL", f"Erreur: {str(e)}", duration)
             return False
 
     def test_terminal_commands(self) -> bool:
         """Test les commandes du terminal"""
         start_time = time.time()
         try:
-            response = self.session.get(
-                f"{self.base_url}/terminal", timeout=self.timeout
-            )
+            response = self.session.get(f"{self.base_url}/terminal", timeout=self.timeout)
             duration = time.time() - start_time
 
             if response.status_code == 200:
@@ -192,9 +182,7 @@ class ArkaliaQuestAdvancedTester:
                 return False
         except requests.exceptions.RequestException as e:
             duration = time.time() - start_time
-            self.log_test(
-                "Fonctionnalités Terminal", "FAIL", f"Erreur: {str(e)}", duration
-            )
+            self.log_test("Fonctionnalités Terminal", "FAIL", f"Erreur: {str(e)}", duration)
             return False
 
     def test_world_progression(self) -> bool:
@@ -250,9 +238,7 @@ class ArkaliaQuestAdvancedTester:
         """Test les valeurs N/A dans le dashboard"""
         start_time = time.time()
         try:
-            response = self.session.get(
-                f"{self.base_url}/dashboard", timeout=self.timeout
-            )
+            response = self.session.get(f"{self.base_url}/dashboard", timeout=self.timeout)
             duration = time.time() - start_time
 
             if response.status_code == 200:
@@ -294,9 +280,7 @@ class ArkaliaQuestAdvancedTester:
                 return False
         except requests.exceptions.RequestException as e:
             duration = time.time() - start_time
-            self.log_test(
-                "Valeurs N/A Dashboard", "FAIL", f"Erreur: {str(e)}", duration
-            )
+            self.log_test("Valeurs N/A Dashboard", "FAIL", f"Erreur: {str(e)}", duration)
             return False
 
     def test_audio_functionality(self) -> bool:
@@ -345,9 +329,7 @@ class ArkaliaQuestAdvancedTester:
                 return False
         except requests.exceptions.RequestException as e:
             duration = time.time() - start_time
-            self.log_test(
-                "Fonctionnalités Audio", "FAIL", f"Erreur: {str(e)}", duration
-            )
+            self.log_test("Fonctionnalités Audio", "FAIL", f"Erreur: {str(e)}", duration)
             return False
 
     def test_accessibility_features(self) -> bool:
@@ -366,8 +348,7 @@ class ArkaliaQuestAdvancedTester:
                     "aria-" in content,
                     "role=" in content,
                     "alt=" in content,
-                    "accessibility" in content.lower()
-                    or "accessibilité" in content.lower(),
+                    "accessibility" in content.lower() or "accessibilité" in content.lower(),
                 ]
 
                 features_found = sum(accessibility_features)
@@ -398,9 +379,7 @@ class ArkaliaQuestAdvancedTester:
                 return False
         except requests.exceptions.RequestException as e:
             duration = time.time() - start_time
-            self.log_test(
-                "Fonctionnalités Accessibilité", "FAIL", f"Erreur: {str(e)}", duration
-            )
+            self.log_test("Fonctionnalités Accessibilité", "FAIL", f"Erreur: {str(e)}", duration)
             return False
 
     def test_responsive_breakpoints(self) -> bool:
@@ -451,9 +430,7 @@ class ArkaliaQuestAdvancedTester:
                 return False
         except requests.exceptions.RequestException as e:
             duration = time.time() - start_time
-            self.log_test(
-                "Breakpoints Responsive", "FAIL", f"Erreur: {str(e)}", duration
-            )
+            self.log_test("Breakpoints Responsive", "FAIL", f"Erreur: {str(e)}", duration)
             return False
 
     def test_luna_ai_features(self) -> bool:
@@ -502,9 +479,7 @@ class ArkaliaQuestAdvancedTester:
                 return False
         except requests.exceptions.RequestException as e:
             duration = time.time() - start_time
-            self.log_test(
-                "Fonctionnalités LUNA IA", "FAIL", f"Erreur: {str(e)}", duration
-            )
+            self.log_test("Fonctionnalités LUNA IA", "FAIL", f"Erreur: {str(e)}", duration)
             return False
 
     def run_advanced_test_suite(self):
@@ -600,9 +575,7 @@ class ArkaliaQuestAdvancedTester:
             "Monde": [r for r in self.test_results if "Monde" in r["test"]],
             "Dashboard": [r for r in self.test_results if "Dashboard" in r["test"]],
             "Audio": [r for r in self.test_results if "Audio" in r["test"]],
-            "Accessibilité": [
-                r for r in self.test_results if "Accessibilité" in r["test"]
-            ],
+            "Accessibilité": [r for r in self.test_results if "Accessibilité" in r["test"]],
             "Responsive": [r for r in self.test_results if "Responsive" in r["test"]],
             "LUNA": [r for r in self.test_results if "LUNA" in r["test"]],
         }
@@ -621,9 +594,7 @@ class ArkaliaQuestAdvancedTester:
                     print(f"❌ {category}: Problèmes majeurs ({rate:.0f}%)")
 
         # Sauvegarde du rapport
-        report_file = (
-            f"advanced_test_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-        )
+        report_file = f"advanced_test_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
         with open(report_file, "w", encoding="utf-8") as f:
             json.dump(
                 {

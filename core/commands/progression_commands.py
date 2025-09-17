@@ -101,9 +101,7 @@ class ProgressionCommands:
 
         for achievement in achievements:
             status = "✅" if achievement["unlocked"] else "🔒"
-            message += (
-                f"{status} {achievement['name']}\n   {achievement['description']}\n\n"
-            )
+            message += f"{status} {achievement['name']}\n   {achievement['description']}\n\n"
 
         message += "💡 Continuez à jouer pour débloquer plus d'achievements !"
 
@@ -145,13 +143,15 @@ class ProgressionCommands:
 
         for _challenge_id, challenge in challenges.items():
             status = "✅" if challenge["completed"] else "⏳"
-            progress_bar = "█" * (
-                challenge["progress"] * 10 // challenge["target"]
-            ) + "░" * (10 - (challenge["progress"] * 10 // challenge["target"]))
+            progress_bar = "█" * (challenge["progress"] * 10 // challenge["target"]) + "░" * (
+                10 - (challenge["progress"] * 10 // challenge["target"])
+            )
 
             message += f"{status} {challenge['name']}\n"
             message += f"   {challenge['description']}\n"
-            message += f"   Progression: [{progress_bar}] {challenge['progress']}/{challenge['target']}\n"
+            message += (
+                f"   Progression: [{progress_bar}] {challenge['progress']}/{challenge['target']}\n"
+            )
             message += f"   Récompense: {challenge['reward']['xp']} XP + {challenge['reward']['coins']} 🪙 + {challenge['reward']['badge']}\n\n"
 
         message += "💡 Continuez à jouer pour compléter vos défis !"
@@ -195,9 +195,7 @@ class ProgressionCommands:
 
         # Explorer la première zone disponible
         zone = unexplored_zones[0]
-        progression_engine.update_player_progression(
-            player_id, "zone_explored", {"zone": zone}
-        )
+        progression_engine.update_player_progression(player_id, "zone_explored", {"zone": zone})
 
         zone_descriptions = {
             "arkalia_base": "Base d'Arkalia - Votre point de départ dans cette aventure cyberpunk",
@@ -293,9 +291,7 @@ Utilisez 'play_mini_game' pour réessayer."""
         for challenge_id, challenge in challenges.items():
             if challenge["completed"] and not challenge["reward_claimed"]:
                 # Marquer comme réclamé
-                player["daily_challenges_progress"][challenge_id][
-                    "reward_claimed"
-                ] = True
+                player["daily_challenges_progress"][challenge_id]["reward_claimed"] = True
                 rewards_claimed += 1
 
         if rewards_claimed > 0:

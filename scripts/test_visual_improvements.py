@@ -54,9 +54,7 @@ def test_visual_improvements():
                 else:
                     print(f"❌ {name}: {description} - MANQUANT")
 
-            print(
-                f"\n📊 Améliorations CSS trouvées: {found_improvements}/{len(improvements)}"
-            )
+            print(f"\n📊 Améliorations CSS trouvées: {found_improvements}/{len(improvements)}")
 
         else:
             print(f"❌ Erreur HTTP {response.status_code}")

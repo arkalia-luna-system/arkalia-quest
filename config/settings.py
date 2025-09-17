@@ -40,9 +40,7 @@ class Config:
 
     # Configuration de la sécurité
     SECRET_KEY = os.getenv("SECRET_KEY", "arkalia-secret-key-change-in-production")
-    SESSION_COOKIE_SECURE = (
-        os.getenv("SESSION_COOKIE_SECURE", "False").lower() == "true"
-    )
+    SESSION_COOKIE_SECURE = os.getenv("SESSION_COOKIE_SECURE", "False").lower() == "true"
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SAMESITE = "Lax"
 

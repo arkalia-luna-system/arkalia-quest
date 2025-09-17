@@ -1,0 +1,252 @@
+/* ===== ARKALIA QUEST - TIMER CHALLENGES CSS ===== */
+/* Styles pour les défis à timer */
+
+.challenge-panel {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 400px;
+    background: rgba(9, 9, 11, 0.95);
+    border: 2px solid rgba(167, 139, 250, 0.5);
+    border-radius: 15px;
+    padding: 20px;
+    z-index: 10000;
+    backdrop-filter: blur(15px);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.challenge-panel.show {
+    transform: translateX(0);
+}
+
+.challenge-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.challenge-header h3 {
+    color: var(--violet-lunaire);
+    margin: 0;
+}
+
+.close-challenge-btn {
+    background: none;
+    border: none;
+    color: var(--argent-holographique);
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-challenge-btn:hover {
+    color: var(--violet-lunaire);
+}
+
+.challenge-type {
+    background: rgba(167, 139, 250, 0.1);
+    border: 1px solid rgba(167, 139, 250, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.challenge-type:hover {
+    border-color: rgba(167, 139, 250, 0.4);
+    transform: translateY(-2px);
+}
+
+.challenge-type-icon {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.challenge-type h4 {
+    color: var(--violet-lunaire);
+    margin: 0 0 10px 0;
+}
+
+.challenge-type p {
+    color: var(--argent-holographique);
+    font-size: 0.9em;
+    margin: 0 0 15px 0;
+    line-height: 1.4;
+}
+
+.challenge-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.difficulty {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.difficulty.easy {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+}
+
+.difficulty.medium {
+    background: rgba(245, 158, 11, 0.2);
+    color: #f59e0b;
+}
+
+.difficulty.hard {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+.points {
+    color: var(--bleu-spectre);
+    font-weight: 600;
+}
+
+.challenge-start-modal,
+.challenge-completion-modal,
+.challenge-failure-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10001;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.challenge-start-modal.show,
+.challenge-completion-modal.show,
+.challenge-failure-modal.show {
+    opacity: 1;
+}
+
+.challenge-start-content,
+.challenge-completion-content,
+.challenge-failure-content {
+    background: rgba(9, 9, 11, 0.95);
+    border: 2px solid rgba(167, 139, 250, 0.5);
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    backdrop-filter: blur(15px);
+}
+
+.challenge-icon,
+.completion-icon,
+.failure-icon {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.challenge-timer {
+    margin: 20px 0;
+    font-size: 2em;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--violet-lunaire);
+}
+
+.challenge-progress {
+    margin: 20px 0;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(167, 139, 250, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--violet-lunaire), var(--bleu-spectre));
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    color: var(--argent-holographique);
+    font-size: 0.9em;
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+.challenge-btn {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.2), rgba(96, 165, 250, 0.2));
+    border: 1px solid rgba(167, 139, 250, 0.4);
+    border-radius: 8px;
+    padding: 12px 24px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1em;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+.challenge-btn:hover {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.4), rgba(96, 165, 250, 0.4));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(167, 139, 250, 0.3);
+}
+
+.completion-stats,
+.failure-stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-label {
+    display: block;
+    color: var(--argent-holographique);
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    display: block;
+    color: var(--violet-lunaire);
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .challenge-panel {
+        width: 90%;
+        max-width: 350px;
+    }
+
+    .challenge-type {
+        padding: 12px;
+    }
+
+    .completion-stats,
+    .failure-stats {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

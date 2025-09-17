@@ -1,0 +1,601 @@
+<!-- 🎉 Notification d'achievement moderne pour Arkalia Quest -->
+<div id="achievement-notifications" class="achievement-notifications">
+    <!-- Les notifications s'affichent ici dynamiquement -->
+</div>
+
+<style>
+    .achievement-notifications {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        /* Plus bas que universal notifications */
+        pointer-events: none;
+        display: none;
+        /* Désactivé temporairement */
+    }
+
+    .achievement-notification {
+        background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 100, 0, 0.9) 100%);
+        border: 3px solid #00ff00;
+        border-radius: 20px;
+        padding: 25px;
+        margin-bottom: 20px;
+        width: 350px;
+        position: relative;
+        overflow: hidden;
+        pointer-events: auto;
+        cursor: pointer;
+        transform: translateX(400px);
+        animation: slideInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        box-shadow: 0 10px 40px rgba(0, 255, 0, 0.4);
+        backdrop-filter: blur(15px);
+    }
+
+    .achievement-notification::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, transparent 30%, rgba(0, 255, 0, 0.1) 50%, transparent 70%);
+        animation: shimmer 2s infinite;
+        pointer-events: none;
+    }
+
+    @keyframes shimmer {
+        0% {
+            transform: translateX(-100%);
+        }
+
+        100% {
+            transform: translateX(100%);
+        }
+    }
+
+    @keyframes slideInRight {
+        from {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideOutRight {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        to {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+    }
+
+    .achievement-notification.removing {
+        animation: slideOutRight 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    .achievement-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+
+    .achievement-icon {
+        font-size: 3em;
+        filter: drop-shadow(0 0 20px rgba(0, 255, 0, 0.6));
+        animation: achievementPulse 2s infinite;
+    }
+
+    @keyframes achievementPulse {
+
+        0%,
+        100% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.1);
+        }
+    }
+
+    .achievement-title {
+        color: #00ff00;
+        font-size: 1.2em;
+        font-weight: bold;
+        margin: 0;
+        text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    }
+
+    .achievement-description {
+        color: rgba(0, 255, 0, 0.8);
+        font-size: 0.9em;
+        line-height: 1.4;
+        margin: 0 0 15px 0;
+    }
+
+    .achievement-rewards {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px;
+        background: rgba(0, 255, 0, 0.1);
+        border-radius: 12px;
+        border: 1px solid rgba(0, 255, 0, 0.2);
+    }
+
+    .reward-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #00ff00;
+        font-weight: 500;
+    }
+
+    .reward-icon {
+        font-size: 1.2em;
+    }
+
+    .achievement-progress {
+        margin-top: 15px;
+        text-align: center;
+    }
+
+    .progress-bar-achievement {
+        height: 8px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 5px;
+        overflow: hidden;
+        margin-bottom: 8px;
+        border: 1px solid rgba(0, 255, 0, 0.2);
+    }
+
+    .progress-fill-achievement {
+        height: 100%;
+        background: linear-gradient(90deg, #00ff00, #00cc00);
+        border-radius: 5px;
+        transition: width 0.8s ease;
+        position: relative;
+    }
+
+    .progress-fill-achievement::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        animation: progressShine 1.5s infinite;
+    }
+
+    @keyframes progressShine {
+        0% {
+            transform: translateX(-100%);
+        }
+
+        100% {
+            transform: translateX(100%);
+        }
+    }
+
+    .progress-text-achievement {
+        color: rgba(0, 255, 0, 0.8);
+        font-size: 0.8em;
+        font-weight: 500;
+    }
+
+    .achievement-close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: rgba(0, 255, 0, 0.2);
+        border: 1px solid rgba(0, 255, 0, 0.3);
+        color: #00ff00;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 0.8em;
+        transition: all 0.3s ease;
+    }
+
+    .achievement-close:hover {
+        background: rgba(0, 255, 0, 0.3);
+        border-color: rgba(0, 255, 0, 0.5);
+        transform: scale(1.1);
+    }
+
+    /* Types d'achievements avec couleurs différentes */
+    .achievement-notification[data-type="badge"] {
+        border-color: #00ff00;
+        box-shadow: 0 10px 40px rgba(0, 255, 0, 0.4);
+    }
+
+    .achievement-notification[data-type="level"] {
+        border-color: #0099ff;
+        box-shadow: 0 10px 40px rgba(0, 153, 255, 0.4);
+    }
+
+    .achievement-notification[data-type="mission"] {
+        border-color: #ff9900;
+        box-shadow: 0 10px 40px rgba(255, 153, 0, 0.4);
+    }
+
+    .achievement-notification[data-type="streak"] {
+        border-color: #ff0099;
+        box-shadow: 0 10px 40px rgba(255, 0, 153, 0.4);
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+        .achievement-notifications {
+            top: 10px;
+            right: 10px;
+            left: 10px;
+        }
+
+        .achievement-notification {
+            width: auto;
+            margin-bottom: 15px;
+            padding: 20px;
+        }
+
+        .achievement-icon {
+            font-size: 2.5em;
+        }
+    }
+
+    /* Effets spéciaux pour les achievements rares */
+    .achievement-notification[data-rarity="legendary"] {
+        border-width: 4px;
+        border-color: #ff9900;
+        box-shadow: 0 15px 50px rgba(255, 153, 0, 0.6);
+    }
+
+    .achievement-notification[data-rarity="legendary"] .achievement-icon {
+        animation: legendaryGlow 2s infinite;
+    }
+
+    @keyframes legendaryGlow {
+
+        0%,
+        100% {
+            filter: drop-shadow(0 0 20px rgba(255, 153, 0, 0.6));
+        }
+
+        50% {
+            filter: drop-shadow(0 0 40px rgba(255, 153, 0, 1));
+        }
+    }
+
+    .achievement-notification[data-rarity="mythic"] {
+        border-width: 4px;
+        border-color: #ff0099;
+        box-shadow: 0 15px 50px rgba(255, 0, 153, 0.6);
+        animation: mythicFloat 3s infinite ease-in-out;
+    }
+
+    @keyframes mythicFloat {
+
+        0%,
+        100% {
+            transform: translateX(0) translateY(0);
+        }
+
+        50% {
+            transform: translateX(0) translateY(-5px);
+        }
+    }
+
+    .achievement-notification[data-rarity="mythic"] .achievement-icon {
+        animation: mythicRotate 3s infinite linear;
+    }
+
+    @keyframes mythicRotate {
+        0% {
+            transform: scale(1) rotate(0deg);
+        }
+
+        50% {
+            transform: scale(1.1) rotate(180deg);
+        }
+
+        100% {
+            transform: scale(1) rotate(360deg);
+        }
+    }
+
+    /* Effets de particules pour les achievements spéciaux */
+    .achievement-notification[data-rarity="legendary"]::after,
+    .achievement-notification[data-rarity="mythic"]::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image:
+            radial-gradient(circle at 20% 20%, rgba(255, 153, 0, 0.3) 1px, transparent 1px),
+            radial-gradient(circle at 80% 80%, rgba(255, 153, 0, 0.2) 1px, transparent 1px);
+        background-size: 40px 40px;
+        animation: particleFloat 4s infinite linear;
+        pointer-events: none;
+    }
+
+    .achievement-notification[data-rarity="mythic"]::after {
+        background-image:
+            radial-gradient(circle at 20% 20%, rgba(255, 0, 153, 0.3) 1px, transparent 1px),
+            radial-gradient(circle at 80% 80%, rgba(255, 0, 153, 0.2) 1px, transparent 1px);
+    }
+
+    @keyframes particleFloat {
+        0% {
+            transform: translateY(0px);
+        }
+
+        100% {
+            transform: translateY(-40px);
+        }
+    }
+</style>
+
+<script>
+    class AchievementNotificationManager {
+        constructor() {
+            this.notifications = [];
+            this.container = document.getElementById('achievement-notifications');
+            this.maxNotifications = 3;
+        }
+
+        // Afficher une nouvelle notification d'achievement
+        showAchievement(data) {
+            const notification = this.createNotification(data);
+
+            // Ajouter à la liste
+            this.notifications.push(notification);
+
+            // Afficher la notification
+            this.container.appendChild(notification);
+
+            // Gérer la limite de notifications
+            if (this.notifications.length > this.maxNotifications) {
+                this.removeOldestNotification();
+            }
+
+            // Auto-suppression après un délai
+            setTimeout(() => {
+                this.removeNotification(notification);
+            }, data.duration || 5000);
+
+            // Effet sonore (optionnel)
+            this.playAchievementSound(data.type);
+
+            return notification;
+        }
+
+        // Créer l'élément de notification
+        createNotification(data) {
+            const notification = document.createElement('div');
+            notification.className = 'achievement-notification';
+            notification.setAttribute('data-type', data.type || 'badge');
+            notification.setAttribute('data-rarity', data.rarity || 'common');
+
+            notification.innerHTML = `
+            <div class="achievement-close" onclick="achievementManager.removeNotification(this.parentElement)">×</div>
+            <div class="achievement-header">
+                <div class="achievement-icon">${data.icon || '🏆'}</div>
+                <h4 class="achievement-title">${data.title || 'Achievement débloqué !'}</h4>
+            </div>
+            <p class="achievement-description">${data.description || 'Félicitations !'}</p>
+            
+            ${data.rewards ? `
+            <div class="achievement-rewards">
+                ${data.rewards.map(reward => `
+                    <div class="reward-item">
+                        <span class="reward-icon">${reward.icon}</span>
+                        <span>${reward.text}</span>
+                    </div>
+                `).join('')}
+            </div>
+            ` : ''}
+            
+            ${data.progress ? `
+            <div class="achievement-progress">
+                <div class="progress-bar-achievement">
+                    <div class="progress-fill-achievement" style="width: ${data.progress.current}%"></div>
+                </div>
+                <div class="progress-text-achievement">${data.progress.current}/${data.progress.total}</div>
+            </div>
+            ` : ''}
+        `;
+
+            // Effets interactifs
+            notification.addEventListener('click', () => {
+                this.removeNotification(notification);
+            });
+
+            // Animation d'apparition
+            setTimeout(() => {
+                notification.style.animation = 'slideInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards';
+            }, 100);
+
+            return notification;
+        }
+
+        // Supprimer une notification
+        removeNotification(notification) {
+            if (!notification || !notification.parentElement) return;
+
+            notification.classList.add('removing');
+
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.parentElement.removeChild(notification);
+                }
+
+                // Retirer de la liste
+                const index = this.notifications.indexOf(notification);
+                if (index > -1) {
+                    this.notifications.splice(index, 1);
+                }
+            }, 400);
+        }
+
+        // Supprimer la plus ancienne notification
+        removeOldestNotification() {
+            if (this.notifications.length > 0) {
+                this.removeNotification(this.notifications[0]);
+            }
+        }
+
+        // Effet sonore (optionnel)
+        playAchievementSound(type) {
+            // Ici on pourrait ajouter des sons différents selon le type
+            // Pour l'instant, on simule juste
+            console.log(`🎵 Son d'achievement: ${type}`);
+        }
+
+        // Notification de badge
+        showBadge(badgeData) {
+            return this.showAchievement({
+                type: 'badge',
+                icon: badgeData.icon,
+                title: `Badge débloqué : ${badgeData.name}`,
+                description: badgeData.description,
+                rewards: [
+                    { icon: '💯', text: `+${badgeData.points} XP` }
+                ],
+                rarity: badgeData.rarity,
+                duration: 6000
+            });
+        }
+
+        // Notification de niveau
+        showLevelUp(levelData) {
+            return this.showAchievement({
+                type: 'level',
+                icon: '📈',
+                title: `Niveau ${levelData.newLevel} atteint !`,
+                description: `Félicitations ! Tu as gagné ${levelData.rewards.length} récompenses !`,
+                rewards: levelData.rewards,
+                duration: 7000
+            });
+        }
+
+        // Notification de mission
+        showMissionComplete(missionData) {
+            return this.showAchievement({
+                type: 'mission',
+                icon: '🎯',
+                title: `Mission accomplie : ${missionData.name}`,
+                description: missionData.description,
+                rewards: [
+                    { icon: '💯', text: `+${missionData.xp} XP` },
+                    { icon: '🏆', text: missionData.badge || 'Aucun badge' }
+                ],
+                duration: 5000
+            });
+        }
+
+        // Notification de streak
+        showStreak(streakData) {
+            return this.showAchievement({
+                type: 'streak',
+                icon: '🔥',
+                title: `Streak de ${streakData.days} jours !`,
+                description: `Continue comme ça ! Multiplicateur x${streakData.multiplier}`,
+                rewards: [
+                    { icon: '⚡', text: `Multiplicateur x${streakData.multiplier}` }
+                ],
+                duration: 4000
+            });
+        }
+    }
+
+    // Initialiser le gestionnaire
+    const achievementManager = new AchievementNotificationManager();
+
+    // Fonctions globales pour faciliter l'utilisation
+    function showAchievement(data) {
+        return achievementManager.showAchievement(data);
+    }
+
+    function showBadge(badgeData) {
+        return achievementManager.showBadge(badgeData);
+    }
+
+    function showLevelUp(levelData) {
+        return achievementManager.showLevelUp(levelData);
+    }
+
+    function showMissionComplete(missionData) {
+        return achievementManager.showMissionComplete(missionData);
+    }
+
+    function showStreak(streakData) {
+        return achievementManager.showStreak(streakData);
+    }
+
+    // Exemple d'utilisation automatique
+    document.addEventListener('DOMContentLoaded', function () {
+        // Démarrer avec quelques exemples (à supprimer en production)
+        setTimeout(() => {
+            showBadge({
+                icon: '💻',
+                name: 'Premier Hack',
+                description: 'Tu as réussi ton premier hack !',
+                points: 100,
+                rarity: 'common'
+            });
+        }, 2000);
+
+        setTimeout(() => {
+            showLevelUp({
+                newLevel: 2,
+                rewards: [
+                    { icon: '🎁', text: 'Nouveau module débloqué' },
+                    { icon: '⚡', text: 'Bonus de vitesse' }
+                ]
+            });
+        }, 5000);
+    });
+
+    // Fonction pour tester les notifications
+    function testAchievements() {
+        showBadge({
+            icon: '🏆',
+            name: 'Test Badge',
+            description: 'Ceci est un test de notification !',
+            points: 500,
+            rarity: 'legendary'
+        });
+
+        setTimeout(() => {
+            showMissionComplete({
+                name: 'Mission Test',
+                description: 'Mission de test accomplie avec succès !',
+                xp: 250,
+                badge: 'Testeur'
+            });
+        }, 1000);
+
+        setTimeout(() => {
+            showStreak({
+                days: 7,
+                multiplier: 1.5
+            });
+        }, 2000);
+    }
+</script>

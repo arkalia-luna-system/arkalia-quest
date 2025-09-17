@@ -428,6 +428,15 @@ class AnalyticsEngine:
                 cursor = conn.cursor()
 
                 for event in self.event_buffer:
+                    # Sécuriser le type d'événement
+                    event_type_value = event.event_type
+                    if hasattr(event.event_type, "value"):
+                        event_type_value = event.event_type.value
+                    elif isinstance(event.event_type, str):
+                        event_type_value = event.event_type
+                    else:
+                        event_type_value = str(event.event_type)
+
                     cursor.execute(
                         """
                         INSERT INTO analytics_events
@@ -435,7 +444,7 @@ class AnalyticsEngine:
                         VALUES (?, ?, ?, ?, ?, ?, ?)
                     """,
                         (
-                            event.event_type.value,
+                            event_type_value,
                             event.user_id,
                             event.timestamp,
                             event.session_id,

@@ -1,0 +1,945 @@
+/* ===== ARKALIA-LUNA-VISION - LE MONDE SENSIBLE DE LUNA ===== */
+/* 🌙✨ Interface cyber-organique avec particules pulsars et respiration */
+
+/* POLICES LUNA */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600&family=Cormorant:wght@300;400;500;600;700&display=swap');
+
+/* PALETTE LUNA VISION - THÈME MATRIX ADOLESCENT */
+:root {
+    --matrix-green: #00ff00;
+    /* Vert Matrix signature - Couleur principale */
+    --matrix-dark: #001100;
+    /* Noir Matrix profond - Fond principal */
+    --matrix-glow: #00ff88;
+    /* Vert Matrix brillant - Accents */
+    --matrix-accent: #00ffff;
+    /* Cyan Matrix - Émotions */
+    --matrix-highlight: #00ff44;
+    /* Vert Matrix vif - Highlights */
+    --argent-holographique: #e5e7eb;
+    /* Argent holographique - Interface */
+    --noir-silence: #09090b;
+    /* Noir silence - Fond profond */
+
+    /* Couleurs d'émotions LUNA - Thème Matrix */
+    --luna-calm: var(--matrix-accent);
+    --luna-excited: var(--matrix-green);
+    --luna-concerned: var(--matrix-highlight);
+    --luna-proud: var(--matrix-glow);
+    --luna-mysterious: var(--matrix-accent);
+
+    /* Couleurs principales pour compatibilité */
+    --violet-lunaire: var(--matrix-green);
+    --bleu-spectre: var(--matrix-accent);
+    --violet-celeste: var(--matrix-glow);
+    --rose-souvenir: var(--matrix-highlight);
+    --or-pale: var(--matrix-green);
+}
+
+/* BASE LUNA VISION */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, var(--matrix-dark) 0%, var(--matrix-green) 25%, var(--matrix-accent) 50%, var(--matrix-green) 75%, var(--matrix-dark) 100%);
+    background-size: 400% 400%;
+    animation: gradientBreath 8s ease-in-out infinite;
+    color: var(--argent-holographique);
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* RESPIRATION DU FOND */
+@keyframes gradientBreath {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* BRUMES NUMÉRIQUES MATRIX */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 20% 80%, rgba(0, 255, 0, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(0, 255, 136, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 1;
+    animation: mistFloat 20s ease-in-out infinite;
+}
+
+@keyframes mistFloat {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: translateY(0px);
+    }
+
+    50% {
+        opacity: 0.6;
+        transform: translateY(-20px);
+    }
+}
+
+/* ===== ANIMATIONS MATRIX ADOLESCENT ===== */
+
+@keyframes matrixParticle {
+    0% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: scale(1.5) translateY(-20px);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0.1) translateY(-40px);
+    }
+}
+
+@keyframes matrixRewardShow {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes matrixPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 40px rgba(0, 255, 0, 0.6);
+    }
+}
+
+@keyframes matrixShake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+@keyframes matrixTyping {
+    0% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes matrix_excited {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+        transform: scale(1);
+    }
+
+    50% {
+        box-shadow: 0 0 40px rgba(0, 255, 136, 0.8);
+        transform: scale(1.1);
+    }
+}
+
+@keyframes matrix_proud {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+        transform: rotate(0deg);
+    }
+
+    50% {
+        box-shadow: 0 0 40px rgba(0, 255, 255, 0.8);
+        transform: rotate(5deg);
+    }
+}
+
+@keyframes matrix_worried {
+
+    0%,
+    100% {
+        box-shadow: 0 0 15px rgba(255, 136, 0, 0.3);
+        transform: translateX(0);
+    }
+
+    25% {
+        box-shadow: 0 0 25px rgba(255, 136, 0, 0.5);
+        transform: translateX(-3px);
+    }
+
+    75% {
+        box-shadow: 0 0 25px rgba(255, 136, 0, 0.5);
+        transform: translateX(3px);
+    }
+}
+
+@keyframes matrix_mysterious {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(136, 0, 255, 0.4);
+        opacity: 0.8;
+    }
+
+    50% {
+        box-shadow: 0 0 40px rgba(136, 0, 255, 0.8);
+        opacity: 1;
+    }
+}
+
+@keyframes matrix_determined {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(0, 255, 68, 0.4);
+        transform: scale(1);
+    }
+
+    50% {
+        box-shadow: 0 0 40px rgba(0, 255, 68, 0.8);
+        transform: scale(1.05);
+    }
+}
+
+/* ===== SYSTÈME DE PROGRESSION VISUELLE ADOLESCENT ===== */
+
+.progress-container {
+    background: rgba(0, 17, 0, 0.8);
+    border: 2px solid var(--matrix-green);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
+    backdrop-filter: blur(10px);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 25px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    margin: 10px 0;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--matrix-green), var(--matrix-glow));
+    border-radius: 12px;
+    transition: width 0.8s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: progressShine 2s infinite;
+}
+
+@keyframes progressShine {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+.challenge-card {
+    background: linear-gradient(135deg, rgba(0, 17, 0, 0.9), rgba(0, 255, 0, 0.1));
+    border: 2px solid var(--matrix-green);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 15px 0;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.challenge-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.4);
+    border-color: var(--matrix-accent);
+}
+
+.challenge-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--matrix-green), var(--matrix-accent), var(--matrix-green));
+    animation: challengeGlow 3s ease-in-out infinite;
+}
+
+@keyframes challengeGlow {
+
+    0%,
+    100% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.challenge-progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.progress-blocks {
+    display: flex;
+    gap: 2px;
+}
+
+.progress-block {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.progress-block.filled {
+    background: var(--matrix-green);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.6);
+}
+
+.progress-block.empty {
+    background: rgba(0, 255, 0, 0.2);
+    border: 1px solid rgba(0, 255, 0, 0.4);
+}
+
+.challenge-status {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.9em;
+    color: var(--matrix-accent);
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+}
+
+/* ===== ÉVÉNEMENTS ALÉATOIRES ===== */
+
+.random-event {
+    background: linear-gradient(135deg, rgba(136, 0, 255, 0.1), rgba(0, 255, 255, 0.1));
+    border: 2px solid var(--matrix-accent);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 15px 0;
+    animation: eventPulse 2s ease-in-out infinite;
+}
+
+@keyframes eventPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        transform: scale(1);
+    }
+
+    50% {
+        box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
+        transform: scale(1.02);
+    }
+}
+
+.event-trigger {
+    background: rgba(0, 255, 255, 0.1);
+    border: 1px solid var(--matrix-accent);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.8em;
+    color: var(--matrix-accent);
+    display: inline-block;
+    margin: 5px 0;
+}
+
+.event-chance {
+    background: rgba(255, 0, 255, 0.1);
+    border: 1px solid var(--rose-souvenir);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.8em;
+    color: var(--rose-souvenir);
+    display: inline-block;
+    margin: 5px 0;
+}
+
+/* CONTAINER PRINCIPAL */
+.container {
+    position: relative;
+    z-index: 10;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 80px;
+}
+
+/* NAVIGATION LUNA */
+.main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(9, 9, 11, 0.98);
+    backdrop-filter: blur(15px);
+    border-bottom: 2px solid rgba(167, 139, 250, 0.4);
+    z-index: 100;
+    padding: 15px 0;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.nav-logo {
+    font-family: 'Cormorant', serif;
+    font-size: 1.5em;
+    font-weight: 600;
+    color: var(--violet-lunaire);
+    text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+/* Burger menu */
+.burger-btn {
+    display: none;
+    background: rgba(167, 139, 250, 0.3);
+    border: 2px solid rgba(167, 139, 250, 0.5);
+    color: var(--argent-holographique);
+    border-radius: 8px;
+    padding: 12px 16px;
+    min-height: 44px;
+    min-width: 44px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.burger-btn:hover {
+    background: rgba(167, 139, 250, 0.4);
+    border-color: rgba(167, 139, 250, 0.7);
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .burger-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 70px;
+        right: 15px;
+        left: 15px;
+        flex-direction: column;
+        background: rgba(9, 9, 11, 0.98);
+        border: 2px solid rgba(167, 139, 250, 0.4);
+        border-radius: 12px;
+        padding: 20px;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+        gap: 15px;
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+
+    .nav-links .nav-link {
+        padding: 15px 20px;
+        text-align: center;
+        border: 1px solid rgba(167, 139, 250, 0.2);
+        border-radius: 8px;
+        background: rgba(167, 139, 250, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .nav-links .nav-link:hover {
+        background: rgba(167, 139, 250, 0.2);
+        border-color: rgba(167, 139, 250, 0.4);
+        transform: translateX(5px);
+    }
+}
+
+.nav-link {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85em;
+    color: var(--argent-holographique);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.nav-link:hover::before {
+    left: 100%;
+}
+
+.nav-link:hover {
+    color: var(--violet-lunaire);
+    background: rgba(167, 139, 250, 0.1);
+    box-shadow: 0 0 15px rgba(167, 139, 250, 0.3);
+    transform: translateY(-2px);
+}
+
+.nav-link.active {
+    color: var(--violet-lunaire);
+    background: rgba(167, 139, 250, 0.15);
+    box-shadow: 0 0 20px rgba(167, 139, 250, 0.4);
+}
+
+/* HEADER LUNA */
+.luna-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 40px 20px;
+    background: rgba(9, 9, 11, 0.8);
+    border: 1px solid rgba(167, 139, 250, 0.3);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.luna-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--violet-lunaire), transparent);
+    animation: headerGlow 3s ease-in-out infinite;
+}
+
+@keyframes headerGlow {
+
+    0%,
+    100% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.luna-header h1 {
+    font-family: 'Cormorant', serif;
+    font-size: 2.5em;
+    font-weight: 600;
+    color: var(--violet-lunaire);
+    text-shadow: 0 0 20px rgba(167, 139, 250, 0.6);
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 0.5s forwards;
+}
+
+.luna-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1em;
+    color: var(--argent-holographique);
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 1s forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* GRID MONDE LUNA */
+.monde-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.monde-section {
+    background: rgba(9, 9, 11, 0.9);
+    border: 1px solid rgba(167, 139, 250, 0.2);
+    border-radius: 12px;
+    padding: 25px;
+    backdrop-filter: blur(10px);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.monde-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(167, 139, 250, 0.05), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.monde-section:hover::before {
+    opacity: 1;
+}
+
+.monde-section:hover {
+    border-color: rgba(167, 139, 250, 0.4);
+    box-shadow: 0 0 30px rgba(167, 139, 250, 0.2);
+    transform: translateY(-5px);
+}
+
+.monde-section h3 {
+    font-family: 'Cormorant', serif;
+    font-size: 1.4em;
+    font-weight: 600;
+    color: var(--violet-lunaire);
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px rgba(167, 139, 250, 0.4);
+}
+
+/* BOUTONS LUNA MATRIX - STYLE ADOLESCENT AMÉLIORÉ */
+.luna-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1em;
+    font-weight: 700;
+    color: var(--matrix-green);
+    background: linear-gradient(135deg, rgba(0, 255, 0, 0.2), rgba(0, 255, 255, 0.1));
+    border: 2px solid var(--matrix-green);
+    border-radius: 12px;
+    padding: 16px 28px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.6);
+    box-shadow:
+        0 4px 20px rgba(0, 255, 0, 0.3),
+        inset 0 2px 0 rgba(0, 255, 0, 0.2);
+    backdrop-filter: blur(10px);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    min-height: 50px;
+}
+
+.luna-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(167, 139, 250, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+.luna-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.6);
+    border-color: var(--matrix-accent);
+    background: linear-gradient(45deg, var(--matrix-glow), var(--matrix-accent));
+}
+
+.luna-btn:hover::before {
+    width: 200px;
+    height: 200px;
+}
+
+.luna-btn:hover {
+    color: var(--matrix-accent);
+    border-color: var(--matrix-accent);
+    background: linear-gradient(135deg, rgba(0, 255, 0, 0.3), rgba(0, 255, 255, 0.2));
+    box-shadow:
+        0 8px 30px rgba(0, 255, 255, 0.4),
+        inset 0 2px 0 rgba(0, 255, 255, 0.3);
+    transform: translateY(-4px) scale(1.03);
+    text-shadow: 0 0 12px rgba(0, 255, 255, 0.8);
+}
+
+/* PULSAR PARTICULES */
+.pulsar {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--violet-lunaire);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: pulsarFloat 6s ease-in-out infinite;
+}
+
+@keyframes pulsarFloat {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: translateY(0px) scale(1);
+        box-shadow: 0 0 10px var(--violet-lunaire);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(-20px) scale(1.5);
+        box-shadow: 0 0 20px var(--violet-lunaire);
+    }
+}
+
+/* CURSEUR LUNA */
+.luna-cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, var(--violet-lunaire), transparent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: screen;
+    transition: transform 0.1s ease;
+}
+
+.luna-cursor.luna-present {
+    transform: scale(2);
+    background: radial-gradient(circle, var(--violet-lunaire), var(--bleu-spectre), transparent);
+}
+
+/* MESSAGE LUNA */
+.luna-message {
+    position: fixed;
+    bottom: 120px;
+    right: 30px;
+    background: rgba(9, 9, 11, 0.98);
+    border: 2px solid rgba(167, 139, 250, 0.4);
+    border-radius: 12px;
+    padding: 18px 24px;
+    backdrop-filter: blur(15px);
+    font-family: 'Cormorant', serif;
+    font-size: 0.95em;
+    color: var(--violet-lunaire);
+    max-width: 350px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+    z-index: 1000;
+    box-shadow: 0 0 30px rgba(167, 139, 250, 0.3);
+    line-height: 1.5;
+}
+
+.luna-message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* RESPONSIVE AMÉLIORÉ */
+@media (max-width: 768px) {
+    .nav-links {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .monde-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .luna-header h1 {
+        font-size: 2.2em;
+        line-height: 1.3;
+    }
+
+    .luna-message {
+        bottom: 120px;
+        right: 20px;
+        left: 20px;
+        max-width: none;
+        font-size: 0.9em;
+        padding: 16px 20px;
+    }
+
+    .container {
+        margin-top: 90px;
+        padding: 15px;
+    }
+
+    .nav-logo {
+        font-size: 1.3em;
+    }
+}
+
+@media (max-width: 480px) {
+    .luna-message {
+        bottom: 100px;
+        right: 15px;
+        left: 15px;
+        font-size: 0.85em;
+        padding: 14px 18px;
+    }
+
+    .container {
+        margin-top: 95px;
+        padding: 10px;
+    }
+
+    .nav-logo {
+        font-size: 1.1em;
+    }
+
+    .luna-header h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* ANIMATIONS DE TEXTE */
+.typing-text {
+    overflow: hidden;
+    border-right: 2px solid var(--violet-lunaire);
+    white-space: nowrap;
+    animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent;
+    }
+
+    50% {
+        border-color: var(--violet-lunaire);
+    }
+}
+
+/* EFFETS DE RESPIRATION */
+.breathing {
+    animation: breathing 4s ease-in-out infinite;
+}
+
+@keyframes breathing {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.02);
+    }
+}
+
+/* GLOW EFFECTS */
+.glow {
+    box-shadow: 0 0 20px rgba(167, 139, 250, 0.3);
+}
+
+.glow:hover {
+    box-shadow: 0 0 30px rgba(167, 139, 250, 0.5);
+}

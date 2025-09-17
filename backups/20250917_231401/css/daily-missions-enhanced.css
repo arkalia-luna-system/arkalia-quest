@@ -1,0 +1,298 @@
+/* ===== ARKALIA QUEST - DAILY MISSIONS ENHANCED CSS ===== */
+/* Styles pour les missions du jour améliorées */
+
+.daily-missions-panel {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 350px;
+    background: rgba(9, 9, 11, 0.95);
+    border: 2px solid rgba(167, 139, 250, 0.5);
+    border-radius: 15px;
+    padding: 20px;
+    z-index: 10000;
+    backdrop-filter: blur(15px);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.daily-missions-panel.show {
+    transform: translateX(0);
+}
+
+.missions-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.missions-header h3 {
+    color: var(--violet-lunaire);
+    margin: 0;
+}
+
+.close-missions-btn {
+    background: none;
+    border: none;
+    color: var(--argent-holographique);
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-missions-btn:hover {
+    color: var(--violet-lunaire);
+}
+
+.mission-item {
+    background: rgba(167, 139, 250, 0.1);
+    border: 1px solid rgba(167, 139, 250, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.mission-item:hover {
+    border-color: rgba(167, 139, 250, 0.4);
+    transform: translateY(-2px);
+}
+
+.mission-item.easy {
+    border-left: 4px solid #22c55e;
+}
+
+.mission-item.medium {
+    border-left: 4px solid #f59e0b;
+}
+
+.mission-item.hard {
+    border-left: 4px solid #ef4444;
+}
+
+.mission-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.mission-icon {
+    font-size: 1.2em;
+    margin-right: 10px;
+}
+
+.mission-title {
+    color: var(--violet-lunaire);
+    font-weight: 600;
+    flex: 1;
+}
+
+.mission-reward {
+    color: var(--bleu-spectre);
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+.mission-description {
+    color: var(--argent-holographique);
+    font-size: 0.9em;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.mission-progress {
+    margin-bottom: 15px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(167, 139, 250, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--violet-lunaire), var(--bleu-spectre));
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    color: var(--argent-holographique);
+    font-size: 0.8em;
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+.mission-actions {
+    text-align: center;
+}
+
+.mission-btn {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.2), rgba(96, 165, 250, 0.2));
+    border: 1px solid rgba(167, 139, 250, 0.4);
+    border-radius: 6px;
+    padding: 8px 16px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9em;
+}
+
+.mission-btn:hover {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.4), rgba(96, 165, 250, 0.4));
+    transform: translateY(-1px);
+}
+
+.missions-progress {
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(167, 139, 250, 0.05);
+    border-radius: 8px;
+}
+
+.missions-timer {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.timer-text {
+    color: var(--argent-holographique);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.9em;
+}
+
+.no-missions {
+    text-align: center;
+    color: var(--argent-holographique);
+    font-style: italic;
+}
+
+.mission-completion {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(9, 9, 11, 0.95);
+    border: 2px solid rgba(167, 139, 250, 0.5);
+    border-radius: 15px;
+    padding: 30px;
+    z-index: 10001;
+    text-align: center;
+    opacity: 0;
+    animation: missionCompletionAppear 3s ease-in-out;
+}
+
+@keyframes missionCompletionAppear {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.completion-icon {
+    font-size: 3em;
+    margin-bottom: 15px;
+}
+
+.completion-content h3 {
+    color: var(--violet-lunaire);
+    margin-bottom: 10px;
+}
+
+.completion-rewards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.completion-rewards span {
+    color: var(--bleu-spectre);
+    font-weight: 600;
+}
+
+.all-missions-completed {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(9, 9, 11, 0.95);
+    border: 2px solid rgba(167, 139, 250, 0.5);
+    border-radius: 15px;
+    padding: 40px;
+    z-index: 10002;
+    text-align: center;
+    opacity: 0;
+    animation: allMissionsCompletedAppear 5s ease-in-out;
+}
+
+@keyframes allMissionsCompletedAppear {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+
+    20% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    80% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.celebration-icon {
+    font-size: 4em;
+    margin-bottom: 20px;
+}
+
+.celebration-content h2 {
+    color: var(--violet-lunaire);
+    margin-bottom: 15px;
+}
+
+.celebration-content p {
+    color: var(--argent-holographique);
+    font-size: 1.1em;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .daily-missions-panel {
+        width: 90%;
+        max-width: 300px;
+    }
+
+    .mission-item {
+        padding: 12px;
+    }
+
+    .completion-rewards {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

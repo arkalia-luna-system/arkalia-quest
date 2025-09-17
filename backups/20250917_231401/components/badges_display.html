@@ -1,0 +1,596 @@
+<!-- 🏆 Affichage des badges modernes pour Arkalia Quest -->
+<div class="badges-container">
+    <div class="badges-header">
+        <h3 class="badges-title">🏆 MES BADGES</h3>
+        <div class="badges-stats">
+            <span class="badge-count">{{ badges|length }}</span>
+            <span class="badge-total">/ {{ total_badges }}</span>
+        </div>
+    </div>
+    
+    <div class="badges-grid">
+        {% for badge in badges %}
+        <div class="badge-card" data-rarity="{{ badge.rarity }}" data-achieved="{{ badge.achieved }}">
+            <div class="badge-icon-wrapper">
+                <div class="badge-icon">{{ badge.icon }}</div>
+                {% if badge.achieved %}
+                <div class="badge-glow"></div>
+                <div class="badge-particles"></div>
+                {% endif %}
+            </div>
+            
+            <div class="badge-info">
+                <h4 class="badge-name">{{ badge.name }}</h4>
+                <p class="badge-description">{{ badge.description }}</p>
+                
+                {% if badge.achieved %}
+                <div class="badge-meta">
+                    <span class="badge-date">Obtenu le {{ badge.date_earned }}</span>
+                    <span class="badge-points">+{{ badge.points }} XP</span>
+                </div>
+                {% else %}
+                <div class="badge-progress">
+                    <div class="progress-mini">
+                        <div class="progress-mini-fill" style="width: {{ badge.progress }}%"></div>
+                    </div>
+                    <span class="progress-text">{{ badge.progress }}%</span>
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="badge-rarity-indicator {{ badge.rarity }}">
+                <span class="rarity-text">{{ badge.rarity|upper }}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    {% if badges|length == 0 %}
+    <div class="no-badges">
+        <div class="no-badges-icon">🎯</div>
+        <h4>Aucun badge encore !</h4>
+        <p>Commence à jouer pour débloquer tes premiers badges</p>
+        <a href="/tutorial" class="cta-badge">🎮 COMMENCER L'AVENTURE</a>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+.badges-container {
+    background: linear-gradient(135deg, rgba(0, 255, 0, 0.05) 0%, rgba(0, 100, 0, 0.1) 100%);
+    border: 2px solid rgba(0, 255, 0, 0.2);
+    border-radius: 25px;
+    padding: 30px;
+    margin: 25px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.badges-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(0, 255, 0, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 255, 0, 0.03) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.badges-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid rgba(0, 255, 0, 0.2);
+}
+
+.badges-title {
+    color: #00ff00;
+    font-size: 1.8em;
+    font-weight: bold;
+    text-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+    margin: 0;
+}
+
+.badges-stats {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+}
+
+.badge-count {
+    color: #00ff00;
+    font-size: 2em;
+    font-weight: bold;
+    text-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+}
+
+.badge-total {
+    color: rgba(0, 255, 0, 0.6);
+    font-size: 1.2em;
+}
+
+.badges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 20px;
+}
+
+.badge-card {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 50, 0, 0.2) 100%);
+    border: 2px solid rgba(0, 255, 0, 0.2);
+    border-radius: 20px;
+    padding: 25px;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.badge-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(0, 255, 0, 0.02) 50%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.badge-card:hover::before {
+    opacity: 1;
+}
+
+.badge-card:hover {
+    border-color: rgba(0, 255, 0, 0.5);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 255, 0, 0.3);
+}
+
+.badge-card[data-achieved="true"] {
+    border-color: rgba(0, 255, 0, 0.4);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 100, 0, 0.3) 100%);
+}
+
+.badge-card[data-achieved="false"] {
+    opacity: 0.7;
+    filter: grayscale(0.3);
+}
+
+.badge-icon-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.badge-icon {
+    font-size: 4em;
+    filter: drop-shadow(0 0 20px rgba(0, 255, 0, 0.3));
+    transition: all 0.3s ease;
+    z-index: 2;
+    position: relative;
+}
+
+.badge-card:hover .badge-icon {
+    transform: scale(1.1) rotate(5deg);
+    filter: drop-shadow(0 0 30px rgba(0, 255, 0, 0.6));
+}
+
+.badge-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, rgba(0, 255, 0, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: badgeGlow 2s infinite;
+    z-index: 1;
+}
+
+@keyframes badgeGlow {
+    0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+}
+
+.badge-particles {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    background-image: 
+        radial-gradient(circle at 20% 20%, rgba(0, 255, 0, 0.4) 1px, transparent 1px),
+        radial-gradient(circle at 80% 80%, rgba(0, 255, 0, 0.3) 1px, transparent 1px),
+        radial-gradient(circle at 40% 60%, rgba(0, 255, 0, 0.2) 1px, transparent 1px);
+    background-size: 30px 30px;
+    animation: particleFloat 3s infinite linear;
+    z-index: 1;
+}
+
+@keyframes particleFloat {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.badge-info {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.badge-name {
+    color: #00ff00;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.badge-description {
+    color: rgba(0, 255, 0, 0.8);
+    font-size: 0.9em;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.badge-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding: 10px;
+    background: rgba(0, 255, 0, 0.1);
+    border-radius: 10px;
+    border: 1px solid rgba(0, 255, 0, 0.2);
+}
+
+.badge-date {
+    color: rgba(0, 255, 0, 0.7);
+    font-size: 0.8em;
+}
+
+.badge-points {
+    color: #00ff00;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.badge-progress {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.progress-mini {
+    height: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    border: 1px solid rgba(0, 255, 0, 0.2);
+}
+
+.progress-mini-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00ff00, #00cc00);
+    border-radius: 5px;
+    transition: width 0.8s ease;
+    position: relative;
+}
+
+.progress-mini-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: progressShine 2s infinite;
+}
+
+@keyframes progressShine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.progress-text {
+    color: rgba(0, 255, 0, 0.8);
+    font-size: 0.8em;
+    font-weight: 500;
+}
+
+.badge-rarity-indicator {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.7em;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.badge-rarity-indicator.common {
+    background: rgba(0, 255, 0, 0.2);
+    color: #00ff00;
+    border: 1px solid rgba(0, 255, 0, 0.3);
+}
+
+.badge-rarity-indicator.rare {
+    background: rgba(0, 100, 255, 0.2);
+    color: #0099ff;
+    border: 1px solid rgba(0, 100, 255, 0.3);
+}
+
+.badge-rarity-indicator.epic {
+    background: rgba(150, 0, 255, 0.2);
+    color: #9900ff;
+    border: 1px solid rgba(150, 0, 255, 0.3);
+}
+
+.badge-rarity-indicator.legendary {
+    background: rgba(255, 150, 0, 0.2);
+    color: #ff9900;
+    border: 1px solid rgba(255, 150, 0, 0.3);
+}
+
+.badge-rarity-indicator.mythic {
+    background: rgba(255, 0, 150, 0.2);
+    color: #ff0099;
+    border: 1px solid rgba(255, 0, 150, 0.3);
+}
+
+.no-badges {
+    text-align: center;
+    padding: 40px 20px;
+    color: rgba(0, 255, 0, 0.7);
+}
+
+.no-badges-icon {
+    font-size: 4em;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 20px rgba(0, 255, 0, 0.3));
+}
+
+.no-badges h4 {
+    color: #00ff00;
+    font-size: 1.5em;
+    margin: 0 0 10px 0;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.no-badges p {
+    margin: 0 0 25px 0;
+    font-size: 1.1em;
+}
+
+.cta-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #00ff00, #00cc00);
+    color: #000;
+    padding: 15px 30px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(0, 255, 0, 0.3);
+}
+
+.cta-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(0, 255, 0, 0.4);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .badges-container {
+        padding: 20px;
+        margin: 15px 0;
+    }
+    
+    .badges-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .badges-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .badge-card {
+        padding: 20px;
+    }
+    
+    .badge-icon {
+        font-size: 3em;
+    }
+}
+
+/* Animations d'apparition */
+.badge-card {
+    animation: slideInUp 0.6s ease-out;
+    animation-fill-mode: both;
+}
+
+.badge-card:nth-child(1) { animation-delay: 0.1s; }
+.badge-card:nth-child(2) { animation-delay: 0.2s; }
+.badge-card:nth-child(3) { animation-delay: 0.3s; }
+.badge-card:nth-child(4) { animation-delay: 0.4s; }
+.badge-card:nth-child(5) { animation-delay: 0.5s; }
+.badge-card:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Effets de focus pour l'accessibilité */
+.badge-card:focus-within {
+    outline: 2px solid #00ff00;
+    outline-offset: 2px;
+}
+
+/* Effets spéciaux pour les badges légendaires et mythiques */
+.badge-card[data-rarity="legendary"]:hover .badge-icon {
+    animation: legendaryShake 0.5s ease-in-out;
+}
+
+.badge-card[data-rarity="mythic"]:hover .badge-icon {
+    animation: mythicPulse 1s infinite;
+}
+
+@keyframes legendaryShake {
+    0%, 100% { transform: scale(1.1) rotate(0deg); }
+    25% { transform: scale(1.1) rotate(-5deg); }
+    75% { transform: scale(1.1) rotate(5deg); }
+}
+
+@keyframes mythicPulse {
+    0%, 100% { transform: scale(1.1) rotate(0deg); filter: hue-rotate(0deg); }
+    50% { transform: scale(1.2) rotate(180deg); filter: hue-rotate(180deg); }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Animation des badges au chargement
+    const badgeCards = document.querySelectorAll('.badge-card');
+    badgeCards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.1}s`;
+    });
+    
+    // Effets interactifs
+    badgeCards.forEach(card => {
+        card.addEventListener('click', function() {
+            // Effet de clic
+            this.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
+            
+            // Afficher les détails du badge
+            if (this.dataset.achieved === 'true') {
+                showBadgeDetails(this);
+            }
+        });
+        
+        // Effets de hover avancés
+        card.addEventListener('mouseenter', function() {
+            if (this.dataset.achieved === 'true') {
+                this.querySelector('.badge-particles').style.animationDuration = '1.5s';
+            }
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            if (this.dataset.achieved === 'true') {
+                this.querySelector('.badge-particles').style.animationDuration = '3s';
+            }
+        });
+    });
+    
+    // Fonction pour afficher les détails du badge
+    function showBadgeDetails(badgeCard) {
+        const badgeName = badgeCard.querySelector('.badge-name').textContent;
+        const badgeDescription = badgeCard.querySelector('.badge-description').textContent;
+        
+        // Créer une notification ou modal (optionnel)
+        console.log(`Badge: ${badgeName} - ${badgeDescription}`);
+        
+        // Ici on pourrait afficher une modal avec plus de détails
+        // ou envoyer une notification
+    }
+    
+    // Effets de particules dynamiques
+    const achievedBadges = document.querySelectorAll('.badge-card[data-achieved="true"]');
+    achievedBadges.forEach(badge => {
+        const particles = badge.querySelector('.badge-particles');
+        if (particles) {
+            badge.addEventListener('mousemove', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                particles.style.setProperty('--mouse-x', x + 'px');
+                particles.style.setProperty('--mouse-y', y + 'px');
+            });
+        }
+    });
+});
+
+// Animation de rebond pour les nouveaux badges
+function animateNewBadge(badgeElement) {
+    badgeElement.style.animation = 'bounceIn 0.8s ease-out';
+    setTimeout(() => {
+        badgeElement.style.animation = '';
+    }, 800);
+}
+
+// Animation de célébration pour les badges obtenus
+function celebrateBadge(badgeElement) {
+    badgeElement.style.animation = 'celebrate 1s ease-out';
+    setTimeout(() => {
+        badgeElement.style.animation = '';
+    }, 1000);
+}
+
+// Ajouter les animations CSS
+const style = document.createElement('style');
+style.textContent = `
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes celebrate {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+    25% {
+        transform: scale(1.1) rotate(-5deg);
+    }
+    50% {
+        transform: scale(1.2) rotate(0deg);
+    }
+    75% {
+        transform: scale(1.1) rotate(5deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+`;
+document.head.appendChild(style);
+</script>

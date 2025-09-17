@@ -11,7 +11,7 @@ from flask_compress import Compress
 
 # Imports avec gestion d'erreur robuste
 try:
-    from arkalia_engine import arkalia_engine
+    # import arkalia_engine  # Remplacé par core/profile_manager.py
     from core.adaptive_storytelling import adaptive_storytelling
     from core.advanced_achievements import advanced_achievements
     from core.cache_manager import cache_manager
@@ -22,19 +22,17 @@ try:
     from core.database import DatabaseManager
     from core.database_optimizer import DatabaseOptimizer
     from core.educational_games_engine import EducationalGamesEngine
-    from core.enhanced_mission_system import EnhancedMissionSystem
     from core.gamification_engine import GamificationEngine
     from core.luna_emotions_engine import LunaEmotionsEngine
     from core.micro_interactions import micro_interactions
-    from core.mission_handler import MissionHandler
     from core.mission_progress_tracker import mission_progress_tracker
+    from core.mission_unified import mission_unified
     from core.narrative_branches import narrative_branches
     from core.performance_optimizer import performance_optimizer
     from core.profile_manager import ProfileManager
     from core.progression_engine import ProgressionEngine
     from core.secondary_missions import secondary_missions
-    from core.security_enhanced import security_enhanced
-    from core.security_manager import security_manager
+    from core.security_unified import security_unified
     from core.social_engine import social_engine
     from core.technical_tutorials import technical_tutorials
     from core.tutorial_manager import tutorial_manager
@@ -66,8 +64,7 @@ except Exception as e:
     narrative_branches = None
     performance_optimizer = None
     secondary_missions = None
-    security_enhanced = None
-    security_manager = None
+    security_unified = None
     social_engine = None
     technical_tutorials = None
     tutorial_manager = None
@@ -119,16 +116,13 @@ app.config.update(
     SESSION_REFRESH_EACH_REQUEST=True,  # Renouvellement
 )
 
-# Initialisation du système de missions amélioré
-enhanced_mission_system = EnhancedMissionSystem()
-
 # Initialisation du système de progression
 progression_engine = ProgressionEngine()
 
 # Initialisation des modules supplémentaires
 database_optimizer = DatabaseOptimizer()
 luna_emotions_engine = LunaEmotionsEngine()
-mission_handler = MissionHandler()
+# mission_handler remplacé par mission_unified
 profile_manager = ProfileManager()
 effects_engine = EffectsEngine()
 
@@ -162,8 +156,8 @@ def _check_ip_security() -> bool:
     """Vérifie si l'IP est autorisée"""
     client_ip = request.environ.get("HTTP_X_FORWARDED_FOR", request.remote_addr)
 
-    if security_enhanced and hasattr(security_enhanced, "is_ip_blocked"):
-        return not security_enhanced.is_ip_blocked(client_ip)
+    if security_unified and hasattr(security_unified, "is_ip_blocked"):
+        return not security_unified.is_ip_blocked(client_ip)
 
     return True
 
@@ -188,7 +182,7 @@ def _validate_json_inputs():
     for key, value in data.items():
         if isinstance(value, str):
             input_type = _get_input_type(key)
-            is_valid, error_msg = security_enhanced.validate_input(input_type, value)
+            is_valid, error_msg = security_unified.validate_input(input_type, value)
             if not is_valid:
                 return jsonify({"error": f"Entrée invalide ({key}): {error_msg}"}), 400
 
@@ -258,10 +252,10 @@ def _error_response(message, status_code):
 
 def _check_command_security(cmd, client_ip):
     """Vérifie la sécurité de la commande"""
-    security_check = security_manager.check_input_security(cmd, client_ip)
+    security_check = security_unified.check_input_security(cmd, client_ip)
     if not security_check["is_safe"]:
         if security_check["risk_level"] == "critical":
-            security_manager.block_ip(
+            security_unified.block_ip(
                 client_ip,
                 f"Commande dangereuse: {security_check['threats_detected']}",
             )
@@ -596,19 +590,28 @@ def sauvegarder_profil(profil):
         if "level" not in profil:
             profil["level"] = profil.get("progression", {}).get("niveau", 1)
 
-        arkalia_engine.profiles.save_main_profile(profil)
+        from core.profile_manager import ProfileManager
+
+        profile_manager = ProfileManager()
+        profile_manager.save_main_profile(profil)
     except Exception as e:
         game_logger.error(f"Erreur sauvegarde profil: {e}")
 
 
 def analyser_personnalite(profil):
     """Analyse la personnalité basée sur les actions du joueur"""
-    return arkalia_engine.luna.analyze_personality(profil)
+    from core.profile_manager import ProfileManager
+
+    profile_manager = ProfileManager()
+    return profile_manager.analyze_personality(profil)
 
 
 def generer_mission_personnalisee(profil):
     """Génère une mission personnalisée selon le profil"""
-    return arkalia_engine.missions.generate_personalized_mission(profil)
+    from core.profile_manager import ProfileManager
+
+    profile_manager = ProfileManager()
+    return profile_manager.generate_personalized_mission(profil)
 
 
 def charger_ascii_art(nom_fichier):
@@ -998,11 +1001,11 @@ def commande():
 
     # Vérification de sécurité avancée
     client_ip = request.remote_addr or "unknown"
-    security_check = security_manager.check_input_security(cmd, client_ip)
+    security_check = security_unified.check_input_security(cmd, client_ip)
     if not security_check["is_safe"]:
         # Bloquer l'IP si menace critique
         if security_check["risk_level"] == "critical":
-            security_manager.block_ip(
+            security_unified.block_ip(
                 client_ip,
                 f"Commande dangereuse: {security_check['threats_detected']}",
             )
@@ -1086,16 +1089,22 @@ def commande():
 @app.route("/api/content")
 def get_available_content():
     """Récupère tout le contenu disponible (missions, profils, etc.)"""
-    return jsonify(arkalia_engine.get_available_content())
+    from core.profile_manager import ProfileManager
+
+    profile_manager = ProfileManager()
+    return jsonify(profile_manager.get_available_content())
 
 
 @app.route("/api/mission/<mission_name>")
 def get_mission_via_engine(mission_name):
     """Récupère une mission via le moteur unifié"""
-    result = arkalia_engine.get_mission_info(mission_name)
-    if result["success"]:
-        return jsonify(result["mission"])
-    return jsonify({"erreur": result["message"]}), 404
+    from core.profile_manager import ProfileManager
+
+    profile_manager = ProfileManager()
+    result = profile_manager.get_mission_info(mission_name)
+    if "error" not in result:
+        return jsonify(result)
+    return jsonify({"erreur": result["error"]}), 404
 
 
 @app.route("/api/profile/summary")
@@ -1399,7 +1408,7 @@ def api_skill_tree():
         # Mettre à jour la session avec les données réelles
         session["profile"] = compatible_profile
 
-        skill_tree_data = enhanced_mission_system.get_skill_tree(compatible_profile)
+        skill_tree_data = mission_unified.get_skill_tree(compatible_profile)
         return jsonify(
             {"success": True, "skill_tree": skill_tree_data, "player_data": player_data}
         )
@@ -1454,7 +1463,7 @@ def api_skill_tree_upgrade():
             "skills": player_data.get("skills", {}),
         }
 
-        skill_data = enhanced_mission_system.get_skill_tree(compatible_profile)
+        skill_data = mission_unified.get_skill_tree(compatible_profile)
 
         if category not in skill_data or skill not in skill_data[category]["skills"]:
             return jsonify({"error": "Compétence non trouvée"}), 400
@@ -1626,7 +1635,7 @@ def api_enhanced_missions():
                 "missions_completed": [],
             },
         )
-        missions_data = enhanced_mission_system.get_available_missions(profile)
+        missions_data = mission_unified.get_available_missions(profile)
         return jsonify({"success": True, "missions": missions_data})
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
@@ -1636,7 +1645,7 @@ def api_enhanced_missions():
 def api_enhanced_mission_detail(mission_id):
     """API pour les détails d'une mission améliorée"""
     try:
-        mission_data = enhanced_mission_system.get_mission_details(mission_id)
+        mission_data = mission_unified.get_mission_details(mission_id)
         if mission_data:
             return jsonify({"success": True, "mission": mission_data})
         return jsonify({"success": False, "error": "Mission non trouvée"}), 404
@@ -1656,9 +1665,9 @@ def api_luna_emotions():
 
 @app.route("/api/mission-handler/available")
 def api_mission_handler_available():
-    """API pour les missions disponibles via le gestionnaire"""
+    """API pour les missions disponibles via le gestionnaire unifié"""
     try:
-        available_missions = mission_handler.get_available_missions()
+        available_missions = mission_unified.get_all_missions()
         return jsonify({"success": True, "missions": available_missions})
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
@@ -2367,12 +2376,12 @@ def get_security_status():
     try:
         # Vérifier l'origine de la requête
         origin = request.headers.get("Origin")
-        if origin and not security_manager.check_origin_security(
+        if origin and not security_unified.check_origin_security(
             origin, request.remote_addr
         ):
             return jsonify({"error": "Origine non autorisée"}), 403
 
-        security_report = security_manager.get_security_report()
+        security_report = security_unified.get_security_report()
         return jsonify(security_report)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -2600,7 +2609,7 @@ def api_performance_stats():
         # Générer les nouvelles données
         stats = performance_optimizer.get_performance_stats()
         cache_stats = cache_manager.get_stats()
-        security_stats = security_enhanced.get_security_stats()
+        security_stats = security_unified.get_security_stats()
 
         response_data = {
             "success": True,
@@ -2677,7 +2686,7 @@ def api_cache_clear():
 def api_security_stats():
     """Retourne les statistiques de sécurité"""
     try:
-        stats = security_enhanced.get_security_stats()
+        stats = security_unified.get_security_stats()
 
         return jsonify(
             {

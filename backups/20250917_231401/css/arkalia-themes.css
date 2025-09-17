@@ -1,0 +1,416 @@
+/* ===== ARKALIA QUEST - THÈMES CONSOLIDÉS ===== */
+/* 🌙✨ Tous les thèmes Luna avec palette violet/bleu/cyan */
+
+/* ===== THÈME LUNA (DÉFAUT) ===== */
+.luna-theme {
+    /* Utilise les variables de base d'arkalia-core.css */
+    --theme-primary: var(--luna-violet);
+    --theme-secondary: var(--luna-cyan);
+    --theme-accent: var(--luna-purple);
+    --theme-bg: linear-gradient(135deg, var(--luna-dark) 0%, var(--luna-surface) 50%, var(--luna-darker) 100%);
+    --theme-surface: var(--luna-surface);
+    --theme-text: var(--luna-text);
+    --theme-text-secondary: var(--luna-text-secondary);
+    --theme-border: var(--luna-violet);
+    --theme-shadow: var(--luna-shadow);
+    --theme-glow: var(--luna-glow);
+}
+
+/* ===== THÈME CYBERPUNK LUNA ===== */
+.cyberpunk-luna-theme {
+    --theme-primary: #ff0080;
+    --theme-secondary: #00ffff;
+    --theme-accent: #ffff00;
+    --theme-bg: linear-gradient(135deg, #0a0a0a, #1a1a2e, #16213e);
+    --theme-surface: rgba(255, 0, 128, 0.1);
+    --theme-text: #ff0080;
+    --theme-text-secondary: #00ffff;
+    --theme-border: #ff0080;
+    --theme-shadow: rgba(255, 0, 128, 0.4);
+    --theme-glow: rgba(255, 0, 128, 0.6);
+}
+
+.cyberpunk-luna-theme .hero-title {
+    background: linear-gradient(45deg, #ff0080, #00ffff, #ffff00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(255, 0, 128, 0.8);
+    animation: cyberpunkFlicker 3s ease-in-out infinite;
+}
+
+@keyframes cyberpunkFlicker {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+
+    75% {
+        opacity: 1;
+    }
+}
+
+.cyberpunk-luna-theme .cta-btn {
+    background: linear-gradient(45deg, #ff0080, #00ffff);
+    border: 2px solid #ffff00;
+    box-shadow: 0 0 20px rgba(255, 0, 128, 0.5);
+    color: #fff;
+}
+
+.cyberpunk-luna-theme .cta-btn:hover {
+    background: linear-gradient(45deg, #00ffff, #ff0080);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.7);
+    transform: translateY(-3px) scale(1.05);
+}
+
+.cyberpunk-luna-theme .terminal {
+    background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
+    border: 2px solid #ff0080;
+    box-shadow: 0 0 25px rgba(255, 0, 128, 0.4);
+}
+
+.cyberpunk-luna-theme .terminal-input {
+    color: #00ffff;
+    border-color: #ff0080;
+}
+
+.cyberpunk-luna-theme .terminal-output {
+    color: #ffff00;
+}
+
+/* ===== THÈME NEON LUNA ===== */
+.neon-luna-theme {
+    --theme-primary: #9D4EDD;
+    --theme-secondary: #FF8500;
+    --theme-accent: #00F5FF;
+    --theme-bg: linear-gradient(135deg, #0a0a0a, #1a0033, #2d1b69);
+    --theme-surface: rgba(157, 78, 221, 0.1);
+    --theme-text: #9D4EDD;
+    --theme-text-secondary: #FF8500;
+    --theme-border: #9D4EDD;
+    --theme-shadow: rgba(157, 78, 221, 0.4);
+    --theme-glow: rgba(157, 78, 221, 0.6);
+}
+
+.neon-luna-theme .hero-title {
+    background: linear-gradient(45deg, #9D4EDD, #FF8500, #00F5FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(157, 78, 221, 0.8);
+    animation: neonFlicker 3s ease-in-out infinite;
+}
+
+@keyframes neonFlicker {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+
+    75% {
+        opacity: 1;
+    }
+}
+
+.neon-luna-theme .cta-btn {
+    background: linear-gradient(45deg, #9D4EDD, #00F5FF);
+    border: 2px solid #FF8500;
+    box-shadow: 0 0 20px rgba(157, 78, 221, 0.5);
+    color: #fff;
+}
+
+.neon-luna-theme .cta-btn:hover {
+    background: linear-gradient(45deg, #FF8500, #9D4EDD);
+    box-shadow: 0 0 30px rgba(255, 133, 0, 0.7);
+    transform: translateY(-3px) scale(1.05);
+}
+
+/* ===== THÈME MATRIX LUNA (SANS VERT) ===== */
+.matrix-luna-theme {
+    --theme-primary: #00ffff;
+    --theme-secondary: #ff00ff;
+    --theme-accent: #ffff00;
+    --theme-bg: linear-gradient(135deg, #000000, #001122, #000000);
+    --theme-surface: rgba(0, 255, 255, 0.1);
+    --theme-text: #00ffff;
+    --theme-text-secondary: #ff00ff;
+    --theme-border: #00ffff;
+    --theme-shadow: rgba(0, 255, 255, 0.4);
+    --theme-glow: rgba(0, 255, 255, 0.6);
+}
+
+.matrix-luna-theme .hero-title {
+    color: #00ffff;
+    text-shadow:
+        0 0 5px #00ffff,
+        0 0 10px #00ffff,
+        0 0 15px #00ffff,
+        0 0 20px #00ffff;
+    animation: matrixPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes matrixPulse {
+    from {
+        text-shadow:
+            0 0 5px #00ffff,
+            0 0 10px #00ffff,
+            0 0 15px #00ffff,
+            0 0 20px #00ffff;
+    }
+
+    to {
+        text-shadow:
+            0 0 2px #00ffff,
+            0 0 5px #00ffff,
+            0 0 8px #00ffff,
+            0 0 12px #00ffff;
+    }
+}
+
+.matrix-luna-theme .cta-btn {
+    background: linear-gradient(45deg, #00ffff, #ff00ff);
+    border: 2px solid #ffff00;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    color: #000;
+}
+
+.matrix-luna-theme .cta-btn:hover {
+    background: linear-gradient(45deg, #ff00ff, #00ffff);
+    box-shadow: 0 0 30px rgba(255, 0, 255, 0.7);
+    transform: translateY(-3px) scale(1.05);
+}
+
+/* ===== THÈME DARK LUNA ===== */
+.dark-luna-theme {
+    --theme-primary: #6366f1;
+    --theme-secondary: #8b5cf6;
+    --theme-accent: #a855f7;
+    --theme-bg: linear-gradient(135deg, #0f0f23, #1a1a2e, #0a0a1a);
+    --theme-surface: rgba(99, 102, 241, 0.1);
+    --theme-text: #e2e8f0;
+    --theme-text-secondary: #cbd5e1;
+    --theme-border: #6366f1;
+    --theme-shadow: rgba(99, 102, 241, 0.3);
+    --theme-glow: rgba(99, 102, 241, 0.5);
+}
+
+.dark-luna-theme .hero-title {
+    background: linear-gradient(45deg, #6366f1, #8b5cf6, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(99, 102, 241, 0.8);
+}
+
+.dark-luna-theme .cta-btn {
+    background: linear-gradient(45deg, #6366f1, #8b5cf6);
+    border: 2px solid #a855f7;
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+    color: #fff;
+}
+
+.dark-luna-theme .cta-btn:hover {
+    background: linear-gradient(45deg, #8b5cf6, #a855f7);
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.7);
+    transform: translateY(-3px) scale(1.05);
+}
+
+/* ===== THÈME OCEAN LUNA ===== */
+.ocean-luna-theme {
+    --theme-primary: #06b6d4;
+    --theme-secondary: #0891b2;
+    --theme-accent: #0ea5e9;
+    --theme-bg: linear-gradient(135deg, #0c4a6e, #075985, #0c4a6e);
+    --theme-surface: rgba(6, 182, 212, 0.1);
+    --theme-text: #e0f2fe;
+    --theme-text-secondary: #bae6fd;
+    --theme-border: #06b6d4;
+    --theme-shadow: rgba(6, 182, 212, 0.3);
+    --theme-glow: rgba(6, 182, 212, 0.5);
+}
+
+.ocean-luna-theme .hero-title {
+    background: linear-gradient(45deg, #06b6d4, #0891b2, #0ea5e9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(6, 182, 212, 0.8);
+    animation: oceanWave 4s ease-in-out infinite;
+}
+
+@keyframes oceanWave {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.ocean-luna-theme .cta-btn {
+    background: linear-gradient(45deg, #06b6d4, #0891b2);
+    border: 2px solid #0ea5e9;
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+    color: #fff;
+}
+
+.ocean-luna-theme .cta-btn:hover {
+    background: linear-gradient(45deg, #0891b2, #0ea5e9);
+    box-shadow: 0 0 30px rgba(8, 145, 178, 0.7);
+    transform: translateY(-3px) scale(1.05);
+}
+
+/* ===== THÈME COSMIC LUNA ===== */
+.cosmic-luna-theme {
+    --theme-primary: #a855f7;
+    --theme-secondary: #c084fc;
+    --theme-accent: #d8b4fe;
+    --theme-bg: linear-gradient(135deg, #1e1b4b, #312e81, #1e1b4b);
+    --theme-surface: rgba(168, 85, 247, 0.1);
+    --theme-text: #f3e8ff;
+    --theme-text-secondary: #e9d5ff;
+    --theme-border: #a855f7;
+    --theme-shadow: rgba(168, 85, 247, 0.3);
+    --theme-glow: rgba(168, 85, 247, 0.5);
+}
+
+.cosmic-luna-theme .hero-title {
+    background: linear-gradient(45deg, #a855f7, #c084fc, #d8b4fe);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(168, 85, 247, 0.8);
+    animation: cosmicFloat 6s ease-in-out infinite;
+}
+
+@keyframes cosmicFloat {
+
+    0%,
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+
+    25% {
+        transform: translateY(-5px) rotate(1deg);
+    }
+
+    50% {
+        transform: translateY(-10px) rotate(0deg);
+    }
+
+    75% {
+        transform: translateY(-5px) rotate(-1deg);
+    }
+}
+
+.cosmic-luna-theme .cta-btn {
+    background: linear-gradient(45deg, #a855f7, #c084fc);
+    border: 2px solid #d8b4fe;
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+    color: #fff;
+}
+
+.cosmic-luna-theme .cta-btn:hover {
+    background: linear-gradient(45deg, #c084fc, #d8b4fe);
+    box-shadow: 0 0 30px rgba(192, 132, 252, 0.7);
+    transform: translateY(-3px) scale(1.05);
+}
+
+/* ===== APPLICATIONS DES THÈMES ===== */
+[class*="-theme"] {
+    /* Appliquer les variables de thème aux éléments */
+    --luna-violet: var(--theme-primary);
+    --luna-cyan: var(--theme-secondary);
+    --luna-purple: var(--theme-accent);
+    --luna-text: var(--theme-text);
+    --luna-text-secondary: var(--theme-text-secondary);
+    --luna-shadow: var(--theme-shadow);
+    --luna-glow: var(--theme-glow);
+}
+
+[class*="-theme"] body {
+    background: var(--theme-bg);
+    color: var(--theme-text);
+}
+
+[class*="-theme"] .card {
+    background: var(--theme-surface);
+    border-color: var(--theme-border);
+}
+
+[class*="-theme"] .btn,
+[class*="-theme"] .cta-btn,
+[class*="-theme"] button {
+    background: linear-gradient(135deg, var(--theme-primary), var(--theme-secondary));
+    border-color: var(--theme-accent);
+    box-shadow: var(--theme-glow);
+}
+
+[class*="-theme"] .btn:hover,
+[class*="-theme"] .cta-btn:hover,
+[class*="-theme"] button:hover {
+    background: linear-gradient(135deg, var(--theme-secondary), var(--theme-accent));
+    box-shadow: var(--theme-glow);
+}
+
+/* ===== TRANSITIONS DE THÈME ===== */
+.theme-transition {
+    transition:
+        background-color 0.5s ease,
+        color 0.5s ease,
+        border-color 0.5s ease,
+        box-shadow 0.5s ease;
+}
+
+/* ===== INDICATEUR DE THÈME ACTIF ===== */
+.theme-indicator {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: var(--luna-space-sm) var(--luna-space-md);
+    background: var(--theme-surface);
+    border: 1px solid var(--theme-border);
+    border-radius: var(--luna-radius-md);
+    font-size: var(--luna-text-xs);
+    color: var(--theme-text);
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+/* ===== RESPONSIVE POUR LES THÈMES ===== */
+@media (max-width: 768px) {
+    [class*="-theme"] .hero-title {
+        font-size: var(--luna-text-3xl);
+    }
+
+    [class*="-theme"] .cta-btn {
+        padding: var(--luna-space-sm) var(--luna-space-md);
+        font-size: var(--luna-text-xs);
+    }
+}
+
+@media (max-width: 480px) {
+    [class*="-theme"] .hero-title {
+        font-size: var(--luna-text-2xl);
+    }
+
+    .theme-indicator {
+        top: 10px;
+        right: 10px;
+        padding: var(--luna-space-xs) var(--luna-space-sm);
+        font-size: 0.625rem;
+    }
+}

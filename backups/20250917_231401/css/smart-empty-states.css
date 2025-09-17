@@ -1,0 +1,165 @@
+/* ===== ARKALIA QUEST - SMART EMPTY STATES ===== */
+/* Styles pour les placeholders motivants et masquage des stats à zéro */
+
+.motivational-widget {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+    border: 2px solid rgba(167, 139, 250, 0.3);
+    border-radius: 20px;
+    padding: 30px;
+    margin: 20px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.motivational-widget::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(circle at 20% 80%, rgba(167, 139, 250, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.motivational-widget:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(167, 139, 250, 0.2);
+    border-color: rgba(167, 139, 250, 0.5);
+}
+
+.motivational-content {
+    position: relative;
+    z-index: 1;
+}
+
+.motivational-icon {
+    font-size: 3em;
+    margin-bottom: 15px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.motivational-title {
+    color: var(--luna-text, #ffffff);
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0 0 15px 0;
+    text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+}
+
+.motivational-message {
+    color: var(--luna-text-secondary, #cccccc);
+    font-size: 1.1em;
+    margin: 0 0 25px 0;
+    line-height: 1.6;
+}
+
+.cta-motivational {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--luna-cyan, #06b6d4) 0%, var(--luna-rose, #ec4899) 100%);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(167, 139, 250, 0.3);
+}
+
+.cta-motivational:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(167, 139, 250, 0.4);
+    color: white;
+    text-decoration: none;
+}
+
+.empty-widget-content {
+    text-align: center;
+    padding: 30px;
+    color: var(--luna-text-secondary, #cccccc);
+}
+
+.empty-icon {
+    font-size: 2.5em;
+    display: block;
+    margin-bottom: 15px;
+    opacity: 0.7;
+}
+
+.empty-message {
+    font-size: 1.1em;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Masquer les stats à zéro */
+.metric-value:empty,
+.stat-value:empty,
+.badge-count:empty,
+.mission-count:empty,
+.coin-count:empty,
+.xp-value:empty {
+    display: none;
+}
+
+/* Styles pour les widgets masqués */
+.widget[style*="display: none"],
+.metric[style*="display: none"],
+.stat-card[style*="display: none"] {
+    display: none !important;
+}
+
+/* Animation d'apparition pour les widgets motivants */
+.motivational-widget {
+    animation: slideInUp 0.6s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .motivational-widget {
+        padding: 20px;
+        margin: 15px 0;
+    }
+
+    .motivational-title {
+        font-size: 1.3em;
+    }
+
+    .motivational-message {
+        font-size: 1em;
+    }
+
+    .cta-motivational {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+}

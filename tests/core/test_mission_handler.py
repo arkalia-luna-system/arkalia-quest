@@ -1,6 +1,6 @@
 import pytest
 
-from core.mission_handler import MissionHandler
+from core.mission_unified import MissionUnified
 
 
 class DummyDB:
@@ -29,7 +29,7 @@ def handler():
             "recompense": 30,
         },
     }
-    h = MissionHandler()
+    h = MissionUnified()
     h.db_manager = DummyDB(missions)
     h.load_all_data()
     return h

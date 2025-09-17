@@ -1,11 +1,11 @@
 import pytest
 
-from core.security_manager import SecurityManager
+from core.security_unified import SecurityUnified
 
 
 @pytest.fixture
 def sm():
-    return SecurityManager()
+    return SecurityUnified()
 
 
 def test_check_input_security_detects_scripts_and_logs(sm):

@@ -39,7 +39,7 @@ class TerminalIntegration {
         // Ajouter des easter eggs
         this.addEasterEggs();
 
-        console.log('🔗 Terminal intégré avec les systèmes contextuels');
+        // console.log('🔗 Terminal intégré avec les systèmes contextuels');
     }
 
     interceptTerminalCommands() {

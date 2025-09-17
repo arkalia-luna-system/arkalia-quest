@@ -15,10 +15,10 @@ class LunaNotificationManager {
     }
 
     init() {
-        console.log('🌙 Initialisation du gestionnaire de notifications LUNA...');
+        // console.log('🌙 Initialisation du gestionnaire de notifications LUNA...');
         this.setupEventListeners();
         this.cleanupOldNotifications();
-        console.log('✅ Gestionnaire LUNA initialisé');
+        // console.log('✅ Gestionnaire LUNA initialisé');
     }
 
     setupEventListeners() {
@@ -48,13 +48,13 @@ class LunaNotificationManager {
 
         // Vérifier si c'est un doublon
         if (this.isDuplicate(message, timestamp)) {
-            console.log('🚫 Notification LUNA dupliquée ignorée:', message);
+            // console.log('🚫 Notification LUNA dupliquée ignorée:', message);
             return;
         }
 
         // Vérifier le cooldown
         if (this.isInCooldown(timestamp)) {
-            console.log('⏳ Notification LUNA en cooldown:', message);
+            // console.log('⏳ Notification LUNA en cooldown:', message);
             return;
         }
 
@@ -210,7 +210,7 @@ class LunaNotificationManager {
     // Méthodes publiques
     clearHistory() {
         this.notificationHistory.clear();
-        console.log('🧹 Historique des notifications LUNA vidé');
+        // console.log('🧹 Historique des notifications LUNA vidé');
     }
 
     getHistory() {
@@ -227,12 +227,12 @@ class LunaNotificationManager {
 
     setCooldown(ms) {
         this.notificationCooldown = ms;
-        console.log(`⏱️ Cooldown LUNA défini à ${ms}ms`);
+        // console.log(`⏱️ Cooldown LUNA défini à ${ms}ms`);
     }
 
     setDuplicateThreshold(ms) {
         this.duplicateThreshold = ms;
-        console.log(`🔍 Seuil de doublon LUNA défini à ${ms}ms`);
+        // console.log(`🔍 Seuil de doublon LUNA défini à ${ms}ms`);
     }
 }
 

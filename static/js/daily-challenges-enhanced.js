@@ -14,7 +14,7 @@ class DailyChallengesEnhanced {
     }
 
     initializeSystem() {
-        console.log('🎯 Système de défis quotidiens amélioré initialisé');
+        // console.log('🎯 Système de défis quotidiens amélioré initialisé');
         this.loadUserProgress();
         this.generateDailyChallenges();
         this.createChallengeInterface();
@@ -477,7 +477,7 @@ class DailyChallengesEnhanced {
     }
 
     resetDailyChallenges() {
-        console.log('🔄 Réinitialisation des défis quotidiens');
+        // console.log('🔄 Réinitialisation des défis quotidiens');
         this.completedToday.clear();
         this.userProgress.clear();
         this.generateDailyChallenges();

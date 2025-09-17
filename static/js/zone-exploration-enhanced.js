@@ -558,17 +558,17 @@ class ZoneExplorationEnhanced {
 
     startGame() {
         // Démarrer le mini-jeu
-        console.log('Mini-jeu démarré');
+        // console.log('Mini-jeu démarré');
     }
 
     pauseGame() {
         // Mettre en pause le mini-jeu
-        console.log('Mini-jeu en pause');
+        // console.log('Mini-jeu en pause');
     }
 
     resetGame() {
         // Recommencer le mini-jeu
-        console.log('Mini-jeu recommencé');
+        // console.log('Mini-jeu recommencé');
     }
 
     endMiniGame(score) {

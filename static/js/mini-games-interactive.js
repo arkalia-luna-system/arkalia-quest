@@ -13,7 +13,7 @@ class MiniGamesInteractive {
     }
 
     initializeSystem() {
-        console.log('🎮 Système de mini-jeux interactifs initialisé');
+        // console.log('🎮 Système de mini-jeux interactifs initialisé');
         this.createGameStyles();
         this.setupGameInterceptors();
         this.initializeGameLibrary();
@@ -615,7 +615,7 @@ class LogicPuzzle1 {
     getProgress() { return (this.userSequence.length / this.sequence.length) * 100; }
     getHint() { return `Séquence de ${this.sequence.length} nombres. Commence par ${this.sequence[0] + 1} !`; }
     restart() { this.score = 0; this.level = 1; this.userSequence = []; this.generateSequence(); }
-    showFeedback(message) { console.log(message); }
+    showFeedback(message) { // console.log(message); }
 }
 
 class CodeDebug1 {
@@ -687,7 +687,7 @@ function greet(name) {
     getProgress() { return (this.fixedErrors / this.errors.length) * 100; }
     getHint() { return `Regarde la ligne ${this.errors[this.fixedErrors]?.line || 1} !`; }
     restart() { this.score = 0; this.fixedErrors = 0; this.generateCode(); }
-    showFeedback(message) { console.log(message); }
+    showFeedback(message) { // console.log(message); }
 }
 
 class CyberSecurity1 {
@@ -754,7 +754,7 @@ class CyberSecurity1 {
     getProgress() { return (this.eliminatedThreats / this.threats.length) * 100; }
     getHint() { return 'Clique sur les menaces pour les éliminer !'; }
     restart() { this.score = 0; this.eliminatedThreats = 0; this.generateThreats(); }
-    showFeedback(message) { console.log(message); }
+    showFeedback(message) { // console.log(message); }
 }
 
 class HackingChallenge1 {
@@ -820,7 +820,7 @@ class HackingChallenge1 {
     getProgress() { return (this.breachedDefenses / this.defenses.length) * 100; }
     getHint() { return 'Commence par la défense la plus faible !'; }
     restart() { this.score = 0; this.breachedDefenses = 0; this.generateDefenses(); }
-    showFeedback(message) { console.log(message); }
+    showFeedback(message) { // console.log(message); }
 }
 
 class MemoryGame1 {
@@ -924,7 +924,7 @@ class MemoryGame1 {
     getProgress() { return (this.matchedPairs / 8) * 100; }
     getHint() { return 'Concentre-toi sur la position des cartes !'; }
     restart() { this.score = 0; this.matchedPairs = 0; this.flippedCards = []; this.generateCards(); }
-    showFeedback(message) { console.log(message); }
+    showFeedback(message) { // console.log(message); }
 }
 
 // Jeu de hack simple
@@ -1006,7 +1006,7 @@ class SimpleHackGame {
     getProgress() { return (this.userInput.length / this.targetCode.length) * 100; }
     getHint() { return `Code cible: ${this.targetCode}`; }
     restart() { this.start(); }
-    showFeedback(message) { console.log(message); }
+    showFeedback(message) { // console.log(message); }
 }
 
 // Jeu de séquence
@@ -1052,7 +1052,7 @@ class SequenceGame {
 
     highlightButton(number) {
         // Simulation de highlight - en réalité, cela devrait interagir avec l'UI
-        console.log(`Bouton ${number} clignote`);
+        // console.log(`Bouton ${number} clignote`);
     }
 
     inputButton(number) {
@@ -1089,7 +1089,7 @@ class SequenceGame {
     getProgress() { return (this.userSequence.length / this.sequence.length) * 100; }
     getHint() { return 'Mémorise la séquence et reproduis-la !'; }
     restart() { this.start(); }
-    showFeedback(message) { console.log(message); }
+    showFeedback(message) { // console.log(message); }
 }
 
 // Défi de frappe
@@ -1175,7 +1175,7 @@ class TypingChallenge {
     getProgress() { return (this.userText.length / this.targetText.length) * 100; }
     getHint() { return `Tape: "${this.targetText}"`; }
     restart() { this.start(); }
-    showFeedback(message) { console.log(message); }
+    showFeedback(message) { // console.log(message); }
 }
 
 // Initialiser le système de mini-jeux interactifs

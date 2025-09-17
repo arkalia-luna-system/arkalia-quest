@@ -12,7 +12,7 @@ class ContextualFeedback {
     init() {
         this.setupEventListeners();
         this.setupPageSpecificFeedback();
-        console.log('💬 Contextual Feedback initialisé');
+        // console.log('💬 Contextual Feedback initialisé');
     }
 
     getCurrentPage() {

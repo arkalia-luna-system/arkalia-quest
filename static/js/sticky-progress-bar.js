@@ -15,7 +15,7 @@ class StickyProgressBar {
         this.createStickyBar();
         this.setupEventListeners();
         this.updateProgress();
-        console.log('📊 Sticky Progress Bar initialisé');
+        // console.log('📊 Sticky Progress Bar initialisé');
     }
 
     createStickyBar() {

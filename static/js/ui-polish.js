@@ -13,7 +13,7 @@ class UIPolish {
         this.optimizeNotifications();
         this.improveEmptyStates();
         this.enhanceInteractions();
-        console.log('✨ UI Polish System initialisé');
+        // console.log('✨ UI Polish System initialisé');
     }
 
     setupEventListeners() {

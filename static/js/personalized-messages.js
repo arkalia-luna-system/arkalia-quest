@@ -13,7 +13,7 @@ class PersonalizedMessages {
         this.loadUserData();
         this.setupMessageSystem();
         // Les messages personnalisés sont déjà ajoutés dans setupMessageSystem
-        console.log('✅ Messages personnalisés initialisés');
+        // console.log('✅ Messages personnalisés initialisés');
     }
 
     loadUserData() {

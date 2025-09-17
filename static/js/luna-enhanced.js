@@ -22,7 +22,7 @@ class LunaEnhanced {
     }
 
     initializeSystem() {
-        console.log('🌙 Système LUNA amélioré initialisé');
+        // console.log('🌙 Système LUNA amélioré initialisé');
         this.setupEmotionalResponses();
         this.setupContextualMemory();
         this.setupPersonalityEvolution();

@@ -19,7 +19,7 @@ class LoadingManager {
     }
 
     init() {
-        console.log('🔄 Loading Manager initialisé');
+        // console.log('🔄 Loading Manager initialisé');
         this.setupGlobalStyles();
     }
 

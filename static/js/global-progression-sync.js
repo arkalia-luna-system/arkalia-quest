@@ -14,7 +14,7 @@ class GlobalProgressionSync {
     }
 
     init() {
-        console.log('🔄 Global Progression Sync initialisé');
+        // console.log('🔄 Global Progression Sync initialisé');
         this.loadProgressionData();
         this.startAutoUpdate();
         this.setupEventListeners();
@@ -46,7 +46,7 @@ class GlobalProgressionSync {
                     this.progressionData = data.progression;
                     this.cache.set('progression', this.progressionData);
                     this.notifyCallbacks();
-                    console.log('📊 Données de progression chargées');
+                    // console.log('📊 Données de progression chargées');
                 }
             }
         } catch (error) {

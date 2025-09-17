@@ -78,7 +78,7 @@ class ThemeManager {
         this.setupEventListeners();
         this.applyTheme(this.currentTheme);
 
-        console.log('🎨 Theme Manager initialisé');
+        // console.log('🎨 Theme Manager initialisé');
     }
 
     createThemeSelector() {
@@ -140,7 +140,7 @@ class ThemeManager {
         // Animation de transition
         this.animateThemeChange();
 
-        console.log(`🎨 Thème changé vers: ${this.availableThemes[themeKey].name}`);
+        // console.log(`🎨 Thème changé vers: ${this.availableThemes[themeKey].name}`);
     }
 
     applyTheme(themeKey) {

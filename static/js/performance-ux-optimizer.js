@@ -22,7 +22,7 @@ class PerformanceUXOptimizer {
         this.setupProgressionUpdates();
         this.setupMicroAnimations();
 
-        console.log('🚀 Performance & UX Optimizer initialisé');
+        // console.log('🚀 Performance & UX Optimizer initialisé');
     }
 
     // ===== LOADING STATES & ANIMATIONS =====

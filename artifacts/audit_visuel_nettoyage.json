@@ -1,24 +1,24 @@
 {
-  "timestamp": "2025-09-17T22:37:55.454397",
+  "timestamp": "2025-09-17T22:39:54.915952",
   "stats": {
     "fichiers_analyses": 0,
     "lignes_css": 17063,
     "lignes_html": 13772,
     "lignes_js": 33029,
-    "assets_trouves": 102,
-    "start_time": 1758141467.417678,
-    "duration": 8.03670883178711
+    "assets_trouves": 165,
+    "start_time": 1758141588.6845272,
+    "duration": 6.23141884803772
   },
   "issue_counts": {
     "fichiers_inutilises": 29,
     "code_duplique": 304,
-    "assets_orphelins": 58,
+    "assets_orphelins": 121,
     "problemes_css": 1703,
     "problemes_html": 0,
-    "problemes_js": 282,
+    "problemes_js": 345,
     "imports_manquants": 0,
-    "fichiers_vides": 1,
-    "fichiers_trop_gros": 3,
+    "fichiers_vides": 0,
+    "fichiers_trop_gros": 0,
     "dependances_inutilisees": 24
   },
   "issues": {
@@ -2137,18 +2137,28 @@
         "type": ".js"
       },
       {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._terminal.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/adaptive-ui-manager.js",
-        "taille": 10694,
+        "taille": 10703,
         "type": ".js"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/smart-empty-states.js",
-        "taille": 5517,
+        "taille": 5520,
         "type": ".js"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/audit-visual-enhancements.js",
         "taille": 13349,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._accessibility.js",
+        "taille": 4096,
         "type": ".js"
       },
       {
@@ -2158,32 +2168,42 @@
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/advanced-player-profiles.js",
-        "taille": 17625,
+        "taille": 17652,
         "type": ".js"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/contextual-feedback.js",
-        "taille": 8360,
+        "taille": 8363,
         "type": ".js"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/bug-fixes.js",
-        "taille": 20779,
+        "taille": 20782,
         "type": ".js"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/ui-polish.js",
-        "taille": 12099,
+        "taille": 12102,
         "type": ".js"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/casual-system.js",
-        "taille": 16973,
+        "taille": 16979,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._adaptive-ui-manager.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._advanced-player-profiles.js",
+        "taille": 4096,
         "type": ".js"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/global-progression-sync.js",
-        "taille": 10871,
+        "taille": 10877,
         "type": ".js"
       },
       {
@@ -2193,12 +2213,17 @@
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/daily-challenges-enhanced.js",
-        "taille": 22483,
+        "taille": 22489,
         "type": ".js"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/interactive-zones-system.js",
-        "taille": 10702,
+        "taille": 10735,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._ai_engine.js",
+        "taille": 4096,
         "type": ".js"
       },
       {
@@ -2212,28 +2237,48 @@
         "type": ".js"
       },
       {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._analytics.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._audio-manager.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/loading-manager.js",
-        "taille": 13063,
+        "taille": 13066,
         "type": ".js"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/luna-enhanced.js",
-        "taille": 14627,
+        "taille": 14630,
         "type": ".js"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/page-transitions.js",
-        "taille": 12882,
+        "taille": 12885,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._audit-visual-enhancements.js",
+        "taille": 4096,
         "type": ".js"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/reward-system.js",
-        "taille": 13649,
+        "taille": 13652,
         "type": ".js"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/personalized-messages.js",
-        "taille": 14564,
+        "taille": 14567,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._bug-fixes.js",
+        "taille": 4096,
         "type": ".js"
       },
       {
@@ -2242,48 +2287,318 @@
         "type": ".js"
       },
       {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._casual-system.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/reward-feedback-system.js",
-        "taille": 8750,
+        "taille": 8756,
         "type": ".js"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/realtime-feedback.js",
-        "taille": 16574,
+        "taille": 16583,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._contextual-feedback.js",
+        "taille": 4096,
         "type": ".js"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/ui-perfection.js",
-        "taille": 6604,
+        "taille": 6613,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._daily-challenges-enhanced.js",
+        "taille": 4096,
         "type": ".js"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/sticky-progress-bar.js",
-        "taille": 14162,
+        "taille": 14165,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._daily-missions-enhanced.js",
+        "taille": 4096,
         "type": ".js"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/system-integrator.js",
-        "taille": 9816,
+        "taille": 9825,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._educational_games.js",
+        "taille": 4096,
         "type": ".js"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/zone-interactive-challenges.js",
-        "taille": 20440,
+        "taille": 20443,
         "type": ".js"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/terminal-integration.js",
-        "taille": 10114,
+        "taille": 10117,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._effects.js",
+        "taille": 4096,
         "type": ".js"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/theme-manager.js",
-        "taille": 10508,
+        "taille": 10514,
         "type": ".js"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/tutorial-celebrations.js",
-        "taille": 16420,
+        "taille": 16432,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._game-engine.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._gameplay-integration.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._gamification-feedback.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._global-progression-sync.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._hacking-effects.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._immersive_effects.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._interactive-puzzles.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._interactive-zones-system.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._loading-manager.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._luna-enhanced.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._luna-notification-manager.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._mini-games-interactive.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._mission-system.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._motivational-empty-states.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._navigation.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._page-transitions.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._performance-ux-optimizer.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._personalized-messages.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._popup-coordinator.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._popup-manager.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._progression-animations.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._progression-feedback.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._progression-sync.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._ready-state-manager.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._real-time-monitor.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._realtime-feedback.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._reward-feedback-system.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._reward-system.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._service-worker.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._skill-tree-system.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._smart-empty-states.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._sticky-progress-bar.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._system-integrator.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._terminal-integration.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._theme-manager.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._timer-challenges.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._tutorial-celebrations.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._tutorial.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._ui-perfection.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._ui-polish.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._unified-progression-sync.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._universal-empty-states.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._universal-feedback.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._universal-notifications.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._visual-effects.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._world-interactions.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._zone-exploration-enhanced.js",
+        "taille": 4096,
+        "type": ".js"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._zone-interactive-challenges.js",
+        "taille": 4096,
         "type": ".js"
       }
     ],
@@ -12666,6 +12981,11 @@
         "severite": "warning"
       },
       {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._terminal.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/universal-notifications.js",
         "ligne": 18,
         "probleme": "Console.log détecté (à supprimer en production)",
@@ -12784,6 +13104,11 @@
         "ligne": 257,
         "probleme": "Console.log détecté (à supprimer en production)",
         "severite": "info"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._accessibility.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/advanced-player-profiles.js",
@@ -12966,6 +13291,11 @@
         "severite": "info"
       },
       {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._adaptive-ui-manager.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/gamification-feedback.js",
         "ligne": 13,
         "probleme": "Console.log détecté (à supprimer en production)",
@@ -13024,6 +13354,11 @@
         "ligne": 448,
         "probleme": "Utilisation de 'var' (utiliser 'let' ou 'const')",
         "severite": "warning"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._advanced-player-profiles.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/interactive-puzzles.js",
@@ -13236,6 +13571,11 @@
         "severite": "info"
       },
       {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._ai_engine.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/luna-notification-manager.js",
         "ligne": 18,
         "probleme": "Console.log détecté (à supprimer en production)",
@@ -13276,6 +13616,16 @@
         "ligne": 235,
         "probleme": "Console.log détecté (à supprimer en production)",
         "severite": "info"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._analytics.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._audio-manager.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/loading-manager.js",
@@ -13428,6 +13778,11 @@
         "severite": "info"
       },
       {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._audit-visual-enhancements.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/popup-coordinator.js",
         "ligne": 16,
         "probleme": "Console.log détecté (à supprimer en production)",
@@ -13474,6 +13829,11 @@
         "ligne": 314,
         "probleme": "Utilisation de 'var' (utiliser 'let' ou 'const')",
         "severite": "warning"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._bug-fixes.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/progression-animations.js",
@@ -13564,6 +13924,11 @@
         "ligne": 382,
         "probleme": "Console.log détecté (à supprimer en production)",
         "severite": "info"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._casual-system.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/reward-feedback-system.js",
@@ -13666,6 +14031,11 @@
         "ligne": 572,
         "probleme": "Utilisation de 'var' (utiliser 'let' ou 'const')",
         "severite": "warning"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._contextual-feedback.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/ui-perfection.js",
@@ -13872,6 +14242,11 @@
         "severite": "info"
       },
       {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._daily-challenges-enhanced.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/sticky-progress-bar.js",
         "ligne": 18,
         "probleme": "Console.log détecté (à supprimer en production)",
@@ -13914,6 +14289,11 @@
         "severite": "warning"
       },
       {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._daily-missions-enhanced.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/system-integrator.js",
         "ligne": 29,
         "probleme": "Console.log détecté (à supprimer en production)",
@@ -13948,6 +14328,11 @@
         "ligne": 89,
         "probleme": "Console.log détecté (à supprimer en production)",
         "severite": "info"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._educational_games.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/zone-interactive-challenges.js",
@@ -14020,6 +14405,11 @@
         "ligne": 65,
         "probleme": "Console.log détecté (à supprimer en production)",
         "severite": "info"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._effects.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
       },
       {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/theme-manager.js",
@@ -14184,6 +14574,11 @@
         "severite": "info"
       },
       {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._game-engine.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
         "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/zone-exploration-enhanced.js",
         "ligne": 561,
         "probleme": "Console.log détecté (à supprimer en production)",
@@ -14200,32 +14595,246 @@
         "ligne": 571,
         "probleme": "Console.log détecté (à supprimer en production)",
         "severite": "info"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._gameplay-integration.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._gamification-feedback.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._global-progression-sync.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._hacking-effects.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._immersive_effects.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._interactive-puzzles.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._interactive-zones-system.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._loading-manager.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._luna-enhanced.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._luna-notification-manager.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._mini-games-interactive.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._mission-system.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._motivational-empty-states.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._navigation.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._page-transitions.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._performance-ux-optimizer.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._personalized-messages.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._popup-coordinator.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._popup-manager.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._progression-animations.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._progression-feedback.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._progression-sync.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._ready-state-manager.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._real-time-monitor.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._realtime-feedback.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._reward-feedback-system.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._reward-system.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._service-worker.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._skill-tree-system.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._smart-empty-states.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._sticky-progress-bar.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._system-integrator.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._terminal-integration.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._theme-manager.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._timer-challenges.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._tutorial-celebrations.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._tutorial.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._ui-perfection.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._ui-polish.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._unified-progression-sync.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._universal-empty-states.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._universal-feedback.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._universal-notifications.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._visual-effects.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._world-interactions.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._zone-exploration-enhanced.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
+      },
+      {
+        "fichier": "/Volumes/T7/devstation/arkalia-quest/static/js/._zone-interactive-challenges.js",
+        "probleme": "Erreur lecture fichier: 'utf-8' codec can't decode byte 0xb0 in position 37: invalid start byte",
+        "severite": "error"
       }
     ],
     "imports_manquants": [],
-    "fichiers_vides": [
-      {
-        "fichier": "/Volumes/T7/devstation/arkalia-quest/reports/RESUME_AMELIORATIONS_ADO_ULTRA_MODERNES.md",
-        "taille": 0
-      }
-    ],
-    "fichiers_trop_gros": [
-      {
-        "fichier": "/Volumes/T7/devstation/arkalia-quest/artifacts/bandit-report.json",
-        "taille": 9813827,
-        "taille_mb": 9.36
-      },
-      {
-        "fichier": "/Volumes/T7/devstation/arkalia-quest/artifacts/bandit-report-final.json",
-        "taille": 9756778,
-        "taille_mb": 9.3
-      },
-      {
-        "fichier": "/Volumes/T7/devstation/arkalia-quest/.mypy_cache/3.9/builtins.data.json",
-        "taille": 1818947,
-        "taille_mb": 1.73
-      }
-    ],
+    "fichiers_vides": [],
+    "fichiers_trop_gros": [],
     "dependances_inutilisees": [
       {
         "package": "Werkzeug",
@@ -14326,9 +14935,9 @@
     ]
   },
   "summary": {
-    "total_issues": 2404,
+    "total_issues": 2526,
     "fichiers_inutilises": 29,
-    "assets_orphelins": 58,
-    "problemes_visuels": 1985
+    "assets_orphelins": 121,
+    "problemes_visuels": 2048
   }
 }

@@ -11,7 +11,7 @@ class ZoneInteractiveChallenges {
     init() {
         this.setupZoneChallenges();
         this.setupEventListeners();
-        console.log('🎯 Zone Interactive Challenges initialisé');
+        // console.log('🎯 Zone Interactive Challenges initialisé');
     }
 
     setupZoneChallenges() {

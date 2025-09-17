@@ -32,7 +32,7 @@ class MotivationalEmptyStates {
     init() {
         this.setupEventListeners();
         this.createStyles();
-        console.log('🌟 Motivational Empty States initialisé');
+        // console.log('🌟 Motivational Empty States initialisé');
     }
 
     setupEventListeners() {

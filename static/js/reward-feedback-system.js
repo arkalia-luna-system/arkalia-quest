@@ -12,14 +12,14 @@ class RewardFeedbackSystem {
         this.setupAudioContext();
         this.createRewardContainer();
         this.setupEventListeners();
-        console.log('🎉 Reward Feedback System initialisé');
+        // console.log('🎉 Reward Feedback System initialisé');
     }
 
     setupAudioContext() {
         try {
             this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
         } catch (e) {
-            console.log('Audio non supporté');
+            // console.log('Audio non supporté');
         }
     }
 

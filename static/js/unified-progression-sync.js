@@ -16,11 +16,11 @@ class UnifiedProgressionSync {
     }
 
     init() {
-        console.log('🔄 Initialisation du système de synchronisation unifié...');
+        // console.log('🔄 Initialisation du système de synchronisation unifié...');
         this.setupEventListeners();
         this.startSyncLoop();
         this.isInitialized = true;
-        console.log('✅ Synchronisation unifiée initialisée');
+        // console.log('✅ Synchronisation unifiée initialisée');
     }
 
     setupEventListeners() {
@@ -86,7 +86,7 @@ class UnifiedProgressionSync {
     }
 
     async forceSync() {
-        console.log('🔄 Synchronisation forcée...');
+        // console.log('🔄 Synchronisation forcée...');
         await this.syncProgression();
     }
 

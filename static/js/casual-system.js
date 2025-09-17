@@ -11,7 +11,7 @@ class CasualSystem {
     }
 
     init() {
-        console.log('😌 Système casual initialisé');
+        // console.log('😌 Système casual initialisé');
         this.loadIdleRewards();
         this.loadWelcomeMessages();
         this.loadReturnRewards();
@@ -506,7 +506,7 @@ class CasualSystem {
     }
 
     unlockBadge(badgeId) {
-        console.log(`Badge débloqué : ${badgeId}`);
+        // console.log(`Badge débloqué : ${badgeId}`);
     }
 
     saveIdleRewards() {

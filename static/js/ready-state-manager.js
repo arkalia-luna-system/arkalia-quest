@@ -14,11 +14,11 @@ class ReadyStateManager {
     }
 
     init() {
-        console.log('🚀 Initialisation du gestionnaire d\'états "Prêt à commencer !"...');
+        // console.log('🚀 Initialisation du gestionnaire d\'états "Prêt à commencer !"...');
         this.findReadyBlocks();
         this.setupEventListeners();
         this.startChecking();
-        console.log('✅ Gestionnaire d\'états initialisé');
+        // console.log('✅ Gestionnaire d\'états initialisé');
     }
 
     findReadyBlocks() {
@@ -44,7 +44,7 @@ class ReadyStateManager {
             });
         });
 
-        console.log(`📦 Trouvé ${this.readyBlocks.size} blocs "Prêt à commencer !"`);
+        // console.log(`📦 Trouvé ${this.readyBlocks.size} blocs "Prêt à commencer !"`);
     }
 
     isReadyBlock(element) {
@@ -237,7 +237,7 @@ class ReadyStateManager {
     reset() {
         this.showReadyBlocks();
         this.hiddenBlocks.clear();
-        console.log('🔄 États "Prêt à commencer !" réinitialisés');
+        // console.log('🔄 États "Prêt à commencer !" réinitialisés');
     }
 
     getStats() {
@@ -251,14 +251,14 @@ class ReadyStateManager {
     addReadyBlock(element) {
         if (this.isReadyBlock(element)) {
             this.readyBlocks.add(element);
-            console.log('➕ Nouveau bloc "Prêt à commencer !" ajouté');
+            // console.log('➕ Nouveau bloc "Prêt à commencer !" ajouté');
         }
     }
 
     removeReadyBlock(element) {
         this.readyBlocks.delete(element);
         this.hiddenBlocks.delete(element);
-        console.log('➖ Bloc "Prêt à commencer !" supprimé');
+        // console.log('➖ Bloc "Prêt à commencer !" supprimé');
     }
 }
 

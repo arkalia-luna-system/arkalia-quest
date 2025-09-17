@@ -14,7 +14,7 @@ class PageTransitions {
         this.createTransitionOverlay();
         this.setupEventListeners();
         this.setupNavigationInterception();
-        console.log('🎬 Page Transitions initialisé');
+        // console.log('🎬 Page Transitions initialisé');
     }
 
     createTransitionOverlay() {

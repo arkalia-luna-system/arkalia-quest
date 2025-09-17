@@ -15,7 +15,7 @@ class UniversalNotifications {
         this.setupGlobalStyles();
         this.setupEventListeners();
         this.setupAccessibility();
-        console.log('🔔 Universal Notifications System initialisé');
+        // console.log('🔔 Universal Notifications System initialisé');
     }
 
     loadSettings() {
@@ -864,7 +864,7 @@ class UniversalNotifications {
 // Initialiser le système universel
 document.addEventListener('DOMContentLoaded', () => {
     window.universalNotifications = new UniversalNotifications();
-    console.log('🔔 Universal Notifications System prêt');
+    // console.log('🔔 Universal Notifications System prêt');
 });
 
 // Exporter pour utilisation globale

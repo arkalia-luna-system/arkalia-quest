@@ -10,7 +10,7 @@ class GamificationFeedback {
     init() {
         this.setupEventListeners();
         this.createNotificationContainer();
-        console.log('🎮 Gamification Feedback System initialisé');
+        // console.log('🎮 Gamification Feedback System initialisé');
     }
 
     setupEventListeners() {
@@ -303,7 +303,7 @@ class GamificationFeedback {
             oscillator.start(currentTime);
             oscillator.stop(currentTime + duration);
         } catch (error) {
-            console.log('Impossible de jouer le son:', error);
+            // console.log('Impossible de jouer le son:', error);
         }
     }
 

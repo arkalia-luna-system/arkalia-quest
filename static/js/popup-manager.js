@@ -14,7 +14,7 @@ class PopupManager {
     init() {
         this.setupGlobalStyles();
         this.setupEventListeners();
-        console.log('🎭 Popup Manager initialisé');
+        // console.log('🎭 Popup Manager initialisé');
     }
 
     setupGlobalStyles() {
@@ -121,14 +121,14 @@ class PopupManager {
 
         // Vérifier si un popup avec le même ID existe déjà
         if (this.activePopups.has(popupConfig.id)) {
-            console.log(`Popup ${popupConfig.id} déjà ouvert`);
+            // console.log(`Popup ${popupConfig.id} déjà ouvert`);
             return popupConfig.id;
         }
 
         // Ajouter à la queue si d'autres popups sont actifs
         if (this.activePopups.size > 0) {
             this.popupQueue.push(popupConfig);
-            console.log(`Popup ${popupConfig.id} ajouté à la queue`);
+            // console.log(`Popup ${popupConfig.id} ajouté à la queue`);
             return popupConfig.id;
         }
 
@@ -201,7 +201,7 @@ class PopupManager {
             created: Date.now()
         });
 
-        console.log(`Popup ${config.id} créé avec priorité ${config.priority}`);
+        // console.log(`Popup ${config.id} créé avec priorité ${config.priority}`);
         return config.id;
     }
 
@@ -226,7 +226,7 @@ class PopupManager {
             // Traiter la queue
             this.processQueue();
 
-            console.log(`Popup ${id} fermé`);
+            // console.log(`Popup ${id} fermé`);
         }, 300);
     }
 
@@ -379,7 +379,7 @@ class PopupManager {
 // Initialiser le gestionnaire de popups
 document.addEventListener('DOMContentLoaded', () => {
     window.popupManager = new PopupManager();
-    console.log('🎭 Popup Manager prêt');
+    // console.log('🎭 Popup Manager prêt');
 });
 
 // Exporter pour utilisation globale

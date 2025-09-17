@@ -11,7 +11,7 @@ class ProgressionSync {
     init() {
         this.setupEventListeners();
         this.startAutoSync();
-        console.log('🔄 Progression Sync System initialisé');
+        // console.log('🔄 Progression Sync System initialisé');
     }
 
     setupEventListeners() {
@@ -47,7 +47,7 @@ class ProgressionSync {
                 this.lastUpdate = Date.now();
             }
         } catch (error) {
-            console.log('Erreur synchronisation progression:', error);
+            // console.log('Erreur synchronisation progression:', error);
         }
     }
 

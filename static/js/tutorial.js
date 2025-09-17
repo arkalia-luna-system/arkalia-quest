@@ -14,7 +14,7 @@ class TutorialSystem {
         this.createStyles();
         this.setupEventListeners();
         this.initializeSteps();
-        console.log('🎯 Tutorial System initialisé');
+        // console.log('🎯 Tutorial System initialisé');
     }
 
     createStyles() {
@@ -297,7 +297,7 @@ class TutorialSystem {
         // Déclencher l'événement de fin de tutoriel
         document.dispatchEvent(new CustomEvent('tutorialComplete'));
 
-        console.log('🎉 Tutoriel terminé !');
+        // console.log('🎉 Tutoriel terminé !');
     }
 
     // Méthode publique pour vérifier si le tutoriel a été complété
@@ -308,7 +308,7 @@ class TutorialSystem {
     // Méthode publique pour réinitialiser le tutoriel
     resetTutorial() {
         localStorage.removeItem('arkalia_tutorial_completed');
-        console.log('🔄 Tutoriel réinitialisé');
+        // console.log('🔄 Tutoriel réinitialisé');
     }
 }
 

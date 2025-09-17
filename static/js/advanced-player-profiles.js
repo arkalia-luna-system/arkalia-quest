@@ -31,7 +31,7 @@ class AdvancedPlayerProfiles {
         // Initialiser l'adaptation
         this.initializeAdaptation();
 
-        console.log('👤 Système de profils avancés initialisé');
+        // console.log('👤 Système de profils avancés initialisé');
     }
 
     detectInitialProfile() {
@@ -55,7 +55,7 @@ class AdvancedPlayerProfiles {
         // Initialiser le profil
         this.profiles[this.currentProfile].activate();
 
-        console.log(`👤 Profil détecté: ${this.currentProfile} (score: ${scores[this.currentProfile]})`);
+        // console.log(`👤 Profil détecté: ${this.currentProfile} (score: ${scores[this.currentProfile]})`);
     }
 
     calculateDebutantScore(commandPatterns, timeSpent, uiInteractions) {
@@ -203,7 +203,7 @@ class AdvancedPlayerProfiles {
         // Adapter le profil actuel
         this.profiles[this.currentProfile].adapt(this.adaptationLevel);
 
-        console.log(`🔄 Profil adapté: ${this.currentProfile} (niveau: ${this.adaptationLevel.toFixed(2)})`);
+        // console.log(`🔄 Profil adapté: ${this.currentProfile} (niveau: ${this.adaptationLevel.toFixed(2)})`);
     }
 
     initializeAdaptation() {
@@ -299,8 +299,8 @@ class AdvancedPlayerProfiles {
 
     // Méthode publique pour changer de profil
     switchProfile(profileName) {
-        console.log(`🔄 Tentative de changement vers: ${profileName}`);
-        console.log(`📋 Profils disponibles:`, Object.keys(this.profiles));
+        // console.log(`🔄 Tentative de changement vers: ${profileName}`);
+        // console.log(`📋 Profils disponibles:`, Object.keys(this.profiles));
 
         if (this.profiles[profileName]) {
             this.currentProfile = profileName;
@@ -309,7 +309,7 @@ class AdvancedPlayerProfiles {
             this.adaptMessages();
             this.adaptAnimations();
 
-            console.log(`✅ Profil changé vers: ${profileName}`);
+            // console.log(`✅ Profil changé vers: ${profileName}`);
             return true;
         } else {
             console.error(`❌ Profil ${profileName} non trouvé`);
@@ -338,7 +338,7 @@ class BaseProfile {
     }
 
     activate() {
-        console.log(`👤 Profil ${this.name} activé`);
+        // console.log(`👤 Profil ${this.name} activé`);
     }
 
     adapt(level) {
@@ -569,13 +569,13 @@ class CasualProfile extends BaseProfile {
 try {
     window.advancedPlayerProfiles = new AdvancedPlayerProfiles();
     window.AdvancedPlayerProfiles = AdvancedPlayerProfiles;
-    console.log('✅ advancedPlayerProfiles initialisé immédiatement');
+    // console.log('✅ advancedPlayerProfiles initialisé immédiatement');
 } catch (error) {
     console.error('❌ Erreur initialisation advancedPlayerProfiles:', error);
     // Créer un objet de fallback
     window.advancedPlayerProfiles = {
         switchProfile: function (profileName) {
-            console.log('⚠️ Mode fallback - switchProfile appelé avec:', profileName);
+            // console.log('⚠️ Mode fallback - switchProfile appelé avec:', profileName);
             return true;
         },
         getCurrentProfile: function () {

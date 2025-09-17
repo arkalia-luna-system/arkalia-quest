@@ -1,7 +1,7 @@
 # 🎨 AUDIT VISUEL ET NETTOYAGE ARKALIA QUEST
 
-**Date:** 2025-09-17T22:37:55.454397
-**Durée:** 8.04s
+**Date:** 2025-09-17T22:39:54.915952
+**Durée:** 6.23s
 
 ## 📊 RÉSUMÉ EXÉCUTIF
 
@@ -9,14 +9,14 @@
 - **Lignes CSS:** 17,063
 - **Lignes HTML:** 13,772
 - **Lignes JS:** 33,029
-- **Assets trouvés:** 102
+- **Assets trouvés:** 165
 
 ### 🚨 PROBLÈMES DÉTECTÉS
 
 - **Fichiers inutilisés:** 29
-- **Assets orphelins:** 58
-- **Problèmes visuels:** 1985
-- **Total:** 2404
+- **Assets orphelins:** 121
+- **Problèmes visuels:** 2048
+- **Total:** 2526
 
 ## FICHIERS INUTILISES
 
@@ -58,7 +58,7 @@
 - **/Volumes/T7/devstation/arkalia-quest/static/css/casual-system.css:** {'fichier': '/Volumes/T7/devstation/arkalia-quest/static/css/casual-system.css', 'taille': 11901, 'type': '.css'}
 - **/Volumes/T7/devstation/arkalia-quest/static/css/audit-visual-fixes.css:** {'fichier': '/Volumes/T7/devstation/arkalia-quest/static/css/audit-visual-fixes.css', 'taille': 12063, 'type': '.css'}
 - **/Volumes/T7/devstation/arkalia-quest/static/css/contextual-feedback.css:** {'fichier': '/Volumes/T7/devstation/arkalia-quest/static/css/contextual-feedback.css', 'taille': 9661, 'type': '.css'}
-- ... et 48 autres
+- ... et 111 autres
 
 ## PROBLEMES CSS
 
@@ -86,17 +86,7 @@
 - **/Volumes/T7/devstation/arkalia-quest/static/js/terminal.js:** Console.log détecté (à supprimer en production)
 - **/Volumes/T7/devstation/arkalia-quest/static/js/terminal.js:** Console.log détecté (à supprimer en production)
 - **/Volumes/T7/devstation/arkalia-quest/static/js/terminal.js:** Console.log détecté (à supprimer en production)
-- ... et 272 autres
-
-## FICHIERS VIDES
-
-- **/Volumes/T7/devstation/arkalia-quest/reports/RESUME_AMELIORATIONS_ADO_ULTRA_MODERNES.md:** {'fichier': '/Volumes/T7/devstation/arkalia-quest/reports/RESUME_AMELIORATIONS_ADO_ULTRA_MODERNES.md', 'taille': 0}
-
-## FICHIERS TROP GROS
-
-- **/Volumes/T7/devstation/arkalia-quest/artifacts/bandit-report.json:** {'fichier': '/Volumes/T7/devstation/arkalia-quest/artifacts/bandit-report.json', 'taille': 9813827, 'taille_mb': 9.36}
-- **/Volumes/T7/devstation/arkalia-quest/artifacts/bandit-report-final.json:** {'fichier': '/Volumes/T7/devstation/arkalia-quest/artifacts/bandit-report-final.json', 'taille': 9756778, 'taille_mb': 9.3}
-- **/Volumes/T7/devstation/arkalia-quest/.mypy_cache/3.9/builtins.data.json:** {'fichier': '/Volumes/T7/devstation/arkalia-quest/.mypy_cache/3.9/builtins.data.json', 'taille': 1818947, 'taille_mb': 1.73}
+- ... et 335 autres
 
 ## DEPENDANCES INUTILISEES
 

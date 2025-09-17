@@ -12,7 +12,7 @@ class InteractiveZonesSystem {
     }
 
     init() {
-        console.log('🗺️ Système de zones interactives initialisé');
+        // console.log('🗺️ Système de zones interactives initialisé');
         this.loadZoneData();
         this.setupEventListeners();
         this.createZoneOverlay();
@@ -204,7 +204,7 @@ class InteractiveZonesSystem {
 
     playAmbientSound(soundId) {
         // Implémentation basique - à étendre avec un vrai système audio
-        console.log(`🎵 Lecture de l'ambiance: ${soundId}`);
+        // console.log(`🎵 Lecture de l'ambiance: ${soundId}`);
     }
 
     applyZoneEffects(ambiance) {
@@ -226,49 +226,49 @@ class InteractiveZonesSystem {
 
     // Actions des zones
     contactLuna() {
-        console.log('🌙 Contact avec LUNA...');
+        // console.log('🌙 Contact avec LUNA...');
         // Déclencher l'événement de contact LUNA
         document.dispatchEvent(new CustomEvent('lunaContact'));
     }
 
     hackSystem() {
-        console.log('💻 Tentative de hack...');
+        // console.log('💻 Tentative de hack...');
         // Déclencher l'événement de hack
         document.dispatchEvent(new CustomEvent('hackSystem'));
     }
 
     exploreZone() {
-        console.log('🔍 Exploration de la zone...');
+        // console.log('🔍 Exploration de la zone...');
         // Déclencher l'événement d'exploration
         document.dispatchEvent(new CustomEvent('zoneExploration'));
     }
 
     scanZone() {
-        console.log('📡 Scan de la zone...');
+        // console.log('📡 Scan de la zone...');
         // Déclencher l'événement de scan
         document.dispatchEvent(new CustomEvent('zoneScan'));
     }
 
     viewStats() {
-        console.log('📊 Affichage des statistiques...');
+        // console.log('📊 Affichage des statistiques...');
         // Déclencher l'événement de visualisation des stats
         document.dispatchEvent(new CustomEvent('viewStats'));
     }
 
     viewBadges() {
-        console.log('🏆 Affichage des badges...');
+        // console.log('🏆 Affichage des badges...');
         // Déclencher l'événement de visualisation des badges
         document.dispatchEvent(new CustomEvent('viewBadges'));
     }
 
     viewRanking() {
-        console.log('🏅 Affichage du classement...');
+        // console.log('🏅 Affichage du classement...');
         // Déclencher l'événement de visualisation du classement
         document.dispatchEvent(new CustomEvent('viewRanking'));
     }
 
     challengePlayer() {
-        console.log('⚔️ Défi d\'un joueur...');
+        // console.log('⚔️ Défi d\'un joueur...');
         // Déclencher l'événement de défi
         document.dispatchEvent(new CustomEvent('challengePlayer'));
     }
@@ -306,7 +306,7 @@ class InteractiveZonesSystem {
 // Initialiser le système de zones interactives
 document.addEventListener('DOMContentLoaded', () => {
     window.interactiveZonesSystem = new InteractiveZonesSystem();
-    console.log('🗺️ Zones interactives activées');
+    // console.log('🗺️ Zones interactives activées');
 });
 
 // Export pour utilisation externe

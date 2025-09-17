@@ -12,7 +12,7 @@ class AdaptiveUIManager {
     }
 
     init() {
-        console.log('🎨 Adaptive UI Manager initialisé');
+        // console.log('🎨 Adaptive UI Manager initialisé');
         this.detectUserProfile();
         this.setupProfileAdaptation();
         this.observeProfileChanges();
@@ -27,7 +27,7 @@ class AdaptiveUIManager {
             this.currentProfile = this.basicProfileDetection();
         }
 
-        console.log(`👤 Profil détecté: ${this.currentProfile}`);
+        // console.log(`👤 Profil détecté: ${this.currentProfile}`);
     }
 
     basicProfileDetection() {
@@ -328,7 +328,7 @@ class AdaptiveUIManager {
 // Initialiser le gestionnaire d'interface adaptative
 document.addEventListener('DOMContentLoaded', () => {
     window.adaptiveUIManager = new AdaptiveUIManager();
-    console.log('🎨 Interface adaptative activée');
+    // console.log('🎨 Interface adaptative activée');
 });
 
 // Export pour utilisation externe

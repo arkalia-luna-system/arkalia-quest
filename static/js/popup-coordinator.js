@@ -13,7 +13,7 @@ class PopupCoordinator {
         setTimeout(() => {
             this.setupPopupCoordination();
             this.isInitialized = true;
-            console.log('🎭 Popup Coordinator initialisé');
+            // console.log('🎭 Popup Coordinator initialisé');
         }, 2000);
     }
 

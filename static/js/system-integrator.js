@@ -26,7 +26,7 @@ class SystemIntegrator {
     }
 
     async initializeSystems() {
-        console.log('🚀 Initialisation des systèmes Arkalia Quest...');
+        // console.log('🚀 Initialisation des systèmes Arkalia Quest...');
 
         // Initialiser les systèmes dans l'ordre de dépendance
         const systemOrder = [
@@ -50,7 +50,7 @@ class SystemIntegrator {
             }
         }
 
-        console.log('✅ Tous les systèmes initialisés');
+        // console.log('✅ Tous les systèmes initialisés');
     }
 
     async initializeSystem(systemName) {
@@ -163,7 +163,7 @@ class SystemIntegrator {
     }
 
     onSystemReady(systemName, system) {
-        console.log(`✅ Système ${systemName} prêt`);
+        // console.log(`✅ Système ${systemName} prêt`);
 
         // Actions spécifiques selon le système
         switch (systemName) {

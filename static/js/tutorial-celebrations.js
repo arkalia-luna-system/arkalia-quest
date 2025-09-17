@@ -12,7 +12,7 @@ class TutorialCelebrations {
     }
 
     initializeSystem() {
-        console.log('🎉 Système de célébrations tutoriel initialisé');
+        // console.log('🎉 Système de célébrations tutoriel initialisé');
         this.createCelebrationStyles();
         this.setupTutorialListeners();
     }
@@ -216,7 +216,7 @@ class TutorialCelebrations {
         }
 
         this.isAnimating = true;
-        console.log('🎉 Célébration d\'étape tutoriel');
+        // console.log('🎉 Célébration d\'étape tutoriel');
 
         // Ajouter la classe de célébration à l'élément
         element.classList.add('tutorial-step-completed');
@@ -343,7 +343,7 @@ class TutorialCelebrations {
 
     // Célébrer la complétion du tutoriel
     celebrateTutorialCompletion() {
-        console.log('🎊 Tutoriel complété !');
+        // console.log('🎊 Tutoriel complété !');
 
         // Effet de célébration majeur
         this.createConfettiEffect(document.body);
@@ -430,7 +430,7 @@ class TutorialCelebrations {
             oscillator.start(audioContext.currentTime);
             oscillator.stop(audioContext.currentTime + 0.3);
         } catch (e) {
-            console.log('Audio non supporté');
+            // console.log('Audio non supporté');
         }
     }
 

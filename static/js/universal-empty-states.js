@@ -13,7 +13,7 @@ class UniversalEmptyStates {
         this.setupGlobalStyles();
         this.setupIntersectionObserver();
         this.setupEventListeners();
-        console.log('🌟 Universal Empty States System initialisé');
+        // console.log('🌟 Universal Empty States System initialisé');
     }
 
     loadSettings() {
@@ -775,7 +775,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.universalEmptyStates.checkForEmptyStates();
     }, 1000);
 
-    console.log('🌟 Universal Empty States System prêt');
+    // console.log('🌟 Universal Empty States System prêt');
 });
 
 // Exporter pour utilisation globale

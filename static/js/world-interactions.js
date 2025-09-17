@@ -14,7 +14,7 @@ class WorldInteractions {
         this.setupEventListeners();
         this.createStyles();
         this.initializeWorld();
-        console.log('🌍 World Interactions initialisé');
+        // console.log('🌍 World Interactions initialisé');
     }
 
     initializeZones() {
@@ -691,7 +691,7 @@ class WorldInteractions {
 
     playZoneSound(zoneId) {
         // Simuler un son (dans une vraie implémentation, on utiliserait l'audio)
-        console.log(`🔊 Son de zone: ${zoneId}`);
+        // console.log(`🔊 Son de zone: ${zoneId}`);
     }
 
     showZoneEffect(zoneElement) {

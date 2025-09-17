@@ -19,7 +19,7 @@ class BugFixes {
         this.fixAccessibilityBugs();
         this.fixLunaResponseVariety();
 
-        console.log('🔧 Bug fixes appliqués');
+        // console.log('🔧 Bug fixes appliqués');
     }
 
     // ===== STABILITÉ TERMINAL =====

@@ -2283,7 +2283,7 @@ class TerminalCommandsEnhanced {
     }
 
     initializeSystem() {
-        console.log('💻 Système de commandes terminal amélioré initialisé');
+        // // console.log('💻 Système de commandes terminal amélioré initialisé');
         this.setupResponseVariations();
         this.enhanceExistingCommands();
     }
@@ -2446,19 +2446,19 @@ function updateProgressionDisplay(progression) {
 // Fonction pour mettre à jour l'affichage des défis quotidiens
 function updateDailyChallengesDisplay(challenges) {
     // Cette fonction sera appelée si on a des éléments de défis quotidiens sur la page
-    console.log('Défis quotidiens mis à jour:', challenges);
+    // // console.log('Défis quotidiens mis à jour:', challenges);
 }
 
 // Fonction pour mettre à jour l'affichage des achievements
 function updateAchievementsDisplay(achievements) {
     // Cette fonction sera appelée si on a des éléments d'achievements sur la page
-    console.log('Achievements mis à jour:', achievements);
+    // // console.log('Achievements mis à jour:', achievements);
 }
 
 // Fonction pour mettre à jour l'affichage du leaderboard
 function updateLeaderboardDisplay(leaderboard) {
     // Cette fonction sera appelée si on a des éléments de leaderboard sur la page
-    console.log('Leaderboard mis à jour:', leaderboard);
+    // // console.log('Leaderboard mis à jour:', leaderboard);
 }
 
 // Fonction pour afficher une notification de progression

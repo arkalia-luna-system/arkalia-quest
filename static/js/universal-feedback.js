@@ -254,7 +254,7 @@ class UniversalFeedback {
 
     debug(message) {
         if (this.debugMode) {
-            console.log(`[UniversalFeedback] ${message}`);
+            // console.log(`[UniversalFeedback] ${message}`);
         }
     }
 

@@ -6,7 +6,7 @@ class UIPerfection {
     }
 
     init() {
-        console.log('🎨 UIPerfection initialisé');
+        // console.log('🎨 UIPerfection initialisé');
         this.setupMicroTransitions();
         this.setupHoverEffects();
         this.setupEmptyStates();
@@ -132,7 +132,7 @@ class UIPerfection {
     /* ===== SYSTÈME DE FEEDBACK CONTEXTUEL ===== */
     setupFeedbackSystem() {
         // Système de feedback désactivé - utilise les systèmes universels
-        console.log('🎨 Système de feedback UI désactivé - utilise les systèmes universels');
+        // console.log('🎨 Système de feedback UI désactivé - utilise les systèmes universels');
     }
 
     /* ===== ÉTATS DE CHARGEMENT ÉLÉGANTS ===== */
@@ -192,7 +192,7 @@ class UIPerfection {
 // Initialisation automatique
 document.addEventListener('DOMContentLoaded', () => {
     window.uiPerfection = new UIPerfection();
-    console.log('✨ UI Perfection activé - Niveau premium 2025');
+    // console.log('✨ UI Perfection activé - Niveau premium 2025');
 });
 
 // Export pour utilisation globale

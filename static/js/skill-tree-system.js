@@ -14,7 +14,7 @@ class SkillTreeSystem {
         this.createSkillTreeUI();
         this.syncWithTerminal();
         this.loadServerData();
-        console.log('🌳 Skill Tree System initialisé');
+        // console.log('🌳 Skill Tree System initialisé');
     }
 
     async loadServerData() {
@@ -28,7 +28,7 @@ class SkillTreeSystem {
                 this.updateFromServerData(data.player_data);
             }
         } catch (error) {
-            console.log('Impossible de charger les données du serveur:', error);
+            // console.log('Impossible de charger les données du serveur:', error);
         }
     }
 
@@ -60,7 +60,7 @@ class SkillTreeSystem {
                 this.updateUpgradeButtons();
             }
         } catch (error) {
-            console.log('Erreur synchronisation données joueur:', error);
+            // console.log('Erreur synchronisation données joueur:', error);
         }
     }
 
@@ -331,7 +331,7 @@ class SkillTreeSystem {
             // Mettre à jour les statistiques
             this.updatePlayerStats();
 
-            console.log('🌳 Interface dédiée créée avec succès');
+            // console.log('🌳 Interface dédiée créée avec succès');
         } else {
             console.error('❌ Élément skill-tree-grid non trouvé');
         }
@@ -1254,7 +1254,7 @@ class SkillTreeSystem {
                 }
             })
             .catch(error => {
-                console.log('Erreur synchronisation:', error);
+                // console.log('Erreur synchronisation:', error);
             });
     }
 
@@ -1289,7 +1289,7 @@ class SkillTreeSystem {
                 }
             }
         } catch (error) {
-            console.log('Impossible de synchroniser avec le terminal:', error);
+            // console.log('Impossible de synchroniser avec le terminal:', error);
         }
     }
 
@@ -1391,7 +1391,7 @@ class SkillTreeSystem {
 // Initialiser le système
 document.addEventListener('DOMContentLoaded', () => {
     window.skillTreeSystem = new SkillTreeSystem();
-    console.log('🌳 Skill Tree System initialisé globalement');
+    // console.log('🌳 Skill Tree System initialisé globalement');
 });
 
 // Initialiser immédiatement si le DOM est déjà chargé

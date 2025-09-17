@@ -38,7 +38,7 @@ class SmartEmptyStates {
         this.hideZeroStats();
         this.addMotivationalPlaceholders();
         this.enhanceEmptyWidgets();
-        console.log('🎯 Smart Empty States initialisé');
+        // console.log('🎯 Smart Empty States initialisé');
     }
 
     hideZeroStats() {

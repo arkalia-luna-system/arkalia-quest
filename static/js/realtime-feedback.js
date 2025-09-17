@@ -12,7 +12,7 @@ class RealtimeFeedback {
         this.setupEventListeners();
         this.createNotificationContainer();
         this.startProgressSync();
-        console.log('⚡ Realtime Feedback System initialisé');
+        // console.log('⚡ Realtime Feedback System initialisé');
     }
 
     setupEventListeners() {
@@ -70,7 +70,7 @@ class RealtimeFeedback {
                 this.handleProgressionUpdate(data.progression);
             }
         } catch (error) {
-            console.log('Erreur sync progression:', error);
+            // console.log('Erreur sync progression:', error);
         }
     }
 
@@ -510,7 +510,7 @@ class RealtimeFeedback {
             oscillator.start(currentTime);
             oscillator.stop(currentTime + duration);
         } catch (error) {
-            console.log('Impossible de jouer le son:', error);
+            // console.log('Impossible de jouer le son:', error);
         }
     }
 }

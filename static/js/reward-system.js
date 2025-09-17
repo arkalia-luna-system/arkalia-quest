@@ -18,7 +18,7 @@ class RewardSystem {
         // Créer le conteneur pour les particules
         this.createParticleContainer();
 
-        console.log('🎉 Reward System initialisé');
+        // console.log('🎉 Reward System initialisé');
     }
 
     createNotificationContainer() {

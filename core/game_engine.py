@@ -13,6 +13,7 @@ from core.database import DatabaseManager
 
 from .command_handler_v2 import CommandHandlerV2 as CommandHandler
 from .profile_manager import ProfileManager
+from .progression_engine import progression_engine
 
 
 class GameEngine:
@@ -185,12 +186,23 @@ class GameEngine:
         if not profile:
             profile = self.profile_manager.create_default_profile()
 
+        # Mettre à jour la progression avec la commande utilisée
+        progression_engine.update_player_progression(
+            user_id, "command_used", {"command": command}
+        )
+
         # Traiter la commande
         result = self.command_handler.handle_command(command, profile)
 
         # Mettre à jour le profil si nécessaire
         if result.get("profile_updated", False):
             self.db_manager.save_profile(user_id, profile)
+
+        # Mettre à jour la progression avec les points gagnés
+        if result.get("score_gagne", 0) > 0:
+            progression_engine.update_player_progression(
+                user_id, "score_earned", {"points": result["score_gagne"]}
+            )
 
         # Ajouter des effets visuels/audio
         result = self.add_effects(result, profile)

@@ -1,0 +1,58 @@
+{
+  "challenges": {
+    "hacker_speed": {
+      "id": "hacker_speed",
+      "name": "⚡ Speed Hacker",
+      "description": "Complète 5 commandes en 3 minutes",
+      "target": 5,
+      "reward": {
+        "xp": 100,
+        "coins": 50,
+        "badge": "Speed Demon"
+      },
+      "type": "command_count",
+      "time_limit": 180,
+      "active": true
+    },
+    "luna_friend": {
+      "id": "luna_friend",
+      "name": "🌙 Ami de LUNA",
+      "description": "Utilise 3 commandes LUNA différentes",
+      "target": 3,
+      "reward": {
+        "xp": 150,
+        "coins": 75,
+        "badge": "LUNA Friend"
+      },
+      "type": "luna_commands",
+      "active": true
+    },
+    "explorer": {
+      "id": "explorer",
+      "name": "🔍 Explorateur",
+      "description": "Explore 2 zones différentes",
+      "target": 2,
+      "reward": {
+        "xp": 200,
+        "coins": 100,
+        "badge": "Explorer"
+      },
+      "type": "zones_explored",
+      "active": true
+    },
+    "code_master": {
+      "id": "code_master",
+      "name": "💻 Code Master",
+      "description": "Résous 2 mini-jeux de programmation",
+      "target": 2,
+      "reward": {
+        "xp": 250,
+        "coins": 125,
+        "badge": "Code Master"
+      },
+      "type": "mini_games",
+      "active": true
+    }
+  },
+  "last_reset": "2025-09-17"
+}

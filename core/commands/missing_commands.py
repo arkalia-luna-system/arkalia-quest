@@ -119,35 +119,94 @@ class MissingCommands:
 
     def handle_play_game_advanced(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Lance un mini-jeu avec interface avancée"""
-        profile["score"] += 50
+        import random
 
-        return {
-            "réussite": True,
-            "ascii_art": "🎮",
-            "message": """🎮 MINI-JEUX INTERACTIFS
+        # Choisir un jeu aléatoire
+        games = [
+            {
+                "name": "Débogue le Code",
+                "type": "Logique",
+                "question": "Quelle est la sortie de : print(2 + 3 * 4)",
+                "options": ["14", "20", "11", "24"],
+                "correct": 2,  # index de la bonne réponse
+                "points": 100,
+            },
+            {
+                "name": "Écris le Code",
+                "type": "Programmation",
+                "question": "Quelle fonction Python affiche du texte ?",
+                "options": ["print()", "display()", "show()", "output()"],
+                "correct": 0,
+                "points": 150,
+            },
+            {
+                "name": "Détecte l'Attaque",
+                "type": "Cybersécurité",
+                "question": "Qu'est-ce qu'un phishing ?",
+                "options": [
+                    "Un virus",
+                    "Une arnaque par email",
+                    "Un firewall",
+                    "Un antivirus",
+                ],
+                "correct": 1,
+                "points": 200,
+            },
+            {
+                "name": "Décode le Message",
+                "type": "Cryptographie",
+                "question": "Si A=1, B=2, C=3, que vaut 'HELLO' ?",
+                "options": [
+                    "8-5-12-12-15",
+                    "7-4-11-11-14",
+                    "9-6-13-13-16",
+                    "6-3-10-10-13",
+                ],
+                "correct": 0,
+                "points": 250,
+            },
+        ]
 
-🎯 JEUX DISPONIBLES :
-• logic_1 → Débogue le Code (Logique)
-• code_1 → Écris le Code (Programmation)
-• cyber_1 → Détecte l'Attaque (Cybersécurité)
-• crypto_1 → Décode le Message (Cryptographie)
-• network_1 → Analyse le Réseau (Réseau)
+        game = random.choice(games)
 
-💻 INTERFACE GRAPHIQUE :
-• Animations fluides
-• Effets sonores
-• Feedback en temps réel
-• Système de scoring
+        # Simuler la réussite (70% de chance)
+        if random.random() < 0.7:
+            message = f"""🎮 MINI-JEU TERMINÉ !
 
-🎮 UTILISATION :
-1. Clique sur un jeu dans l'interface
-2. Ou utilise l'API de jeux
-3. Résous les défis pour gagner des points
+🎯 JEU : {game['name']} ({game['type']})
+❓ QUESTION : {game['question']}
+✅ RÉPONSE : {game['options'][game['correct']]}
 
-🌟 +50 points pour avoir exploré les jeux !""",
-            "score_gagne": 50,
-            "profile_updated": True,
-        }
+🎉 VICTOIRE ! Vous avez résolu le défi !
+🏆 +{game['points']} points gagnés !
+💡 Mini-jeu ajouté à votre collection !"""
+
+            return {
+                "réussite": True,
+                "ascii_art": "🎮",
+                "message": message,
+                "score_gagne": game["points"],
+                "profile_updated": True,
+            }
+        else:
+            message = f"""🎮 MINI-JEU ÉCHOUÉ !
+
+🎯 JEU : {game['name']} ({game['type']})
+❓ QUESTION : {game['question']}
+❌ RÉPONSE : {game['options'][random.randint(0, 3)]}
+✅ BONNE RÉPONSE : {game['options'][game['correct']]}
+
+😔 ÉCHEC ! Mais ne vous découragez pas !
+💡 Réessayez ! La pratique rend parfait !
+Utilisez 'play_game' pour réessayer."""
+
+            return {
+                "réussite": False,
+                "ascii_art": "🎮",
+                "message": message,
+                "score_gagne": 0,
+                "profile_updated": False,
+            }
 
     def handle_games_list(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Liste détaillée des jeux disponibles"""

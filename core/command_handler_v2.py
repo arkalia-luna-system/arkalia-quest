@@ -7,13 +7,12 @@ from datetime import datetime
 from typing import Any
 
 from .commands.analytics_commands import AnalyticsCommands
-
-# Import des modules de commandes
 from .commands.basic_commands import BasicCommands
 from .commands.easter_egg_commands import EasterEggCommands
 from .commands.game_commands import GameCommands
 from .commands.luna_commands import LunaCommands
 from .commands.missing_commands import MissingCommands
+from .commands.progression_commands import ProgressionCommands
 from .commands.story_commands import StoryCommands
 from .commands.system_commands import SystemCommands
 from .luna_emotions_engine import luna_emotions
@@ -32,6 +31,7 @@ class CommandHandlerV2:
         self.analytics_commands = AnalyticsCommands()
         self.story_commands = StoryCommands()
         self.missing_commands = MissingCommands()
+        self.progression_commands = ProgressionCommands()
 
         # Fusion de toutes les commandes
         self.all_commands = {}
@@ -43,6 +43,7 @@ class CommandHandlerV2:
         self.all_commands.update(self.analytics_commands.commands)
         self.all_commands.update(self.story_commands.commands)
         self.all_commands.update(self.missing_commands.commands)
+        self.all_commands.update(self.progression_commands.commands)
 
         # Whitelist des commandes autorisées
         self.command_whitelist = set(self.all_commands.keys())

@@ -20,19 +20,22 @@ class UniversalNotifications {
 
     loadSettings() {
         const defaultSettings = {
-            maxNotifications: 3,        // Augmenté pour permettre plus de notifications
-            defaultDuration: 4000,      // Augmenté pour laisser plus de temps de lecture
+            maxNotifications: 2,        // Réduit pour éviter le spam
+            defaultDuration: 3000,      // Durée optimale
             position: 'bottom-right',
             theme: 'arkalia',
             animations: true,
             sound: false,
             vibration: false,
-            rateLimitMs: 3000,          // Augmenté pour réduire le spam
-            dedupeWindowMs: 5000,       // Augmenté pour mieux dédupliquer
+            rateLimitMs: 5000,          // Augmenté pour réduire le spam
+            dedupeWindowMs: 10000,      // Augmenté pour mieux dédupliquer
             autoClose: true,            // Nouveau: fermeture automatique
             dismissible: true,          // Nouveau: toutes les notifications sont dismissibles
             groupSimilar: true,         // Nouveau: grouper les notifications similaires
-            maxGroupSize: 5             // Nouveau: max de notifications groupées
+            maxGroupSize: 3,            // Réduit pour éviter l'encombrement
+            smartFiltering: true,       // Nouveau: filtrage intelligent
+            priorityOnly: false,        // Nouveau: afficher seulement les prioritaires
+            minImportance: 1            // Nouveau: importance minimale (1-5)
         };
 
         try {
@@ -338,10 +341,16 @@ class UniversalNotifications {
             actions: config.actions || [],
             theme: config.theme || this.settings.theme,
             priority: config.priority || 'normal',
+            importance: config.importance || 1,
             onClose: config.onClose || null,
             onClick: config.onClick || null,
             ...config
         };
+
+        // Filtrage intelligent
+        if (this.settings.smartFiltering && !this.shouldShowNotification(notificationConfig)) {
+            return notificationConfig.id;
+        }
 
         // Anti-spam / déduplication amélioré
         const now = Date.now();
@@ -439,6 +448,50 @@ class UniversalNotifications {
                 closeAllBtn.style.display = 'none';
             }
         }
+    }
+
+    shouldShowNotification(config) {
+        // Filtrage intelligent des notifications
+        const content = (config.content || '').toLowerCase();
+        const title = (config.title || '').toLowerCase();
+
+        // Filtrer les notifications peu utiles
+        const spamPatterns = [
+            'petite pause bien méritée',
+            'progression attendue',
+            'score a évolué en douceur',
+            'votre progression vous attend',
+            'pause bien méritée',
+            'progression en douceur'
+        ];
+
+        for (const pattern of spamPatterns) {
+            if (content.includes(pattern) || title.includes(pattern)) {
+                return false;
+            }
+        }
+
+        // Vérifier l'importance minimale
+        if (config.importance < this.settings.minImportance) {
+            return false;
+        }
+
+        // Mode priorité uniquement
+        if (this.settings.priorityOnly && config.priority !== 'high') {
+            return false;
+        }
+
+        // Filtrer les notifications trop fréquentes
+        const now = Date.now();
+        const recentCount = Array.from(this.recentNotifications.values())
+            .filter(timestamp => now - timestamp < 30000) // 30 secondes
+            .length;
+
+        if (recentCount > 3) {
+            return false;
+        }
+
+        return true;
     }
 
     createNotification(config) {

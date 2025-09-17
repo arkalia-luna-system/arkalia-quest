@@ -112,6 +112,22 @@
         "context": {},
         "timestamp": "2025-09-17T17:01:27.071723",
         "consequences": []
+      },
+      {
+        "id": "b27929c0-9f60-48de-b608-e8c34819c1c6",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2025-09-17T17:33:22.233431",
+        "consequences": []
+      },
+      {
+        "id": "41f4872a-501e-4d24-bd9e-708a85a78b3b",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2025-09-17T17:34:43.648218",
+        "consequences": []
       }
     ],
     "unlocked_arcs": [],

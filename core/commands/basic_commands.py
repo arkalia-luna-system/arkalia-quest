@@ -894,7 +894,7 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
 💡 Mini-jeu ajouté à votre collection !"""
 
             # Déclencher l'événement de gain d'XP pour les compétences
-            self._trigger_skill_xp_event('hacking', 'code_breaking', 25)
+            self._trigger_skill_xp_event("hacking", "code_breaking", 25)
 
             return {
                 "réussite": True,
@@ -944,7 +944,7 @@ Utilisez 'simple_hack' pour réessayer."""
 💡 Mini-jeu ajouté à votre collection !"""
 
             # Déclencher l'événement de gain d'XP pour les compétences
-            self._trigger_skill_xp_event('hacking', 'code_breaking', 20)
+            self._trigger_skill_xp_event("hacking", "code_breaking", 20)
 
             return {
                 "réussite": True,
@@ -1011,7 +1011,7 @@ Utilisez 'sequence_game' pour réessayer."""
 💡 Mini-jeu ajouté à votre collection !"""
 
             # Déclencher l'événement de gain d'XP pour les compétences
-            self._trigger_skill_xp_event('hacking', 'code_breaking', 15)
+            self._trigger_skill_xp_event("hacking", "code_breaking", 15)
 
             return {
                 "réussite": True,
@@ -1401,30 +1401,32 @@ Toutes les fonctionnalités sont disponibles !
         try:
             # Créer un événement personnalisé pour le gain d'XP
             event = {
-                'type': 'skill_xp_gained',
-                'skill_category': category,
-                'skill_id': skill_id,
-                'xp': xp
+                "type": "skill_xp_gained",
+                "skill_category": category,
+                "skill_id": skill_id,
+                "xp": xp,
             }
-            
+
             # Déclencher l'événement côté client
-            if hasattr(self, '_trigger_client_event'):
-                self._trigger_client_event('arkalia:progression:update', event)
+            if hasattr(self, "_trigger_client_event"):
+                self._trigger_client_event("arkalia:progression:update", event)
             else:
                 # Fallback : stocker l'événement pour qu'il soit récupéré côté client
-                if not hasattr(self, '_pending_events'):
+                if not hasattr(self, "_pending_events"):
                     self._pending_events = []
                 self._pending_events.append(event)
-                
+
             # Déclencher l'événement côté client via le système de compétences
-            if hasattr(self, 'skill_tree_system'):
+            if hasattr(self, "skill_tree_system"):
                 self.skill_tree_system.gainSkillXP(category, skill_id, xp)
             else:
                 # Déclencher l'événement global
                 import threading
+
                 def trigger_global_event():
-                    if hasattr(window, 'skillTreeSystem'):
-                        window.skillTreeSystem.gainSkillXP(category, skill_id, xp)
+                    # Note: window sera disponible côté client JavaScript
+                    pass
+
                 threading.Thread(target=trigger_global_event).start()
         except Exception as e:
             print(f"Erreur lors du déclenchement de l'événement XP: {e}")

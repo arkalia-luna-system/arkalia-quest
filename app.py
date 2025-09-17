@@ -21,12 +21,17 @@ try:
     from core.customization_engine import customization_engine
     from core.daily_challenges_engine import DailyChallengesEngine
     from core.database import DatabaseManager
+    from core.database_optimizer import DatabaseOptimizer
     from core.educational_games_engine import EducationalGamesEngine
+    from core.enhanced_mission_system import EnhancedMissionSystem
     from core.gamification_engine import GamificationEngine
+    from core.luna_emotions_engine import LunaEmotionsEngine
     from core.micro_interactions import micro_interactions
+    from core.mission_handler import MissionHandler
     from core.mission_progress_tracker import mission_progress_tracker
     from core.narrative_branches import narrative_branches
     from core.performance_optimizer import performance_optimizer
+    from core.profile_manager import ProfileManager
     from core.secondary_missions import secondary_missions
     from core.security_enhanced import security_enhanced
     from core.security_manager import security_manager
@@ -34,11 +39,6 @@ try:
     from core.technical_tutorials import technical_tutorials
     from core.tutorial_manager import tutorial_manager
     from core.websocket_manager import websocket_manager
-    from core.enhanced_mission_system import EnhancedMissionSystem
-    from core.database_optimizer import DatabaseOptimizer
-    from core.luna_emotions_engine import LunaEmotionsEngine
-    from core.mission_handler import MissionHandler
-    from core.profile_manager import ProfileManager
     from engines.effects_engine import EffectsEngine
 
     # from engines.luna_ai_v3 import LunaAIV3  # Module temporairement désactivé
@@ -1288,40 +1288,86 @@ def skill_tree_page():
     """Page de l'arbre de compétences"""
     return render_template("skill_tree.html")
 
+
 @app.route("/api/skill-tree")
 def api_skill_tree():
     """API pour l'arbre de compétences"""
     try:
         # Récupérer le profil du joueur depuis la session ou créer un profil par défaut
-        profile = session.get('profile', {
-            'username': 'default_user',
-            'level': 1,
-            'xp': 0,
-            'badges': [],
-            'missions_completed': [],
-            'skills': {}
-        })
+        profile = session.get(
+            "profile",
+            {
+                "username": "default_user",
+                "level": 1,
+                "xp": 0,
+                "badges": [],
+                "missions_completed": [],
+                "skills": {},
+            },
+        )
         skill_tree_data = enhanced_mission_system.get_skill_tree(profile)
         return jsonify({"success": True, "skill_tree": skill_tree_data})
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/skill-tree/upgrade", methods=["POST"])
+def api_skill_tree_upgrade():
+    """API pour améliorer une compétence"""
+    try:
+        data = request.get_json()
+        category = data.get("category")
+        skill = data.get("skill")
+
+        if not category or not skill:
+            return jsonify({"error": "Category et skill requis"}), 400
+
+        # Récupérer le profil du joueur
+        session.get(
+            "profile",
+            {
+                "username": "default_user",
+                "level": 1,
+                "xp": 0,
+                "badges": [],
+                "missions_completed": [],
+                "skills": {},
+            },
+        )
+
+        # Simuler l'amélioration (à remplacer par la vraie logique)
+        result = {
+            "success": True,
+            "message": f"Compétence {skill} améliorée !",
+            "new_level": 1,
+            "xp_cost": 100,
+        }
+
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 @app.route("/api/enhanced-missions")
 def api_enhanced_missions():
     """API pour les missions améliorées"""
     try:
         # Récupérer le profil du joueur depuis la session ou créer un profil par défaut
-        profile = session.get('profile', {
-            'username': 'default_user',
-            'level': 1,
-            'xp': 0,
-            'badges': [],
-            'missions_completed': []
-        })
+        profile = session.get(
+            "profile",
+            {
+                "username": "default_user",
+                "level": 1,
+                "xp": 0,
+                "badges": [],
+                "missions_completed": [],
+            },
+        )
         missions_data = enhanced_mission_system.get_available_missions(profile)
         return jsonify({"success": True, "missions": missions_data})
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
+
 
 @app.route("/api/enhanced-missions/<mission_id>")
 def api_enhanced_mission_detail(mission_id):
@@ -1335,6 +1381,7 @@ def api_enhanced_mission_detail(mission_id):
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
 
+
 @app.route("/api/luna-emotions")
 def api_luna_emotions():
     """API pour les émotions de LUNA"""
@@ -1343,6 +1390,7 @@ def api_luna_emotions():
         return jsonify({"success": True, "emotion": emotions_data})
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
+
 
 @app.route("/api/mission-handler/available")
 def api_mission_handler_available():
@@ -1353,6 +1401,7 @@ def api_mission_handler_available():
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
 
+
 @app.route("/api/profile-manager/stats")
 def api_profile_manager_stats():
     """API pour les statistiques du gestionnaire de profils"""
@@ -1361,6 +1410,7 @@ def api_profile_manager_stats():
         return jsonify({"success": True, "stats": stats})
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
+
 
 @app.route("/api/database-optimizer/stats")
 def api_database_optimizer_stats():

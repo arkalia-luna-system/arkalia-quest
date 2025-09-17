@@ -75,7 +75,7 @@ class SecurityManager:
         for event_key, timestamp in self.recent_events.items():
             if current_time - timestamp > self.duplicate_threshold:
                 to_remove.append(event_key)
-        
+
         for event_key in to_remove:
             del self.recent_events[event_key]
 
@@ -100,23 +100,23 @@ class SecurityManager:
     ):
         """Enregistre un événement de sécurité avec déduplication"""
         current_time = time.time()
-        
+
         # Créer une clé unique pour l'événement
         event_key = f"{event_type}:{ip_address}:{details.get('input_preview', '')[:50]}"
-        
+
         # Vérifier si c'est un doublon récent
         if event_key in self.recent_events:
             last_time = self.recent_events[event_key]
             if current_time - last_time < self.duplicate_threshold:
                 # Événement dupliqué récent, ne pas logger
                 return False
-        
+
         # Mettre à jour le timestamp
         self.recent_events[event_key] = current_time
-        
+
         # Nettoyer les anciens événements
         self._cleanup_old_events(current_time)
-        
+
         event = {
             "timestamp": datetime.now().isoformat(),
             "event_type": event_type,
@@ -177,7 +177,7 @@ class SecurityManager:
                 ip_address,
                 "warning" if result["risk_level"] != "critical" else "critical",
             )
-            
+
             # Si l'événement n'a pas été loggé (doublon), on peut ajouter un compteur
             if not logged:
                 result["duplicate_detected"] = True

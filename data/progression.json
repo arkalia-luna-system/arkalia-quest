@@ -82,9 +82,9 @@
       }
     },
     "main_user": {
-      "score": 520,
+      "score": 550,
       "level": 1,
-      "xp": 520,
+      "xp": 550,
       "coins": 50,
       "badges": [
         "Premier pas",
@@ -135,13 +135,45 @@
         {
           "command": "simple_hack",
           "timestamp": "2025-09-17T18:53:33.204957"
+        },
+        {
+          "command": "skill_tree",
+          "timestamp": "2025-09-17T18:56:52.516994"
+        },
+        {
+          "command": "skill_tree",
+          "timestamp": "2025-09-17T18:56:52.518053"
+        },
+        {
+          "command": "skill_tree",
+          "timestamp": "2025-09-17T18:56:52.608686"
+        },
+        {
+          "command": "aide",
+          "timestamp": "2025-09-17T18:57:54.800335"
+        },
+        {
+          "command": "profil",
+          "timestamp": "2025-09-17T18:58:04.882488"
+        },
+        {
+          "command": "simple_hack",
+          "timestamp": "2025-09-17T18:58:14.397612"
+        },
+        {
+          "command": "themes",
+          "timestamp": "2025-09-17T18:58:23.322177"
+        },
+        {
+          "command": "theme matrix",
+          "timestamp": "2025-09-17T18:58:31.897177"
         }
       ],
       "luna_commands_used": [],
       "mini_games_completed": [],
       "daily_challenges_progress": {
         "hacker_speed": {
-          "progress": 11,
+          "progress": 19,
           "completed": true,
           "reward_claimed": false,
           "notified": true
@@ -166,9 +198,9 @@
         "first_step",
         "speed_demon"
       ],
-      "last_activity": "2025-09-17T18:53:33.215264",
+      "last_activity": "2025-09-17T18:58:31.897149",
       "stats": {
-        "total_commands": 11,
+        "total_commands": 19,
         "total_luna_commands": 0,
         "total_zones_explored": 0,
         "total_mini_games": 0,

@@ -251,7 +251,10 @@ def create_md5_hash(text):
                 # Déterminer la difficulté selon le niveau
                 if (
                     (user_level >= 3 and game["difficulty"] == Difficulty.EXPERT.value)
-                    or (user_level >= 2 and game["difficulty"] == Difficulty.ADVANCED.value)
+                    or (
+                        user_level >= 2
+                        and game["difficulty"] == Difficulty.ADVANCED.value
+                    )
                     or (
                         user_level >= 1
                         and game["difficulty"]
@@ -378,7 +381,9 @@ def create_md5_hash(text):
 
             # SYSTÈME DE RÉCOMPENSES MATRIX AMÉLIORÉ
             matrix_bonus = self._calculate_matrix_bonus(
-                session.get("user_id", "default"), game, session["attempts"],
+                session.get("user_id", "default"),
+                game,
+                session["attempts"],
             )
             total_score = game["points"] + matrix_bonus["total"]
 
@@ -500,7 +505,10 @@ def create_md5_hash(text):
         }
 
     def _calculate_matrix_bonus(
-        self, user_id: str, game: dict[str, Any], attempts: int,
+        self,
+        user_id: str,
+        game: dict[str, Any],
+        attempts: int,
     ) -> dict[str, Any]:
         """Calcule les bonus Matrix pour l'engagement adolescent"""
         base_bonus = 10
@@ -601,7 +609,9 @@ def create_md5_hash(text):
                     return game
         return None
 
-    def _is_game_available_for_user(self, game: dict[str, Any], user_level: int) -> bool:
+    def _is_game_available_for_user(
+        self, game: dict[str, Any], user_level: int
+    ) -> bool:
         """Vérifie si un jeu est disponible pour l'utilisateur"""
         difficulty_levels = {
             "beginner": 1,
@@ -613,7 +623,9 @@ def create_md5_hash(text):
         required_level = difficulty_levels.get(game.get("difficulty", "beginner"), 1)
         return user_level >= required_level
 
-    def _calculate_score(self, game: dict[str, Any], attempts: int, time_taken: float) -> int:
+    def _calculate_score(
+        self, game: dict[str, Any], attempts: int, time_taken: float
+    ) -> int:
         """Calcule le score basé sur le jeu, les tentatives et le temps"""
         base_points = game.get("points", 50)
 
@@ -631,7 +643,12 @@ def create_md5_hash(text):
         return max(10, final_score)  # Score minimum de 10
 
     def _update_user_statistics(
-        self, user_id: str, game_id: str, score: int, attempts: int, time_taken: float,
+        self,
+        user_id: str,
+        game_id: str,
+        score: int,
+        attempts: int,
+        time_taken: float,
     ) -> bool:
         """Met à jour les statistiques utilisateur"""
         try:
@@ -641,7 +658,9 @@ def create_md5_hash(text):
             # Mise à jour des statistiques
             stats["total_attempts"] += attempts
             stats["successful_attempts"] += 1
-            stats["success_rate"] = stats["successful_attempts"] / stats["total_attempts"]
+            stats["success_rate"] = (
+                stats["successful_attempts"] / stats["total_attempts"]
+            )
             stats["total_time"] += time_taken
             stats["games_played"] += 1
             stats["average_time"] = stats["total_time"] / stats["games_played"]
@@ -662,7 +681,9 @@ def create_md5_hash(text):
         return user_data.get("statistics", {})
 
     def _filter_games_by_criteria(
-        self, games: list[dict[str, Any]], criteria: dict[str, Any],
+        self,
+        games: list[dict[str, Any]],
+        criteria: dict[str, Any],
     ) -> list[dict[str, Any]]:
         """Filtre les jeux selon des critères spécifiques"""
         filtered_games = []
@@ -673,7 +694,10 @@ def create_md5_hash(text):
                 continue
 
             # Filtre par difficulté
-            if "difficulty" in criteria and game.get("difficulty") != criteria["difficulty"]:
+            if (
+                "difficulty" in criteria
+                and game.get("difficulty") != criteria["difficulty"]
+            ):
                 continue
 
             # Filtre par niveau minimum
@@ -684,12 +708,17 @@ def create_md5_hash(text):
                     "advanced": 5,
                     "expert": 7,
                 }
-                required_level = difficulty_levels.get(game.get("difficulty", "beginner"), 1)
+                required_level = difficulty_levels.get(
+                    game.get("difficulty", "beginner"), 1
+                )
                 if required_level < criteria["min_level"]:
                     continue
 
             # Filtre par points minimum
-            if "min_points" in criteria and game.get("points", 0) < criteria["min_points"]:
+            if (
+                "min_points" in criteria
+                and game.get("points", 0) < criteria["min_points"]
+            ):
                 continue
 
             filtered_games.append(game)

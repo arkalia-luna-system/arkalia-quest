@@ -97,7 +97,9 @@ class EnhancedMissionSystem:
             print(f"Erreur chargement missions: {e}")
 
     def create_interactive_mission(
-        self, mission_id: str, mission_data: dict[str, Any],
+        self,
+        mission_id: str,
+        mission_data: dict[str, Any],
     ) -> dict[str, Any]:
         """Crée une mission interactive avec choix multiples"""
         return {
@@ -116,7 +118,10 @@ class EnhancedMissionSystem:
         }
 
     def execute_mission_choice(
-        self, mission_id: str, choice_id: str, profile: dict[str, Any],
+        self,
+        mission_id: str,
+        choice_id: str,
+        profile: dict[str, Any],
     ) -> dict[str, Any]:
         """Exécute un choix dans une mission interactive"""
         mission = self.missions.get(mission_id)
@@ -154,7 +159,9 @@ class EnhancedMissionSystem:
 
         return result
 
-    def _check_skill_requirements(self, mission: dict[str, Any], profile: dict[str, Any]) -> bool:
+    def _check_skill_requirements(
+        self, mission: dict[str, Any], profile: dict[str, Any]
+    ) -> bool:
         """Vérifie si le joueur a les compétences requises"""
         requirements = mission.get("skill_requirements", {})
         player_skills = profile.get("skills", {})
@@ -168,12 +175,16 @@ class EnhancedMissionSystem:
         return True
 
     def _calculate_success_rate(
-        self, mission: dict[str, Any], choice: dict[str, Any], profile: dict[str, Any],
+        self,
+        mission: dict[str, Any],
+        choice: dict[str, Any],
+        profile: dict[str, Any],
     ) -> float:
         """Calcule le taux de succès basé sur les compétences et le choix"""
         base_rate = 0.7  # 70% de base
         difficulty_modifier = {"facile": 0.2, "moyen": 0.0, "difficile": -0.2}.get(
-            mission.get("difficulty", "moyen"), 0.0,
+            mission.get("difficulty", "moyen"),
+            0.0,
         )
         skill_bonus = self._calculate_skill_bonus(mission, profile)
         choice_modifier = choice.get("success_modifier", 0.0)
@@ -183,7 +194,9 @@ class EnhancedMissionSystem:
             max(0.05, base_rate + difficulty_modifier + skill_bonus + choice_modifier),
         )
 
-    def _calculate_skill_bonus(self, mission: dict[str, Any], profile: dict[str, Any]) -> float:
+    def _calculate_skill_bonus(
+        self, mission: dict[str, Any], profile: dict[str, Any]
+    ) -> float:
         """Calcule le bonus de compétences"""
         bonus = 0.0
         player_skills = profile.get("skills", {})
@@ -197,7 +210,10 @@ class EnhancedMissionSystem:
         return min(0.3, bonus)  # Maximum 30% de bonus
 
     def _handle_mission_success(
-        self, mission: dict[str, Any], choice: dict[str, Any], profile: dict[str, Any],
+        self,
+        mission: dict[str, Any],
+        choice: dict[str, Any],
+        profile: dict[str, Any],
     ) -> dict[str, Any]:
         """Gère le succès d'une mission"""
         # Calculer les récompenses variables
@@ -231,14 +247,19 @@ class EnhancedMissionSystem:
         }
 
     def _handle_mission_failure(
-        self, mission: dict[str, Any], choice: dict[str, Any], profile: dict[str, Any],
+        self,
+        mission: dict[str, Any],
+        choice: dict[str, Any],
+        profile: dict[str, Any],
     ) -> dict[str, Any]:
         """Gère l'échec d'une mission"""
         # Pénalités d'échec
         failure_penalty = choice.get("failure_penalty", {"xp": -10, "coins": -5})
 
         profile["xp"] = max(0, profile.get("xp", 0) + failure_penalty.get("xp", 0))
-        profile["coins"] = max(0, profile.get("coins", 0) + failure_penalty.get("coins", 0))
+        profile["coins"] = max(
+            0, profile.get("coins", 0) + failure_penalty.get("coins", 0)
+        )
 
         return {
             "success": False,
@@ -271,12 +292,16 @@ class EnhancedMissionSystem:
             if self._is_mission_available(mission, profile):
                 mission_copy = mission.copy()
                 mission_copy["available"] = True
-                mission_copy["completed"] = mission_id in profile.get("missions_completed", [])
+                mission_copy["completed"] = mission_id in profile.get(
+                    "missions_completed", []
+                )
                 available.append(mission_copy)
 
         return available
 
-    def _is_mission_available(self, mission: dict[str, Any], profile: dict[str, Any]) -> bool:
+    def _is_mission_available(
+        self, mission: dict[str, Any], profile: dict[str, Any]
+    ) -> bool:
         """Vérifie si une mission est disponible"""
         # Vérifier les prérequis de niveau
         required_level = mission.get("required_level", 1)
@@ -292,7 +317,9 @@ class EnhancedMissionSystem:
 
         return True
 
-    def start_daily_challenge(self, challenge_id: str, profile: dict[str, Any]) -> dict[str, Any]:
+    def start_daily_challenge(
+        self, challenge_id: str, profile: dict[str, Any]
+    ) -> dict[str, Any]:
         """Démarre un défi quotidien"""
         challenge = self.daily_challenges.get(challenge_id)
         if not challenge:
@@ -311,7 +338,10 @@ class EnhancedMissionSystem:
         }
 
     def complete_daily_challenge(
-        self, challenge_id: str, profile: dict[str, Any], performance: dict[str, Any],
+        self,
+        challenge_id: str,
+        profile: dict[str, Any],
+        performance: dict[str, Any],
     ) -> dict[str, Any]:
         """Complète un défi quotidien"""
         challenge = self.daily_challenges.get(challenge_id)
@@ -366,7 +396,9 @@ class EnhancedMissionSystem:
         for challenge_id, challenge in self.daily_challenges.items():
             challenge_copy = challenge.copy()
             challenge_copy["id"] = challenge_id
-            challenge_copy["completed_today"] = daily_challenges.get(challenge_id) == today
+            challenge_copy["completed_today"] = (
+                daily_challenges.get(challenge_id) == today
+            )
             available.append(challenge_copy)
 
         return available

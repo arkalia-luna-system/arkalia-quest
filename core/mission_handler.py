@@ -78,7 +78,10 @@ class MissionHandler:
             return "..."
 
     def execute_mission_step(
-        self, mission_id: str, step_id: str, profil: dict[str, Any],
+        self,
+        mission_id: str,
+        step_id: str,
+        profil: dict[str, Any],
     ) -> dict[str, Any]:
         """Exécute une étape de mission"""
         mission = self.get_mission(mission_id)
@@ -119,7 +122,9 @@ class MissionHandler:
         return result
 
     def execute_commande(
-        self, commande: str, profil: Optional[dict[str, Any]] = None,
+        self,
+        commande: str,
+        profil: Optional[dict[str, Any]] = None,
     ) -> dict[str, Any]:
         """Exécute une commande de mission"""
         # Simulation des commandes selon le type
@@ -199,7 +204,9 @@ class MissionHandler:
 
         return available
 
-    def get_mission_progress(self, mission_id: str, profil: dict[str, Any]) -> dict[str, Any]:
+    def get_mission_progress(
+        self, mission_id: str, profil: dict[str, Any]
+    ) -> dict[str, Any]:
         """Récupère la progression d'une mission"""
         mission = self.get_mission(mission_id)
         if not mission:

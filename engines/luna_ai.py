@@ -26,7 +26,10 @@ class LunaAI:
         self.relationship_level: int = 0
 
     def respond(
-        self, text: str, user_context: dict[str, Any], game_ctx: dict[str, Any],
+        self,
+        text: str,
+        user_context: dict[str, Any],
+        game_ctx: dict[str, Any],
     ) -> dict[str, Any]:
         """API historique: renvoie un dict contenant au moins 'message'."""
         result = self._engine.generate_response(text, user_context, game_ctx)
@@ -48,10 +51,14 @@ class LunaAI:
         Ici on réutilise respond() avec un input dérivé du contexte.
         """
         text = (
-            context.get("prompt", "Salut LUNA !") if isinstance(context, dict) else "Salut LUNA !"
+            context.get("prompt", "Salut LUNA !")
+            if isinstance(context, dict)
+            else "Salut LUNA !"
         )
         result = self._engine.generate_response(
-            text, {"level": 1}, context if isinstance(context, dict) else None,
+            text,
+            {"level": 1},
+            context if isinstance(context, dict) else None,
         )
         return str(result.get("response", "Prête à t'aider !"))
 

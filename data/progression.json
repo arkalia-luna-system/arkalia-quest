@@ -82,9 +82,9 @@
       }
     },
     "main_user": {
-      "score": 550,
+      "score": 700,
       "level": 1,
-      "xp": 550,
+      "xp": 700,
       "coins": 50,
       "badges": [
         "Premier pas",
@@ -167,13 +167,25 @@
         {
           "command": "theme matrix",
           "timestamp": "2025-09-17T18:58:31.897177"
+        },
+        {
+          "command": "aide",
+          "timestamp": "2025-09-17T19:46:19.079324"
+        },
+        {
+          "command": "simple_hack",
+          "timestamp": "2025-09-17T19:46:29.196277"
+        },
+        {
+          "command": "matrix_mode",
+          "timestamp": "2025-09-17T19:46:40.795732"
         }
       ],
       "luna_commands_used": [],
       "mini_games_completed": [],
       "daily_challenges_progress": {
         "hacker_speed": {
-          "progress": 19,
+          "progress": 22,
           "completed": true,
           "reward_claimed": false,
           "notified": true
@@ -198,9 +210,166 @@
         "first_step",
         "speed_demon"
       ],
-      "last_activity": "2025-09-17T18:58:31.897149",
+      "last_activity": "2025-09-17T19:46:40.809775",
       "stats": {
-        "total_commands": 19,
+        "total_commands": 22,
+        "total_luna_commands": 0,
+        "total_zones_explored": 0,
+        "total_mini_games": 0,
+        "total_play_time": 0
+      }
+    },
+    "test_player": {
+      "score": 100,
+      "level": 1,
+      "xp": 100,
+      "coins": 0,
+      "badges": [
+        "Premier pas"
+      ],
+      "zones_explored": [],
+      "commands_used": [
+        {
+          "command": "test",
+          "timestamp": "2025-09-17T19:39:51.780014"
+        },
+        {
+          "command": "test",
+          "timestamp": "2025-09-17T19:40:06.222080"
+        }
+      ],
+      "luna_commands_used": [],
+      "mini_games_completed": [],
+      "daily_challenges_progress": {
+        "hacker_speed": {
+          "progress": 2,
+          "completed": false,
+          "reward_claimed": false
+        },
+        "luna_friend": {
+          "progress": 0,
+          "completed": false,
+          "reward_claimed": false
+        },
+        "explorer": {
+          "progress": 0,
+          "completed": false,
+          "reward_claimed": false
+        },
+        "code_master": {
+          "progress": 0,
+          "completed": false,
+          "reward_claimed": false
+        }
+      },
+      "achievements_unlocked": [
+        "first_step"
+      ],
+      "last_activity": "2025-09-17T19:40:06.222078",
+      "stats": {
+        "total_commands": 2,
+        "total_luna_commands": 0,
+        "total_zones_explored": 0,
+        "total_mini_games": 0,
+        "total_play_time": 0
+      }
+    },
+    "default": {
+      "score": 100,
+      "level": 1,
+      "xp": 100,
+      "coins": 0,
+      "badges": [
+        "Premier pas"
+      ],
+      "zones_explored": [],
+      "commands_used": [
+        {
+          "command": "",
+          "timestamp": "2025-09-17T19:47:15.184322"
+        }
+      ],
+      "luna_commands_used": [],
+      "mini_games_completed": [],
+      "daily_challenges_progress": {
+        "hacker_speed": {
+          "progress": 1,
+          "completed": false,
+          "reward_claimed": false
+        },
+        "luna_friend": {
+          "progress": 0,
+          "completed": false,
+          "reward_claimed": false
+        },
+        "explorer": {
+          "progress": 0,
+          "completed": false,
+          "reward_claimed": false
+        },
+        "code_master": {
+          "progress": 0,
+          "completed": false,
+          "reward_claimed": false
+        }
+      },
+      "achievements_unlocked": [
+        "first_step"
+      ],
+      "last_activity": "2025-09-17T19:47:15.185738",
+      "stats": {
+        "total_commands": 1,
+        "total_luna_commands": 0,
+        "total_zones_explored": 0,
+        "total_mini_games": 0,
+        "total_play_time": 0
+      }
+    },
+    "test_user": {
+      "score": 100,
+      "level": 1,
+      "xp": 100,
+      "coins": 0,
+      "badges": [
+        "Premier pas"
+      ],
+      "zones_explored": [],
+      "commands_used": [
+        {
+          "command": "",
+          "timestamp": "2025-09-17T19:47:27.076661"
+        }
+      ],
+      "luna_commands_used": [],
+      "mini_games_completed": [],
+      "daily_challenges_progress": {
+        "hacker_speed": {
+          "progress": 1,
+          "completed": false,
+          "reward_claimed": false
+        },
+        "luna_friend": {
+          "progress": 0,
+          "completed": false,
+          "reward_claimed": false
+        },
+        "explorer": {
+          "progress": 0,
+          "completed": false,
+          "reward_claimed": false
+        },
+        "code_master": {
+          "progress": 0,
+          "completed": false,
+          "reward_claimed": false
+        }
+      },
+      "achievements_unlocked": [
+        "first_step"
+      ],
+      "last_activity": "2025-09-17T19:47:27.077712",
+      "stats": {
+        "total_commands": 1,
         "total_luna_commands": 0,
         "total_zones_explored": 0,
         "total_mini_games": 0,

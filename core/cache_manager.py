@@ -117,7 +117,9 @@ class CacheManager:
         """
         with self.lock:
             total_requests = self.stats["hits"] + self.stats["misses"]
-            hit_rate = (self.stats["hits"] / total_requests * 100) if total_requests > 0 else 0
+            hit_rate = (
+                (self.stats["hits"] / total_requests * 100) if total_requests > 0 else 0
+            )
 
             return {
                 "cache_size": len(self.cache),
@@ -142,7 +144,9 @@ class CacheManager:
         """
         return self.get(f"user_profile:{user_id}")
 
-    def set_user_profile(self, user_id: str, profile: dict[str, Any], ttl: int = 600) -> None:
+    def set_user_profile(
+        self, user_id: str, profile: dict[str, Any], ttl: int = 600
+    ) -> None:
         """
         Met en cache le profil utilisateur
 
@@ -165,7 +169,9 @@ class CacheManager:
         """
         return self.get(f"game_data:{game_id}")
 
-    def set_game_data(self, game_id: str, game_data: dict[str, Any], ttl: int = 1800) -> None:
+    def set_game_data(
+        self, game_id: str, game_data: dict[str, Any], ttl: int = 1800
+    ) -> None:
         """
         Met en cache les données d'un jeu
 
@@ -176,7 +182,9 @@ class CacheManager:
         """
         self.set(f"game_data:{game_id}", game_data, ttl)
 
-    def get_leaderboard(self, leaderboard_type: str = "global") -> Optional[dict[str, Any]]:
+    def get_leaderboard(
+        self, leaderboard_type: str = "global"
+    ) -> Optional[dict[str, Any]]:
         """
         Récupère le classement depuis le cache
 
@@ -188,7 +196,9 @@ class CacheManager:
         """
         return self.get(f"leaderboard:{leaderboard_type}")
 
-    def set_leaderboard(self, leaderboard_type: str, data: dict[str, Any], ttl: int = 300) -> None:
+    def set_leaderboard(
+        self, leaderboard_type: str, data: dict[str, Any], ttl: int = 300
+    ) -> None:
         """
         Met en cache le classement
 

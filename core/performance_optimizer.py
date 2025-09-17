@@ -59,7 +59,9 @@ class PerformanceOptimizer:
 
                         # Garder seulement les 1000 derniers temps de réponse
                         if len(self.metrics["response_times"]) > 1000:
-                            self.metrics["response_times"] = self.metrics["response_times"][-1000:]
+                            self.metrics["response_times"] = self.metrics[
+                                "response_times"
+                            ][-1000:]
 
                         # Enregistrer les requêtes lentes (> 1 seconde)
                         if execution_time > 1.0:
@@ -151,7 +153,10 @@ class PerformanceOptimizer:
         return query
 
     def batch_process(
-        self, items: list[Any], batch_size: int = 100, process_func: Callable = None,
+        self,
+        items: list[Any],
+        batch_size: int = 100,
+        process_func: Callable = None,
     ) -> list[Any]:
         """
         Traite une liste d'éléments par lots pour optimiser les performances
@@ -209,7 +214,9 @@ class PerformanceOptimizer:
                 "min_response_time": round(min_response_time * 1000, 2),  # en ms
                 "error_count": self.metrics["error_count"],
                 "error_rate": (
-                    round(self.metrics["error_count"] / self.metrics["api_calls"] * 100, 2)
+                    round(
+                        self.metrics["error_count"] / self.metrics["api_calls"] * 100, 2
+                    )
                     if self.metrics["api_calls"] > 0
                     else 0
                 ),
@@ -235,9 +242,9 @@ class PerformanceOptimizer:
             Liste des requêtes lentes
         """
         with self.lock:
-            return sorted(self.slow_queries, key=lambda x: x["execution_time"], reverse=True)[
-                :limit
-            ]
+            return sorted(
+                self.slow_queries, key=lambda x: x["execution_time"], reverse=True
+            )[:limit]
 
     def get_recent_errors(self, limit: int = 10) -> list[dict[str, Any]]:
         """
@@ -250,7 +257,9 @@ class PerformanceOptimizer:
             Liste des erreurs récentes
         """
         with self.lock:
-            return sorted(self.error_log, key=lambda x: x["timestamp"], reverse=True)[:limit]
+            return sorted(self.error_log, key=lambda x: x["timestamp"], reverse=True)[
+                :limit
+            ]
 
     def clear_metrics(self):
         """Remet à zéro les métriques"""
@@ -278,7 +287,9 @@ class PerformanceOptimizer:
 
         # Vérifier le temps de réponse moyen
         if stats["average_response_time"] > 500:  # > 500ms
-            suggestions.append("🚨 Temps de réponse élevé - Considérez l'ajout de cache")
+            suggestions.append(
+                "🚨 Temps de réponse élevé - Considérez l'ajout de cache"
+            )
 
         # Vérifier le taux d'erreur
         if stats["error_rate"] > 5:  # > 5%
@@ -295,11 +306,15 @@ class PerformanceOptimizer:
         if total_cache_requests > 0:
             cache_hit_rate = self.metrics["cache_hits"] / total_cache_requests * 100
             if cache_hit_rate < 70:  # < 70%
-                suggestions.append("⚠️ Taux de cache faible - Améliorez la stratégie de cache")
+                suggestions.append(
+                    "⚠️ Taux de cache faible - Améliorez la stratégie de cache"
+                )
 
         # Vérifier la charge
         if stats["calls_per_second"] > 50:
-            suggestions.append("💡 Charge élevée - Considérez la mise en place d'un load balancer")
+            suggestions.append(
+                "💡 Charge élevée - Considérez la mise en place d'un load balancer"
+            )
 
         return suggestions
 

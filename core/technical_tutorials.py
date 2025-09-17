@@ -42,7 +42,9 @@ class TechnicalTutorials:
                 self.player_progress = data.get("player_progress", {})
                 self.quizzes = data.get("quizzes", {})
         except FileNotFoundError:
-            logger.info("Fichier de tutoriels non trouvé, création des données par défaut")
+            logger.info(
+                "Fichier de tutoriels non trouvé, création des données par défaut"
+            )
             self._create_default_tutorials()
         except Exception as e:
             logger.error(f"Erreur chargement tutoriels: {e}")
@@ -358,7 +360,9 @@ class TechnicalTutorials:
 
         return available
 
-    def _check_tutorial_availability(self, player_id: str, tutorial: dict[str, Any]) -> bool:
+    def _check_tutorial_availability(
+        self, player_id: str, tutorial: dict[str, Any]
+    ) -> bool:
         """Vérifie si un tutoriel est disponible pour un joueur"""
         prerequisites = tutorial.get("prerequisites", [])
 
@@ -373,10 +377,14 @@ class TechnicalTutorials:
         if player_id not in self.player_progress:
             return False
 
-        completed_tutorials = self.player_progress[player_id].get("completed_tutorials", [])
+        completed_tutorials = self.player_progress[player_id].get(
+            "completed_tutorials", []
+        )
         return prereq in completed_tutorials
 
-    def _format_tutorial(self, tutorial: dict[str, Any], player_id: str) -> dict[str, Any]:
+    def _format_tutorial(
+        self, tutorial: dict[str, Any], player_id: str
+    ) -> dict[str, Any]:
         """Formate un tutoriel pour l'affichage"""
         concept = self.concepts.get(tutorial.get("concept", ""), {})
 
@@ -391,7 +399,9 @@ class TechnicalTutorials:
             "progress": self._calculate_tutorial_progress(player_id, tutorial["id"]),
         }
 
-    def _calculate_tutorial_progress(self, player_id: str, tutorial_id: str) -> dict[str, Any]:
+    def _calculate_tutorial_progress(
+        self, player_id: str, tutorial_id: str
+    ) -> dict[str, Any]:
         """Calcule la progression d'un tutoriel"""
         if player_id not in self.player_progress:
             return {"percentage": 0, "completed": False, "current_step": 0}
@@ -449,7 +459,10 @@ class TechnicalTutorials:
         }
 
     def get_tutorial_content(
-        self, player_id: str, tutorial_id: str, step: int = 0,
+        self,
+        player_id: str,
+        tutorial_id: str,
+        step: int = 0,
     ) -> dict[str, Any]:
         """Retourne le contenu d'un tutoriel à une étape donnée"""
         if tutorial_id not in self.tutorials:
@@ -475,7 +488,9 @@ class TechnicalTutorials:
             "progress": self._calculate_tutorial_progress(player_id, tutorial_id),
         }
 
-    def _check_step_availability(self, player_id: str, tutorial_id: str, step: int) -> bool:
+    def _check_step_availability(
+        self, player_id: str, tutorial_id: str, step: int
+    ) -> bool:
         """Vérifie si une étape est débloquée"""
         if player_id not in self.player_progress:
             return False
@@ -557,7 +572,10 @@ class TechnicalTutorials:
         }
 
     def submit_quiz(
-        self, player_id: str, tutorial_id: str, answers: dict[str, int],
+        self,
+        player_id: str,
+        tutorial_id: str,
+        answers: dict[str, int],
     ) -> dict[str, Any]:
         """Soumet les réponses d'un quiz"""
         if tutorial_id not in self.tutorials:
@@ -594,8 +612,12 @@ class TechnicalTutorials:
 
         # Marquer le quiz comme terminé
         if tutorial_id in self.player_progress[player_id]["tutorials"]:
-            self.player_progress[player_id]["tutorials"][tutorial_id]["quiz_completed"] = True
-            self.player_progress[player_id]["tutorials"][tutorial_id]["quiz_score"] = score
+            self.player_progress[player_id]["tutorials"][tutorial_id][
+                "quiz_completed"
+            ] = True
+            self.player_progress[player_id]["tutorials"][tutorial_id][
+                "quiz_score"
+            ] = score
 
         return {
             "success": True,

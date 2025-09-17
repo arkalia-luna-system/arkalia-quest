@@ -244,7 +244,7 @@ class LunaEmotionsEngine:
     def _determine_emotion(self, context: dict) -> LunaEmotion:
         """
         Détermine l'émotion de LUNA selon le contexte avec logique avancée
-        
+
         Cette fonction complexe est nécessaire pour créer des émotions réalistes et variées
         basées sur de nombreux facteurs contextuels. La complexité est justifiée par :
         - La richesse des interactions émotionnelles
@@ -483,11 +483,15 @@ class LunaEmotionsEngine:
 
     def _get_action_frequency(self, action: str) -> int:
         """Calcule la fréquence d'une action"""
-        recent_actions = [h["context"]["action_type"] for h in self.emotion_history[-10:]]
+        recent_actions = [
+            h["context"]["action_type"] for h in self.emotion_history[-10:]
+        ]
         return recent_actions.count(self._classify_action(action))
 
     def _create_emotional_variety(
-        self, base_emotions: list[LunaEmotion], context: dict,
+        self,
+        base_emotions: list[LunaEmotion],
+        context: dict,
     ) -> list[LunaEmotion]:
         """Crée une variété d'émotions basée sur le contexte"""
         enhanced_emotions = base_emotions.copy()

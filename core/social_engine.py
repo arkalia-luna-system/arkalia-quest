@@ -76,7 +76,9 @@ class SocialEngine:
                 json.dump(self.guilds, f, indent=2, ensure_ascii=False)
 
             # Sauvegarder les défis
-            with open(os.path.join("data", "challenges.json"), "w", encoding="utf-8") as f:
+            with open(
+                os.path.join("data", "challenges.json"), "w", encoding="utf-8"
+            ) as f:
                 json.dump(self.challenges, f, indent=2, ensure_ascii=False)
 
             # Sauvegarder les événements
@@ -120,7 +122,10 @@ class SocialEngine:
     # ===== SYSTÈME DE GUILDES =====
 
     def create_guild(
-        self, creator_id: str, guild_name: str, description: str = "",
+        self,
+        creator_id: str,
+        guild_name: str,
+        description: str = "",
     ) -> dict[str, Any]:
         """Crée une nouvelle guilde"""
         guild_id = str(uuid.uuid4())
@@ -169,7 +174,9 @@ class SocialEngine:
         self.save_social_data()
 
         # Ajouter message de bienvenue
-        self.add_guild_message(guild_id, "system", f"🎉 {player_id} a rejoint la guilde !")
+        self.add_guild_message(
+            guild_id, "system", f"🎉 {player_id} a rejoint la guilde !"
+        )
 
         return {
             "success": True,
@@ -201,7 +208,11 @@ class SocialEngine:
         return {"success": True, "message": "Vous avez quitté la guilde"}
 
     def add_guild_message(
-        self, guild_id: str, sender: str, message: str, message_type: str = "chat",
+        self,
+        guild_id: str,
+        sender: str,
+        message: str,
+        message_type: str = "chat",
     ):
         """Ajoute un message au chat de guilde"""
         if guild_id not in self.guilds:
@@ -242,7 +253,11 @@ class SocialEngine:
                         "role": (
                             "creator"
                             if guild["creator"] == player_id
-                            else ("officer" if player_id in guild["officers"] else "member")
+                            else (
+                                "officer"
+                                if player_id in guild["officers"]
+                                else "member"
+                            )
                         ),
                         "level": guild["level"],
                         "member_count": len(guild["members"]),
@@ -254,7 +269,9 @@ class SocialEngine:
     # ===== SYSTÈME DE DÉFIS COOPÉRATIFS =====
 
     def create_coop_challenge(
-        self, creator_id: str, challenge_data: dict[str, Any],
+        self,
+        creator_id: str,
+        challenge_data: dict[str, Any],
     ) -> dict[str, Any]:
         """Crée un défi coopératif"""
         challenge_id = str(uuid.uuid4())
@@ -305,7 +322,9 @@ class SocialEngine:
         challenge["progress"][player_id] = {"status": "active", "contribution": 0}
 
         # Message dans le chat du défi
-        self.add_challenge_message(challenge_id, "system", f"🎯 {player_id} a rejoint le défi !")
+        self.add_challenge_message(
+            challenge_id, "system", f"🎯 {player_id} a rejoint le défi !"
+        )
 
         self.save_social_data()
 
@@ -334,7 +353,10 @@ class SocialEngine:
         self.save_social_data()
 
     def update_challenge_progress(
-        self, challenge_id: str, player_id: str, progress_data: dict[str, Any],
+        self,
+        challenge_id: str,
+        player_id: str,
+        progress_data: dict[str, Any],
     ) -> dict[str, Any]:
         """Met à jour le progrès d'un joueur dans un défi"""
         if challenge_id not in self.challenges:
@@ -437,7 +459,10 @@ class SocialEngine:
         return {"success": True, "message": "Vous avez rejoint l'événement !"}
 
     def update_event_progress(
-        self, event_id: str, player_id: str, contribution: int,
+        self,
+        event_id: str,
+        player_id: str,
+        contribution: int,
     ) -> dict[str, Any]:
         """Met à jour le progrès d'un joueur dans un événement"""
         current_season = self.get_current_season()
@@ -489,7 +514,10 @@ class SocialEngine:
     # ===== SYSTÈME DE CHAT SÉCURISÉ =====
 
     def send_global_message(
-        self, sender_id: str, message: str, message_type: str = "chat",
+        self,
+        sender_id: str,
+        message: str,
+        message_type: str = "chat",
     ) -> dict[str, Any]:
         """Envoie un message dans le chat global"""
         # Validation du message
@@ -575,7 +603,8 @@ class SocialEngine:
     def get_player_relationships(self, player_id: str) -> dict[str, Any]:
         """Retourne les relations d'un joueur"""
         return self.player_relationships.get(
-            player_id, {"friends": [], "blocked": [], "rivals": []},
+            player_id,
+            {"friends": [], "blocked": [], "rivals": []},
         )
 
     # ===== API PUBLIQUE =====
@@ -595,7 +624,9 @@ class SocialEngine:
             ],
             "seasonal_events": [
                 e
-                for e in self.season_data.get(current_season, {}).get("seasonal_events", [])
+                for e in self.season_data.get(current_season, {}).get(
+                    "seasonal_events", []
+                )
                 if player_id in e["participants"]
             ],
             "recent_messages": self.get_recent_messages(20),

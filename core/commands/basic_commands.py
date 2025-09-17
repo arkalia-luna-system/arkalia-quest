@@ -235,8 +235,11 @@ la vérité sur NEXUS et la menace de PANDORA.
                 + "\n".join(["• " + badge for badge in badges])
             )
         else:
-            badges_text = f"🎖️ {len(badges)} badges - Collection impressionnante !\n" + "\n".join(
-                ["• " + badge for badge in badges],
+            badges_text = (
+                f"🎖️ {len(badges)} badges - Collection impressionnante !\n"
+                + "\n".join(
+                    ["• " + badge for badge in badges],
+                )
             )
 
         # Messages pour la progression
@@ -248,14 +251,16 @@ la vérité sur NEXUS et la menace de PANDORA.
         if univers_count == 1:
             univers_message = "🌌 Base Arkalia - Ton point de départ !"
         else:
-            univers_message = f"🌌 {univers_count} univers débloqués - Explorateur confirmé !"
+            univers_message = (
+                f"🌌 {univers_count} univers débloqués - Explorateur confirmé !"
+            )
 
         if portails_count == 0:
-            portail_message = "🚪 Aucun portail ouvert - Tes premiers portails t'attendent !"
-        else:
             portail_message = (
-                f"🚪 {portails_count} portail(s) ouvert(s) - Tu maîtrises les dimensions !"
+                "🚪 Aucun portail ouvert - Tes premiers portails t'attendent !"
             )
+        else:
+            portail_message = f"🚪 {portails_count} portail(s) ouvert(s) - Tu maîtrises les dimensions !"
 
         return {
             "réussite": True,
@@ -278,7 +283,9 @@ la vérité sur NEXUS et la menace de PANDORA.
         """Gère la commande status avec des réponses contextuelles engageantes"""
         score = profile.get("score", 0)
         badges = profile.get("badges", [])
-        univers = profile.get("progression", {}).get("univers_debloques", ["arkalia_base"])
+        univers = profile.get("progression", {}).get(
+            "univers_debloques", ["arkalia_base"]
+        )
         portails = profile.get("progression", {}).get("portails_ouverts", [])
 
         # Calcul du niveau avec messages contextuels
@@ -287,19 +294,23 @@ la vérité sur NEXUS et la menace de PANDORA.
 
         # Messages contextuels pour le niveau
         if niveau == 1:
-            level_message = f"🌟 Niveau {niveau} - Débutant (Progression : {progression:.1f}%)"
-        elif niveau < 5:
             level_message = (
-                f"🚀 Niveau {niveau} - En progression (Progression : {progression:.1f}%)"
+                f"🌟 Niveau {niveau} - Débutant (Progression : {progression:.1f}%)"
             )
+        elif niveau < 5:
+            level_message = f"🚀 Niveau {niveau} - En progression (Progression : {progression:.1f}%)"
         else:
-            level_message = f"🔥 Niveau {niveau} - Expert (Progression : {progression:.1f}%)"
+            level_message = (
+                f"🔥 Niveau {niveau} - Expert (Progression : {progression:.1f}%)"
+            )
 
         # Messages pour les badges
         if not badges:
             badge_message = "🎖️ Aucun badge encore - Tes premiers exploits t'attendent !"
         elif len(badges) < 5:
-            badge_message = f"🎖️ {len(badges)} badge(s) - Tu commences à te faire remarquer !"
+            badge_message = (
+                f"🎖️ {len(badges)} badge(s) - Tu commences à te faire remarquer !"
+            )
         else:
             badge_message = f"🎖️ {len(badges)} badges - Collection impressionnante !"
 
@@ -307,17 +318,21 @@ la vérité sur NEXUS et la menace de PANDORA.
         if len(univers) == 1:
             univers_message = "🌌 Base Arkalia - Ton point de départ !"
         else:
-            univers_message = f"🌌 {len(univers)} univers débloqués - Explorateur confirmé !"
+            univers_message = (
+                f"🌌 {len(univers)} univers débloqués - Explorateur confirmé !"
+            )
 
         # Messages pour les portails
         if not portails:
-            portail_message = "🚪 Aucun portail ouvert - Tes premiers portails t'attendent !"
-        elif len(portails) < 5:
             portail_message = (
-                f"🚪 {len(portails)} portail(s) ouvert(s) - Tu maîtrises les dimensions !"
+                "🚪 Aucun portail ouvert - Tes premiers portails t'attendent !"
             )
+        elif len(portails) < 5:
+            portail_message = f"🚪 {len(portails)} portail(s) ouvert(s) - Tu maîtrises les dimensions !"
         else:
-            portail_message = f"🚪 {len(portails)} portails ouverts - Maître des dimensions !"
+            portail_message = (
+                f"🚪 {len(portails)} portails ouverts - Maître des dimensions !"
+            )
 
         return {
             "réussite": True,
@@ -384,10 +399,16 @@ la vérité sur NEXUS et la menace de PANDORA.
             ]
             for theme in available:
                 status = "✅" if theme.get("unlocked") else "🔓"
-                lines.append(f"{status} {theme.get('name','Thème')} — id: {theme.get('id','?')}")
+                lines.append(
+                    f"{status} {theme.get('name','Thème')} — id: {theme.get('id','?')}"
+                )
 
-            lines.append("\n💡 Utilise l’interface Accessibilité pour changer de thème.")
-            lines.append("🌟 Exemple: active le thème Matrix pour le style terminal vert.")
+            lines.append(
+                "\n💡 Utilise l’interface Accessibilité pour changer de thème."
+            )
+            lines.append(
+                "🌟 Exemple: active le thème Matrix pour le style terminal vert."
+            )
 
             return {
                 "réussite": True,
@@ -646,13 +667,24 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
         }
 
         for badge in badges:
-            if any(word in badge.lower() for word in ["débutant", "contacté", "tutoriel"]):
+            if any(
+                word in badge.lower() for word in ["débutant", "contacté", "tutoriel"]
+            ):
                 categories["Débutant"].append(badge)
-            elif any(word in badge.lower() for word in ["explorateur", "navigateur", "univers"]):
+            elif any(
+                word in badge.lower()
+                for word in ["explorateur", "navigateur", "univers"]
+            ):
                 categories["Explorateur"].append(badge)
-            elif any(word in badge.lower() for word in ["hacker", "system", "web", "log", "email"]):
+            elif any(
+                word in badge.lower()
+                for word in ["hacker", "system", "web", "log", "email"]
+            ):
                 categories["Hacker"].append(badge)
-            elif any(word in badge.lower() for word in ["luna", "émotion", "active", "analysé"]):
+            elif any(
+                word in badge.lower()
+                for word in ["luna", "émotion", "active", "analysé"]
+            ):
                 categories["LUNA"].append(badge)
             else:
                 categories["Spécial"].append(badge)

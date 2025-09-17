@@ -138,7 +138,10 @@ class ProgressionEngine:
         }
 
     def update_player_progression(
-        self, player_id: str, action: str, metadata: dict[str, Any] = None,
+        self,
+        player_id: str,
+        action: str,
+        metadata: dict[str, Any] = None,
     ) -> dict[str, Any]:
         """Met à jour la progression d'un joueur"""
         if player_id not in self.progression_data["players"]:
@@ -237,17 +240,17 @@ class ProgressionEngine:
             skill = metadata.get("skill", "")
             new_level = metadata.get("new_level", 1)
             xp_cost = metadata.get("xp_cost", 0)
-            
+
             # Dépenser l'XP
             player["xp"] = max(0, player["xp"] - xp_cost)
-            
+
             # Mettre à jour les compétences
             if "skills" not in player:
                 player["skills"] = {}
             if category not in player["skills"]:
                 player["skills"][category] = {}
             player["skills"][category][skill] = new_level
-            
+
             # Vérifier si le niveau du joueur a changé
             new_player_level = self.calculate_level_from_xp(player["xp"])
             if new_player_level > player["level"]:
@@ -263,11 +266,16 @@ class ProgressionEngine:
         return {
             "success": True,
             "player": player,
-            "level_up": (new_level > player["level"] if action == "score_earned" else False),
+            "level_up": (
+                new_level > player["level"] if action == "score_earned" else False
+            ),
         }
 
     def update_daily_challenges_progress(
-        self, player_id: str, action: str, metadata: dict[str, Any] = None,
+        self,
+        player_id: str,
+        action: str,
+        metadata: dict[str, Any] = None,
     ):
         """Met à jour la progression des défis quotidiens"""
         player = self.progression_data["players"][player_id]
@@ -291,29 +299,46 @@ class ProgressionEngine:
             progress = player["daily_challenges_progress"][challenge_id]
 
             # Mettre à jour selon le type de défi
-            if (challenge["type"] == "command_count" and action == "command_used") or (
-                challenge["type"] == "luna_commands"
-                and action == "command_used"
-                and "luna" in metadata.get("command", "").lower()
-            ) or (challenge["type"] == "zones_explored" and action == "zone_explored") or (challenge["type"] == "mini_games" and action == "mini_game_completed"):
+            if (
+                (challenge["type"] == "command_count" and action == "command_used")
+                or (
+                    challenge["type"] == "luna_commands"
+                    and action == "command_used"
+                    and "luna" in metadata.get("command", "").lower()
+                )
+                or (challenge["type"] == "zones_explored" and action == "zone_explored")
+                or (
+                    challenge["type"] == "mini_games"
+                    and action == "mini_game_completed"
+                )
+            ):
                 progress["progress"] += 1
 
             # Vérifier si le défi est complété
-            if progress["progress"] >= challenge["target"] and not progress["completed"]:
+            if (
+                progress["progress"] >= challenge["target"]
+                and not progress["completed"]
+            ):
                 progress["completed"] = True
                 # Donner la récompense
                 reward = challenge["reward"]
                 if "xp" in reward:
                     self.update_player_progression(
-                        player_id, "score_earned", {"points": reward["xp"]},
+                        player_id,
+                        "score_earned",
+                        {"points": reward["xp"]},
                     )
                 if "coins" in reward:
                     self.update_player_progression(
-                        player_id, "coins_earned", {"coins": reward["coins"]},
+                        player_id,
+                        "coins_earned",
+                        {"coins": reward["coins"]},
                     )
                 if "badge" in reward:
                     self.update_player_progression(
-                        player_id, "badge_earned", {"badge": reward["badge"]},
+                        player_id,
+                        "badge_earned",
+                        {"badge": reward["badge"]},
                     )
 
     def check_daily_challenges_completion(self, player_id: str):
@@ -388,7 +413,10 @@ class ProgressionEngine:
             and "speed_demon" not in player["achievements_unlocked"]
         ):
             self.unlock_achievement(
-                player_id, "speed_demon", "Speed Demon", "10 commandes utilisées !",
+                player_id,
+                "speed_demon",
+                "Speed Demon",
+                "10 commandes utilisées !",
             )
 
         # Achievement: LUNA Friend
@@ -397,7 +425,10 @@ class ProgressionEngine:
             and "luna_friend" not in player["achievements_unlocked"]
         ):
             self.unlock_achievement(
-                player_id, "luna_friend", "LUNA Friend", "5 commandes LUNA utilisées !",
+                player_id,
+                "luna_friend",
+                "LUNA Friend",
+                "5 commandes LUNA utilisées !",
             )
 
         # Achievement: Explorer
@@ -405,7 +436,9 @@ class ProgressionEngine:
             player["stats"]["total_zones_explored"] >= 3
             and "explorer" not in player["achievements_unlocked"]
         ):
-            self.unlock_achievement(player_id, "explorer", "Explorer", "3 zones explorées !")
+            self.unlock_achievement(
+                player_id, "explorer", "Explorer", "3 zones explorées !"
+            )
 
     def calculate_level_from_xp(self, xp: int) -> int:
         """Calcule le niveau du joueur basé sur son XP"""
@@ -413,7 +446,9 @@ class ProgressionEngine:
         level = int((xp / 100) ** 0.5) + 1
         return max(1, level)  # Niveau minimum de 1
 
-    def unlock_achievement(self, player_id: str, achievement_id: str, name: str, description: str):
+    def unlock_achievement(
+        self, player_id: str, achievement_id: str, name: str, description: str
+    ):
         """Débloque un achievement"""
         player = self.progression_data["players"][player_id]
 
@@ -429,7 +464,9 @@ class ProgressionEngine:
     def get_player_progression(self, player_id: str) -> dict[str, Any]:
         """Récupère la progression d'un joueur"""
         if player_id not in self.progression_data["players"]:
-            return self.update_player_progression(player_id, "command_used", {})["player"]
+            return self.update_player_progression(player_id, "command_used", {})[
+                "player"
+            ]
         return self.progression_data["players"][player_id]
 
     def get_daily_challenges(self, player_id: str) -> dict[str, Any]:

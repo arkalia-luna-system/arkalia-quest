@@ -161,10 +161,10 @@ def before_request():
 def _check_ip_security() -> bool:
     """Vérifie si l'IP est autorisée"""
     client_ip = request.environ.get("HTTP_X_FORWARDED_FOR", request.remote_addr)
-    
+
     if security_enhanced and hasattr(security_enhanced, "is_ip_blocked"):
         return not security_enhanced.is_ip_blocked(client_ip)
-    
+
     return True
 
 
@@ -172,24 +172,26 @@ def _validate_json_inputs():
     """Valide les entrées JSON si nécessaire"""
     if request.method not in ["POST", "PUT", "PATCH"]:
         return True
-        
+
     if not request.is_json:
         return True
-        
-    if request.path.startswith("/api/educational-games") or request.path.startswith("/api/luna-v3/"):
+
+    if request.path.startswith("/api/educational-games") or request.path.startswith(
+        "/api/luna-v3/"
+    ):
         return True
-        
+
     data = request.get_json()
     if not data:
         return True
-        
+
     for key, value in data.items():
         if isinstance(value, str):
             input_type = _get_input_type(key)
             is_valid, error_msg = security_enhanced.validate_input(input_type, value)
             if not is_valid:
                 return jsonify({"error": f"Entrée invalide ({key}): {error_msg}"}), 400
-                
+
     return True
 
 
@@ -211,33 +213,47 @@ def _get_input_type(key: str) -> str:
 def _validate_command_data(data):
     """Valide les données de commande et retourne la commande ou une erreur"""
     if not data or not isinstance(data, dict):
-        return None, _error_response("❌ Données invalides. Envoie un objet JSON valide.", 400)
+        return None, _error_response(
+            "❌ Données invalides. Envoie un objet JSON valide.", 400
+        )
 
     cmd = data.get("cmd", data.get("commande", ""))
-    
+
     if not isinstance(cmd, str):
-        return None, _error_response("❌ Commande invalide. La commande doit être une chaîne de caractères.", 400)
+        return None, _error_response(
+            "❌ Commande invalide. La commande doit être une chaîne de caractères.", 400
+        )
 
     cmd = cmd.strip()
-    
+
     if not cmd:
-        return None, _error_response("❌ Commande vide. Utilise la clé 'commande' ou 'cmd' avec une valeur non vide.", 400)
+        return None, _error_response(
+            "❌ Commande vide. Utilise la clé 'commande' ou 'cmd' avec une valeur non vide.",
+            400,
+        )
 
     if len(cmd) > 1000:
-        return None, _error_response("❌ Commande trop longue. Maximum 1000 caractères.", 400)
+        return None, _error_response(
+            "❌ Commande trop longue. Maximum 1000 caractères.", 400
+        )
 
     return cmd, None
 
 
 def _error_response(message, status_code):
     """Crée une réponse d'erreur standardisée"""
-    return jsonify({
-        "reponse": {
-            "réussite": False,
-            "message": message,
-            "profile_updated": False,
-        },
-    }), status_code
+    return (
+        jsonify(
+            {
+                "reponse": {
+                    "réussite": False,
+                    "message": message,
+                    "profile_updated": False,
+                },
+            }
+        ),
+        status_code,
+    )
 
 
 def _check_command_security(cmd, client_ip):
@@ -246,7 +262,8 @@ def _check_command_security(cmd, client_ip):
     if not security_check["is_safe"]:
         if security_check["risk_level"] == "critical":
             security_manager.block_ip(
-                client_ip, f"Commande dangereuse: {security_check['threats_detected']}",
+                client_ip,
+                f"Commande dangereuse: {security_check['threats_detected']}",
             )
         return _error_response("❌ Commande rejetée pour des raisons de sécurité.", 400)
     return None
@@ -271,9 +288,14 @@ def _update_gamification(cmd, profil, reponse):
     """Met à jour la gamification (badges et achievements)"""
     if reponse.get("réussite", False):
         # Vérifier les badges secrets et achievements
-        unlocked_badges = gamification.check_badges_secrets(profil, "command_used", command=cmd)
+        unlocked_badges = gamification.check_badges_secrets(
+            profil, "command_used", command=cmd
+        )
         unlocked_achievements = gamification.check_achievements(
-            profil.get("id", "default"), profil, "command_used", command=cmd,
+            profil.get("id", "default"),
+            profil,
+            "command_used",
+            command=cmd,
         )
 
         # Ajouter les nouveaux badges et achievements
@@ -286,7 +308,7 @@ def _update_gamification(cmd, profil, reponse):
         if reponse.get("profile_updated", False):
             session["profile"] = reponse.get("profile", profil)
             sauvegarder_profil(reponse.get("profile", profil))
-    
+
     return reponse
 
 
@@ -301,7 +323,9 @@ def after_request(response):
     response.headers["Content-Security-Policy"] = (
         "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'"
     )
-    response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+    response.headers["Strict-Transport-Security"] = (
+        "max-age=31536000; includeSubDomains"
+    )
     response.headers["Permissions-Policy"] = "geolocation=(), microphone=(), camera=()"
 
     # Ajouter des headers de cache pour les assets statiques
@@ -347,7 +371,9 @@ def monitor_performance(name):
 
 # Assurer un stub du performance optimizer pour les décorateurs en environnement de test
 if "performance_optimizer" in globals() and performance_optimizer is None:
-    performance_optimizer = types.SimpleNamespace(monitor_performance=monitor_performance)
+    performance_optimizer = types.SimpleNamespace(
+        monitor_performance=monitor_performance
+    )
 
 
 # Variables de disponibilité des modules
@@ -370,12 +396,16 @@ def add_security_headers(response):
         response.headers["X-Content-Type-Options"] = "nosniff"
         response.headers["X-Frame-Options"] = "DENY"
         response.headers["X-XSS-Protection"] = "1; mode=block"
-        response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+        response.headers["Strict-Transport-Security"] = (
+            "max-age=31536000; includeSubDomains"
+        )
         response.headers["Content-Security-Policy"] = (
             "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self';"
         )
         response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
-        response.headers["Permissions-Policy"] = "geolocation=(), microphone=(), camera=()"
+        response.headers["Permissions-Policy"] = (
+            "geolocation=(), microphone=(), camera=()"
+        )
     return response
 
 
@@ -497,14 +527,19 @@ def charger_profil():
             "personnalite": {
                 "type": "non_detecte",
                 "traits": [],
-                "missions_completees": progression_data.get("achievements_unlocked", []),
+                "missions_completees": progression_data.get(
+                    "achievements_unlocked", []
+                ),
                 "monde_debloque": "arkalia_base",
             },
             "progression": {
                 "niveau": progression_data.get("level", 1),
                 "experience": progression_data.get("xp", 0),
-                "missions_completees": len(progression_data.get("achievements_unlocked", [])),
-                "univers_debloques": ["arkalia_base"] + progression_data.get("zones_explored", []),
+                "missions_completees": len(
+                    progression_data.get("achievements_unlocked", [])
+                ),
+                "univers_debloques": ["arkalia_base"]
+                + progression_data.get("zones_explored", []),
                 "portails_ouverts": [],
                 "zones_debloquees": [],
             },
@@ -667,14 +702,18 @@ def executer_chapitre_6(etape):
     if etape == "introduction":
         return {
             "chapitre_6": True,
-            "message": chapitre.get("introduction", {}).get("message", "Chapitre 6 lancé"),
+            "message": chapitre.get("introduction", {}).get(
+                "message", "Chapitre 6 lancé"
+            ),
             "urgence": "CRITIQUE",
             "timer": chapitre.get("timer", 30),
         }
     if etape == "mission_principale":
         return {
             "mission_principale": True,
-            "commande": chapitre.get("mission_principale", {}).get("commande", "save_luna"),
+            "commande": chapitre.get("mission_principale", {}).get(
+                "commande", "save_luna"
+            ),
             "timer": chapitre.get("mission_principale", {}).get("timer", 30),
             "difficulte": "extreme",
         }
@@ -803,11 +842,15 @@ def api_accessibility_save():
         profil["accessibility"] = accessibility_prefs
         sauvegarder_profil(profil)
 
-        return jsonify({"success": True, "message": "Préférences d'accessibilité sauvegardées"})
+        return jsonify(
+            {"success": True, "message": "Préférences d'accessibilité sauvegardées"}
+        )
     except Exception as e:
         game_logger.error(f"Erreur sauvegarde accessibilité: {e}")
         return (
-            jsonify({"success": False, "message": "Erreur interne lors de l'enregistrement"}),
+            jsonify(
+                {"success": False, "message": "Erreur interne lors de l'enregistrement"}
+            ),
             500,
         )
 
@@ -920,7 +963,7 @@ def test_commande():
 def commande():
     """Route principale pour l'exécution des commandes"""
     data = request.get_json()
-    
+
     # Validation des données
     cmd, error_response = _validate_command_data(data)
     if error_response:
@@ -933,7 +976,8 @@ def commande():
         # Bloquer l'IP si menace critique
         if security_check["risk_level"] == "critical":
             security_manager.block_ip(
-                client_ip, f"Commande dangereuse: {security_check['threats_detected']}",
+                client_ip,
+                f"Commande dangereuse: {security_check['threats_detected']}",
             )
 
         return (
@@ -979,9 +1023,14 @@ def commande():
             gamification.update_leaderboard(profil.get("id", "default"), profil)
 
             # Vérifier les badges secrets et achievements
-            unlocked_badges = gamification.check_badges_secrets(profil, "command_used", command=cmd)
+            unlocked_badges = gamification.check_badges_secrets(
+                profil, "command_used", command=cmd
+            )
             unlocked_achievements = gamification.check_achievements(
-                profil.get("id", "default"), profil, "command_used", command=cmd,
+                profil.get("id", "default"),
+                profil,
+                "command_used",
+                command=cmd,
             )
 
             # Ajouter les badges débloqués au profil
@@ -1038,7 +1087,9 @@ def get_profile_summary():
                 "score": profil.get("score", 0),
                 "badges": profil.get("badges", []),
                 "missions_completees": len(profil.get("missions_completed", [])),
-                "personnalite": profil.get("personnalite", {"type": "non_detecte", "traits": []}),
+                "personnalite": profil.get(
+                    "personnalite", {"type": "non_detecte", "traits": []}
+                ),
                 "created_at": profil.get("created_at", "2025-01-01T00:00:00"),
                 "last_login": profil.get("last_login", "2025-01-01T00:00:00"),
             },
@@ -1245,7 +1296,9 @@ def get_gamification_leaderboard():
 
         if total_players > 0:
             try:
-                level_sum = sum(int(p.get("level", 1)) for p in players_list if isinstance(p, dict))
+                level_sum = sum(
+                    int(p.get("level", 1)) for p in players_list if isinstance(p, dict)
+                )
                 avg_level = level_sum / total_players
             except (ValueError, TypeError):
                 avg_level = 1
@@ -1255,7 +1308,9 @@ def get_gamification_leaderboard():
             "total_score": int(stats.get("total_score", 0)),
             "avg_level": round(avg_level, 1),
             "total_badges": sum(
-                int(p.get("badges_count", 0)) for p in players_list if isinstance(p, dict)
+                int(p.get("badges_count", 0))
+                for p in players_list
+                if isinstance(p, dict)
             ),
         }
 
@@ -1309,26 +1364,30 @@ def api_skill_tree():
                 "skills": {},
             },
         )
-        
+
         # Synchroniser avec les données de progression réelles
         player_id = profile.get("id", "default")
         player_data = progression_engine.get_player_progression(player_id)
-        
+
         # Mettre à jour le profil avec les données réelles
-        profile.update({
-            "level": player_data.get("level", 1),
-            "xp": player_data.get("xp", 0),
-            "score": player_data.get("score", 0),
-            "coins": player_data.get("coins", 0),
-            "badges": player_data.get("badges", []),
-            "skills": player_data.get("skills", {})
-        })
-        
+        profile.update(
+            {
+                "level": player_data.get("level", 1),
+                "xp": player_data.get("xp", 0),
+                "score": player_data.get("score", 0),
+                "coins": player_data.get("coins", 0),
+                "badges": player_data.get("badges", []),
+                "skills": player_data.get("skills", {}),
+            }
+        )
+
         # Mettre à jour la session
         session["profile"] = profile
-        
+
         skill_tree_data = enhanced_mission_system.get_skill_tree(profile)
-        return jsonify({"success": True, "skill_tree": skill_tree_data, "player_data": player_data})
+        return jsonify(
+            {"success": True, "skill_tree": skill_tree_data, "player_data": player_data}
+        )
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
 
@@ -1345,52 +1404,70 @@ def api_skill_tree_upgrade():
             return jsonify({"error": "Category et skill requis"}), 400
 
         # Récupérer le profil du joueur depuis la session
-        profile = session.get("profile", {
-            "username": "default_user",
-            "level": 1,
-            "xp": 0,
-            "badges": [],
-            "missions_completed": [],
-            "skills": {},
-        })
+        profile = session.get(
+            "profile",
+            {
+                "username": "default_user",
+                "level": 1,
+                "xp": 0,
+                "badges": [],
+                "missions_completed": [],
+                "skills": {},
+            },
+        )
 
         # Récupérer les données de progression réelles
         player_id = profile.get("id", "default")
         player_data = progression_engine.get_player_progression(player_id)
-        
+
         # Vérifier si le joueur a assez d'XP
         current_xp = player_data.get("xp", 0)
         skill_data = enhanced_mission_system.get_skill_tree(profile)
-        
+
         if category not in skill_data or skill not in skill_data[category]["skills"]:
             return jsonify({"error": "Compétence non trouvée"}), 400
-            
+
         skill_info = skill_data[category]["skills"][skill]
         current_level = skill_info.get("level", 0)
         max_level = skill_info.get("max_level", 5)
-        
+
         if current_level >= max_level:
             return jsonify({"error": "Compétence déjà au niveau maximum"}), 400
-            
+
         # Calculer le coût XP pour le prochain niveau
         xp_required = skill_info.get("xp_required", [0, 100, 250, 500, 1000])
-        next_level_xp = xp_required[current_level + 1] if current_level + 1 < len(xp_required) else xp_required[-1]
-        
+        next_level_xp = (
+            xp_required[current_level + 1]
+            if current_level + 1 < len(xp_required)
+            else xp_required[-1]
+        )
+
         if current_xp < next_level_xp:
-            return jsonify({"error": f"XP insuffisant. Nécessaire: {next_level_xp}, Disponible: {current_xp}"}), 400
+            return (
+                jsonify(
+                    {
+                        "error": f"XP insuffisant. Nécessaire: {next_level_xp}, Disponible: {current_xp}"
+                    }
+                ),
+                400,
+            )
 
         # Effectuer l'upgrade
         new_level = current_level + 1
         xp_cost = next_level_xp
-        
+
         # Mettre à jour les données de progression
-        progression_engine.update_player_progression(player_id, "skill_upgrade", {
-            "category": category,
-            "skill": skill,
-            "new_level": new_level,
-            "xp_cost": xp_cost
-        })
-        
+        progression_engine.update_player_progression(
+            player_id,
+            "skill_upgrade",
+            {
+                "category": category,
+                "skill": skill,
+                "new_level": new_level,
+                "xp_cost": xp_cost,
+            },
+        )
+
         # Mettre à jour le profil de session
         if "skills" not in profile:
             profile["skills"] = {}
@@ -1398,14 +1475,14 @@ def api_skill_tree_upgrade():
             profile["skills"][category] = {}
         profile["skills"][category][skill] = new_level
         profile["xp"] = current_xp - xp_cost
-        
+
         # Sauvegarder le profil mis à jour
         session["profile"] = profile
-        
+
         # Vérifier si un niveau de joueur a été atteint
         new_player_level = progression_engine.calculate_level_from_xp(profile["xp"])
         level_up = new_player_level > player_data.get("level", 1)
-        
+
         result = {
             "success": True,
             "message": f"Compétence {skill} améliorée au niveau {new_level} !",
@@ -1413,7 +1490,7 @@ def api_skill_tree_upgrade():
             "xp_cost": xp_cost,
             "remaining_xp": profile["xp"],
             "level_up": level_up,
-            "new_player_level": new_player_level if level_up else None
+            "new_player_level": new_player_level if level_up else None,
         }
 
         return jsonify(result)
@@ -1426,62 +1503,25 @@ def api_sync_progression():
     """API pour synchroniser les données de progression"""
     try:
         # Récupérer le profil du joueur depuis la session
-        profile = session.get("profile", {
-            "username": "default_user",
-            "level": 1,
-            "xp": 0,
-            "badges": [],
-            "missions_completed": [],
-            "skills": {},
-        })
-        
-        # Récupérer les données de progression réelles
-        player_id = profile.get("id", "default")
-        player_data = progression_engine.get_player_progression(player_id)
-        
-        # Mettre à jour le profil avec les données réelles
-        profile.update({
-            "level": player_data.get("level", 1),
-            "xp": player_data.get("xp", 0),
-            "score": player_data.get("score", 0),
-            "coins": player_data.get("coins", 0),
-            "badges": player_data.get("badges", []),
-            "skills": player_data.get("skills", {}),
-            "missions_completed": player_data.get("missions_completed", [])
-        })
-        
-        # Mettre à jour la session
-        session["profile"] = profile
-        
-        return jsonify({
-            "success": True, 
-            "player_data": player_data,
-            "profile": profile
-        })
-    except Exception as e:
-        return jsonify({"success": False, "error": str(e)}), 500
+        profile = session.get(
+            "profile",
+            {
+                "username": "default_user",
+                "level": 1,
+                "xp": 0,
+                "badges": [],
+                "missions_completed": [],
+                "skills": {},
+            },
+        )
 
-@app.route("/api/progression-data")
-def api_progression_data():
-    """API pour récupérer les données de progression pour l'affichage"""
-    try:
-        # Récupérer le profil du joueur depuis la session
-        profile = session.get("profile", {
-            "username": "default_user",
-            "level": 1,
-            "xp": 0,
-            "badges": [],
-            "missions_completed": [],
-            "skills": {},
-        })
-        
         # Récupérer les données de progression réelles
         player_id = profile.get("id", "default")
         player_data = progression_engine.get_player_progression(player_id)
-        
-        return jsonify({
-            "success": True,
-            "progression": {
+
+        # Mettre à jour le profil avec les données réelles
+        profile.update(
+            {
                 "level": player_data.get("level", 1),
                 "xp": player_data.get("xp", 0),
                 "score": player_data.get("score", 0),
@@ -1489,11 +1529,58 @@ def api_progression_data():
                 "badges": player_data.get("badges", []),
                 "skills": player_data.get("skills", {}),
                 "missions_completed": player_data.get("missions_completed", []),
-                "stats": player_data.get("stats", {})
             }
-        })
+        )
+
+        # Mettre à jour la session
+        session["profile"] = profile
+
+        return jsonify(
+            {"success": True, "player_data": player_data, "profile": profile}
+        )
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/progression-data")
+def api_progression_data():
+    """API pour récupérer les données de progression pour l'affichage"""
+    try:
+        # Récupérer le profil du joueur depuis la session
+        profile = session.get(
+            "profile",
+            {
+                "username": "default_user",
+                "level": 1,
+                "xp": 0,
+                "badges": [],
+                "missions_completed": [],
+                "skills": {},
+            },
+        )
+
+        # Récupérer les données de progression réelles
+        player_id = profile.get("id", "default")
+        player_data = progression_engine.get_player_progression(player_id)
+
+        return jsonify(
+            {
+                "success": True,
+                "progression": {
+                    "level": player_data.get("level", 1),
+                    "xp": player_data.get("xp", 0),
+                    "score": player_data.get("score", 0),
+                    "coins": player_data.get("coins", 0),
+                    "badges": player_data.get("badges", []),
+                    "skills": player_data.get("skills", {}),
+                    "missions_completed": player_data.get("missions_completed", []),
+                    "stats": player_data.get("stats", {}),
+                },
+            }
+        )
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
 
 @app.route("/api/enhanced-missions")
 def api_enhanced_missions():
@@ -1583,15 +1670,21 @@ def get_gamification_summary():
             "current_level": profil.get("level", 1),
             "missions_completees": len(profil.get("missions_completed", [])),
             "badges_count": len(profil.get("badges", [])),
-            "level_progress": summary.get("level_progress", {}).get("progress_percentage", 0),
+            "level_progress": summary.get("level_progress", {}).get(
+                "progress_percentage", 0
+            ),
             "total_experience": profil.get("score", 0),
             "goals_achieved": len(profil.get("badges", [])),
             "accuracy": 85,  # Valeur par défaut
             "speed": 1200,  # Valeur par défaut en ms
             "efficiency": 75,  # Valeur par défaut
             "recent_badges": profil.get("badges", [])[-3:],  # 3 derniers badges
-            "recent_missions": profil.get("missions_completed", [])[-3:],  # 3 dernières missions
-            "top_players": summary.get("leaderboard_stats", {}).get("top_players", [])[:5],  # Top 5
+            "recent_missions": profil.get("missions_completed", [])[
+                -3:
+            ],  # 3 dernières missions
+            "top_players": summary.get("leaderboard_stats", {}).get("top_players", [])[
+                :5
+            ],  # Top 5
         }
 
         return jsonify(formatted_summary)
@@ -1775,7 +1868,9 @@ def predict_user_behavior():
 def test_database():
     """Test de la base de données"""
     if not DATABASE_AVAILABLE:
-        return jsonify({"status": "unavailable", "message": "Database module not available"})
+        return jsonify(
+            {"status": "unavailable", "message": "Database module not available"}
+        )
 
     try:
         # Test de création d'un profil
@@ -1806,7 +1901,9 @@ def test_database():
 def test_websocket():
     """Test des WebSockets"""
     if not WEBSOCKET_AVAILABLE:
-        return jsonify({"status": "unavailable", "message": "WebSocket module not available"})
+        return jsonify(
+            {"status": "unavailable", "message": "WebSocket module not available"}
+        )
 
     try:
         # Test de création d'un défi
@@ -2127,7 +2224,9 @@ def api_educational_games_submit():
         answer = data.get("answer")
 
         if not session_id or answer is None:
-            return jsonify({"success": False, "message": "Session ID et réponse requis"})
+            return jsonify(
+                {"success": False, "message": "Session ID et réponse requis"}
+            )
 
         # Utiliser le moteur de jeux pour valider la réponse
         result = games_engine.submit_answer(session_id, answer)
@@ -2166,7 +2265,9 @@ def api_educational_games_leaderboard():
     """Récupère le classement des mini-jeux éducatifs"""
     try:
         # Leaderboard simulé pour l'instant
-        leaderboard = [{"rank": 1, "username": "main_user", "score": 0, "games_played": 0}]
+        leaderboard = [
+            {"rank": 1, "username": "main_user", "score": 0, "games_played": 0}
+        ]
         return jsonify({"success": True, "leaderboard": leaderboard})
     except Exception as e:
         return jsonify({"success": False, "message": f"Erreur: {e!s}"})
@@ -2237,7 +2338,9 @@ def get_security_status():
     try:
         # Vérifier l'origine de la requête
         origin = request.headers.get("Origin")
-        if origin and not security_manager.check_origin_security(origin, request.remote_addr):
+        if origin and not security_manager.check_origin_security(
+            origin, request.remote_addr
+        ):
             return jsonify({"error": "Origine non autorisée"}), 403
 
         security_report = security_manager.get_security_report()
@@ -2306,7 +2409,9 @@ def cleanup_analytics_data():
     try:
         analytics_engine.cleanup_old_data()
 
-        return jsonify({"success": True, "message": "Nettoyage des données analytics effectué"})
+        return jsonify(
+            {"success": True, "message": "Nettoyage des données analytics effectué"}
+        )
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -2382,7 +2487,9 @@ def health_check():
                         "websocket": websocket_status,
                         "tutorial": tutorial_status,
                     },
-                    "uptime": (time.time() - start_time if "start_time" in globals() else 0),
+                    "uptime": (
+                        time.time() - start_time if "start_time" in globals() else 0
+                    ),
                 },
             ),
             200,
@@ -2490,7 +2597,9 @@ def api_slow_queries():
         limit = request.args.get("limit", 10, type=int)
         slow_queries = performance_optimizer.get_slow_queries(limit)
 
-        return jsonify({"success": True, "slow_queries": slow_queries, "count": len(slow_queries)})
+        return jsonify(
+            {"success": True, "slow_queries": slow_queries, "count": len(slow_queries)}
+        )
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
 
@@ -2515,7 +2624,9 @@ def api_optimization_suggestions():
     try:
         suggestions = performance_optimizer.suggest_optimizations()
 
-        return jsonify({"success": True, "suggestions": suggestions, "count": len(suggestions)})
+        return jsonify(
+            {"success": True, "suggestions": suggestions, "count": len(suggestions)}
+        )
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
 
@@ -2764,7 +2875,9 @@ def api_record_player_choice():
                 400,
             )
 
-        result = adaptive_storytelling.record_player_choice(player_id, story_arc, choice, context)
+        result = adaptive_storytelling.record_player_choice(
+            player_id, story_arc, choice, context
+        )
         return jsonify(result)
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
@@ -2826,7 +2939,10 @@ def api_trigger_interaction():
             )
 
         result = micro_interactions.trigger_interaction(
-            player_id, interaction_type, target_element, context,
+            player_id,
+            interaction_type,
+            target_element,
+            context,
         )
         return jsonify(result)
     except Exception as e:
@@ -2913,7 +3029,9 @@ def api_attempt_daily_challenge():
         if not challenge_id:
             return jsonify({"success": False, "error": "ID du défi requis"}), 400
 
-        result = daily_challenges_engine.attempt_challenge(user_id, challenge_id, answer, date)
+        result = daily_challenges_engine.attempt_challenge(
+            user_id, challenge_id, answer, date
+        )
         return jsonify(result)
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
@@ -2987,7 +3105,9 @@ def api_reset_luna_learning():
     """Remet à zéro l'apprentissage de LUNA (pour les tests)"""
     try:
         luna_ai_v3.reset_learning()
-        return jsonify({"success": True, "message": "Apprentissage de LUNA réinitialisé"})
+        return jsonify(
+            {"success": True, "message": "Apprentissage de LUNA réinitialisé"}
+        )
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
 
@@ -3114,7 +3234,12 @@ def api_update_mission_progress():
             return jsonify({"error": "Paramètres manquants"}), 400
 
         result = mission_progress_tracker.update_mission_progress(
-            mission_id, player_id, step_id, action, success, metadata,
+            mission_id,
+            player_id,
+            step_id,
+            action,
+            success,
+            metadata,
         )
 
         return jsonify(result)
@@ -3156,7 +3281,9 @@ def api_make_narrative_choice():
         if not all([branch_id, choice_id]):
             return jsonify({"error": "Paramètres manquants"}), 400
 
-        result = narrative_branches.make_choice(player_id, branch_id, choice_id, context)
+        result = narrative_branches.make_choice(
+            player_id, branch_id, choice_id, context
+        )
         return jsonify(result)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -3216,7 +3343,10 @@ def api_update_secondary_mission():
             return jsonify({"error": "Paramètres manquants"}), 400
 
         result = secondary_missions.update_mission_progress(
-            player_id, mission_id, objective_id, completed,
+            player_id,
+            mission_id,
+            objective_id,
+            completed,
         )
         return jsonify(result)
     except Exception as e:
@@ -3236,10 +3366,14 @@ def api_check_achievements():
             return jsonify({"error": "Action manquante"}), 400
 
         new_achievements = advanced_achievements.check_achievement_progress(
-            player_id, action, context,
+            player_id,
+            action,
+            context,
         )
 
-        return jsonify({"new_achievements": new_achievements, "count": len(new_achievements)})
+        return jsonify(
+            {"new_achievements": new_achievements, "count": len(new_achievements)}
+        )
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -3303,7 +3437,9 @@ def api_update_player_metrics():
         if not category:
             return jsonify({"error": "Catégorie manquante"}), 400
 
-        result = category_leaderboards.update_player_metrics(player_id, category, metrics, context)
+        result = category_leaderboards.update_player_metrics(
+            player_id, category, metrics, context
+        )
         return jsonify(result)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -3364,7 +3500,10 @@ def api_complete_tutorial_step():
             return jsonify({"error": "Paramètres manquants"}), 400
 
         result = technical_tutorials.complete_tutorial_step(
-            player_id, tutorial_id, step, exercise_result,
+            player_id,
+            tutorial_id,
+            step,
+            exercise_result,
         )
         return jsonify(result)
     except Exception as e:

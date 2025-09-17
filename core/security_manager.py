@@ -23,7 +23,9 @@ security_handler = logging.FileHandler(logs_dir / "security.log")
 security_handler.setLevel(logging.INFO)
 
 # Formatter pour les logs de sécurité
-security_formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+security_formatter = logging.Formatter(
+    "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
 security_handler.setFormatter(security_formatter)
 security_logger.addHandler(security_handler)
 
@@ -126,7 +128,9 @@ class SecurityManager:
         self.security_events.append(event)
 
         # Log selon la sévérité
-        log_message = f"Événement sécurité: {event_type} - IP: {ip_address} - Détails: {details}"
+        log_message = (
+            f"Événement sécurité: {event_type} - IP: {ip_address} - Détails: {details}"
+        )
 
         if severity == "critical":
             security_logger.critical(log_message)
@@ -141,7 +145,9 @@ class SecurityManager:
         if len(self.security_events) > 1000:
             self.security_events = self.security_events[-1000:]
 
-    def check_input_security(self, input_data: str, ip_address: str = "unknown") -> dict[str, Any]:
+    def check_input_security(
+        self, input_data: str, ip_address: str = "unknown"
+    ) -> dict[str, Any]:
         """Vérifie la sécurité d'une entrée utilisateur"""
         result = {"is_safe": True, "threats_detected": [], "risk_level": "low"}
 
@@ -178,7 +184,9 @@ class SecurityManager:
 
         return result
 
-    def check_rate_limit_violation(self, ip_address: str, current_count: int, limit: int) -> bool:
+    def check_rate_limit_violation(
+        self, ip_address: str, current_count: int, limit: int
+    ) -> bool:
         """Vérifie si une IP a violé le rate limiting"""
         if current_count > limit:
             self.log_security_event(
@@ -239,7 +247,9 @@ class SecurityManager:
             domain = origin
 
         # Vérifier si l'origine est autorisée
-        is_allowed = any(allowed in domain for allowed in self.security_config["allowed_origins"])
+        is_allowed = any(
+            allowed in domain for allowed in self.security_config["allowed_origins"]
+        )
 
         if not is_allowed:
             self.log_security_event(

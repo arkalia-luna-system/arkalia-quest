@@ -59,7 +59,9 @@ class MicroInteractionsEngine:
         try:
             os.makedirs("data", exist_ok=True)
 
-            with open(os.path.join("data", "user_preferences.json"), "w", encoding="utf-8") as f:
+            with open(
+                os.path.join("data", "user_preferences.json"), "w", encoding="utf-8"
+            ) as f:
                 json.dump(self.user_preferences, f, indent=2, ensure_ascii=False)
 
             logger.info("✅ Données d'interactions sauvegardées")
@@ -333,7 +335,9 @@ class MicroInteractionsEngine:
         }
 
     def _generate_immediate_effects(
-        self, interaction_type: str, context: dict[str, Any] = None,
+        self,
+        interaction_type: str,
+        context: dict[str, Any] = None,
     ) -> dict[str, Any]:
         """Génère des effets immédiats selon le type d'interaction"""
 
@@ -632,7 +636,9 @@ class MicroInteractionsEngine:
 
         # Traiter les notifications
         processed_notifications = []
-        for item in self.notification_queue[:2]:  # Traiter max 2 notifications à la fois
+        for item in self.notification_queue[
+            :2
+        ]:  # Traiter max 2 notifications à la fois
             notification_data = self.generate_notification_data(item["interaction"])
             processed_notifications.append(notification_data)
 
@@ -666,7 +672,9 @@ class MicroInteractionsEngine:
     # ===== GESTION DES PRÉFÉRENCES =====
 
     def update_user_preferences(
-        self, player_id: str, preferences: dict[str, Any],
+        self,
+        player_id: str,
+        preferences: dict[str, Any],
     ) -> dict[str, Any]:
         """Met à jour les préférences d'un utilisateur"""
         if player_id not in self.user_preferences:
@@ -696,7 +704,10 @@ class MicroInteractionsEngine:
     # ===== INTERACTIONS CONTEXTUELLES =====
 
     def create_contextual_interaction(
-        self, player_id: str, context: str, target_element: str = None,
+        self,
+        player_id: str,
+        context: str,
+        target_element: str = None,
     ) -> dict[str, Any]:
         """Crée une interaction contextuelle basée sur la situation"""
         contextual_templates = {
@@ -714,11 +725,16 @@ class MicroInteractionsEngine:
         interaction_type = contextual_templates.get(context, "button_click")
 
         return self.trigger_interaction(
-            player_id, interaction_type, target_element, {"context": context},
+            player_id,
+            interaction_type,
+            target_element,
+            {"context": context},
         )
 
     def create_custom_interaction(
-        self, player_id: str, interaction_data: dict[str, Any],
+        self,
+        player_id: str,
+        interaction_data: dict[str, Any],
     ) -> dict[str, Any]:
         """Crée une interaction personnalisée"""
         interaction_id = str(uuid.uuid4())

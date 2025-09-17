@@ -77,7 +77,9 @@ class CommandHandlerV2:
         result = self._process_command(normalized_command, profile)
 
         # Analyser l'émotion de LUNA
-        luna_emotion_data = self.luna_emotions.analyze_action(normalized_command, result, profile)
+        luna_emotion_data = self.luna_emotions.analyze_action(
+            normalized_command, result, profile
+        )
 
         # Ajouter les données d'émotion à la réponse
         result.update(
@@ -94,16 +96,16 @@ class CommandHandlerV2:
 
         return result
 
-    def _handle_unknown_command(self, command: str, profile: dict[str, Any]) -> dict[str, Any]:
+    def _handle_unknown_command(
+        self, command: str, profile: dict[str, Any]
+    ) -> dict[str, Any]:
         """Gère une commande inconnue avec émotion LUNA et suggestions intelligentes"""
 
         # Suggestions intelligentes pour commandes inconnues
         suggestions = self._get_command_suggestions(command)
         suggestion_text = ""
         if suggestions:
-            suggestion_text = (
-                f"\n\n💡 Suggestions :\n{chr(10).join([f'• {s}' for s in suggestions[:3]])}"
-            )
+            suggestion_text = f"\n\n💡 Suggestions :\n{chr(10).join([f'• {s}' for s in suggestions[:3]])}"
 
         result = {
             "réussite": False,
@@ -115,7 +117,9 @@ class CommandHandlerV2:
 
         # LUNA réagit selon le type de commande
         emotion_type = "unknown_command"
-        luna_emotion_data = self.luna_emotions.analyze_action(emotion_type, result, profile)
+        luna_emotion_data = self.luna_emotions.analyze_action(
+            emotion_type, result, profile
+        )
 
         result.update(
             {

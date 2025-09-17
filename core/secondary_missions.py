@@ -335,7 +335,9 @@ class SecondaryMissions:
 
         return available
 
-    def _check_mission_availability(self, player_id: str, mission: dict[str, Any]) -> bool:
+    def _check_mission_availability(
+        self, player_id: str, mission: dict[str, Any]
+    ) -> bool:
         """Vérifie si une mission est disponible pour un joueur"""
         # Vérifier les prérequis
         prerequisites = mission.get("prerequisites", [])
@@ -351,21 +353,29 @@ class SecondaryMissions:
 
         return True
 
-    def _check_daily_mission_availability(self, player_id: str, mission: dict[str, Any]) -> bool:
+    def _check_daily_mission_availability(
+        self, player_id: str, mission: dict[str, Any]
+    ) -> bool:
         """Vérifie si une mission quotidienne est disponible"""
         # Vérifier si la mission n'a pas déjà été complétée aujourd'hui
         today = datetime.now().date().isoformat()
         player_progress = self.player_progress.get(player_id, {})
-        completed_today = player_progress.get("daily_completed", {}).get(mission["id"], [])
+        completed_today = player_progress.get("daily_completed", {}).get(
+            mission["id"], []
+        )
 
         return today not in completed_today
 
-    def _check_weekly_mission_availability(self, player_id: str, mission: dict[str, Any]) -> bool:
+    def _check_weekly_mission_availability(
+        self, player_id: str, mission: dict[str, Any]
+    ) -> bool:
         """Vérifie si une mission hebdomadaire est disponible"""
         # Vérifier si la mission n'a pas déjà été complétée cette semaine
         this_week = datetime.now().isocalendar()[1]
         player_progress = self.player_progress.get(player_id, {})
-        completed_this_week = player_progress.get("weekly_completed", {}).get(mission["id"], [])
+        completed_this_week = player_progress.get("weekly_completed", {}).get(
+            mission["id"], []
+        )
 
         return this_week not in completed_this_week
 
@@ -379,7 +389,13 @@ class SecondaryMissions:
         # Logique simplifiée - à intégrer avec le système de progression
         if condition == "level_2_reached":
             return True  # Valeur par défaut
-        if condition == "acte_2_completed" or condition == "level_5_reached" or condition == "security_interest_detected" or condition == "world_access_granted" or condition == "acte_3_completed":
+        if (
+            condition == "acte_2_completed"
+            or condition == "level_5_reached"
+            or condition == "security_interest_detected"
+            or condition == "world_access_granted"
+            or condition == "acte_3_completed"
+        ):
             return True
 
         return True
@@ -466,7 +482,11 @@ class SecondaryMissions:
         }
 
     def update_mission_progress(
-        self, player_id: str, mission_id: str, objective_id: str, completed: bool = True,
+        self,
+        player_id: str,
+        mission_id: str,
+        objective_id: str,
+        completed: bool = True,
     ) -> dict[str, Any]:
         """Met à jour la progression d'une mission"""
         if player_id not in self.player_progress:
@@ -506,7 +526,10 @@ class SecondaryMissions:
         }
 
     def _complete_mission(
-        self, player_id: str, mission_id: str, mission_progress: dict[str, Any],
+        self,
+        player_id: str,
+        mission_id: str,
+        mission_progress: dict[str, Any],
     ) -> None:
         """Marque une mission comme terminée"""
         # Ajouter aux missions complétées
@@ -532,7 +555,9 @@ class SecondaryMissions:
             this_week = datetime.now().isocalendar()[1]
             if mission_id not in self.player_progress[player_id]["weekly_completed"]:
                 self.player_progress[player_id]["weekly_completed"][mission_id] = []
-            self.player_progress[player_id]["weekly_completed"][mission_id].append(this_week)
+            self.player_progress[player_id]["weekly_completed"][mission_id].append(
+                this_week
+            )
 
     def _calculate_rewards(self, player_id: str, mission_id: str) -> dict[str, Any]:
         """Calcule les récompenses d'une mission"""

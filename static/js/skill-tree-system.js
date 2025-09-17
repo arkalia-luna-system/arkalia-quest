@@ -12,6 +12,7 @@ class SkillTreeSystem {
         this.loadPlayerSkills();
         this.setupEventListeners();
         this.createSkillTreeUI();
+        this.syncWithTerminal();
         console.log('🌳 Skill Tree System initialisé');
     }
 
@@ -315,6 +316,8 @@ class SkillTreeSystem {
         const playerSkill = this.playerSkills[categoryId]?.[skillId] || { level: 0, xp: 0 };
         const canUpgrade = this.canUpgradeSkill(categoryId, skillId);
         const isUnlocked = this.isSkillUnlocked(categoryId, skillId);
+        const upgradeCost = this.getUpgradeCost(categoryId, skillId);
+        const currentXP = this.getPlayerTotalXP();
 
         return `
             <div class="skill-item ${isUnlocked ? 'unlocked' : 'locked'} ${playerSkill.level > 0 ? 'active' : ''}" 
@@ -322,8 +325,23 @@ class SkillTreeSystem {
                 <div class="skill-name">${skill.name}</div>
                 <div class="skill-description">${skill.description}</div>
                 <div class="skill-level">Niveau ${playerSkill.level}/${skill.max_level}</div>
-                <div class="skill-cost">${this.getUpgradeCost(categoryId, skillId)} XP</div>
-                ${canUpgrade ? `<button class="upgrade-skill" data-category="${categoryId}" data-skill="${skillId}">Améliorer</button>` : ''}
+                <div class="skill-cost">${upgradeCost} XP</div>
+                <div class="skill-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${this.getSkillProgress(categoryId, skillId)}%"></div>
+                    </div>
+                    <div class="progress-text">${playerSkill.xp}/${upgradeCost} XP</div>
+                </div>
+                ${canUpgrade ?
+                `<button class="upgrade-skill" data-category="${categoryId}" data-skill="${skillId}">
+                        <span class="upgrade-icon">⚡</span>
+                        <span class="upgrade-text">Améliorer</span>
+                        <span class="upgrade-cost">${upgradeCost} XP</span>
+                    </button>` :
+                `<div class="upgrade-unavailable">
+                        ${playerSkill.level >= skill.max_level ? 'Max niveau' : 'Prérequis non remplis'}
+                    </div>`
+            }
             </div>
         `;
     }
@@ -524,24 +542,112 @@ class SkillTreeSystem {
             }
 
             .upgrade-skill {
-                background: var(--violet-lunaire);
+                background: linear-gradient(135deg, #00ff00, #00cc00);
                 color: #000;
                 border: none;
-                padding: 8px 16px;
-                border-radius: 6px;
+                padding: 12px 20px;
+                border-radius: 8px;
                 cursor: pointer;
-                font-weight: 600;
-                transition: all 0.2s ease;
+                font-weight: 700;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .upgrade-skill::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+                transition: left 0.5s ease;
+            }
+
+            .upgrade-skill:hover::before {
+                left: 100%;
             }
 
             .upgrade-skill:hover {
-                background: var(--bleu-spectre);
-                transform: scale(1.05);
+                background: linear-gradient(135deg, #00cc00, #00ff00);
+                transform: translateY(-2px) scale(1.05);
+                box-shadow: 0 6px 20px rgba(0, 255, 0, 0.5);
+            }
+
+            .upgrade-skill:active {
+                transform: translateY(0) scale(0.98);
+            }
+
+            .upgrade-icon {
+                font-size: 1.2em;
+                animation: pulse 2s infinite;
+            }
+
+            .upgrade-text {
+                font-size: 0.9em;
+            }
+
+            .upgrade-cost {
+                font-size: 0.8em;
+                opacity: 0.8;
             }
 
             .upgrade-unavailable {
                 color: #6b7280;
                 font-size: 0.9em;
+                text-align: center;
+                padding: 8px;
+                background: rgba(100, 100, 100, 0.1);
+                border-radius: 6px;
+            }
+
+            .skill-item.upgrading {
+                animation: upgradePulse 1s ease-in-out;
+                border-color: #00ff00 !important;
+                box-shadow: 0 0 20px rgba(0, 255, 0, 0.6);
+            }
+
+            @keyframes upgradePulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
+
+            @keyframes pulse {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0.7; }
+            }
+
+            .skill-progress {
+                margin: 10px 0;
+            }
+
+            .progress-bar {
+                width: 100%;
+                height: 8px;
+                background: rgba(0, 255, 0, 0.2);
+                border-radius: 4px;
+                overflow: hidden;
+                margin-bottom: 5px;
+            }
+
+            .progress-fill {
+                height: 100%;
+                background: linear-gradient(90deg, #00ff00, #00cc00);
+                border-radius: 4px;
+                transition: width 0.5s ease;
+            }
+
+            .progress-text {
+                color: #00ff00;
+                font-size: 0.8em;
+                text-align: center;
+                font-family: 'IBM Plex Mono', monospace;
             }
         `;
 
@@ -701,7 +807,10 @@ class SkillTreeSystem {
     }
 
     upgradeSkill(categoryId, skillId) {
-        if (!this.canUpgradeSkill(categoryId, skillId)) return;
+        if (!this.canUpgradeSkill(categoryId, skillId)) {
+            this.showUpgradeError('Prérequis non remplis ou XP insuffisant');
+            return;
+        }
 
         const skill = this.skillTree[categoryId]?.skills?.[skillId];
         const requiredXP = this.getUpgradeCost(categoryId, skillId);
@@ -717,11 +826,15 @@ class SkillTreeSystem {
         }
 
         // Améliorer la compétence
+        const oldLevel = this.playerSkills[categoryId][skillId].level;
         this.playerSkills[categoryId][skillId].level++;
         this.playerSkills[categoryId][skillId].xp = requiredXP;
 
         // Sauvegarder
         this.savePlayerSkills();
+
+        // Effet visuel d'amélioration
+        this.showUpgradeAnimation(categoryId, skillId, oldLevel, this.playerSkills[categoryId][skillId].level);
 
         // Mettre à jour l'affichage
         if (window.location.pathname === '/skill-tree') {
@@ -731,14 +844,11 @@ class SkillTreeSystem {
             this.updateSkillTreeDisplay();
         }
 
-        // Notification
-        if (window.universalNotifications) {
-            window.universalNotifications.success(
-                '🌟 Compétence Améliorée !',
-                `${skill.name} niveau ${this.playerSkills[categoryId][skillId].level}`,
-                { duration: 3000 }
-            );
-        }
+        // Notification avec effet sonore
+        this.showUpgradeNotification(skill.name, this.playerSkills[categoryId][skillId].level);
+
+        // Déclencher un événement personnalisé
+        this.triggerUpgradeEvent(categoryId, skillId, this.playerSkills[categoryId][skillId].level);
     }
 
     updatePlayerStats() {
@@ -781,6 +891,189 @@ class SkillTreeSystem {
         return totalLevel;
     }
 
+    showUpgradeAnimation(categoryId, skillId, oldLevel, newLevel) {
+        // Trouver l'élément de la compétence
+        const skillElement = document.querySelector(`[data-category="${categoryId}"][data-skill="${skillId}"]`);
+        if (!skillElement) return;
+
+        // Animation de pulsation
+        skillElement.classList.add('upgrading');
+
+        // Effet de particules
+        this.createParticleEffect(skillElement);
+
+        // Animation du niveau
+        const levelElement = skillElement.querySelector('.skill-level');
+        if (levelElement) {
+            levelElement.style.transform = 'scale(1.2)';
+            levelElement.style.color = '#00ff00';
+            setTimeout(() => {
+                levelElement.style.transform = 'scale(1)';
+                levelElement.style.color = '';
+            }, 500);
+        }
+
+        // Retirer la classe d'animation après l'effet
+        setTimeout(() => {
+            skillElement.classList.remove('upgrading');
+        }, 1000);
+    }
+
+    createParticleEffect(element) {
+        const rect = element.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        for (let i = 0; i < 8; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'skill-particle';
+            particle.style.position = 'fixed';
+            particle.style.left = centerX + 'px';
+            particle.style.top = centerY + 'px';
+            particle.style.width = '4px';
+            particle.style.height = '4px';
+            particle.style.background = '#00ff00';
+            particle.style.borderRadius = '50%';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '10000';
+
+            document.body.appendChild(particle);
+
+            // Animation de la particule
+            const angle = (i / 8) * Math.PI * 2;
+            const distance = 50 + Math.random() * 30;
+            const endX = centerX + Math.cos(angle) * distance;
+            const endY = centerY + Math.sin(angle) * distance;
+
+            particle.animate([
+                { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+                { transform: `translate(${endX - centerX}px, ${endY - centerY}px) scale(0)`, opacity: 0 }
+            ], {
+                duration: 800,
+                easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+            }).onfinish = () => {
+                particle.remove();
+            };
+        }
+    }
+
+    showUpgradeNotification(skillName, level) {
+        // Notification visuelle
+        if (window.universalNotifications) {
+            window.universalNotifications.celebration(
+                '🌟 Compétence Améliorée !',
+                `${skillName} niveau ${level}`,
+                {
+                    duration: 4000,
+                    sound: 'success',
+                    animation: 'bounce'
+                }
+            );
+        }
+
+        // Effet sonore (si disponible)
+        this.playUpgradeSound();
+    }
+
+    showUpgradeError(message) {
+        if (window.universalNotifications) {
+            window.universalNotifications.error(
+                '❌ Impossible d\'améliorer',
+                message,
+                { duration: 3000 }
+            );
+        }
+    }
+
+    playUpgradeSound() {
+        // Créer un son de succès simple
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+
+        oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+        oscillator.frequency.setValueAtTime(1000, audioContext.currentTime + 0.1);
+        oscillator.frequency.setValueAtTime(1200, audioContext.currentTime + 0.2);
+
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.3);
+    }
+
+    triggerUpgradeEvent(categoryId, skillId, level) {
+        // Déclencher un événement personnalisé pour d'autres systèmes
+        const event = new CustomEvent('arkalia:skill:upgraded', {
+            detail: {
+                category: categoryId,
+                skill: skillId,
+                level: level,
+                timestamp: Date.now()
+            }
+        });
+        document.dispatchEvent(event);
+    }
+
+    syncWithTerminal() {
+        // Synchroniser avec le terminal pour récupérer l'XP
+        this.fetchTerminalXP();
+
+        // Écouter les événements du terminal
+        document.addEventListener('arkalia:terminal:xp_gained', (e) => {
+            if (e.detail && e.detail.category && e.detail.skill_id && e.detail.xp) {
+                this.gainSkillXP(e.detail.category, e.detail.skill_id, e.detail.xp);
+            }
+        });
+    }
+
+    async fetchTerminalXP() {
+        try {
+            // Récupérer l'XP depuis le terminal
+            const response = await fetch('/api/terminal/command', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ command: 'skill_tree' })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                if (data.data && data.data.message) {
+                    // Parser le message pour extraire l'XP
+                    this.parseTerminalXP(data.data.message);
+                }
+            }
+        } catch (error) {
+            console.log('Impossible de synchroniser avec le terminal:', error);
+        }
+    }
+
+    parseTerminalXP(message) {
+        // Parser le message du terminal pour extraire l'XP
+        // Cette méthode peut être améliorée selon le format du message
+        const xpMatch = message.match(/(\d+)\s*XP/);
+        if (xpMatch) {
+            const xp = parseInt(xpMatch[1]);
+            // Distribuer l'XP entre les compétences
+            this.distributeXP(xp);
+        }
+    }
+
+    distributeXP(totalXP) {
+        // Distribuer l'XP entre les compétences de hacking
+        const hackingSkills = ['code_breaking', 'system_penetration', 'cryptography', 'social_engineering'];
+        const xpPerSkill = Math.floor(totalXP / hackingSkills.length);
+
+        for (const skillId of hackingSkills) {
+            this.gainSkillXP('hacking', skillId, xpPerSkill);
+        }
+    }
+
     gainSkillXP(categoryId, skillId, xp) {
         // Initialiser la catégorie si nécessaire
         if (!this.playerSkills[categoryId]) {
@@ -802,23 +1095,30 @@ class SkillTreeSystem {
             if (currentLevel < skill.max_level) {
                 const nextLevelXP = skill.xp_required[currentLevel + 1];
                 if (this.playerSkills[categoryId][skillId].xp >= nextLevelXP) {
+                    const oldLevel = this.playerSkills[categoryId][skillId].level;
                     this.playerSkills[categoryId][skillId].level++;
                     this.playerSkills[categoryId][skillId].xp = nextLevelXP;
 
+                    // Effet visuel d'amélioration automatique
+                    this.showUpgradeAnimation(categoryId, skillId, oldLevel, this.playerSkills[categoryId][skillId].level);
+
                     // Notification d'amélioration automatique
-                    if (window.universalNotifications) {
-                        window.universalNotifications.celebration(
-                            '🌟 Compétence Améliorée !',
-                            `${skill.name} niveau ${this.playerSkills[categoryId][skillId].level}`,
-                            { duration: 4000 }
-                        );
-                    }
+                    this.showUpgradeNotification(skill.name, this.playerSkills[categoryId][skillId].level);
+
+                    // Déclencher un événement
+                    this.triggerUpgradeEvent(categoryId, skillId, this.playerSkills[categoryId][skillId].level);
                 }
             }
         }
 
         // Sauvegarder
         this.savePlayerSkills();
+
+        // Mettre à jour l'affichage si on est sur la page
+        if (window.location.pathname === '/skill-tree') {
+            this.updatePlayerStats();
+            this.createDedicatedPageUI();
+        }
     }
 
     getPlayerTotalXP() {

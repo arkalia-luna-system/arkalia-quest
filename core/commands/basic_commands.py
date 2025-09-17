@@ -1415,5 +1415,16 @@ Toutes les fonctionnalités sont disponibles !
                 if not hasattr(self, '_pending_events'):
                     self._pending_events = []
                 self._pending_events.append(event)
+                
+            # Déclencher l'événement côté client via le système de compétences
+            if hasattr(self, 'skill_tree_system'):
+                self.skill_tree_system.gainSkillXP(category, skill_id, xp)
+            else:
+                # Déclencher l'événement global
+                import threading
+                def trigger_global_event():
+                    if hasattr(window, 'skillTreeSystem'):
+                        window.skillTreeSystem.gainSkillXP(category, skill_id, xp)
+                threading.Thread(target=trigger_global_event).start()
         except Exception as e:
             print(f"Erreur lors du déclenchement de l'événement XP: {e}")

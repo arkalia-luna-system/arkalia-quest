@@ -913,52 +913,115 @@ Utilisez 'simple_hack' pour réessayer."""
             }
 
     def handle_sequence_game(self, profile: dict[str, Any]) -> dict[str, Any]:
-        """Jeu de mémoire de séquences"""
-        profile["score"] += 30
+        """Jeu de mémoire de séquences interactif"""
+        import random
 
-        return {
-            "réussite": True,
-            "ascii_art": "🧠",
-            "message": """🧠 JEU DE MÉMOIRE DE SÉQUENCES
+        # Générer une séquence aléatoire de couleurs
+        colors = ["🔴", "🟡", "🔵", "🟢", "🟣", "🟠", "⚫", "⚪"]
+        sequence_length = random.randint(4, 8)
+        sequence = [random.choice(colors) for _ in range(sequence_length)]
+        sequence_str = " → ".join(sequence)
 
-🎯 OBJECTIF : Mémoriser et reproduire la séquence
-📊 DIFFICULTÉ : Moyen
-⏱️ TEMPS : 45 secondes
+        # Simuler la réussite (60% de chance)
+        if random.random() < 0.6:
+            message = f"""🧠 SÉQUENCE MÉMORISÉE !
 
-🎮 SÉQUENCE À MÉMORISER :
-🔴 → 🟡 → 🔵 → 🟢 → 🔴
+🎯 SÉQUENCE : {sequence_str}
+✅ RÉPONSE : {sequence_str}
 
-💡 Clique sur les couleurs dans l'ordre !
-🎯 Score basé sur la vitesse et la précision
+🎉 VICTOIRE ! Votre mémoire est excellente !
+🏆 +{50 + sequence_length * 5} points gagnés !
+💡 Mini-jeu ajouté à votre collection !"""
 
-🌟 +30 points pour avoir testé ta mémoire !""",
-            "score_gagne": 30,
-            "profile_updated": True,
-        }
+            return {
+                "réussite": True,
+                "ascii_art": "🧠",
+                "message": message,
+                "score_gagne": 50 + sequence_length * 5,
+                "profile_updated": True,
+            }
+        else:
+            wrong_sequence = [random.choice(colors) for _ in range(sequence_length)]
+            wrong_str = " → ".join(wrong_sequence)
+
+            message = f"""🧠 SÉQUENCE ÉCHOUÉE !
+
+🎯 SÉQUENCE : {sequence_str}
+❌ RÉPONSE : {wrong_str}
+✅ BONNE RÉPONSE : {sequence_str}
+
+😔 ÉCHEC ! Mais ne vous découragez pas !
+💡 Réessayez ! La mémoire s'améliore avec la pratique !
+Utilisez 'sequence_game' pour réessayer."""
+
+            return {
+                "réussite": False,
+                "ascii_art": "🧠",
+                "message": message,
+                "score_gagne": 0,
+                "profile_updated": False,
+            }
 
     def handle_typing_challenge(self, profile: dict[str, Any]) -> dict[str, Any]:
-        """Défi de frappe rapide"""
-        profile["score"] += 20
+        """Défi de frappe rapide interactif"""
+        import random
 
-        return {
-            "réussite": True,
-            "ascii_art": "⌨️",
-            "message": """⌨️ DÉFI DE FRAPPE RAPIDE
+        # Textes à taper variés
+        texts = [
+            "Hello World! Je suis un hacker!",
+            "Arkalia Quest est le meilleur jeu!",
+            "Matrix mode activé! Code en cours...",
+            "Hack the planet! Liberté pour tous!",
+            "LUNA est mon IA préférée!",
+            "Je code donc je suis!",
+            "Terminal power! Commandes magiques!",
+            "Cybersécurité niveau expert!",
+        ]
 
-🎯 OBJECTIF : Taper le plus vite possible
-📊 DIFFICULTÉ : Variable
-⏱️ TEMPS : 60 secondes
+        chosen_text = random.choice(texts)
+        text_length = len(chosen_text)
 
-📝 TEXTE À TAPER :
-"Arkalia Quest est un jeu d'aventure cyberpunk où tu incarnes un hacker qui découvre LUNA, une IA émotionnelle."
+        # Simuler la réussite (70% de chance)
+        if random.random() < 0.7:
+            # Simuler une vitesse de frappe
+            wpm = random.randint(40, 80)  # mots par minute
+            accuracy = random.randint(85, 100)  # précision en %
 
-💡 Tape exactement le texte affiché !
-🎯 Score basé sur les mots par minute (WPM)
+            message = f"""⌨️ FRAPPE RÉUSSIE !
 
-🌟 +20 points pour avoir testé ta vitesse !""",
-            "score_gagne": 20,
-            "profile_updated": True,
-        }
+🎯 TEXTE : "{chosen_text}"
+✅ VITESSE : {wpm} mots/min
+🎯 PRÉCISION : {accuracy}%
+
+🎉 VICTOIRE ! Vos doigts sont rapides !
+🏆 +{30 + text_length} points gagnés !
+💡 Mini-jeu ajouté à votre collection !"""
+
+            return {
+                "réussite": True,
+                "ascii_art": "⌨️",
+                "message": message,
+                "score_gagne": 30 + text_length,
+                "profile_updated": True,
+            }
+        else:
+            message = f"""⌨️ FRAPPE ÉCHOUÉE !
+
+🎯 TEXTE : "{chosen_text}"
+❌ VITESSE : {random.randint(20, 35)} mots/min
+🎯 PRÉCISION : {random.randint(60, 80)}%
+
+😔 ÉCHEC ! Mais ne vous découragez pas !
+💡 Réessayez ! La vitesse s'améliore avec la pratique !
+Utilisez 'typing_challenge' pour réessayer."""
+
+            return {
+                "réussite": False,
+                "ascii_art": "⌨️",
+                "message": message,
+                "score_gagne": 0,
+                "profile_updated": False,
+            }
 
     def handle_play_game(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Lancer un mini-jeu"""

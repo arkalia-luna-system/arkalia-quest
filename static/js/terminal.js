@@ -1153,6 +1153,20 @@ function executeCommand(cmdOverride) {
                     window.visualEffects.showConfetti();
                 }
 
+                // Effets audio pour tous les gains
+                if (reponse.score_gagne > 0) {
+                    playSuccessSound();
+                    // Effet de vibration pour mobile
+                    if ('vibrate' in navigator) {
+                        navigator.vibrate([100, 50, 100]);
+                    }
+                }
+
+                // Effet de score qui "saute" pour les gros gains
+                if (reponse.score_gagne > 25) {
+                    showScoreJumpEffect(reponse.score_gagne);
+                }
+
                 // Feedback haptique pour mobile
                 if ('vibrate' in navigator) {
                     navigator.vibrate([100, 50, 100]);
@@ -2409,6 +2423,59 @@ function showProgressionNotification(progression) {
             importance: 3
         });
     }
+}
+
+// Fonction pour afficher l'effet de score qui "saute"
+function showScoreJumpEffect(score) {
+    // Créer l'élément de score qui saute
+    const scoreElement = document.createElement('div');
+    scoreElement.className = 'score-jump-effect';
+    scoreElement.textContent = `+${score}`;
+    scoreElement.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 3em;
+        font-weight: bold;
+        color: #00ff00;
+        text-shadow: 0 0 20px #00ff00;
+        z-index: 10000;
+        pointer-events: none;
+        animation: scoreJump 2s ease-out forwards;
+    `;
+
+    // Ajouter l'animation CSS si elle n'existe pas
+    if (!document.getElementById('score-jump-animation')) {
+        const style = document.createElement('style');
+        style.id = 'score-jump-animation';
+        style.textContent = `
+            @keyframes scoreJump {
+                0% {
+                    transform: translate(-50%, -50%) scale(0.5);
+                    opacity: 1;
+                }
+                50% {
+                    transform: translate(-50%, -70%) scale(1.2);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(-50%, -100px) scale(1);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    document.body.appendChild(scoreElement);
+
+    // Supprimer l'élément après l'animation
+    setTimeout(() => {
+        if (scoreElement.parentNode) {
+            scoreElement.parentNode.removeChild(scoreElement);
+        }
+    }, 2000);
 }
 
 // Fonction pour mettre à jour l'affichage du profil classique

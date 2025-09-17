@@ -34,13 +34,17 @@
         {
           "command": "any",
           "timestamp": "2025-09-17T18:01:59.814704"
+        },
+        {
+          "command": "any",
+          "timestamp": "2025-09-17T18:06:21.005060"
         }
       ],
       "luna_commands_used": [],
       "mini_games_completed": [],
       "daily_challenges_progress": {
         "hacker_speed": {
-          "progress": 6,
+          "progress": 7,
           "completed": true,
           "reward_claimed": false,
           "notified": true
@@ -64,9 +68,9 @@
       "achievements_unlocked": [
         "first_step"
       ],
-      "last_activity": "2025-09-17T18:01:59.814700",
+      "last_activity": "2025-09-17T18:06:21.005056",
       "stats": {
-        "total_commands": 6,
+        "total_commands": 7,
         "total_luna_commands": 0,
         "total_zones_explored": 0,
         "total_mini_games": 0,
@@ -74,12 +78,13 @@
       }
     },
     "main_user": {
-      "score": 100,
+      "score": 200,
       "level": 1,
-      "xp": 100,
-      "coins": 0,
+      "xp": 200,
+      "coins": 50,
       "badges": [
-        "Premier pas"
+        "Premier pas",
+        "Speed Demon"
       ],
       "zones_explored": [],
       "commands_used": [
@@ -98,15 +103,20 @@
         {
           "command": "help",
           "timestamp": "2025-09-17T18:01:59.706152"
+        },
+        {
+          "command": "help",
+          "timestamp": "2025-09-17T18:06:20.925577"
         }
       ],
       "luna_commands_used": [],
       "mini_games_completed": [],
       "daily_challenges_progress": {
         "hacker_speed": {
-          "progress": 4,
-          "completed": false,
-          "reward_claimed": false
+          "progress": 5,
+          "completed": true,
+          "reward_claimed": false,
+          "notified": true
         },
         "luna_friend": {
           "progress": 0,
@@ -127,9 +137,9 @@
       "achievements_unlocked": [
         "first_step"
       ],
-      "last_activity": "2025-09-17T18:01:59.706142",
+      "last_activity": "2025-09-17T18:06:20.927286",
       "stats": {
-        "total_commands": 4,
+        "total_commands": 5,
         "total_luna_commands": 0,
         "total_zones_explored": 0,
         "total_mini_games": 0,

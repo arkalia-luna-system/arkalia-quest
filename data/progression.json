@@ -102,15 +102,19 @@
       }
     },
     "main_user": {
-      "score": 945,
-      "level": 1,
-      "xp": 945,
-      "coins": 50,
+      "score": 1155,
+      "level": 4,
+      "xp": 1055,
+      "coins": 125,
       "badges": [
         "Premier pas",
-        "Speed Demon"
+        "Speed Demon",
+        "LUNA Friend"
       ],
-      "zones_explored": [],
+      "zones_explored": [
+        "arkalia_forest",
+        "arkalia_city"
+      ],
       "commands_used": [
         {
           "command": "help",
@@ -251,23 +255,75 @@
         {
           "command": "help",
           "timestamp": "2025-09-17T20:15:16.482285"
+        },
+        {
+          "command": "stats",
+          "timestamp": "2025-09-17T20:21:25.726450"
+        },
+        {
+          "command": "progression",
+          "timestamp": "2025-09-17T20:21:26.247237"
+        },
+        {
+          "command": "help",
+          "timestamp": "2025-09-17T20:21:26.758113"
+        },
+        {
+          "command": "luna",
+          "timestamp": "2025-09-17T20:21:27.559548"
+        },
+        {
+          "command": "stats",
+          "timestamp": "2025-09-17T20:23:39.949280"
+        },
+        {
+          "command": "progression",
+          "timestamp": "2025-09-17T20:23:40.464285"
+        },
+        {
+          "command": "help",
+          "timestamp": "2025-09-17T20:23:40.975934"
+        },
+        {
+          "command": "luna",
+          "timestamp": "2025-09-17T20:23:41.485960"
+        },
+        {
+          "command": "stats",
+          "timestamp": "2025-09-17T20:23:51.225247"
+        },
+        {
+          "command": "progression",
+          "timestamp": "2025-09-17T20:23:51.813755"
+        },
+        {
+          "command": "help",
+          "timestamp": "2025-09-17T20:23:52.330278"
+        },
+        {
+          "command": "luna",
+          "timestamp": "2025-09-17T20:23:52.840044"
         }
       ],
       "luna_commands_used": [
+        "luna",
+        "luna",
+        "luna",
         "luna"
       ],
       "mini_games_completed": [],
       "daily_challenges_progress": {
         "hacker_speed": {
-          "progress": 35,
+          "progress": 47,
           "completed": true,
           "reward_claimed": false,
           "notified": true
         },
         "luna_friend": {
-          "progress": 1,
-          "completed": false,
-          "reward_claimed": false
+          "progress": 4,
+          "completed": true,
+          "reward_claimed": false,
+          "notified": true
         },
         "explorer": {
           "progress": 0,
@@ -284,13 +340,18 @@
         "first_step",
         "speed_demon"
       ],
-      "last_activity": "2025-09-17T20:15:16.482271",
+      "last_activity": "2025-09-17T20:24:20.471329",
       "stats": {
-        "total_commands": 35,
-        "total_luna_commands": 1,
+        "total_commands": 47,
+        "total_luna_commands": 4,
         "total_zones_explored": 0,
         "total_mini_games": 0,
         "total_play_time": 0
+      },
+      "skills": {
+        "hacking": {
+          "code_breaking": 1
+        }
       }
     },
     "test_player": {
@@ -421,7 +482,7 @@
       "commands_used": [
         {
           "command": "",
-          "timestamp": "2025-09-17T20:09:49.189073"
+          "timestamp": "2025-09-17T20:23:51.814484"
         }
       ],
       "luna_commands_used": [],
@@ -451,7 +512,7 @@
       "achievements_unlocked": [
         "first_step"
       ],
-      "last_activity": "2025-09-17T20:09:49.190292",
+      "last_activity": "2025-09-17T20:23:51.815303",
       "stats": {
         "total_commands": 1,
         "total_luna_commands": 0,

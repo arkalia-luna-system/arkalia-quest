@@ -910,6 +910,26 @@ def execute_terminal_command():
         result = game_engine.process_command(command, "main_user")
 
         if result.get("réussite", False):
+            # Synchroniser avec ProgressionEngine
+            player_id = "main_user"
+
+            # Récupérer les données du game engine
+            profile = result.get("profile", {})
+
+            # Mettre à jour ProgressionEngine avec les données du game engine
+            if profile:
+                progression_engine.update_player_progression(
+                    player_id,
+                    "command_used",
+                    {
+                        "command": command,
+                        "xp": profile.get("xp", 0),
+                        "score": profile.get("score", 0),
+                        "level": profile.get("level", 1),
+                        "coins": profile.get("coins", 0)
+                    }
+                )
+
             return jsonify(
                 {
                     "success": True,
@@ -1372,26 +1392,27 @@ def api_skill_tree():
             },
         )
 
-        # Synchroniser avec les données de progression réelles
-        player_id = profile.get("id", "default")
+        # Utiliser directement les données de ProgressionEngine
+        player_id = "main_user"
         player_data = progression_engine.get_player_progression(player_id)
 
-        # Mettre à jour le profil avec les données réelles
-        profile.update(
-            {
-                "level": player_data.get("level", 1),
-                "xp": player_data.get("xp", 0),
-                "score": player_data.get("score", 0),
-                "coins": player_data.get("coins", 0),
-                "badges": player_data.get("badges", []),
-                "skills": player_data.get("skills", {}),
-            }
-        )
+        # Créer un profil compatible avec get_skill_tree
+        compatible_profile = {
+            "id": player_id,
+            "username": player_data.get("username", "main_user"),
+            "level": player_data.get("level", 1),
+            "xp": player_data.get("xp", 0),
+            "score": player_data.get("score", 0),
+            "coins": player_data.get("coins", 0),
+            "badges": player_data.get("badges", []),
+            "missions_completed": player_data.get("missions_completed", []),
+            "skills": player_data.get("skills", {})
+        }
 
-        # Mettre à jour la session
-        session["profile"] = profile
+        # Mettre à jour la session avec les données réelles
+        session["profile"] = compatible_profile
 
-        skill_tree_data = enhanced_mission_system.get_skill_tree(profile)
+        skill_tree_data = enhanced_mission_system.get_skill_tree(compatible_profile)
         return jsonify(
             {"success": True, "skill_tree": skill_tree_data, "player_data": player_data}
         )
@@ -1425,15 +1446,28 @@ def api_skill_tree_upgrade():
 
         # Récupérer les données de progression réelles
         # Utiliser un joueur qui a de l'XP pour les tests
-        player_id = profile.get("id", "u1")  # Utiliser u1 qui a 200 XP
+        # Utiliser le même joueur que le terminal
+        player_id = "main_user"
         player_data = progression_engine.get_player_progression(player_id)
 
         # Vérifier si le joueur a assez d'XP
-        # Utiliser l'XP du profil de session (synchronisé avec le terminal)
-        current_xp = profile.get("xp", 0)
-        if current_xp == 0:
-            current_xp = player_data.get("xp", 0)
-        skill_data = enhanced_mission_system.get_skill_tree(profile)
+        # Utiliser directement les données de ProgressionEngine
+        current_xp = player_data.get("xp", 0)
+
+        # Créer un profil compatible avec get_skill_tree
+        compatible_profile = {
+            "id": player_id,
+            "username": player_data.get("username", "main_user"),
+            "level": player_data.get("level", 1),
+            "xp": current_xp,
+            "score": player_data.get("score", 0),
+            "coins": player_data.get("coins", 0),
+            "badges": player_data.get("badges", []),
+            "missions_completed": player_data.get("missions_completed", []),
+            "skills": player_data.get("skills", {})
+        }
+
+        skill_data = enhanced_mission_system.get_skill_tree(compatible_profile)
 
         if category not in skill_data or skill not in skill_data[category]["skills"]:
             return jsonify({"error": "Compétence non trouvée"}), 400
@@ -1533,7 +1567,8 @@ def api_sync_progression():
         )
 
         # Récupérer les données de progression réelles
-        player_id = profile.get("id", "default")
+        # Utiliser le même joueur que le terminal
+        player_id = "main_user"
         player_data = progression_engine.get_player_progression(player_id)
 
         # Mettre à jour le profil avec les données réelles
@@ -1577,7 +1612,8 @@ def api_progression_data():
         )
 
         # Récupérer les données de progression réelles
-        player_id = profile.get("id", "default")
+        # Utiliser le même joueur que le terminal
+        player_id = "main_user"
         player_data = progression_engine.get_player_progression(player_id)
 
         return jsonify(

@@ -8,7 +8,7 @@ import json
 import random
 import time
 from datetime import datetime, timedelta
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 from core.database import DatabaseManager
 
@@ -23,7 +23,7 @@ class EnhancedMissionSystem:
         self.daily_challenges = self._init_daily_challenges()
         self.load_missions()
 
-    def _init_skill_tree(self) -> Dict[str, Any]:
+    def _init_skill_tree(self) -> dict[str, Any]:
         """Initialise l'arbre de compétences"""
         return {
             "hacking": {
@@ -31,10 +31,18 @@ class EnhancedMissionSystem:
                 "levels": ["Débutant", "Intermédiaire", "Avancé", "Expert"],
                 "skills": {
                     "code_breaking": {"level": 0, "xp_required": 100, "unlocked": True},
-                    "system_penetration": {"level": 0, "xp_required": 200, "unlocked": False},
+                    "system_penetration": {
+                        "level": 0,
+                        "xp_required": 200,
+                        "unlocked": False,
+                    },
                     "cryptography": {"level": 0, "xp_required": 300, "unlocked": False},
-                    "social_engineering": {"level": 0, "xp_required": 150, "unlocked": False}
-                }
+                    "social_engineering": {
+                        "level": 0,
+                        "xp_required": 150,
+                        "unlocked": False,
+                    },
+                },
             },
             "combat": {
                 "name": "Combat",
@@ -43,8 +51,8 @@ class EnhancedMissionSystem:
                     "defense": {"level": 0, "xp_required": 100, "unlocked": True},
                     "offense": {"level": 0, "xp_required": 200, "unlocked": False},
                     "strategy": {"level": 0, "xp_required": 300, "unlocked": False},
-                    "tactics": {"level": 0, "xp_required": 150, "unlocked": False}
-                }
+                    "tactics": {"level": 0, "xp_required": 150, "unlocked": False},
+                },
             },
             "social": {
                 "name": "Social",
@@ -53,32 +61,32 @@ class EnhancedMissionSystem:
                     "persuasion": {"level": 0, "xp_required": 100, "unlocked": True},
                     "negotiation": {"level": 0, "xp_required": 200, "unlocked": False},
                     "leadership": {"level": 0, "xp_required": 300, "unlocked": False},
-                    "diplomacy": {"level": 0, "xp_required": 150, "unlocked": False}
-                }
-            }
+                    "diplomacy": {"level": 0, "xp_required": 150, "unlocked": False},
+                },
+            },
         }
 
-    def _init_daily_challenges(self) -> Dict[str, Any]:
+    def _init_daily_challenges(self) -> dict[str, Any]:
         """Initialise les défis quotidiens"""
         return {
             "hacking_sprint": {
                 "name": "Sprint Hacking",
                 "description": "Résolvez 3 puzzles de hacking en moins de 5 minutes",
                 "reward": {"xp": 150, "coins": 50},
-                "difficulty": "moyen"
+                "difficulty": "moyen",
             },
             "memory_master": {
                 "name": "Maître de la Mémoire",
                 "description": "Mémorisez une séquence de 10 éléments",
                 "reward": {"xp": 100, "coins": 30},
-                "difficulty": "facile"
+                "difficulty": "facile",
             },
             "speed_typing": {
                 "name": "Frappe Rapide",
                 "description": "Tapez 200 caractères en moins de 30 secondes",
                 "reward": {"xp": 80, "coins": 25},
-                "difficulty": "facile"
-            }
+                "difficulty": "facile",
+            },
         }
 
     def load_missions(self):
@@ -90,7 +98,9 @@ class EnhancedMissionSystem:
         except Exception as e:
             print(f"Erreur chargement missions: {e}")
 
-    def create_interactive_mission(self, mission_id: str, mission_data: Dict[str, Any]) -> Dict[str, Any]:
+    def create_interactive_mission(
+        self, mission_id: str, mission_data: dict[str, Any]
+    ) -> dict[str, Any]:
         """Crée une mission interactive avec choix multiples"""
         return {
             "id": mission_id,
@@ -104,10 +114,12 @@ class EnhancedMissionSystem:
             "failure_conditions": mission_data.get("failure_conditions", []),
             "rewards": mission_data.get("rewards", {"xp": 50, "coins": 10}),
             "skill_requirements": mission_data.get("skill_requirements", {}),
-            "status": "available"
+            "status": "available",
         }
 
-    def execute_mission_choice(self, mission_id: str, choice_id: str, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def execute_mission_choice(
+        self, mission_id: str, choice_id: str, profile: dict[str, Any]
+    ) -> dict[str, Any]:
         """Exécute un choix dans une mission interactive"""
         mission = self.missions.get(mission_id)
         if not mission:
@@ -118,7 +130,7 @@ class EnhancedMissionSystem:
             return {
                 "success": False,
                 "message": "Compétences insuffisantes pour cette mission",
-                "required_skills": mission.get("skill_requirements", {})
+                "required_skills": mission.get("skill_requirements", {}),
             }
 
         # Trouver le choix
@@ -144,7 +156,9 @@ class EnhancedMissionSystem:
 
         return result
 
-    def _check_skill_requirements(self, mission: Dict[str, Any], profile: Dict[str, Any]) -> bool:
+    def _check_skill_requirements(
+        self, mission: dict[str, Any], profile: dict[str, Any]
+    ) -> bool:
         """Vérifie si le joueur a les compétences requises"""
         requirements = mission.get("skill_requirements", {})
         player_skills = profile.get("skills", {})
@@ -157,16 +171,25 @@ class EnhancedMissionSystem:
 
         return True
 
-    def _calculate_success_rate(self, mission: Dict[str, Any], choice: Dict[str, Any], profile: Dict[str, Any]) -> float:
+    def _calculate_success_rate(
+        self, mission: dict[str, Any], choice: dict[str, Any], profile: dict[str, Any]
+    ) -> float:
         """Calcule le taux de succès basé sur les compétences et le choix"""
         base_rate = 0.7  # 70% de base
-        difficulty_modifier = {"facile": 0.2, "moyen": 0.0, "difficile": -0.2}.get(mission.get("difficulty", "moyen"), 0.0)
+        difficulty_modifier = {"facile": 0.2, "moyen": 0.0, "difficile": -0.2}.get(
+            mission.get("difficulty", "moyen"), 0.0
+        )
         skill_bonus = self._calculate_skill_bonus(mission, profile)
         choice_modifier = choice.get("success_modifier", 0.0)
 
-        return min(0.95, max(0.05, base_rate + difficulty_modifier + skill_bonus + choice_modifier))
+        return min(
+            0.95,
+            max(0.05, base_rate + difficulty_modifier + skill_bonus + choice_modifier),
+        )
 
-    def _calculate_skill_bonus(self, mission: Dict[str, Any], profile: Dict[str, Any]) -> float:
+    def _calculate_skill_bonus(
+        self, mission: dict[str, Any], profile: dict[str, Any]
+    ) -> float:
         """Calcule le bonus de compétences"""
         bonus = 0.0
         player_skills = profile.get("skills", {})
@@ -179,15 +202,17 @@ class EnhancedMissionSystem:
 
         return min(0.3, bonus)  # Maximum 30% de bonus
 
-    def _handle_mission_success(self, mission: Dict[str, Any], choice: Dict[str, Any], profile: Dict[str, Any]) -> Dict[str, Any]:
+    def _handle_mission_success(
+        self, mission: dict[str, Any], choice: dict[str, Any], profile: dict[str, Any]
+    ) -> dict[str, Any]:
         """Gère le succès d'une mission"""
         # Calculer les récompenses variables
         base_rewards = mission.get("rewards", {"xp": 50, "coins": 10})
         choice_bonus = choice.get("reward_bonus", {})
-        
+
         final_rewards = {
             "xp": base_rewards.get("xp", 0) + choice_bonus.get("xp", 0),
-            "coins": base_rewards.get("coins", 0) + choice_bonus.get("coins", 0)
+            "coins": base_rewards.get("coins", 0) + choice_bonus.get("coins", 0),
         }
 
         # Appliquer les récompenses
@@ -208,16 +233,20 @@ class EnhancedMissionSystem:
             "message": f"Mission '{mission['name']}' réussie !",
             "rewards": final_rewards,
             "consequence": choice.get("consequence", "success"),
-            "ascii_art": "success"
+            "ascii_art": "success",
         }
 
-    def _handle_mission_failure(self, mission: Dict[str, Any], choice: Dict[str, Any], profile: Dict[str, Any]) -> Dict[str, Any]:
+    def _handle_mission_failure(
+        self, mission: dict[str, Any], choice: dict[str, Any], profile: dict[str, Any]
+    ) -> dict[str, Any]:
         """Gère l'échec d'une mission"""
         # Pénalités d'échec
         failure_penalty = choice.get("failure_penalty", {"xp": -10, "coins": -5})
-        
+
         profile["xp"] = max(0, profile.get("xp", 0) + failure_penalty.get("xp", 0))
-        profile["coins"] = max(0, profile.get("coins", 0) + failure_penalty.get("coins", 0))
+        profile["coins"] = max(
+            0, profile.get("coins", 0) + failure_penalty.get("coins", 0)
+        )
 
         return {
             "success": False,
@@ -225,10 +254,10 @@ class EnhancedMissionSystem:
             "penalty": failure_penalty,
             "consequence": choice.get("failure_consequence", "failure"),
             "ascii_art": "failure",
-            "retry_available": True
+            "retry_available": True,
         }
 
-    def _update_skills(self, mission: Dict[str, Any], profile: Dict[str, Any]):
+    def _update_skills(self, mission: dict[str, Any], profile: dict[str, Any]):
         """Met à jour les compétences du joueur"""
         if "skills" not in profile:
             profile["skills"] = {}
@@ -242,20 +271,24 @@ class EnhancedMissionSystem:
                 profile["skills"][skill_category] = 0
             profile["skills"][skill_category] += skill_xp
 
-    def get_available_missions(self, profile: Dict[str, Any]) -> List[Dict[str, Any]]:
+    def get_available_missions(self, profile: dict[str, Any]) -> list[dict[str, Any]]:
         """Récupère les missions disponibles pour le joueur"""
         available = []
-        
+
         for mission_id, mission in self.missions.items():
             if self._is_mission_available(mission, profile):
                 mission_copy = mission.copy()
                 mission_copy["available"] = True
-                mission_copy["completed"] = mission_id in profile.get("missions_completed", [])
+                mission_copy["completed"] = mission_id in profile.get(
+                    "missions_completed", []
+                )
                 available.append(mission_copy)
 
         return available
 
-    def _is_mission_available(self, mission: Dict[str, Any], profile: Dict[str, Any]) -> bool:
+    def _is_mission_available(
+        self, mission: dict[str, Any], profile: dict[str, Any]
+    ) -> bool:
         """Vérifie si une mission est disponible"""
         # Vérifier les prérequis de niveau
         required_level = mission.get("required_level", 1)
@@ -271,7 +304,9 @@ class EnhancedMissionSystem:
 
         return True
 
-    def start_daily_challenge(self, challenge_id: str, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def start_daily_challenge(
+        self, challenge_id: str, profile: dict[str, Any]
+    ) -> dict[str, Any]:
         """Démarre un défi quotidien"""
         challenge = self.daily_challenges.get(challenge_id)
         if not challenge:
@@ -286,10 +321,12 @@ class EnhancedMissionSystem:
         return {
             "success": True,
             "challenge": challenge,
-            "message": f"Défi '{challenge['name']}' démarré !"
+            "message": f"Défi '{challenge['name']}' démarré !",
         }
 
-    def complete_daily_challenge(self, challenge_id: str, profile: Dict[str, Any], performance: Dict[str, Any]) -> Dict[str, Any]:
+    def complete_daily_challenge(
+        self, challenge_id: str, profile: dict[str, Any], performance: dict[str, Any]
+    ) -> dict[str, Any]:
         """Complète un défi quotidien"""
         challenge = self.daily_challenges.get(challenge_id)
         if not challenge:
@@ -298,10 +335,10 @@ class EnhancedMissionSystem:
         # Calculer les récompenses basées sur la performance
         base_rewards = challenge.get("reward", {"xp": 50, "coins": 10})
         performance_multiplier = performance.get("multiplier", 1.0)
-        
+
         final_rewards = {
             "xp": int(base_rewards.get("xp", 0) * performance_multiplier),
-            "coins": int(base_rewards.get("coins", 0) * performance_multiplier)
+            "coins": int(base_rewards.get("coins", 0) * performance_multiplier),
         }
 
         # Appliquer les récompenses
@@ -318,32 +355,34 @@ class EnhancedMissionSystem:
             "success": True,
             "message": f"Défi '{challenge['name']}' complété !",
             "rewards": final_rewards,
-            "performance": performance
+            "performance": performance,
         }
 
-    def get_skill_tree(self, profile: Dict[str, Any]) -> Dict[str, Any]:
+    def get_skill_tree(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Récupère l'arbre de compétences du joueur"""
         player_skills = profile.get("skills", {})
-        
+
         # Mettre à jour l'arbre avec les compétences du joueur
         skill_tree = self.skill_tree.copy()
-        for category, skills in skill_tree.items():
+        for _category, skills in skill_tree.items():
             for skill_id, skill_data in skills["skills"].items():
                 skill_data["level"] = player_skills.get(skill_id, 0)
                 skill_data["unlocked"] = skill_data["level"] > 0
 
         return skill_tree
 
-    def get_daily_challenges(self, profile: Dict[str, Any]) -> List[Dict[str, Any]]:
+    def get_daily_challenges(self, profile: dict[str, Any]) -> list[dict[str, Any]]:
         """Récupère les défis quotidiens disponibles"""
         today = datetime.now().date().isoformat()
         daily_challenges = profile.get("daily_challenges", {})
-        
+
         available = []
         for challenge_id, challenge in self.daily_challenges.items():
             challenge_copy = challenge.copy()
             challenge_copy["id"] = challenge_id
-            challenge_copy["completed_today"] = daily_challenges.get(challenge_id) == today
+            challenge_copy["completed_today"] = (
+                daily_challenges.get(challenge_id) == today
+            )
             available.append(challenge_copy)
 
         return available

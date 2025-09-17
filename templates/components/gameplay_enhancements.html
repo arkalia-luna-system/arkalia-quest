@@ -1,0 +1,204 @@
+<!-- ===== ARKALIA QUEST - GAMEPLAY ENHANCEMENTS ===== -->
+<!-- Composant pour intégrer tous les systèmes de gameplay amélioré -->
+
+<!-- Scripts de gameplay amélioré -->
+<script src="{{ url_for('static', filename='js/zone-interactive-challenges.js') }}?v=3.1.0"></script>
+<script src="{{ url_for('static', filename='js/skill-tree-system.js') }}?v=3.1.0"></script>
+
+<!-- Styles pour les nouveaux systèmes -->
+<style>
+    /* Styles pour les défis de zone */
+    .zone-challenge-trigger {
+        position: relative;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .zone-challenge-trigger:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(167, 139, 250, 0.5);
+    }
+
+    .zone-challenge-trigger::after {
+        content: '🎯';
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: var(--violet-lunaire);
+        color: #000;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8em;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .zone-challenge-trigger:hover::after {
+        opacity: 1;
+    }
+
+    /* Styles pour l'arbre de compétences */
+    .skill-tree-trigger {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        background: var(--violet-lunaire);
+        color: #000;
+        border: none;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        font-size: 1.5em;
+        cursor: pointer;
+        box-shadow: 0 4px 20px rgba(167, 139, 250, 0.4);
+        transition: all 0.3s ease;
+        z-index: 1000;
+    }
+
+    .skill-tree-trigger:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 25px rgba(167, 139, 250, 0.6);
+    }
+
+    /* Styles pour les défis quotidiens */
+    .daily-challenges-trigger {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: var(--bleu-spectre);
+        color: #000;
+        border: none;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        font-size: 1.5em;
+        cursor: pointer;
+        box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+        transition: all 0.3s ease;
+        z-index: 1000;
+    }
+
+    .daily-challenges-trigger:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 25px rgba(59, 130, 246, 0.6);
+    }
+
+    /* Animation de pulsation pour les nouveaux éléments */
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.05);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .new-feature-pulse {
+        animation: pulse 2s infinite;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+
+        .skill-tree-trigger,
+        .daily-challenges-trigger {
+            width: 50px;
+            height: 50px;
+            font-size: 1.2em;
+        }
+
+        .skill-tree-trigger {
+            bottom: 80px;
+        }
+    }
+</style>
+
+<!-- Boutons de déclenchement des nouveaux systèmes -->
+<div class="gameplay-enhancements-triggers">
+    <!-- Bouton arbre de compétences -->
+    <button class="skill-tree-trigger" onclick="window.skillTreeSystem?.showSkillTree()" title="Arbre de Compétences">
+        🌳
+    </button>
+
+    <!-- Bouton défis quotidiens -->
+    <button class="daily-challenges-trigger" onclick="showDailyChallenges()" title="Défis Quotidiens">
+        🎯
+    </button>
+</div>
+
+<!-- Script d'initialisation -->
+<script>
+    // Initialiser les systèmes de gameplay amélioré
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log('🎮 Gameplay Enhancements initialisés');
+
+        // Ajouter les attributs data-zone aux zones existantes
+        const zones = document.querySelectorAll('.zone, [class*="zone"]');
+        zones.forEach(zone => {
+            if (!zone.dataset.zone) {
+                // Déterminer la zone basée sur le contenu ou la classe
+                if (zone.textContent.includes('Base') || zone.classList.contains('base')) {
+                    zone.dataset.zone = 'base';
+                } else if (zone.textContent.includes('Nexus') || zone.classList.contains('nexus')) {
+                    zone.dataset.zone = 'station_nexus';
+                } else if (zone.textContent.includes('Luna') || zone.classList.contains('luna')) {
+                    zone.dataset.zone = 'atelier_luna';
+                } else if (zone.textContent.includes('Pandora') || zone.classList.contains('pandora')) {
+                    zone.dataset.zone = 'coeur_pandora';
+                }
+
+                if (zone.dataset.zone) {
+                    zone.classList.add('zone-challenge-trigger');
+                }
+            }
+        });
+
+        // Ajouter l'effet de pulsation aux nouveaux éléments
+        const newFeatures = document.querySelectorAll('.skill-tree-trigger, .daily-challenges-trigger');
+        newFeatures.forEach(feature => {
+            feature.classList.add('new-feature-pulse');
+        });
+    });
+
+    // Fonction pour afficher les défis quotidiens
+    function showDailyChallenges() {
+        if (window.universalNotifications) {
+            window.universalNotifications.info(
+                '🎯 Défis Quotidiens',
+                'Utilisez la commande "daily_challenges" dans le terminal pour voir les défis disponibles !',
+                { duration: 5000 }
+            );
+        }
+    }
+
+    // Fonction pour afficher les missions interactives
+    function showInteractiveMissions() {
+        if (window.universalNotifications) {
+            window.universalNotifications.info(
+                '🎮 Missions Interactives',
+                'Utilisez la commande "missions_interactive" dans le terminal pour voir les missions disponibles !',
+                { duration: 5000 }
+            );
+        }
+    }
+
+    // Fonction pour afficher les défis de zone
+    function showZoneChallenges() {
+        if (window.universalNotifications) {
+            window.universalNotifications.info(
+                '🗺️ Défis de Zone',
+                'Cliquez sur les zones pour découvrir les défis disponibles !',
+                { duration: 5000 }
+            );
+        }
+    }
+</script>

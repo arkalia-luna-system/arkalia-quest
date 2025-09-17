@@ -1233,3 +1233,156 @@ Toutes les fonctionnalités sont disponibles !
             "score_gagne": 5,
             "profile_updated": True,
         }
+
+    def handle_skill_tree(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Gère la commande skill_tree - Affiche l'arbre de compétences"""
+        profile["score"] += 10
+
+        # Simuler l'ouverture de l'arbre de compétences
+        return {
+            "réussite": True,
+            "ascii_art": "🌳",
+            "message": """🌳 ARBRE DE COMPÉTENCES ARKALIA QUEST
+
+🎯 COMPÉTENCES DISPONIBLES :
+
+💻 HACKING :
+• Cassage de Code (Niveau 1/5) - Débloqué
+• Pénétration Système (Niveau 0/5) - Verrouillé
+• Cryptographie (Niveau 0/5) - Verrouillé
+• Ingénierie Sociale (Niveau 0/5) - Verrouillé
+
+⚔️ COMBAT :
+• Défense (Niveau 1/5) - Débloqué
+• Offensive (Niveau 0/5) - Verrouillé
+• Stratégie (Niveau 0/5) - Verrouillé
+• Tactiques (Niveau 0/5) - Verrouillé
+
+💬 SOCIAL :
+• Persuasion (Niveau 1/5) - Débloqué
+• Négociation (Niveau 0/5) - Verrouillé
+• Leadership (Niveau 0/5) - Verrouillé
+• Diplomatie (Niveau 0/5) - Verrouillé
+
+💡 UTILISATION :
+• Utilise l'interface web pour voir l'arbre complet
+• Gagne de l'XP pour améliorer tes compétences
+• Chaque compétence améliore tes chances de succès
+
+🌟 +10 points pour avoir exploré l'arbre de compétences !""",
+            "score_gagne": 10,
+            "profile_updated": True,
+        }
+
+    def handle_daily_challenges(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Gère la commande daily_challenges - Affiche les défis quotidiens"""
+        profile["score"] += 15
+
+        return {
+            "réussite": True,
+            "ascii_art": "🎯",
+            "message": """🎯 DÉFIS QUOTIDIENS ARKALIA QUEST
+
+📅 DÉFIS DU JOUR :
+
+💻 HACKING SPRINT :
+• Résolvez 3 puzzles de hacking en moins de 5 minutes
+• Récompense : +150 XP, +50 Coins
+• Difficulté : Moyen
+
+🧠 MAÎTRE DE LA MÉMOIRE :
+• Mémorisez une séquence de 10 éléments
+• Récompense : +100 XP, +30 Coins
+• Difficulté : Facile
+
+⌨️ FRAPPE RAPIDE :
+• Tapez 200 caractères en moins de 30 secondes
+• Récompense : +80 XP, +25 Coins
+• Difficulté : Facile
+
+💡 UTILISATION :
+• Cliquez sur un défi pour le commencer
+• Les défis se renouvellent chaque jour
+• Gagnez des bonus de performance
+
+🌟 +15 points pour avoir exploré les défis !""",
+            "score_gagne": 15,
+            "profile_updated": True,
+        }
+
+    def handle_zone_challenges(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Gère la commande zone_challenges - Affiche les défis de zone"""
+        profile["score"] += 20
+
+        return {
+            "réussite": True,
+            "ascii_art": "🗺️",
+            "message": """🗺️ DÉFIS DE ZONE ARKALIA QUEST
+
+🌍 DÉFIS PAR ZONE :
+
+🏠 BASE ARKALIA :
+• Séquence de Mémoire - Facile (+50 XP, +15 Coins)
+• Cassage de Code - Moyen (+75 XP, +25 Coins)
+
+🚀 STATION NEXUS :
+• Mini-Hack - Moyen (+100 XP, +30 Coins)
+• Reconnaissance de Motifs - Difficile (+150 XP, +50 Coins)
+
+🌙 ATELIER LUNA :
+• Communication avec LUNA - Facile (+60 XP, +20 Coins)
+• Réparation Système - Moyen (+120 XP, +40 Coins)
+
+💎 CŒUR PANDORA :
+• Puzzle Final - Expert (+300 XP, +100 Coins)
+
+💡 UTILISATION :
+• Explorez les zones pour découvrir les défis
+• Cliquez sur les zones pour voir les défis disponibles
+• Chaque défi améliore tes compétences
+
+🌟 +20 points pour avoir exploré les défis de zone !""",
+            "score_gagne": 20,
+            "profile_updated": True,
+        }
+
+    def handle_missions_interactive(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Gère la commande missions_interactive - Affiche les missions interactives"""
+        profile["score"] += 25
+
+        return {
+            "réussite": True,
+            "ascii_art": "🎮",
+            "message": """🎮 MISSIONS INTERACTIVES ARKALIA QUEST
+
+🎯 MISSIONS DISPONIBLES :
+
+💻 PÉNÉTRATION DU SYSTÈME :
+• Infiltrez le système de sécurité de la Station Nexus
+• Choix : Furtif, Force brute, Ingénierie sociale
+• Récompense : +100 XP, +25 Coins
+
+🌙 RELATION AVEC LUNA :
+• Aidez LUNA avec un problème personnel
+• Choix : Empathique, Logique, Dismissive
+• Récompense : +75 XP, +20 Coins
+
+⚔️ DÉFENSE DE LA BASE :
+• Repoussez l'attaque de pirates (2 min)
+• Choix : Défensif, Agressif, Hacker leurs systèmes
+• Récompense : +200 XP, +50 Coins
+
+🧩 DÉFI DE PUZZLE :
+• Résolvez un puzzle logique pour débloquer un système
+• Choix : Systématique, Intuition, Demander l'aide de LUNA
+• Récompense : +120 XP, +30 Coins
+
+💡 UTILISATION :
+• Chaque mission a des choix multiples
+• Vos choix affectent le succès et les récompenses
+• Échec possible - réessayez pour améliorer
+
+🌟 +25 points pour avoir exploré les missions interactives !""",
+            "score_gagne": 25,
+            "profile_updated": True,
+        }

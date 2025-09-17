@@ -9,7 +9,7 @@ class ReadyStateManager {
         this.hiddenBlocks = new Set();
         this.checkInterval = null;
         this.checkFrequency = 2000; // 2 secondes
-        
+
         this.init();
     }
 
@@ -105,7 +105,7 @@ class ReadyStateManager {
                         if (this.isReadyBlock(node)) {
                             this.readyBlocks.add(node);
                         }
-                        
+
                         // Vérifier les enfants
                         const children = node.querySelectorAll ? node.querySelectorAll('*') : [];
                         children.forEach(child => {
@@ -198,12 +198,12 @@ class ReadyStateManager {
     hideBlock(block) {
         // Ajouter une classe pour l'animation
         block.classList.add('hiding-ready-block');
-        
+
         // Animation de sortie
         block.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
         block.style.opacity = '0';
         block.style.transform = 'translateY(-20px)';
-        
+
         // Masquer complètement après l'animation
         setTimeout(() => {
             block.style.display = 'none';
@@ -214,13 +214,13 @@ class ReadyStateManager {
     showBlock(block) {
         // Retirer les classes de masquage
         block.classList.remove('hiding-ready-block', 'ready-block-hidden');
-        
+
         // Réinitialiser les styles
         block.style.display = '';
         block.style.opacity = '';
         block.style.transform = '';
         block.style.transition = '';
-        
+
         // Animation d'entrée
         setTimeout(() => {
             block.style.transition = 'opacity 0.5s ease-in, transform 0.5s ease-in';

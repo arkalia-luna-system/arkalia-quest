@@ -35,6 +35,11 @@ try:
     from core.tutorial_manager import tutorial_manager
     from core.websocket_manager import websocket_manager
     from core.enhanced_mission_system import EnhancedMissionSystem
+    from core.database_optimizer import DatabaseOptimizer
+    from core.luna_emotions_engine import LunaEmotionsEngine
+    from core.mission_handler import MissionHandler
+    from core.profile_manager import ProfileManager
+    from engines.effects_engine import EffectsEngine
 
     # from engines.luna_ai_v3 import LunaAIV3  # Module temporairement désactivé
 
@@ -116,6 +121,13 @@ app.config.update(
 
 # Initialisation du système de missions amélioré
 enhanced_mission_system = EnhancedMissionSystem()
+
+# Initialisation des modules supplémentaires
+database_optimizer = DatabaseOptimizer()
+luna_emotions_engine = LunaEmotionsEngine()
+mission_handler = MissionHandler()
+profile_manager = ProfileManager()
+effects_engine = EffectsEngine()
 
 # Configuration de la compression gzip
 Compress(app)
@@ -1320,6 +1332,42 @@ def api_enhanced_mission_detail(mission_id):
             return jsonify({"success": True, "mission": mission_data})
         else:
             return jsonify({"success": False, "error": "Mission non trouvée"}), 404
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+@app.route("/api/luna-emotions")
+def api_luna_emotions():
+    """API pour les émotions de LUNA"""
+    try:
+        emotions_data = luna_emotions_engine.get_current_emotion()
+        return jsonify({"success": True, "emotion": emotions_data})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+@app.route("/api/mission-handler/available")
+def api_mission_handler_available():
+    """API pour les missions disponibles via le gestionnaire"""
+    try:
+        available_missions = mission_handler.get_available_missions()
+        return jsonify({"success": True, "missions": available_missions})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+@app.route("/api/profile-manager/stats")
+def api_profile_manager_stats():
+    """API pour les statistiques du gestionnaire de profils"""
+    try:
+        stats = profile_manager.get_statistics()
+        return jsonify({"success": True, "stats": stats})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+@app.route("/api/database-optimizer/stats")
+def api_database_optimizer_stats():
+    """API pour les statistiques de l'optimiseur de base de données"""
+    try:
+        stats = database_optimizer.get_stats()
+        return jsonify({"success": True, "stats": stats})
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
 

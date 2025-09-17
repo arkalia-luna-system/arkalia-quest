@@ -82,9 +82,9 @@
       }
     },
     "main_user": {
-      "score": 200,
+      "score": 320,
       "level": 1,
-      "xp": 200,
+      "xp": 320,
       "coins": 50,
       "badges": [
         "Premier pas",
@@ -115,13 +115,25 @@
         {
           "command": "help",
           "timestamp": "2025-09-17T18:11:59.063046"
+        },
+        {
+          "command": "skill_tree",
+          "timestamp": "2025-09-17T18:41:55.966439"
+        },
+        {
+          "command": "simple_hack",
+          "timestamp": "2025-09-17T18:41:59.492734"
+        },
+        {
+          "command": "skill_tree",
+          "timestamp": "2025-09-17T18:44:02.086913"
         }
       ],
       "luna_commands_used": [],
       "mini_games_completed": [],
       "daily_challenges_progress": {
         "hacker_speed": {
-          "progress": 6,
+          "progress": 9,
           "completed": true,
           "reward_claimed": false,
           "notified": true
@@ -145,9 +157,9 @@
       "achievements_unlocked": [
         "first_step"
       ],
-      "last_activity": "2025-09-17T18:11:59.063042",
+      "last_activity": "2025-09-17T18:44:02.117649",
       "stats": {
-        "total_commands": 6,
+        "total_commands": 9,
         "total_luna_commands": 0,
         "total_zones_explored": 0,
         "total_mini_games": 0,

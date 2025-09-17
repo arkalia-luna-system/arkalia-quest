@@ -60,8 +60,12 @@ class TutorielExperienceTester:
         profile_results["total_time"] = time.time() - start_time
 
         # Calcul du score d'expérience
-        profile_results["engagement_level"] = self._calculate_engagement(profile_results["steps"])
-        profile_results["frustration_level"] = self._calculate_frustration(profile_results["steps"])
+        profile_results["engagement_level"] = self._calculate_engagement(
+            profile_results["steps"]
+        )
+        profile_results["frustration_level"] = self._calculate_frustration(
+            profile_results["steps"]
+        )
 
         self.results["profiles_tested"].append(profile_results)
         return profile_results
@@ -95,8 +99,12 @@ class TutorielExperienceTester:
         profile_results["steps"].append(step3)
 
         profile_results["total_time"] = time.time() - start_time
-        profile_results["engagement_level"] = self._calculate_engagement(profile_results["steps"])
-        profile_results["frustration_level"] = self._calculate_frustration(profile_results["steps"])
+        profile_results["engagement_level"] = self._calculate_engagement(
+            profile_results["steps"]
+        )
+        profile_results["frustration_level"] = self._calculate_frustration(
+            profile_results["steps"]
+        )
 
         self.results["profiles_tested"].append(profile_results)
         return profile_results
@@ -130,8 +138,12 @@ class TutorielExperienceTester:
         profile_results["steps"].append(step3)
 
         profile_results["total_time"] = time.time() - start_time
-        profile_results["engagement_level"] = self._calculate_engagement(profile_results["steps"])
-        profile_results["frustration_level"] = self._calculate_frustration(profile_results["steps"])
+        profile_results["engagement_level"] = self._calculate_engagement(
+            profile_results["steps"]
+        )
+        profile_results["frustration_level"] = self._calculate_frustration(
+            profile_results["steps"]
+        )
 
         self.results["profiles_tested"].append(profile_results)
         return profile_results
@@ -173,7 +185,9 @@ class TutorielExperienceTester:
         tutorial_results["steps"].append(step5)
 
         tutorial_results["total_time"] = time.time() - start_time
-        tutorial_results["engagement_level"] = self._calculate_engagement(tutorial_results["steps"])
+        tutorial_results["engagement_level"] = self._calculate_engagement(
+            tutorial_results["steps"]
+        )
         tutorial_results["frustration_level"] = self._calculate_frustration(
             tutorial_results["steps"],
         )
@@ -244,7 +258,9 @@ class TutorielExperienceTester:
                     else:
                         step["issues"].append("API tutoriel retourne une erreur")
                 else:
-                    step["issues"].append(f"API tutoriel inaccessible: {api_response.status_code}")
+                    step["issues"].append(
+                        f"API tutoriel inaccessible: {api_response.status_code}"
+                    )
 
                 # Évaluer le temps de chargement
                 if step["duration"] < 1.0:
@@ -457,7 +473,9 @@ class TutorielExperienceTester:
             step["success"] = len(responses) > 0
 
             if step["success"]:
-                step["positives"].append(f"{len(responses)} commandes testées avec succès")
+                step["positives"].append(
+                    f"{len(responses)} commandes testées avec succès"
+                )
 
                 # Vérifier la variété des réponses
                 unique_ascii = {r.get("ascii_art", "") for r in responses}
@@ -537,7 +555,9 @@ class TutorielExperienceTester:
 
             for cmd in commands:
                 cmd_start = time.time()
-                requests.post(f"{self.base_url}/commande", json={"commande": cmd}, timeout=2)
+                requests.post(
+                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=2
+                )
                 response_times.append(time.time() - cmd_start)
 
             step["duration"] = time.time() - start_time
@@ -580,7 +600,9 @@ class TutorielExperienceTester:
 
             for cmd in commands:
                 cmd_start = time.time()
-                requests.post(f"{self.base_url}/commande", json={"commande": cmd}, timeout=1)
+                requests.post(
+                    f"{self.base_url}/commande", json={"commande": cmd}, timeout=1
+                )
                 total_time += time.time() - cmd_start
 
             step["duration"] = time.time() - start_time
@@ -711,7 +733,9 @@ class TutorielExperienceTester:
                         step["positives"].append("Progression initialisée")
 
                 else:
-                    step["issues"].append(f"Erreur tutoriel: {data.get('error', 'Unknown')}")
+                    step["issues"].append(
+                        f"Erreur tutoriel: {data.get('error', 'Unknown')}"
+                    )
             else:
                 step["issues"].append(f"Erreur HTTP: {response.status_code}")
 
@@ -791,7 +815,9 @@ class TutorielExperienceTester:
                     step["success"] = True
                     step["positives"].append("Choix utilisateur traité")
                 else:
-                    step["issues"].append(f"Erreur choix: {data.get('error', 'Unknown')}")
+                    step["issues"].append(
+                        f"Erreur choix: {data.get('error', 'Unknown')}"
+                    )
             else:
                 step["issues"].append(f"Erreur HTTP choix: {response.status_code}")
 
@@ -815,7 +841,9 @@ class TutorielExperienceTester:
 
         try:
             # Test des effets d'une étape
-            response = requests.get(f"{self.base_url}/api/tutorial/effects/1", timeout=5)
+            response = requests.get(
+                f"{self.base_url}/api/tutorial/effects/1", timeout=5
+            )
 
             step["duration"] = time.time() - start_time
 
@@ -855,7 +883,9 @@ class TutorielExperienceTester:
 
         try:
             # Test du dialogue LUNA
-            response = requests.get(f"{self.base_url}/api/tutorial/luna-dialogue/1", timeout=5)
+            response = requests.get(
+                f"{self.base_url}/api/tutorial/luna-dialogue/1", timeout=5
+            )
 
             step["duration"] = time.time() - start_time
 
@@ -941,7 +971,9 @@ class TutorielExperienceTester:
         engagement_score = (total_engagement / max_score) * 50
         frustration_penalty = (total_frustration / max_score) * 30
 
-        self.results["overall_score"] = max(0, min(100, engagement_score - frustration_penalty))
+        self.results["overall_score"] = max(
+            0, min(100, engagement_score - frustration_penalty)
+        )
 
         # Génération du rapport
         self._generate_report()

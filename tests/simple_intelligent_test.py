@@ -203,7 +203,9 @@ class SimpleIntelligentTester:
 
     def test_edge_cases(self, personality: str) -> list[dict]:
         """Teste des cas limites selon la personnalité"""
-        print(f"\n🔧 {self.personalities[personality]['name']} teste les cas limites...")
+        print(
+            f"\n🔧 {self.personalities[personality]['name']} teste les cas limites..."
+        )
 
         results = []
         self.personalities[personality]
@@ -272,7 +274,9 @@ class SimpleIntelligentTester:
             "stats": {
                 "total_commands": total_commands,
                 "successful_commands": successful_commands,
-                "success_rate": (successful_commands / total_commands if total_commands > 0 else 0),
+                "success_rate": (
+                    successful_commands / total_commands if total_commands > 0 else 0
+                ),
                 "total_score": total_score,
                 "badges_earned": badges_earned,
             },
@@ -356,9 +360,7 @@ class SimpleIntelligentTester:
         print(f"   • Badges total: {total_badges}")
 
         # Sauvegarder le rapport
-        filename = (
-            f"tests/reports/simple_test_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-        )
+        filename = f"tests/reports/simple_test_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(all_results, f, indent=2, ensure_ascii=False)
 

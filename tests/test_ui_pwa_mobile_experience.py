@@ -72,7 +72,9 @@ class PWAMobileExperienceTester:
 
                     # Vérifier les icônes
                     if "icons" in manifest_data and len(manifest_data["icons"]) >= 3:
-                        manifest_result["positives"].append("Icônes multiples présentes")
+                        manifest_result["positives"].append(
+                            "Icônes multiples présentes"
+                        )
                     else:
                         manifest_result["issues"].append("Icônes insuffisantes")
 
@@ -86,7 +88,9 @@ class PWAMobileExperienceTester:
                     manifest_result["issues"].append("Manifest JSON invalide")
 
             else:
-                manifest_result["issues"].append(f"Manifest inaccessible: {response.status_code}")
+                manifest_result["issues"].append(
+                    f"Manifest inaccessible: {response.status_code}"
+                )
 
         except Exception as e:
             manifest_result["issues"].append(f"Erreur manifest: {e!s}")
@@ -110,7 +114,9 @@ class PWAMobileExperienceTester:
 
         try:
             # Test du service worker
-            response = requests.get(f"{self.base_url}/static/js/service-worker.js", timeout=5)
+            response = requests.get(
+                f"{self.base_url}/static/js/service-worker.js", timeout=5
+            )
             sw_result["duration"] = time.time() - start_time
 
             if response.status_code == 200:
@@ -139,7 +145,9 @@ class PWAMobileExperienceTester:
                     sw_result["issues"].append("Mode offline non supporté")
 
             else:
-                sw_result["issues"].append(f"Service worker inaccessible: {response.status_code}")
+                sw_result["issues"].append(
+                    f"Service worker inaccessible: {response.status_code}"
+                )
 
         except Exception as e:
             sw_result["issues"].append(f"Erreur service worker: {e!s}")
@@ -182,14 +190,23 @@ class PWAMobileExperienceTester:
                     install_result["issues"].append("Service worker non référencé")
 
                 if "beforeinstallprompt" in content.lower():
-                    install_result["positives"].append("Prompt d'installation configuré")
+                    install_result["positives"].append(
+                        "Prompt d'installation configuré"
+                    )
                 else:
                     install_result["issues"].append("Prompt d'installation manquant")
 
-                if "add to home screen" in content.lower() or "install" in content.lower():
-                    install_result["positives"].append("Interface d'installation présente")
+                if (
+                    "add to home screen" in content.lower()
+                    or "install" in content.lower()
+                ):
+                    install_result["positives"].append(
+                        "Interface d'installation présente"
+                    )
                 else:
-                    install_result["issues"].append("Interface d'installation manquante")
+                    install_result["issues"].append(
+                        "Interface d'installation manquante"
+                    )
 
             else:
                 install_result["issues"].append(
@@ -247,7 +264,9 @@ class PWAMobileExperienceTester:
                 offline_result["issues"].append("Ressources offline insuffisantes")
 
             # Vérifier la présence de cache dans le service worker
-            sw_response = requests.get(f"{self.base_url}/static/js/service-worker.js", timeout=3)
+            sw_response = requests.get(
+                f"{self.base_url}/static/js/service-worker.js", timeout=3
+            )
             if sw_response.status_code == 200:
                 if "cache" in sw_response.text.lower():
                     offline_result["positives"].append("Cache configuré pour offline")
@@ -300,7 +319,9 @@ class PWAMobileExperienceTester:
                     mobile_result["issues"].append("Optimisations tactiles manquantes")
 
                 # Vérifier la présence de CSS mobile
-                css_response = requests.get(f"{self.base_url}/static/css/style.css", timeout=3)
+                css_response = requests.get(
+                    f"{self.base_url}/static/css/style.css", timeout=3
+                )
                 if css_response.status_code == 200:
                     css_content = css_response.text
                     if "@media" in css_content:
@@ -309,7 +330,9 @@ class PWAMobileExperienceTester:
                         mobile_result["issues"].append("Media queries manquantes")
 
             else:
-                mobile_result["issues"].append(f"Page inaccessible: {response.status_code}")
+                mobile_result["issues"].append(
+                    f"Page inaccessible: {response.status_code}"
+                )
 
         except Exception as e:
             mobile_result["issues"].append(f"Erreur mobile: {e!s}")
@@ -352,11 +375,15 @@ class PWAMobileExperienceTester:
                 avg_load_time = sum(load_times) / len(load_times)
 
                 if avg_load_time < 1.0:
-                    performance_result["positives"].append("Performance mobile excellente")
+                    performance_result["positives"].append(
+                        "Performance mobile excellente"
+                    )
                 elif avg_load_time < 2.0:
                     performance_result["positives"].append("Performance mobile bonne")
                 elif avg_load_time < 3.0:
-                    performance_result["positives"].append("Performance mobile acceptable")
+                    performance_result["positives"].append(
+                        "Performance mobile acceptable"
+                    )
                 else:
                     performance_result["issues"].append("Performance mobile lente")
 
@@ -399,23 +426,35 @@ class PWAMobileExperienceTester:
                     accessibility_result["issues"].append("Attributs ARIA manquants")
 
                 if "alt=" in content.lower():
-                    accessibility_result["positives"].append("Textes alternatifs présents")
+                    accessibility_result["positives"].append(
+                        "Textes alternatifs présents"
+                    )
                 else:
-                    accessibility_result["issues"].append("Textes alternatifs manquants")
+                    accessibility_result["issues"].append(
+                        "Textes alternatifs manquants"
+                    )
 
                 if "tabindex" in content.lower():
-                    accessibility_result["positives"].append("Navigation clavier configurée")
+                    accessibility_result["positives"].append(
+                        "Navigation clavier configurée"
+                    )
                 else:
-                    accessibility_result["issues"].append("Navigation clavier manquante")
+                    accessibility_result["issues"].append(
+                        "Navigation clavier manquante"
+                    )
 
                 # Vérifier la taille des éléments tactiles
                 if "min-height: 44px" in content or "min-width: 44px" in content:
-                    accessibility_result["positives"].append("Taille tactile appropriée")
+                    accessibility_result["positives"].append(
+                        "Taille tactile appropriée"
+                    )
                 else:
                     accessibility_result["issues"].append("Taille tactile insuffisante")
 
             else:
-                accessibility_result["issues"].append(f"Page inaccessible: {response.status_code}")
+                accessibility_result["issues"].append(
+                    f"Page inaccessible: {response.status_code}"
+                )
 
         except Exception as e:
             accessibility_result["issues"].append(f"Erreur accessibilité: {e!s}")
@@ -448,22 +487,36 @@ class PWAMobileExperienceTester:
 
                 # Vérifier la présence de code de notifications
                 if "notification" in content.lower():
-                    notifications_result["positives"].append("Notifications configurées")
+                    notifications_result["positives"].append(
+                        "Notifications configurées"
+                    )
                 else:
-                    notifications_result["issues"].append("Notifications non configurées")
+                    notifications_result["issues"].append(
+                        "Notifications non configurées"
+                    )
 
                 if "permission" in content.lower():
-                    notifications_result["positives"].append("Demande de permission configurée")
+                    notifications_result["positives"].append(
+                        "Demande de permission configurée"
+                    )
                 else:
-                    notifications_result["issues"].append("Demande de permission manquante")
+                    notifications_result["issues"].append(
+                        "Demande de permission manquante"
+                    )
 
                 if "push" in content.lower():
-                    notifications_result["positives"].append("Notifications push supportées")
+                    notifications_result["positives"].append(
+                        "Notifications push supportées"
+                    )
                 else:
-                    notifications_result["issues"].append("Notifications push non supportées")
+                    notifications_result["issues"].append(
+                        "Notifications push non supportées"
+                    )
 
             else:
-                notifications_result["issues"].append(f"Page inaccessible: {response.status_code}")
+                notifications_result["issues"].append(
+                    f"Page inaccessible: {response.status_code}"
+                )
 
         except Exception as e:
             notifications_result["issues"].append(f"Erreur notifications: {e!s}")

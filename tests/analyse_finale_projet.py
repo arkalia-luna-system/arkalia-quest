@@ -164,7 +164,9 @@ class AnalyseurProjet:
                     self.resultats["performance"]["status"] = "accessible"
 
                 else:
-                    print(f"❌ Application accessible mais erreur {response.status_code}")
+                    print(
+                        f"❌ Application accessible mais erreur {response.status_code}"
+                    )
                     self.resultats["performance"]["status"] = "erreur_http"
 
             except requests.exceptions.RequestException:
@@ -290,16 +292,23 @@ class AnalyseurProjet:
         # Score structure (25 points)
         if "structure" in self.resultats:
             score += (self.resultats["structure"]["score"] / 100) * 25
-            print(f"🏗️  Structure: {self.resultats['structure']['score']:.1f}% → {score:.1f}/25")
+            print(
+                f"🏗️  Structure: {self.resultats['structure']['score']:.1f}% → {score:.1f}/25"
+            )
 
         # Score tests (25 points)
         if "tests" in self.resultats and "collectes" in self.resultats["tests"]:
             test_score = min(self.resultats["tests"]["collectes"] / 100, 1.0) * 25
             score += test_score
-            print(f"🧪 Tests: {self.resultats['tests']['collectes']} tests → {test_score:.1f}/25")
+            print(
+                f"🧪 Tests: {self.resultats['tests']['collectes']} tests → {test_score:.1f}/25"
+            )
 
         # Score performance (20 points)
-        if "performance" in self.resultats and "status" in self.resultats["performance"]:
+        if (
+            "performance" in self.resultats
+            and "status" in self.resultats["performance"]
+        ):
             if self.resultats["performance"]["status"] == "accessible":
                 perf_score = 20
                 if "response_time" in self.resultats["performance"]:
@@ -326,7 +335,10 @@ class AnalyseurProjet:
             print(f"🛡️  Robustesse: {robust_score}/20")
 
         # Score couverture (10 points)
-        if "couverture" in self.resultats and "pourcentage" in self.resultats["couverture"]:
+        if (
+            "couverture" in self.resultats
+            and "pourcentage" in self.resultats["couverture"]
+        ):
             cov_score = min(self.resultats["couverture"]["pourcentage"] / 10, 10)
             score += cov_score
             print(
@@ -361,19 +373,28 @@ class AnalyseurProjet:
         recommendations = []
 
         # Recommandations basées sur la couverture
-        if "couverture" in self.resultats and "pourcentage" in self.resultats["couverture"]:
+        if (
+            "couverture" in self.resultats
+            and "pourcentage" in self.resultats["couverture"]
+        ):
             if self.resultats["couverture"]["pourcentage"] < 60:
-                recommendations.append("📈 Augmenter la couverture de tests (objectif: 80%+)")
+                recommendations.append(
+                    "📈 Augmenter la couverture de tests (objectif: 80%+)"
+                )
 
         # Recommandations basées sur les tests
         if "tests" in self.resultats and "collectes" in self.resultats["tests"]:
             if self.resultats["tests"]["collectes"] < 100:
-                recommendations.append("🧪 Ajouter plus de tests unitaires et d'intégration")
+                recommendations.append(
+                    "🧪 Ajouter plus de tests unitaires et d'intégration"
+                )
 
         # Recommandations basées sur la robustesse
         if "robustesse" in self.resultats and "status" in self.resultats["robustesse"]:
             if self.resultats["robustesse"]["status"] != "succes":
-                recommendations.append("🛡️  Corriger les tests de robustesse qui échouent")
+                recommendations.append(
+                    "🛡️  Corriger les tests de robustesse qui échouent"
+                )
 
         # Recommandations basées sur les erreurs
         if self.resultats["erreurs"]:
@@ -384,7 +405,9 @@ class AnalyseurProjet:
             recommendations.append("🚀 Mettre en place un plan d'amélioration continue")
 
         if not recommendations:
-            recommendations.append("🎉 Aucune recommandation majeure - projet en excellent état !")
+            recommendations.append(
+                "🎉 Aucune recommandation majeure - projet en excellent état !"
+            )
 
         for i, rec in enumerate(recommendations, 1):
             print(f"{i}. {rec}")

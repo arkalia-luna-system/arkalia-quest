@@ -27,7 +27,9 @@ class TestChargeReel:
         self.start_time = None
         self.end_time = None
 
-    async def _test_endpoint(self, session: aiohttp.ClientSession, endpoint: str) -> dict:
+    async def _test_endpoint(
+        self, session: aiohttp.ClientSession, endpoint: str
+    ) -> dict:
         """Test un endpoint spécifique (méthode privée)"""
         start_time = time.time()
 
@@ -109,7 +111,9 @@ class TestChargeReel:
 
     async def run_load_test(self):
         """Lance le test de charge complet"""
-        print(f"🚀 Démarrage du test de charge avec {CONCURRENT_USERS} utilisateurs simultanés")
+        print(
+            f"🚀 Démarrage du test de charge avec {CONCURRENT_USERS} utilisateurs simultanés"
+        )
         print(f"📊 {REQUESTS_PER_USER} requêtes par utilisateur")
         print(f"⏱️  Timeout: {TIMEOUT}s")
         print("-" * 60)
@@ -120,7 +124,9 @@ class TestChargeReel:
         connector = aiohttp.TCPConnector(limit=100, limit_per_host=50)
         timeout = aiohttp.ClientTimeout(total=TIMEOUT)
 
-        async with aiohttp.ClientSession(connector=connector, timeout=timeout) as session:
+        async with aiohttp.ClientSession(
+            connector=connector, timeout=timeout
+        ) as session:
             # Créer les tâches pour tous les utilisateurs
             tasks = []
             for user_id in range(CONCURRENT_USERS):
@@ -167,9 +173,9 @@ class TestChargeReel:
                 else max_response_time
             )
         else:
-            avg_response_time = median_response_time = min_response_time = max_response_time = (
-                p95_response_time
-            ) = 0
+            avg_response_time = median_response_time = min_response_time = (
+                max_response_time
+            ) = p95_response_time = 0
 
         # Statistiques par endpoint
         endpoint_stats = {}
@@ -211,7 +217,9 @@ class TestChargeReel:
 
         print("\n🌐 STATISTIQUES PAR ENDPOINT:")
         for endpoint, stats in endpoint_stats.items():
-            success_rate = stats["success"] / stats["total"] * 100 if stats["total"] > 0 else 0
+            success_rate = (
+                stats["success"] / stats["total"] * 100 if stats["total"] > 0 else 0
+            )
             avg_time = statistics.mean(stats["times"]) * 1000 if stats["times"] else 0
             print(f"   {endpoint}: {success_rate:.1f}% succès, {avg_time:.1f}ms moy")
 
@@ -310,12 +318,16 @@ async def main():
             session.get(f"{BASE_URL}/health", timeout=5) as response,
         ):
             if response.status != 200:
-                print(f"❌ L'application n'est pas accessible (status: {response.status})")
+                print(
+                    f"❌ L'application n'est pas accessible (status: {response.status})"
+                )
                 return
             print("✅ Application accessible, démarrage du test...")
     except Exception as e:
         print(f"❌ Impossible de se connecter à l'application: {e}")
-        print("   Assurez-vous que l'application Flask est démarrée sur http://localhost:5001")
+        print(
+            "   Assurez-vous que l'application Flask est démarrée sur http://localhost:5001"
+        )
         return
 
     # Lancer le test

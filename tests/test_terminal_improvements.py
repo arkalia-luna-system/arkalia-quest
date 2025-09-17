@@ -81,7 +81,9 @@ class TerminalImprovementsTester:
                 print(f"❌ {test['name']}: Erreur - {e}")
 
         self.results["feedback_quality"] = (feedback_score / total_tests) * 100
-        print(f"📊 Score feedback intelligent: {self.results['feedback_quality']:.1f}/100")
+        print(
+            f"📊 Score feedback intelligent: {self.results['feedback_quality']:.1f}/100"
+        )
 
     def test_accessibility(self):
         """Test de l'accessibilité"""
@@ -113,8 +115,12 @@ class TerminalImprovementsTester:
                     else:
                         print(f"⚠️ {check_name}: {description} manquant")
 
-                self.results["accessibility_score"] = (accessibility_score / total_checks) * 100
-                print(f"📊 Score accessibilité: {self.results['accessibility_score']:.1f}/100")
+                self.results["accessibility_score"] = (
+                    accessibility_score / total_checks
+                ) * 100
+                print(
+                    f"📊 Score accessibilité: {self.results['accessibility_score']:.1f}/100"
+                )
 
             else:
                 print(f"❌ Erreur HTTP {response.status_code}")
@@ -163,8 +169,12 @@ class TerminalImprovementsTester:
                     else:
                         print(f"⚠️ {check_name}: {description} manquant")
 
-                self.results["responsive_score"] = (responsive_score / total_checks) * 100
-                print(f"📊 Score responsive: {self.results['responsive_score']:.1f}/100")
+                self.results["responsive_score"] = (
+                    responsive_score / total_checks
+                ) * 100
+                print(
+                    f"📊 Score responsive: {self.results['responsive_score']:.1f}/100"
+                )
 
             else:
                 print(f"❌ Erreur HTTP {response.status_code}")

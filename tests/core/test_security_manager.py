@@ -11,7 +11,9 @@ def sm():
 def test_check_input_security_detects_scripts_and_logs(sm):
     res = sm.check_input_security("<script>alert(1)</script>", ip_address="1.2.3.4")
     assert res["is_safe"] is False
-    assert any("pattern_script" in t for t in res["threats_detected"]) or res["risk_level"] in {
+    assert any("pattern_script" in t for t in res["threats_detected"]) or res[
+        "risk_level"
+    ] in {
         "high",
         "critical",
     }
@@ -35,4 +37,6 @@ def test_check_origin_security_allowed_and_unauthorized(sm):
 
 def test_get_security_report_structure(sm):
     report = sm.get_security_report()
-    assert {"total_events_24h", "blocked_ips_count", "security_status"}.issubset(report.keys())
+    assert {"total_events_24h", "blocked_ips_count", "security_status"}.issubset(
+        report.keys()
+    )

@@ -30,7 +30,9 @@ class WebSocketManager:
         """Enregistre un handler pour un type d'événement"""
         self.message_handlers[event_type] = handler
 
-    def handle_join_challenge(self, session_id: str, data: dict[str, Any]) -> dict[str, Any]:
+    def handle_join_challenge(
+        self, session_id: str, data: dict[str, Any]
+    ) -> dict[str, Any]:
         """Gère l'arrivée d'un joueur dans un défi"""
         room_id = data.get("room_id")
         if not room_id:
@@ -62,13 +64,18 @@ class WebSocketManager:
             "challenge_info": self.challenge_data.get(room_id, {}),
         }
 
-    def handle_leave_challenge(self, session_id: str, data: dict[str, Any]) -> dict[str, Any]:
+    def handle_leave_challenge(
+        self, session_id: str, data: dict[str, Any]
+    ) -> dict[str, Any]:
         """Gère le départ d'un joueur d'un défi"""
         room_id = data.get("room_id")
         if not room_id:
             return {"type": "error", "message": "Room ID required"}
 
-        if room_id in self.challenge_rooms and session_id in self.challenge_rooms[room_id]:
+        if (
+            room_id in self.challenge_rooms
+            and session_id in self.challenge_rooms[room_id]
+        ):
             self.challenge_rooms[room_id].remove(session_id)
 
             # Informer les autres joueurs
@@ -82,7 +89,9 @@ class WebSocketManager:
 
         return {"type": "leave_success"}
 
-    def handle_challenge_action(self, session_id: str, data: dict[str, Any]) -> dict[str, Any]:
+    def handle_challenge_action(
+        self, session_id: str, data: dict[str, Any]
+    ) -> dict[str, Any]:
         """Gère une action dans un défi"""
         room_id = data.get("room_id")
         if not room_id:
@@ -256,7 +265,9 @@ class WebSocketManager:
 
         # Déterminer le gagnant
         winner = (
-            ranking[0]["player_name"] if ranking and ranking[0]["status"] == "completed" else None
+            ranking[0]["player_name"]
+            if ranking and ranking[0]["status"] == "completed"
+            else None
         )
 
         # Informer tous les joueurs

@@ -429,7 +429,9 @@ def run_gamification_tests():
     # Afficher le résumé
     print("\n📊 Résumé des tests de gamification:")
     print(f"  Tests exécutés: {result.testsRun}")
-    print(f"Tests réussis: {result.testsRun - len(result.failures) - len(result.errors)}")
+    print(
+        f"Tests réussis: {result.testsRun - len(result.failures) - len(result.errors)}"
+    )
     print(f"  Tests échoués: {len(result.failures)}")
     print(f"  Tests en erreur: {len(result.errors)}")
 

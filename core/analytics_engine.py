@@ -193,7 +193,9 @@ class AnalyticsEngine:
 
     def _anonymize_user_id(self, user_id: str) -> str:
         """Anonymiser l'ID utilisateur"""
-        return hashlib.sha256((user_id + self.anonymization_salt).encode()).hexdigest()[:16]
+        return hashlib.sha256((user_id + self.anonymization_salt).encode()).hexdigest()[
+            :16
+        ]
 
     def track_event(
         self,
@@ -474,7 +476,9 @@ class AnalyticsEngine:
 
         # Calculer des métriques avancées
         avg_session_duration = (
-            profile.total_playtime / profile.total_sessions if profile.total_sessions > 0 else 0
+            profile.total_playtime / profile.total_sessions
+            if profile.total_sessions > 0
+            else 0
         )
         engagement_rate = min(profile.engagement_score / 100, 1.0)
 
@@ -537,7 +541,9 @@ class AnalyticsEngine:
             logger.error(f"Erreur lors de l'analyse du style d'apprentissage: {e}")
             return "unknown"
 
-    def _generate_recommendations(self, profile: UserProfile, learning_style: str) -> list[str]:
+    def _generate_recommendations(
+        self, profile: UserProfile, learning_style: str
+    ) -> list[str]:
         """Générer des recommandations personnalisées"""
         recommendations = []
 
@@ -570,13 +576,19 @@ class AnalyticsEngine:
                 cursor = conn.cursor()
 
                 # Statistiques générales
-                cursor.execute("SELECT COUNT(DISTINCT user_id) FROM analytics_user_profiles")
+                cursor.execute(
+                    "SELECT COUNT(DISTINCT user_id) FROM analytics_user_profiles"
+                )
                 total_users = cursor.fetchone()[0]
 
-                cursor.execute("SELECT SUM(total_sessions) FROM analytics_user_profiles")
+                cursor.execute(
+                    "SELECT SUM(total_sessions) FROM analytics_user_profiles"
+                )
                 total_sessions = cursor.fetchone()[0] or 0
 
-                cursor.execute("SELECT SUM(total_playtime) FROM analytics_user_profiles")
+                cursor.execute(
+                    "SELECT SUM(total_playtime) FROM analytics_user_profiles"
+                )
                 total_playtime = cursor.fetchone()[0] or 0
 
                 # Événements populaires
@@ -640,7 +652,9 @@ class AnalyticsEngine:
                 cursor.execute("SELECT COUNT(*) FROM analytics_user_profiles")
                 total_users = cursor.fetchone()[0] or 0
 
-                retention_rate = (active_users / total_users * 100) if total_users > 0 else 0.0
+                retention_rate = (
+                    (active_users / total_users * 100) if total_users > 0 else 0.0
+                )
 
                 # Taux de complétion des missions
                 cursor.execute(
@@ -662,7 +676,9 @@ class AnalyticsEngine:
                 total_missions = cursor.fetchone()[0] or 0
 
                 completion_rate = (
-                    (completed_missions / (total_missions / 2) * 100) if total_missions > 0 else 0.0
+                    (completed_missions / (total_missions / 2) * 100)
+                    if total_missions > 0
+                    else 0.0
                 )
 
                 return {
@@ -684,7 +700,9 @@ class AnalyticsEngine:
         try:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
-                cursor.execute("SELECT AVG(engagement_score) FROM analytics_user_profiles")
+                cursor.execute(
+                    "SELECT AVG(engagement_score) FROM analytics_user_profiles"
+                )
                 result = cursor.fetchone()[0]
                 return round(result or 0, 2)
         except Exception as e:
@@ -700,7 +718,9 @@ class AnalyticsEngine:
                 cursor = conn.cursor()
 
                 # Supprimer les anciens événements
-                cursor.execute("DELETE FROM analytics_events WHERE timestamp < ?", (cutoff_time,))
+                cursor.execute(
+                    "DELETE FROM analytics_events WHERE timestamp < ?", (cutoff_time,)
+                )
 
                 # Supprimer les anciennes sessions
                 cursor.execute(
@@ -711,7 +731,8 @@ class AnalyticsEngine:
                 conn.commit()
 
                 logger.info(
-                    f"Nettoyage des données antérieures à {self.retention_days}" + "jours effectué",
+                    f"Nettoyage des données antérieures à {self.retention_days}"
+                    + "jours effectué",
                 )
 
         except Exception as e:

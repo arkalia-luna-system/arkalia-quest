@@ -146,7 +146,9 @@ class TestGamificationComplete(unittest.TestCase):
                 self.assertGreater(badge_data["points"], 0)
                 self.assertGreater(len(badge_data["name"]), 0)
                 self.assertGreater(len(badge_data["description"]), 10)
-                self.assertIn(badge_data["rarity"], ["common", "rare", "epic", "legendary"])
+                self.assertIn(
+                    badge_data["rarity"], ["common", "rare", "epic", "legendary"]
+                )
 
     def test_level_progression_system(self):
         """Test complet du système de progression des niveaux"""
@@ -492,7 +494,9 @@ class TestGamificationComplete(unittest.TestCase):
         ]
 
         # Trier par score (classement)
-        sorted_profiles = sorted(leaderboard_profiles, key=lambda x: x["score"], reverse=True)
+        sorted_profiles = sorted(
+            leaderboard_profiles, key=lambda x: x["score"], reverse=True
+        )
 
         # Vérifier le classement
         self.assertEqual(sorted_profiles[0]["username"], "player4")
@@ -578,7 +582,9 @@ class TestGamificationComplete(unittest.TestCase):
                     elif "badges" in case:
                         self.assertEqual(len(case["badges"]), case["expected_count"])
                     elif "achievements" in case:
-                        self.assertEqual(len(case["achievements"]), case["expected_count"])
+                        self.assertEqual(
+                            len(case["achievements"]), case["expected_count"]
+                        )
                     elif "streak" in case:
                         self.assertEqual(case["streak"], case["expected_streak"])
 
@@ -620,10 +626,14 @@ class TestGamificationComplete(unittest.TestCase):
             thread.join()
 
         # Vérifier qu'il n'y a pas d'erreurs
-        self.assertEqual(len(errors), 0, f"Erreurs lors de l'accès concurrent: {errors}")
+        self.assertEqual(
+            len(errors), 0, f"Erreurs lors de l'accès concurrent: {errors}"
+        )
 
         # Vérifier que tous les résultats sont valides
-        self.assertEqual(len(results), 50, "Tous les threads devraient avoir produit des résultats")
+        self.assertEqual(
+            len(results), 50, "Tous les threads devraient avoir produit des résultats"
+        )
 
         for _worker_id, _iteration, profile in results:
             self.assertIsInstance(profile, dict)
@@ -659,7 +669,9 @@ class TestGamificationComplete(unittest.TestCase):
         for action, details in gamification_sequence:
             # Simuler l'action
             test_profile["score"] += details["bonus"]
-            test_profile["level"] = self.calculate_level_from_score(test_profile["score"])
+            test_profile["level"] = self.calculate_level_from_score(
+                test_profile["score"]
+            )
 
             # Enregistrer l'historique
             gamification_history.append(

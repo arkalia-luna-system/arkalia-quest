@@ -152,12 +152,16 @@ class StableVersionTestRunner:
     def generate_summary(self) -> dict[str, Any]:
         """Génère un résumé des résultats"""
         total_tests = len(self.test_modules)
-        successful_tests = sum(1 for result in self.results["tests"].values() if result["success"])
+        successful_tests = sum(
+            1 for result in self.results["tests"].values() if result["success"]
+        )
         failed_tests = total_tests - successful_tests
 
         success_rate = (successful_tests / total_tests * 100) if total_tests > 0 else 0
 
-        total_duration = sum(result["duration"] for result in self.results["tests"].values())
+        total_duration = sum(
+            result["duration"] for result in self.results["tests"].values()
+        )
 
         return {
             "total_tests": total_tests,
@@ -174,10 +178,13 @@ class StableVersionTestRunner:
         summary = self.results["summary"]
 
         if summary["success_rate"] >= 90:
-            recommendations.append("🎉 Version stable excellente ! Prête pour la production.")
+            recommendations.append(
+                "🎉 Version stable excellente ! Prête pour la production."
+            )
         elif summary["success_rate"] >= 80:
             recommendations.append(
-                "✅ Version stable correcte. Quelques améliorations mineures" + "recommandées.",
+                "✅ Version stable correcte. Quelques améliorations mineures"
+                + "recommandées.",
             )
         elif summary["success_rate"] >= 60:
             recommendations.append(
@@ -185,7 +192,9 @@ class StableVersionTestRunner:
                 + "nécessaires avant production.",
             )
         else:
-            recommendations.append("❌ Version instable. Corrections majeures requises.")
+            recommendations.append(
+                "❌ Version instable. Corrections majeures requises."
+            )
 
         # Recommandations spécifiques basées sur les tests
         for test_name, result in self.results["tests"].items():
@@ -243,7 +252,9 @@ class StableVersionTestRunner:
         if summary["success_rate"] >= 90:
             report += "🌟 VERSION STABLE VALIDÉE ! Prête pour la production.\n"
         elif summary["success_rate"] >= 80:
-            report += "✅ VERSION STABLE ACCEPTABLE. Quelques améliorations recommandées.\n"
+            report += (
+                "✅ VERSION STABLE ACCEPTABLE. Quelques améliorations recommandées.\n"
+            )
         elif summary["success_rate"] >= 60:
             report += "⚠️ VERSION STABLE AVEC RÉSERVES. Corrections nécessaires.\n"
         else:

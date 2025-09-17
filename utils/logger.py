@@ -159,7 +159,9 @@ class GameLogger(ArkaliaLogger):
         }
         self.info(f"Action joueur: {action}", extra)
 
-    def mission_completed(self, mission_id: str, player_id: str = "default", score: int = 0):
+    def mission_completed(
+        self, mission_id: str, player_id: str = "default", score: int = 0
+    ):
         """Log la completion d'une mission"""
         extra = {
             "event_type": "mission_completed",
@@ -187,7 +189,9 @@ class GameLogger(ArkaliaLogger):
         }
         self.info(f"Badge obtenu: {badge_name}", extra)
 
-    def command_executed(self, command: str, *, success: bool, player_id: str = "default"):
+    def command_executed(
+        self, command: str, *, success: bool, player_id: str = "default"
+    ):
         """Log l'exécution d'une commande"""
         extra = {
             "event_type": "command_executed",
@@ -216,7 +220,9 @@ class SecurityLogger(ArkaliaLogger):
         }
         self.warning(f"Commande non autorisée tentée: {command}", extra)
 
-    def rate_limit_exceeded(self, ip_address: str = "unknown", limit_type: str = "commands"):
+    def rate_limit_exceeded(
+        self, ip_address: str = "unknown", limit_type: str = "commands"
+    ):
         """Log un dépassement de limite de taux"""
         extra = {
             "event_type": "rate_limit_exceeded",
@@ -226,7 +232,9 @@ class SecurityLogger(ArkaliaLogger):
         }
         self.warning(f"Limite de taux dépassée: {limit_type}", extra)
 
-    def suspicious_activity(self, activity_type: str, details: str, ip_address: str = "unknown"):
+    def suspicious_activity(
+        self, activity_type: str, details: str, ip_address: str = "unknown"
+    ):
         """Log une activité suspecte"""
         extra = {
             "event_type": "suspicious_activity",
@@ -244,7 +252,9 @@ class PerformanceLogger(ArkaliaLogger):
     def __init__(self):
         super().__init__("arkalia_performance")
 
-    def response_time(self, endpoint: str, response_time: float, status_code: int = 200):
+    def response_time(
+        self, endpoint: str, response_time: float, status_code: int = 200
+    ):
         """Log le temps de réponse d'un endpoint"""
         extra = {
             "event_type": "response_time",
@@ -259,7 +269,9 @@ class PerformanceLogger(ArkaliaLogger):
         extra = {"event_type": "memory_usage", "memory_mb": memory_mb}
         self.info(f"Utilisation mémoire: {memory_mb:.2f}MB", extra)
 
-    def database_query(self, query_type: str, execution_time: float, *, success: bool = True):
+    def database_query(
+        self, query_type: str, execution_time: float, *, success: bool = True
+    ):
         """Log une requête base de données"""
         extra = {
             "event_type": "database_query",
@@ -312,7 +324,8 @@ def export_logs_to_json(output_file: str | None = None):
     """Exporte les logs en JSON"""
     if output_file is None:
         output_file = str(
-            LOGS_DIR / f"logs_export_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}.json"
+            LOGS_DIR
+            / f"logs_export_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}.json"
         )
 
     logs_data = []

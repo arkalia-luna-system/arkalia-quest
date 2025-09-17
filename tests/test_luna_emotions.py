@@ -18,7 +18,9 @@ except ImportError as e:
     print("🔍 Vérification du chemin...")
     print(f"📁 Répertoire actuel: {os.getcwd()}")
     print(f"📁 Fichier test: {__file__}")
-    print(f"📁 Core directory: {os.path.join(os.path.dirname(os.path.dirname(__file__)), 'core')}")
+    print(
+        f"📁 Core directory: {os.path.join(os.path.dirname(os.path.dirname(__file__)), 'core')}"
+    )
     sys.exit(1)
 
 
@@ -53,7 +55,9 @@ class TestLunaEmotionsEngine(unittest.TestCase):
         """Test l'émotion déterminée lors du hacking"""
         # Simuler une action de hacking
         result = {"réussite": True, "score_gagne": 100}
-        emotion_data = self.engine.analyze_action("hack_system", result, self.test_profile)
+        emotion_data = self.engine.analyze_action(
+            "hack_system", result, self.test_profile
+        )
 
         # L'émotion peut varier selon le contexte, vérifions qu'elle est valide
         valid_emotions = [
@@ -74,7 +78,9 @@ class TestLunaEmotionsEngine(unittest.TestCase):
         """Test les couleurs des émotions"""
         # Tester une émotion spécifique
         result = {"réussite": True, "score_gagne": 100}
-        emotion_data = self.engine.analyze_action("hack_system", result, self.test_profile)
+        emotion_data = self.engine.analyze_action(
+            "hack_system", result, self.test_profile
+        )
         color = emotion_data["color"]
         # La couleur peut varier selon l'implémentation
         self.assertIsInstance(color, str)
@@ -83,7 +89,9 @@ class TestLunaEmotionsEngine(unittest.TestCase):
     def test_excited_emotion_on_success(self):
         """Test l'émotion excitée lors d'un succès"""
         result = {"réussite": True, "score_gagne": 100}
-        emotion_data = self.engine.analyze_action("hack_system", result, self.test_profile)
+        emotion_data = self.engine.analyze_action(
+            "hack_system", result, self.test_profile
+        )
         message = emotion_data["message"]
 
         # Vérifier que le message contient des éléments d'excitation ou de fierté
@@ -95,7 +103,9 @@ class TestLunaEmotionsEngine(unittest.TestCase):
         """Test le calcul d'intensité"""
         # L'intensité peut varier selon l'implémentation
         result = {"réussite": True, "score_gagne": 100}
-        emotion_data = self.engine.analyze_action("hack_system", result, self.test_profile)
+        emotion_data = self.engine.analyze_action(
+            "hack_system", result, self.test_profile
+        )
         intensity = emotion_data["intensity"]
         self.assertGreaterEqual(intensity, 0.0)
         self.assertLessEqual(intensity, 1.0)
@@ -112,7 +122,9 @@ class TestLunaEmotionsEngine(unittest.TestCase):
     def test_worried_emotion_on_failure(self):
         """Test l'émotion inquiète lors d'un échec"""
         result = {"réussite": False, "score_gagne": 0}
-        emotion_data = self.engine.analyze_action("hack_system", result, self.test_profile)
+        emotion_data = self.engine.analyze_action(
+            "hack_system", result, self.test_profile
+        )
         message = emotion_data["message"]
 
         # Vérifier que le message est valide

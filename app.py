@@ -7,7 +7,7 @@ import time
 import types
 from datetime import datetime, timedelta
 
-from flask import Flask, jsonify, render_template, request, send_from_directory
+from flask import Flask, jsonify, render_template, request, send_from_directory, session
 from flask_compress import Compress
 
 # Imports avec gestion d'erreur robuste
@@ -34,6 +34,7 @@ try:
     from core.technical_tutorials import technical_tutorials
     from core.tutorial_manager import tutorial_manager
     from core.websocket_manager import websocket_manager
+    from core.enhanced_mission_system import EnhancedMissionSystem
 
     # from engines.luna_ai_v3 import LunaAIV3  # Module temporairement désactivé
 
@@ -112,6 +113,9 @@ app.config.update(
     PERMANENT_SESSION_LIFETIME=timedelta(hours=2),  # Expiration
     SESSION_REFRESH_EACH_REQUEST=True,  # Renouvellement
 )
+
+# Initialisation du système de missions amélioré
+enhanced_mission_system = EnhancedMissionSystem()
 
 # Configuration de la compression gzip
 Compress(app)
@@ -1265,6 +1269,59 @@ def get_gamification_leaderboard():
 def leaderboard_page():
     """Page du leaderboard"""
     return render_template("leaderboard.html")
+
+
+@app.route("/skill-tree")
+def skill_tree_page():
+    """Page de l'arbre de compétences"""
+    return render_template("skill_tree.html")
+
+@app.route("/api/skill-tree")
+def api_skill_tree():
+    """API pour l'arbre de compétences"""
+    try:
+        # Récupérer le profil du joueur depuis la session ou créer un profil par défaut
+        profile = session.get('profile', {
+            'username': 'default_user',
+            'level': 1,
+            'xp': 0,
+            'badges': [],
+            'missions_completed': [],
+            'skills': {}
+        })
+        skill_tree_data = enhanced_mission_system.get_skill_tree(profile)
+        return jsonify({"success": True, "skill_tree": skill_tree_data})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+@app.route("/api/enhanced-missions")
+def api_enhanced_missions():
+    """API pour les missions améliorées"""
+    try:
+        # Récupérer le profil du joueur depuis la session ou créer un profil par défaut
+        profile = session.get('profile', {
+            'username': 'default_user',
+            'level': 1,
+            'xp': 0,
+            'badges': [],
+            'missions_completed': []
+        })
+        missions_data = enhanced_mission_system.get_available_missions(profile)
+        return jsonify({"success": True, "missions": missions_data})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+@app.route("/api/enhanced-missions/<mission_id>")
+def api_enhanced_mission_detail(mission_id):
+    """API pour les détails d'une mission améliorée"""
+    try:
+        mission_data = enhanced_mission_system.get_mission_details(mission_id)
+        if mission_data:
+            return jsonify({"success": True, "mission": mission_data})
+        else:
+            return jsonify({"success": False, "error": "Mission non trouvée"}), 404
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
 
 
 @app.route("/api/gamification/summary", methods=["GET"])

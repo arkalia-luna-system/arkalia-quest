@@ -893,6 +893,9 @@ la vérité sur NEXUS, ma sœur jumelle, et la menace de PANDORA.
 🏆 +100 points pour cette réussite !
 💡 Mini-jeu ajouté à votre collection !"""
 
+            # Déclencher l'événement de gain d'XP pour les compétences
+            self._trigger_skill_xp_event('hacking', 'code_breaking', 25)
+
             return {
                 "réussite": True,
                 "ascii_art": "🔐",
@@ -939,6 +942,9 @@ Utilisez 'simple_hack' pour réessayer."""
 🎉 VICTOIRE ! Votre mémoire est excellente !
 🏆 +{50 + sequence_length * 5} points gagnés !
 💡 Mini-jeu ajouté à votre collection !"""
+
+            # Déclencher l'événement de gain d'XP pour les compétences
+            self._trigger_skill_xp_event('hacking', 'code_breaking', 20)
 
             return {
                 "réussite": True,
@@ -1003,6 +1009,9 @@ Utilisez 'sequence_game' pour réessayer."""
 🎉 VICTOIRE ! Vos doigts sont rapides !
 🏆 +{30 + text_length} points gagnés !
 💡 Mini-jeu ajouté à votre collection !"""
+
+            # Déclencher l'événement de gain d'XP pour les compétences
+            self._trigger_skill_xp_event('hacking', 'code_breaking', 15)
 
             return {
                 "réussite": True,
@@ -1386,3 +1395,25 @@ Toutes les fonctionnalités sont disponibles !
             "score_gagne": 25,
             "profile_updated": True,
         }
+
+    def _trigger_skill_xp_event(self, category: str, skill_id: str, xp: int) -> None:
+        """Déclenche un événement de gain d'XP pour les compétences"""
+        try:
+            # Créer un événement personnalisé pour le gain d'XP
+            event = {
+                'type': 'skill_xp_gained',
+                'skill_category': category,
+                'skill_id': skill_id,
+                'xp': xp
+            }
+            
+            # Déclencher l'événement côté client
+            if hasattr(self, '_trigger_client_event'):
+                self._trigger_client_event('arkalia:progression:update', event)
+            else:
+                # Fallback : stocker l'événement pour qu'il soit récupéré côté client
+                if not hasattr(self, '_pending_events'):
+                    self._pending_events = []
+                self._pending_events.append(event)
+        except Exception as e:
+            print(f"Erreur lors du déclenchement de l'événement XP: {e}")

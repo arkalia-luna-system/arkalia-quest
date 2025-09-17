@@ -227,7 +227,38 @@ class SkillTreeSystem {
     }
 
     createSkillTreeUI() {
-        // Créer l'interface de l'arbre de compétences
+        // Vérifier si on est sur la page dédiée
+        if (window.location.pathname === '/skill-tree') {
+            this.createDedicatedPageUI();
+        } else {
+            this.createModalUI();
+        }
+    }
+
+    createDedicatedPageUI() {
+        // Créer l'interface pour la page dédiée
+        const skillTreeGrid = document.getElementById('skill-tree-grid');
+        if (skillTreeGrid) {
+            skillTreeGrid.innerHTML = Object.entries(this.skillTree).map(([categoryId, category]) =>
+                this.createCategorySection(categoryId, category)
+            ).join('');
+
+            // Ajouter les événements
+            skillTreeGrid.addEventListener('click', (e) => {
+                if (e.target.classList.contains('upgrade-skill')) {
+                    const skillId = e.target.dataset.skillId;
+                    const categoryId = e.target.dataset.categoryId;
+                    this.upgradeSkill(categoryId, skillId);
+                }
+            });
+
+            // Mettre à jour les statistiques
+            this.updatePlayerStats();
+        }
+    }
+
+    createModalUI() {
+        // Créer l'interface modale pour les autres pages
         const skillTreeContainer = document.createElement('div');
         skillTreeContainer.id = 'skill-tree-container';
         skillTreeContainer.className = 'skill-tree-container';
@@ -267,11 +298,11 @@ class SkillTreeSystem {
                 <div class="category-header">
                     <div class="category-icon">${category.icon}</div>
                     <div class="category-info">
-                        <h3>${category.name}</h3>
-                        <p>${category.description}</p>
+                        <h3 class="category-title">${category.name}</h3>
+                        <p class="category-description">${category.description}</p>
                     </div>
                 </div>
-                <div class="skills-grid">
+                <div class="skills-list">
                     ${Object.entries(category.skills).map(([skillId, skill]) =>
             this.createSkillCard(categoryId, skillId, skill)
         ).join('')}
@@ -286,30 +317,13 @@ class SkillTreeSystem {
         const isUnlocked = this.isSkillUnlocked(categoryId, skillId);
 
         return `
-            <div class="skill-card ${isUnlocked ? 'unlocked' : 'locked'} ${playerSkill.level > 0 ? 'active' : ''}" 
+            <div class="skill-item ${isUnlocked ? 'unlocked' : 'locked'} ${playerSkill.level > 0 ? 'active' : ''}" 
                  data-category="${categoryId}" data-skill="${skillId}">
-                <div class="skill-header">
-                    <h4>${skill.name}</h4>
-                    <div class="skill-level">Niveau ${playerSkill.level}/${skill.max_level}</div>
-                </div>
+                <div class="skill-name">${skill.name}</div>
                 <div class="skill-description">${skill.description}</div>
-                <div class="skill-progress">
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: ${this.getSkillProgress(categoryId, skillId)}%"></div>
-                    </div>
-                    <div class="progress-text">${playerSkill.xp}/${this.getNextLevelXP(categoryId, skillId)} XP</div>
-                </div>
-                <div class="skill-effects">
-                    ${this.getSkillEffectsText(categoryId, skillId, playerSkill.level)}
-                </div>
-                <div class="skill-actions">
-                    ${canUpgrade ?
-                `<button class="upgrade-skill" data-category="${categoryId}" data-skill="${skillId}">
-                            Améliorer (${this.getUpgradeCost(categoryId, skillId)} XP)
-                        </button>` :
-                '<span class="upgrade-unavailable">Prérequis non remplis</span>'
-            }
-                </div>
+                <div class="skill-level">Niveau ${playerSkill.level}/${skill.max_level}</div>
+                <div class="skill-cost">${this.getUpgradeCost(categoryId, skillId)} XP</div>
+                ${canUpgrade ? `<button class="upgrade-skill" data-category="${categoryId}" data-skill="${skillId}">Améliorer</button>` : ''}
             </div>
         `;
     }
@@ -534,6 +548,11 @@ class SkillTreeSystem {
         document.head.appendChild(style);
     }
 
+    show() {
+        // Rediriger vers la page dédiée
+        window.location.href = '/skill-tree';
+    }
+
     showSkillTree() {
         const container = document.getElementById('skill-tree-container');
         if (container) {
@@ -705,7 +724,12 @@ class SkillTreeSystem {
         this.savePlayerSkills();
 
         // Mettre à jour l'affichage
-        this.updateSkillTreeDisplay();
+        if (window.location.pathname === '/skill-tree') {
+            this.createDedicatedPageUI();
+            this.updatePlayerStats();
+        } else {
+            this.updateSkillTreeDisplay();
+        }
 
         // Notification
         if (window.universalNotifications) {
@@ -715,6 +739,46 @@ class SkillTreeSystem {
                 { duration: 3000 }
             );
         }
+    }
+
+    updatePlayerStats() {
+        // Mettre à jour les statistiques affichées
+        const totalSkills = this.getTotalSkills();
+        const skillPoints = this.getPlayerTotalXP();
+        const hackingLevel = this.getCategoryLevel('hacking');
+        const combatLevel = this.getCategoryLevel('combat');
+        const socialLevel = this.getCategoryLevel('social');
+
+        const totalSkillsEl = document.getElementById('total-skills');
+        const skillPointsEl = document.getElementById('skill-points');
+        const hackingLevelEl = document.getElementById('hacking-level');
+        const combatLevelEl = document.getElementById('combat-level');
+        const socialLevelEl = document.getElementById('social-level');
+
+        if (totalSkillsEl) totalSkillsEl.textContent = totalSkills;
+        if (skillPointsEl) skillPointsEl.textContent = skillPoints;
+        if (hackingLevelEl) hackingLevelEl.textContent = hackingLevel;
+        if (combatLevelEl) combatLevelEl.textContent = combatLevel;
+        if (socialLevelEl) socialLevelEl.textContent = socialLevel;
+    }
+
+    getTotalSkills() {
+        let total = 0;
+        for (const categorySkills of Object.values(this.playerSkills)) {
+            for (const skill of Object.values(categorySkills)) {
+                total += skill.level;
+            }
+        }
+        return total;
+    }
+
+    getCategoryLevel(categoryId) {
+        const categorySkills = this.playerSkills[categoryId] || {};
+        let totalLevel = 0;
+        for (const skill of Object.values(categorySkills)) {
+            totalLevel += skill.level;
+        }
+        return totalLevel;
     }
 
     gainSkillXP(categoryId, skillId, xp) {

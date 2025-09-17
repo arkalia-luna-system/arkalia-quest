@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>⚡ Arbre de Compétences - ARKALIA QUEST</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS ARKALIA CONSOLIDÉ -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-core.css') }}?v=4.0.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-themes.css') }}?v=4.0.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-components.css') }}?v=4.0.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-responsive.css') }}?v=4.0.0">
+
+    <!-- CSS spécifique à l'arbre de compétences -->
+    <style>
+        .skill-tree-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            padding: 20px;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .skill-tree-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0, 255, 0, 0.1);
+            border: 2px solid rgba(0, 255, 0, 0.3);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .skill-tree-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 2.5em;
+            color: #00ff00;
+            text-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+            margin-bottom: 10px;
+        }
+
+        .skill-tree-subtitle {
+            font-family: 'Inter', sans-serif;
+            color: #a78bfa;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .player-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px 25px;
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .stat-value {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1.5em;
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-family: 'Inter', sans-serif;
+            color: #a78bfa;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .skill-tree-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .skill-category {
+            background: rgba(9, 9, 11, 0.9);
+            border: 2px solid rgba(0, 255, 0, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(15px);
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            border-color: rgba(0, 255, 0, 0.5);
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .category-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .category-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .category-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1.5em;
+            color: #00ff00;
+            margin-bottom: 10px;
+        }
+
+        .category-description {
+            font-family: 'Inter', sans-serif;
+            color: #a78bfa;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .skill-item {
+            background: rgba(0, 255, 0, 0.05);
+            border: 1px solid rgba(0, 255, 0, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .skill-item:hover {
+            background: rgba(0, 255, 0, 0.1);
+            border-color: rgba(0, 255, 0, 0.4);
+            transform: translateX(5px);
+        }
+
+        .skill-item.unlocked {
+            background: rgba(0, 255, 0, 0.15);
+            border-color: #00ff00;
+        }
+
+        .skill-item.locked {
+            background: rgba(100, 100, 100, 0.1);
+            border-color: rgba(100, 100, 100, 0.3);
+            opacity: 0.6;
+        }
+
+        .skill-name {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1.1em;
+            color: #00ff00;
+            margin-bottom: 5px;
+        }
+
+        .skill-description {
+            font-family: 'Inter', sans-serif;
+            color: #a78bfa;
+            font-size: 0.85em;
+            line-height: 1.4;
+        }
+
+        .skill-level {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .skill-cost {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(167, 139, 250, 0.2);
+            color: #a78bfa;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.75em;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 255, 0, 0.1);
+            border: 2px solid rgba(0, 255, 0, 0.3);
+            color: #00ff00;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-family: 'IBM Plex Mono', monospace;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-button:hover {
+            background: rgba(0, 255, 0, 0.2);
+            border-color: #00ff00;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .skill-tree-container {
+                padding: 10px;
+            }
+
+            .skill-tree-title {
+                font-size: 2em;
+            }
+
+            .player-stats {
+                gap: 15px;
+            }
+
+            .stat-item {
+                padding: 10px 15px;
+                min-width: 100px;
+            }
+
+            .skill-tree-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Bouton retour -->
+    <a href="/" class="back-button">← RETOUR</a>
+
+    <div class="skill-tree-container">
+        <!-- En-tête -->
+        <div class="skill-tree-header">
+            <h1 class="skill-tree-title">⚡ ARBRE DE COMPÉTENCES</h1>
+            <p class="skill-tree-subtitle">Développe tes capacités et deviens le hacker ultime</p>
+
+            <!-- Statistiques du joueur -->
+            <div class="player-stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="total-skills">0</div>
+                    <div class="stat-label">Compétences</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="skill-points">0</div>
+                    <div class="stat-label">Points</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="hacking-level">0</div>
+                    <div class="stat-label">Hacking</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="combat-level">0</div>
+                    <div class="stat-label">Combat</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="social-level">0</div>
+                    <div class="stat-label">Social</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grille des compétences -->
+        <div class="skill-tree-grid" id="skill-tree-grid">
+            <!-- Les compétences seront chargées dynamiquement -->
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/skill-tree-system.js') }}?v=1.0.0"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialiser l'arbre de compétences
+            if (window.skillTreeSystem) {
+                skillTreeSystem.init();
+                console.log('⚡ Arbre de compétences initialisé');
+            } else {
+                console.error('❌ Système d\'arbre de compétences non trouvé');
+            }
+        });
+    </script>
+</body>
+
+</html>

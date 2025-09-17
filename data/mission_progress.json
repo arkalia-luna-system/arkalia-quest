@@ -2,7 +2,7 @@
   "integration_test_player_test_mission": {
     "mission_id": "test_mission",
     "player_id": "integration_test_player",
-    "start_time": "2025-09-17T18:06:27.724180",
+    "start_time": "2025-09-17T18:12:06.022017",
     "current_step": 0,
     "total_steps": 5,
     "completed_steps": [],
@@ -17,6 +17,6 @@
     "resources_used": [],
     "achievements_earned": [],
     "visual_effects": [],
-    "last_activity": "2025-09-17T18:06:27.724194"
+    "last_activity": "2025-09-17T18:12:06.022019"
   }
 }

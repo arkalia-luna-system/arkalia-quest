@@ -87,6 +87,42 @@ function playSuccessSound() {
     }
 }
 
+// Nouvelle fonction pour les sons de récompense
+function playRewardSound(type) {
+    if (!audioEnabled || !audioContext) return;
+    try {
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+
+        // Sons différents selon le type de récompense
+        const sounds = {
+            'badge': [1000, 1200, 1400, 1200, 1000],
+            'level_up': [800, 1000, 1200, 1000, 800, 600],
+            'mini_game': [600, 800, 1000, 800, 600],
+            'big_score': [800, 1000, 1200, 1400, 1200, 1000, 800]
+        };
+
+        const frequencies = sounds[type] || sounds['mini_game'];
+        let currentTime = audioContext.currentTime;
+
+        frequencies.forEach((freq, index) => {
+            oscillator.frequency.setValueAtTime(freq, currentTime + index * 0.1);
+        });
+
+        gainNode.gain.setValueAtTime(0, currentTime);
+        gainNode.gain.linearRampToValueAtTime(0.4, currentTime + 0.01);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, currentTime + frequencies.length * 0.1);
+
+        oscillator.start(currentTime);
+        oscillator.stop(currentTime + frequencies.length * 0.1);
+    } catch (e) {
+        // Mode silencieux
+    }
+}
+
 // ===== EFFETS MATRIX AMÉLIORÉS =====
 
 function playMatrixSuccessEffect() {
@@ -1155,10 +1191,23 @@ function executeCommand(cmdOverride) {
 
                 // Effets audio pour tous les gains
                 if (reponse.score_gagne > 0) {
-                    playSuccessSound();
+                    // Son différent selon le type de gain
+                    if (reponse.score_gagne > 100) {
+                        playRewardSound('big_score');
+                    } else if (reponse.score_gagne > 50) {
+                        playRewardSound('level_up');
+                    } else {
+                        playRewardSound('mini_game');
+                    }
+
                     // Effet de vibration pour mobile
                     if ('vibrate' in navigator) {
                         navigator.vibrate([100, 50, 100]);
+                    }
+
+                    // Effet de flash d'écran pour les gros gains
+                    if (reponse.score_gagne > 50) {
+                        showScreenFlash();
                     }
                 }
 
@@ -2423,6 +2472,55 @@ function showProgressionNotification(progression) {
             importance: 3
         });
     }
+}
+
+// Fonction pour afficher un flash d'écran
+function showScreenFlash() {
+    const flashElement = document.createElement('div');
+    flashElement.className = 'screen-flash';
+    flashElement.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 255, 0, 0.3);
+        z-index: 9999;
+        pointer-events: none;
+        animation: screenFlash 0.5s ease-out forwards;
+    `;
+
+    // Ajouter l'animation CSS si elle n'existe pas
+    if (!document.getElementById('screen-flash-animation')) {
+        const style = document.createElement('style');
+        style.id = 'screen-flash-animation';
+        style.textContent = `
+            @keyframes screenFlash {
+                0% {
+                    opacity: 0;
+                    transform: scale(1);
+                }
+                50% {
+                    opacity: 1;
+                    transform: scale(1.05);
+                }
+                100% {
+                    opacity: 0;
+                    transform: scale(1);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    document.body.appendChild(flashElement);
+
+    // Supprimer l'élément après l'animation
+    setTimeout(() => {
+        if (flashElement.parentNode) {
+            flashElement.parentNode.removeChild(flashElement);
+        }
+    }, 500);
 }
 
 // Fonction pour afficher l'effet de score qui "saute"

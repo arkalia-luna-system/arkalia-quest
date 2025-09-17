@@ -38,7 +38,7 @@ try:
     from core.educational_games_engine import EducationalGamesEngine
     from core.gamification_engine import GamificationEngine
     from core.luna_emotions_engine import LunaEmotionsEngine
-    from core.security_manager import SecurityManager
+    from core.security_unified import SecurityUnified
 except ImportError as e:
     print(f"❌ Erreur d'import: {e}")
     sys.exit(1)
@@ -59,7 +59,7 @@ class TestRobustesseAvancee(unittest.TestCase):
         self.gamification_engine = GamificationEngine(data_dir=self.test_dir)
         self.db_manager = DatabaseManager()
         self.educational_engine = EducationalGamesEngine()
-        self.security_manager = SecurityManager()
+        self.security_manager = SecurityUnified()
 
         # Profils de test variés pour tester différents scénarios
         self.test_profiles = {

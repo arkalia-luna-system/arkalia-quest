@@ -97,7 +97,7 @@ def test_security_enhancements():
     # Test 1: Validation des entrées
     total_tests += 1
     try:
-        from core.security_enhanced import security_enhanced
+        from core.security_unified import security_enhanced
 
         # Test validation username
         is_valid, _ = security_enhanced.validate_input("username", "testuser123")
@@ -127,7 +127,7 @@ def test_security_enhancements():
     # Test 2: Rate limiting
     total_tests += 1
     try:
-        from core.security_enhanced import security_enhanced
+        from core.security_unified import security_enhanced
 
         # Test rate limiting
         allowed, _ = security_enhanced.check_rate_limit("127.0.0.1")
@@ -143,7 +143,7 @@ def test_security_enhancements():
     # Test 3: Génération de tokens sécurisés
     total_tests += 1
     try:
-        from core.security_enhanced import security_enhanced
+        from core.security_unified import security_enhanced
 
         token = security_enhanced.generate_secure_token()
         if len(token) >= 32:

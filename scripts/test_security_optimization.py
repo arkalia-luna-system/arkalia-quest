@@ -15,14 +15,14 @@ sys.path.insert(0, project_root)
 os.chdir(project_root)
 
 # Import après configuration du path
-from core.security_manager import SecurityManager  # noqa: E402
+from core.security_unified import SecurityUnified  # noqa: E402
 
 
 def test_security_deduplication():
     """Test la déduplication des alertes de sécurité"""
     print(r"🔒 Test du système de sécurité optimisé...")
 
-    security_manager = SecurityManager()
+    security_manager = SecurityUnified()
 
     # Test 1: Première tentative XSS
     print(r"\n1️⃣ Première tentative XSS...")

@@ -589,7 +589,7 @@
                     </div>
                     <div class="widget-content">
                         <div class="metric-display">
-                            <span class="metric-value" id="total-score">N/A</span>
+                            <span class="metric-value" id="total-score" data-stat-type="score">N/A</span>
                             <div class="metric-label">Points Accumulés</div>
                         </div>
                     </div>
@@ -608,7 +608,7 @@
                                 <circle class="progress" cx="60" cy="60" r="45"></circle>
                             </svg>
                             <div class="progress-center">
-                                <div class="progress-percentage" id="level-percentage">N/A</div>
+                                <div class="progress-percentage" id="level-percentage" data-stat-type="level">N/A</div>
                             </div>
                         </div>
                     </div>
@@ -622,7 +622,7 @@
                     </div>
                     <div class="widget-content">
                         <div class="metric-display">
-                            <span class="metric-value" id="missions-completed">N/A</span>
+                            <span class="metric-value" id="missions-completed" data-stat-type="achievements">N/A</span>
                             <div class="metric-label">Missions Complétées</div>
                         </div>
                         <div class="chart-container" id="missions-chart">
@@ -639,7 +639,7 @@
                     </div>
                     <div class="widget-content">
                         <div class="metric-display">
-                            <span class="metric-value" id="badges-count">N/A</span>
+                            <span class="metric-value" id="badges-count" data-stat-type="badges">N/A</span>
                             <div class="metric-label">Badges Obtenus</div>
                         </div>
                     </div>
@@ -947,6 +947,9 @@
 
     <!-- Scripts des corrections d'audit visuel -->
     <script src="{{ url_for('static', filename='js/audit-visual-enhancements.js') }}?v=3.5.0"></script>
+
+    <!-- Scripts de continuité -->
+    {% include 'components/continuity_scripts.html' %}
 
     <script>
         // Initialisation des systèmes adaptatifs

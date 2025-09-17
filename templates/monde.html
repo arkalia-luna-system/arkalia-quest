@@ -1173,6 +1173,9 @@
     <!-- Script d'interactions du monde amélioré -->
     <script src="{{ url_for('static', filename='js/world-interactions.js') }}?v=4.0.0"></script>
 
+    <!-- Scripts de continuité -->
+    {% include 'components/continuity_scripts.html' %}
+
     <script>
         // Initialisation des systèmes adaptatifs
         document.addEventListener('DOMContentLoaded', function () {

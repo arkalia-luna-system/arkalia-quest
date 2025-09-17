@@ -1,0 +1,225 @@
+<!-- ===== ARKALIA QUEST - CONTINUITY SCRIPTS ===== -->
+<!-- Scripts pour assurer la continuité et le flow entre les pages -->
+
+<!-- Scripts de continuité (ordre important) -->
+<script src="{{ url_for('static', filename='js/global-progression-sync.js') }}?v=3.1.0"></script>
+<script src="{{ url_for('static', filename='js/sticky-progress-bar.js') }}?v=3.1.0"></script>
+<script src="{{ url_for('static', filename='js/page-transitions.js') }}?v=3.1.0"></script>
+<script src="{{ url_for('static', filename='js/contextual-feedback.js') }}?v=3.1.0"></script>
+
+<!-- Script d'intégration pour la continuité -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log('🔄 Systèmes de continuité chargés');
+
+        // Initialiser la synchronisation des données
+        if (window.globalProgressionSync) {
+            // Callback pour mettre à jour toutes les stats sur la page
+            window.globalProgressionSync.onProgressionUpdate((data) => {
+                // Mettre à jour tous les éléments avec data-stat-type
+                const statElements = document.querySelectorAll('[data-stat-type]');
+                statElements.forEach(element => {
+                    const type = element.dataset.statType;
+                    const value = getStatValue(data, type);
+                    if (value !== null) {
+                        element.textContent = value;
+                    }
+                });
+
+                // Mettre à jour toutes les barres de progression
+                const progressElements = document.querySelectorAll('[data-progress-type]');
+                progressElements.forEach(element => {
+                    const type = element.dataset.progressType;
+                    const value = getProgressValue(data, type);
+                    if (value !== null) {
+                        updateProgressElement(element, value);
+                    }
+                });
+            });
+        }
+
+        // Fonctions utilitaires
+        function getStatValue(data, type) {
+            switch (type) {
+                case 'level':
+                    return data.level || 1;
+                case 'score':
+                    return data.score || 0;
+                case 'xp':
+                    return data.xp || 0;
+                case 'coins':
+                    return data.coins || 0;
+                case 'badges':
+                    return data.badges ? data.badges.length : 0;
+                case 'achievements':
+                    return data.achievements_unlocked ? data.achievements_unlocked.length : 0;
+                default:
+                    return null;
+            }
+        }
+
+        function getProgressValue(data, type) {
+            switch (type) {
+                case 'level':
+                    const xp = data.xp || 0;
+                    const currentLevelXp = xp % 1000;
+                    return (currentLevelXp / 1000) * 100;
+                case 'score':
+                    return Math.min((data.score || 0) / 10000 * 100, 100);
+                case 'xp':
+                    return Math.min((data.xp || 0) / 1000 * 100, 100);
+                default:
+                    return null;
+            }
+        }
+
+        function updateProgressElement(element, percentage) {
+            const fill = element.querySelector('.progress-fill, .progress-bar-fill');
+            if (fill) {
+                fill.style.width = `${Math.min(percentage, 100)}%`;
+            }
+
+            const text = element.querySelector('.progress-text, .progress-percentage');
+            if (text) {
+                text.textContent = `${Math.round(percentage)}%`;
+            }
+        }
+
+        // Déclencher l'événement de page chargée
+        const event = new CustomEvent('arkalia:page:loaded', {
+            detail: {
+                page: window.location.pathname,
+                timestamp: Date.now()
+            }
+        });
+        document.dispatchEvent(event);
+    });
+
+    // Gestion des liens de navigation améliorée
+    document.addEventListener('click', function (event) {
+        const link = event.target.closest('a[href]');
+        if (link && isInternalLink(link.href)) {
+            // Ne pas intercepter si c'est déjà géré par pageTransitions
+            return;
+        }
+    });
+
+    function isInternalLink(url) {
+        try {
+            const linkUrl = new URL(url, window.location.origin);
+            return linkUrl.origin === window.location.origin;
+        } catch {
+            return false;
+        }
+    }
+
+    // Gestion des mises à jour de progression
+    function updateProgression(type, data) {
+        const event = new CustomEvent('arkalia:progression:update', {
+            detail: { type, ...data }
+        });
+        document.dispatchEvent(event);
+    }
+
+    // Exporter les fonctions utiles
+    window.arkaliaUtils = {
+        updateProgression,
+        isInternalLink
+    };
+</script>
+
+<!-- Styles pour les éléments de continuité -->
+<style>
+    /* Ajustements pour la barre sticky */
+    body {
+        padding-top: 0;
+        transition: padding-top 0.3s ease;
+    }
+
+    body.has-sticky-bar {
+        padding-top: 50px;
+    }
+
+    /* Marqueurs pour les stats en temps réel */
+    [data-stat-type] {
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    [data-stat-type]:not(:empty)::after {
+        content: '';
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        width: 6px;
+        height: 6px;
+        background: #00ff00;
+        border-radius: 50%;
+        opacity: 0;
+        animation: livePulse 2s ease-in-out infinite;
+    }
+
+    @keyframes livePulse {
+
+        0%,
+        100% {
+            opacity: 0;
+            transform: scale(1);
+        }
+
+        50% {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+    }
+
+    /* Indicateur de mise à jour pour les barres de progression */
+    [data-progress-type] {
+        position: relative;
+    }
+
+    [data-progress-type]::before {
+        content: '';
+        position: absolute;
+        top: -1px;
+        left: -1px;
+        right: -1px;
+        bottom: -1px;
+        border: 1px solid transparent;
+        border-radius: inherit;
+        transition: all 0.3s ease;
+    }
+
+    [data-progress-type].updating::before {
+        border-color: rgba(0, 255, 0, 0.6);
+        box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+    }
+
+    /* Amélioration des transitions pour les éléments stats */
+    .stat-value,
+    .metric-value,
+    .progress-percentage {
+        transition: all 0.3s ease;
+    }
+
+    .stat-value.updated,
+    .metric-value.updated,
+    .progress-percentage.updated {
+        transform: scale(1.1);
+        color: #00ff00;
+        text-shadow: 0 0 10px rgba(0, 255, 0, 0.6);
+    }
+
+    /* Responsive pour les éléments de continuité */
+    @media (max-width: 768px) {
+        body.has-sticky-bar {
+            padding-top: 45px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        body.has-sticky-bar {
+            padding-top: 40px;
+        }
+    }
+</style>

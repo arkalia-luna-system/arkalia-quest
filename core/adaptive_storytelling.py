@@ -65,15 +65,11 @@ class AdaptiveStorytelling:
             os.makedirs("data", exist_ok=True)
 
             # Sauvegarder les choix
-            with open(
-                os.path.join("data", "player_choices.json"), "w", encoding="utf-8"
-            ) as f:
+            with open(os.path.join("data", "player_choices.json"), "w", encoding="utf-8") as f:
                 json.dump(self.player_choices, f, indent=2, ensure_ascii=False)
 
             # Sauvegarder les journaux
-            with open(
-                os.path.join("data", "player_journals.json"), "w", encoding="utf-8"
-            ) as f:
+            with open(os.path.join("data", "player_journals.json"), "w", encoding="utf-8") as f:
                 json.dump(self.player_journals, f, indent=2, ensure_ascii=False)
 
             logger.info("✅ Données de storytelling sauvegardées")
@@ -252,9 +248,9 @@ class AdaptiveStorytelling:
 
         # Limiter l'historique
         if len(self.player_choices[player_id]["choices"]) > self.max_choices_history:
-            self.player_choices[player_id]["choices"] = self.player_choices[player_id][
-                "choices"
-            ][-self.max_choices_history :]
+            self.player_choices[player_id]["choices"] = self.player_choices[player_id]["choices"][
+                -self.max_choices_history :
+            ]
 
         # Appliquer les conséquences
         self.apply_choice_consequences(player_id, choice_record)
@@ -323,9 +319,9 @@ class AdaptiveStorytelling:
 
         # Limiter les entrées
         if len(self.player_journals[player_id]["entries"]) > 500:
-            self.player_journals[player_id]["entries"] = self.player_journals[
-                player_id
-            ]["entries"][-500:]
+            self.player_journals[player_id]["entries"] = self.player_journals[player_id]["entries"][
+                -500:
+            ]
 
     # ===== GESTION DES EASTER EGGS =====
 
@@ -487,9 +483,7 @@ class AdaptiveStorytelling:
         if condition.startswith("choice_"):
             choice_type = condition.replace("choice_", "")
             player_choices = self.player_choices.get(player_id, {}).get("choices", [])
-            return any(
-                choice_type in choice.get("choice", "") for choice in player_choices
-            )
+            return any(choice_type in choice.get("choice", "") for choice in player_choices)
 
         # Conditions basées sur le temps
         if condition.startswith("time_"):
@@ -500,9 +494,7 @@ class AdaptiveStorytelling:
 
     # ===== GÉNÉRATION DE CONTENU ADAPTATIF =====
 
-    def generate_adaptive_dialogue(
-        self, player_id: str, context: str
-    ) -> dict[str, Any]:
+    def generate_adaptive_dialogue(self, player_id: str, context: str) -> dict[str, Any]:
         """Génère un dialogue adaptatif basé sur l'historique du joueur"""
         player_data = self.player_choices.get(player_id, {})
         choices = player_data.get("choices", [])
@@ -536,15 +528,11 @@ class AdaptiveStorytelling:
                 choice_patterns["aggressive"] += 1
             elif any(word in choice_text for word in ["defend", "protect", "shield"]):
                 choice_patterns["defensive"] += 1
-            elif any(
-                word in choice_text for word in ["explore", "investigate", "discover"]
-            ):
+            elif any(word in choice_text for word in ["explore", "investigate", "discover"]):
                 choice_patterns["exploratory"] += 1
             elif any(word in choice_text for word in ["analyze", "study", "examine"]):
                 choice_patterns["analytical"] += 1
-            elif any(
-                word in choice_text for word in ["help", "cooperate", "collaborate"]
-            ):
+            elif any(word in choice_text for word in ["help", "cooperate", "collaborate"]):
                 choice_patterns["social"] += 1
 
         # Déterminer le style dominant
@@ -553,9 +541,7 @@ class AdaptiveStorytelling:
         return {
             "type": dominant_style,
             "traits": [k for k, v in choice_patterns.items() if v > 0],
-            "confidence": (
-                choice_patterns[dominant_style] / len(choices) if choices else 0
-            ),
+            "confidence": (choice_patterns[dominant_style] / len(choices) if choices else 0),
         }
 
     def create_contextual_dialogue(
@@ -614,9 +600,7 @@ class AdaptiveStorytelling:
             "playstyle": self.analyze_playstyle(player_data.get("choices", [])),
         }
 
-    def get_available_choices(
-        self, player_id: str, story_arc: str
-    ) -> list[dict[str, Any]]:
+    def get_available_choices(self, player_id: str, story_arc: str) -> list[dict[str, Any]]:
         """Retourne les choix disponibles pour un arc narratif"""
         if story_arc not in self.story_arcs:
             return []
@@ -626,9 +610,7 @@ class AdaptiveStorytelling:
 
         for choice_id, choice_data in arc["branches"].items():
             # Vérifier les conditions de déverrouillage
-            if self.check_choice_conditions(
-                player_id, choice_data.get("unlock_conditions", [])
-            ):
+            if self.check_choice_conditions(player_id, choice_data.get("unlock_conditions", [])):
                 available_choices.append(
                     {
                         "id": choice_id,
@@ -648,9 +630,7 @@ class AdaptiveStorytelling:
         player_data = self.player_choices.get(player_id, {})
 
         for condition in conditions:
-            if not self.evaluate_condition(
-                player_id, condition, player_data.get("choices", [])
-            ):
+            if not self.evaluate_condition(player_id, condition, player_data.get("choices", [])):
                 return False
 
         return True

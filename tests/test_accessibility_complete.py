@@ -272,7 +272,8 @@ class AccessibilityTester:
         }
 
         print(
-            f"✅ Design responsive: {found_queries}/{len(media_queries)}" + "media queries trouvées",
+            f"✅ Design responsive: {found_queries}/{len(media_queries)}"
+            + "media queries trouvées",
         )
         return score
 
@@ -542,8 +543,7 @@ class AccessibilityTester:
         for test_name, test_result in self.results["tests"].items():
             status = "✅" if test_result["score"] >= 80 else "❌"
             print(
-                f"{status} {test_name.replace('_', ' ').title()}:"
-                 "{test_result['score']:.1f}/100",
+                f"{status} {test_name.replace('_', ' ').title()}:" "{test_result['score']:.1f}/100",
             )
 
         if self.results["score"] >= 80:

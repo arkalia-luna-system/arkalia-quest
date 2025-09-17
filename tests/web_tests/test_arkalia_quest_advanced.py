@@ -55,7 +55,9 @@ class ArkaliaQuestAdvancedTester:
                 content = response.text
                 # Rechercher les couleurs Matrix
                 matrix_colors = re.findall(
-                    r"#00ff00|#0f0|rgb\(0,\s*255,\s*0\)", content, re.IGNORECASE,
+                    r"#00ff00|#0f0|rgb\(0,\s*255,\s*0\)",
+                    content,
+                    re.IGNORECASE,
                 )
 
                 if matrix_colors:

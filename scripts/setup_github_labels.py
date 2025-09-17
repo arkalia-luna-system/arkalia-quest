@@ -196,7 +196,8 @@ class GitHubLabelsSetup:
         """Vérifie l'authentification GitHub"""
         try:
             response = requests.get(
-                f"https://api.github.com/repos/{self.repo}", headers=self.headers,
+                f"https://api.github.com/repos/{self.repo}",
+                headers=self.headers,
             )
             return response.status_code == 200
         except Exception as e:

@@ -30,7 +30,10 @@ class LoadTester:
         self.lock = threading.Lock()
 
     def make_request(
-        self, endpoint: str, method: str = "GET", data: Optional[dict[str, Any]] = None,
+        self,
+        endpoint: str,
+        method: str = "GET",
+        data: Optional[dict[str, Any]] = None,
     ) -> dict[str, Any]:
         """Effectue une requête et mesure le temps de réponse"""
         start_time = time.time()

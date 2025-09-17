@@ -261,7 +261,9 @@ class TestRobustesseAvancee(unittest.TestCase):
             "Corruption des données concurrentes",
         )
         self.assertEqual(
-            len(shared_data["data"]), expected_counter, "Perte de données concurrentes",
+            len(shared_data["data"]),
+            expected_counter,
+            "Perte de données concurrentes",
         )
 
         print(f"✅ Concurrence: {shared_data['counter']} opérations thread-safe")

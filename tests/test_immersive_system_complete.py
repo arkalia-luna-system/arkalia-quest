@@ -73,7 +73,10 @@ class ImmersiveSystemTester:
             "integration": integration_results,
             "performance": performance_results,
             "summary": self.generate_summary(
-                luna_results, visual_results, integration_results, performance_results,
+                luna_results,
+                visual_results,
+                integration_results,
+                performance_results,
             ),
         }
 
@@ -103,7 +106,9 @@ class ImmersiveSystemTester:
                 start_time = time.time()
 
                 response = self.session.post(
-                    f"{self.base_url}/commande", json={"commande": command}, timeout=10,
+                    f"{self.base_url}/commande",
+                    json={"commande": command},
+                    timeout=10,
                 )
 
                 response_time = time.time() - start_time
@@ -125,17 +130,20 @@ class ImmersiveSystemTester:
                         # Vérifier l'intensité
                         intensity = data.get("luna_intensity", 0.5)
                         emotions_test["intensity_range"]["min"] = min(
-                            emotions_test["intensity_range"]["min"], intensity,
+                            emotions_test["intensity_range"]["min"],
+                            intensity,
                         )
                         emotions_test["intensity_range"]["max"] = max(
-                            emotions_test["intensity_range"]["max"], intensity,
+                            emotions_test["intensity_range"]["max"],
+                            intensity,
                         )
 
                         # Vérifier la cohérence
                         self.validate_emotion_data(data)
 
                         print(
-                            f"✅ {command}: {data['luna_emotion']} (intensité:" + "{intensity:.2f})",
+                            f"✅ {command}: {data['luna_emotion']} (intensité:"
+                            + "{intensity:.2f})",
                         )
                     else:
                         print(f"    ⚠️ {command}: Pas d'émotion LUNA détectée")
@@ -181,7 +189,9 @@ class ImmersiveSystemTester:
         for command in effect_commands:
             try:
                 response = self.session.post(
-                    f"{self.base_url}/commande", json={"commande": command}, timeout=10,
+                    f"{self.base_url}/commande",
+                    json={"commande": command},
+                    timeout=10,
                 )
 
                 if response.status_code == 200:
@@ -204,7 +214,7 @@ class ImmersiveSystemTester:
 
                     print(
                         f"✅ {command}: Effet {data.get('luna_effect', 'N/A')} -"
-                         "Couleur {data.get('luna_color', 'N/A')}",
+                        "Couleur {data.get('luna_color', 'N/A')}",
                     )
                 else:
                     print(f"    ❌ {command}: Erreur HTTP {response.status_code}")
@@ -237,7 +247,9 @@ class ImmersiveSystemTester:
         for command in self.test_commands[:5]:  # Test avec 5 commandes
             try:
                 response = self.session.post(
-                    f"{self.base_url}/commande", json={"commande": command}, timeout=10,
+                    f"{self.base_url}/commande",
+                    json={"commande": command},
+                    timeout=10,
                 )
 
                 if response.status_code == 200:
@@ -305,7 +317,9 @@ class ImmersiveSystemTester:
             try:
                 start_time = time.time()
                 response = self.session.post(
-                    f"{self.base_url}/commande", json={"commande": command}, timeout=5,
+                    f"{self.base_url}/commande",
+                    json={"commande": command},
+                    timeout=5,
                 )
                 response_time = time.time() - start_time
 
@@ -381,7 +395,7 @@ class ImmersiveSystemTester:
 
         print(
             f"📊 Performance: {performance_test['success_rate']:.1f}%"
-             "succès, {performance_test['avg_response_time']:.3f}s moyenne",
+            "succès, {performance_test['avg_response_time']:.3f}s moyenne",
         )
 
         return performance_test

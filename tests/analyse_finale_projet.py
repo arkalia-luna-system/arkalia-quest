@@ -98,7 +98,8 @@ class AnalyseurProjet:
             print("\n🔍 Vérification rapide des tests...")
             result = subprocess.run(
                 ["python", "-m", "pytest", "tests/", "--collect-only", "-q"],
-                check=False, capture_output=True,
+                check=False,
+                capture_output=True,
                 text=True,
                 cwd=self.projet_root,
             )
@@ -142,7 +143,8 @@ class AnalyseurProjet:
                     # Test de performance rapide
                     start_time = time.time()
                     response = requests.get(
-                        "http://localhost:5001/api/educational-games/list", timeout=5,
+                        "http://localhost:5001/api/educational-games/list",
+                        timeout=5,
                     )
                     response_time = time.time() - start_time
 
@@ -190,7 +192,8 @@ class AnalyseurProjet:
                 print("🔍 Test de robustesse rapide...")
                 result = subprocess.run(
                     ["python", "-m", "pytest", "tests/robustesse/", "-v", "--tb=no"],
-                    check=False, capture_output=True,
+                    check=False,
+                    capture_output=True,
                     text=True,
                     cwd=self.projet_root,
                     timeout=60,
@@ -227,7 +230,8 @@ class AnalyseurProjet:
             print("🔍 Calcul de la couverture...")
             result = subprocess.run(
                 ["python", "-m", "pytest", "--cov=core", "--cov-report=term-missing"],
-                check=False, capture_output=True,
+                check=False,
+                capture_output=True,
                 text=True,
                 cwd=self.projet_root,
                 timeout=120,

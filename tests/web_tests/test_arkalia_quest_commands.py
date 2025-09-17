@@ -19,6 +19,7 @@ MEDIUM_RATE = 50
 EXCELLENT_SUMMARY_RATE = 90
 GOOD_SUMMARY_RATE = 75
 
+
 class ArkaliaQuestCommandsTester:
     """Testeur des commandes et missions d'Arkalia Quest"""
 
@@ -553,7 +554,9 @@ class ArkaliaQuestCommandsTester:
             print("🚨 État critique, de nombreuses commandes ne fonctionnent pas.")
 
         # Sauvegarde du rapport
-        report_file = f"commands_test_report_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}.json"
+        report_file = (
+            f"commands_test_report_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}.json"
+        )
         with Path(report_file).open("w", encoding="utf-8") as f:
             json.dump(
                 {

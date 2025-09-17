@@ -72,9 +72,7 @@ class DailyChallengesEngine:
                 "creative": ChallengeType.CREATIVE,
             }
 
-            challenge_type_enum = type_mapping.get(
-                challenge_type.lower(), ChallengeType.HACKING
-            )
+            challenge_type_enum = type_mapping.get(challenge_type.lower(), ChallengeType.HACKING)
 
             # Convertir la difficulté
             difficulty_mapping = {
@@ -93,9 +91,7 @@ class DailyChallengesEngine:
 
             if not available_challenges:
                 # Fallback vers easy si pas de défis pour cette difficulté
-                available_challenges = self.challenges.get(challenge_type_enum, {}).get(
-                    "easy", []
-                )
+                available_challenges = self.challenges.get(challenge_type_enum, {}).get("easy", [])
 
             if not available_challenges:
                 # Défi par défaut
@@ -352,9 +348,7 @@ class DailyChallengesEngine:
             },
         }
 
-    def get_daily_challenges(
-        self, user_id: str, date: Optional[str] = None
-    ) -> dict[str, Any]:
+    def get_daily_challenges(self, user_id: str, date: Optional[str] = None) -> dict[str, Any]:
         """Récupère les défis quotidiens pour un utilisateur"""
         if date is None:
             date = datetime.now().strftime("%Y-%m-%d")
@@ -383,9 +377,7 @@ class DailyChallengesEngine:
             "time_remaining": self._get_time_remaining(user_data["start_time"]),
         }
 
-    def _generate_daily_challenges(
-        self, user_id: str, date: str
-    ) -> list[dict[str, Any]]:
+    def _generate_daily_challenges(self, user_id: str, date: str) -> list[dict[str, Any]]:
         """Génère les défis quotidiens personnalisés"""
         # Utiliser la date comme seed pour la reproductibilité
         random.seed(hash(date + user_id))
@@ -419,10 +411,7 @@ class DailyChallengesEngine:
         while len(challenges) < 3:
             challenge_type = random.choice(list(ChallengeType))
             difficulty = "easy"
-            if (
-                challenge_type in self.challenges
-                and difficulty in self.challenges[challenge_type]
-            ):
+            if challenge_type in self.challenges and difficulty in self.challenges[challenge_type]:
                 available_challenges = self.challenges[challenge_type][difficulty]
                 if available_challenges:
                     challenge = random.choice(available_challenges).copy()
@@ -449,13 +438,9 @@ class DailyChallengesEngine:
         # Si la date ne correspond pas à une session existante, essayer de
         # retrouver la dernière session générée pour cet utilisateur afin de
         # rendre l'API tolérante (les tests appellent parfois sans la date).
-        if (date not in self.user_progress) or (
-            user_id not in self.user_progress.get(date, {})
-        ):
+        if (date not in self.user_progress) or (user_id not in self.user_progress.get(date, {})):
             # Chercher une date existante pour cet utilisateur
-            for existing_date, users in sorted(
-                self.user_progress.items(), reverse=True
-            ):
+            for existing_date, users in sorted(self.user_progress.items(), reverse=True):
                 if user_id in users:
                     date = existing_date
                     break
@@ -704,9 +689,7 @@ class DailyChallengesEngine:
             "total_points": total_points,
             "completed_challenges": total_completed,
             "total_challenges": total_challenges,
-            "completion_rate": (
-                total_completed / total_challenges if total_challenges > 0 else 0
-            ),
+            "completion_rate": (total_completed / total_challenges if total_challenges > 0 else 0),
             "streak_days": self._get_user_streak(user_id),
             "days_active": days_active,
             "average_daily_points": total_points / 7 if days_active > 0 else 0,

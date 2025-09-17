@@ -65,7 +65,9 @@ class TestLunaV3Integration(unittest.TestCase):
         """Test d'analyse des émotions"""
         # Test émotion positive
         response = self.luna.generate_response(
-            "J'ai réussi ma mission !", self.test_user_profile, self.test_game_context,
+            "J'ai réussi ma mission !",
+            self.test_user_profile,
+            self.test_game_context,
         )
         self.assertIn(response["emotion"], ["excited", "proud", "happy"])
 
@@ -103,7 +105,9 @@ class TestLunaV3Integration(unittest.TestCase):
         # Simuler plusieurs interactions
         for i in range(10):
             self.luna.generate_response(
-                f"Interaction {i}", self.test_user_profile, self.test_game_context,
+                f"Interaction {i}",
+                self.test_user_profile,
+                self.test_game_context,
             )
 
         evolved_personality = self.luna.personality.base_traits

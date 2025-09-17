@@ -232,7 +232,8 @@ class TestUniversalEmptyStates(unittest.TestCase):
 
         result = subprocess.run(
             ["node", "-c", "static/js/universal-empty-states.js"],
-            check=False, capture_output=True,
+            check=False,
+            capture_output=True,
             text=True,
         )
         self.assertEqual(result.returncode, 0, f"Erreur de syntaxe: {result.stderr}")

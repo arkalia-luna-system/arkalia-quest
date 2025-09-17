@@ -137,9 +137,7 @@ class GameEngine:
         today = datetime.now().date().isoformat()
         return len([c for c in completed if c.get("date") == today])
 
-    def check_random_event(
-        self, action_type: str, profile: dict[str, Any]
-    ) -> dict[str, Any]:
+    def check_random_event(self, action_type: str, profile: dict[str, Any]) -> dict[str, Any]:
         """Vérifie si un événement aléatoire doit se déclencher"""
         for event in self.random_events:
             if event["trigger"] == action_type and random.random() < event["chance"]:
@@ -189,9 +187,7 @@ class GameEngine:
             profile = self.profile_manager.create_default_profile()
 
         # Mettre à jour la progression avec la commande utilisée
-        progression_engine.update_player_progression(
-            user_id, "command_used", {"command": command}
-        )
+        progression_engine.update_player_progression(user_id, "command_used", {"command": command})
 
         # Traiter la commande
         result = self.command_handler.handle_command(command, profile)
@@ -213,9 +209,7 @@ class GameEngine:
 
         return result
 
-    def add_effects(
-        self, result: dict[str, Any], profile: dict[str, Any]
-    ) -> dict[str, Any]:
+    def add_effects(self, result: dict[str, Any], profile: dict[str, Any]) -> dict[str, Any]:
         """Ajoute des effets visuels et audio à la réponse - OPTIMISÉ ADOLESCENT"""
 
         # Effet de base selon le type de réponse - THÈME MATRIX
@@ -252,9 +246,7 @@ class GameEngine:
 
         return result
 
-    def _calculate_reward(
-        self, profile: dict[str, Any], result: dict[str, Any]
-    ) -> dict[str, Any]:
+    def _calculate_reward(self, profile: dict[str, Any], result: dict[str, Any]) -> dict[str, Any]:
         """Calcule les récompenses pour l'engagement adolescent"""
         base_xp = 10
         bonus_multiplier = 1.0
@@ -326,9 +318,7 @@ class GameEngine:
             return 20  # Bonus de série
         return 0
 
-    def _calculate_level_progress(
-        self, profile: dict[str, Any], xp_gained: int
-    ) -> dict[str, Any]:
+    def _calculate_level_progress(self, profile: dict[str, Any], xp_gained: int) -> dict[str, Any]:
         """Calcule la progression de niveau"""
         current_xp = profile.get("xp", 0) + xp_gained
         current_level = profile.get("level", 1)
@@ -349,9 +339,7 @@ class GameEngine:
             "xp_remaining": xp_needed - current_xp,
         }
 
-    def start_mission(
-        self, mission_id: str, user_id: str = "default"
-    ) -> dict[str, Any]:
+    def start_mission(self, mission_id: str, user_id: str = "default") -> dict[str, Any]:
         """Démarre une mission pour un utilisateur"""
 
         profile = self.profile_manager.load_profile(user_id)
@@ -379,9 +367,7 @@ class GameEngine:
             "mission_context": mission_context,
         }
 
-    def can_start_mission(
-        self, mission_id: str, profile: Optional[dict[str, Any]] = None
-    ) -> bool:
+    def can_start_mission(self, mission_id: str, profile: Optional[dict[str, Any]] = None) -> bool:
         """Vérifie si l'utilisateur peut démarrer une mission"""
 
         # Charger la mission
@@ -400,8 +386,7 @@ class GameEngine:
                 if not self.game_state["universe_unlocked"]:
                     return False
             elif (
-                prerequis_item == "complete_tutorial"
-                and not self.game_state["tutorial_completed"]
+                prerequis_item == "complete_tutorial" and not self.game_state["tutorial_completed"]
             ):
                 return False
 

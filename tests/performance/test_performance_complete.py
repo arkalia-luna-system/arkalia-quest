@@ -79,7 +79,9 @@ class TestPerformanceComplete(unittest.TestCase):
             start_time = time.time()
             # Simuler une opération simple
             _ = self.luna_engine.analyze_action(
-                "test_action", {"réussite": True}, self.test_profile,
+                "test_action",
+                {"réussite": True},
+                self.test_profile,
             )
             end_time = time.time()
             self.performance_metrics["response_times"].append(end_time - start_time)
@@ -626,7 +628,7 @@ class TestPerformanceComplete(unittest.TestCase):
                             operation_throughput,
                             baselines["min_throughput"],
                             f"Débit insuffisant pour {operation}:"
-                             "{operation_throughput:.1f} ops/s",
+                            "{operation_throughput:.1f} ops/s",
                         )
 
     # ===== TESTS DE VALIDATION FINALE =====
@@ -662,7 +664,9 @@ class TestPerformanceComplete(unittest.TestCase):
         avg_throughput = total_throughput / len(self.performance_metrics["throughput"])
 
         self.assertGreater(
-            avg_throughput, 100, f"Débit moyen insuffisant: {avg_throughput:.1f} ops/s",
+            avg_throughput,
+            100,
+            f"Débit moyen insuffisant: {avg_throughput:.1f} ops/s",
         )
 
         # Afficher le rapport final

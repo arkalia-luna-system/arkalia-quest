@@ -401,9 +401,7 @@ Utilisez 'play_game' pour réessayer."""
             "profile_updated": True,
         }
 
-    def handle_daily_challenges_working(
-        self, profile: dict[str, Any]
-    ) -> dict[str, Any]:
+    def handle_daily_challenges_working(self, profile: dict[str, Any]) -> dict[str, Any]:
         """Défis quotidiens fonctionnels"""
         # Simuler des défis quotidiens qui fonctionnent
         challenges = [
@@ -432,9 +430,7 @@ Utilisez 'play_game' pour réessayer."""
                 "id": "explorer",
                 "name": "🔍 Explorateur",
                 "description": "Explore 3 zones différentes",
-                "progress": min(
-                    3, len(profile.get("progression", {}).get("zones_visitees", []))
-                ),
+                "progress": min(3, len(profile.get("progression", {}).get("zones_visitees", []))),
                 "target": 3,
                 "reward": "200 XP + Badge Explorer",
                 "completed": False,
@@ -457,9 +453,7 @@ Utilisez 'play_game' pour réessayer."""
 
             message += f"{status} {challenge['name']}\n"
             message += f"   📝 {challenge['description']}\n"
-            message += (
-                f"   {progress_bar} {challenge['progress']}/{challenge['target']}\n"
-            )
+            message += f"   {progress_bar} {challenge['progress']}/{challenge['target']}\n"
             message += f"   🏆 {challenge['reward']}\n\n"
 
         message += "💡 Ces défis se mettent à jour en temps réel !\n"

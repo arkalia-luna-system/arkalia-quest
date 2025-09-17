@@ -2,8 +2,6 @@
 Tests simplifiés pour adaptive_storytelling.py
 """
 
-
-
 from core.adaptive_storytelling import AdaptiveStorytelling
 
 

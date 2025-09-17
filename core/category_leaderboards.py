@@ -40,9 +40,7 @@ class CategoryLeaderboards:
                 self.player_stats = data.get("player_stats", {})
                 self.ranking_periods = data.get("ranking_periods", {})
         except FileNotFoundError:
-            logger.info(
-                "Fichier de classements non trouvé, création des données par défaut"
-            )
+            logger.info("Fichier de classements non trouvé, création des données par défaut")
             self._create_default_categories()
         except Exception as e:
             logger.error(f"Erreur chargement classements: {e}")
@@ -264,9 +262,7 @@ class CategoryLeaderboards:
                     {
                         "player_id": player_id,
                         "score": score,
-                        "last_updated": player_data["categories"][category][
-                            "last_updated"
-                        ],
+                        "last_updated": player_data["categories"][category]["last_updated"],
                     },
                 )
 
@@ -307,9 +303,7 @@ class CategoryLeaderboards:
             player_id = player["player_id"]
             if player_id in self.player_stats:
                 player["overall_score"] = self.player_stats[player_id]["overall_score"]
-                player["total_categories"] = len(
-                    self.player_stats[player_id]["categories"]
-                )
+                player["total_categories"] = len(self.player_stats[player_id]["categories"])
 
         return {
             "category": self.categories[category],
@@ -336,9 +330,7 @@ class CategoryLeaderboards:
         if category in self.leaderboards:
             total_players = self.leaderboards[category]["total_players"]
             percentile = (
-                ((total_players - rank + 1) / total_players) * 100
-                if total_players > 0
-                else 0
+                ((total_players - rank + 1) / total_players) * 100 if total_players > 0 else 0
             )
         else:
             percentile = 0
@@ -404,9 +396,7 @@ class CategoryLeaderboards:
             if category in self.leaderboards:
                 total_players = self.leaderboards[category]["total_players"]
                 percentile = (
-                    ((total_players - rank + 1) / total_players) * 100
-                    if total_players > 0
-                    else 0
+                    ((total_players - rank + 1) / total_players) * 100 if total_players > 0 else 0
                 )
             else:
                 percentile = 0
@@ -468,9 +458,7 @@ class CategoryLeaderboards:
             "last_updated": datetime.now().isoformat(),
         }
 
-    def get_achievement_leaderboard(
-        self, category: str, limit: int = 50
-    ) -> dict[str, Any]:
+    def get_achievement_leaderboard(self, category: str, limit: int = 50) -> dict[str, Any]:
         """Retourne le classement des achievements par catégorie"""
 
         if category not in self.categories:

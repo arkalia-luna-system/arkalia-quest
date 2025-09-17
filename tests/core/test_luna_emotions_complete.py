@@ -291,7 +291,9 @@ class TestLunaEmotionsComplete(unittest.TestCase):
         # Vérifier que l'historique ne grandit pas infiniment
         final_history_length = len(self.engine.emotion_history)
         self.assertLessEqual(
-            final_history_length, 100, "L'historique des émotions devrait être limité",
+            final_history_length,
+            100,
+            "L'historique des émotions devrait être limité",
         )
 
     def test_error_handling_robustness(self):

@@ -90,7 +90,8 @@ class StableVersionTestRunner:
             # Exécuter le test
             result = subprocess.run(
                 [sys.executable, f"tests/{module['file']}"],
-                check=False, capture_output=True,
+                check=False,
+                capture_output=True,
                 text=True,
                 timeout=300,  # 5 minutes max par test
             )
@@ -180,7 +181,8 @@ class StableVersionTestRunner:
             )
         elif summary["success_rate"] >= 60:
             recommendations.append(
-                "⚠️ Version stable avec des problèmes. Corrections" + "nécessaires avant production.",
+                "⚠️ Version stable avec des problèmes. Corrections"
+                + "nécessaires avant production.",
             )
         else:
             recommendations.append("❌ Version instable. Corrections majeures requises.")

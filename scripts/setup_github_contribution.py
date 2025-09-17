@@ -37,7 +37,9 @@ class GitHubContributionSetup:
 
         # Vérification de Python
         try:
-            result = subprocess.run(["python", "--version"], check=False, capture_output=True, text=True)
+            result = subprocess.run(
+                ["python", "--version"], check=False, capture_output=True, text=True
+            )
             print(f"✅ Python: {result.stdout.strip()}")
         except Exception as e:
             print(f"❌ Erreur Python: {e}")
@@ -45,7 +47,9 @@ class GitHubContributionSetup:
 
         # Vérification de Git
         try:
-            result = subprocess.run(["git", "--version"], check=False, capture_output=True, text=True)
+            result = subprocess.run(
+                ["git", "--version"], check=False, capture_output=True, text=True
+            )
             print(f"✅ Git: {result.stdout.strip()}")
         except Exception as e:
             print(f"❌ Erreur Git: {e}")
@@ -69,7 +73,9 @@ class GitHubContributionSetup:
         try:
             # Black
             print("🎨 Vérification Black...")
-            result = subprocess.run(["black", "--check", "."], check=False, capture_output=True, text=True)
+            result = subprocess.run(
+                ["black", "--check", "."], check=False, capture_output=True, text=True
+            )
             if result.returncode != 0:
                 print("❌ Black a trouvé des problèmes de formatage")
                 print("💡 Exécutez: black .")
@@ -78,7 +84,9 @@ class GitHubContributionSetup:
 
             # Ruff
             print("🔍 Vérification Ruff...")
-            result = subprocess.run(["ruff", "check", "."], check=False, capture_output=True, text=True)
+            result = subprocess.run(
+                ["ruff", "check", "."], check=False, capture_output=True, text=True
+            )
             if result.returncode != 0:
                 print("❌ Ruff a trouvé des problèmes de linting")
                 print("💡 Exécutez: ruff check . --fix")
@@ -89,7 +97,8 @@ class GitHubContributionSetup:
             print("🧪 Exécution des tests...")
             result = subprocess.run(
                 ["python", "-m", "pytest", "tests/", "--tb=no", "-q"],
-                check=False, capture_output=True,
+                check=False,
+                capture_output=True,
                 text=True,
             )
             if result.returncode != 0:
@@ -146,7 +155,9 @@ class GitHubContributionSetup:
 
         try:
             print("🏷️  Exécution du script de configuration des labels...")
-            result = subprocess.run(["python", str(labels_script)], check=False, capture_output=True, text=True)
+            result = subprocess.run(
+                ["python", str(labels_script)], check=False, capture_output=True, text=True
+            )
 
             if result.returncode == 0:
                 print("✅ Labels GitHub configurés avec succès")
@@ -172,7 +183,10 @@ class GitHubContributionSetup:
         try:
             print("💬 Exécution du script de configuration des discussions...")
             result = subprocess.run(
-                ["python", str(discussions_script)], check=False, capture_output=True, text=True,
+                ["python", str(discussions_script)],
+                check=False,
+                capture_output=True,
+                text=True,
             )
 
             if result.returncode == 0:

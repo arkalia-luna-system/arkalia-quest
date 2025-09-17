@@ -87,7 +87,9 @@ class SimpleIntelligentTester:
             print(f"🎮 {self.personalities[personality]['name']} essaie: '{command}'")
 
             response = self.session.post(
-                f"{self.base_url}/commande", json={"commande": command}, timeout=10,
+                f"{self.base_url}/commande",
+                json={"commande": command},
+                timeout=10,
             )
 
             if response.status_code == 200:
@@ -344,9 +346,11 @@ class SimpleIntelligentTester:
         print(f"   • Commandes testées: {total_commands}")
         print(f"   • Commandes réussies: {total_successful}")
         print(
-            f"   • Taux de succès: {total_successful / total_commands * 100:.1f}%"
-            if total_commands > 0
-            else "   • Taux de succès: 0%",
+            (
+                f"   • Taux de succès: {total_successful / total_commands * 100:.1f}%"
+                if total_commands > 0
+                else "   • Taux de succès: 0%"
+            ),
         )
         print(f"   • Score total: {total_score}")
         print(f"   • Badges total: {total_badges}")

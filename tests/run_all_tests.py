@@ -34,7 +34,8 @@ def run_test_script(script_path, test_name):
         # Exécuter le script
         result = subprocess.run(
             [sys.executable, str(script_path)],
-            check=False, capture_output=True,
+            check=False,
+            capture_output=True,
             text=True,
             timeout=300,  # 5 minutes max
         )

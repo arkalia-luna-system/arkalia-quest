@@ -111,7 +111,8 @@ def test_quick_script():
         # Lancer le test
         result = subprocess.run(
             [sys.executable, "scripts/test_boutons_rapide.py"],
-            check=False, capture_output=True,
+            check=False,
+            capture_output=True,
             text=True,
             timeout=60,
         )

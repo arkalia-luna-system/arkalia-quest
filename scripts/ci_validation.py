@@ -35,7 +35,8 @@ class CIValidator:
     def validate_ruff(self):
         """Valide le linting avec Ruff"""
         return self.run_command(
-            "ruff check . --output-format=concise", "Vérification Ruff (Linting)",
+            "ruff check . --output-format=concise",
+            "Vérification Ruff (Linting)",
         )
 
     def validate_black(self):

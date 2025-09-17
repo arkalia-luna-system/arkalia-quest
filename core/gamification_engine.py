@@ -239,18 +239,14 @@ class GamificationEngine:
             "last_updated": leaderboard["last_updated"],
         }
 
-    def check_badges_secrets(
-        self, profile: dict[str, Any], action: str, **kwargs
-    ) -> list[str]:
+    def check_badges_secrets(self, profile: dict[str, Any], action: str, **kwargs) -> list[str]:
         """Vérifie et débloque les badges secrets"""
 
         badges_secrets = self._load_badges_secrets()
         unlocked_badges = []
 
         for badge_id, badge_data in badges_secrets["badges_secrets"].items():
-            if badge_id not in profile.get(
-                "badges", []
-            ) and self._check_badge_condition(
+            if badge_id not in profile.get("badges", []) and self._check_badge_condition(
                 badge_data,
                 profile,
                 action,
@@ -274,9 +270,7 @@ class GamificationEngine:
 
         if condition == "speed_missions":
             # Missions rapides
-            missions_completees = profile.get("personnalite", {}).get(
-                "missions_completees", []
-            )
+            missions_completees = profile.get("personnalite", {}).get("missions_completees", [])
             if len(missions_completees) >= seuil:
                 return True
 
@@ -321,9 +315,7 @@ class GamificationEngine:
 
         return unlocked_achievements
 
-    def _check_achievement_condition(
-        self, achievement_id: str, profile: dict[str, Any]
-    ) -> bool:
+    def _check_achievement_condition(self, achievement_id: str, profile: dict[str, Any]) -> bool:
         """Vérifie si une condition d'achievement est remplie"""
 
         if achievement_id == "first_mission":
@@ -381,9 +373,7 @@ class GamificationEngine:
 
         return int(base_xp)
 
-    def generate_instant_rewards(
-        self, action: str, xp_gained: int, **kwargs
-    ) -> dict[str, Any]:
+    def generate_instant_rewards(self, action: str, xp_gained: int, **kwargs) -> dict[str, Any]:
         """Génère des récompenses instantanées et visuelles"""
 
         rewards = {
@@ -481,9 +471,7 @@ class GamificationEngine:
             "progress_percentage": round(progress_percentage, 1),
         }
 
-    def get_gamification_summary(
-        self, user_id: str, profile: dict[str, Any]
-    ) -> dict[str, Any]:
+    def get_gamification_summary(self, user_id: str, profile: dict[str, Any]) -> dict[str, Any]:
         """Récupère un résumé complet de la gamification"""
 
         leaderboard = self.get_leaderboard()

@@ -7,7 +7,7 @@ name = "arkalia-quest"
 version = "3.1.0"
 description = "Jeu éducatif intelligent pour adolescents - Architecture Flask/Python/IA modulaire, sécurité avancée, gamification"
 readme = "README.md"
-license = {text = "MIT"}
+license = "MIT"
 authors = [
     {name = "Arkalia Luna System", email = "arkalia.luna.system@gmail.com"}
 ]
@@ -28,7 +28,6 @@ classifiers = [
     "Topic :: Education :: Computer Aided Instruction (CAI)",
     "Topic :: Games/Entertainment :: Educational",
     "Topic :: Software Development :: Libraries :: Application Frameworks",
-    "License :: OSI Approved :: MIT License",
 ]
 requires-python = ">=3.9"
 dependencies = [
@@ -98,7 +97,7 @@ exclude = ["tests*", "docs*", "scripts*", "venv*", "__pycache__*"]
 
 # === PYTEST ===
 [tool.pytest.ini_options]
-minversion = "8.0"
+minversion = "7.0"
 addopts = "-ra -q --strict-markers --strict-config"
 testpaths = ["tests"]
 python_files = ["test_*.py", "*_test.py"]

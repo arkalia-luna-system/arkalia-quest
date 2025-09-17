@@ -373,7 +373,9 @@ class TestGamificationComplete(unittest.TestCase):
 
         # 1000 opérations devraient prendre moins de 2 secondes
         self.assertLess(
-            duration, 2.0, f"Performance insuffisante: {duration}s pour 1000 opérations",
+            duration,
+            2.0,
+            f"Performance insuffisante: {duration}s pour 1000 opérations",
         )
 
         # Vérifier que le profil est cohérent

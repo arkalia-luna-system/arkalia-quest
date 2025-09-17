@@ -38,9 +38,50 @@ class SkillTreeSystem {
             this.playerSkills = playerData.skills;
         }
 
+        // Mettre à jour l'XP total
+        if (playerData.xp !== undefined) {
+            this.playerTotalXP = playerData.xp;
+        }
+
         // Mettre à jour l'affichage
         this.updatePlayerStats();
         this.updateSkillTreeDisplay();
+    }
+
+    async syncPlayerData() {
+        // Synchroniser les données du joueur depuis le serveur
+        try {
+            const response = await fetch('/api/progression-data');
+            const data = await response.json();
+
+            if (data.success) {
+                this.updateFromServerData(data.progression);
+                // Mettre à jour l'affichage des boutons d'amélioration
+                this.updateUpgradeButtons();
+            }
+        } catch (error) {
+            console.log('Erreur synchronisation données joueur:', error);
+        }
+    }
+
+    updateUpgradeButtons() {
+        // Mettre à jour l'affichage des boutons d'amélioration
+        const skillItems = document.querySelectorAll('.skill-item');
+        skillItems.forEach(item => {
+            const categoryId = item.dataset.category;
+            const skillId = item.dataset.skill;
+            const canUpgrade = this.canUpgradeSkill(categoryId, skillId);
+            const upgradeButton = item.querySelector('.upgrade-skill');
+            const upgradeUnavailable = item.querySelector('.upgrade-unavailable');
+
+            if (canUpgrade) {
+                if (upgradeUnavailable) upgradeUnavailable.style.display = 'none';
+                if (upgradeButton) upgradeButton.style.display = 'flex';
+            } else {
+                if (upgradeButton) upgradeButton.style.display = 'none';
+                if (upgradeUnavailable) upgradeUnavailable.style.display = 'block';
+            }
+        });
     }
 
     initializeSkillTree() {
@@ -756,9 +797,17 @@ class SkillTreeSystem {
             if (!prereqSkill || prereqSkill.level === 0) return false;
         }
 
-        // Vérifier si le joueur a assez d'XP
+        // Vérifier si le joueur a assez d'XP (utiliser les données synchronisées)
         const requiredXP = skill.xp_required[playerSkill.level + 1] || skill.xp_required[playerSkill.level];
         const playerXP = this.getPlayerTotalXP();
+
+        // Si pas d'XP local, vérifier avec les données du serveur
+        if (playerXP === 0) {
+            // Récupérer les données de progression depuis le serveur
+            this.syncPlayerData();
+            return false; // Retourner false pour l'instant, sera mis à jour après sync
+        }
+
         return playerXP >= requiredXP;
     }
 
@@ -964,7 +1013,7 @@ class SkillTreeSystem {
         if (!skillElement) return;
 
         // Animation de pulsation
-        skillElement.classList.add('upgrading');
+        skillElement.classList.add('upgrade-success');
 
         // Effet de particules
         this.createParticleEffect(skillElement);
@@ -972,18 +1021,72 @@ class SkillTreeSystem {
         // Animation du niveau
         const levelElement = skillElement.querySelector('.skill-level');
         if (levelElement) {
-            levelElement.style.transform = 'scale(1.2)';
+            levelElement.style.transform = 'scale(1.3)';
             levelElement.style.color = '#00ff00';
+            levelElement.style.textShadow = '0 0 20px #00ff00';
             setTimeout(() => {
                 levelElement.style.transform = 'scale(1)';
                 levelElement.style.color = '';
-            }, 500);
+                levelElement.style.textShadow = '';
+            }, 800);
         }
 
-        // Retirer la classe d'animation après l'effet
+        // Animation du bouton d'amélioration
+        const upgradeButton = skillElement.querySelector('.upgrade-skill');
+        if (upgradeButton) {
+            upgradeButton.style.transform = 'scale(1.1)';
+            upgradeButton.style.boxShadow = '0 0 30px rgba(0, 255, 0, 0.8)';
+            setTimeout(() => {
+                upgradeButton.style.transform = 'scale(1)';
+                upgradeButton.style.boxShadow = '';
+            }, 600);
+        }
+
+        // Effet de brillance
+        this.createShineEffect(skillElement);
+
+        // Retirer la classe après l'animation
         setTimeout(() => {
-            skillElement.classList.remove('upgrading');
-        }, 1000);
+            skillElement.classList.remove('upgrade-success');
+        }, 1200);
+    }
+
+    createShineEffect(element) {
+        const shine = document.createElement('div');
+        shine.style.cssText = `
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shine 0.8s ease-in-out;
+            pointer-events: none;
+            z-index: 10;
+        `;
+
+        element.style.position = 'relative';
+        element.style.overflow = 'hidden';
+        element.appendChild(shine);
+
+        // Ajouter l'animation CSS si elle n'existe pas
+        if (!document.getElementById('shine-animation')) {
+            const style = document.createElement('style');
+            style.id = 'shine-animation';
+            style.textContent = `
+                @keyframes shine {
+                    0% { left: -100%; }
+                    100% { left: 100%; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        setTimeout(() => {
+            if (shine.parentNode) {
+                shine.parentNode.removeChild(shine);
+            }
+        }, 800);
     }
 
     createParticleEffect(element) {
@@ -1259,7 +1362,12 @@ class SkillTreeSystem {
     }
 
     getPlayerTotalXP() {
-        // Calculer l'XP total du joueur
+        // Utiliser l'XP total du joueur depuis les données synchronisées
+        if (this.playerTotalXP !== undefined) {
+            return this.playerTotalXP;
+        }
+
+        // Fallback : calculer l'XP total du joueur
         let totalXP = 0;
         for (const categorySkills of Object.values(this.playerSkills)) {
             for (const skill of Object.values(categorySkills)) {

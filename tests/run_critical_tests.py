@@ -133,7 +133,8 @@ def run_code_quality_checks():
     try:
         result = subprocess.run(
             ["black", "--check", "."],
-            check=False, capture_output=True,
+            check=False,
+            capture_output=True,
             text=True,
             timeout=60,
         )
@@ -142,8 +143,7 @@ def run_code_quality_checks():
             print(f"{COLORS['green']}✅ Code correctement formaté{COLORS['reset']}")
         else:
             print(
-                f"{COLORS['yellow']}⚠️ Code non formaté, application de"
-                 "Black...{COLORS['reset']}",
+                f"{COLORS['yellow']}⚠️ Code non formaté, application de" "Black...{COLORS['reset']}",
             )
             subprocess.run(["black", "."], check=True)
             print(f"{COLORS['green']}✅ Formatage appliqué{COLORS['reset']}")
@@ -157,7 +157,8 @@ def run_code_quality_checks():
     try:
         result = subprocess.run(
             ["ruff", "check", "."],
-            check=False, capture_output=True,
+            check=False,
+            capture_output=True,
             text=True,
             timeout=60,
         )
@@ -218,7 +219,8 @@ def run_test_category(category_name, category_info):
 
             result = subprocess.run(
                 cmd,
-                check=False, capture_output=True,
+                check=False,
+                capture_output=True,
                 text=True,
                 timeout=TEST_CONFIG["timeout"] * 60,
             )
@@ -290,7 +292,8 @@ def run_coverage_analysis():
 
         result = subprocess.run(
             cmd,
-            check=False, capture_output=True,
+            check=False,
+            capture_output=True,
             text=True,
             timeout=300,  # 5 minutes pour la couverture
         )

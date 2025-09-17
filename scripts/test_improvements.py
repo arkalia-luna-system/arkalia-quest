@@ -22,14 +22,18 @@ def test_progression_engine():
 
         # Test de création d'un joueur
         player_id = "test_player"
-        result = engine.update_player_progression(player_id, "command_used", {"command": "test"})
+        result = engine.update_player_progression(
+            player_id, "command_used", {"command": "test"}
+        )
 
         if result["success"]:
             print("✅ Moteur de progression fonctionnel")
 
             # Test de récupération des données
             player_data = engine.get_player_progression(player_id)
-            print(f"📊 Données joueur: Niveau {player_data['level']}, XP {player_data['xp']}")
+            print(
+                f"📊 Données joueur: Niveau {player_data['level']}, XP {player_data['xp']}"
+            )
 
             return True
         else:
@@ -56,7 +60,9 @@ def test_skill_tree_system():
 
         if skill_tree and "hacking" in skill_tree:
             print("✅ Système d'arbre de compétences fonctionnel")
-            print(f"📊 Compétences hacking disponibles: {len(skill_tree['hacking']['skills'])}")
+            print(
+                f"📊 Compétences hacking disponibles: {len(skill_tree['hacking']['skills'])}"
+            )
             return True
         else:
             print("❌ Erreur dans le système d'arbre de compétences")

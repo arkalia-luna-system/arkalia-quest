@@ -35,7 +35,9 @@ def test_final_skill_tree():
         print(f"   🔧 Compétences disponibles: {len(skill_tree)} catégories")
 
         for _category_id, category_data in skill_tree.items():
-            print(f"   📁 {category_data['name']}: {len(category_data['skills'])} compétences")
+            print(
+                f"   📁 {category_data['name']}: {len(category_data['skills'])} compétences"
+            )
 
             for skill_id, skill_data in category_data["skills"].items():
                 level = skill_data.get("level", 0)
@@ -53,7 +55,8 @@ def test_final_skill_tree():
 
     # Essayer d'upgrader code_breaking (déjà au niveau 1)
     response = session.post(
-        f"{base_url}/api/skill-tree/upgrade", json={"category": "hacking", "skill": "code_breaking"}
+        f"{base_url}/api/skill-tree/upgrade",
+        json={"category": "hacking", "skill": "code_breaking"},
     )
 
     if response.status_code == 200:

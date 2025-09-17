@@ -33,7 +33,9 @@ def test_skill_tree_api():
             # Vérifier code_breaking
             code_breaking = hacking_skills.get("code_breaking", {})
             print(f"🔧 Code Breaking - Niveau: {code_breaking.get('level', 0)}")
-            print(f"🔧 Code Breaking - Débloqué: {code_breaking.get('unlocked', False)}")
+            print(
+                f"🔧 Code Breaking - Débloqué: {code_breaking.get('unlocked', False)}"
+            )
         else:
             print("❌ Structure de données incorrecte")
             return False

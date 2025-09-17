@@ -17,7 +17,9 @@ def test_complete_system():
 
     # Test 1: Donner de l'XP au joueur via le terminal
     print("1. Donner de l'XP au joueur...")
-    response = session.post(f"{base_url}/api/terminal/command", json={"command": "stats"})
+    response = session.post(
+        f"{base_url}/api/terminal/command", json={"command": "stats"}
+    )
 
     if response.status_code == 200:
         print("✅ Commande terminal exécutée")
@@ -43,7 +45,9 @@ def test_complete_system():
         if "hacking" in skill_tree:
             code_breaking = skill_tree["hacking"]["skills"]["code_breaking"]
             print(f"🔧 Code Breaking - Niveau: {code_breaking.get('level', 0)}")
-            print(f"🔧 Code Breaking - Débloqué: {code_breaking.get('unlocked', False)}")
+            print(
+                f"🔧 Code Breaking - Débloqué: {code_breaking.get('unlocked', False)}"
+            )
     else:
         print(f"❌ Erreur arbre de compétences: {response.status_code}")
         return False
@@ -51,7 +55,8 @@ def test_complete_system():
     # Test 3: Upgrade d'une compétence
     print("\n3. Test d'upgrade de compétence...")
     response = session.post(
-        f"{base_url}/api/skill-tree/upgrade", json={"category": "hacking", "skill": "code_breaking"}
+        f"{base_url}/api/skill-tree/upgrade",
+        json={"category": "hacking", "skill": "code_breaking"},
     )
 
     if response.status_code == 200:

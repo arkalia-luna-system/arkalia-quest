@@ -926,8 +926,8 @@ def execute_terminal_command():
                         "xp": profile.get("xp", 0),
                         "score": profile.get("score", 0),
                         "level": profile.get("level", 1),
-                        "coins": profile.get("coins", 0)
-                    }
+                        "coins": profile.get("coins", 0),
+                    },
                 )
 
             return jsonify(
@@ -1379,19 +1379,6 @@ def skill_tree_page():
 def api_skill_tree():
     """API pour l'arbre de compétences"""
     try:
-        # Récupérer le profil du joueur depuis la session ou créer un profil par défaut
-        profile = session.get(
-            "profile",
-            {
-                "username": "default_user",
-                "level": 1,
-                "xp": 0,
-                "badges": [],
-                "missions_completed": [],
-                "skills": {},
-            },
-        )
-
         # Utiliser directement les données de ProgressionEngine
         player_id = "main_user"
         player_data = progression_engine.get_player_progression(player_id)
@@ -1406,7 +1393,7 @@ def api_skill_tree():
             "coins": player_data.get("coins", 0),
             "badges": player_data.get("badges", []),
             "missions_completed": player_data.get("missions_completed", []),
-            "skills": player_data.get("skills", {})
+            "skills": player_data.get("skills", {}),
         }
 
         # Mettre à jour la session avec les données réelles
@@ -1464,7 +1451,7 @@ def api_skill_tree_upgrade():
             "coins": player_data.get("coins", 0),
             "badges": player_data.get("badges", []),
             "missions_completed": player_data.get("missions_completed", []),
-            "skills": player_data.get("skills", {})
+            "skills": player_data.get("skills", {}),
         }
 
         skill_data = enhanced_mission_system.get_skill_tree(compatible_profile)
@@ -1598,19 +1585,6 @@ def api_sync_progression():
 def api_progression_data():
     """API pour récupérer les données de progression pour l'affichage"""
     try:
-        # Récupérer le profil du joueur depuis la session
-        profile = session.get(
-            "profile",
-            {
-                "username": "default_user",
-                "level": 1,
-                "xp": 0,
-                "badges": [],
-                "missions_completed": [],
-                "skills": {},
-            },
-        )
-
         # Récupérer les données de progression réelles
         # Utiliser le même joueur que le terminal
         player_id = "main_user"

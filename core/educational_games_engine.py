@@ -142,7 +142,13 @@ def calculer_moyenne(nombres):
 import hashlib
 
 def create_md5_hash(text):
+    # ATTENTION: MD5 est obsolète pour la sécurité, utiliser SHA-256
+    # Ceci est uniquement à des fins éducatives
     return hashlib.md5(text.encode()).hexdigest()
+
+def create_secure_hash(text):
+    # Version sécurisée recommandée
+    return hashlib.sha256(text.encode()).hexdigest()
 """,
                 "points": 80,
                 "badge": "Codeur",

@@ -13,6 +13,7 @@ import requests
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
 
+
 def test_critical_fixes():
     """Test des corrections critiques"""
     base_url = "http://127.0.0.1:5001"
@@ -30,8 +31,7 @@ def test_critical_fixes():
 
     for command in terminal_commands:
         response = session.post(
-            f"{base_url}/api/terminal/command",
-            json={"command": command}
+            f"{base_url}/api/terminal/command", json={"command": command}
         )
         if response.status_code == 200:
             print(f"   ✅ Commande '{command}' exécutée")
@@ -52,7 +52,7 @@ def test_critical_fixes():
         print(f"   📊 Niveau: {progression.get('level', 1)}")
         print(f"   📊 Badges: {len(progression.get('badges', []))}")
 
-        if progression.get('xp', 0) > 0:
+        if progression.get("xp", 0) > 0:
             print("   ✅ Synchronisation des stats fonctionnelle")
         else:
             print("   ❌ Problème de synchronisation des stats")
@@ -77,7 +77,7 @@ def test_critical_fixes():
             print("   🔧 Test d'upgrade de compétence...")
             response = session.post(
                 f"{base_url}/api/skill-tree/upgrade",
-                json={"category": "hacking", "skill": "code_breaking"}
+                json={"category": "hacking", "skill": "code_breaking"},
             )
 
             if response.status_code == 200:
@@ -108,9 +108,9 @@ def test_critical_fixes():
         content = response.text
 
         scripts_to_check = [
-            'unified-progression-sync.js',
-            'luna-notification-manager.js',
-            'ready-state-manager.js'
+            "unified-progression-sync.js",
+            "luna-notification-manager.js",
+            "ready-state-manager.js",
         ]
 
         for script in scripts_to_check:
@@ -130,7 +130,10 @@ def test_critical_fixes():
     progression_response = session.get(f"{base_url}/api/progression-data")
     skill_tree_response = session.get(f"{base_url}/api/skill-tree")
 
-    if progression_response.status_code == 200 and skill_tree_response.status_code == 200:
+    if (
+        progression_response.status_code == 200
+        and skill_tree_response.status_code == 200
+    ):
         progression_data = progression_response.json().get("progression", {})
         skill_tree_data = skill_tree_response.json().get("player_data", {})
 
@@ -154,6 +157,7 @@ def test_critical_fixes():
     print("✅ Les corrections critiques fonctionnent parfaitement !")
     return True
 
+
 def main():
     """Fonction principale"""
     try:
@@ -176,6 +180,7 @@ def main():
     except Exception as e:
         print(f"\n❌ Erreur lors du test: {e}")
         return 1
+
 
 if __name__ == "__main__":
     exit(main())

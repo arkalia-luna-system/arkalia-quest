@@ -156,7 +156,10 @@ class GitHubContributionSetup:
         try:
             print("🏷️  Exécution du script de configuration des labels...")
             result = subprocess.run(
-                ["python", str(labels_script)], check=False, capture_output=True, text=True
+                ["python", str(labels_script)],
+                check=False,
+                capture_output=True,
+                text=True,
             )
 
             if result.returncode == 0:
@@ -317,7 +320,9 @@ Votre projet Arkalia Quest est maintenant parfaitement configuré pour accueilli
             self.setup_github_labels()
             self.setup_github_discussions()
         else:
-            print("⚠️  GITHUB_TOKEN non défini - configuration des labels et discussions ignorée")
+            print(
+                "⚠️  GITHUB_TOKEN non défini - configuration des labels et discussions ignorée"
+            )
 
         # Génération du résumé
         summary = self.create_contribution_summary()

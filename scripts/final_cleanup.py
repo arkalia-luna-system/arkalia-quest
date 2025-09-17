@@ -13,11 +13,12 @@ def cleanup_hidden_files():
     """Supprime tous les fichiers cachés macOS"""
     print("🧹 Nettoyage des fichiers cachés...")
 
-    # Supprimer les fichiers ._*
+    # Supprimer les fichiers ._* de manière sécurisée
+    import shlex
+    command = shlex.split("find . -name '._*' -delete")
     result = subprocess.run(
-        "find . -name '._*' -delete",
+        command,
         check=False,
-        shell=True,
         capture_output=True,
         text=True,
     )
@@ -32,15 +33,19 @@ def cleanup_pycache():
     """Supprime les dossiers __pycache__"""
     print("🧹 Nettoyage des __pycache__...")
 
-    subprocess.run(
-        "find . -name '__pycache__' -type d -exec rm -rf {} + 2>/dev/null || true",
+    import shlex
+    command = shlex.split("find . -name '__pycache__' -type d -exec rm -rf {} +")
+    result = subprocess.run(
+        command,
         check=False,
-        shell=True,
         capture_output=True,
         text=True,
     )
 
-    print("✅ Dossiers __pycache__ supprimés")
+    if result.returncode == 0:
+        print("✅ Dossiers __pycache__ supprimés")
+    else:
+        print(f"⚠️ Erreur suppression __pycache__: {result.stderr}")
 
 
 def cleanup_logs():

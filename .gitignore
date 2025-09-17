@@ -171,6 +171,7 @@ cython_debug/
 .LSOverride
 Icon
 ._*
+.*!*
 
 # Windows
 Thumbs.db

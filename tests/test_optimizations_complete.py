@@ -11,8 +11,8 @@ import time
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
 
-# Import du logger
-from utils.logger import game_logger
+# Import du logger (après sys.path pour résoudre utils)
+from utils.logger import game_logger  # noqa: E402
 
 
 def test_performance_optimizations():
@@ -58,8 +58,9 @@ def test_performance_optimizations():
     syntax_ok = True
     for file_path in python_files:
         try:
-            with open(file_path, encoding="utf-8") as f:
-                compile(f.read(), file_path, "exec")
+            full_path = os.path.join(project_root, file_path)
+            with open(full_path, encoding="utf-8") as f:
+                compile(f.read(), full_path, "exec")
         except SyntaxError as e:
             game_logger.info(f"❌ Erreur de syntaxe dans {file_path}: {e}")
             syntax_ok = False
@@ -70,22 +71,24 @@ def test_performance_optimizations():
     else:
         game_logger.info(r"❌ Erreurs de syntaxe Python détectées")
 
-    # Test 3: Vérifier les imports
+    # Test 3: Vérifier les imports (garder project_root en premier pour résoudre core.*)
     total_tests += 1
     try:
-        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-        # Test des imports sans les utiliser (juste pour vérifier la syntaxe)
-        # import core.cache_manager  # Commenté car non utilisé dans ce test
-        # import core.performance_optimizer  # Commenté car non utilisé dans ce test
+        if sys.path[0] != project_root:
+            sys.path.insert(0, project_root)
+        # Vérification que les modules core sont importables
+        import core.cache_manager  # noqa: F401
+        import core.performance_optimizer  # noqa: F401
 
         print("✅ Imports des modules d'optimisation réussis")
         tests_passed += 1
     except ImportError as e:
         print(f"❌ Erreur d'import: {e}")
 
-    assert (
-        tests_passed == total_tests
-    ), f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
+    assert tests_passed == total_tests, (
+        f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
+    )
+    return (tests_passed, total_tests)
 
 
 def test_security_enhancements():
@@ -99,6 +102,7 @@ def test_security_enhancements():
     total_tests += 1
     try:
         from core.security_unified import SecurityUnified
+
         security = SecurityUnified()
 
         # Test validation username
@@ -110,7 +114,7 @@ def test_security_enhancements():
             game_logger.info(r"❌ Validation username échoue")
 
         # Test validation email
-        is_valid, _ = security.validate_input("email", "test@example.com")
+        is_valid, _ = security.validate_input("email", "arkalia.luna.system@gmail.com")
         if is_valid:
             game_logger.info(r"✅ Validation email fonctionne")
         else:
@@ -130,6 +134,7 @@ def test_security_enhancements():
     total_tests += 1
     try:
         from core.security_unified import SecurityUnified
+
         security = SecurityUnified()
 
         # Test rate limiting
@@ -147,6 +152,7 @@ def test_security_enhancements():
     total_tests += 1
     try:
         from core.security_unified import SecurityUnified
+
         security = SecurityUnified()
 
         # Simuler la génération de token (pas implémentée dans SecurityUnified)
@@ -161,9 +167,10 @@ def test_security_enhancements():
     except Exception as e:
         game_logger.info(f"❌ Erreur test tokens: {e}")
 
-    assert (
-        tests_passed == total_tests
-    ), f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
+    assert tests_passed == total_tests, (
+        f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
+    )
+    return (tests_passed, total_tests)
 
 
 def test_cache_system():
@@ -224,9 +231,10 @@ def test_cache_system():
     except Exception as e:
         game_logger.info(f"❌ Erreur test stats cache: {e}")
 
-    assert (
-        tests_passed == total_tests
-    ), f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
+    assert tests_passed == total_tests, (
+        f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
+    )
+    return (tests_passed, total_tests)
 
 
 def test_performance_monitoring():
@@ -286,9 +294,10 @@ def test_performance_monitoring():
     except Exception as e:
         game_logger.info(f"❌ Erreur test suggestions: {e}")
 
-    assert (
-        tests_passed == total_tests
-    ), f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
+    assert tests_passed == total_tests, (
+        f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
+    )
+    return (tests_passed, total_tests)
 
 
 def test_database_optimizations():
@@ -342,22 +351,26 @@ def test_database_optimizations():
     except Exception as e:
         game_logger.info(f"❌ Erreur test stats DB: {e}")
 
-    assert (
-        tests_passed == total_tests
-    ), f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
+    assert tests_passed == total_tests, (
+        f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
+    )
+    return (tests_passed, total_tests)
 
 
 def test_application_integration():
     """Test de l'intégration dans l'application"""
+    # S'assurer que project_root est en premier pour résoudre app et core.*
+    if sys.path[0] != project_root:
+        sys.path.insert(0, project_root)
     print("\n🔗 Test de l'intégration dans l'application...")
 
     tests_passed = 0
     total_tests = 0
 
-    # Test 1: Vérifier que l'application démarre
+    # Test 1: Vérifier que l'application peut être importée
     total_tests += 1
     try:
-        # Vérifier que app.py peut être importé
+        import app as app_module  # noqa: F401
 
         game_logger.info(r"✅ Application peut être importée")
         tests_passed += 1
@@ -407,9 +420,10 @@ def test_application_integration():
     else:
         game_logger.info(r"❌ Certains fichiers statiques sont manquants")
 
-    assert (
-        tests_passed == total_tests
-    ), f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
+    assert tests_passed == total_tests, (
+        f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
+    )
+    return (tests_passed, total_tests)
 
 
 def main():

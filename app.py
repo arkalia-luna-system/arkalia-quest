@@ -57,12 +57,18 @@ except Exception as e:
     customization_engine = None
     DailyChallengesEngine = None
     DatabaseManager = None
+    DatabaseOptimizer = None
     EducationalGamesEngine = None
+    EffectsEngine = None
     GamificationEngine = None
+    LunaEmotionsEngine = None
     micro_interactions = None
     mission_progress_tracker = None
+    mission_unified = None
     narrative_branches = None
     performance_optimizer = None
+    ProfileManager = None
+    ProgressionEngine = None
     secondary_missions = None
     security_unified = None
     social_engine = None
@@ -116,15 +122,12 @@ app.config.update(
     SESSION_REFRESH_EACH_REQUEST=True,  # Renouvellement
 )
 
-# Initialisation du système de progression
-progression_engine = ProgressionEngine()
-
-# Initialisation des modules supplémentaires
-database_optimizer = DatabaseOptimizer()
-luna_emotions_engine = LunaEmotionsEngine()
-# mission_handler remplacé par mission_unified
-profile_manager = ProfileManager()
-effects_engine = EffectsEngine()
+# Initialisation du système de progression (et modules) uniquement si imports OK
+progression_engine = ProgressionEngine() if ProgressionEngine else None
+database_optimizer = DatabaseOptimizer() if DatabaseOptimizer else None
+luna_emotions_engine = LunaEmotionsEngine() if LunaEmotionsEngine else None
+profile_manager = ProfileManager() if ProfileManager else None
+effects_engine = EffectsEngine() if EffectsEngine else None
 
 # Configuration de la compression gzip
 Compress(app)
@@ -1420,12 +1423,12 @@ def api_skill_tree():
 def api_skill_tree_upgrade():
     """API pour améliorer une compétence"""
     try:
-        data = request.get_json()
+        data = request.get_json(silent=True) or {}
         category = data.get("category")
         skill = data.get("skill")
 
         if not category or not skill:
-            return jsonify({"error": "Category et skill requis"}), 400
+            return jsonify({"error": "category et skill requis"}), 400
 
         # Récupérer le profil du joueur depuis la session
         profile = session.get(

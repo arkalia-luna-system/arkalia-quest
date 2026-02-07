@@ -3,7 +3,6 @@
 Test complet du système d'arbre de compétences
 """
 
-
 import requests
 
 

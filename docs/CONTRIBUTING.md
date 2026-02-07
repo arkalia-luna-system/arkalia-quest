@@ -641,7 +641,7 @@ git push origin feature/nouvelle-fonctionnalite
 
 
 
-- **Email** : arkalia-support@example.com
+- **Email** : arkalia.luna.system@gmail.com
 
 
 

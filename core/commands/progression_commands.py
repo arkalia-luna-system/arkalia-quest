@@ -30,23 +30,23 @@ class ProgressionCommands:
         message = f"""🎯 PROGRESSION DU JOUEUR
 
 📊 STATISTIQUES :
-• Niveau : {player['level']}
-• Score : {player['score']} points
-• XP : {player['xp']} XP
-• Coins : {player['coins']} 🪙
-• Badges : {len(player['badges'])} 🏆
+• Niveau : {player["level"]}
+• Score : {player["score"]} points
+• XP : {player["xp"]} XP
+• Coins : {player["coins"]} 🪙
+• Badges : {len(player["badges"])} 🏆
 
 📈 ACTIVITÉ :
-• Commandes utilisées : {player['stats']['total_commands']}
-• Commandes LUNA : {player['stats']['total_luna_commands']}
-• Zones explorées : {player['stats']['total_zones_explored']}
-• Mini-jeux : {player['stats']['total_mini_games']}
+• Commandes utilisées : {player["stats"]["total_commands"]}
+• Commandes LUNA : {player["stats"]["total_luna_commands"]}
+• Zones explorées : {player["stats"]["total_zones_explored"]}
+• Mini-jeux : {player["stats"]["total_mini_games"]}
 
 🌍 ZONES DÉBLOQUÉES :
-{chr(10).join([f"• {zone}" for zone in player['zones_explored']]) if player['zones_explored'] else "• Aucune zone explorée"}
+{chr(10).join([f"• {zone}" for zone in player["zones_explored"]]) if player["zones_explored"] else "• Aucune zone explorée"}
 
 🏆 BADGES OBTENUS :
-{chr(10).join([f"• {badge}" for badge in player['badges']]) if player['badges'] else "• Aucun badge obtenu"}
+{chr(10).join([f"• {badge}" for badge in player["badges"]]) if player["badges"] else "• Aucun badge obtenu"}
 
 💡 Utilisez 'daily_challenges' pour voir vos défis quotidiens !"""
 
@@ -66,23 +66,23 @@ class ProgressionCommands:
         message = f"""📊 STATISTIQUES DÉTAILLÉES
 
 🎮 ACTIVITÉ GÉNÉRALE :
-• Total commandes : {player['stats']['total_commands']}
-• Commandes LUNA : {player['stats']['total_luna_commands']}
-• Zones explorées : {player['stats']['total_zones_explored']}
-• Mini-jeux complétés : {player['stats']['total_mini_games']}
+• Total commandes : {player["stats"]["total_commands"]}
+• Commandes LUNA : {player["stats"]["total_luna_commands"]}
+• Zones explorées : {player["stats"]["total_zones_explored"]}
+• Mini-jeux complétés : {player["stats"]["total_mini_games"]}
 
 💰 RESSOURCES :
-• Score total : {player['score']} points
-• XP actuel : {player['xp']} XP
-• Coins : {player['coins']} 🪙
-• Niveau : {player['level']}
+• Score total : {player["score"]} points
+• XP actuel : {player["xp"]} XP
+• Coins : {player["coins"]} 🪙
+• Niveau : {player["level"]}
 
 🏆 ACHIEVEMENTS :
-• Badges obtenus : {len(player['badges'])}
-• Achievements débloqués : {len(player['achievements_unlocked'])}
+• Badges obtenus : {len(player["badges"])}
+• Achievements débloqués : {len(player["achievements_unlocked"])}
 
 📅 DERNIÈRE ACTIVITÉ :
-• {player['last_activity']}"""
+• {player["last_activity"]}"""
 
         return {
             "réussite": True,
@@ -209,7 +209,7 @@ class ProgressionCommands:
         message = f"""🌍 EXPLORATION RÉUSSIE !
 
 Vous avez exploré : {zone.upper()}
-{zone_descriptions.get(zone, 'Une nouvelle zone mystérieuse')}
+{zone_descriptions.get(zone, "Une nouvelle zone mystérieuse")}
 
 🎉 +50 XP pour cette exploration !
 🏆 Zone ajoutée à votre collection !
@@ -294,9 +294,9 @@ Utilisez 'play_mini_game' pour réessayer."""
         for challenge_id, challenge in challenges.items():
             if challenge["completed"] and not challenge["reward_claimed"]:
                 # Marquer comme réclamé
-                player["daily_challenges_progress"][challenge_id][
-                    "reward_claimed"
-                ] = True
+                player["daily_challenges_progress"][challenge_id]["reward_claimed"] = (
+                    True
+                )
                 rewards_claimed += 1
 
         if rewards_claimed > 0:

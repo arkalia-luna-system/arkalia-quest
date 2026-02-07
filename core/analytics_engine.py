@@ -252,12 +252,21 @@ class AnalyticsEngine:
         session = self.session_data[event.session_id]
         session.events_count += 1
 
+        # Normaliser le type d'événement (peut être Enum ou str selon la source)
+        event_type_str = (
+            event.event_type.value
+            if hasattr(event.event_type, "value")
+            else event.event_type
+        )
+        if not isinstance(event_type_str, str):
+            event_type_str = str(event_type_str)
+
         # Compter les types d'événements spécifiques
-        if event.event_type == EventType.MISSION_START:
+        if event_type_str == EventType.MISSION_START.value:
             session.missions_attempted += 1
-        elif event.event_type == EventType.GAME_START:
+        elif event_type_str == EventType.GAME_START.value:
             session.games_played += 1
-        elif event.event_type == EventType.COMMAND_EXECUTED:
+        elif event_type_str == EventType.COMMAND_EXECUTED.value:
             command = event.data.get("command", "")
             if command and command not in session.commands_used:
                 session.commands_used.append(command)

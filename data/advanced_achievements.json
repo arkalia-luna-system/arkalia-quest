@@ -7602,26 +7602,566 @@
           "unlocked_at": "2025-09-17T23:44:24.867499",
           "points": 500,
           "category": "persistence"
+        },
+        {
+          "achievement_id": "first_hack",
+          "unlocked_at": "2026-02-07T14:02:52.710251",
+          "points": 50,
+          "category": "hacking"
+        },
+        {
+          "achievement_id": "hack_master",
+          "unlocked_at": "2026-02-07T14:02:52.710400",
+          "points": 1000,
+          "category": "hacking"
+        },
+        {
+          "achievement_id": "stealth_hacker",
+          "unlocked_at": "2026-02-07T14:02:52.710548",
+          "points": 300,
+          "category": "hacking"
+        },
+        {
+          "achievement_id": "world_explorer",
+          "unlocked_at": "2026-02-07T14:02:52.710696",
+          "points": 750,
+          "category": "exploration"
+        },
+        {
+          "achievement_id": "secret_finder",
+          "unlocked_at": "2026-02-07T14:02:52.710843",
+          "points": 400,
+          "category": "exploration"
+        },
+        {
+          "achievement_id": "guild_leader",
+          "unlocked_at": "2026-02-07T14:02:52.711048",
+          "points": 1200,
+          "category": "social"
+        },
+        {
+          "achievement_id": "knowledge_seeker",
+          "unlocked_at": "2026-02-07T14:02:52.711554",
+          "points": 350,
+          "category": "education"
+        },
+        {
+          "achievement_id": "cyber_expert",
+          "unlocked_at": "2026-02-07T14:02:52.711923",
+          "points": 1500,
+          "category": "education"
+        },
+        {
+          "achievement_id": "luna_friend",
+          "unlocked_at": "2026-02-07T14:02:52.712240",
+          "points": 500,
+          "category": "luna"
+        },
+        {
+          "achievement_id": "luna_soulmate",
+          "unlocked_at": "2026-02-07T14:02:52.712546",
+          "points": 2000,
+          "category": "luna"
+        },
+        {
+          "achievement_id": "speed_demon",
+          "unlocked_at": "2026-02-07T14:02:52.712862",
+          "points": 400,
+          "category": "speed"
+        },
+        {
+          "achievement_id": "lightning_fast",
+          "unlocked_at": "2026-02-07T14:02:52.713178",
+          "points": 600,
+          "category": "speed"
+        },
+        {
+          "achievement_id": "creative_genius",
+          "unlocked_at": "2026-02-07T14:02:52.713497",
+          "points": 700,
+          "category": "creativity"
+        },
+        {
+          "achievement_id": "never_give_up",
+          "unlocked_at": "2026-02-07T14:02:52.713831",
+          "points": 300,
+          "category": "persistence"
+        },
+        {
+          "achievement_id": "comeback_kid",
+          "unlocked_at": "2026-02-07T14:02:52.714135",
+          "points": 500,
+          "category": "persistence"
+        },
+        {
+          "achievement_id": "first_hack",
+          "unlocked_at": "2026-02-07T14:04:06.277707",
+          "points": 50,
+          "category": "hacking"
+        },
+        {
+          "achievement_id": "hack_master",
+          "unlocked_at": "2026-02-07T14:04:06.277857",
+          "points": 1000,
+          "category": "hacking"
+        },
+        {
+          "achievement_id": "stealth_hacker",
+          "unlocked_at": "2026-02-07T14:04:06.277999",
+          "points": 300,
+          "category": "hacking"
+        },
+        {
+          "achievement_id": "world_explorer",
+          "unlocked_at": "2026-02-07T14:04:06.278142",
+          "points": 750,
+          "category": "exploration"
+        },
+        {
+          "achievement_id": "secret_finder",
+          "unlocked_at": "2026-02-07T14:04:06.278285",
+          "points": 400,
+          "category": "exploration"
+        },
+        {
+          "achievement_id": "guild_leader",
+          "unlocked_at": "2026-02-07T14:04:06.278441",
+          "points": 1200,
+          "category": "social"
+        },
+        {
+          "achievement_id": "knowledge_seeker",
+          "unlocked_at": "2026-02-07T14:04:06.278583",
+          "points": 350,
+          "category": "education"
+        },
+        {
+          "achievement_id": "cyber_expert",
+          "unlocked_at": "2026-02-07T14:04:06.278725",
+          "points": 1500,
+          "category": "education"
+        },
+        {
+          "achievement_id": "luna_friend",
+          "unlocked_at": "2026-02-07T14:04:06.278866",
+          "points": 500,
+          "category": "luna"
+        },
+        {
+          "achievement_id": "luna_soulmate",
+          "unlocked_at": "2026-02-07T14:04:06.279008",
+          "points": 2000,
+          "category": "luna"
+        },
+        {
+          "achievement_id": "speed_demon",
+          "unlocked_at": "2026-02-07T14:04:06.279151",
+          "points": 400,
+          "category": "speed"
+        },
+        {
+          "achievement_id": "lightning_fast",
+          "unlocked_at": "2026-02-07T14:04:06.279293",
+          "points": 600,
+          "category": "speed"
+        },
+        {
+          "achievement_id": "creative_genius",
+          "unlocked_at": "2026-02-07T14:04:06.279435",
+          "points": 700,
+          "category": "creativity"
+        },
+        {
+          "achievement_id": "never_give_up",
+          "unlocked_at": "2026-02-07T14:04:06.279589",
+          "points": 300,
+          "category": "persistence"
+        },
+        {
+          "achievement_id": "comeback_kid",
+          "unlocked_at": "2026-02-07T14:04:06.279735",
+          "points": 500,
+          "category": "persistence"
+        },
+        {
+          "achievement_id": "first_hack",
+          "unlocked_at": "2026-02-07T14:06:37.973881",
+          "points": 50,
+          "category": "hacking"
+        },
+        {
+          "achievement_id": "hack_master",
+          "unlocked_at": "2026-02-07T14:06:37.974030",
+          "points": 1000,
+          "category": "hacking"
+        },
+        {
+          "achievement_id": "stealth_hacker",
+          "unlocked_at": "2026-02-07T14:06:37.974190",
+          "points": 300,
+          "category": "hacking"
+        },
+        {
+          "achievement_id": "world_explorer",
+          "unlocked_at": "2026-02-07T14:06:37.974342",
+          "points": 750,
+          "category": "exploration"
+        },
+        {
+          "achievement_id": "secret_finder",
+          "unlocked_at": "2026-02-07T14:06:37.974518",
+          "points": 400,
+          "category": "exploration"
+        },
+        {
+          "achievement_id": "guild_leader",
+          "unlocked_at": "2026-02-07T14:06:37.974691",
+          "points": 1200,
+          "category": "social"
+        },
+        {
+          "achievement_id": "knowledge_seeker",
+          "unlocked_at": "2026-02-07T14:06:37.974868",
+          "points": 350,
+          "category": "education"
+        },
+        {
+          "achievement_id": "cyber_expert",
+          "unlocked_at": "2026-02-07T14:06:37.975023",
+          "points": 1500,
+          "category": "education"
+        },
+        {
+          "achievement_id": "luna_friend",
+          "unlocked_at": "2026-02-07T14:06:37.975172",
+          "points": 500,
+          "category": "luna"
+        },
+        {
+          "achievement_id": "luna_soulmate",
+          "unlocked_at": "2026-02-07T14:06:37.975321",
+          "points": 2000,
+          "category": "luna"
+        },
+        {
+          "achievement_id": "speed_demon",
+          "unlocked_at": "2026-02-07T14:06:37.975472",
+          "points": 400,
+          "category": "speed"
+        },
+        {
+          "achievement_id": "lightning_fast",
+          "unlocked_at": "2026-02-07T14:06:37.975623",
+          "points": 600,
+          "category": "speed"
+        },
+        {
+          "achievement_id": "creative_genius",
+          "unlocked_at": "2026-02-07T14:06:37.975777",
+          "points": 700,
+          "category": "creativity"
+        },
+        {
+          "achievement_id": "never_give_up",
+          "unlocked_at": "2026-02-07T14:06:37.975962",
+          "points": 300,
+          "category": "persistence"
+        },
+        {
+          "achievement_id": "comeback_kid",
+          "unlocked_at": "2026-02-07T14:06:37.976114",
+          "points": 500,
+          "category": "persistence"
+        },
+        {
+          "achievement_id": "first_hack",
+          "unlocked_at": "2026-02-07T14:07:01.715160",
+          "points": 50,
+          "category": "hacking"
+        },
+        {
+          "achievement_id": "hack_master",
+          "unlocked_at": "2026-02-07T14:07:01.715341",
+          "points": 1000,
+          "category": "hacking"
+        },
+        {
+          "achievement_id": "stealth_hacker",
+          "unlocked_at": "2026-02-07T14:07:01.715514",
+          "points": 300,
+          "category": "hacking"
+        },
+        {
+          "achievement_id": "world_explorer",
+          "unlocked_at": "2026-02-07T14:07:01.715684",
+          "points": 750,
+          "category": "exploration"
+        },
+        {
+          "achievement_id": "secret_finder",
+          "unlocked_at": "2026-02-07T14:07:01.715862",
+          "points": 400,
+          "category": "exploration"
+        },
+        {
+          "achievement_id": "guild_leader",
+          "unlocked_at": "2026-02-07T14:07:01.716045",
+          "points": 1200,
+          "category": "social"
+        },
+        {
+          "achievement_id": "knowledge_seeker",
+          "unlocked_at": "2026-02-07T14:07:01.716236",
+          "points": 350,
+          "category": "education"
+        },
+        {
+          "achievement_id": "cyber_expert",
+          "unlocked_at": "2026-02-07T14:07:01.716404",
+          "points": 1500,
+          "category": "education"
+        },
+        {
+          "achievement_id": "luna_friend",
+          "unlocked_at": "2026-02-07T14:07:01.716573",
+          "points": 500,
+          "category": "luna"
+        },
+        {
+          "achievement_id": "luna_soulmate",
+          "unlocked_at": "2026-02-07T14:07:01.716747",
+          "points": 2000,
+          "category": "luna"
+        },
+        {
+          "achievement_id": "speed_demon",
+          "unlocked_at": "2026-02-07T14:07:01.716919",
+          "points": 400,
+          "category": "speed"
+        },
+        {
+          "achievement_id": "lightning_fast",
+          "unlocked_at": "2026-02-07T14:07:01.717093",
+          "points": 600,
+          "category": "speed"
+        },
+        {
+          "achievement_id": "creative_genius",
+          "unlocked_at": "2026-02-07T14:07:01.717260",
+          "points": 700,
+          "category": "creativity"
+        },
+        {
+          "achievement_id": "never_give_up",
+          "unlocked_at": "2026-02-07T14:07:01.717436",
+          "points": 300,
+          "category": "persistence"
+        },
+        {
+          "achievement_id": "comeback_kid",
+          "unlocked_at": "2026-02-07T14:07:01.717609",
+          "points": 500,
+          "category": "persistence"
+        },
+        {
+          "achievement_id": "first_hack",
+          "unlocked_at": "2026-02-07T14:07:38.740880",
+          "points": 50,
+          "category": "hacking"
+        },
+        {
+          "achievement_id": "hack_master",
+          "unlocked_at": "2026-02-07T14:07:38.741038",
+          "points": 1000,
+          "category": "hacking"
+        },
+        {
+          "achievement_id": "stealth_hacker",
+          "unlocked_at": "2026-02-07T14:07:38.741185",
+          "points": 300,
+          "category": "hacking"
+        },
+        {
+          "achievement_id": "world_explorer",
+          "unlocked_at": "2026-02-07T14:07:38.741336",
+          "points": 750,
+          "category": "exploration"
+        },
+        {
+          "achievement_id": "secret_finder",
+          "unlocked_at": "2026-02-07T14:07:38.741498",
+          "points": 400,
+          "category": "exploration"
+        },
+        {
+          "achievement_id": "guild_leader",
+          "unlocked_at": "2026-02-07T14:07:38.741670",
+          "points": 1200,
+          "category": "social"
+        },
+        {
+          "achievement_id": "knowledge_seeker",
+          "unlocked_at": "2026-02-07T14:07:38.741819",
+          "points": 350,
+          "category": "education"
+        },
+        {
+          "achievement_id": "cyber_expert",
+          "unlocked_at": "2026-02-07T14:07:38.742008",
+          "points": 1500,
+          "category": "education"
+        },
+        {
+          "achievement_id": "luna_friend",
+          "unlocked_at": "2026-02-07T14:07:38.742158",
+          "points": 500,
+          "category": "luna"
+        },
+        {
+          "achievement_id": "luna_soulmate",
+          "unlocked_at": "2026-02-07T14:07:38.742305",
+          "points": 2000,
+          "category": "luna"
+        },
+        {
+          "achievement_id": "speed_demon",
+          "unlocked_at": "2026-02-07T14:07:38.742453",
+          "points": 400,
+          "category": "speed"
+        },
+        {
+          "achievement_id": "lightning_fast",
+          "unlocked_at": "2026-02-07T14:07:38.742598",
+          "points": 600,
+          "category": "speed"
+        },
+        {
+          "achievement_id": "creative_genius",
+          "unlocked_at": "2026-02-07T14:07:38.742743",
+          "points": 700,
+          "category": "creativity"
+        },
+        {
+          "achievement_id": "never_give_up",
+          "unlocked_at": "2026-02-07T14:07:38.742896",
+          "points": 300,
+          "category": "persistence"
+        },
+        {
+          "achievement_id": "comeback_kid",
+          "unlocked_at": "2026-02-07T14:07:38.743041",
+          "points": 500,
+          "category": "persistence"
+        },
+        {
+          "achievement_id": "first_hack",
+          "unlocked_at": "2026-02-07T14:08:01.175035",
+          "points": 50,
+          "category": "hacking"
+        },
+        {
+          "achievement_id": "hack_master",
+          "unlocked_at": "2026-02-07T14:08:01.175191",
+          "points": 1000,
+          "category": "hacking"
+        },
+        {
+          "achievement_id": "stealth_hacker",
+          "unlocked_at": "2026-02-07T14:08:01.175347",
+          "points": 300,
+          "category": "hacking"
+        },
+        {
+          "achievement_id": "world_explorer",
+          "unlocked_at": "2026-02-07T14:08:01.175505",
+          "points": 750,
+          "category": "exploration"
+        },
+        {
+          "achievement_id": "secret_finder",
+          "unlocked_at": "2026-02-07T14:08:01.175660",
+          "points": 400,
+          "category": "exploration"
+        },
+        {
+          "achievement_id": "guild_leader",
+          "unlocked_at": "2026-02-07T14:08:01.175819",
+          "points": 1200,
+          "category": "social"
+        },
+        {
+          "achievement_id": "knowledge_seeker",
+          "unlocked_at": "2026-02-07T14:08:01.175974",
+          "points": 350,
+          "category": "education"
+        },
+        {
+          "achievement_id": "cyber_expert",
+          "unlocked_at": "2026-02-07T14:08:01.176129",
+          "points": 1500,
+          "category": "education"
+        },
+        {
+          "achievement_id": "luna_friend",
+          "unlocked_at": "2026-02-07T14:08:01.176279",
+          "points": 500,
+          "category": "luna"
+        },
+        {
+          "achievement_id": "luna_soulmate",
+          "unlocked_at": "2026-02-07T14:08:01.176433",
+          "points": 2000,
+          "category": "luna"
+        },
+        {
+          "achievement_id": "speed_demon",
+          "unlocked_at": "2026-02-07T14:08:01.176582",
+          "points": 400,
+          "category": "speed"
+        },
+        {
+          "achievement_id": "lightning_fast",
+          "unlocked_at": "2026-02-07T14:08:01.176738",
+          "points": 600,
+          "category": "speed"
+        },
+        {
+          "achievement_id": "creative_genius",
+          "unlocked_at": "2026-02-07T14:08:01.176896",
+          "points": 700,
+          "category": "creativity"
+        },
+        {
+          "achievement_id": "never_give_up",
+          "unlocked_at": "2026-02-07T14:08:01.177057",
+          "points": 300,
+          "category": "persistence"
+        },
+        {
+          "achievement_id": "comeback_kid",
+          "unlocked_at": "2026-02-07T14:08:01.177216",
+          "points": 500,
+          "category": "persistence"
         }
       ],
       "progress": {
-        "action_count_hack_system": 166
+        "action_count_hack_system": 178
       },
       "statistics": {
-        "total_achievements": 1196,
-        "hacking_achievements": 200,
-        "total_points": 826650,
-        "common_achievements": 83,
-        "rare_achievements": 415,
-        "exploration_achievements": 166,
-        "epic_achievements": 415,
-        "social_achievements": 83,
-        "legendary_achievements": 283,
-        "education_achievements": 166,
-        "luna_achievements": 166,
-        "speed_achievements": 166,
-        "creativity_achievements": 83,
-        "persistence_achievements": 166
+        "total_achievements": 1286,
+        "hacking_achievements": 218,
+        "total_points": 889950,
+        "common_achievements": 89,
+        "rare_achievements": 445,
+        "exploration_achievements": 178,
+        "epic_achievements": 445,
+        "social_achievements": 89,
+        "legendary_achievements": 307,
+        "education_achievements": 178,
+        "luna_achievements": 178,
+        "speed_achievements": 178,
+        "creativity_achievements": 89,
+        "persistence_achievements": 178
       }
     }
   },

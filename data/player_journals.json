@@ -348,6 +348,83 @@
           "reality_guardian_badge",
           "secret_ending_unlocked"
         ]
+      },
+      {
+        "id": "8455fcc3-fb86-4dd8-b5f0-b6c7d02ac019",
+        "type": "easter_egg",
+        "title": "Easter Egg Découvert: Le Secret d'Arkalia",
+        "content": "Arkalia Quest n'est pas qu'un jeu... C'est un test. Un test pour trouver les hackers capables de sauver notre réalité.",
+        "timestamp": "2026-02-07T14:02:55.381135",
+        "rewards": [
+          "reality_guardian_badge",
+          "secret_ending_unlocked"
+        ]
+      },
+      {
+        "id": "bf05f025-1f76-4d68-a670-2347cf19e0d2",
+        "type": "easter_egg",
+        "title": "Easter Egg Découvert: Le Secret d'Arkalia",
+        "content": "Arkalia Quest n'est pas qu'un jeu... C'est un test. Un test pour trouver les hackers capables de sauver notre réalité.",
+        "timestamp": "2026-02-07T14:04:08.937698",
+        "rewards": [
+          "reality_guardian_badge",
+          "secret_ending_unlocked"
+        ]
+      },
+      {
+        "id": "12c5b980-15bf-4e4b-9f0d-bd0ab222b225",
+        "type": "easter_egg",
+        "title": "Easter Egg Découvert: Le Secret d'Arkalia",
+        "content": "Arkalia Quest n'est pas qu'un jeu... C'est un test. Un test pour trouver les hackers capables de sauver notre réalité.",
+        "timestamp": "2026-02-07T14:06:40.417586",
+        "rewards": [
+          "reality_guardian_badge",
+          "secret_ending_unlocked"
+        ]
+      },
+      {
+        "id": "8a6cb17c-80d4-4de0-8889-f1922747c9d1",
+        "type": "easter_egg",
+        "title": "Easter Egg Découvert: Le Secret d'Arkalia",
+        "content": "Arkalia Quest n'est pas qu'un jeu... C'est un test. Un test pour trouver les hackers capables de sauver notre réalité.",
+        "timestamp": "2026-02-07T14:06:41.638114",
+        "rewards": [
+          "reality_guardian_badge",
+          "secret_ending_unlocked"
+        ]
+      },
+      {
+        "id": "24205a56-daa4-43e1-a50b-9a32f1bd0423",
+        "type": "easter_egg",
+        "title": "Easter Egg Découvert: Le Secret d'Arkalia",
+        "content": "Arkalia Quest n'est pas qu'un jeu... C'est un test. Un test pour trouver les hackers capables de sauver notre réalité.",
+        "timestamp": "2026-02-07T14:07:04.153443",
+        "rewards": [
+          "reality_guardian_badge",
+          "secret_ending_unlocked"
+        ]
+      },
+      {
+        "id": "f5858bd7-22a2-43ba-9c60-7ee330a77cfc",
+        "type": "easter_egg",
+        "title": "Easter Egg Découvert: Le Secret d'Arkalia",
+        "content": "Arkalia Quest n'est pas qu'un jeu... C'est un test. Un test pour trouver les hackers capables de sauver notre réalité.",
+        "timestamp": "2026-02-07T14:07:41.152840",
+        "rewards": [
+          "reality_guardian_badge",
+          "secret_ending_unlocked"
+        ]
+      },
+      {
+        "id": "4f4ddd3e-b977-492c-a5fd-9bf7c6efa300",
+        "type": "easter_egg",
+        "title": "Easter Egg Découvert: Le Secret d'Arkalia",
+        "content": "Arkalia Quest n'est pas qu'un jeu... C'est un test. Un test pour trouver les hackers capables de sauver notre réalité.",
+        "timestamp": "2026-02-07T14:08:03.551291",
+        "rewards": [
+          "reality_guardian_badge",
+          "secret_ending_unlocked"
+        ]
       }
     ],
     "theories": []

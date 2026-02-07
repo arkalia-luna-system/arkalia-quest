@@ -287,6 +287,114 @@
 
 ---
 
+## 🛠️ **OUTILS ET EXTENSIONS RECOMMANDÉS**
+
+### **📊 ANALYSE DE TON STACK ACTUEL :**
+- **Backend** : Python/Flask ✅
+- **Frontend** : JavaScript vanilla + CSS ✅
+- **DevOps** : Docker + Kubernetes ✅
+- **CI/CD** : GitHub Actions ✅
+- **Base de données** : SQLite ✅
+- **Tests** : Pytest ✅
+
+### **🚀 EXTENSIONS CURSOR RECOMMANDÉES :**
+
+#### **1. DÉVELOPPEMENT WEB AVANCÉ :**
+```bash
+# À installer pour améliorer ton workflow
+- bradlc.vscode-tailwindcss     # CSS moderne (remplace tes 36 CSS)
+- ms-vscode.vscode-json         # JSON avancé (missions, configs)
+- formulahendry.auto-rename-tag # HTML/JS (templates)
+- ms-vscode.live-server         # Serveur local avec hot reload
+```
+
+#### **2. DEVOPS & DÉPLOIEMENT :**
+```bash
+# Tu as déjà Docker + K8s, ces extensions t'aideront
+- ms-azuretools.vscode-docker   # Gestion Docker avancée
+- ms-kubernetes-tools.vscode-kubernetes-tools  # K8s management
+- hashicorp.terraform           # Infrastructure as Code
+- redhat.vscode-yaml            # YAML avancé (K8s, CI/CD)
+```
+
+#### **3. GAMING & PERFORMANCE :**
+```bash
+# Pour ton jeu interactif
+- ms-vscode.vscode-typescript-next  # TypeScript (JS moderne)
+- ritwickdey.liveserver             # Hot reload pour tests
+- ms-vscode.vscode-html-css-support # HTML/CSS intelligent
+- bradlc.vscode-tailwindcss         # CSS optimisé
+```
+
+### **🔧 OUTILS SYSTÈME RECOMMANDÉS :**
+
+#### **1. MONITORING & DEBUGGING :**
+```bash
+# Installation via Homebrew
+brew install htop          # Monitoring système (remplace Activity Monitor)
+brew install ncdu          # Analyse d'espace disque
+brew install tree          # Visualisation dossiers (pour ton projet complexe)
+```
+
+#### **2. DÉVELOPPEMENT :**
+```bash
+# Outils pour améliorer ton workflow
+brew install jq            # Manipulation JSON (missions, configs)
+brew install httpie        # Tests API (remplace curl)
+brew install imagemagick   # Manipulation d'images (assets du jeu)
+brew install ffmpeg        # Vidéo/audio (effets sonores)
+```
+
+#### **3. GAMING & ASSETS :**
+```bash
+# Pour ton jeu Arkalia Quest
+brew install imagemagick   # Optimisation images
+brew install ffmpeg        # Effets sonores
+brew install node          # Build tools modernes
+```
+
+### **💡 BÉNÉFICES POUR TON PROJET :**
+
+#### **🎨 FRONTEND (36 CSS → 1 Tailwind) :**
+- **Gain** : Réduire tes 36 fichiers CSS à 1-2 fichiers
+- **Performance** : CSS optimisé et minifié
+- **Maintenance** : Plus facile à gérer
+
+#### **⚡ DÉVELOPPEMENT :**
+- **Hot reload** : Modifications instantanées
+- **TypeScript** : JavaScript moderne et typé
+- **Docker avancé** : Gestion plus facile de tes conteneurs
+
+#### **🔍 MONITORING :**
+- **htop** : Voir en temps réel pourquoi ton Mac rame
+- **ncdu** : Identifier les gros fichiers rapidement
+- **httpie** : Tester tes APIs plus facilement
+
+### **⚡ OPTIMISATIONS SYSTÈME APPLIQUÉES :**
+
+#### **🧹 NETTOYAGE EFFECTUÉ (17 Septembre 2025) :**
+- **Homebrew cache** : 4.2GB libérés ✅
+- **Pip cache** : 825MB libérés ✅
+- **Google cache** : 647MB libérés ✅
+- **Spotify cache** : 468MB libérés ✅
+- **Node-gyp cache** : 106MB libérés ✅
+- **Total libéré** : **6GB d'espace disque**
+
+#### **📊 RÉSULTATS :**
+- **Avant** : 90% utilisé (184GB/228GB)
+- **Après** : 87% utilisé (177GB/228GB)
+- **Espace libre** : 28GB (vs 21GB avant)
+
+#### **🔄 MAINTENANCE RECOMMANDÉE :**
+```bash
+# À faire régulièrement (mensuel)
+brew cleanup                    # Nettoyer Homebrew
+pip cache purge                # Nettoyer pip
+rm -rf ~/Library/Caches/*      # Nettoyer caches système
+```
+
+---
+
 ## 🎯 **RECOMMANDATIONS PRIORITAIRES**
 
 ### 🔴 **Actions Critiques (À faire immédiatement)**

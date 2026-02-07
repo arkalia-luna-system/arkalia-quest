@@ -842,6 +842,16 @@ def get_progression_data():
     """Récupère les données de progression en temps réel"""
     try:
         player_id = "main_user"
+        if not progression_engine:
+            return jsonify(
+                {
+                    "success": True,
+                    "progression": {"level": 1, "xp": 0, "score": 0, "coins": 0, "badges": []},
+                    "daily_challenges": {},
+                    "achievements": [],
+                    "leaderboard": [],
+                }
+            )
         progression_data = progression_engine.get_player_progression(player_id)
         daily_challenges = progression_engine.get_daily_challenges(player_id)
         achievements = progression_engine.get_achievements(player_id)
@@ -850,13 +860,14 @@ def get_progression_data():
         return jsonify(
             {
                 "success": True,
-                "progression": progression_data,
-                "daily_challenges": daily_challenges,
-                "achievements": achievements,
-                "leaderboard": leaderboard,
+                "progression": progression_data or {},
+                "daily_challenges": daily_challenges or {},
+                "achievements": achievements or [],
+                "leaderboard": leaderboard or [],
             },
         )
     except Exception as e:
+        game_logger.error(f"Erreur API progression/data: {e}")
         return jsonify({"success": False, "error": str(e)}), 500
 
 
@@ -964,28 +975,27 @@ def commande():
         return error_response
 
     # Vérification de sécurité avancée
-    client_ip = request.remote_addr or "unknown"
-    security_check = security_unified.check_input_security(cmd, client_ip)
-    if not security_check["is_safe"]:
-        # Bloquer l'IP si menace critique
-        if security_check["risk_level"] == "critical":
-            security_unified.block_ip(
-                client_ip,
-                f"Commande dangereuse: {security_check['threats_detected']}",
-            )
-
-        return (
-            jsonify(
-                {
-                    "reponse": {
-                        "réussite": False,
-                        "message": "❌ Commande rejetée pour des raisons de sécurité.",
-                        "profile_updated": False,
+    if security_unified:
+        client_ip = request.remote_addr or "unknown"
+        security_check = security_unified.check_input_security(cmd, client_ip)
+        if not security_check.get("is_safe", True):
+            if security_check.get("risk_level") == "critical":
+                security_unified.block_ip(
+                    client_ip,
+                    f"Commande dangereuse: {security_check.get('threats_detected', [])}",
+                )
+            return (
+                jsonify(
+                    {
+                        "reponse": {
+                            "réussite": False,
+                            "message": "❌ Commande rejetée pour des raisons de sécurité.",
+                            "profile_updated": False,
+                        },
                     },
-                },
-            ),
-            400,
-        )
+                ),
+                400,
+            )
 
     profil = charger_profil()
 
@@ -1625,8 +1635,11 @@ def api_enhanced_mission_detail(mission_id):
 @app.route("/api/profile-manager/stats")
 def api_profile_manager_stats():
     """API pour les statistiques du gestionnaire de profils"""
+    if not profile_manager:
+        return jsonify({"success": False, "error": "Non disponible"}), 503
     try:
-        stats = profile_manager.get_statistics()
+        profiles = profile_manager.get_all_profiles()
+        stats = {"profiles_count": len(profiles), "available": True}
         return jsonify({"success": True, "stats": stats})
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500

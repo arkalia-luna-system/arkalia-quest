@@ -17,7 +17,7 @@ class GitHubActionsDiagnostic:
 
     def check_workflow_files(self):
         """Vérifie les fichiers de workflow"""
-        print("🔍 Vérification des fichiers de workflow...")
+        print(r"🔍 Vérification des fichiers de workflow...")
 
         workflows_dir = ".github/workflows"
         if not os.path.exists(workflows_dir):
@@ -32,7 +32,7 @@ class GitHubActionsDiagnostic:
 
     def check_permissions_config(self):
         """Vérifie la configuration des permissions"""
-        print("\n🔐 Vérification des permissions...")
+        print(r"\n🔐 Vérification des permissions...")
 
         # Vérifier deploy.yml
         deploy_yml = ".github/workflows/deploy.yml"
@@ -41,17 +41,17 @@ class GitHubActionsDiagnostic:
                 content = f.read()
 
             if "permissions:" in content:
-                print("✅ Permissions configurées dans deploy.yml")
+                print(r"✅ Permissions configurées dans deploy.yml")
             else:
                 self.issues.append("❌ Permissions manquantes dans deploy.yml")
 
             if "contents: write" in content:
-                print("✅ Permission contents:write configurée")
+                print(r"✅ Permission contents:write configurée")
             else:
                 self.issues.append("❌ Permission contents:write manquante")
 
             if "packages: write" in content:
-                print("✅ Permission packages:write configurée")
+                print(r"✅ Permission packages:write configurée")
             else:
                 self.issues.append("❌ Permission packages:write manquante")
         else:
@@ -59,7 +59,7 @@ class GitHubActionsDiagnostic:
 
     def check_git_config(self):
         """Vérifie la configuration Git dans les workflows"""
-        print("\n🏷️ Vérification de la configuration Git...")
+        print(r"\n🏷️ Vérification de la configuration Git...")
 
         deploy_yml = ".github/workflows/deploy.yml"
         if os.path.exists(deploy_yml):
@@ -67,18 +67,18 @@ class GitHubActionsDiagnostic:
                 content = f.read()
 
             if "github-actions[bot]@users.noreply.github.com" in content:
-                print("✅ Email Git correctement configuré")
+                print(r"✅ Email Git correctement configuré")
             else:
                 self.issues.append("❌ Email Git incorrect dans deploy.yml")
 
             if "github-actions[bot]" in content:
-                print("✅ Nom Git correctement configuré")
+                print(r"✅ Nom Git correctement configuré")
             else:
                 self.issues.append("❌ Nom Git incorrect dans deploy.yml")
 
     def check_secrets(self):
         """Vérifie la configuration des secrets"""
-        print("\n🔐 Vérification des secrets...")
+        print(r"\n🔐 Vérification des secrets...")
 
         deploy_yml = ".github/workflows/deploy.yml"
         if os.path.exists(deploy_yml):
@@ -86,27 +86,27 @@ class GitHubActionsDiagnostic:
                 content = f.read()
 
             if "DOCKER_USERNAME" in content:
-                print("✅ Secret DOCKER_USERNAME référencé")
+                print(r"✅ Secret DOCKER_USERNAME référencé")
             else:
                 self.issues.append("❌ Secret DOCKER_USERNAME manquant")
 
             if "DOCKER_PASSWORD" in content:
-                print("✅ Secret DOCKER_PASSWORD référencé")
+                print(r"✅ Secret DOCKER_PASSWORD référencé")
             else:
                 self.issues.append("❌ Secret DOCKER_PASSWORD manquant")
 
             if "GITHUB_TOKEN" in content:
-                print("✅ GITHUB_TOKEN configuré")
+                print(r"✅ GITHUB_TOKEN configuré")
             else:
                 self.issues.append("❌ GITHUB_TOKEN manquant")
 
     def check_docker_config(self):
         """Vérifie la configuration Docker"""
-        print("\n🐳 Vérification de la configuration Docker...")
+        print(r"\n🐳 Vérification de la configuration Docker...")
 
         dockerfile = "config/Dockerfile"
         if os.path.exists(dockerfile):
-            print("✅ Dockerfile trouvé")
+            print(r"✅ Dockerfile trouvé")
         else:
             self.issues.append("❌ Dockerfile manquant")
 
@@ -116,13 +116,13 @@ class GitHubActionsDiagnostic:
                 content = f.read()
 
             if "docker build" in content:
-                print("✅ Commande docker build configurée")
+                print(r"✅ Commande docker build configurée")
             else:
                 self.issues.append("❌ Commande docker build manquante")
 
     def check_workflow_triggers(self):
         """Vérifie les déclencheurs des workflows"""
-        print("\n🚀 Vérification des déclencheurs...")
+        print(r"\n🚀 Vérification des déclencheurs...")
 
         deploy_yml = ".github/workflows/deploy.yml"
         if os.path.exists(deploy_yml):
@@ -130,41 +130,41 @@ class GitHubActionsDiagnostic:
                 content = f.read()
 
             if "branches: [main]" in content:
-                print("✅ Déclencheur sur main configuré")
+                print(r"✅ Déclencheur sur main configuré")
             else:
                 self.issues.append("❌ Déclencheur sur main manquant")
 
             if "workflow_dispatch:" in content:
-                print("✅ Déclenchement manuel configuré")
+                print(r"✅ Déclenchement manuel configuré")
             else:
                 self.issues.append("❌ Déclenchement manuel manquant")
 
     def generate_report(self):
         """Génère un rapport de diagnostic"""
         print("\n" + "=" * 60)
-        print("📊 RAPPORT DE DIAGNOSTIC GITHUB ACTIONS")
+        print(r"📊 RAPPORT DE DIAGNOSTIC GITHUB ACTIONS")
         print("=" * 60)
 
         if not self.issues:
-            print("🎉 AUCUN PROBLÈME DÉTECTÉ !")
-            print("✅ Toutes les actions GitHub sont correctement configurées")
+            print(r"🎉 AUCUN PROBLÈME DÉTECTÉ !")
+            print(r"✅ Toutes les actions GitHub sont correctement configurées")
         else:
             print(f"❌ {len(self.issues)} PROBLÈME(S) DÉTECTÉ(S):")
             for issue in self.issues:
                 print(f"   • {issue}")
 
-        print("\n🔧 CORRECTIONS APPLIQUÉES:")
+        print(r"\n🔧 CORRECTIONS APPLIQUÉES:")
         if self.fixes:
             for fix in self.fixes:
                 print(f"   ✅ {fix}")
         else:
-            print("   Aucune correction nécessaire")
+            print(r"   Aucune correction nécessaire")
 
         return len(self.issues) == 0
 
     def run_full_diagnostic(self):
         """Lance le diagnostic complet"""
-        print("🚀 DÉMARRAGE DU DIAGNOSTIC GITHUB ACTIONS")
+        print(r"🚀 DÉMARRAGE DU DIAGNOSTIC GITHUB ACTIONS")
         print("=" * 60)
 
         self.check_workflow_files()

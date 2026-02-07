@@ -1,0 +1,321 @@
+/* ===== ARKALIA QUEST - INSTANT FEEDBACK CSS ===== */
+
+.instant-feedback-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10000;
+}
+
+.feedback-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.feedback-messages {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.feedback-message {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.95), rgba(0, 0, 0, 0.9));
+    border: 2px solid rgba(167, 139, 250, 0.8);
+    border-radius: 20px;
+    padding: 25px 35px;
+    color: white;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(167, 139, 250, 0.5);
+    backdrop-filter: blur(15px);
+    transform: scale(0.8) translateY(50px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    pointer-events: auto;
+    max-width: 400px;
+    min-width: 300px;
+}
+
+.feedback-message.show {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+.feedback-message.hide {
+    transform: scale(0.8) translateY(-50px);
+    opacity: 0;
+}
+
+.feedback-content {
+    position: relative;
+}
+
+.feedback-title {
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(167, 139, 250, 0.8);
+    animation: titleGlow 2s ease-in-out infinite;
+}
+
+.feedback-message-text {
+    font-size: 1.2em;
+    margin-bottom: 8px;
+    color: #e0e0e0;
+}
+
+.feedback-description {
+    font-size: 1em;
+    color: #b0b0b0;
+    font-style: italic;
+}
+
+.feedback-close {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 30px;
+    height: 30px;
+    background: rgba(255, 0, 0, 0.8);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.feedback-close:hover {
+    background: rgba(255, 0, 0, 1);
+    transform: scale(1.1);
+}
+
+/* Types de feedback spécifiques */
+.feedback-levelUp {
+    background: linear-gradient(135deg, rgba(0, 255, 0, 0.95), rgba(0, 0, 0, 0.9));
+    border-color: rgba(0, 255, 0, 0.8);
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+}
+
+.feedback-levelUp .feedback-title {
+    color: #00ff00;
+    text-shadow: 0 0 15px rgba(0, 255, 0, 0.8);
+}
+
+.feedback-badgeEarned {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.95), rgba(0, 0, 0, 0.9));
+    border-color: rgba(255, 215, 0, 0.8);
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+}
+
+.feedback-badgeEarned .feedback-title {
+    color: #FFD700;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+}
+
+.feedback-missionComplete {
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.95), rgba(0, 0, 0, 0.9));
+    border-color: rgba(0, 255, 255, 0.8);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+}
+
+.feedback-missionComplete .feedback-title {
+    color: #00ffff;
+    text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+}
+
+.feedback-scoreGained {
+    background: linear-gradient(135deg, rgba(255, 0, 255, 0.95), rgba(0, 0, 0, 0.9));
+    border-color: rgba(255, 0, 255, 0.8);
+    box-shadow: 0 0 30px rgba(255, 0, 255, 0.5);
+}
+
+.feedback-scoreGained .feedback-title {
+    color: #ff00ff;
+    text-shadow: 0 0 15px rgba(255, 0, 255, 0.8);
+}
+
+.feedback-achievementUnlocked {
+    background: linear-gradient(135deg, rgba(255, 100, 0, 0.95), rgba(0, 0, 0, 0.9));
+    border-color: rgba(255, 100, 0, 0.8);
+    box-shadow: 0 0 30px rgba(255, 100, 0, 0.5);
+}
+
+.feedback-achievementUnlocked .feedback-title {
+    color: #ff6400;
+    text-shadow: 0 0 15px rgba(255, 100, 0, 0.8);
+}
+
+/* Animations de particules */
+.feedback-particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10001;
+}
+
+@keyframes levelUpBurst {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(3) translateY(-100px);
+        opacity: 0;
+    }
+}
+
+@keyframes badgeUnlock {
+    0% {
+        transform: translate(-50%, -50%) scale(0) rotate(0deg);
+        opacity: 1;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.2) rotate(180deg);
+        opacity: 0.9;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(2) rotate(360deg) translateY(-80px);
+        opacity: 0;
+    }
+}
+
+@keyframes missionComplete {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+    }
+
+    30% {
+        transform: translate(-50%, -50%) scale(1.3);
+        opacity: 0.9;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(2.5) translateY(-120px);
+        opacity: 0;
+    }
+}
+
+@keyframes scoreGained {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(2) translateY(-60px);
+        opacity: 0;
+    }
+}
+
+@keyframes achievementUnlock {
+    0% {
+        transform: translate(-50%, -50%) scale(0) rotate(0deg);
+        opacity: 1;
+    }
+
+    25% {
+        transform: translate(-50%, -50%) scale(1.1) rotate(90deg);
+        opacity: 0.9;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.3) rotate(180deg);
+        opacity: 0.8;
+    }
+
+    75% {
+        transform: translate(-50%, -50%) scale(1.5) rotate(270deg);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(3) rotate(360deg) translateY(-100px);
+        opacity: 0;
+    }
+}
+
+@keyframes titleGlow {
+
+    0%,
+    100% {
+        text-shadow: 0 0 10px rgba(167, 139, 250, 0.8);
+    }
+
+    50% {
+        text-shadow: 0 0 20px rgba(167, 139, 250, 1), 0 0 30px rgba(167, 139, 250, 0.8);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .feedback-message {
+        max-width: 90vw;
+        min-width: 280px;
+        padding: 20px 25px;
+    }
+
+    .feedback-title {
+        font-size: 1.5em;
+    }
+
+    .feedback-message-text {
+        font-size: 1.1em;
+    }
+
+    .feedback-description {
+        font-size: 0.9em;
+    }
+}
+
+/* Mode sombre */
+@media (prefers-color-scheme: dark) {
+    .feedback-message {
+        background: linear-gradient(135deg, rgba(167, 139, 250, 0.98), rgba(0, 0, 0, 0.95));
+        border-color: rgba(167, 139, 250, 0.9);
+    }
+}
+
+/* Mode haute contraste */
+@media (prefers-contrast: high) {
+    .feedback-message {
+        border-width: 3px;
+        box-shadow: 0 0 40px rgba(167, 139, 250, 0.8);
+    }
+
+    .feedback-title {
+        text-shadow: 0 0 20px rgba(167, 139, 250, 1);
+    }
+}

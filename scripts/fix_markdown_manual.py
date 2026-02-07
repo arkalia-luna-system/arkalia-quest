@@ -6,6 +6,14 @@ Script de correction manuelle des erreurs Markdown les plus critiques
 import glob
 import re
 
+# Import du logger
+try:
+    from utils.logger import game_logger
+except ImportError:
+    import logging
+
+    game_logger = logging.getLogger("fix_markdown_manual")
+
 
 def fix_markdown_file(file_path):
     """Corrige les erreurs Markdown les plus importantes dans un fichier"""
@@ -71,7 +79,7 @@ def fix_markdown_file(file_path):
 
 def main():
     """Fonction principale"""
-    print("🔧 CORRECTION MANUELLE DES ERREURS MARKDOWN")
+    print(r"🔧 CORRECTION MANUELLE DES ERREURS MARKDOWN")
     print("=" * 50)
 
     # Trouver tous les fichiers Markdown
@@ -92,14 +100,14 @@ def main():
             corrected_count += 1
 
     print("\n" + "=" * 50)
-    print("📊 RÉSULTATS:")
+    print(r"📊 RÉSULTATS:")
     print(f"✅ Fichiers corrigés: {corrected_count}/{total_count}")
     print(f"⏭️  Fichiers inchangés: {total_count - corrected_count}/{total_count}")
 
     if corrected_count > 0:
         print(f"\n🎉 {corrected_count} fichiers ont été corrigés avec succès !")
     else:
-        print("\n✨ Tous les fichiers étaient déjà corrects !")
+        print(r"\n✨ Tous les fichiers étaient déjà corrects !")
 
 
 if __name__ == "__main__":

@@ -400,7 +400,7 @@ la vérité sur NEXUS et la menace de PANDORA.
             for theme in available:
                 status = "✅" if theme.get("unlocked") else "🔓"
                 lines.append(
-                    f"{status} {theme.get('name','Thème')} — id: {theme.get('id','?')}"
+                    f"{status} {theme.get('name', 'Thème')} — id: {theme.get('id', '?')}"
                 )
 
             lines.append(

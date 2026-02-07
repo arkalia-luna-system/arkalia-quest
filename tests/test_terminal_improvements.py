@@ -5,10 +5,21 @@ Valide le feedback intelligent, l'accessibilité et le responsive design
 """
 
 import json
+import os
+import sys
 import time
 from datetime import datetime
 
 import requests
+
+# Ajouter le répertoire racine au path
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, project_root)
+
+from utils.logger import GameLogger  # noqa: E402
+
+# Initialiser le logger
+game_logger = GameLogger()
 
 
 class TerminalImprovementsTester:
@@ -29,7 +40,7 @@ class TerminalImprovementsTester:
 
     def test_intelligent_feedback(self):
         """Test du feedback intelligent"""
-        print("🧠 Test du feedback intelligent...")
+        game_logger.info(r"🧠 Test du feedback intelligent...")
 
         feedback_tests = [
             {
@@ -111,9 +122,9 @@ class TerminalImprovementsTester:
                     total_checks += 1
                     if check_term in content:
                         accessibility_score += 1
-                        print(f"✅ {check_name}: {description}")
+                        game_logger.info(f"✅ {check_name}: {description}")
                     else:
-                        print(f"⚠️ {check_name}: {description} manquant")
+                        game_logger.info(f"⚠️ {check_name}: {description} manquant")
 
                 self.results["accessibility_score"] = (
                     accessibility_score / total_checks
@@ -123,14 +134,14 @@ class TerminalImprovementsTester:
                 )
 
             else:
-                print(f"❌ Erreur HTTP {response.status_code}")
+                game_logger.info(f"❌ Erreur HTTP {response.status_code}")
 
         except Exception as e:
-            print(f"❌ Erreur test accessibilité: {e}")
+            game_logger.info(f"❌ Erreur test accessibilité: {e}")
 
     def test_responsive_design(self):
         """Test du responsive design"""
-        print("📱 Test du responsive design...")
+        game_logger.info(r"📱 Test du responsive design...")
 
         try:
             response = requests.get(f"{self.base_url}/terminal", timeout=5)
@@ -165,9 +176,9 @@ class TerminalImprovementsTester:
                     total_checks += 1
                     if check_term in content:
                         responsive_score += 1
-                        print(f"✅ {check_name}: {description}")
+                        game_logger.info(f"✅ {check_name}: {description}")
                     else:
-                        print(f"⚠️ {check_name}: {description} manquant")
+                        game_logger.info(f"⚠️ {check_name}: {description} manquant")
 
                 self.results["responsive_score"] = (
                     responsive_score / total_checks
@@ -177,14 +188,14 @@ class TerminalImprovementsTester:
                 )
 
             else:
-                print(f"❌ Erreur HTTP {response.status_code}")
+                game_logger.info(f"❌ Erreur HTTP {response.status_code}")
 
         except Exception as e:
-            print(f"❌ Erreur test responsive: {e}")
+            game_logger.info(f"❌ Erreur test responsive: {e}")
 
     def test_performance(self):
         """Test des performances"""
-        print("⚡ Test des performances...")
+        game_logger.info(r"⚡ Test des performances...")
 
         try:
             start_time = time.time()
@@ -195,26 +206,26 @@ class TerminalImprovementsTester:
                 # Évaluer le temps de chargement
                 if load_time < 1.0:
                     performance_score = 100
-                    print("✅ Chargement très rapide (< 1s)")
+                    game_logger.info(r"✅ Chargement très rapide (< 1s)")
                 elif load_time < 2.0:
                     performance_score = 80
-                    print("✅ Chargement rapide (< 2s)")
+                    game_logger.info(r"✅ Chargement rapide (< 2s)")
                 elif load_time < 3.0:
                     performance_score = 60
-                    print("⚠️ Chargement acceptable (< 3s)")
+                    game_logger.info(r"⚠️ Chargement acceptable (< 3s)")
                 else:
                     performance_score = 40
-                    print("❌ Chargement lent (> 3s)")
+                    game_logger.info(r"❌ Chargement lent (> 3s)")
 
                 self.results["performance_score"] = performance_score
-                print(f"📊 Temps de chargement: {load_time:.2f}s")
-                print(f"📊 Score performance: {performance_score}/100")
+                game_logger.info(f"📊 Temps de chargement: {load_time:.2f}s")
+                game_logger.info(f"📊 Score performance: {performance_score}/100")
 
             else:
-                print(f"❌ Erreur HTTP {response.status_code}")
+                game_logger.info(f"❌ Erreur HTTP {response.status_code}")
 
         except Exception as e:
-            print(f"❌ Erreur test performance: {e}")
+            game_logger.info(f"❌ Erreur test performance: {e}")
 
     def run_all_tests(self):
         """Exécuter tous les tests"""
@@ -260,11 +271,13 @@ class TerminalImprovementsTester:
 
         # Évaluation qualitative
         if self.results["overall_score"] >= 85:
-            print("🏆 EXCELLENT: Terminal professionnel et accessible !")
+            game_logger.info(r"🏆 EXCELLENT: Terminal professionnel et accessible !")
         elif self.results["overall_score"] >= 70:
-            print("✅ BON: Terminal bien amélioré avec quelques points à optimiser")
+            game_logger.info(
+                r"✅ BON: Terminal bien amélioré avec quelques points à optimiser"
+            )
         elif self.results["overall_score"] >= 50:
-            print("⚠️ MOYEN: Améliorations visibles mais encore du travail")
+            game_logger.info(r"⚠️ MOYEN: Améliorations visibles mais encore du travail")
         else:
             print("❌ INSUFFISANT: Besoin d'améliorations majeures")
 
@@ -273,7 +286,7 @@ class TerminalImprovementsTester:
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(self.results, f, indent=2, ensure_ascii=False)
 
-        print(f"\n📄 Rapport sauvegardé: {filename}")
+        game_logger.info(f"\n📄 Rapport sauvegardé: {filename}")
         print("=" * 60)
 
 

@@ -15,6 +15,11 @@ sys.path.insert(
     0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 )
 
+from utils.logger import GameLogger  # noqa: E402
+
+# Initialiser le logger
+game_logger = GameLogger()
+
 try:
     from core.database import DatabaseManager
     from core.luna_emotions_engine import LunaEmotion, LunaEmotionsEngine
@@ -151,7 +156,7 @@ class TestLunaEmotionsComplete(unittest.TestCase):
 
     def test_emotion_transitions_logic(self):
         """Test de la logique des transitions d'émotions"""
-        print("🔄 Test de la logique des transitions...")
+        game_logger.info(r"🔄 Test de la logique des transitions...")
 
         # Simuler une séquence d'actions
         actions_sequence = [
@@ -200,8 +205,8 @@ class TestLunaEmotionsComplete(unittest.TestCase):
 
         # Vérifier que les profils différents produisent des émotions variées
         unique_emotions = set(emotions_by_profile.values())
-        print(f"Émotions générées: {emotions_by_profile}")
-        print(f"Émotions uniques: {unique_emotions}")
+        game_logger.info(f"Émotions générées: {emotions_by_profile}")
+        game_logger.info(f"Émotions uniques: {unique_emotions}")
 
         # Le test peut échouer si le moteur d'émotions est trop déterministe
         # Vérifions d'abord que toutes les émotions sont valides
@@ -260,7 +265,7 @@ class TestLunaEmotionsComplete(unittest.TestCase):
 
     def test_performance_under_load(self):
         """Test de performance sous charge"""
-        print("⚡ Test de performance sous charge...")
+        game_logger.info(r"⚡ Test de performance sous charge...")
 
         profile = self.test_profiles["expert"]
         action = "complex_operation"
@@ -285,7 +290,7 @@ class TestLunaEmotionsComplete(unittest.TestCase):
 
     def test_memory_management(self):
         """Test de la gestion de la mémoire"""
-        print("💾 Test de gestion de la mémoire...")
+        game_logger.info(r"💾 Test de gestion de la mémoire...")
 
         profile = self.test_profiles["intermediaire"]
 
@@ -332,13 +337,13 @@ class TestLunaEmotionsComplete(unittest.TestCase):
 
                 except Exception as e:
                     # Si une erreur se produit, c'est acceptable pour des cas limites
-                    print(f"⚠️ Cas limite non géré: {action} -> {e}")
+                    game_logger.info(f"⚠️ Cas limite non géré: {action} -> {e}")
 
     # ===== TESTS D'INTÉGRATION AVEC LA BASE DE DONNÉES =====
 
     def test_emotion_persistence(self):
         """Test de la persistance des émotions"""
-        print("💾 Test de persistance des émotions...")
+        game_logger.info(r"💾 Test de persistance des émotions...")
 
         # Créer une base de données temporaire (simulation)
         self.temp_db = "temp_emotions_test.db"
@@ -371,7 +376,7 @@ class TestLunaEmotionsComplete(unittest.TestCase):
 
     def test_response_quality_validation(self):
         """Test de la qualité des réponses émotionnelles"""
-        print("✨ Test de qualité des réponses...")
+        game_logger.info(r"✨ Test de qualité des réponses...")
 
         profile = self.test_profiles["intermediaire"]
         action = "achievement_unlocked"
@@ -421,7 +426,7 @@ class TestLunaEmotionsComplete(unittest.TestCase):
 
     def test_emotion_configuration_validation(self):
         """Test de validation de la configuration des émotions"""
-        print("⚙️ Test de validation de la configuration...")
+        game_logger.info(r"⚙️ Test de validation de la configuration...")
 
         # Vérifier que la configuration des émotions est valide
         self.assertIsInstance(self.engine.emotion_colors, dict)
@@ -473,7 +478,7 @@ class TestLunaEmotionsComplete(unittest.TestCase):
 
     def test_stress_test_extreme_values(self):
         """Test de stress avec des valeurs extrêmes"""
-        print("🔥 Test de stress avec valeurs extrêmes...")
+        game_logger.info(r"🔥 Test de stress avec valeurs extrêmes...")
 
         profile = self.test_profiles["expert"]
 
@@ -548,7 +553,7 @@ class TestLunaEmotionsComplete(unittest.TestCase):
 
     def test_final_validation_complete_system(self):
         """Test de validation finale du système complet"""
-        print("🎯 Test de validation finale du système complet...")
+        game_logger.info(r"🎯 Test de validation finale du système complet...")
 
         # Test complet du système
         profile = self.test_profiles["expert"]

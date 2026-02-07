@@ -5,12 +5,24 @@ Teste spécifiquement les commandes du terminal et les missions du jeu
 """
 
 import json
+import os
 import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
 
 import requests
+
+# Ajouter le répertoire racine au path
+project_root = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+)
+sys.path.insert(0, project_root)
+
+from utils.logger import GameLogger  # noqa: E402
+
+# Initialiser le logger
+game_logger = GameLogger()
 
 # Constantes
 EXCELLENT_RATE = 80
@@ -94,11 +106,11 @@ class ArkaliaQuestCommandsTester:
         self.test_results.append(result)
 
         # status_emoji = "✅" if status == "PASS" else "❌" if status == "FAIL" else "⏭️"
-        # print(f"{status_emoji} {test_name}: {status}")
+        # game_logger.info(f"{status_emoji} {test_name}: {status}")
         if details:
-            print(f"   📝 {details}")
+            game_logger.info(f"   📝 {details}")
         if duration > 0:
-            print(f"   ⏱️ {duration:.2f}s")
+            game_logger.info(f"   ⏱️ {duration:.2f}s")
         # print()
 
     def test_command_availability(self, command: str) -> bool:
@@ -394,56 +406,56 @@ class ArkaliaQuestCommandsTester:
 
     def run_commands_test_suite(self):
         """Exécute la suite de tests des commandes"""
-        # print("🌌 ARKALIA QUEST - TESTS COMMANDES ET MISSIONS")
+        # game_logger.info(r"🌌 ARKALIA QUEST - TESTS COMMANDES ET MISSIONS")
         # print("=" * 60)
-        # print(f"🎯 URL de test: {self.base_url}")
+        # game_logger.info(f"🎯 URL de test: {self.base_url}")
         # print(f"⏰ Début des tests: {self.start_time.strftime('%Y-%m-%d %H:%M:%S')}")
         # print()
 
         # Tests des commandes de base
-        # print("⌨️ 1. TESTS COMMANDES DE BASE")
+        # game_logger.info(r"⌨️ 1. TESTS COMMANDES DE BASE")
         # print("-" * 40)
         for command in self.basic_commands:
             self.test_command_availability(command)
 
         # Tests des commandes tutoriel
-        # print("🎯 2. TESTS COMMANDES TUTORIEL")
+        # game_logger.info(r"🎯 2. TESTS COMMANDES TUTORIEL")
         # print("-" * 40)
         for command in self.tutorial_commands:
             self.test_command_availability(command)
 
         # Tests des commandes de jeux
-        # print("🎮 3. TESTS COMMANDES JEUX")
+        # game_logger.info(r"🎮 3. TESTS COMMANDES JEUX")
         # print("-" * 40)
         for command in self.game_commands:
             self.test_command_availability(command)
 
         # Tests des commandes d'histoire
-        # print("📖 4. TESTS COMMANDES HISTOIRE")
+        # game_logger.info(r"📖 4. TESTS COMMANDES HISTOIRE")
         # print("-" * 40)
         for command in self.story_commands:
             self.test_command_availability(command)
 
         # Tests des commandes d'action
-        # print("⚡ 5. TESTS COMMANDES ACTION")
+        # game_logger.info(r"⚡ 5. TESTS COMMANDES ACTION")
         # print("-" * 40)
         for command in self.action_commands:
             self.test_command_availability(command)
 
         # Tests des commandes LUNA
-        # print("🤖 6. TESTS COMMANDES LUNA")
+        # game_logger.info(r"🤖 6. TESTS COMMANDES LUNA")
         # print("-" * 40)
         for command in self.luna_commands:
             self.test_command_availability(command)
 
         # Tests des commandes de navigation
-        # print("🌍 7. TESTS COMMANDES NAVIGATION")
+        # game_logger.info(r"🌍 7. TESTS COMMANDES NAVIGATION")
         # print("-" * 40)
         for command in self.navigation_commands:
             self.test_command_availability(command)
 
         # Tests des fonctionnalités du jeu
-        # print("🎯 8. TESTS FONCTIONNALITÉS JEU")
+        # game_logger.info(r"🎯 8. TESTS FONCTIONNALITÉS JEU")
         # print("-" * 40)
         self.test_mission_progression()
         self.test_leaderboard_functionality()
@@ -468,14 +480,14 @@ class ArkaliaQuestCommandsTester:
         success_rate = (passed_tests / total_tests * 100) if total_tests > 0 else 0
 
         # print("=" * 60)
-        # print("📊 RAPPORT FINAL DES TESTS COMMANDES")
+        # game_logger.info(r"📊 RAPPORT FINAL DES TESTS COMMANDES")
         # print("=" * 60)
-        # print(f"⏰ Durée totale: {total_duration:.2f}s")
-        # print(f"🧪 Tests exécutés: {total_tests}")
-        # print(f"✅ Tests réussis: {passed_tests}")
-        # print(f"❌ Tests échoués: {failed_tests}")
-        # print(f"⏭️ Tests ignorés: {skipped_tests}")
-        # print(f"📈 Taux de réussite: {success_rate:.1f}%")
+        # game_logger.info(f"⏰ Durée totale: {total_duration:.2f}s")
+        # game_logger.info(f"🧪 Tests exécutés: {total_tests}")
+        # game_logger.info(f"✅ Tests réussis: {passed_tests}")
+        # game_logger.info(f"❌ Tests échoués: {failed_tests}")
+        # game_logger.info(f"⏭️ Tests ignorés: {skipped_tests}")
+        # game_logger.info(f"📈 Taux de réussite: {success_rate:.1f}%")
         # print()
 
         # Analyse par catégorie de commandes
@@ -531,7 +543,7 @@ class ArkaliaQuestCommandsTester:
             ],
         }
 
-        # print("📋 ANALYSE PAR CATÉGORIE:")
+        # game_logger.info(r"📋 ANALYSE PAR CATÉGORIE:")
         # print("-" * 30)
         for category, tests in command_categories.items():
             if tests:
@@ -540,18 +552,22 @@ class ArkaliaQuestCommandsTester:
                 rate = (passed / total * 100) if total > 0 else 0
 
                 if rate >= EXCELLENT_RATE:
-                    print(f"✅ {category}: Excellent ({rate:.0f}% - {passed}/{total})")
+                    game_logger.info(
+                        f"✅ {category}: Excellent ({rate:.0f}% - {passed}/{total})"
+                    )
                 elif rate >= GOOD_RATE:
-                    print(f"⚠️ {category}: À améliorer ({rate:.0f}% - {passed}/{total})")
+                    game_logger.info(
+                        f"⚠️ {category}: À améliorer ({rate:.0f}% - {passed}/{total})"
+                    )
                 else:
-                    print(
+                    game_logger.info(
                         f"❌ {category}: Problèmes majeurs ({rate:.0f}% - {passed}/{total})"
                     )
 
         # Tests échoués
         if failed_tests > 0:
             print()
-            print("❌ TESTS ÉCHOUÉS:")
+            game_logger.info(r"❌ TESTS ÉCHOUÉS:")
             print("-" * 30)
             for result in self.test_results:
                 if result["status"] == "FAIL":
@@ -559,18 +575,22 @@ class ArkaliaQuestCommandsTester:
 
         # Recommandations
         # print()
-        # print("💡 RECOMMANDATIONS:")
+        # game_logger.info(r"💡 RECOMMANDATIONS:")
         # print("-" * 30)
         if success_rate >= EXCELLENT_SUMMARY_RATE:
             print(
                 "🎉 Excellent! Toutes les commandes et fonctionnalités fonctionnent parfaitement.",
             )
         elif success_rate >= GOOD_SUMMARY_RATE:
-            print("👍 Bon état général, quelques commandes à vérifier.")
+            game_logger.info(r"👍 Bon état général, quelques commandes à vérifier.")
         elif success_rate >= MEDIUM_RATE:
-            print("⚠️ État moyen, plusieurs commandes nécessitent des corrections.")
+            game_logger.info(
+                r"⚠️ État moyen, plusieurs commandes nécessitent des corrections."
+            )
         else:
-            print("🚨 État critique, de nombreuses commandes ne fonctionnent pas.")
+            game_logger.info(
+                r"🚨 État critique, de nombreuses commandes ne fonctionnent pas."
+            )
 
         # Sauvegarde du rapport
         report_file = f"commands_test_report_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}.json"
@@ -595,7 +615,7 @@ class ArkaliaQuestCommandsTester:
                 ensure_ascii=False,
             )
 
-        # print(f"📄 Rapport détaillé sauvegardé: {report_file}")
+        # game_logger.info(f"📄 Rapport détaillé sauvegardé: {report_file}")
 
 
 def main():
@@ -604,7 +624,7 @@ def main():
         sys.argv[1] if len(sys.argv) > 1 else "https://arkalia-quest.onrender.com"
     )
 
-    # print(f"🚀 Démarrage des tests commandes Arkalia Quest sur {base_url}")
+    # game_logger.info(f"🚀 Démarrage des tests commandes Arkalia Quest sur {base_url}")
     # print()
 
     tester = ArkaliaQuestCommandsTester(base_url)

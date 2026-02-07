@@ -1,0 +1,261 @@
+/* ===== EFFETS POUR LES NOUVELLES COMMANDES ===== */
+
+/* Effets Matrix */
+.matrix-theme {
+    background: linear-gradient(135deg, #000000, #001100) !important;
+    color: #00ff00 !important;
+}
+
+.matrix-theme * {
+    color: #00ff00 !important;
+    text-shadow: 0 0 5px #00ff00 !important;
+}
+
+@keyframes matrixFloat {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: translateY(-50px) scale(1.2);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-100px) scale(0.5);
+    }
+}
+
+.matrix-particle {
+    animation: matrixFloat 3s ease-out forwards;
+}
+
+/* Effets Cyberpunk */
+.cyberpunk-theme {
+    background: linear-gradient(135deg, #000000, #1a0033) !important;
+    color: #ff00ff !important;
+}
+
+.cyberpunk-theme * {
+    color: #ff00ff !important;
+    text-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff !important;
+}
+
+@keyframes cyberpunkGlow {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    50% {
+        opacity: 0.6;
+        transform: scale(1.1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1);
+    }
+}
+
+.cyberpunk-neon {
+    animation: cyberpunkGlow 2s ease-out forwards;
+}
+
+/* Effets de simulation */
+.simulation-effect {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #00ff00;
+    border-radius: 10px;
+    padding: 20px;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    font-size: 18px;
+    text-align: center;
+    z-index: 10000;
+    animation: simulationPulse 2s ease-out forwards;
+}
+
+@keyframes simulationPulse {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* Effets de niveau */
+.level-up-effect {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    color: #000;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    z-index: 10000;
+    animation: levelUpBounce 3s ease-out forwards;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+}
+
+@keyframes levelUpBounce {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-50px) scale(0.5);
+    }
+
+    20% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1.2);
+    }
+
+    40% {
+        transform: translateX(-50%) translateY(-10px) scale(1);
+    }
+
+    60% {
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+
+    80% {
+        transform: translateX(-50%) translateY(-5px) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-100px) scale(0.8);
+    }
+}
+
+/* Effets de badge */
+.badge-unlock-effect {
+    position: fixed;
+    top: 30%;
+    right: 10%;
+    background: linear-gradient(135deg, #ff6b6b, #ffa500);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    z-index: 10000;
+    animation: badgeSlide 3s ease-out forwards;
+    box-shadow: 0 0 25px rgba(255, 107, 107, 0.8);
+}
+
+@keyframes badgeSlide {
+    0% {
+        opacity: 0;
+        transform: translateX(100px) scale(0.5);
+    }
+
+    20% {
+        opacity: 1;
+        transform: translateX(0) scale(1.1);
+    }
+
+    80% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(100px) scale(0.8);
+    }
+}
+
+/* Particules de succès */
+.success-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.success-particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #00ff00;
+    border-radius: 50%;
+    animation: successFloat 2s ease-out forwards;
+}
+
+@keyframes successFloat {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-200px) scale(0);
+    }
+}
+
+/* Effets de terminal */
+.terminal-glow {
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5) !important;
+    border: 1px solid #00ff00 !important;
+}
+
+.terminal-pulse {
+    animation: terminalPulse 1s ease-in-out;
+}
+
+@keyframes terminalPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 30px rgba(0, 255, 0, 0.8);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+
+    .simulation-effect,
+    .level-up-effect,
+    .badge-unlock-effect {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+
+    .level-up-effect {
+        top: 15%;
+        font-size: 20px;
+    }
+
+    .badge-unlock-effect {
+        right: 5%;
+        font-size: 16px;
+    }
+}

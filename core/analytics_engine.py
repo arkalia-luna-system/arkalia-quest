@@ -17,7 +17,7 @@ import threading
 import time
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Optional
+from typing import Any, Optional, Union
 
 # Configuration du logging
 logging.basicConfig(level=logging.INFO)
@@ -197,9 +197,27 @@ class AnalyticsEngine:
             :16
         ]
 
+    def _normalize_event_type(self, event_type: Union[EventType, str]) -> EventType:
+        """Accepte EventType ou str (ex: depuis l'API) et retourne un EventType."""
+        if isinstance(event_type, EventType):
+            return event_type
+        if isinstance(event_type, str):
+            try:
+                return EventType(event_type)
+            except ValueError:
+                for e in EventType:
+                    if e.value == event_type:
+                        return e
+                logger.warning(
+                    "Type d'événement inconnu %r, utilisation de INTERACTION",
+                    event_type,
+                )
+                return EventType.INTERACTION
+        return EventType.INTERACTION
+
     def track_event(
         self,
-        event_type: EventType,
+        event_type: Union[EventType, str],
         user_id: str,
         session_id: str,
         data: Optional[dict[str, Any]] = None,
@@ -207,6 +225,7 @@ class AnalyticsEngine:
     ):
         """Tracker un événement"""
         try:
+            event_type = self._normalize_event_type(event_type)
             # Anonymiser l'ID utilisateur
             anonymized_user_id = self._anonymize_user_id(user_id)
 
@@ -252,12 +271,21 @@ class AnalyticsEngine:
         session = self.session_data[event.session_id]
         session.events_count += 1
 
+        # Normaliser le type d'événement (peut être Enum ou str selon la source)
+        event_type_str = (
+            event.event_type.value
+            if hasattr(event.event_type, "value")
+            else event.event_type
+        )
+        if not isinstance(event_type_str, str):
+            event_type_str = str(event_type_str)
+
         # Compter les types d'événements spécifiques
-        if event.event_type == EventType.MISSION_START:
+        if event_type_str == EventType.MISSION_START.value:
             session.missions_attempted += 1
-        elif event.event_type == EventType.GAME_START:
+        elif event_type_str == EventType.GAME_START.value:
             session.games_played += 1
-        elif event.event_type == EventType.COMMAND_EXECUTED:
+        elif event_type_str == EventType.COMMAND_EXECUTED.value:
             command = event.data.get("command", "")
             if command and command not in session.commands_used:
                 session.commands_used.append(command)
@@ -428,6 +456,15 @@ class AnalyticsEngine:
                 cursor = conn.cursor()
 
                 for event in self.event_buffer:
+                    # Sécuriser le type d'événement
+                    event_type_value = event.event_type
+                    if hasattr(event.event_type, "value"):
+                        event_type_value = event.event_type.value
+                    elif isinstance(event.event_type, str):
+                        event_type_value = event.event_type
+                    else:
+                        event_type_value = str(event.event_type)
+
                     cursor.execute(
                         """
                         INSERT INTO analytics_events
@@ -435,7 +472,7 @@ class AnalyticsEngine:
                         VALUES (?, ?, ?, ?, ?, ?, ?)
                     """,
                         (
-                            event.event_type.value,
+                            event_type_value,
                             event.user_id,
                             event.timestamp,
                             event.session_id,

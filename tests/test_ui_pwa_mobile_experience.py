@@ -4,10 +4,18 @@ Teste l'installation PWA, le mode offline, et la réactivité mobile
 """
 
 import json
+import os
+import sys
 import time
 from datetime import datetime
 
 import requests
+
+# Ajouter le répertoire parent au path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Import du logger
+from utils.logger import game_logger
 
 
 class PWAMobileExperienceTester:
@@ -27,7 +35,7 @@ class PWAMobileExperienceTester:
 
     def test_pwa_manifest(self):
         """Test du manifest PWA"""
-        print("🧪 Test du manifest PWA...")
+        game_logger.info(r"🧪 Test du manifest PWA...")
 
         manifest_result = {
             "name": "Manifest PWA",
@@ -100,7 +108,7 @@ class PWAMobileExperienceTester:
 
     def test_service_worker(self):
         """Test du service worker"""
-        print("🧪 Test du service worker...")
+        game_logger.info(r"🧪 Test du service worker...")
 
         sw_result = {
             "name": "Service Worker",
@@ -221,7 +229,7 @@ class PWAMobileExperienceTester:
 
     def test_offline_functionality(self):
         """Test du mode offline"""
-        print("🧪 Test du mode offline...")
+        game_logger.info(r"🧪 Test du mode offline...")
 
         offline_result = {
             "name": "Mode Offline",
@@ -281,7 +289,7 @@ class PWAMobileExperienceTester:
 
     def test_mobile_responsiveness(self):
         """Test de la réactivité mobile"""
-        print("🧪 Test de la réactivité mobile...")
+        game_logger.info(r"🧪 Test de la réactivité mobile...")
 
         mobile_result = {
             "name": "Réactivité Mobile",
@@ -342,7 +350,7 @@ class PWAMobileExperienceTester:
 
     def test_mobile_performance(self):
         """Test de la performance mobile"""
-        print("🧪 Test de la performance mobile...")
+        game_logger.info(r"🧪 Test de la performance mobile...")
 
         performance_result = {
             "name": "Performance Mobile",
@@ -464,7 +472,7 @@ class PWAMobileExperienceTester:
 
     def test_notifications(self):
         """Test des notifications PWA"""
-        print("🧪 Test des notifications PWA...")
+        game_logger.info(r"🧪 Test des notifications PWA...")
 
         notifications_result = {
             "name": "Notifications PWA",
@@ -571,9 +579,9 @@ class PWAMobileExperienceTester:
             print(f"   ⏱️  Durée: {test['duration']:.2f}s")
 
             if test.get("success", False):
-                print("   ✅ Succès")
+                game_logger.info(r"   ✅ Succès")
             else:
-                print("   ❌ Échec")
+                game_logger.info(r"   ❌ Échec")
 
             if test.get("issues"):
                 print(f"   ⚠️  Problèmes: {len(test['issues'])}")
@@ -585,7 +593,7 @@ class PWAMobileExperienceTester:
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(self.results, f, indent=2, ensure_ascii=False)
 
-        print(f"\n💾 Rapport sauvegardé: {filename}")
+        game_logger.info(f"\n💾 Rapport sauvegardé: {filename}")
 
 
 def main():
@@ -595,13 +603,13 @@ def main():
 
     # Évaluation finale
     if results["overall_score"] >= 80:
-        print("\n🎉 EXPÉRIENCE PWA ET MOBILE EXCELLENTE !")
+        game_logger.info(r"\n🎉 EXPÉRIENCE PWA ET MOBILE EXCELLENTE !")
     elif results["overall_score"] >= 60:
-        print("\n👍 EXPÉRIENCE PWA ET MOBILE BONNE")
+        game_logger.info(r"\n👍 EXPÉRIENCE PWA ET MOBILE BONNE")
     elif results["overall_score"] >= 40:
-        print("\n⚠️  EXPÉRIENCE PWA ET MOBILE MOYENNE")
+        game_logger.info(r"\n⚠️  EXPÉRIENCE PWA ET MOBILE MOYENNE")
     else:
-        print("\n❌ EXPÉRIENCE PWA ET MOBILE À AMÉLIORER")
+        game_logger.info(r"\n❌ EXPÉRIENCE PWA ET MOBILE À AMÉLIORER")
 
 
 if __name__ == "__main__":

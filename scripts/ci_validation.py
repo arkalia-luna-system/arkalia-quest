@@ -52,7 +52,7 @@ class CIValidator:
 
     def validate_tests(self):
         """Valide l'exécution des tests"""
-        print("🔍 Exécution des tests avec couverture...")
+        print(r"🔍 Exécution des tests avec couverture...")
         try:
             import shlex
 
@@ -67,7 +67,7 @@ class CIValidator:
             )
 
             if result.returncode == 0:
-                print("✅ Tests - SUCCÈS")
+                print(r"✅ Tests - SUCCÈS")
                 return result.stdout
             print(f"❌ Tests - ÉCHEC (code: {result.returncode})")
             if result.stderr:
@@ -83,7 +83,7 @@ class CIValidator:
 
     def validate_coverage(self):
         """Valide la couverture de code"""
-        print("🔍 Vérification de la couverture...")
+        print(r"🔍 Vérification de la couverture...")
         try:
             import shlex
 
@@ -98,7 +98,7 @@ class CIValidator:
             )
 
             if result.returncode == 0:
-                print("✅ Couverture - SUCCÈS")
+                print(r"✅ Couverture - SUCCÈS")
                 output = result.stdout
             else:
                 print(f"⚠️  Couverture - ÉCHEC (code: {result.returncode})")
@@ -133,7 +133,7 @@ class CIValidator:
     def validate_dependencies(self):
         """Valide les dépendances"""
         # Vérification simplifiée des dépendances
-        print("🔍 Vérification des dépendances...")
+        print(r"🔍 Vérification des dépendances...")
         try:
             # Test des imports pour vérifier la disponibilité
             import importlib.util
@@ -144,7 +144,7 @@ class CIValidator:
             utils_spec = importlib.util.find_spec("utils")
 
             if core_spec and engines_spec and utils_spec:
-                print("✅ Dépendances principales - Disponibles")
+                print(r"✅ Dépendances principales - Disponibles")
                 return True
             missing = []
             if not core_spec:
@@ -179,7 +179,7 @@ class CIValidator:
             "config/load_test_config.json",
         ]
 
-        print("🔍 Validation des fichiers de configuration...")
+        print(r"🔍 Validation des fichiers de configuration...")
         for config_file in config_files:
             if os.path.exists(config_file):
                 try:
@@ -201,7 +201,7 @@ class CIValidator:
         """Valide la structure du projet"""
         required_dirs = ["core", "engines", "utils", "tests", "templates", "static"]
 
-        print("🔍 Validation de la structure du projet...")
+        print(r"🔍 Validation de la structure du projet...")
         for directory in required_dirs:
             if os.path.isdir(directory):
                 print(f"✅ {directory}/ - Présent")
@@ -215,16 +215,16 @@ class CIValidator:
     def generate_report(self):
         """Génère un rapport de validation"""
         print("\n" + "=" * 60)
-        print("📊 RAPPORT DE VALIDATION CI")
+        print(r"📊 RAPPORT DE VALIDATION CI")
         print("=" * 60)
 
         if self.success:
-            print("🎉 VALIDATION CI RÉUSSIE !")
-            print("✅ Tous les critères de qualité sont respectés")
-            print("🚀 Le projet est prêt pour le déploiement")
+            print(r"🎉 VALIDATION CI RÉUSSIE !")
+            print(r"✅ Tous les critères de qualité sont respectés")
+            print(r"🚀 Le projet est prêt pour le déploiement")
         else:
-            print("❌ VALIDATION CI ÉCHOUÉE !")
-            print("🔧 Corrections nécessaires avant le déploiement")
+            print(r"❌ VALIDATION CI ÉCHOUÉE !")
+            print(r"🔧 Corrections nécessaires avant le déploiement")
 
         if self.errors:
             print(f"\n❌ ERREURS ({len(self.errors)}):")
@@ -242,7 +242,7 @@ class CIValidator:
 
     def run_full_validation(self):
         """Lance la validation complète"""
-        print("🚀 DÉMARRAGE DE LA VALIDATION CI COMPLÈTE")
+        print(r"🚀 DÉMARRAGE DE LA VALIDATION CI COMPLÈTE")
         print("=" * 60)
 
         # Validation de la structure

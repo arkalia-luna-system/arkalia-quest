@@ -13,7 +13,7 @@ class UIPolish {
         this.optimizeNotifications();
         this.improveEmptyStates();
         this.enhanceInteractions();
-        console.log('✨ UI Polish System initialisé');
+        // console.log('✨ UI Polish System initialisé');
     }
 
     setupEventListeners() {
@@ -191,10 +191,13 @@ class UIPolish {
     updateDashboardEmptyState(progressionData) {
         const dashboard = document.querySelector('.dashboard-container, #dashboard');
         if (!dashboard) return;
+        if (!progressionData || typeof progressionData !== 'object') return;
 
         // Masquer les messages "Prêt à commencer !" si il y a de la progression
         const readyMessages = dashboard.querySelectorAll('.ready-to-start, .no-progress');
-        if (progressionData.xp > 0 || progressionData.badges?.length > 0) {
+        const xp = progressionData.xp != null ? progressionData.xp : 0;
+        const badgesLen = Array.isArray(progressionData.badges) ? progressionData.badges.length : 0;
+        if (xp > 0 || badgesLen > 0) {
             readyMessages.forEach(msg => {
                 msg.style.display = 'none';
             });
@@ -221,13 +224,14 @@ class UIPolish {
     }
 
     updateCounters(container, progressionData) {
+        if (!progressionData || typeof progressionData !== 'object') return;
         const counters = {
-            'level': progressionData.level,
-            'xp': progressionData.xp,
-            'score': progressionData.score,
-            'coins': progressionData.coins,
-            'badges': progressionData.badges?.length || 0,
-            'missions': progressionData.missions_completed?.length || 0
+            'level': progressionData.level ?? 1,
+            'xp': progressionData.xp ?? 0,
+            'score': progressionData.score ?? 0,
+            'coins': progressionData.coins ?? 0,
+            'badges': Array.isArray(progressionData.badges) ? progressionData.badges.length : 0,
+            'missions': Array.isArray(progressionData.missions_completed) ? progressionData.missions_completed.length : 0
         };
 
         Object.entries(counters).forEach(([key, value]) => {

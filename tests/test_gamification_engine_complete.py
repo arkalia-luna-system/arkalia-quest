@@ -11,6 +11,11 @@ import unittest
 # Ajouter le répertoire parent au path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from utils.logger import GameLogger
+
+# Initialiser le logger
+game_logger = GameLogger()
+
 try:
     from core.gamification_engine import GamificationEngine
 except ImportError as e:
@@ -49,7 +54,7 @@ class TestGamificationEngineComplete(unittest.TestCase):
 
     def test_badge_system(self):
         """Test complet du système de badges"""
-        print("🏆 Test du système de badges...")
+        game_logger.info(r"🏆 Test du système de badges...")
 
         # Test de création de badges
         badge_data = {
@@ -75,7 +80,7 @@ class TestGamificationEngineComplete(unittest.TestCase):
 
     def test_level_progression(self):
         """Test du système de progression des niveaux"""
-        print("📈 Test de la progression des niveaux...")
+        game_logger.info(r"📈 Test de la progression des niveaux...")
 
         # Test des calculs de niveau
         test_cases = [
@@ -139,7 +144,7 @@ class TestGamificationEngineComplete(unittest.TestCase):
 
     def test_score_calculation(self):
         """Test du calcul des scores"""
-        print("💯 Test du calcul des scores...")
+        game_logger.info(r"💯 Test du calcul des scores...")
 
         # Test des différents types d'actions
         action_scores = {
@@ -159,7 +164,7 @@ class TestGamificationEngineComplete(unittest.TestCase):
 
     def test_streak_system(self):
         """Test du système de streak (série)"""
-        print("🔥 Test du système de streak...")
+        game_logger.info(r"🔥 Test du système de streak...")
 
         # Test des calculs de streak
         streak_cases = [
@@ -190,7 +195,7 @@ class TestGamificationEngineComplete(unittest.TestCase):
 
     def test_reward_system(self):
         """Test du système de récompenses"""
-        print("🎁 Test du système de récompenses...")
+        game_logger.info(r"🎁 Test du système de récompenses...")
 
         # Test des types de récompenses
         reward_types = {
@@ -245,7 +250,7 @@ class TestGamificationEngineComplete(unittest.TestCase):
 
     def test_motivation_system(self):
         """Test du système de motivation"""
-        print("💪 Test du système de motivation...")
+        game_logger.info(r"💪 Test du système de motivation...")
 
         # Test des facteurs de motivation
         motivation_factors = {
@@ -331,7 +336,7 @@ class TestGamificationEngineComplete(unittest.TestCase):
 
     def test_error_handling(self):
         """Test de la gestion des erreurs"""
-        print("🚨 Test de la gestion des erreurs...")
+        game_logger.info(r"🚨 Test de la gestion des erreurs...")
 
         # Test des scénarios d'erreur
         error_scenarios = [
@@ -382,7 +387,7 @@ class TestGamificationEngineComplete(unittest.TestCase):
 
     def test_data_consistency(self):
         """Test de la cohérence des données"""
-        print("🔒 Test de la cohérence des données...")
+        game_logger.info(r"🔒 Test de la cohérence des données...")
 
         # Test de la validation des données
         data_validation_rules = {
@@ -416,7 +421,7 @@ class TestGamificationEngineComplete(unittest.TestCase):
 
 def run_gamification_tests():
     """Lance tous les tests de gamification"""
-    print("🎮 Lancement des tests complets de gamification...")
+    game_logger.info(r"🎮 Lancement des tests complets de gamification...")
 
     # Créer la suite de tests
     loader = unittest.TestLoader()
@@ -427,23 +432,23 @@ def run_gamification_tests():
     result = runner.run(suite)
 
     # Afficher le résumé
-    print("\n📊 Résumé des tests de gamification:")
-    print(f"  Tests exécutés: {result.testsRun}")
-    print(
+    game_logger.info(r"\n📊 Résumé des tests de gamification:")
+    game_logger.info(f"  Tests exécutés: {result.testsRun}")
+    game_logger.info(
         f"Tests réussis: {result.testsRun - len(result.failures) - len(result.errors)}"
     )
-    print(f"  Tests échoués: {len(result.failures)}")
-    print(f"  Tests en erreur: {len(result.errors)}")
+    game_logger.info(f"  Tests échoués: {len(result.failures)}")
+    game_logger.info(f"  Tests en erreur: {len(result.errors)}")
 
     if result.failures:
-        print("\n❌ Tests échoués:")
+        game_logger.info(r"\n❌ Tests échoués:")
         for test, traceback in result.failures:
-            print(f"  - {test}: {traceback}")
+            game_logger.info(f"  - {test}: {traceback}")
 
     if result.errors:
-        print("\n🚨 Tests en erreur:")
+        game_logger.info(r"\n🚨 Tests en erreur:")
         for test, traceback in result.errors:
-            print(f"  - {test}: {traceback}")
+            game_logger.info(f"  - {test}: {traceback}")
 
     return result.wasSuccessful()
 

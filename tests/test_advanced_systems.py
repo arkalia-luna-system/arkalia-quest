@@ -22,12 +22,18 @@ import unittest
 # Ajouter le répertoire parent au path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from core.advanced_achievements import AdvancedAchievements
-from core.category_leaderboards import CategoryLeaderboards
-from core.mission_progress_tracker import MissionProgressTracker
-from core.narrative_branches import NarrativeBranches
-from core.secondary_missions import SecondaryMissions
-from core.technical_tutorials import TechnicalTutorials
+# Imports des modules core
+from utils.logger import GameLogger  # noqa: E402
+
+# Initialiser le logger
+game_logger = GameLogger()
+
+from core.advanced_achievements import AdvancedAchievements  # noqa: E402
+from core.category_leaderboards import CategoryLeaderboards  # noqa: E402
+from core.mission_progress_tracker import MissionProgressTracker  # noqa: E402
+from core.narrative_branches import NarrativeBranches  # noqa: E402
+from core.secondary_missions import SecondaryMissions  # noqa: E402
+from core.technical_tutorials import TechnicalTutorials  # noqa: E402
 
 
 class TestMissionProgressTracker(unittest.TestCase):
@@ -664,12 +670,12 @@ def run_tests():
 
 
 if __name__ == "__main__":
-    print("🧪 Lancement des tests des systèmes avancés...")
+    game_logger.info(r"🧪 Lancement des tests des systèmes avancés...")
     success = run_tests()
 
     if success:
-        print("\n✅ Tous les tests sont passés avec succès !")
+        game_logger.info(r"\n✅ Tous les tests sont passés avec succès !")
         sys.exit(0)
     else:
-        print("\n❌ Certains tests ont échoué.")
+        game_logger.info(r"\n❌ Certains tests ont échoué.")
         sys.exit(1)

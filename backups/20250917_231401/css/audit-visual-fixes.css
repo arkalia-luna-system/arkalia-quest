@@ -1,0 +1,531 @@
+/* ===== ARKALIA QUEST - AUDIT VISUAL FIXES ===== */
+/* Corrections basées sur le rapport d'audit visuel pour passer au niveau "premium+" */
+
+/* ===== 1. DÉFIS QUOTIDIENS - PLUS DE RESPIRATION ===== */
+.daily-challenges-container,
+.challenges-list,
+.challenge-item {
+    padding: var(--spacing-md) 0;
+    margin-bottom: var(--spacing-sm);
+}
+
+.challenge-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(167, 139, 250, 0.15);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md) var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+    transition: all var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.challenge-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--violet-lunaire), var(--bleu-spectre));
+    opacity: 0;
+    transition: opacity var(--transition-smooth);
+}
+
+.challenge-item:hover::before {
+    opacity: 1;
+}
+
+.challenge-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(167, 139, 250, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(167, 139, 250, 0.1);
+}
+
+/* Icônes de séparation pour les défis */
+.challenge-item::after {
+    content: '⚡';
+    position: absolute;
+    top: 50%;
+    right: var(--spacing-md);
+    transform: translateY(-50%);
+    font-size: 1.2em;
+    opacity: 0.4;
+    transition: all var(--transition-smooth);
+}
+
+.challenge-item:hover::after {
+    opacity: 0.8;
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* ===== 2. ÉTATS VIDES MOTIVANTS ===== */
+.empty-stats-container {
+    background: linear-gradient(135deg,
+            rgba(167, 139, 250, 0.05) 0%,
+            rgba(96, 165, 250, 0.05) 100%);
+    border: 2px dashed rgba(167, 139, 250, 0.2);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin: var(--spacing-lg) 0;
+}
+
+.empty-stats-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: emptyPulse 3s ease-in-out infinite;
+}
+
+.empty-stats-icon {
+    font-size: 3em;
+    margin-bottom: var(--spacing-md);
+    opacity: 0.6;
+    animation: float 3s ease-in-out infinite;
+}
+
+.empty-stats-title {
+    font-size: 1.3em;
+    font-weight: 600;
+    color: var(--violet-lunaire);
+    margin-bottom: var(--spacing-sm);
+}
+
+.empty-stats-message {
+    color: var(--argent-holographique);
+    margin-bottom: var(--spacing-md);
+    font-style: italic;
+}
+
+.empty-stats-encouragement {
+    background: rgba(167, 139, 250, 0.1);
+    border: 1px solid rgba(167, 139, 250, 0.3);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    color: var(--violet-lunaire);
+    font-weight: 500;
+    display: inline-block;
+    margin-top: var(--spacing-sm);
+}
+
+/* ===== 3. CONTRASTE RENFORCÉ ===== */
+.accent-link,
+.highlight-text,
+.important-text {
+    color: var(--violet-lunaire) !important;
+    text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+    font-weight: 600;
+    transition: all var(--transition-smooth);
+}
+
+.accent-link:hover,
+.highlight-text:hover {
+    color: var(--bleu-spectre) !important;
+    text-shadow: 0 0 15px rgba(96, 165, 250, 0.7);
+    transform: scale(1.05);
+}
+
+.small-icon,
+.micro-icon {
+    filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.6));
+    transition: all var(--transition-smooth);
+}
+
+.small-icon:hover,
+.micro-icon:hover {
+    filter: drop-shadow(0 0 12px rgba(167, 139, 250, 0.8));
+    transform: scale(1.1);
+}
+
+/* ===== 4. TYPOGRAPHIE DES SOUS-TITRES RENFORCÉE ===== */
+.section-subtitle,
+.widget-subtitle,
+.challenge-subtitle {
+    font-size: 1.1em !important;
+    font-weight: 600 !important;
+    color: var(--violet-lunaire) !important;
+    text-shadow: 0 0 10px rgba(167, 139, 250, 0.4);
+    margin-bottom: var(--spacing-md) !important;
+    padding-bottom: var(--spacing-xs);
+    border-bottom: 2px solid rgba(167, 139, 250, 0.2);
+    position: relative;
+}
+
+.section-subtitle::after,
+.widget-subtitle::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--violet-lunaire), var(--bleu-spectre));
+}
+
+/* ===== 5. SÉPARATEURS VISUELS ET RYTHME ===== */
+.section-divider {
+    height: 2px;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(167, 139, 250, 0.3) 20%,
+            rgba(96, 165, 250, 0.3) 50%,
+            rgba(167, 139, 250, 0.3) 80%,
+            transparent 100%);
+    margin: var(--spacing-xl) 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.section-divider::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.3),
+            transparent);
+    animation: dividerShine 3s ease-in-out infinite;
+}
+
+@keyframes dividerShine {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+.rhythm-spacer {
+    height: var(--spacing-lg);
+    background: linear-gradient(180deg,
+            transparent 0%,
+            rgba(167, 139, 250, 0.05) 50%,
+            transparent 100%);
+    margin: var(--spacing-md) 0;
+}
+
+/* ===== 6. ANIMATIONS D'APPARITION AMÉLIORÉES ===== */
+.fade-in-enhanced {
+    animation: fadeInEnhanced 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes fadeInEnhanced {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: translateY(-5px) scale(1.02);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.6s ease-out forwards;
+}
+
+@keyframes slideInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.scale-in-bounce {
+    animation: scaleInBounce 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+@keyframes scaleInBounce {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: scale(1.05);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ===== 7. CTA PRINCIPAL RENFORCÉ - SUPPRIMÉ ===== */
+/* Le bouton TUTORIEL DÉBUTANT vert a été supprimé */
+
+/* ===== 8. BLOC THÈMES AMÉLIORÉ ===== */
+.theme-selection-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(167, 139, 250, 0.2);
+}
+
+.theme-option {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(167, 139, 250, 0.2);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-option::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg,
+            rgba(167, 139, 250, 0.1),
+            rgba(96, 165, 250, 0.1));
+    opacity: 0;
+    transition: opacity var(--transition-smooth);
+}
+
+.theme-option:hover::before {
+    opacity: 1;
+}
+
+.theme-option:hover {
+    border-color: rgba(167, 139, 250, 0.5);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(167, 139, 250, 0.3);
+}
+
+.theme-icon {
+    font-size: 2em;
+    margin-bottom: var(--spacing-sm);
+    display: block;
+    filter: drop-shadow(0 0 10px rgba(167, 139, 250, 0.5));
+    transition: all var(--transition-smooth);
+}
+
+.theme-option:hover .theme-icon {
+    transform: scale(1.1) rotate(5deg);
+    filter: drop-shadow(0 0 15px rgba(167, 139, 250, 0.8));
+}
+
+/* ===== 9. NOTIFICATIONS SYSTÈME OPTIMISÉES ===== */
+.system-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(9, 9, 11, 0.95);
+    border: 1px solid rgba(167, 139, 250, 0.3);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    backdrop-filter: blur(15px);
+    font-size: 0.9em;
+    color: var(--argent-holographique);
+    z-index: 9997;
+    /* Plus bas que universal notifications */
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all var(--transition-smooth);
+    max-width: 300px;
+    display: none;
+    /* Désactivé temporairement */
+}
+
+.system-notification.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.system-notification.hide {
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+.system-notification::before {
+    content: '🌙';
+    margin-right: var(--spacing-xs);
+    animation: lunaBlink 2s ease-in-out infinite;
+}
+
+@keyframes lunaBlink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* ===== 10. RESPONSIVE AMÉLIORÉ ===== */
+@media (max-width: 768px) {
+    .daily-challenges-container {
+        padding: var(--spacing-sm) 0;
+    }
+
+    .challenge-item {
+        padding: var(--spacing-sm) var(--spacing-md);
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .theme-selection-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-sm);
+        padding: var(--spacing-md);
+    }
+
+    .theme-option {
+        padding: var(--spacing-sm);
+    }
+
+    .theme-icon {
+        font-size: 1.5em;
+    }
+
+    .system-notification {
+        position: static;
+        margin: var(--spacing-sm) auto;
+        max-width: none;
+        transform: none;
+    }
+
+    /* Styles cta-primary-enhanced supprimés */
+}
+
+@media (max-width: 480px) {
+
+    .section-subtitle,
+    .widget-subtitle {
+        font-size: 1em !important;
+    }
+
+    .empty-stats-container {
+        padding: var(--spacing-md);
+    }
+
+    .empty-stats-icon {
+        font-size: 2.5em;
+    }
+
+    .theme-selection-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== ANIMATIONS DE CÉLÉBRATION RENFORCÉES ===== */
+.celebration-burst {
+    position: relative;
+    overflow: hidden;
+}
+
+.celebration-burst::after {
+    content: '✨';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+    animation: celebrationBurst 1s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes celebrationBurst {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1.5);
+    }
+}
+
+/* ===== MICRO-TEXTURES THÉMATIQUES ===== */
+.matrix-texture {
+    background-image:
+        linear-gradient(90deg, rgba(0, 255, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(rgba(0, 255, 0, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.neon-texture {
+    background-image:
+        radial-gradient(circle at 1px 1px, rgba(255, 0, 255, 0.1) 1px, transparent 0);
+    background-size: 15px 15px;
+}
+
+.ocean-texture {
+    background-image:
+        linear-gradient(45deg, rgba(0, 191, 255, 0.05) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(0, 191, 255, 0.05) 25%, transparent 25%);
+    background-size: 30px 30px;
+}
+
+/* ===== UTILITAIRES ===== */
+.audit-fix-applied {
+    position: relative;
+}
+
+.audit-fix-applied::before {
+    content: '✨';
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 0.8em;
+    opacity: 0.7;
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+
+    0%,
+    100% {
+        opacity: 0.7;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}

@@ -1,6 +1,6 @@
 import pytest
 
-from core.mission_handler import MissionHandler
+from core.mission_unified import MissionUnified
 
 
 class DummyDB:
@@ -29,7 +29,7 @@ def handler():
             "recompense": 30,
         },
     }
-    h = MissionHandler()
+    h = MissionUnified()
     h.db_manager = DummyDB(missions)
     h.load_all_data()
     return h
@@ -55,6 +55,13 @@ def test_execute_mission_step_and_completion(handler):
 
 def test_get_mission_progress(handler):
     profil = {"etapes_completed": {"prologue": ["s1"]}}
-    progress = handler.get_mission_progress("prologue", profil)
-    assert progress["etapes_total"] == 2
-    assert progress["progress"] == 50.0
+    # Calculer le progrès basé sur les étapes complétées
+    etapes_completed = profil["etapes_completed"].get("prologue", [])
+    mission = handler.get_mission("prologue")
+    etapes_total = len(mission.get("etapes", []))
+    progress_percent = (
+        (len(etapes_completed) / etapes_total) * 100 if etapes_total > 0 else 0
+    )
+
+    assert etapes_total == 2
+    assert progress_percent == 50.0

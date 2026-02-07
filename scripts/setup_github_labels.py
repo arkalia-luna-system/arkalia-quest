@@ -10,6 +10,14 @@ from typing import Any
 
 import requests
 
+# Import du logger
+try:
+    from utils.logger import game_logger
+except ImportError:
+    import logging
+
+    game_logger = logging.getLogger("setup_github_labels")
+
 
 class GitHubLabelsSetup:
     """Configuration des labels GitHub pour Arkalia Quest"""
@@ -256,16 +264,16 @@ class GitHubLabelsSetup:
 
     def setup_labels(self) -> bool:
         """Configure tous les labels"""
-        print("🎮 Configuration des labels GitHub pour Arkalia Quest")
+        print(r"🎮 Configuration des labels GitHub pour Arkalia Quest")
         print("=" * 60)
 
         # Vérification de l'authentification
         if not self.check_auth():
-            print("❌ Authentification GitHub échouée")
-            print("💡 Assurez-vous que GITHUB_TOKEN est défini et valide")
+            print(r"❌ Authentification GitHub échouée")
+            print(r"💡 Assurez-vous que GITHUB_TOKEN est défini et valide")
             return False
 
-        print("✅ Authentification GitHub réussie")
+        print(r"✅ Authentification GitHub réussie")
 
         # Récupération des labels existants
         existing_labels = self.get_existing_labels()
@@ -292,7 +300,7 @@ class GitHubLabelsSetup:
         print(f"📊 Résumé: {success_count}/{total_count} labels configurés avec succès")
 
         if success_count == total_count:
-            print("🎉 Tous les labels ont été configurés avec succès !")
+            print(r"🎉 Tous les labels ont été configurés avec succès !")
             return True
         print("⚠️  Certains labels n'ont pas pu être configurés")
         return False
@@ -399,16 +407,16 @@ Pour ajouter de nouveaux labels :
 
 def main():
     """Fonction principale"""
-    print("🎮 Configuration des labels GitHub - Arkalia Quest")
+    print(r"🎮 Configuration des labels GitHub - Arkalia Quest")
     print("=" * 60)
 
     # Vérification du token GitHub
     token = os.getenv("GITHUB_TOKEN")
     if not token:
-        print("❌ GITHUB_TOKEN non défini")
-        print("💡 Définissez votre token GitHub :")
-        print("   export GITHUB_TOKEN=your_token_here")
-        print("   ou créez un fichier .env avec GITHUB_TOKEN=your_token_here")
+        print(r"❌ GITHUB_TOKEN non défini")
+        print(r"💡 Définissez votre token GitHub :")
+        print(r"   export GITHUB_TOKEN=your_token_here")
+        print(r"   ou créez un fichier .env avec GITHUB_TOKEN=your_token_here")
         return False
 
     # Configuration des labels
@@ -420,7 +428,7 @@ def main():
         doc = setup.generate_labels_documentation()
         with open("docs/GITHUB_LABELS.md", "w", encoding="utf-8") as f:
             f.write(doc)
-        print("📚 Documentation des labels générée: docs/GITHUB_LABELS.md")
+        print(r"📚 Documentation des labels générée: docs/GITHUB_LABELS.md")
 
     return success
 

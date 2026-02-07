@@ -4,10 +4,18 @@ Simule différents profils d'ados et évalue le ressenti réel
 """
 
 import json
+import os
+import sys
 import time
 from datetime import datetime
 
 import requests
+
+# Ajouter le répertoire parent au path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Import du logger
+from utils.logger import game_logger
 
 
 class TutorielExperienceTester:
@@ -27,7 +35,7 @@ class TutorielExperienceTester:
 
     def test_profile_noob(self):
         """Test avec un profil noob (première fois)"""
-        print("🧪 Test profil NOOB (première fois)...")
+        game_logger.info(r"🧪 Test profil NOOB (première fois)...")
 
         profile_results = {
             "profile": "noob",
@@ -72,7 +80,7 @@ class TutorielExperienceTester:
 
     def test_profile_curieux(self):
         """Test avec un profil curieux (explore tout)"""
-        print("🧪 Test profil CURIEUX (explore tout)...")
+        game_logger.info(r"🧪 Test profil CURIEUX (explore tout)...")
 
         profile_results = {
             "profile": "curieux",
@@ -111,7 +119,7 @@ class TutorielExperienceTester:
 
     def test_profile_speedrunner(self):
         """Test avec un profil speedrunner (veut aller vite)"""
-        print("🧪 Test profil SPEEDRUNNER (veut aller vite)...")
+        game_logger.info(r"🧪 Test profil SPEEDRUNNER (veut aller vite)...")
 
         profile_results = {
             "profile": "speedrunner",
@@ -150,7 +158,7 @@ class TutorielExperienceTester:
 
     def test_interactive_tutorial(self):
         """Test spécifique du nouveau tutoriel interactif"""
-        print("🎮 Test du tutoriel interactif...")
+        game_logger.info(r"🎮 Test du tutoriel interactif...")
 
         tutorial_results = {
             "profile": "interactive_tutorial",
@@ -1003,7 +1011,7 @@ class TutorielExperienceTester:
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(self.results, f, indent=2, ensure_ascii=False)
 
-        print(f"\n💾 Rapport sauvegardé: {filename}")
+        game_logger.info(f"\n💾 Rapport sauvegardé: {filename}")
 
 
 def main():
@@ -1013,13 +1021,13 @@ def main():
 
     # Évaluation finale
     if results["overall_score"] >= 80:
-        print("\n🎉 EXPÉRIENCE TUTORIEL EXCELLENTE !")
+        game_logger.info(r"\n🎉 EXPÉRIENCE TUTORIEL EXCELLENTE !")
     elif results["overall_score"] >= 60:
-        print("\n👍 EXPÉRIENCE TUTORIEL BONNE")
+        game_logger.info(r"\n👍 EXPÉRIENCE TUTORIEL BONNE")
     elif results["overall_score"] >= 40:
-        print("\n⚠️  EXPÉRIENCE TUTORIEL MOYENNE")
+        game_logger.info(r"\n⚠️  EXPÉRIENCE TUTORIEL MOYENNE")
     else:
-        print("\n❌ EXPÉRIENCE TUTORIEL À AMÉLIORER")
+        game_logger.info(r"\n❌ EXPÉRIENCE TUTORIEL À AMÉLIORER")
 
 
 if __name__ == "__main__":

@@ -4,10 +4,18 @@ Teste tous les boutons et actions contextuelles de chaque page
 """
 
 import json
+import os
+import sys
 import time
 from datetime import datetime
 
 import requests
+
+# Ajouter le répertoire parent au path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Import du logger
+from utils.logger import game_logger
 
 
 class BoutonsActionsExperienceTester:
@@ -26,7 +34,7 @@ class BoutonsActionsExperienceTester:
 
     def test_terminal_buttons(self):
         """Test des boutons du terminal"""
-        print("🧪 Test des boutons du terminal...")
+        game_logger.info(r"🧪 Test des boutons du terminal...")
 
         terminal_result = {
             "page": "Terminal",
@@ -70,7 +78,7 @@ class BoutonsActionsExperienceTester:
 
     def test_monde_buttons(self):
         """Test des boutons de la page monde"""
-        print("🧪 Test des boutons de la page monde...")
+        game_logger.info(r"🧪 Test des boutons de la page monde...")
 
         monde_result = {
             "page": "Monde",
@@ -126,7 +134,7 @@ class BoutonsActionsExperienceTester:
 
     def test_profil_buttons(self):
         """Test des boutons de la page profil"""
-        print("🧪 Test des boutons de la page profil...")
+        game_logger.info(r"🧪 Test des boutons de la page profil...")
 
         profil_result = {
             "page": "Profil",
@@ -182,7 +190,7 @@ class BoutonsActionsExperienceTester:
 
     def test_special_buttons(self):
         """Test des boutons spéciaux et easter eggs"""
-        print("🧪 Test des boutons spéciaux et easter eggs...")
+        game_logger.info(r"🧪 Test des boutons spéciaux et easter eggs...")
 
         special_result = {
             "page": "Spéciaux",
@@ -227,7 +235,7 @@ class BoutonsActionsExperienceTester:
 
     def test_advanced_buttons(self):
         """Test des boutons avancés et cachés"""
-        print("🧪 Test des boutons avancés et cachés...")
+        game_logger.info(r"🧪 Test des boutons avancés et cachés...")
 
         advanced_result = {
             "page": "Avancés",
@@ -372,7 +380,7 @@ class BoutonsActionsExperienceTester:
 
     def test_button_responsiveness(self):
         """Test de la réactivité des boutons"""
-        print("🧪 Test de la réactivité des boutons...")
+        game_logger.info(r"🧪 Test de la réactivité des boutons...")
 
         responsiveness_result = {
             "name": "Réactivité boutons",
@@ -533,7 +541,7 @@ class BoutonsActionsExperienceTester:
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(self.results, f, indent=2, ensure_ascii=False)
 
-        print(f"\n💾 Rapport sauvegardé: {filename}")
+        game_logger.info(f"\n💾 Rapport sauvegardé: {filename}")
 
 
 def main():
@@ -543,13 +551,13 @@ def main():
 
     # Évaluation finale
     if results["overall_score"] >= 80:
-        print("\n🎉 EXPÉRIENCE BOUTONS ET ACTIONS EXCELLENTE !")
+        game_logger.info(r"\n🎉 EXPÉRIENCE BOUTONS ET ACTIONS EXCELLENTE !")
     elif results["overall_score"] >= 60:
-        print("\n👍 EXPÉRIENCE BOUTONS ET ACTIONS BONNE")
+        game_logger.info(r"\n👍 EXPÉRIENCE BOUTONS ET ACTIONS BONNE")
     elif results["overall_score"] >= 40:
-        print("\n⚠️  EXPÉRIENCE BOUTONS ET ACTIONS MOYENNE")
+        game_logger.info(r"\n⚠️  EXPÉRIENCE BOUTONS ET ACTIONS MOYENNE")
     else:
-        print("\n❌ EXPÉRIENCE BOUTONS ET ACTIONS À AMÉLIORER")
+        game_logger.info(r"\n❌ EXPÉRIENCE BOUTONS ET ACTIONS À AMÉLIORER")
 
 
 if __name__ == "__main__":

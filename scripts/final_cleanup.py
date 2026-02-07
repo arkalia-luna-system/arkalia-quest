@@ -11,7 +11,7 @@ import sys
 
 def cleanup_hidden_files():
     """Supprime tous les fichiers cachés macOS"""
-    print("🧹 Nettoyage des fichiers cachés...")
+    print(r"🧹 Nettoyage des fichiers cachés...")
 
     # Supprimer les fichiers ._* de manière sécurisée
     import shlex
@@ -25,14 +25,14 @@ def cleanup_hidden_files():
     )
 
     if result.returncode == 0:
-        print("✅ Fichiers cachés supprimés")
+        print(r"✅ Fichiers cachés supprimés")
     else:
         print(f"⚠️ Erreur suppression fichiers cachés: {result.stderr}")
 
 
 def cleanup_pycache():
     """Supprime les dossiers __pycache__"""
-    print("🧹 Nettoyage des __pycache__...")
+    print(r"🧹 Nettoyage des __pycache__...")
 
     import shlex
 
@@ -45,14 +45,14 @@ def cleanup_pycache():
     )
 
     if result.returncode == 0:
-        print("✅ Dossiers __pycache__ supprimés")
+        print(r"✅ Dossiers __pycache__ supprimés")
     else:
         print(f"⚠️ Erreur suppression __pycache__: {result.stderr}")
 
 
 def cleanup_logs():
     """Nettoie les logs anciens"""
-    print("🧹 Nettoyage des logs...")
+    print(r"🧹 Nettoyage des logs...")
 
     log_files = ["logs/arkalia.log", "logs/error.log", "logs/security.log"]
 
@@ -97,7 +97,7 @@ def verify_integration():
             else:
                 print(f"❌ {module} manquant")
 
-        print("✅ Vérification terminée")
+        print(r"✅ Vérification terminée")
 
     except Exception as e:
         print(f"❌ Erreur vérification: {e}")
@@ -105,7 +105,7 @@ def verify_integration():
 
 def main():
     """Fonction principale"""
-    print("🚀 NETTOYAGE FINAL ARKALIA QUEST")
+    print(r"🚀 NETTOYAGE FINAL ARKALIA QUEST")
     print("=" * 50)
 
     cleanup_hidden_files()
@@ -113,8 +113,8 @@ def main():
     cleanup_logs()
     verify_integration()
 
-    print("\n🎉 Nettoyage final terminé!")
-    print("✨ Projet optimisé et prêt pour la production")
+    print(r"\n🎉 Nettoyage final terminé!")
+    print(r"✨ Projet optimisé et prêt pour la production")
 
 
 if __name__ == "__main__":

@@ -74,12 +74,28 @@ class ThemeManager {
 
     init() {
         this.loadTheme();
+        this.loadThemeFromServer();
         this.createThemeSelector();
         this.setupEventListeners();
         this.applyTheme(this.currentTheme);
 
-        console.log('🎨 Theme Manager initialisé');
+        // console.log('🎨 Theme Manager initialisé');
     }
+
+    loadThemeFromServer() {
+        fetch('/api/customization/player?player_id=main_user')
+            .then((r) => r.ok ? r.json() : null)
+            .then((data) => {
+                if (data?.success && data?.customization?.current_theme?.id) {
+                    const themeId = data.customization.current_theme.id;
+                    if (this.availableThemes[themeId]) {
+                        this.currentTheme = themeId;
+                    }
+                }
+            })
+            .catch(() => {});
+    }
+
 
     createThemeSelector() {
         // Créer le sélecteur de thème
@@ -140,7 +156,16 @@ class ThemeManager {
         // Animation de transition
         this.animateThemeChange();
 
-        console.log(`🎨 Thème changé vers: ${this.availableThemes[themeKey].name}`);
+        // console.log(`🎨 Thème changé vers: ${this.availableThemes[themeKey].name}`);
+    }
+
+    /** Affiche le sélecteur de thème (appelé par onclick="themeManager.show()") */
+    show() {
+        const sel = document.getElementById('theme-select');
+        if (sel) {
+            sel.focus();
+            sel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
     }
 
     applyTheme(themeKey) {
@@ -265,6 +290,11 @@ class ThemeManager {
 
     saveTheme() {
         localStorage.setItem('arkalia_theme', this.currentTheme);
+        fetch(`/api/customization/themes/${encodeURIComponent(this.currentTheme)}/set`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ player_id: 'main_user' })
+        }).then((r) => r.ok ? r.json() : null).catch(() => {});
     }
 
     loadTheme() {
@@ -332,5 +362,6 @@ document.head.appendChild(style);
 // Initialiser le gestionnaire de thèmes
 const themeManager = new ThemeManager();
 
-// Exporter pour utilisation globale
+// Exporter pour utilisation globale (ThemeManager et themeManager pour onclick="themeManager.show()")
 window.ThemeManager = themeManager;
+window.themeManager = themeManager;

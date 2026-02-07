@@ -15,9 +15,9 @@
 
     <!-- PWA Icons -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/icon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/icon-16x16.png">
-    <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/icon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='icons/icon-16x16.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
 
     <!-- CSS ARKALIA CONSOLIDÉ - Version 4.0 -->
     <!-- Styles de base Luna -->
@@ -520,10 +520,10 @@
                     <a href="/profil" class="nav-link">👤 PROFIL</a>
                     <a href="/leaderboard" class="nav-link">🏆 CLASSEMENT</a>
                     <a href="/dashboard" class="nav-link">📊 DASHBOARD</a>
-                    <button class="nav-link daily-challenges-btn" onclick="dailyChallenges.show()">🎯 DÉFIS
+                    <button class="nav-link daily-challenges-btn" onclick="showDailyChallenges()">🎯 DÉFIS
                         QUOTIDIENS</button>
                     <a href="/skill-tree" class="nav-link">⚡ COMPÉTENCES</a>
-                    <button class="nav-link theme-btn" onclick="themeManager.show()">🎨 THÈMES</button>
+                    <button class="nav-link theme-btn" onclick="showThemeManager()">🎨 THÈMES</button>
                 </div>
             </div>
         </nav>

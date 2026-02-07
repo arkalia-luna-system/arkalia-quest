@@ -1,8 +1,10 @@
-# Arkalia Quest Documentation
+# Documentation Arkalia Quest
 
-Bienvenue dans la documentation complète d'**Arkalia Quest**, le jeu cybernétique immersif développé par l'équipe Arkalia Luna System.
+**Arkalia Quest** — jeu cybernétique immersif (équipe Arkalia Luna System).
 
-## 🎮 À propos du jeu
+*Dernière mise à jour : 7 février 2026.*
+
+## À propos du jeu
 
 Arkalia Quest est une expérience de jeu unique qui combine :
 
@@ -12,7 +14,7 @@ Arkalia Quest est une expérience de jeu unique qui combine :
 - **Accessibilité complète** avec support des lecteurs d'écran
 - **Architecture modulaire** pour une extensibilité maximale
 
-## 🚀 Démarrage rapide
+## Démarrage rapide
 
 ### Installation locale
 
@@ -32,7 +34,7 @@ docker build -t arkalia-quest .
 docker run -p 5000:10000 arkalia-quest
 ```
 
-## 📚 Documentation
+## Documentation
 
 ### Pour les développeurs
 
@@ -51,7 +53,7 @@ docker run -p 5000:10000 arkalia-quest
 - [Test plan utilisateur](docs/TEST_PLAN_UTILISATEUR.md) - Plan de tests
 - [Checklists test](docs/CHECKLISTS_TEST_UTILISATEUR.md) - Checklists de validation
 
-## 🛠️ Technologies utilisées
+## Technologies
 
 - **Backend**: Python 3.10+, Flask, SQLite
 - **Frontend**: HTML5, CSS3, JavaScript ES6+
@@ -59,15 +61,15 @@ docker run -p 5000:10000 arkalia-quest
 - **CI/CD**: GitHub Actions
 - **Documentation**: MkDocs Material
 
-## 🤝 Contribution
+## Contribution
 
 Nous accueillons les contributions ! Consultez notre [guide de contribution](docs/CONTRIBUTING.md) pour commencer.
 
-## 📄 Licence
+## Licence
 
 Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
 
-## 🔗 Liens utiles
+## Liens
 
 - [Repository GitHub](https://github.com/arkalia-luna-system/arkalia-quest)
 - [Issues](https://github.com/arkalia-luna-system/arkalia-quest/issues)
@@ -75,4 +77,4 @@ Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de 
 
 ---
 
-*Développé avec ❤️ par l'équipe Arkalia Luna System*
+*Arkalia Luna System*

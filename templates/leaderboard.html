@@ -15,9 +15,9 @@
 
     <!-- PWA Icons -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/icon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/icon-16x16.png">
-    <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/icon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='icons/icon-16x16.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
 
     <!-- CSS LUNA VISION -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}">
@@ -164,6 +164,34 @@
             color: var(--argent-holographique);
             text-transform: uppercase;
             letter-spacing: 1px;
+        }
+
+        .leaderboard-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        .leaderboard-tabs-inner { display: flex; flex-wrap: wrap; gap: 8px; }
+        .leaderboard-tab {
+            padding: 10px 16px;
+            border: 2px solid rgba(167, 139, 250, 0.3);
+            border-radius: 8px;
+            background: rgba(9, 9, 11, 0.9);
+            color: var(--argent-holographique);
+            font-family: 'IBM Plex Mono', monospace;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .leaderboard-tab:hover {
+            border-color: rgba(167, 139, 250, 0.6);
+            color: var(--violet-lunaire);
+        }
+        .leaderboard-tab.active {
+            border-color: var(--violet-lunaire);
+            background: rgba(167, 139, 250, 0.2);
+            color: var(--violet-lunaire);
         }
 
         .leaderboard-section {
@@ -913,6 +941,12 @@
                 </div>
             </div>
 
+            <!-- Onglets Général / Par catégorie -->
+            <div class="leaderboard-tabs" role="tablist" aria-label="Type de classement">
+                <button type="button" class="leaderboard-tab active" role="tab" id="tab-general" aria-selected="true" data-view="general" onclick="switchLeaderboardView('general')">🏆 Général</button>
+                <div id="category-tabs-container" class="leaderboard-tabs-inner"></div>
+            </div>
+
             <!-- Tableau du leaderboard -->
             <div class="leaderboard-section" role="region" aria-label="Classement des joueurs">
                 <table class="leaderboard-table" role="table" aria-label="Classement des hackers">
@@ -969,6 +1003,89 @@
         let isLoading = false;
         let refreshTimeout = null;
         let lastUpdateTime = null;
+        let currentView = 'general';
+
+        // Charger les catégories et créer les onglets
+        async function loadCategoryTabs() {
+            const container = document.getElementById('category-tabs-container');
+            if (!container) return;
+            try {
+                const res = await fetch('/api/leaderboards/categories', { headers: { 'Accept': 'application/json' } });
+                if (!res.ok) return;
+                const data = await res.json();
+                if (!data.success || !data.categories || typeof data.categories !== 'object') return;
+                container.innerHTML = '';
+                Object.entries(data.categories).forEach(([key, cat]) => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'leaderboard-tab';
+                    btn.role = 'tab';
+                    btn.setAttribute('aria-selected', 'false');
+                    btn.dataset.view = 'category';
+                    btn.dataset.category = key;
+                    btn.textContent = (cat.icon || '') + ' ' + (cat.name || key);
+                    btn.addEventListener('click', () => switchLeaderboardView(key));
+                    container.appendChild(btn);
+                });
+            } catch (_) {}
+        }
+
+        function switchLeaderboardView(category) {
+            document.querySelectorAll('.leaderboard-tab').forEach(t => {
+                t.classList.remove('active');
+                t.setAttribute('aria-selected', 'false');
+            });
+            if (category === 'general' || !category) {
+                currentView = 'general';
+                const tab = document.getElementById('tab-general');
+                if (tab) { tab.classList.add('active'); tab.setAttribute('aria-selected', 'true'); }
+                loadLeaderboard();
+            } else {
+                currentView = category;
+                const tab = document.querySelector(`.leaderboard-tab[data-category="${category}"]`);
+                if (tab) { tab.classList.add('active'); tab.setAttribute('aria-selected', 'true'); }
+                loadCategoryLeaderboard(category);
+            }
+        }
+
+        async function loadCategoryLeaderboard(category) {
+            const tbody = document.getElementById('leaderboard-body');
+            if (!tbody) return;
+            tbody.innerHTML = '<tr><td colspan="5" class="loading">Chargement...</td></tr>';
+            try {
+                const res = await fetch(`/api/leaderboards/category/${encodeURIComponent(category)}?limit=50`, { headers: { 'Accept': 'application/json' } });
+                if (!res.ok) throw new Error(res.status);
+                const data = await res.json();
+                if (data.error) throw new Error(data.error);
+                updateTableFromCategory(data);
+                updateLastUpdated();
+            } catch (e) {
+                tbody.innerHTML = `<tr><td colspan="5" class="loading">Aucun classement pour cette catégorie</td></tr>`;
+            }
+        }
+
+        function updateTableFromCategory(data) {
+            const tbody = document.getElementById('leaderboard-body');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+            const players = (data && data.players) ? data.players : [];
+            if (players.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="loading">Aucun joueur dans ce classement</td></tr>';
+                return;
+            }
+            players.forEach((p, index) => {
+                const row = document.createElement('tr');
+                const name = (p.player_id || 'Joueur').toString().substring(0, 20);
+                row.innerHTML = `
+                    <td class="rank-cell rank-${index + 1}">${index + 1}</td>
+                    <td><div class="player-info"><div class="player-avatar">${name.charAt(0).toUpperCase()}</div><div class="player-details"><div class="player-name">${escapeHtml(name)}</div><div class="player-level">Catégorie</div></div></div></td>
+                    <td class="score-cell">${Number(p.score).toLocaleString()}</td>
+                    <td>—</td>
+                    <td>—</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
 
         // Fonction utilitaire pour debouncing
         function debounce(func, wait) {
@@ -1128,6 +1245,7 @@
         // Mise à jour du tableau avec validation et sécurité
         function updateTable(leaderboard) {
             const tbody = document.getElementById('leaderboard-body');
+            if (!tbody) return;
             tbody.innerHTML = '';
 
             if (!Array.isArray(leaderboard) || leaderboard.length === 0) {
@@ -1292,7 +1410,7 @@
 
         // Initialisation au chargement de la page
         document.addEventListener('DOMContentLoaded', () => {
-            // Charger le leaderboard initial
+            loadCategoryTabs();
             loadLeaderboard();
 
             // Animation du titre
@@ -1378,9 +1496,8 @@
 
     <!-- Scripts des systèmes adaptatifs -->
     <!-- Guidance adaptative désactivée -->
-    <!-- <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}"></script> -->
-    <!-- progression-feedback désactivé (notifications unifiées) -->
-    <!-- <script src="{{ url_for('static', filename='js/progression-feedback.js') }}"></script> -->
+    <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/progression-feedback.js') }}"></script>
     <script src="{{ url_for('static', filename='js/competitive-system.js') }}"></script>
     <script src="{{ url_for('static', filename='js/creative-system.js') }}"></script>
     <script src="{{ url_for('static', filename='js/casual-system.js') }}"></script>

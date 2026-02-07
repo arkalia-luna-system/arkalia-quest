@@ -37,7 +37,10 @@ jobs:
         pip install -r requirements.txt
 
     - name: 🎨 Format check (Black)
-      run: black --check --diff core engines utils tests app.py
+      run: |
+        python -m pip install black==25.1.0 --quiet
+        black --version
+        black --check --diff core engines utils tests app.py
 
     - name: 🔍 Lint (Ruff)
       run: ruff check core engines utils tests app.py

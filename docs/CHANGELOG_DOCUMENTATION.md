@@ -149,4 +149,4 @@
 
 ---
 
-## *Ce changelog est maintenu pour tracer l'évolution de la documentation du projet.*
+*Dernière mise à jour : 7 février 2026*

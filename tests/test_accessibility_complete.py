@@ -4,8 +4,19 @@
 Test complet de l'accessibilité pour atteindre le niveau WCAG AA (85%+)
 """
 
+import os
 import re
+import sys
 from datetime import datetime
+
+# Ajouter le répertoire racine au path
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, project_root)
+
+from utils.logger import GameLogger  # noqa: E402
+
+# Initialiser le logger
+game_logger = GameLogger()
 
 
 class AccessibilityTester:
@@ -19,7 +30,7 @@ class AccessibilityTester:
 
     def test_skip_links(self):
         """Test des skip links pour navigation clavier"""
-        print("🔗 Test des skip links...")
+        game_logger.info(r"🔗 Test des skip links...")
 
         # Mock HTML avec skip links
         mock_html = """
@@ -45,12 +56,14 @@ class AccessibilityTester:
             "details": ["#main", "#nav", "#footer", "#search"],
         }
 
-        print(f"✅ Skip links: {len(skip_links)}/{expected_links} skip links trouvés")
+        game_logger.info(
+            f"✅ Skip links: {len(skip_links)}/{expected_links} skip links trouvés"
+        )
         return score
 
     def test_keyboard_navigation(self):
         """Test de la navigation clavier"""
-        print("⌨️ Test de la navigation clavier...")
+        game_logger.info(r"⌨️ Test de la navigation clavier...")
 
         # Mock HTML avec éléments navigables
         mock_html = """
@@ -94,14 +107,14 @@ class AccessibilityTester:
             "expected": total_expected,
         }
 
-        print(
+        game_logger.info(
             f"✅ Navigation clavier: {found_elements}/{total_expected} éléments trouvés"
         )
         return score
 
     def test_focus_management(self):
         """Test de la gestion du focus"""
-        print("🎯 Test de la gestion du focus...")
+        game_logger.info(r"🎯 Test de la gestion du focus...")
 
         # Mock CSS avec styles de focus
         mock_css = """
@@ -139,7 +152,7 @@ class AccessibilityTester:
 
     def test_color_contrast(self):
         """Test du contraste des couleurs"""
-        print("🎨 Test du contraste des couleurs...")
+        game_logger.info(r"🎨 Test du contraste des couleurs...")
 
         # Mock de couleurs avec bon contraste
         mock_colors = [
@@ -159,12 +172,14 @@ class AccessibilityTester:
             "expected": 2,
         }
 
-        print(f"✅ Contraste des couleurs: {len(mock_colors)} couleurs définies")
+        game_logger.info(
+            f"✅ Contraste des couleurs: {len(mock_colors)} couleurs définies"
+        )
         return score
 
     def test_semantic_html(self):
         """Test de la sémantique HTML"""
-        print("🏷️ Test de la sémantique HTML...")
+        game_logger.info(r"🏷️ Test de la sémantique HTML...")
 
         # Mock HTML sémantique
         mock_html = """
@@ -211,7 +226,7 @@ class AccessibilityTester:
 
     def test_aria_labels(self):
         """Test des labels ARIA"""
-        print("🏷️ Test des labels ARIA...")
+        game_logger.info(r"🏷️ Test des labels ARIA...")
 
         # Mock HTML avec labels ARIA
         mock_html = """
@@ -246,12 +261,14 @@ class AccessibilityTester:
             "expected": len(aria_patterns),
         }
 
-        print(f"✅ Labels ARIA: {found_labels}/{len(aria_patterns)} labels trouvés")
+        game_logger.info(
+            f"✅ Labels ARIA: {found_labels}/{len(aria_patterns)} labels trouvés"
+        )
         return score
 
     def test_responsive_design(self):
         """Test du design responsive"""
-        print("📱 Test du design responsive...")
+        game_logger.info(r"📱 Test du design responsive...")
 
         # Mock CSS avec media queries
         mock_css = """
@@ -362,7 +379,7 @@ class AccessibilityTester:
 
     def test_haptic_feedback(self):
         """Test du feedback haptique"""
-        print("📳 Test du feedback haptique...")
+        game_logger.info(r"📳 Test du feedback haptique...")
 
         # Mock JavaScript avec support haptique
         mock_js = """
@@ -394,14 +411,14 @@ class AccessibilityTester:
             "expected": total_expected,
         }
 
-        print(
+        game_logger.info(
             f"✅ Feedback haptique: {haptic_elements}/{total_expected} éléments trouvés"
         )
         return score
 
     def test_advanced_accessibility(self):
         """Test des fonctionnalités d'accessibilité avancées"""
-        print("🚀 Test des fonctionnalités avancées...")
+        game_logger.info(r"🚀 Test des fonctionnalités avancées...")
 
         # Mock CSS et JS avec fonctionnalités avancées
         mock_css = """
@@ -438,14 +455,14 @@ class AccessibilityTester:
             "expected": total_expected,
         }
 
-        print(
+        game_logger.info(
             f"✅ Fonctionnalités avancées: {advanced_features}/{total_expected} éléments trouvés"
         )
         return score
 
     def test_keyboard_shortcuts(self):
         """Test des raccourcis clavier"""
-        print("⌨️ Test des raccourcis clavier...")
+        game_logger.info(r"⌨️ Test des raccourcis clavier...")
 
         # Mock JavaScript avec raccourcis clavier
         mock_js = """
@@ -472,7 +489,9 @@ class AccessibilityTester:
             "expected": total_expected,
         }
 
-        print(f"✅ Raccourcis clavier: {shortcuts}/{total_expected} éléments trouvés")
+        game_logger.info(
+            f"✅ Raccourcis clavier: {shortcuts}/{total_expected} éléments trouvés"
+        )
         return score
 
     def get_css_content(self):
@@ -544,7 +563,7 @@ class AccessibilityTester:
         else:
             wcag_level = "Non conforme"
 
-        print(f"🏆 Niveau WCAG: {wcag_level}")
+        game_logger.info(f"🏆 Niveau WCAG: {wcag_level}")
 
         # Compter les tests réussis
         successful_tests = sum(
@@ -552,10 +571,10 @@ class AccessibilityTester:
         )
         total_tests = len(self.results["tests"])
 
-        print(f"✅ Tests réussis: {successful_tests}/{total_tests}")
+        game_logger.info(f"✅ Tests réussis: {successful_tests}/{total_tests}")
         print(f"⚠️ Avertissements: {len(self.results['recommendations'])}")
 
-        print("\n📋 Détail des tests:")
+        game_logger.info(r"\n📋 Détail des tests:")
         for test_name, test_result in self.results["tests"].items():
             status = "✅" if test_result["score"] >= 80 else "❌"
             print(
@@ -564,16 +583,16 @@ class AccessibilityTester:
             )
 
         if self.results["score"] >= 80:
-            print("\n✅ Points forts:")
-            print("  • Interface accessible et inclusive")
-            print("  • Navigation clavier complète")
+            game_logger.info(r"\n✅ Points forts:")
+            game_logger.info(r"  • Interface accessible et inclusive")
+            game_logger.info(r"  • Navigation clavier complète")
             print("  • Support lecteurs d'écran")
             print("  • Modes d'accessibilité variés")
-            print("  • Design responsive")
+            game_logger.info(r"  • Design responsive")
         else:
-            print("\n⚠️ Améliorations recommandées:")
+            game_logger.info(r"\n⚠️ Améliorations recommandées:")
             for rec in self.results["recommendations"][:5]:
-                print(f"  • {rec}")
+                game_logger.info(f"  • {rec}")
 
         print("=" * 60)
 
@@ -647,14 +666,14 @@ def main():
         score = tester.run_all_tests()
 
         if score >= 85:
-            print("🎉 FÉLICITATIONS ! Niveau WCAG AA atteint !")
+            game_logger.info(r"🎉 FÉLICITATIONS ! Niveau WCAG AA atteint !")
         elif score >= 70:
             print("👍 Bon niveau d'accessibilité, quelques améliorations possibles")
         else:
             print("⚠️ Améliorations nécessaires pour l'accessibilité")
 
     except Exception as e:
-        print(f"❌ Erreur lors des tests: {e}")
+        game_logger.info(f"❌ Erreur lors des tests: {e}")
 
 
 if __name__ == "__main__":

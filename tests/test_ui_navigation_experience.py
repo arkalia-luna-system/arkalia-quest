@@ -4,10 +4,18 @@ Teste la navigation entre toutes les pages et évalue l'UX
 """
 
 import json
+import os
+import sys
 import time
 from datetime import datetime
 
 import requests
+
+# Ajouter le répertoire parent au path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Import du logger
+from utils.logger import game_logger
 
 
 class NavigationExperienceTester:
@@ -26,7 +34,7 @@ class NavigationExperienceTester:
 
     def test_all_pages(self):
         """Test de toutes les pages principales"""
-        print("🧪 Test de toutes les pages principales...")
+        game_logger.info(r"🧪 Test de toutes les pages principales...")
 
         pages = [
             {
@@ -84,7 +92,7 @@ class NavigationExperienceTester:
 
     def test_navigation_flow(self):
         """Test du flux de navigation typique"""
-        print("🧪 Test du flux de navigation typique...")
+        game_logger.info(r"🧪 Test du flux de navigation typique...")
 
         flow_result = {
             "name": "Flux de navigation",
@@ -133,7 +141,7 @@ class NavigationExperienceTester:
 
     def test_mobile_navigation(self):
         """Test de la navigation mobile"""
-        print("🧪 Test de la navigation mobile...")
+        game_logger.info(r"🧪 Test de la navigation mobile...")
 
         mobile_result = {
             "name": "Navigation mobile",
@@ -366,9 +374,9 @@ class NavigationExperienceTester:
                 print(f"   ⏱️  Temps total: {page['total_time']:.2f}s")
 
             if page.get("success", False):
-                print("   ✅ Succès")
+                game_logger.info(r"   ✅ Succès")
             else:
-                print("   ❌ Échec")
+                game_logger.info(r"   ❌ Échec")
 
             if page.get("elements_found"):
                 print(f"   🔍 Éléments trouvés: {len(page['elements_found'])}")
@@ -385,7 +393,7 @@ class NavigationExperienceTester:
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(self.results, f, indent=2, ensure_ascii=False)
 
-        print(f"\n💾 Rapport sauvegardé: {filename}")
+        game_logger.info(f"\n💾 Rapport sauvegardé: {filename}")
 
 
 def main():
@@ -395,13 +403,13 @@ def main():
 
     # Évaluation finale
     if results["overall_score"] >= 80:
-        print("\n🎉 EXPÉRIENCE NAVIGATION EXCELLENTE !")
+        game_logger.info(r"\n🎉 EXPÉRIENCE NAVIGATION EXCELLENTE !")
     elif results["overall_score"] >= 60:
-        print("\n👍 EXPÉRIENCE NAVIGATION BONNE")
+        game_logger.info(r"\n👍 EXPÉRIENCE NAVIGATION BONNE")
     elif results["overall_score"] >= 40:
-        print("\n⚠️  EXPÉRIENCE NAVIGATION MOYENNE")
+        game_logger.info(r"\n⚠️  EXPÉRIENCE NAVIGATION MOYENNE")
     else:
-        print("\n❌ EXPÉRIENCE NAVIGATION À AMÉLIORER")
+        game_logger.info(r"\n❌ EXPÉRIENCE NAVIGATION À AMÉLIORER")
 
 
 if __name__ == "__main__":

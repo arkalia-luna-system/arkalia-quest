@@ -1149,14 +1149,17 @@ function executeCommand(cmdOverride) {
                     badges: data.profil.badges
                 });
             }
-            const reponse = data.reponse || data; // fallback pour compatibilité
+            let reponse = data.reponse != null ? data.reponse : data; // fallback pour compatibilité
+            if (!reponse || typeof reponse !== 'object') {
+                reponse = { réussite: false, message: 'Réponse invalide du serveur. Réessaie.' };
+            }
 
             // FEEDBACK IMMÉDIAT ET VIVANT - Réaction instantanée
             triggerImmediateFeedback(command, reponse);
 
             if (reponse.réussite || reponse.reussite) {
                 playMatrixSuccessEffect();
-                addMatrixSuccessMessage(reponse.message || 'Succès !');
+                addMatrixSuccessMessage(reponse.message || 'Bien joué !');
 
                 // Système de récompenses Matrix amélioré
                 if (reponse.instant_rewards) {
@@ -1232,7 +1235,7 @@ function executeCommand(cmdOverride) {
                 }
             } else {
                 playMatrixErrorEffect();
-                addMatrixErrorMessage(reponse.message || 'Erreur inconnue.');
+                addMatrixErrorMessage(reponse.message || 'Oups, réessaie ou tape "aide" pour les commandes.');
 
                 // Encouragement personnalisé
                 if (reponse.encouragement) {
@@ -1695,14 +1698,18 @@ function updateAudioToggle(enabled) {
 
 // Met à jour le header avec les infos du joueur
 function updatePlayerHeader(data) {
-    if (data.niveau !== undefined) {
-        document.getElementById('playerLevel').textContent = data.niveau;
+    if (!data || typeof data !== 'object') return;
+    const levelEl = document.getElementById('playerLevel');
+    const scoreEl = document.getElementById('playerScore');
+    const badgesEl = document.getElementById('playerBadges');
+    if (levelEl && data.niveau !== undefined && data.niveau !== null) {
+        levelEl.textContent = data.niveau;
     }
-    if (data.score !== undefined) {
-        document.getElementById('playerScore').textContent = data.score;
+    if (scoreEl && data.score !== undefined && data.score !== null) {
+        scoreEl.textContent = data.score;
     }
-    if (data.badges !== undefined) {
-        document.getElementById('playerBadges').textContent = data.badges.length || 0;
+    if (badgesEl && data.badges !== undefined) {
+        badgesEl.textContent = Array.isArray(data.badges) ? data.badges.length : (Number(data.badges) || 0);
     }
 }
 
@@ -2283,7 +2290,7 @@ class TerminalCommandsEnhanced {
     }
 
     initializeSystem() {
-        console.log('💻 Système de commandes terminal amélioré initialisé');
+        // // console.log('💻 Système de commandes terminal amélioré initialisé');
         this.setupResponseVariations();
         this.enhanceExistingCommands();
     }
@@ -2412,10 +2419,10 @@ function refreshProgressionData() {
 
 // Fonction pour mettre à jour l'affichage de la progression
 function updateProgressionDisplay(progression) {
-    // Mettre à jour le niveau
+    if (!progression || typeof progression !== 'object') return;
     const levelElements = document.querySelectorAll('.level, .niveau, [data-level]');
     levelElements.forEach(el => {
-        el.textContent = progression.level || 1;
+        el.textContent = progression.level ?? 1;
     });
 
     // Mettre à jour le score
@@ -2436,29 +2443,29 @@ function updateProgressionDisplay(progression) {
         el.textContent = progression.coins || 0;
     });
 
-    // Mettre à jour les badges
     const badgesElements = document.querySelectorAll('.badges, [data-badges]');
+    const badgesCount = Array.isArray(progression.badges) ? progression.badges.length : 0;
     badgesElements.forEach(el => {
-        el.textContent = progression.badges ? progression.badges.length : 0;
+        el.textContent = badgesCount;
     });
 }
 
 // Fonction pour mettre à jour l'affichage des défis quotidiens
 function updateDailyChallengesDisplay(challenges) {
     // Cette fonction sera appelée si on a des éléments de défis quotidiens sur la page
-    console.log('Défis quotidiens mis à jour:', challenges);
+    // // console.log('Défis quotidiens mis à jour:', challenges);
 }
 
 // Fonction pour mettre à jour l'affichage des achievements
 function updateAchievementsDisplay(achievements) {
     // Cette fonction sera appelée si on a des éléments d'achievements sur la page
-    console.log('Achievements mis à jour:', achievements);
+    // // console.log('Achievements mis à jour:', achievements);
 }
 
 // Fonction pour mettre à jour l'affichage du leaderboard
 function updateLeaderboardDisplay(leaderboard) {
     // Cette fonction sera appelée si on a des éléments de leaderboard sur la page
-    console.log('Leaderboard mis à jour:', leaderboard);
+    // // console.log('Leaderboard mis à jour:', leaderboard);
 }
 
 // Fonction pour afficher une notification de progression
@@ -2578,34 +2585,31 @@ function showScoreJumpEffect(score) {
 
 // Fonction pour mettre à jour l'affichage du profil classique
 function updateProfileDisplay(profile) {
-    // Mettre à jour le niveau
+    if (!profile || typeof profile !== 'object') return;
     const levelElements = document.querySelectorAll('.level, .niveau, [data-level], #current_level');
     levelElements.forEach(el => {
-        el.textContent = profile.level || profile.niveau || 1;
+        el.textContent = profile.level ?? profile.niveau ?? 1;
     });
 
-    // Mettre à jour le score
     const scoreElements = document.querySelectorAll('.score, [data-score], #total_score');
     scoreElements.forEach(el => {
-        el.textContent = profile.score || 0;
+        el.textContent = profile.score ?? 0;
     });
 
-    // Mettre à jour l'XP
     const xpElements = document.querySelectorAll('.xp, [data-xp]');
     xpElements.forEach(el => {
-        el.textContent = profile.xp || 0;
+        el.textContent = profile.xp ?? 0;
     });
 
-    // Mettre à jour les coins
     const coinsElements = document.querySelectorAll('.coins, [data-coins]');
     coinsElements.forEach(el => {
-        el.textContent = profile.coins || 0;
+        el.textContent = profile.coins ?? 0;
     });
 
-    // Mettre à jour les badges
     const badgesElements = document.querySelectorAll('.badges, [data-badges], #badges_count');
+    const badgesCount = Array.isArray(profile.badges) ? profile.badges.length : 0;
     badgesElements.forEach(el => {
-        el.textContent = profile.badges ? profile.badges.length : 0;
+        el.textContent = badgesCount;
     });
 
     // Mettre à jour les missions complétées

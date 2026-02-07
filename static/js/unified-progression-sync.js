@@ -16,11 +16,11 @@ class UnifiedProgressionSync {
     }
 
     init() {
-        console.log('🔄 Initialisation du système de synchronisation unifié...');
+        // console.log('🔄 Initialisation du système de synchronisation unifié...');
         this.setupEventListeners();
         this.startSyncLoop();
         this.isInitialized = true;
-        console.log('✅ Synchronisation unifiée initialisée');
+        // console.log('✅ Synchronisation unifiée initialisée');
     }
 
     setupEventListeners() {
@@ -86,7 +86,7 @@ class UnifiedProgressionSync {
     }
 
     async forceSync() {
-        console.log('🔄 Synchronisation forcée...');
+        // console.log('🔄 Synchronisation forcée...');
         await this.syncProgression();
     }
 
@@ -133,14 +133,12 @@ class UnifiedProgressionSync {
     }
 
     updateBadges(playerData) {
-        // Mettre à jour les badges
         const badgeContainer = document.querySelector('.badges-container');
-        if (badgeContainer && playerData.badges) {
-            badgeContainer.innerHTML = playerData.badges
-                .filter(badge => badge && badge.trim())
-                .map(badge => `<span class="badge">${badge}</span>`)
-                .join('');
-        }
+        if (!badgeContainer || !playerData || !Array.isArray(playerData.badges)) return;
+        badgeContainer.innerHTML = playerData.badges
+            .filter(badge => badge != null && String(badge).trim())
+            .map(badge => `<span class="badge">${String(badge)}</span>`)
+            .join('');
     }
 
     updateProgressBars(playerData) {

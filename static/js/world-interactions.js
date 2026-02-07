@@ -14,7 +14,7 @@ class WorldInteractions {
         this.setupEventListeners();
         this.createStyles();
         this.initializeWorld();
-        console.log('🌍 World Interactions initialisé');
+        // console.log('🌍 World Interactions initialisé');
     }
 
     initializeZones() {
@@ -691,7 +691,7 @@ class WorldInteractions {
 
     playZoneSound(zoneId) {
         // Simuler un son (dans une vraie implémentation, on utiliserait l'audio)
-        console.log(`🔊 Son de zone: ${zoneId}`);
+        // console.log(`🔊 Son de zone: ${zoneId}`);
     }
 
     showZoneEffect(zoneElement) {
@@ -932,5 +932,10 @@ document.addEventListener('DOMContentLoaded', () => {
     window.worldInteractions = new WorldInteractions();
 });
 
-// Exporter pour utilisation globale
+// Exporter pour utilisation globale (onclick="movePlayer('up')" dans monde.html)
 window.WorldInteractions = WorldInteractions;
+window.movePlayer = function (direction) {
+    if (window.worldInteractions && typeof window.worldInteractions.movePlayer === 'function') {
+        window.worldInteractions.movePlayer(direction);
+    }
+};

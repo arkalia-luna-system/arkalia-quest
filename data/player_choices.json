@@ -240,10 +240,352 @@
         "context": {},
         "timestamp": "2025-09-17T20:27:37.269203",
         "consequences": []
+      },
+      {
+        "id": "f523a4cf-a5dc-42ab-bf7c-1d5142b17708",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2025-09-17T23:43:23.882284",
+        "consequences": []
+      },
+      {
+        "id": "d3128883-740a-4a06-b56d-ba75c025c1fe",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2025-09-17T23:44:17.795069",
+        "consequences": []
+      },
+      {
+        "id": "d6a5b9d7-2913-4ec7-937a-ee0e7afb94b2",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:02:55.380921",
+        "consequences": []
+      },
+      {
+        "id": "6902a0ee-fe3b-4c50-982b-3f202594729d",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:04:08.937184",
+        "consequences": []
+      },
+      {
+        "id": "4bbdc495-088c-45d9-81c8-14a47955fe12",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:06:40.417386",
+        "consequences": []
+      },
+      {
+        "id": "3f069214-fd53-4829-b15a-47527f901c03",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:06:41.637852",
+        "consequences": []
+      },
+      {
+        "id": "81b7c93a-135f-4321-aa81-2508ecd72087",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:07:04.153244",
+        "consequences": []
+      },
+      {
+        "id": "cb29170c-98d2-43a9-823e-954e6616d096",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:07:41.152581",
+        "consequences": []
+      },
+      {
+        "id": "b94e2bed-5c52-4ff5-9336-b4dd99096915",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:08:03.551105",
+        "consequences": []
+      },
+      {
+        "id": "cb0a0176-6f1e-4568-bb4b-f942dfdeff5b",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:14:46.403064",
+        "consequences": []
+      },
+      {
+        "id": "f223f281-0b41-4da2-904b-d78293881ee5",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:16:30.734559",
+        "consequences": []
+      },
+      {
+        "id": "c1fb80eb-b56b-4d59-84f8-1caa808a9256",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:17:44.083741",
+        "consequences": []
+      },
+      {
+        "id": "98c001ef-67c1-4a0f-89a6-3fc0287eb637",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:18:30.022594",
+        "consequences": []
+      },
+      {
+        "id": "f594a7c4-d759-42d3-b473-18bb573995c7",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:18:31.795672",
+        "consequences": []
+      },
+      {
+        "id": "e5275614-ba1f-4f0b-916b-9e3f671a3736",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:21:22.849211",
+        "consequences": []
+      },
+      {
+        "id": "93c51e03-8240-4cf9-802e-d8289cb7314f",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:21:55.042542",
+        "consequences": []
+      },
+      {
+        "id": "ccbcf4b3-9fe0-4d8c-b72a-0c79cbae1a3d",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:24:19.992472",
+        "consequences": []
+      },
+      {
+        "id": "368ea6dc-8752-450c-9c32-e41ad3c979c2",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:27:13.361086",
+        "consequences": []
+      },
+      {
+        "id": "4556443a-7edd-4eb0-9925-83332db0dc68",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:27:23.604887",
+        "consequences": []
+      },
+      {
+        "id": "1c1edd20-1c79-4eb3-9e50-9847b65a6e1e",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:30:42.052806",
+        "consequences": []
+      },
+      {
+        "id": "57ea9171-168f-4dc8-9c4b-6375c6e9e53a",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:32:19.507198",
+        "consequences": []
+      },
+      {
+        "id": "247d6dac-48be-4cad-851e-571701017d84",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:33:03.142147",
+        "consequences": []
+      },
+      {
+        "id": "8f92ff62-1e32-4305-8110-429c6b4e9309",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:33:13.301786",
+        "consequences": []
+      },
+      {
+        "id": "abaea207-4fe6-474c-a8c4-9ccf6d9b79ca",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:36:30.738792",
+        "consequences": []
+      },
+      {
+        "id": "3550e2a3-29cb-4af1-909f-c487c6938e7a",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:38:21.359071",
+        "consequences": []
+      },
+      {
+        "id": "c105b622-54d4-4354-b065-251227eb3085",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:39:34.360643",
+        "consequences": []
+      },
+      {
+        "id": "85607e53-3b02-4b08-90d0-416e5b129161",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:39:52.003068",
+        "consequences": []
+      },
+      {
+        "id": "2db3fa58-d606-4f8e-9221-56cf80fc1810",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:40:24.361912",
+        "consequences": []
+      },
+      {
+        "id": "ec5a0443-a4f6-49f6-9378-4c687ccd2d5a",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:41:57.501455",
+        "consequences": []
+      },
+      {
+        "id": "9a82bdab-5c29-4c71-913b-17ecca8373ea",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:43:33.354376",
+        "consequences": []
+      },
+      {
+        "id": "9ecd332d-6e10-4869-a41d-58e9cf5183d9",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:43:53.962550",
+        "consequences": []
+      },
+      {
+        "id": "8b46913a-736f-4023-bdf8-4ffeef3dc368",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:46:02.673995",
+        "consequences": []
+      },
+      {
+        "id": "30d9f558-7882-47ed-b989-18934cc2a873",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:50:21.189920",
+        "consequences": []
+      },
+      {
+        "id": "60f78865-9a4b-46e0-8cfc-1e6d157df897",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:53:08.158205",
+        "consequences": []
+      },
+      {
+        "id": "7e5f9470-26d1-4155-bd3f-74053b0a211e",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:53:49.842118",
+        "consequences": []
+      },
+      {
+        "id": "4a734198-2377-4160-a967-ae38d93d866e",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:54:22.548172",
+        "consequences": []
+      },
+      {
+        "id": "57f055b2-e772-4749-85c7-0a76ffd23bd6",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:54:44.409293",
+        "consequences": []
+      },
+      {
+        "id": "6a6b47c0-ddd2-4ac3-9e1a-6dfbcb6a2508",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:58:15.598919",
+        "consequences": []
       }
     ],
     "unlocked_arcs": [],
     "discovered_easter_eggs": [
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
       "arkalia_secret",
       "arkalia_secret",
       "arkalia_secret",

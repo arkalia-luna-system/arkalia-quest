@@ -1835,6 +1835,4 @@ Ce guide de développement fournit toutes les informations nécessaires pour con
 
 ---
 
-# **🌟 Guide conçu avec ❤️ par l'équipe Arkalia Luna 🌟**
-
-**Bonne contribution !** 🚀✨
+*Dernière mise à jour : 7 février 2026*

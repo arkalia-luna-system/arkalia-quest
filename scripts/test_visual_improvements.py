@@ -9,13 +9,13 @@ import requests
 
 def test_visual_improvements():
     """Test des améliorations visuelles"""
-    print("🎨 TEST DES AMÉLIORATIONS VISUELLES DU TERMINAL")
+    print(r"🎨 TEST DES AMÉLIORATIONS VISUELLES DU TERMINAL")
     print("=" * 60)
 
     base_url = "http://localhost:5001"
 
     # Test 1: Vérifier que la page terminal charge avec les nouveaux styles
-    print("\n1️⃣ Test de chargement de la page terminal...")
+    print(r"\n1️⃣ Test de chargement de la page terminal...")
     try:
         response = requests.get(f"{base_url}/terminal", timeout=5)
         if response.status_code == 200:
@@ -65,7 +65,7 @@ def test_visual_improvements():
         print(f"❌ Erreur: {e}")
 
     # Test 2: Simuler le feedback intelligent
-    print("\n2️⃣ Test du feedback intelligent...")
+    print(r"\n2️⃣ Test du feedback intelligent...")
 
     feedback_scenarios = [
         {
@@ -102,9 +102,9 @@ def test_visual_improvements():
                 reponse = data.get("reponse", {})
 
                 if reponse.get("réussite"):
-                    print("   ✅ Commande réussie - Feedback intelligent activé")
+                    print(r"   ✅ Commande réussie - Feedback intelligent activé")
                 else:
-                    print("   ⚠️ Commande échouée - Feedback intelligent activé")
+                    print(r"   ⚠️ Commande échouée - Feedback intelligent activé")
 
             else:
                 print(f"   ❌ Erreur HTTP {response.status_code}")
@@ -113,7 +113,7 @@ def test_visual_improvements():
             print(f"   ❌ Erreur: {e}")
 
     # Test 3: Vérifier les améliorations JavaScript
-    print("\n3️⃣ Test des améliorations JavaScript...")
+    print(r"\n3️⃣ Test des améliorations JavaScript...")
 
     try:
         response = requests.get(f"{base_url}/static/js/terminal.js", timeout=5)
@@ -157,37 +157,37 @@ def test_visual_improvements():
         print(f"❌ Erreur: {e}")
 
     # Test 4: Démonstration des nouvelles fonctionnalités
-    print("\n4️⃣ Démonstration des nouvelles fonctionnalités...")
+    print(r"\n4️⃣ Démonstration des nouvelles fonctionnalités...")
 
-    print("\n🎯 NOUVELLES FONCTIONNALITÉS AJOUTÉES:")
-    print("   • Feedback intelligent adaptatif")
-    print("   • Messages contextuels avec animations")
-    print("   • Aide contextuelle selon la commande")
-    print("   • Encouragements pour les succès")
-    print("   • Astuces rapides pour utilisateurs pressés")
-    print("   • Détection automatique du niveau utilisateur")
-    print("   • Accessibilité renforcée (focus, contraste)")
-    print("   • Responsive design multi-breakpoints")
-    print("   • Mode performance pour appareils faibles")
+    print(r"\n🎯 NOUVELLES FONCTIONNALITÉS AJOUTÉES:")
+    print(r"   • Feedback intelligent adaptatif")
+    print(r"   • Messages contextuels avec animations")
+    print(r"   • Aide contextuelle selon la commande")
+    print(r"   • Encouragements pour les succès")
+    print(r"   • Astuces rapides pour utilisateurs pressés")
+    print(r"   • Détection automatique du niveau utilisateur")
+    print(r"   • Accessibilité renforcée (focus, contraste)")
+    print(r"   • Responsive design multi-breakpoints")
+    print(r"   • Mode performance pour appareils faibles")
 
-    print("\n🎨 AMÉLIORATIONS VISUELLES:")
-    print("   • Messages contextuels avec bordures colorées")
+    print(r"\n🎨 AMÉLIORATIONS VISUELLES:")
+    print(r"   • Messages contextuels avec bordures colorées")
     print("   • Animations d'entrée fluides")
-    print("   • Icônes contextuelles (💡, 🌟, ⚡, etc.)")
-    print("   • Auto-suppression des messages après 5s")
-    print("   • Effets de focus améliorés")
-    print("   • Design responsive pour mobile/tablette")
+    print(r"   • Icônes contextuelles (💡, 🌟, ⚡, etc.)")
+    print(r"   • Auto-suppression des messages après 5s")
+    print(r"   • Effets de focus améliorés")
+    print(r"   • Design responsive pour mobile/tablette")
 
-    print("\n🚀 COMMENT VOIR LES CHANGEMENTS:")
-    print("   1. Ouvre http://localhost:5001/terminal")
+    print(r"\n🚀 COMMENT VOIR LES CHANGEMENTS:")
+    print(r"   1. Ouvre http://localhost:5001/terminal")
     print("   2. Tape une commande inexistante (ex: 'test')")
-    print("   3. Regarde les messages contextuels qui apparaissent")
-    print("   4. Teste sur mobile pour voir le responsive")
-    print("   5. Utilise Tab pour voir le focus amélioré")
+    print(r"   3. Regarde les messages contextuels qui apparaissent")
+    print(r"   4. Teste sur mobile pour voir le responsive")
+    print(r"   5. Utilise Tab pour voir le focus amélioré")
 
     print("\n" + "=" * 60)
-    print("🎉 Les améliorations sont maintenant actives !")
-    print("   Ouvre le terminal dans ton navigateur pour les voir !")
+    print(r"🎉 Les améliorations sont maintenant actives !")
+    print(r"   Ouvre le terminal dans ton navigateur pour les voir !")
     print("=" * 60)
 
 

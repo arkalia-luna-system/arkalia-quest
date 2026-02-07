@@ -723,50 +723,47 @@
 
         // Fonctions
         function loadPlaylist(playlist) {
-            const tracks = playlistData[playlist] || [];
+            const tracks = Array.isArray(playlistData[playlist]) ? playlistData[playlist] : [];
             const trackList = document.getElementById('trackList');
             const playerTitle = document.querySelector('.player-title');
+            if (!trackList) return;
 
-            // Mise à jour du titre
             const playlistNames = {
                 ambient: '🌌 Ambient Hacking',
                 action: '⚡ Action Hacking',
                 luna: '🤖 LUNA Vibes',
                 effects: '🔊 Effets Sonores'
             };
-            playerTitle.textContent = playlistNames[playlist];
+            if (playerTitle) playerTitle.textContent = playlistNames[playlist] || playlist;
 
-            // Affichage des tracks
             trackList.innerHTML = tracks.map((track, index) => `
                 <div class="track-item ${track.playing ? 'playing' : ''}" onclick="playTrack(${index})">
                     <div class="track-number">${index + 1}</div>
                     <div class="track-details">
-                        <div class="track-name">${track.title}</div>
-                        <div class="track-duration">${track.duration}</div>
+                        <div class="track-name">${(track.title || '').replace(/</g, '&lt;')}</div>
+                        <div class="track-duration">${(track.duration || '0:00')}</div>
                     </div>
                 </div>
             `).join('');
 
-            // Mise à jour de la navigation active
-            document.querySelectorAll('.playlist-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            document.querySelector(`[data-playlist="${playlist}"]`).classList.add('active');
+            document.querySelectorAll('.playlist-link').forEach(link => link.classList.remove('active'));
+            const activeNav = document.querySelector(`[data-playlist="${playlist}"]`);
+            if (activeNav) activeNav.classList.add('active');
 
-            // Mise à jour des infos de track actuelle
-            if (tracks.length > 0) {
-                updateCurrentTrackInfo(tracks[0]);
-            }
+            if (tracks.length > 0 && tracks[0]) updateCurrentTrackInfo(tracks[0]);
         }
 
         function updateCurrentTrackInfo(track) {
-            document.getElementById('currentTrackTitle').textContent = track.title;
-            document.getElementById('currentTrackArtist').textContent = track.artist;
-            document.getElementById('totalTime').textContent = track.duration;
+            if (!track) return;
+            const titleEl = document.getElementById('currentTrackTitle');
+            const artistEl = document.getElementById('currentTrackArtist');
+            const totalTimeEl = document.getElementById('totalTime');
+            if (titleEl) titleEl.textContent = track.title || '';
+            if (artistEl) artistEl.textContent = track.artist || '';
+            if (totalTimeEl) totalTimeEl.textContent = track.duration || '0:00';
 
-            // Convertir la durée en secondes
-            const timeParts = track.duration.split(':');
-            totalTime = parseInt(timeParts[0]) * 60 + parseInt(timeParts[1]);
+            const timeParts = (track.duration || '0:00').toString().split(':');
+            totalTime = (parseInt(timeParts[0], 10) || 0) * 60 + (parseInt(timeParts[1], 10) || 0);
         }
 
         function playTrack(index) {
@@ -799,9 +796,9 @@
 
         function startPlayback() {
             isPlaying = true;
-            document.getElementById('playPauseBtn').textContent = '⏸️';
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            if (playPauseBtn) playPauseBtn.textContent = '⏸️';
 
-            // Simuler la progression
             progressInterval = setInterval(() => {
                 currentTime++;
                 updateProgress();
@@ -814,7 +811,8 @@
 
         function pausePlayback() {
             isPlaying = false;
-            document.getElementById('playPauseBtn').textContent = '▶️';
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            if (playPauseBtn) playPauseBtn.textContent = '▶️';
             clearInterval(progressInterval);
         }
 
@@ -825,13 +823,14 @@
         }
 
         function updateProgress() {
-            const progress = (currentTime / totalTime) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
+            const progress = totalTime > 0 ? (currentTime / totalTime) * 100 : 0;
+            const progressFill = document.getElementById('progressFill');
+            if (progressFill) progressFill.style.width = progress + '%';
 
             const minutes = Math.floor(currentTime / 60);
             const seconds = currentTime % 60;
-            document.getElementById('currentTime').textContent =
-                `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            const currentTimeEl = document.getElementById('currentTime');
+            if (currentTimeEl) currentTimeEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
         }
 
         function nextTrack() {
@@ -861,6 +860,7 @@
         // Fonction de test audio avec persistance
         function testAudio() {
             const btn = document.getElementById('test-audio-btn');
+            if (!btn) return;
             const audioEnabled = localStorage.getItem('arkalia_audio_enabled') === 'true';
 
             if (audioEnabled) {
@@ -948,8 +948,8 @@
 
         // Utilise la fonction playSound() globale du AudioManager
     </script>
-    <script src="/static/js/audio-manager.js"></script>
-    <script src="/static/js/navigation.js"></script>
+    <script src="{{ url_for('static', filename='js/audio-manager.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/navigation.js') }}"></script>
 </body>
 
 </html>

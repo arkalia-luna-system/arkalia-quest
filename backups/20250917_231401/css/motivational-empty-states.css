@@ -1,0 +1,152 @@
+/* ===== ARKALIA QUEST - MOTIVATIONAL EMPTY STATES CSS ===== */
+/* Styles pour les états vides motivants */
+
+.empty-state-message {
+    position: relative;
+    background: rgba(167, 139, 250, 0.05);
+    border: 2px dashed rgba(167, 139, 250, 0.3);
+    border-radius: 15px;
+    padding: 30px;
+    margin: 20px 0;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.empty-state-message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.empty-state-message.hide {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+.empty-state-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.empty-state-icon {
+    font-size: 3em;
+    animation: emptyStatePulse 2s ease-in-out infinite;
+}
+
+@keyframes emptyStatePulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.empty-state-text {
+    color: var(--violet-lunaire);
+    font-size: 1.1em;
+    font-weight: 500;
+    line-height: 1.4;
+    max-width: 300px;
+}
+
+.empty-state-action {
+    margin-top: 10px;
+}
+
+.empty-state-btn {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.2), rgba(96, 165, 250, 0.2));
+    border: 1px solid rgba(167, 139, 250, 0.4);
+    border-radius: 8px;
+    padding: 10px 20px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.empty-state-btn:hover {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.4), rgba(96, 165, 250, 0.4));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(167, 139, 250, 0.3);
+}
+
+.empty-state-btn:active {
+    transform: translateY(0);
+}
+
+/* Styles spécifiques pour différents types */
+.empty-state-message[data-type="stats"] {
+    border-color: rgba(34, 197, 94, 0.3);
+    background: rgba(34, 197, 94, 0.05);
+}
+
+.empty-state-message[data-type="zones"] {
+    border-color: rgba(59, 130, 246, 0.3);
+    background: rgba(59, 130, 246, 0.05);
+}
+
+.empty-state-message[data-type="social"] {
+    border-color: rgba(168, 85, 247, 0.3);
+    background: rgba(168, 85, 247, 0.05);
+}
+
+.empty-state-message[data-type="minigames"] {
+    border-color: rgba(245, 158, 11, 0.3);
+    background: rgba(245, 158, 11, 0.05);
+}
+
+.empty-state-message[data-type="themes"] {
+    border-color: rgba(236, 72, 153, 0.3);
+    background: rgba(236, 72, 153, 0.05);
+}
+
+/* Animation de particules pour les états vides */
+.empty-state-message::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, transparent, rgba(167, 139, 250, 0.1), transparent);
+    border-radius: 15px;
+    animation: emptyStateGlow 3s ease-in-out infinite;
+    z-index: -1;
+}
+
+@keyframes emptyStateGlow {
+
+    0%,
+    100% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .empty-state-message {
+        padding: 20px;
+        margin: 15px 0;
+    }
+
+    .empty-state-text {
+        font-size: 1em;
+        max-width: 250px;
+    }
+
+    .empty-state-icon {
+        font-size: 2.5em;
+    }
+}

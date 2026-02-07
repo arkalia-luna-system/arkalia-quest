@@ -8,6 +8,14 @@ import sys
 
 import requests
 
+# Import du logger
+try:
+    from utils.logger import game_logger
+except ImportError:
+    import logging
+
+    game_logger = logging.getLogger("give_xp")
+
 # Ajouter le répertoire racine au path
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
@@ -91,7 +99,7 @@ def test_skill_tree_with_xp():
             if response.status_code == 200:
                 result = response.json()
                 if result.get("success"):
-                    print("✅ Upgrade réussi !")
+                    print(r"✅ Upgrade réussi !")
                     print(f"📈 Nouveau niveau: {result.get('new_level')}")
                     print(f"💰 XP restant: {result.get('remaining_xp')}")
                     return True
@@ -117,7 +125,7 @@ if __name__ == "__main__":
     if give_xp_directly():
         # Étape 2: Tester l'arbre de compétences
         if test_skill_tree_with_xp():
-            print("\n🎉 TOUS LES TESTS SONT PASSÉS !")
+            print(r"\n🎉 TOUS LES TESTS SONT PASSÉS !")
             print("✨ Le système d'arbre de compétences fonctionne parfaitement !")
         else:
             print("\n❌ Échec du test de l'arbre de compétences")

@@ -5,11 +5,19 @@ Gère l'exécution, les résultats et les rapports de tous les tests
 """
 
 import json
+import os
+import sys
 import time
 from datetime import datetime
 from pathlib import Path
 
 import requests
+
+# Ajouter le répertoire parent au path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Import du logger
+from utils.logger import game_logger
 
 
 class TestManager:
@@ -43,7 +51,7 @@ class TestManager:
         with open(filepath, "w", encoding="utf-8") as f:
             json.dump(result_data, f, indent=2, ensure_ascii=False)
 
-        print(f"📊 Résultat sauvegardé: {filepath}")
+        game_logger.info(f"📊 Résultat sauvegardé: {filepath}")
         return filepath
 
     def check_server(self):
@@ -56,7 +64,7 @@ class TestManager:
 
     def run_test(self, test_name, test_function):
         """Exécute un test et sauvegarde le résultat"""
-        print(f"\n🧪 EXÉCUTION DU TEST: {test_name}")
+        game_logger.info(f"\n🧪 EXÉCUTION DU TEST: {test_name}")
         print("=" * 50)
 
         start_time = time.time()
@@ -86,14 +94,16 @@ class TestManager:
 
     def run_all_tests(self):
         """Exécute tous les tests disponibles"""
-        print("🚀 LANCEMENT DE TOUS LES TESTS - ARKALIA QUEST")
+        game_logger.info(r"🚀 LANCEMENT DE TOUS LES TESTS - ARKALIA QUEST")
         print("=" * 60)
 
         if not self.check_server():
-            print("❌ Serveur non accessible. Démarrez le serveur avec: python app.py")
+            game_logger.info(
+                r"❌ Serveur non accessible. Démarrez le serveur avec: python app.py"
+            )
             return None
 
-        print("✅ Serveur accessible")
+        game_logger.info(r"✅ Serveur accessible")
 
         # Liste des tests à exécuter
         tests = [
@@ -215,7 +225,7 @@ class TestManager:
         with open(filepath, "w", encoding="utf-8") as f:
             json.dump(report, f, indent=2, ensure_ascii=False)
 
-        print(f"\n📋 RAPPORT GLOBAL GÉNÉRÉ: {filepath}")
+        game_logger.info(f"\n📋 RAPPORT GLOBAL GÉNÉRÉ: {filepath}")
         print(f"✅ Tests réussis: {report['successful_tests']}/{report['total_tests']}")
         print(f"⏱️ Durée totale: {report['total_duration']}s")
 

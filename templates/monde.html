@@ -15,9 +15,9 @@
 
     <!-- PWA Icons -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/icon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/icon-16x16.png">
-    <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/icon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='icons/icon-16x16.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
 
     <!-- CSS ARKALIA CONSOLIDÉ - Version 4.0 -->
     <!-- Styles de base Luna -->
@@ -952,10 +952,29 @@
         let currentZone = 'training';
         let playerPosition = { x: 45, y: 45 };
 
+        // Charger les missions du serveur (API enhanced-missions) pour exploiter 100% du jeu
+        async function loadMissionsFromServer() {
+            try {
+                const res = await fetch('/api/enhanced-missions', { headers: { 'Accept': 'application/json' } });
+                if (!res.ok) return;
+                const data = await res.json();
+                if (!data.success || !Array.isArray(data.missions) || data.missions.length === 0) return;
+                const mapped = data.missions.map(m => ({
+                    title: m.name || m.title || m.mission_id || 'Mission',
+                    description: m.description || '',
+                    status: 'available'
+                }));
+                if (!zones.terminal.missions_list) zones.terminal.missions_list = [];
+                zones.terminal.missions_list = [...zones.terminal.missions_list, ...mapped];
+                zones.terminal.missions = zones.terminal.missions_list.length;
+                if (currentZone === 'terminal') updateZoneInfo('terminal');
+            } catch (_) { /* ignorer si API indisponible */ }
+        }
+
         // Initialiser la carte
         function initWorldMap() {
-            const zones = document.querySelectorAll('.zone');
-            zones.forEach(zone => {
+            const zonesEl = document.querySelectorAll('.zone');
+            zonesEl.forEach(zone => {
                 zone.addEventListener('click', () => {
                     selectZone(zone.dataset.zone);
                 });
@@ -963,6 +982,7 @@
 
             // Sélectionner la zone par défaut
             selectZone(currentZone);
+            loadMissionsFromServer();
         }
 
         // Sélectionner une zone
@@ -987,26 +1007,28 @@
             const zone = zones[zoneId];
             if (!zone) return;
 
-            document.getElementById('current-zone').textContent = zone.name;
-            document.getElementById('available-missions').textContent = `${zone.missions} missions disponibles`;
+            const currentZoneEl = document.getElementById('current-zone');
+            const availableMissionsEl = document.getElementById('available-missions');
+            if (currentZoneEl) currentZoneEl.textContent = zone.name;
+            if (availableMissionsEl) availableMissionsEl.textContent = `${zone.missions || 0} missions disponibles`;
 
-            // Mettre à jour la barre de progression
             const progressBar = document.getElementById('zone-progress-bar');
             const progressText = document.getElementById('zone-progress-text');
             if (progressBar && progressText) {
-                progressBar.style.width = `${zone.progress}%`;
-                progressText.textContent = `${zone.progress}%`;
+                progressBar.style.width = `${zone.progress || 0}%`;
+                progressText.textContent = `${zone.progress || 0}%`;
             }
 
-            updateMissionList(zone.missions_list);
+            updateMissionList(Array.isArray(zone.missions_list) ? zone.missions_list : []);
         }
 
         // Mettre à jour la liste des missions
         function updateMissionList(missions) {
             const missionList = document.getElementById('mission-list');
+            if (!missionList) return;
             missionList.innerHTML = '';
 
-            if (missions.length === 0) {
+            if (!Array.isArray(missions) || missions.length === 0) {
                 missionList.innerHTML = '<p style="text-align: center; color: var(--argent-holographique);">Aucune mission disponible</p>';
                 return;
             }
@@ -1050,8 +1072,9 @@
 
         // Déplacer le joueur
         function movePlayer(direction) {
-            const step = 5;
             const player = document.getElementById('player-position');
+            if (!player) return;
+            const step = 5;
 
             switch (direction) {
                 case 'up':
@@ -1078,26 +1101,29 @@
         // Déplacer le joueur vers une zone
         function movePlayerToZone(zoneId) {
             const zone = document.querySelector(`[data-zone="${zoneId}"]`);
-            if (zone) {
-                const rect = zone.getBoundingClientRect();
-                const mapRect = document.getElementById('world-map').getBoundingClientRect();
+            const mapEl = document.getElementById('world-map');
+            const playerEl = document.getElementById('player-position');
+            if (!zone || !mapEl || !playerEl) return;
+            const rect = zone.getBoundingClientRect();
+            const mapRect = mapEl.getBoundingClientRect();
 
-                playerPosition.x = ((rect.left + rect.width / 2 - mapRect.left) / mapRect.width) * 100;
-                playerPosition.y = ((rect.top + rect.height / 2 - mapRect.top) / mapRect.height) * 100;
+            playerPosition.x = ((rect.left + rect.width / 2 - mapRect.left) / mapRect.width) * 100;
+            playerPosition.y = ((rect.top + rect.height / 2 - mapRect.top) / mapRect.height) * 100;
 
-                const player = document.getElementById('player-position');
-                player.style.left = playerPosition.x + '%';
-                player.style.top = playerPosition.y + '%';
-            }
+            playerEl.style.left = playerPosition.x + '%';
+            playerEl.style.top = playerPosition.y + '%';
         }
 
         // Vérifier la proximité avec les zones
         function checkZoneProximity() {
+            const mapEl = document.getElementById('world-map');
+            const playerEl = document.getElementById('player-position');
+            if (!mapEl || !playerEl) return;
+            const mapRect = mapEl.getBoundingClientRect();
+            const playerRect = playerEl.getBoundingClientRect();
             const zones = document.querySelectorAll('.zone');
             zones.forEach(zone => {
                 const zoneRect = zone.getBoundingClientRect();
-                const mapRect = document.getElementById('world-map').getBoundingClientRect();
-                const playerRect = document.getElementById('player-position').getBoundingClientRect();
 
                 const zoneCenter = {
                     x: zoneRect.left + zoneRect.width / 2,
@@ -1163,9 +1189,8 @@
 
     <!-- Scripts des systèmes adaptatifs -->
     <!-- Guidance adaptative désactivée -->
-    <!-- <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}?v=4.0.0"></script> -->
-    <!-- progression-feedback désactivé (notifications unifiées) -->
-    <!-- <script src="{{ url_for('static', filename='js/progression-feedback.js') }}?v=4.0.0"></script> -->
+    <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/progression-feedback.js') }}?v=4.0.0"></script>
     <script src="{{ url_for('static', filename='js/competitive-system.js') }}?v=4.0.0"></script>
     <script src="{{ url_for('static', filename='js/creative-system.js') }}?v=4.0.0"></script>
     <script src="{{ url_for('static', filename='js/casual-system.js') }}?v=4.0.0"></script>

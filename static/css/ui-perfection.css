@@ -1,0 +1,11 @@
+/* UI Perfection - styles complémentaires profil/terminal */
+/* Évite 404 sur templates référençant ui-perfection.css */
+
+[data-ui-perfection] {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.ui-perfection-loading {
+    opacity: 0.7;
+    pointer-events: none;
+}

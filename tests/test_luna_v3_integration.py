@@ -11,6 +11,9 @@ import unittest
 # Ajouter le répertoire parent au path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# Import du logger
+from utils.logger import game_logger
+
 try:
     from engines.luna_ai_v3 import LunaAIV3
 except ImportError as e:
@@ -188,7 +191,7 @@ class TestLunaV3Integration(unittest.TestCase):
 
         # Vérifier que c'est raisonnablement rapide (< 10 secondes)
         self.assertLess(duration, 10.0)
-        print(f"⏱️ Performance: {duration:.2f}s pour 100 réponses")
+        game_logger.info(f"⏱️ Performance: {duration:.2f}s pour 100 réponses")
 
 
 if __name__ == "__main__":

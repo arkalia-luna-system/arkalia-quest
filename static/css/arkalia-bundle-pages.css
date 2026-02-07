@@ -1,0 +1,20 @@
+/**
+ * Bundle CSS pour les pages Luna (dashboard, terminal, profil, leaderboard, etc.).
+ * Un seul <link href=".../arkalia-bundle-pages.css"> peut remplacer les liens multiples.
+ * Voir docs/CSS_JS_BUNDLES.md pour la liste détaillée.
+ */
+@import url("arkalia-luna-vision.css");
+@import url("accessibility.css");
+@import url("arkalia-responsive.css");
+@import url("interface-improvements.css");
+@import url("empty-states.css");
+@import url("game-interface.css");
+@import url("mission-interface.css");
+@import url("reward-animations.css");
+@import url("loading-animations.css");
+@import url("progression-animations.css");
+@import url("adaptive-guidance.css");
+@import url("progression-feedback.css");
+@import url("competitive-system.css");
+@import url("creative-system.css");
+@import url("casual-system.css");

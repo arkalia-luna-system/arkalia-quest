@@ -14,11 +14,11 @@ class ReadyStateManager {
     }
 
     init() {
-        console.log('🚀 Initialisation du gestionnaire d\'états "Prêt à commencer !"...');
+        // console.log('🚀 Initialisation du gestionnaire d\'états "Prêt à commencer !"...');
         this.findReadyBlocks();
         this.setupEventListeners();
         this.startChecking();
-        console.log('✅ Gestionnaire d\'états initialisé');
+        // console.log('✅ Gestionnaire d\'états initialisé');
     }
 
     findReadyBlocks() {
@@ -44,7 +44,7 @@ class ReadyStateManager {
             });
         });
 
-        console.log(`📦 Trouvé ${this.readyBlocks.size} blocs "Prêt à commencer !"`);
+        // console.log(`📦 Trouvé ${this.readyBlocks.size} blocs "Prêt à commencer !"`);
     }
 
     isReadyBlock(element) {
@@ -158,17 +158,16 @@ class ReadyStateManager {
     }
 
     userHasData(playerData) {
-        if (!playerData) return false;
+        if (!playerData || typeof playerData !== 'object') return false;
 
-        // Vérifier les critères de données
         const criteria = [
-            playerData.xp > 0,
-            playerData.score > 0,
-            playerData.coins > 0,
-            playerData.badges && playerData.badges.length > 0,
-            playerData.missions_completed && playerData.missions_completed.length > 0,
-            playerData.skills && Object.keys(playerData.skills).length > 0,
-            playerData.stats && (
+            (playerData.xp || 0) > 0,
+            (playerData.score || 0) > 0,
+            (playerData.coins || 0) > 0,
+            Array.isArray(playerData.badges) && playerData.badges.length > 0,
+            Array.isArray(playerData.missions_completed) && playerData.missions_completed.length > 0,
+            playerData.skills && typeof playerData.skills === 'object' && Object.keys(playerData.skills).length > 0,
+            playerData.stats && typeof playerData.stats === 'object' && (
                 playerData.stats.total_commands > 0 ||
                 playerData.stats.total_luna_commands > 0 ||
                 playerData.stats.total_mini_games > 0 ||
@@ -237,7 +236,7 @@ class ReadyStateManager {
     reset() {
         this.showReadyBlocks();
         this.hiddenBlocks.clear();
-        console.log('🔄 États "Prêt à commencer !" réinitialisés');
+        // console.log('🔄 États "Prêt à commencer !" réinitialisés');
     }
 
     getStats() {
@@ -251,14 +250,14 @@ class ReadyStateManager {
     addReadyBlock(element) {
         if (this.isReadyBlock(element)) {
             this.readyBlocks.add(element);
-            console.log('➕ Nouveau bloc "Prêt à commencer !" ajouté');
+            // console.log('➕ Nouveau bloc "Prêt à commencer !" ajouté');
         }
     }
 
     removeReadyBlock(element) {
         this.readyBlocks.delete(element);
         this.hiddenBlocks.delete(element);
-        console.log('➖ Bloc "Prêt à commencer !" supprimé');
+        // console.log('➖ Bloc "Prêt à commencer !" supprimé');
     }
 }
 

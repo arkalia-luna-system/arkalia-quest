@@ -177,4 +177,4 @@ L'utilisateur a signalé plusieurs problèmes critiques dans l'expérience utili
 
 ---
 
-## *Document créé le 17 août 2024 - Améliorations UX du tutoriel Arkalia Quest*
+*Dernière mise à jour : 7 février 2026*

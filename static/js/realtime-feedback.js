@@ -12,7 +12,7 @@ class RealtimeFeedback {
         this.setupEventListeners();
         this.createNotificationContainer();
         this.startProgressSync();
-        console.log('⚡ Realtime Feedback System initialisé');
+        // console.log('⚡ Realtime Feedback System initialisé');
     }
 
     setupEventListeners() {
@@ -70,7 +70,7 @@ class RealtimeFeedback {
                 this.handleProgressionUpdate(data.progression);
             }
         } catch (error) {
-            console.log('Erreur sync progression:', error);
+            // console.log('Erreur sync progression:', error);
         }
     }
 
@@ -83,14 +83,14 @@ class RealtimeFeedback {
     }
 
     updateDashboardStats(progressionData) {
-        // Mettre à jour les stats du dashboard
+        if (!progressionData || typeof progressionData !== 'object') return;
         const stats = {
-            'level': progressionData.level,
-            'xp': progressionData.xp,
-            'score': progressionData.score,
-            'coins': progressionData.coins,
-            'badges': progressionData.badges?.length || 0,
-            'missions': progressionData.missions_completed?.length || 0
+            'level': progressionData.level ?? 1,
+            'xp': progressionData.xp ?? 0,
+            'score': progressionData.score ?? 0,
+            'coins': progressionData.coins ?? 0,
+            'badges': Array.isArray(progressionData.badges) ? progressionData.badges.length : 0,
+            'missions': Array.isArray(progressionData.missions_completed) ? progressionData.missions_completed.length : 0
         };
 
         Object.entries(stats).forEach(([key, value]) => {
@@ -510,7 +510,7 @@ class RealtimeFeedback {
             oscillator.start(currentTime);
             oscillator.stop(currentTime + duration);
         } catch (error) {
-            console.log('Impossible de jouer le son:', error);
+            // console.log('Impossible de jouer le son:', error);
         }
     }
 }

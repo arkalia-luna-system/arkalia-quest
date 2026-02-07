@@ -11,6 +11,9 @@ import unittest
 # Ajouter le répertoire parent au path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# Import du logger
+from utils.logger import game_logger
+
 try:
     from core.daily_challenges_engine import DailyChallengesEngine
 except ImportError as e:
@@ -241,7 +244,7 @@ class TestDailyChallengesIntegration(unittest.TestCase):
 
         # Vérifier que c'est raisonnablement rapide (< 5 secondes)
         self.assertLess(duration, 5.0)
-        print(f"⏱️ Performance: {duration:.2f}s pour 100 défis générés")
+        game_logger.info(f"⏱️ Performance: {duration:.2f}s pour 100 défis générés")
 
 
 if __name__ == "__main__":

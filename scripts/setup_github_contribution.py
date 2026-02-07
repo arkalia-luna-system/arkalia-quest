@@ -9,6 +9,14 @@ import subprocess
 import sys
 from pathlib import Path
 
+# Import du logger
+try:
+    from utils.logger import game_logger
+except ImportError:
+    import logging
+
+    game_logger = logging.getLogger("setup_github_contribution")
+
 
 class GitHubContributionSetup:
     """Configuration complète de la contribution GitHub pour Arkalia Quest"""
@@ -29,11 +37,11 @@ class GitHubContributionSetup:
 
         # Vérification du venv
         if not os.environ.get("VIRTUAL_ENV"):
-            print("❌ Environnement virtuel non activé")
-            print("💡 Activez le venv : source venv/bin/activate")
+            print(r"❌ Environnement virtuel non activé")
+            print(r"💡 Activez le venv : source venv/bin/activate")
             return False
 
-        print("✅ Environnement virtuel activé")
+        print(r"✅ Environnement virtuel activé")
 
         # Vérification de Python
         try:
@@ -57,13 +65,13 @@ class GitHubContributionSetup:
 
         # Vérification du token GitHub
         if not os.environ.get("GITHUB_TOKEN"):
-            print("⚠️  GITHUB_TOKEN non défini")
-            print("💡 Définissez votre token GitHub :")
-            print("   export GITHUB_TOKEN=your_token_here")
-            print("   ou créez un fichier .env avec GITHUB_TOKEN=your_token_here")
+            print(r"⚠️  GITHUB_TOKEN non défini")
+            print(r"💡 Définissez votre token GitHub :")
+            print(r"   export GITHUB_TOKEN=your_token_here")
+            print(r"   ou créez un fichier .env avec GITHUB_TOKEN=your_token_here")
             return False
 
-        print("✅ GITHUB_TOKEN défini")
+        print(r"✅ GITHUB_TOKEN défini")
         return True
 
     def run_code_quality_checks(self) -> bool:
@@ -72,29 +80,29 @@ class GitHubContributionSetup:
 
         try:
             # Black
-            print("🎨 Vérification Black...")
+            print(r"🎨 Vérification Black...")
             result = subprocess.run(
                 ["black", "--check", "."], check=False, capture_output=True, text=True
             )
             if result.returncode != 0:
-                print("❌ Black a trouvé des problèmes de formatage")
-                print("💡 Exécutez: black .")
+                print(r"❌ Black a trouvé des problèmes de formatage")
+                print(r"💡 Exécutez: black .")
                 return False
-            print("✅ Black: Code bien formaté")
+            print(r"✅ Black: Code bien formaté")
 
             # Ruff
-            print("🔍 Vérification Ruff...")
+            print(r"🔍 Vérification Ruff...")
             result = subprocess.run(
                 ["ruff", "check", "."], check=False, capture_output=True, text=True
             )
             if result.returncode != 0:
-                print("❌ Ruff a trouvé des problèmes de linting")
-                print("💡 Exécutez: ruff check . --fix")
+                print(r"❌ Ruff a trouvé des problèmes de linting")
+                print(r"💡 Exécutez: ruff check . --fix")
                 return False
-            print("✅ Ruff: Code conforme")
+            print(r"✅ Ruff: Code conforme")
 
             # Tests
-            print("🧪 Exécution des tests...")
+            print(r"🧪 Exécution des tests...")
             result = subprocess.run(
                 ["python", "-m", "pytest", "tests/", "--tb=no", "-q"],
                 check=False,
@@ -102,10 +110,10 @@ class GitHubContributionSetup:
                 text=True,
             )
             if result.returncode != 0:
-                print("❌ Certains tests ont échoué")
-                print("💡 Vérifiez les tests avant de continuer")
+                print(r"❌ Certains tests ont échoué")
+                print(r"💡 Vérifiez les tests avant de continuer")
                 return False
-            print("✅ Tests: Tous passent")
+            print(r"✅ Tests: Tous passent")
 
             return True
 
@@ -137,10 +145,10 @@ class GitHubContributionSetup:
         pr_template = self.project_root / ".github" / "pull_request_template.md"
 
         if not pr_template.exists():
-            print("❌ Template de pull request non trouvé")
+            print(r"❌ Template de pull request non trouvé")
             return False
 
-        print("✅ Template de pull request configuré")
+        print(r"✅ Template de pull request configuré")
         return True
 
     def setup_github_labels(self) -> bool:
@@ -150,11 +158,11 @@ class GitHubContributionSetup:
         labels_script = self.scripts_dir / "setup_github_labels.py"
 
         if not labels_script.exists():
-            print("❌ Script de configuration des labels non trouvé")
+            print(r"❌ Script de configuration des labels non trouvé")
             return False
 
         try:
-            print("🏷️  Exécution du script de configuration des labels...")
+            print(r"🏷️  Exécution du script de configuration des labels...")
             result = subprocess.run(
                 ["python", str(labels_script)],
                 check=False,
@@ -163,9 +171,9 @@ class GitHubContributionSetup:
             )
 
             if result.returncode == 0:
-                print("✅ Labels GitHub configurés avec succès")
+                print(r"✅ Labels GitHub configurés avec succès")
                 return True
-            print("❌ Erreur lors de la configuration des labels")
+            print(r"❌ Erreur lors de la configuration des labels")
             print(f"Erreur: {result.stderr}")
             return False
 
@@ -180,11 +188,11 @@ class GitHubContributionSetup:
         discussions_script = self.scripts_dir / "setup_github_discussions.py"
 
         if not discussions_script.exists():
-            print("❌ Script de configuration des discussions non trouvé")
+            print(r"❌ Script de configuration des discussions non trouvé")
             return False
 
         try:
-            print("💬 Exécution du script de configuration des discussions...")
+            print(r"💬 Exécution du script de configuration des discussions...")
             result = subprocess.run(
                 ["python", str(discussions_script)],
                 check=False,
@@ -193,9 +201,9 @@ class GitHubContributionSetup:
             )
 
             if result.returncode == 0:
-                print("✅ Discussions GitHub configurées avec succès")
+                print(r"✅ Discussions GitHub configurées avec succès")
                 return True
-            print("❌ Erreur lors de la configuration des discussions")
+            print(r"❌ Erreur lors de la configuration des discussions")
             print(f"Erreur: {result.stderr}")
             return False
 
@@ -295,7 +303,7 @@ Votre projet Arkalia Quest est maintenant parfaitement configuré pour accueilli
 
     def run_complete_setup(self) -> bool:
         """Exécute la configuration complète"""
-        print("🎮 Configuration Complète de la Contribution - Arkalia Quest")
+        print(r"🎮 Configuration Complète de la Contribution - Arkalia Quest")
         print("=" * 70)
 
         # Vérification de l'environnement
@@ -304,7 +312,7 @@ Votre projet Arkalia Quest est maintenant parfaitement configuré pour accueilli
 
         # Vérification de la qualité du code
         if not self.run_code_quality_checks():
-            print("❌ Qualité du code insuffisante - correction requise")
+            print(r"❌ Qualité du code insuffisante - correction requise")
             return False
 
         # Configuration des templates d'issues
@@ -321,7 +329,7 @@ Votre projet Arkalia Quest est maintenant parfaitement configuré pour accueilli
             self.setup_github_discussions()
         else:
             print(
-                "⚠️  GITHUB_TOKEN non défini - configuration des labels et discussions ignorée"
+                r"⚠️  GITHUB_TOKEN non défini - configuration des labels et discussions ignorée"
             )
 
         # Génération du résumé
@@ -331,8 +339,8 @@ Votre projet Arkalia Quest est maintenant parfaitement configuré pour accueilli
             f.write(summary)
 
         print("\n" + "=" * 70)
-        print("🎉 Configuration terminée avec succès !")
-        print("📚 Résumé généré: docs/CONTRIBUTION_SETUP_SUMMARY.md")
+        print(r"🎉 Configuration terminée avec succès !")
+        print(r"📚 Résumé généré: docs/CONTRIBUTION_SETUP_SUMMARY.md")
         print("=" * 70)
 
         return True
@@ -344,10 +352,10 @@ def main():
     success = setup.run_complete_setup()
 
     if success:
-        print("\n✅ Configuration de contribution terminée avec succès !")
-        print("🚀 Votre projet est prêt pour accueillir les contributeurs !")
+        print(r"\n✅ Configuration de contribution terminée avec succès !")
+        print(r"🚀 Votre projet est prêt pour accueillir les contributeurs !")
     else:
-        print("\n❌ Configuration échouée - vérifiez les erreurs ci-dessus")
+        print(r"\n❌ Configuration échouée - vérifiez les erreurs ci-dessus")
 
     return success
 

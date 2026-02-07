@@ -11,10 +11,19 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
+# Ajouter le répertoire racine au path
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, project_root)
+
+from utils.logger import GameLogger  # noqa: E402
+
+# Initialiser le logger
+game_logger = GameLogger()
+
 
 def check_structure():
     """Vérifie la structure des dossiers"""
-    print("📁 VÉRIFICATION DE LA STRUCTURE")
+    game_logger.info(r"📁 VÉRIFICATION DE LA STRUCTURE")
     print("=" * 35)
 
     required_dirs = ["results", "reports", "scripts"]
@@ -31,17 +40,17 @@ def check_structure():
     # Vérifier les dossiers
     for dir_name in required_dirs:
         if os.path.exists(dir_name):
-            print(f"✅ Dossier {dir_name}/ : Présent")
+            game_logger.info(f"✅ Dossier {dir_name}/ : Présent")
         else:
-            print(f"❌ Dossier {dir_name}/ : Manquant")
+            game_logger.info(f"❌ Dossier {dir_name}/ : Manquant")
             all_good = False
 
     # Vérifier les fichiers
     for file_name in required_files:
         if os.path.exists(file_name):
-            print(f"✅ Fichier {file_name} : Présent")
+            game_logger.info(f"✅ Fichier {file_name} : Présent")
         else:
-            print(f"❌ Fichier {file_name} : Manquant")
+            game_logger.info(f"❌ Fichier {file_name} : Manquant")
             all_good = False
 
     return all_good
@@ -49,7 +58,7 @@ def check_structure():
 
 def check_test_files():
     """Vérifie la présence des fichiers de test"""
-    print("\n🧪 VÉRIFICATION DES FICHIERS DE TEST")
+    game_logger.info(r"\n🧪 VÉRIFICATION DES FICHIERS DE TEST")
     print("=" * 40)
 
     # Tests d'expérience utilisateur
@@ -86,14 +95,14 @@ def check_test_files():
     for test_file in all_tests:
         if os.path.exists(test_file):
             present_tests.append(test_file)
-            print(f"✅ {test_file}")
+            game_logger.info(f"✅ {test_file}")
         else:
             missing_tests.append(test_file)
-            print(f"❌ {test_file}")
+            game_logger.info(f"❌ {test_file}")
 
-    print("\n📊 Résumé:")
-    print(f"  ✅ Tests présents: {len(present_tests)}")
-    print(f"  ❌ Tests manquants: {len(missing_tests)}")
+    game_logger.info(r"\n📊 Résumé:")
+    game_logger.info(f"  ✅ Tests présents: {len(present_tests)}")
+    game_logger.info(f"  ❌ Tests manquants: {len(missing_tests)}")
 
     return len(missing_tests) == 0
 
@@ -104,7 +113,7 @@ def test_quick_script():
     print("=" * 30)
 
     if not os.path.exists("scripts/test_boutons_rapide.py"):
-        print("❌ Script test_boutons_rapide.py non trouvé")
+        game_logger.info(r"❌ Script test_boutons_rapide.py non trouvé")
         return False
 
     try:
@@ -118,12 +127,14 @@ def test_quick_script():
         )
 
         if result.returncode == 0:
-            print("✅ Script exécuté avec succès")
+            game_logger.info(r"✅ Script exécuté avec succès")
 
             # Vérifier qu'un fichier de résultat a été créé
             results_files = list(Path("results").glob("test_boutons_rapide_*.json"))
             if results_files:
-                print(f"✅ Fichier de résultat créé: {results_files[-1].name}")
+                game_logger.info(
+                    f"✅ Fichier de résultat créé: {results_files[-1].name}"
+                )
 
                 # Vérifier le contenu du fichier
                 try:
@@ -141,16 +152,16 @@ def test_quick_script():
                     ]
 
                     if not missing_fields:
-                        print("✅ Structure JSON correcte")
+                        game_logger.info(r"✅ Structure JSON correcte")
                         return True
-                    print(f"❌ Champs manquants: {missing_fields}")
+                    game_logger.info(f"❌ Champs manquants: {missing_fields}")
                     return False
 
                 except Exception as e:
-                    print(f"❌ Erreur lecture JSON: {e}")
+                    game_logger.info(f"❌ Erreur lecture JSON: {e}")
                     return False
             else:
-                print("❌ Aucun fichier de résultat créé")
+                game_logger.info(r"❌ Aucun fichier de résultat créé")
                 return False
         else:
             print(f"❌ Erreur d'exécution: {result.stderr}")
@@ -160,7 +171,7 @@ def test_quick_script():
         print("❌ Timeout lors de l'exécution")
         return False
     except Exception as e:
-        print(f"❌ Erreur: {e}")
+        game_logger.info(f"❌ Erreur: {e}")
         return False
 
 
@@ -173,8 +184,8 @@ def check_reports_organization():
     reports_count = len(list(Path("reports").glob("*.json")))
     results_count = len(list(Path("results").glob("*.json")))
 
-    print(f"📄 Rapports dans reports/: {reports_count}")
-    print(f"📊 Résultats dans results/: {results_count}")
+    game_logger.info(f"📄 Rapports dans reports/: {reports_count}")
+    game_logger.info(f"📊 Résultats dans results/: {results_count}")
 
     # Vérifier qu'il n'y a plus de fichiers à la racine
     root_files = list(Path("..").glob("*test*.py")) + list(
@@ -183,20 +194,20 @@ def check_reports_organization():
     root_files = [f for f in root_files if f.is_file()]
 
     if root_files:
-        print(f"⚠️ Fichiers encore à la racine: {len(root_files)}")
+        game_logger.info(f"⚠️ Fichiers encore à la racine: {len(root_files)}")
         for file in root_files[:5]:  # Afficher les 5 premiers
-            print(f"  - {file.name}")
+            game_logger.info(f"  - {file.name}")
         if len(root_files) > 5:
-            print(f"  ... et {len(root_files) - 5} autres")
+            game_logger.info(f"  ... et {len(root_files) - 5} autres")
     else:
-        print("✅ Aucun fichier de test à la racine")
+        game_logger.info(r"✅ Aucun fichier de test à la racine")
 
     return len(root_files) == 0
 
 
 def generate_validation_report():
     """Génère un rapport de validation"""
-    print("\n📊 GÉNÉRATION DU RAPPORT DE VALIDATION")
+    game_logger.info(r"\n📊 GÉNÉRATION DU RAPPORT DE VALIDATION")
     print("=" * 45)
 
     report = {
@@ -226,7 +237,7 @@ def generate_validation_report():
     with open(filepath, encoding="utf-8", mode="w") as f:
         json.dump(report, f, indent=2, ensure_ascii=False)
 
-    print(f"📄 Rapport sauvegardé: {filepath}")
+    game_logger.info(f"📄 Rapport sauvegardé: {filepath}")
 
     return report, filepath
 
@@ -240,7 +251,7 @@ def main():
     report, filepath = generate_validation_report()
 
     # Afficher le résumé
-    print("\n🎯 RÉSUMÉ DE LA VALIDATION")
+    game_logger.info(r"\n🎯 RÉSUMÉ DE LA VALIDATION")
     print("=" * 30)
     print(f"📊 Score global: {report['score']:.1f}%")
     print(
@@ -265,7 +276,7 @@ def main():
     else:
         print("\n❌ PROBLÉMATIQUE ! L'organisation nécessite une refonte")
 
-    print(f"\n📋 Consultez le rapport détaillé: {filepath}")
+    game_logger.info(f"\n📋 Consultez le rapport détaillé: {filepath}")
 
 
 if __name__ == "__main__":

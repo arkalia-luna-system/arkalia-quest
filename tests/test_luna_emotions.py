@@ -11,13 +11,18 @@ import unittest
 # Ajouter le répertoire parent au path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from utils.logger import GameLogger
+
+# Initialiser le logger
+game_logger = GameLogger()
+
 try:
     from core.luna_emotions_engine import LunaEmotion, LunaEmotionsEngine
 except ImportError as e:
     print(f"❌ Erreur d'import: {e}")
-    print("🔍 Vérification du chemin...")
-    print(f"📁 Répertoire actuel: {os.getcwd()}")
-    print(f"📁 Fichier test: {__file__}")
+    game_logger.info(r"🔍 Vérification du chemin...")
+    game_logger.info(f"📁 Répertoire actuel: {os.getcwd()}")
+    game_logger.info(f"📁 Fichier test: {__file__}")
     print(
         f"📁 Core directory: {os.path.join(os.path.dirname(os.path.dirname(__file__)), 'core')}"
     )
@@ -453,25 +458,27 @@ def run_emotion_tests():
     # Résumé
     print("\n" + "=" * 50)
     print("📊 RÉSUMÉ DES TESTS D'ÉMOTIONS LUNA")
-    print(f"Tests exécutés: {result.testsRun}")
-    print(f"Échecs: {len(result.failures)}")
-    print(f"Erreurs: {len(result.errors)}")
-    print(f"Succès: {result.testsRun - len(result.failures) - len(result.errors)}")
+    game_logger.info(f"Tests exécutés: {result.testsRun}")
+    game_logger.info(f"Échecs: {len(result.failures)}")
+    game_logger.info(f"Erreurs: {len(result.errors)}")
+    game_logger.info(
+        f"Succès: {result.testsRun - len(result.failures) - len(result.errors)}"
+    )
 
     if result.failures:
-        print("\n❌ ÉCHECS:")
+        game_logger.info(r"\n❌ ÉCHECS:")
         for test, traceback in result.failures:
-            print(f"  - {test}: {traceback}")
+            game_logger.info(f"  - {test}: {traceback}")
 
     if result.errors:
-        print("\n💥 ERREURS:")
+        game_logger.info(r"\n💥 ERREURS:")
         for test, traceback in result.errors:
-            print(f"  - {test}: {traceback}")
+            game_logger.info(f"  - {test}: {traceback}")
 
     success_rate = (
         (result.testsRun - len(result.failures) - len(result.errors)) / result.testsRun
     ) * 100
-    print(f"\n🎯 TAUX DE RÉUSSITE: {success_rate:.1f}%")
+    game_logger.info(f"\n🎯 TAUX DE RÉUSSITE: {success_rate:.1f}%")
 
     return result.wasSuccessful()
 

@@ -15,9 +15,9 @@
 
     <!-- PWA Icons -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/icon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/icon-16x16.png">
-    <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/icon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='icons/icon-16x16.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
 
     <!-- CSS LUNA VISION -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}">
@@ -432,6 +432,15 @@
             letter-spacing: 0.5px;
         }
 
+        .achievements-api-section { background: rgba(9, 9, 11, 0.9); border: 2px solid rgba(167, 139, 250, 0.3); border-radius: 15px; padding: 30px; margin-bottom: 40px; backdrop-filter: blur(15px); }
+        .achievements-api-list .loading-placeholder { color: var(--argent-holographique); margin: 0; }
+        .achievements-summary { font-family: 'IBM Plex Mono', monospace; color: var(--violet-lunaire); margin-bottom: 15px; }
+        .achievements-unlocked-list { list-style: none; padding: 0; margin: 0; }
+        .achievement-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid rgba(167,139,250,0.2); }
+        .achievement-item .achievement-name { font-weight: 600; color: var(--violet-lunaire); }
+        .achievement-item .achievement-desc { font-size: 0.9em; color: var(--argent-holographique); margin-left: auto; }
+        .achievement-more { padding: 10px 0; color: var(--argent-holographique); font-size: 0.9em; }
+
         .timeline-section {
             background: rgba(9, 9, 11, 0.9);
             border: 2px solid rgba(167, 139, 250, 0.3);
@@ -602,9 +611,9 @@
                     <a href="/profil" class="nav-link active">👤 PROFIL</a>
                     <a href="/leaderboard" class="nav-link">🏆 CLASSEMENT</a>
                     <a href="/dashboard" class="nav-link">📊 DASHBOARD</a>
-                    <button class="nav-link daily-challenges-btn" onclick="dailyChallenges.show()">🎯 DÉFIS
+                    <button class="nav-link daily-challenges-btn" onclick="showDailyChallenges()">🎯 DÉFIS
                         QUOTIDIENS</button>
-                    <button class="nav-link theme-btn" onclick="themeManager.show()">🎨 THÈMES</button>
+                    <button class="nav-link theme-btn" onclick="showThemeManager()">🎨 THÈMES</button>
                 </div>
             </div>
         </nav>
@@ -698,6 +707,14 @@
                 {% include 'components/badges_display.html' %}
             </div>
 
+            <!-- Section Succès (API achievements) -->
+            <div class="achievements-api-section section-perfect" data-empty-state="achievements">
+                <h2 class="badges-title-modern">🎯 SUCCÈS</h2>
+                <div id="achievements-api-container" class="achievements-api-list">
+                    <p class="loading-placeholder">Chargement des succès...</p>
+                </div>
+            </div>
+
             <!-- Timeline des accomplissements -->
             <div class="timeline-section">
                 <h2 class="timeline-title">Timeline des Accomplissements</h2>
@@ -739,9 +756,47 @@
     <script src="{{ url_for('static', filename='js/system-integrator.js') }}"></script>
 
     <script>
+        // Charger les succès (API achievements/player)
+        async function loadAchievements() {
+            const container = document.getElementById('achievements-api-container');
+            if (!container) return;
+            try {
+                const res = await fetch('/api/achievements/player/main_user', { headers: { 'Accept': 'application/json' } });
+                if (!res.ok) { container.innerHTML = '<p class="loading-placeholder">Aucun succès chargé.</p>'; return; }
+                const data = await res.json();
+                const unlocked = Array.isArray(data.unlocked) ? data.unlocked : [];
+                const stats = data.statistics || {};
+                if (unlocked.length === 0 && !stats.total_achievements) {
+                    container.innerHTML = '<p class="loading-placeholder">Joue pour débloquer tes premiers succès !</p>';
+                    return;
+                }
+                let html = '<div class="achievements-summary">' + (stats.total_achievements || unlocked.length) + ' succès débloqués</div>';
+                if (unlocked.length > 0) {
+                    html += '<ul class="achievements-unlocked-list">';
+                    unlocked.slice(0, 15).forEach(a => {
+                        const name = (a && (a.name || a.title || a.achievement_id)) ? (a.name || a.title || a.achievement_id) : 'Succès';
+                        const desc = (a && a.description) ? a.description : (a && a.category) ? 'Catégorie: ' + a.category : '';
+                        html += '<li class="achievement-item"><span class="achievement-icon">🎯</span><span class="achievement-name">' + escapeHtml(String(name)) + '</span>' + (desc ? '<span class="achievement-desc">' + escapeHtml(String(desc)) + '</span>' : '') + '</li>';
+                    });
+                    if (unlocked.length > 15) html += '<li class="achievement-more">+ ' + (unlocked.length - 15) + ' autres</li>';
+                    html += '</ul>';
+                }
+                container.innerHTML = html;
+            } catch (_) {
+                container.innerHTML = '<p class="loading-placeholder">Succès indisponibles.</p>';
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
         // Charger les données du profil
         async function loadProfileData() {
             try {
+                loadAchievements();
                 // Essayer d'abord l'API de progression
                 const progressionResponse = await fetch('/api/progression/data');
                 if (progressionResponse.ok) {
@@ -770,26 +825,28 @@
 
         // Mettre à jour le profil avec les données de progression
         function updateProfileFromProgression(data) {
+            if (!data || !data.progression) return;
             const progression = data.progression;
 
-            // Mettre à jour les stats
-            document.getElementById('total_score').textContent = progression.score || 0;
-            document.getElementById('current_level').textContent = progression.level || 1;
-            document.getElementById('missions_completees').textContent = progression.achievements_unlocked ? progression.achievements_unlocked.length : 0;
-            document.getElementById('badges_count').textContent = progression.badges ? progression.badges.length : 0;
+            const totalScoreEl = document.getElementById('total_score');
+            const currentLevelEl = document.getElementById('current_level');
+            const missionsEl = document.getElementById('missions_completees');
+            const badgesCountEl = document.getElementById('badges_count');
+            if (totalScoreEl) totalScoreEl.textContent = progression.score ?? 0;
+            if (currentLevelEl) currentLevelEl.textContent = progression.level ?? 1;
+            if (missionsEl) missionsEl.textContent = Array.isArray(progression.achievements_unlocked) ? progression.achievements_unlocked.length : 0;
+            if (badgesCountEl) badgesCountEl.textContent = Array.isArray(progression.badges) ? progression.badges.length : 0;
 
-            // Mettre à jour les barres de progression
             updateProgressBarsFromProgression(progression);
 
-            // Mettre à jour les badges
-            if (progression.badges) {
+            if (Array.isArray(progression.badges)) {
                 updateBadges(progression.badges);
             }
         }
 
         // Mettre à jour les barres de progression
         function updateProgressBarsFromProgression(progression) {
-            // Barre de niveau
+            if (!progression || typeof progression !== 'object') return;
             const levelProgress = document.querySelector('.level-progress .progress-fill');
             if (levelProgress) {
                 const levelPercent = ((progression.xp || 0) % 1000) / 10; // 1000 XP par niveau
@@ -805,10 +862,15 @@
         }
 
         function updateProfileStats(data) {
-            document.getElementById('total_score').textContent = data.total_score || 0;
-            document.getElementById('current_level').textContent = data.current_level || 1;
-            document.getElementById('missions_completees').textContent = data.missions_completees || 0;
-            document.getElementById('badges_count').textContent = data.badges_count || 0;
+            if (!data) return;
+            const totalScoreEl = document.getElementById('total_score');
+            const currentLevelEl = document.getElementById('current_level');
+            const missionsEl = document.getElementById('missions_completees');
+            const badgesCountEl = document.getElementById('badges_count');
+            if (totalScoreEl) totalScoreEl.textContent = data.total_score ?? 0;
+            if (currentLevelEl) currentLevelEl.textContent = data.current_level ?? 1;
+            if (missionsEl) missionsEl.textContent = data.missions_completees ?? 0;
+            if (badgesCountEl) badgesCountEl.textContent = data.badges_count ?? 0;
         }
 
         function updateProgressBars(data) {
@@ -962,12 +1024,10 @@
 
     <!-- Scripts des systèmes adaptatifs -->
     <!-- Guidance adaptative désactivée -->
-    <!-- <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}"></script> -->
-
+    <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}"></script>
     <!-- Scripts de continuité -->
     {% include 'components/continuity_scripts.html' %}
-    <!-- progression-feedback désactivé (notifications unifiées) -->
-    <!-- <script src="{{ url_for('static', filename='js/progression-feedback.js') }}"></script> -->
+    <script src="{{ url_for('static', filename='js/progression-feedback.js') }}"></script>
     <script src="{{ url_for('static', filename='js/competitive-system.js') }}"></script>
     <script src="{{ url_for('static', filename='js/creative-system.js') }}"></script>
     <script src="{{ url_for('static', filename='js/casual-system.js') }}"></script>

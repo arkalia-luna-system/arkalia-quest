@@ -20,20 +20,25 @@ sys.path.insert(
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
 )
 
+from utils.logger import GameLogger  # noqa: E402
+
+# Initialiser le logger
+game_logger = GameLogger()
+
 try:
     import psutil
 
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False
-    print("⚠️ psutil non disponible - tests de mémoire limités")
+    game_logger.info(r"⚠️ psutil non disponible - tests de mémoire limités")
 
 try:
     from core.database import DatabaseManager
     from core.educational_games_engine import EducationalGamesEngine
     from core.gamification_engine import GamificationEngine
     from core.luna_emotions_engine import LunaEmotionsEngine
-    from core.security_manager import SecurityManager
+    from core.security_unified import SecurityUnified
 except ImportError as e:
     print(f"❌ Erreur d'import: {e}")
     sys.exit(1)
@@ -44,7 +49,7 @@ class TestRobustesseAvancee(unittest.TestCase):
 
     def setUp(self):
         """Initialisation avant chaque test"""
-        print("🛡️ Initialisation des tests de robustesse avancée...")
+        game_logger.info(r"🛡️ Initialisation des tests de robustesse avancée...")
 
         # Créer un répertoire temporaire pour les tests
         self.test_dir = tempfile.mkdtemp()
@@ -54,7 +59,7 @@ class TestRobustesseAvancee(unittest.TestCase):
         self.gamification_engine = GamificationEngine(data_dir=self.test_dir)
         self.db_manager = DatabaseManager()
         self.educational_engine = EducationalGamesEngine()
-        self.security_manager = SecurityManager()
+        self.security_manager = SecurityUnified()
 
         # Profils de test variés pour tester différents scénarios
         self.test_profiles = {
@@ -77,7 +82,7 @@ class TestRobustesseAvancee(unittest.TestCase):
             "concurrent_operations": [],
         }
 
-        print("✅ Initialisation terminée")
+        game_logger.info(r"✅ Initialisation terminée")
 
     def tearDown(self):
         """Nettoyage après chaque test"""
@@ -90,11 +95,11 @@ class TestRobustesseAvancee(unittest.TestCase):
         # Réinitialiser les moteurs
         self.luna_engine.reset_emotions()
 
-        print(f"🧹 Nettoyage terminé - Métriques: {self.robustness_metrics}")
+        game_logger.info(f"🧹 Nettoyage terminé - Métriques: {self.robustness_metrics}")
 
     def test_resilience_under_extreme_load(self):
         """Test de résilience sous charge extrême"""
-        print("🔥 Test de résilience sous charge extrême...")
+        game_logger.info(r"🔥 Test de résilience sous charge extrême...")
 
         # Simuler 1000 opérations simultanées
         operations = []
@@ -140,12 +145,14 @@ class TestRobustesseAvancee(unittest.TestCase):
         self.assertLess(errors, 50, "Trop d'erreurs sous charge")
         self.assertLess(duration, 35, "Performance dégradée sous charge")
 
-        print(f"✅ Résilience: {completed}/1000 opérations réussies en {duration:.2f}s")
-        print(f"📊 Erreurs: {errors}, Métriques: {self.robustness_metrics}")
+        game_logger.info(
+            f"✅ Résilience: {completed}/1000 opérations réussies en {duration:.2f}s"
+        )
+        game_logger.info(f"📊 Erreurs: {errors}, Métriques: {self.robustness_metrics}")
 
     def test_memory_leak_prevention(self):
         """Test de prévention des fuites mémoire"""
-        print("💾 Test de prévention des fuites mémoire...")
+        game_logger.info(r"💾 Test de prévention des fuites mémoire...")
 
         if not PSUTIL_AVAILABLE:
             self.skipTest("psutil non disponible")
@@ -193,7 +200,7 @@ class TestRobustesseAvancee(unittest.TestCase):
         print(
             f"✅ Mémoire: {initial_memory / 1024 / 1024:.1f}MB → {final_memory / 1024 / 1024:.1f}MB",
         )
-        print(f"📊 Augmentation: {total_increase / 1024 / 1024:.1f}MB")
+        game_logger.info(f"📊 Augmentation: {total_increase / 1024 / 1024:.1f}MB")
 
     def test_error_recovery_mechanisms(self):
         """Test des mécanismes de récupération d'erreurs"""
@@ -212,7 +219,9 @@ class TestRobustesseAvancee(unittest.TestCase):
                 test_func()
                 self.robustness_metrics["recovery_success"] += 1
             except Exception as e:
-                print(f"❌ Échec du test de récupération {test_func.__name__}: {e}")
+                game_logger.info(
+                    f"❌ Échec du test de récupération {test_func.__name__}: {e}"
+                )
                 self.robustness_metrics["error_count"] += 1
 
         # Vérifier que la plupart des récupérations réussissent
@@ -222,11 +231,11 @@ class TestRobustesseAvancee(unittest.TestCase):
         print(
             f"✅ Récupération: {self.robustness_metrics['recovery_success']}/{len(recovery_tests)}",
         )
-        print(f"📊 Taux de succès: {success_rate:.1%}")
+        game_logger.info(f"📊 Taux de succès: {success_rate:.1%}")
 
     def test_concurrent_safety(self):
         """Test de sécurité concurrente"""
-        print("🔒 Test de sécurité concurrente...")
+        game_logger.info(r"🔒 Test de sécurité concurrente...")
 
         # Tester l'accès concurrent aux ressources partagées
         shared_data = {"counter": 0, "data": []}
@@ -271,7 +280,7 @@ class TestRobustesseAvancee(unittest.TestCase):
 
     def test_extreme_edge_cases(self):
         """Test des cas limites extrêmes"""
-        print("🎯 Test des cas limites extrêmes...")
+        game_logger.info(r"🎯 Test des cas limites extrêmes...")
 
         edge_cases = [
             # Profils extrêmes
@@ -307,12 +316,14 @@ class TestRobustesseAvancee(unittest.TestCase):
             except Exception as e:
                 # L'erreur est attendue pour les cas limites
                 errors_handled += 1
-                print(f"✅ Cas limite {i} géré: {type(e).__name__}")
+                game_logger.info(f"✅ Cas limite {i} géré: {type(e).__name__}")
 
         # Vérifier que tous les cas limites sont gérés
         self.assertEqual(errors_handled, len(edge_cases), "Cas limites non gérés")
 
-        print(f"✅ Cas limites: {errors_handled}/{len(edge_cases)} gérés correctement")
+        game_logger.info(
+            f"✅ Cas limites: {errors_handled}/{len(edge_cases)} gérés correctement"
+        )
 
     def _execute_operation_safely(self, func, *args, **kwargs):
         """Exécute une opération avec gestion d'erreur sécurisée"""
@@ -320,7 +331,7 @@ class TestRobustesseAvancee(unittest.TestCase):
             return func(*args, **kwargs)
         except Exception as e:
             # Logger l'erreur mais ne pas la faire remonter
-            print(f"⚠️ Opération échouée: {e}")
+            game_logger.info(f"⚠️ Opération échouée: {e}")
             return {"error": str(e), "status": "failed"}
 
     def _test_database_recovery(self):
@@ -420,7 +431,7 @@ class TestRobustesseAvancee(unittest.TestCase):
 
 def run_robustness_tests():
     """Lance tous les tests de robustesse"""
-    print("🛡️ LANCEMENT DES TESTS DE ROBUSTESSE AVANCÉE")
+    game_logger.info(r"🛡️ LANCEMENT DES TESTS DE ROBUSTESSE AVANCÉE")
     print("=" * 60)
 
     # Créer la suite de tests
@@ -433,33 +444,35 @@ def run_robustness_tests():
 
     # Résumé détaillé
     print("\n" + "=" * 60)
-    print("📊 RÉSUMÉ DES TESTS DE ROBUSTESSE")
-    print(f"Tests exécutés: {result.testsRun}")
-    print(f"Succès: {result.testsRun - len(result.failures) - len(result.errors)}")
-    print(f"Échecs: {len(result.failures)}")
-    print(f"Erreurs: {len(result.errors)}")
+    game_logger.info(r"📊 RÉSUMÉ DES TESTS DE ROBUSTESSE")
+    game_logger.info(f"Tests exécutés: {result.testsRun}")
+    game_logger.info(
+        f"Succès: {result.testsRun - len(result.failures) - len(result.errors)}"
+    )
+    game_logger.info(f"Échecs: {len(result.failures)}")
+    game_logger.info(f"Erreurs: {len(result.errors)}")
 
     if result.failures:
-        print("\n❌ ÉCHECS:")
+        game_logger.info(r"\n❌ ÉCHECS:")
         for test, traceback in result.failures:
-            print(f"  - {test}: {traceback}")
+            game_logger.info(f"  - {test}: {traceback}")
 
     if result.errors:
-        print("\n💥 ERREURS:")
+        game_logger.info(r"\n💥 ERREURS:")
         for test, traceback in result.errors:
-            print(f"  - {test}: {traceback}")
+            game_logger.info(f"  - {test}: {traceback}")
 
     success_rate = (
         (result.testsRun - len(result.failures) - len(result.errors)) / result.testsRun
     ) * 100
-    print(f"\n🎯 TAUX DE RÉUSSITE: {success_rate:.1f}%")
+    game_logger.info(f"\n🎯 TAUX DE RÉUSSITE: {success_rate:.1f}%")
 
     if success_rate >= 90:
-        print("🌟 SYSTÈME TRÈS ROBUSTE - Prêt pour la production !")
+        game_logger.info(r"🌟 SYSTÈME TRÈS ROBUSTE - Prêt pour la production !")
     elif success_rate >= 80:
-        print("✅ SYSTÈME ROBUSTE - Quelques améliorations recommandées")
+        game_logger.info(r"✅ SYSTÈME ROBUSTE - Quelques améliorations recommandées")
     else:
-        print("⚠️ SYSTÈME PEU ROBUSTE - Actions correctives nécessaires")
+        game_logger.info(r"⚠️ SYSTÈME PEU ROBUSTE - Actions correctives nécessaires")
 
     return result.wasSuccessful()
 

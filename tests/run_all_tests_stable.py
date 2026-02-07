@@ -16,11 +16,19 @@ Version: 1.0
 """
 
 import json
+import os
 import subprocess
 import sys
+
+# Ajouter le répertoire parent au path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Import du logger
 import time
 from datetime import datetime
 from typing import Any
+
+from utils.logger import game_logger
 
 
 class StableVersionTestRunner:
@@ -61,7 +69,7 @@ class StableVersionTestRunner:
     def log(self, message: str, level: str = "INFO"):
         """Log avec timestamp"""
         timestamp = datetime.now().strftime("%H:%M:%S")
-        print(f"[{timestamp}] {level}: {message}")
+        game_logger.info(f"[{timestamp}] {level}: {message}")
 
     def check_server_status(self) -> bool:
         """Vérifie que le serveur est démarré"""
@@ -302,16 +310,16 @@ class StableVersionTestRunner:
 
 def main():
     """Fonction principale"""
-    print("🎮 ARKALIA QUEST - LANCEUR DE TESTS VERSION STABLE")
+    game_logger.info(r"🎮 ARKALIA QUEST - LANCEUR DE TESTS VERSION STABLE")
     print("=" * 60)
 
     runner = StableVersionTestRunner()
     success = runner.run_all_tests()
 
     if success:
-        print("\n🎉 VERSION STABLE VALIDÉE !")
+        game_logger.info(r"\n🎉 VERSION STABLE VALIDÉE !")
         return 0
-    print("\n⚠️ VERSION NÉCESSITE DES CORRECTIONS")
+    game_logger.info(r"\n⚠️ VERSION NÉCESSITE DES CORRECTIONS")
     return 1
 
 

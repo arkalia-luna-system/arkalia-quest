@@ -12,10 +12,13 @@ from datetime import datetime
 # Ajouter le répertoire parent au path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# Import du logger
+from utils.logger import game_logger
+
 
 def test_interface_responsive():
     """Test de la responsivité de l'interface"""
-    print("📱 Test de responsivité...")
+    game_logger.info(r"📱 Test de responsivité...")
 
     # Vérifier que les fichiers CSS responsive existent
     css_files = ["static/css/responsive.css", "static/css/arkalia-luna-vision.css"]
@@ -23,10 +26,10 @@ def test_interface_responsive():
     responsive_ok = True
     for css_file in css_files:
         if not os.path.exists(css_file):
-            print(f"❌ {css_file} manquant")
+            game_logger.info(f"❌ {css_file} manquant")
             responsive_ok = False
         else:
-            print(f"✅ {css_file} présent")
+            game_logger.info(f"✅ {css_file} présent")
 
     assert responsive_ok, "Fichiers CSS responsive manquants"
 
@@ -44,17 +47,17 @@ def test_accessibility():
     accessibility_ok = True
     for file_path in accessibility_files:
         if not os.path.exists(file_path):
-            print(f"❌ {file_path} manquant")
+            game_logger.info(f"❌ {file_path} manquant")
             accessibility_ok = False
         else:
-            print(f"✅ {file_path} présent")
+            game_logger.info(f"✅ {file_path} présent")
 
     assert accessibility_ok, "Fichiers d'accessibilité manquants"
 
 
 def test_performance():
     """Test des optimisations de performance"""
-    print("⚡ Test de performance...")
+    game_logger.info(r"⚡ Test de performance...")
 
     # Vérifier que les fichiers de performance existent
     performance_files = [
@@ -65,17 +68,17 @@ def test_performance():
     performance_ok = True
     for file_path in performance_files:
         if not os.path.exists(file_path):
-            print(f"❌ {file_path} manquant")
+            game_logger.info(f"❌ {file_path} manquant")
             performance_ok = False
         else:
-            print(f"✅ {file_path} présent")
+            game_logger.info(f"✅ {file_path} présent")
 
     assert performance_ok, "Fichiers de performance manquants"
 
 
 def test_content_quality():
     """Test de la qualité du contenu"""
-    print("📚 Test de qualité du contenu...")
+    game_logger.info(r"📚 Test de qualité du contenu...")
 
     # Vérifier que les fichiers de contenu existent
     content_files = [
@@ -87,17 +90,17 @@ def test_content_quality():
     content_ok = True
     for file_path in content_files:
         if not os.path.exists(file_path):
-            print(f"❌ {file_path} manquant")
+            game_logger.info(f"❌ {file_path} manquant")
             content_ok = False
         else:
-            print(f"✅ {file_path} présent")
+            game_logger.info(f"✅ {file_path} présent")
 
     assert content_ok, "Fichiers de contenu manquants"
 
 
 def test_educational_value():
     """Test de la valeur éducative"""
-    print("🎓 Test de valeur éducative...")
+    game_logger.info(r"🎓 Test de valeur éducative...")
 
     # Vérifier que les fichiers éducatifs existent
     educational_files = [
@@ -108,17 +111,17 @@ def test_educational_value():
     educational_ok = True
     for file_path in educational_files:
         if not os.path.exists(file_path):
-            print(f"❌ {file_path} manquant")
+            game_logger.info(f"❌ {file_path} manquant")
             educational_ok = False
         else:
-            print(f"✅ {file_path} présent")
+            game_logger.info(f"✅ {file_path} présent")
 
     assert educational_ok, "Fichiers éducatifs manquants"
 
 
 def main():
     """Fonction principale de test"""
-    print("🚀 TEST AUTOMATISÉ DE VALIDATION UTILISATEUR")
+    game_logger.info(r"🚀 TEST AUTOMATISÉ DE VALIDATION UTILISATEUR")
     print("=" * 50)
 
     tests = [
@@ -140,14 +143,14 @@ def main():
             test_func()
             results["tests"][test_func.__name__] = {"status": "pass"}
             results["summary"]["passed"] += 1
-            print(f"✅ {test_func.__name__} réussi")
+            game_logger.info(f"✅ {test_func.__name__} réussi")
         except Exception as e:
             results["tests"][test_func.__name__] = {
                 "status": "fail",
                 "error": str(e),
             }
             results["summary"]["failed"] += 1
-            print(f"❌ {test_func.__name__} échoué: {e}")
+            game_logger.info(f"❌ {test_func.__name__} échoué: {e}")
 
     # Sauvegarder les résultats
     output_file = f"reports/test_reports/test_utilisateur_automated_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
@@ -156,7 +159,7 @@ def main():
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump(results, f, indent=2, ensure_ascii=False)
 
-    print(f"\n📊 Résultats sauvegardés dans {output_file}")
+    game_logger.info(f"\n📊 Résultats sauvegardés dans {output_file}")
     print(f"✅ {results['summary']['passed']} tests réussis")
     print(f"❌ {results['summary']['failed']} tests échoués")
 

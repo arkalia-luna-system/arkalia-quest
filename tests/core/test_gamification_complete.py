@@ -17,6 +17,11 @@ sys.path.insert(
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
 )
 
+from utils.logger import GameLogger  # noqa: E402
+
+# Initialiser le logger
+game_logger = GameLogger()
+
 try:
     from core.database import DatabaseManager
     from core.gamification_engine import GamificationEngine
@@ -128,7 +133,7 @@ class TestGamificationComplete(unittest.TestCase):
 
     def test_badge_system_comprehensive(self):
         """Test complet du système de badges"""
-        print("🏆 Test complet du système de badges...")
+        game_logger.info(r"🏆 Test complet du système de badges...")
 
         # Test de création et validation des badges
         for badge_id, badge_data in self.test_badges.items():
@@ -152,7 +157,7 @@ class TestGamificationComplete(unittest.TestCase):
 
     def test_level_progression_system(self):
         """Test complet du système de progression des niveaux"""
-        print("📈 Test complet de la progression des niveaux...")
+        game_logger.info(r"📈 Test complet de la progression des niveaux...")
 
         # Test des calculs de niveau
         test_cases = [
@@ -194,7 +199,7 @@ class TestGamificationComplete(unittest.TestCase):
 
     def test_point_system_validation(self):
         """Test de validation du système de points"""
-        print("💰 Test de validation du système de points...")
+        game_logger.info(r"💰 Test de validation du système de points...")
 
         # Test d'attribution de points
         profile = self.test_profiles["debutant"].copy()
@@ -273,7 +278,7 @@ class TestGamificationComplete(unittest.TestCase):
 
     def test_streak_system_validation(self):
         """Test de validation du système de streak"""
-        print("🔥 Test de validation du système de streak...")
+        game_logger.info(r"🔥 Test de validation du système de streak...")
 
         profile = self.test_profiles["intermediaire"].copy()
 
@@ -348,7 +353,7 @@ class TestGamificationComplete(unittest.TestCase):
 
     def test_performance_under_load(self):
         """Test de performance sous charge"""
-        print("⚡ Test de performance sous charge...")
+        game_logger.info(r"⚡ Test de performance sous charge...")
 
         profile = self.test_profiles["expert"].copy()
         start_time = datetime.now()
@@ -458,7 +463,7 @@ class TestGamificationComplete(unittest.TestCase):
 
     def test_data_persistence_validation(self):
         """Test de validation de la persistance des données"""
-        print("💾 Test de validation de la persistance...")
+        game_logger.info(r"💾 Test de validation de la persistance...")
 
         # Test de sauvegarde des profils
         test_profile = self.test_profiles["debutant"].copy()
@@ -539,7 +544,7 @@ class TestGamificationComplete(unittest.TestCase):
 
     def test_progression_curve_validation(self):
         """Test de validation de la courbe de progression"""
-        print("📈 Test de validation de la courbe de progression...")
+        game_logger.info(r"📈 Test de validation de la courbe de progression...")
 
         # Test de la progression des niveaux
         level_progression = []
@@ -563,7 +568,7 @@ class TestGamificationComplete(unittest.TestCase):
 
     def test_stress_test_extreme_values(self):
         """Test de stress avec des valeurs extrêmes"""
-        print("🔥 Test de stress avec valeurs extrêmes...")
+        game_logger.info(r"🔥 Test de stress avec valeurs extrêmes...")
 
         # Test avec des valeurs extrêmes
         extreme_cases = [
@@ -645,7 +650,7 @@ class TestGamificationComplete(unittest.TestCase):
 
     def test_final_validation_complete_system(self):
         """Test de validation finale du système complet"""
-        print("🎯 Test de validation finale du système complet...")
+        game_logger.info(r"🎯 Test de validation finale du système complet...")
 
         # Test complet du système de gamification
         test_profile = self.test_profiles["debutant"].copy()

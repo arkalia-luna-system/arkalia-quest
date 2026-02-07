@@ -1,0 +1,14 @@
+/* Competitive system - défis / classements */
+/* Référencé par profil, terminal, monde, dashboard - évite 404 */
+
+.competitive-leaderboard,
+.leaderboard-competitive {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.competitive-rank {
+    font-weight: 600;
+    color: var(--luna-violet, #8b5cf6);
+}

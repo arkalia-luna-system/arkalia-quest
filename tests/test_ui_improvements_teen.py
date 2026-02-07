@@ -5,9 +5,17 @@ Teste toutes les nouvelles fonctionnalités pour captiver les ados de 14 ans
 """
 
 import json
+import os
+import sys
 from datetime import datetime
 
 import requests
+
+# Ajouter le répertoire parent au path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Import du logger
+from utils.logger import game_logger
 
 
 class TeenUXImprovementsTester:
@@ -27,7 +35,7 @@ class TeenUXImprovementsTester:
 
     def test_daily_challenges_system(self):
         """Test du système de défis quotidiens"""
-        print("🎯 Test du système de défis quotidiens...")
+        game_logger.info(r"🎯 Test du système de défis quotidiens...")
 
         test = {
             "name": "Défis quotidiens",
@@ -155,7 +163,7 @@ class TeenUXImprovementsTester:
 
     def test_interactive_missions(self):
         """Test des missions interactives progressives"""
-        print("🎮 Test des missions interactives...")
+        game_logger.info(r"🎮 Test des missions interactives...")
 
         test = {
             "name": "Missions interactives",
@@ -218,7 +226,7 @@ class TeenUXImprovementsTester:
 
     def test_progressive_hack_system(self):
         """Test du système de hack progressif"""
-        print("💻 Test du système de hack progressif...")
+        game_logger.info(r"💻 Test du système de hack progressif...")
 
         test = {
             "name": "Hack progressif",
@@ -281,7 +289,7 @@ class TeenUXImprovementsTester:
 
     def test_matrix_theme_consistency(self):
         """Test de la cohérence du thème Matrix"""
-        print("🌐 Test de la cohérence du thème Matrix...")
+        game_logger.info(r"🌐 Test de la cohérence du thème Matrix...")
 
         test = {
             "name": "Thème Matrix",
@@ -333,7 +341,7 @@ class TeenUXImprovementsTester:
 
     def run_all_tests(self):
         """Lance tous les tests d'améliorations UX"""
-        print("🧪 ARKALIA QUEST - TESTS DES AMÉLIORATIONS UX ADOLESCENT")
+        game_logger.info(r"🧪 ARKALIA QUEST - TESTS DES AMÉLIORATIONS UX ADOLESCENT")
         print("=" * 70)
 
         # Tests des nouvelles fonctionnalités
@@ -361,7 +369,7 @@ class TeenUXImprovementsTester:
 
     def _generate_report(self):
         """Génère le rapport final des tests"""
-        print("\n📊 RAPPORT DES AMÉLIORATIONS UX ADOLESCENT")
+        game_logger.info(r"\n📊 RAPPORT DES AMÉLIORATIONS UX ADOLESCENT")
         print("=" * 70)
         print(f"🎯 Score global: {self.results['overall_score']:.1f}/100")
         print(f"🧪 Tests effectués: {len(self.results['tests'])}")
@@ -374,19 +382,19 @@ class TeenUXImprovementsTester:
             if test["features_tested"]:
                 print(f"   🌟 Fonctionnalités testées: {len(test['features_tested'])}")
                 for feature in test["features_tested"]:
-                    print(f"      • {feature}")
+                    game_logger.info(f"      • {feature}")
 
             if test["issues"]:
                 print(f"   ❌ Problèmes: {len(test['issues'])}")
                 for issue in test["issues"]:
-                    print(f"      • {issue}")
+                    game_logger.info(f"      • {issue}")
 
         # Sauvegarde du rapport
         filename = f"teen_ux_improvements_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(self.results, f, indent=2, ensure_ascii=False)
 
-        print(f"\n💾 Rapport sauvegardé: {filename}")
+        game_logger.info(f"\n💾 Rapport sauvegardé: {filename}")
 
 
 def main():
@@ -396,13 +404,13 @@ def main():
 
     # Évaluation finale
     if results["overall_score"] >= 80:
-        print("\n🎉 AMÉLIORATIONS UX EXCELLENTES POUR ADOS !")
+        game_logger.info(r"\n🎉 AMÉLIORATIONS UX EXCELLENTES POUR ADOS !")
     elif results["overall_score"] >= 60:
-        print("\n👍 AMÉLIORATIONS UX BONNES POUR ADOS")
+        game_logger.info(r"\n👍 AMÉLIORATIONS UX BONNES POUR ADOS")
     elif results["overall_score"] >= 40:
-        print("\n⚠️  AMÉLIORATIONS UX MOYENNES POUR ADOS")
+        game_logger.info(r"\n⚠️  AMÉLIORATIONS UX MOYENNES POUR ADOS")
     else:
-        print("\n❌ AMÉLIORATIONS UX INSUFFISANTES POUR ADOS")
+        game_logger.info(r"\n❌ AMÉLIORATIONS UX INSUFFISANTES POUR ADOS")
 
 
 if __name__ == "__main__":

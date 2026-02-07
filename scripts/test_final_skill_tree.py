@@ -22,7 +22,7 @@ def test_final_skill_tree():
 
     if response.status_code == 200:
         data = response.json()
-        print("✅ API skill-tree fonctionne")
+        print(r"✅ API skill-tree fonctionne")
 
         # Afficher les données du joueur
         player_data = data.get("player_data", {})
@@ -62,7 +62,7 @@ def test_final_skill_tree():
     if response.status_code == 200:
         result = response.json()
         if result.get("success"):
-            print("✅ Upgrade réussi !")
+            print(r"✅ Upgrade réussi !")
             print(f"   📈 Nouveau niveau: {result.get('new_level')}")
             print(f"   💰 XP restant: {result.get('remaining_xp')}")
             print(f"   💸 Coût XP: {result.get('xp_cost')}")
@@ -74,7 +74,7 @@ def test_final_skill_tree():
         return False
 
     # Test 3: Vérifier la synchronisation
-    print("\n3. 🔄 Vérification de la synchronisation...")
+    print(r"\n3. 🔄 Vérification de la synchronisation...")
     time.sleep(1)
 
     response = session.get(f"{base_url}/api/skill-tree")
@@ -86,49 +86,49 @@ def test_final_skill_tree():
         print(f"   🔧 Code Breaking - Débloqué: {code_breaking.get('unlocked')}")
 
         if code_breaking.get("level") > 0:
-            print("✅ Synchronisation réussie")
+            print(r"✅ Synchronisation réussie")
         else:
-            print("❌ Problème de synchronisation")
+            print(r"❌ Problème de synchronisation")
             return False
     else:
-        print("❌ Erreur vérification")
+        print(r"❌ Erreur vérification")
         return False
 
     # Test 4: Test des données de progression
-    print("\n4. 📊 Test des données de progression...")
+    print(r"\n4. 📊 Test des données de progression...")
     response = session.get(f"{base_url}/api/progression-data")
 
     if response.status_code == 200:
         data = response.json()
         if data.get("success"):
             progression = data.get("progression", {})
-            print("✅ Données de progression récupérées")
+            print(r"✅ Données de progression récupérées")
             print(f"   📊 Niveau joueur: {progression.get('level')}")
             print(f"   ⭐ XP total: {progression.get('xp')}")
             print(f"   🏆 Badges: {len(progression.get('badges', []))}")
             print(f"   🔧 Compétences: {len(progression.get('skills', {}))}")
         else:
-            print("❌ Erreur données de progression")
+            print(r"❌ Erreur données de progression")
             return False
     else:
-        print("❌ Erreur API progression")
+        print(r"❌ Erreur API progression")
         return False
 
     # Test 5: Test de l'interface web
     print("\n5. 🌐 Test de l'interface web...")
-    print("   Ouvrir http://127.0.0.1:5001/skill-tree dans le navigateur")
+    print(r"   Ouvrir http://127.0.0.1:5001/skill-tree dans le navigateur")
     print("   Vérifier que les boutons d'amélioration s'affichent")
-    print("   Vérifier que les animations fonctionnent")
+    print(r"   Vérifier que les animations fonctionnent")
 
-    print("\n🎉 TOUS LES TESTS SONT PASSÉS !")
+    print(r"\n🎉 TOUS LES TESTS SONT PASSÉS !")
     print("✨ Le système d'arbre de compétences fonctionne parfaitement !")
-    print("\n📋 RÉSUMÉ DES AMÉLIORATIONS :")
+    print(r"\n📋 RÉSUMÉ DES AMÉLIORATIONS :")
     print("   ✅ Boutons d'amélioration fonctionnels")
     print("   ✅ Système d'XP et de niveaux")
-    print("   ✅ Synchronisation des données")
-    print("   ✅ API complète et robuste")
-    print("   ✅ Interface utilisateur améliorée")
-    print("   ✅ Animations et effets visuels")
+    print(r"   ✅ Synchronisation des données")
+    print(r"   ✅ API complète et robuste")
+    print(r"   ✅ Interface utilisateur améliorée")
+    print(r"   ✅ Animations et effets visuels")
 
     return True
 

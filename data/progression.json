@@ -64,13 +64,165 @@
         {
           "command": "any",
           "timestamp": "2025-09-17T20:27:37.332252"
+        },
+        {
+          "command": "any",
+          "timestamp": "2025-09-17T23:43:23.938502"
+        },
+        {
+          "command": "any",
+          "timestamp": "2025-09-17T23:44:17.842201"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:02:55.460516"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:04:09.021602"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:06:40.486146"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:06:41.703931"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:07:04.221879"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:07:41.218236"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:08:03.613831"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:14:46.462921"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:16:30.806963"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:17:44.146548"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:18:30.077767"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:18:31.856521"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:21:22.924340"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:21:55.109101"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:24:20.066836"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:27:13.426319"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:27:23.670830"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:30:42.119471"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:32:19.569050"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:33:03.214250"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:33:13.366183"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:36:30.807301"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:38:21.422031"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:39:34.426301"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:39:52.067151"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:40:24.422951"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:41:57.572350"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:43:33.413663"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:43:54.032122"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:46:02.738433"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:50:21.259853"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:53:08.224883"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:53:49.909253"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:54:22.616576"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:54:44.476069"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T14:58:15.663829"
         }
       ],
       "luna_commands_used": [],
       "mini_games_completed": [],
       "daily_challenges_progress": {
         "hacker_speed": {
-          "progress": 13,
+          "progress": 51,
           "completed": true,
           "reward_claimed": false,
           "notified": true
@@ -95,9 +247,9 @@
         "first_step",
         "speed_demon"
       ],
-      "last_activity": "2025-09-17T20:27:37.332248",
+      "last_activity": "2026-02-07T14:58:15.663683",
       "stats": {
-        "total_commands": 13,
+        "total_commands": 51,
         "total_luna_commands": 0,
         "total_zones_explored": 0,
         "total_mini_games": 0,
@@ -112,7 +264,7 @@
     "main_user": {
       "score": 1155,
       "level": 4,
-      "xp": 1055,
+      "xp": 155,
       "coins": 125,
       "badges": [
         "Premier pas",
@@ -319,6 +471,182 @@
         {
           "command": "help",
           "timestamp": "2025-09-17T20:27:37.218121"
+        },
+        {
+          "command": "help",
+          "timestamp": "2025-09-17T23:43:23.861448"
+        },
+        {
+          "command": "help",
+          "timestamp": "2025-09-17T23:44:17.767446"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:02:55.366375"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:04:08.924893"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:06:40.409862"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:06:42.388263"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:07:04.146026"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:07:41.144507"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:08:03.543153"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:16:31.471160"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:17:44.783573"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:18:30.016191"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:21:22.838224"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:24:19.984039"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:27:13.353845"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:27:23.597981"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:28:17.777916"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:30:42.045225"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:32:19.500903"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:33:03.135773"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:33:13.294916"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:34:08.050864"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:36:30.732143"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:38:21.352458"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:38:56.768255"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:39:34.353507"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:39:51.996310"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:40:24.355490"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:41:24.373006"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:41:57.495080"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:42:51.218348"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:43:33.347399"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:43:53.954653"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:44:04.637919"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:45:31.471357"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:46:02.667045"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:48:56.086561"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:50:21.182720"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:52:05.601169"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:53:08.151307"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:53:49.835479"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:54:22.541159"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:54:44.402360"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T14:58:15.590248"
         }
       ],
       "luna_commands_used": [
@@ -330,7 +658,7 @@
       "mini_games_completed": [],
       "daily_challenges_progress": {
         "hacker_speed": {
-          "progress": 49,
+          "progress": 93,
           "completed": true,
           "reward_claimed": false,
           "notified": true
@@ -356,9 +684,9 @@
         "first_step",
         "speed_demon"
       ],
-      "last_activity": "2025-09-17T20:27:37.218115",
+      "last_activity": "2026-02-07T14:58:15.590079",
       "stats": {
-        "total_commands": 49,
+        "total_commands": 93,
         "total_luna_commands": 4,
         "total_zones_explored": 0,
         "total_mini_games": 0,
@@ -366,7 +694,7 @@
       },
       "skills": {
         "hacking": {
-          "code_breaking": 1
+          "code_breaking": 4
         }
       }
     },

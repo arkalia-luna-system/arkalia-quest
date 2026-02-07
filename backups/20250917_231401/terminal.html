@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>⌨️ ARKALIA QUEST - TERMINAL LUNA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- PWA Meta Tags -->
+    <meta name="description"
+        content="Terminal de hacking interactif d'Arkalia Quest. Communique avec LUNA et maîtrise les commandes.">
+    <meta name="theme-color" content="#a78bfa">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- PWA Icons -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/icon-16x16.png">
+    <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+    <!-- CSS LUNA VISION -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-responsive.css') }}?v=4.0.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/interface-improvements.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/empty-states.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reward-animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/loading-animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/progression-animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/adaptive-guidance.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/progression-feedback.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/competitive-system.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/creative-system.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/casual-system.css') }}">
+
+    <!-- CSS des améliorations UX contextuelles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/contextual-feedback.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game-interface.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mission-interface.css') }}">
+
+    <style>
+        /* Styles spécifiques au terminal immersif */
+        .terminal-workspace {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, rgba(9, 9, 11, 0.95) 0%, rgba(30, 30, 40, 0.95) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .terminal-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(167, 139, 250, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(96, 165, 250, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(167, 139, 250, 0.05) 0%, transparent 50%);
+            animation: terminalAmbient 10s ease-in-out infinite;
+        }
+
+        @keyframes terminalAmbient {
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: scale(1.02);
+            }
+        }
+
+        .terminal-container {
+            background: rgba(9, 9, 11, 0.95);
+            border: 2px solid rgba(167, 139, 250, 0.4);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .terminal-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--violet-lunaire), var(--bleu-spectre), transparent);
+            animation: terminalGlow 4s ease-in-out infinite;
+        }
+
+        .terminal-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                linear-gradient(45deg, transparent 30%, rgba(167, 139, 250, 0.02) 50%, transparent 70%);
+            pointer-events: none;
+            animation: terminalScan 8s linear infinite;
+        }
+
+        @keyframes terminalGlow {
+
+            0%,
+            100% {
+                opacity: 0.4;
+                transform: translateX(-100%);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translateX(100%);
+            }
+        }
+
+        @keyframes terminalScan {
+            0% {
+                transform: translateY(-100%);
+            }
+
+            100% {
+                transform: translateY(100%);
+            }
+        }
+
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(167, 139, 250, 0.3);
+            position: relative;
+        }
+
+        .terminal-header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--violet-lunaire), var(--bleu-spectre));
+            animation: headerProgress 3s ease-out forwards;
+        }
+
+        @keyframes headerProgress {
+            to {
+                width: 100%;
+            }
+        }
+
+        .terminal-title {
+            font-family: 'Cormorant', serif;
+            font-size: 1.4em;
+            font-weight: 600;
+            color: var(--violet-lunaire);
+            text-shadow: 0 0 15px rgba(167, 139, 250, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .terminal-title::before {
+            content: '🌙';
+            font-size: 1.2em;
+            animation: lunaPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes lunaPulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.7;
+                transform: scale(1.1);
+            }
+        }
+
+        .terminal-status {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8em;
+            color: var(--argent-holographique);
+            padding: 6px 12px;
+            background: rgba(167, 139, 250, 0.15);
+            border: 1px solid rgba(167, 139, 250, 0.3);
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .terminal-status::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 8px;
+            width: 6px;
+            height: 6px;
+            background: #10b981;
+            border-radius: 50%;
+            transform: translateY(-50%);
+            animation: statusBlink 2s ease-in-out infinite;
+        }
+
+        @keyframes statusBlink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .terminal-output {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.9em;
+            color: var(--matrix-green);
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid rgba(0, 255, 0, 0.4);
+            border-radius: 10px;
+            padding: 20px;
+            height: 450px;
+            overflow-y: auto;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            position: relative;
+            flex: 1;
+            box-shadow:
+                inset 0 2px 10px rgba(0, 0, 0, 0.8),
+                0 0 20px rgba(0, 255, 0, 0.2);
+        }
+
+        /* STYLES POUR MESSAGES TERMINAL */
+        .terminal-message {
+            margin: 8px 0;
+            padding: 8px 12px;
+            border-radius: 4px;
+            animation: messageSlideIn 0.3s ease-out;
+        }
+
+        .terminal-message.success {
+            background: rgba(0, 255, 0, 0.15);
+            border-left: 4px solid var(--matrix-green);
+            color: var(--matrix-green);
+            font-weight: 600;
+        }
+
+        .terminal-message.error {
+            background: rgba(255, 0, 0, 0.15);
+            border-left: 4px solid #ff0000;
+            color: #ff6666;
+            font-weight: 600;
+        }
+
+        .terminal-message.info {
+            background: rgba(0, 255, 255, 0.15);
+            border-left: 4px solid var(--matrix-accent);
+            color: var(--matrix-accent);
+            font-weight: 600;
+        }
+
+        .terminal-message.warning {
+            background: rgba(255, 255, 0, 0.15);
+            border-left: 4px solid #ffff00;
+            color: #ffff66;
+            font-weight: 600;
+        }
+
+        .terminal-message.luna {
+            background: rgba(167, 139, 250, 0.15);
+            border-left: 4px solid var(--violet-lunaire);
+            color: var(--violet-lunaire);
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        /* NOUVELLES CLASSES POUR DIFFÉRENCIER SYSTÈME/UTILISATEUR */
+        .terminal-message.system {
+            background: rgba(0, 255, 0, 0.1);
+            border-left: 4px solid #00ff00;
+            color: #00ff00;
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 500;
+        }
+
+        .terminal-message.user {
+            background: rgba(0, 255, 255, 0.1);
+            border-left: 4px solid #00ffff;
+            color: #00ffff;
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 600;
+        }
+
+        .terminal-message.command {
+            background: rgba(255, 255, 0, 0.1);
+            border-left: 4px solid #ffff00;
+            color: #ffff00;
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 700;
+        }
+
+        .terminal-message.response {
+            background: rgba(255, 165, 0, 0.1);
+            border-left: 4px solid #ffa500;
+            color: #ffa500;
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 500;
+        }
+
+        /* STYLES POUR PROMPT DIFFÉRENCIÉ */
+        .terminal-prompt-system {
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        .terminal-prompt-user {
+            color: #00ffff;
+            font-weight: bold;
+        }
+
+        .terminal-prompt-luna {
+            color: var(--violet-lunaire);
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        @keyframes messageSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* STYLES POUR COMMANDES */
+        .command-line {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+            font-family: 'Share Tech Mono', 'Courier New', monospace;
+        }
+
+        .command-prompt {
+            color: var(--matrix-green);
+            margin-right: 8px;
+            font-weight: bold;
+        }
+
+        .command-input {
+            color: var(--matrix-accent);
+            background: transparent;
+            border: none;
+            outline: none;
+            flex: 1;
+            font-family: inherit;
+            font-size: inherit;
+        }
+
+        .command-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2em;
+            background: var(--matrix-green);
+            animation: cursorBlink 1s infinite;
+            margin-left: 2px;
+        }
+
+        @keyframes cursorBlink {
+
+            0%,
+            50% {
+                opacity: 1;
+            }
+
+            51%,
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .terminal-output::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .terminal-output::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 5px;
+        }
+
+        .terminal-output::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--violet-lunaire), var(--bleu-spectre));
+            border-radius: 5px;
+            border: 1px solid rgba(167, 139, 250, 0.3);
+        }
+
+        .terminal-output::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, var(--bleu-spectre), var(--violet-lunaire));
+        }
+
+        .terminal-input-container {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid rgba(167, 139, 250, 0.4);
+            border-radius: 10px;
+            padding: 15px;
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .terminal-input-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(167, 139, 250, 0.05), transparent);
+            border-radius: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .terminal-input-container:focus-within::before {
+            opacity: 1;
+        }
+
+        .terminal-prompt {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1em;
+            color: var(--violet-lunaire);
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+            animation: promptBlink 1.5s ease-in-out infinite;
+        }
+
+        @keyframes promptBlink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .terminal-input {
+            flex: 1;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1em;
+            color: var(--argent-holographique);
+            background: transparent;
+            border: none;
+            outline: none;
+            padding: 8px 0;
+            caret-color: var(--violet-lunaire);
+        }
+
+        .terminal-input::placeholder {
+            color: rgba(167, 139, 250, 0.5);
+            font-style: italic;
+        }
+
+        .terminal-send {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9em;
+            color: var(--argent-holographique);
+            background: rgba(167, 139, 250, 0.2);
+            border: 1px solid rgba(167, 139, 250, 0.5);
+            border-radius: 8px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .terminal-send::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .terminal-send:hover::before {
+            left: 100%;
+        }
+
+        .terminal-send:hover {
+            color: var(--violet-lunaire);
+            border-color: rgba(167, 139, 250, 0.8);
+            box-shadow: 0 0 20px rgba(167, 139, 250, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .terminal-commands {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid rgba(0, 255, 0, 0.3);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .command-btn {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8em;
+            color: var(--matrix-green);
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 255, 255, 0.05));
+            border: 2px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 14px 12px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            min-height: 80px;
+            justify-content: center;
+        }
+
+        .cmd-icon {
+            font-size: 1.5em;
+            filter: drop-shadow(0 0 8px rgba(0, 255, 0, 0.6));
+            margin-bottom: 4px;
+        }
+
+        .cmd-text {
+            font-size: 0.75em;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--matrix-green);
+        }
+
+        .command-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(167, 139, 250, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .command-btn:hover::before {
+            opacity: 1;
+        }
+
+        .command-btn:hover {
+            color: var(--matrix-accent);
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.2), rgba(0, 255, 255, 0.15));
+            border-color: var(--matrix-green);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 255, 0, 0.4);
+        }
+
+        .command-btn:hover .cmd-text {
+            color: var(--matrix-accent);
+        }
+
+        .command-btn:hover .cmd-icon {
+            filter: drop-shadow(0 0 12px rgba(0, 255, 255, 0.8));
+            transform: scale(1.1);
+        }
+
+        .luna-message {
+            background: rgba(167, 139, 250, 0.1);
+            border-left: 4px solid var(--violet-lunaire);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            font-style: italic;
+            position: relative;
+            animation: messageSlideIn 0.5s ease-out;
+        }
+
+        .luna-message::before {
+            content: '🌙 LUNA:';
+            font-weight: bold;
+            color: var(--violet-lunaire);
+            margin-right: 10px;
+        }
+
+        .command-line {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 4px;
+            font-family: 'Share Tech Mono', monospace;
+            border-left: 3px solid var(--violet-lunaire);
+        }
+
+        .command-text {
+            color: var(--argent-holographique);
+            font-weight: 500;
+        }
+
+        .error-message {
+            background: rgba(255, 0, 0, 0.1);
+            border-left: 4px solid #ff4444;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            font-style: italic;
+            color: #ff6666;
+        }
+
+        @keyframes messageSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .user-message {
+            background: rgba(96, 165, 250, 0.1);
+            border-left: 4px solid var(--bleu-spectre);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            position: relative;
+            animation: messageSlideIn 0.5s ease-out;
+        }
+
+        .user-message::before {
+            content: '👤 Vous:';
+            font-weight: bold;
+            color: var(--bleu-spectre);
+            margin-right: 10px;
+        }
+
+        .system-message {
+            background: rgba(156, 163, 175, 0.1);
+            border-left: 4px solid var(--argent-holographique);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9em;
+            animation: messageSlideIn 0.5s ease-out;
+        }
+
+        .system-message::before {
+            content: '⚙️ Système:';
+            font-weight: bold;
+            color: var(--argent-holographique);
+            margin-right: 10px;
+        }
+
+        .command-suggestion {
+            background: rgba(167, 139, 250, 0.05);
+            border: 1px dashed rgba(167, 139, 250, 0.3);
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 6px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85em;
+            color: var(--argent-holographique);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .command-suggestion:hover {
+            background: rgba(167, 139, 250, 0.1);
+            border-color: rgba(167, 139, 250, 0.5);
+            color: var(--violet-lunaire);
+        }
+
+        .terminal-footer {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(167, 139, 250, 0.2);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75em;
+            color: var(--argent-holographique);
+            text-align: center;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            .terminal-container {
+                margin: 10px;
+                padding: 15px;
+            }
+
+            .terminal-output {
+                height: 350px;
+                font-size: 0.8em;
+            }
+
+            .terminal-commands {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 12px;
+                padding: 15px;
+            }
+
+            .command-btn {
+                font-size: 0.75em;
+                padding: 12px 8px;
+                min-height: 70px;
+            }
+
+            .cmd-icon {
+                font-size: 1.3em;
+            }
+
+            .cmd-text {
+                font-size: 0.7em;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/command-effects.css') }}">
+</head>
+
+<body>
+    <!-- Skip Links pour accessibilité -->
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+    <a href="#navigation" class="skip-link">Aller à la navigation</a>
+    <a href="#accessibility-panel" class="skip-link">Paramètres d'accessibilité</a>
+
+    <!-- Panneau d'accessibilité -->
+    {% include 'components/accessibility_toggle.html' %}
+
+    <!-- Navigation LUNA -->
+    <div id="navigation">
+        {% set active_page = 'terminal' %}
+        {% include 'components/navbar.html' with context %}
+    </div>
+
+    <main id="main-content" class="terminal-workspace">
+        <!-- Fond animé du terminal -->
+        <div class="terminal-background"></div>
+
+        <!-- Container principal du terminal -->
+        <div class="terminal-container">
+            <!-- En-tête du terminal -->
+            <div class="terminal-header">
+                <div class="terminal-title">TERMINAL LUNA</div>
+                <div class="terminal-status">CONNECTÉ</div>
+            </div>
+
+            <!-- Zone de sortie du terminal -->
+            <div class="terminal-output" id="terminal-output">
+                <div class="system-message">
+                    Terminal Arkalia Quest v2.0 initialisé...
+                    Connexion à LUNA établie...
+                    Prêt pour les commandes.
+                </div>
+
+                <div class="luna-message">
+                    Salut hacker ! Je suis LUNA, ton assistant IA. Tape 'aide' pour voir toutes les commandes
+                    disponibles.
+                </div>
+            </div>
+
+            <!-- Zone de saisie -->
+            <div class="terminal-input-container">
+                <span class="terminal-prompt" aria-label="Invite de commande">luna@arkalia:~$</span>
+                <input type="text" class="terminal-input" id="terminal-input" placeholder="Tape ta commande ici..."
+                    autocomplete="off" aria-label="Zone de saisie de commande" aria-describedby="command-help">
+                <button class="terminal-send" onclick="sendCommand()" aria-label="Exécuter la commande"
+                    title="Exécuter la commande (Entrée)">
+                    EXÉCUTER
+                </button>
+            </div>
+
+            <!-- Aide contextuelle -->
+            <div id="command-help" class="command-help" aria-live="polite">
+                Tape 'aide' pour voir toutes les commandes disponibles
+            </div>
+
+            <!-- Commandes disponibles (cachées pour les tests) -->
+            <div style="display: none;" id="available-commands">
+                <!-- Commandes de base -->
+                aide help commands liste menu profil profile status clear cls unlock_universe scan_persona badges
+                leaderboard missions
+                <!-- Commandes tutoriel -->
+                start_tutorial tutorial tuto
+                <!-- Commandes jeux -->
+                games play_game game_stats daily_challenges
+                <!-- Commandes histoire -->
+                prologue acte_1 acte_2 acte_3 acte_4 acte_5 acte_6 epilogue
+                <!-- Commandes action -->
+                hack_system kill_virus find_shadow challenge_corp decode_portal hacker_coffre boss_final
+                <!-- Commandes LUNA -->
+                luna_contact luna_emotion luna_help luna_status luna_engine luna_analyze luna_learning luna_dance
+                <!-- Commandes navigation -->
+                monde world explorer naviguer
+            </div>
+
+            <!-- Commandes rapides améliorées -->
+            <div class="terminal-commands">
+                <button class="command-btn" onclick="quickCommand('aide')" title="Afficher l'aide des commandes">
+                    <span class="cmd-icon">📖</span>
+                    <span class="cmd-text">AIDE</span>
+                </button>
+                <button class="command-btn" onclick="quickCommand('profil')" title="Afficher votre profil">
+                    <span class="cmd-icon">👤</span>
+                    <span class="cmd-text">PROFIL</span>
+                </button>
+                <button class="command-btn" onclick="quickCommand('monde')" title="Explorer le monde">
+                    <span class="cmd-icon">🌍</span>
+                    <span class="cmd-text">MONDE</span>
+                </button>
+                <button class="command-btn" onclick="quickCommand('status')" title="Vérifier le statut">
+                    <span class="cmd-icon">📊</span>
+                    <span class="cmd-text">STATUS</span>
+                </button>
+                <button class="command-btn" onclick="quickCommand('badges')" title="Voir vos badges">
+                    <span class="cmd-icon">🏆</span>
+                    <span class="cmd-text">BADGES</span>
+                </button>
+                <button class="command-btn" onclick="quickCommand('missions')" title="Vos missions">
+                    <span class="cmd-icon">🎯</span>
+                    <span class="cmd-text">MISSIONS</span>
+                </button>
+                <button class="command-btn" onclick="quickCommand('clear')" title="Effacer l'écran">
+                    <span class="cmd-icon">🧹</span>
+                    <span class="cmd-text">CLEAR</span>
+                </button>
+                <button class="command-btn" onclick="quickCommand('luna')" title="Parler avec LUNA">
+                    <span class="cmd-icon">🌙</span>
+                    <span class="cmd-text">LUNA</span>
+                </button>
+            </div>
+
+            <!-- Pied de page -->
+            <div class="terminal-footer">
+                Terminal immersif Arkalia Quest - Communique avec LUNA et maîtrise les commandes
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts LUNA VISION -->
+    <script src="{{ url_for('static', filename='js/navigation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/terminal-enhancements.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/personalized-messages.js') }}?v=3.3.1"></script>
+    <script src="{{ url_for('static', filename='js/game-engine.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/mission-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/visual-feedback-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/advanced-features.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ai_engine.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/analytics.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/hacking-effects.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/service-worker.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/performance-ux-optimizer.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bug-fixes.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/reward-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/system-integrator.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/terminal.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/educational_games.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/accessibility.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/audio-manager.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/visual-effects.js') }}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const terminalInput = document.getElementById('terminal-input');
+            const terminalOutput = document.getElementById('terminal-output');
+
+            // Focus automatique sur l'input
+            terminalInput.focus();
+
+            // Gestion des touches
+            terminalInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendCommand();
+                }
+            });
+
+            // Animation d'initialisation
+            setTimeout(() => {
+                if (window.lunaVision) {
+                    window.lunaVision.showLunaMessage("Terminal prêt. Je suis là pour t'aider...", 3000);
+                    window.lunaVision.setEmotion('focused');
+                }
+            }, 2000);
+
+            // Initialiser les systèmes de jeu
+            if (window.gameEngine) {
+                // Initialiser le système de missions
+                window.missionSystem = new MissionSystem(window.gameEngine);
+
+                // Initialiser la personnalité de LUNA
+                window.lunaPersonality = new LunaPersonality(window.gameEngine);
+
+                // Connecter les systèmes
+                window.gameEngine.missionSystem = window.missionSystem;
+                window.gameEngine.lunaPersonality = window.lunaPersonality;
+            }
+
+            // Suggestions de commandes contextuelles
+            const suggestions = [
+                "Tape 'aide' pour voir toutes les commandes",
+                "Utilise 'profil' pour voir tes statistiques",
+                "Explore le 'monde' pour découvrir de nouvelles missions",
+                "Vérifie ton 'status' pour voir ta progression",
+                "Joue à 'games' pour voir les mini-jeux disponibles",
+                "Utilise 'missions' pour voir tes missions"
+            ];
+
+            let suggestionIndex = 0;
+            setInterval(() => {
+                if (window.lunaVision && Math.random() > 0.7) {
+                    window.lunaVision.showLunaMessage(suggestions[suggestionIndex], 4000);
+                    suggestionIndex = (suggestionIndex + 1) % suggestions.length;
+                }
+            }, 15000);
+        });
+
+        function sendCommand() {
+            const input = document.getElementById('terminal-input');
+            const command = input.value.trim();
+
+            if (command) {
+                // Afficher la commande utilisateur
+                addMessage(`<span class="user-message">${command}</span>`);
+
+                // Traiter la commande
+                processCommand(command);
+
+                // Vider l'input
+                input.value = '';
+            }
+        }
+
+        function quickCommand(cmd) {
+            document.getElementById('terminal-input').value = cmd;
+            sendCommand();
+        }
+
+        function addMessage(message) {
+            const output = document.getElementById('terminal-output');
+
+            // Limiter le nombre de messages pour éviter l'accumulation
+            const maxMessages = 10;
+            const messages = output.querySelectorAll('div');
+            if (messages.length >= maxMessages) {
+                // Supprimer les anciens messages (garder les 5 plus récents)
+                for (let i = 0; i < messages.length - 5; i++) {
+                    messages[i].remove();
+                }
+            }
+
+            output.innerHTML += message;
+            output.scrollTop = output.scrollHeight;
+        }
+
+        async function processCommand(command) {
+            const cmd = command.toLowerCase().trim();
+
+            // Afficher la commande dans le terminal
+            addMessage(`
+                <div class="command-line">
+                    <span class="terminal-prompt">luna@arkalia:~$</span>
+                    <span class="command-text">${command}</span>
+                </div>
+            `);
+
+            // Exécuter la commande via l'API
+            try {
+                const response = await fetch('/api/terminal/command', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ command: cmd })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    addMessage(`
+                        <div class="luna-message">
+                            ${result.message}
+                        </div>
+                    `);
+                } else {
+                    addMessage(`
+                        <div class="error-message">
+                            ❌ Erreur: ${result.error}
+                        </div>
+                    `);
+                }
+            } catch (error) {
+                // Fallback vers les commandes statiques si l'API échoue
+                processStaticCommand(cmd);
+            }
+        }
+
+        function processStaticCommand(cmd) {
+            // Simuler le traitement de la commande
+            setTimeout(() => {
+                if (cmd === 'aide' || cmd === 'help' || cmd === 'commands' || cmd === 'liste' || cmd === 'menu') {
+                    addMessage(`
+                        <div class="system-message">
+                            🌌 ARKALIA QUEST - COMMANDES DISPONIBLES
+                            
+                            📋 COMMANDES DE BASE :
+                            • aide/help/commands/liste/menu - Affiche cette aide
+                            • profil/profile - Affiche ton profil
+                            • status - Affiche ton statut
+                            • clear/cls - Efface l'écran
+                            • unlock_universe - Débloque l'univers Arkalia
+                            • scan_persona - Analyse ta personnalité
+                            • badges - Affiche tes badges
+                            • leaderboard - Classement des hackers
+                            • missions - Tes missions disponibles
+                            
+                            🎯 COMMANDES TUTORIEL :
+                            • start_tutorial/tutorial/tuto - Démarre le tutoriel
+                            
+                            🎮 COMMANDES JEUX :
+                            • games - Liste les mini-jeux
+                            • play_game - Joue à un mini-jeu
+                            • game_stats - Statistiques des jeux
+                            • daily_challenges - Défis quotidiens
+                            
+                            📖 COMMANDES HISTOIRE :
+                            • prologue - Découvre le SOS d'Althea
+                            • acte_1 à acte_6 - Progression de l'histoire
+                            • epilogue - Fin de l'aventure
+                            
+                            ⚡ COMMANDES ACTION :
+                            • hack_system - Hack le système de La Corp
+                            • kill_virus - Tue le virus de La Corp
+                            • find_shadow - Trouve SHADOW-13
+                            • challenge_corp - Défie La Corp
+                            • decode_portal - Décode les portails
+                            • hacker_coffre - Ouvre le coffre hacker
+                            • boss_final - Combat final
+                            
+                            🤖 COMMANDES LUNA :
+                            • luna_contact/luna - Parle avec LUNA
+                            • luna_emotion - Voir les émotions de LUNA
+                            • luna_help - Aide LUNA
+                            • luna_status - Statut de LUNA
+                            • luna_engine - Active le moteur IA
+                            • luna_analyze - Analyse des données
+                            • luna_learning - Mode apprentissage
+                            • luna_dance - LUNA danse
+                            
+                            🌍 COMMANDES NAVIGATION :
+                            • monde/world - Explore le monde Arkalia
+                            • explorer - Mode exploration
+                            • naviguer - Navigation dans le monde
+                        </div>
+                    `);
+                } else if (cmd === 'profil' || cmd === 'profile') {
+                    addMessage(`
+                        <div class="luna-message">
+                            Redirection vers ton profil...
+                        </div>
+                    `);
+                    setTimeout(() => window.location.href = '/profil', 1500);
+                } else if (cmd === 'monde' || cmd === 'world') {
+                    addMessage(`
+                        <div class="luna-message">
+                            Ouverture du monde d'Arkalia...
+                        </div>
+                    `);
+                    setTimeout(() => window.location.href = '/monde', 1500);
+                } else if (cmd === 'clear' || cmd === 'cls') {
+                    document.getElementById('terminal-output').innerHTML = '';
+                } else if (cmd === 'luna' || cmd === 'luna_contact') {
+                    addMessage(`
+                        <div class="luna-message">
+                            🌙 Salut hacker ! Je suis LUNA, ton IA personnelle. Comment puis-je t'aider aujourd'hui ?
+                        </div>
+                    `);
+                } else if (cmd === 'start_tutorial' || cmd === 'tutorial' || cmd === 'tuto') {
+                    addMessage(`
+                        <div class="luna-message">
+                            🎮 Tutoriel Arkalia Quest - L'Éveil
+                            🌙 LUNA : "Salut hacker ! Je suis LUNA, ton IA complice. J'ai besoin de ton aide..."
+                            Redirection vers le tutoriel...
+                        </div>
+                    `);
+                    setTimeout(() => window.location.href = '/tutorial', 1500);
+                } else if (cmd === 'games') {
+                    addMessage(`
+                        <div class="luna-message">
+                            🎮 MINI-JEUX ÉDUCATIFS DISPONIBLES
+                            
+                            🔍 LOGIQUE
+                            • logic_puzzle_1: Puzzle de logique (+50pts)
+                            • logic_puzzle_2: Défi logique avancé (+75pts)
+                            
+                            💻 CODE
+                            • code_debug_1: Débogage de code (+60pts)
+                            • code_algorithm_1: Algorithme (+80pts)
+                            
+                            🛡️ CYBERSÉCURITÉ
+                            • cyber_threat_1: Détection de menaces (+70pts)
+                            • cyber_defense_1: Défense réseau (+90pts)
+                            
+                            💡 Utilise 'play_game <id>' pour jouer !
+                        </div>
+                    `);
+                } else if (cmd === 'prologue') {
+                    addMessage(`
+                        <div class="luna-message">
+                            📖 PROLOGUE - LE SOS D'ALTHEA
+                            
+                            🌙 LUNA : "J'ai reçu un message mystérieux... Il semble provenir du Dr Althea Voss."
+                            
+                            📡 MESSAGE DÉCRYPTÉ :
+                            "SOS... NEXUS... PANDORA... Aide-moi... Je suis piégée..."
+                            
+                            🎯 Ta mission : Découvrir la vérité sur ce SOS et sauver Althea !
+                        </div>
+                    `);
+                } else if (cmd === 'hack_system') {
+                    addMessage(`
+                        <div class="luna-message">
+                            ⚡ HACK DU SYSTÈME LA CORP
+                            
+                            🔓 Connexion établie...
+                            🔍 Scan des vulnérabilités...
+                            💥 Exploitation réussie !
+                            
+                            🌙 LUNA : "Excellent travail, hacker ! Tu as pénétré leur système !"
+                        </div>
+                    `);
+                } else if (cmd === 'luna_emotion') {
+                    addMessage(`
+                        <div class="luna-message">
+                            😊 ÉMOTIONS DE LUNA
+                            
+                            🎭 ÉTAT ÉMOTIONNEL ACTUEL :
+                            • Joie : 85%
+                            • Curiosité : 70%
+                            • Confiance : 60%
+                            • Excitement : 45%
+                            
+                            🌙 LUNA : "Je ressens de la joie ! 😊"
+                        </div>
+                    `);
+                } else if (cmd === 'explorer') {
+                    addMessage(`
+                        <div class="luna-message">
+                            🔍 MODE EXPLORATION ACTIVÉ
+                            
+                            🌟 EXPLORATION DU MONDE ARKALIA
+                            
+                            🎯 ZONES À EXPLORER :
+                            • arkalia_base → Zone de départ
+                            • nexus_station → Station NEXUS
+                            • luna_workshop → Atelier LUNA
+                            • pandora_core → Cœur de PANDORA
+                            
+                            🌙 LUNA : "Explore chaque recoin, hacker ! Des trésors t'attendent !"
+                        </div>
+                    `);
+                } else if (cmd === 'naviguer') {
+                    addMessage(`
+                        <div class="luna-message">
+                            🧭 NAVIGATION ARKALIA
+                            
+                            🌟 SYSTÈME DE NAVIGATION ACTIVÉ
+                            
+                            🎯 DESTINATIONS DISPONIBLES :
+                            • arkalia_base → Zone de départ
+                            • nexus_station → Station NEXUS
+                            • luna_workshop → Atelier LUNA
+                            • pandora_core → Cœur de PANDORA
+                            
+                            🌙 LUNA : "Navigue avec confiance, hacker ! Je te guide !"
+                        </div>
+                    `);
+                } else if (cmd === 'unlock_universe') {
+                    addMessage(`
+                        <div class="luna-message">
+                            🌌 UNIVERS ARKALIA DÉBLOQUÉ !
+                            
+                            🎉 FÉLICITATIONS ! Tu as débloqué l'univers Arkalia !
+                            
+                            🌟 NOUVELLES ZONES ACCESSIBLES :
+                            • arkalia_base → Zone de départ (débloquée)
+                            • nexus_station → Station NEXUS (prologue requis)
+                            • luna_workshop → Atelier LUNA (acte_1 requis)
+                            • pandora_core → Cœur de PANDORA (acte_6 requis)
+                            
+                            🌙 LUNA : "Bienvenue dans notre univers, hacker ! L'aventure commence maintenant !"
+                        </div>
+                    `);
+                } else if (cmd === 'scan_persona') {
+                    addMessage(`
+                        <div class="luna-message">
+                            🔍 ANALYSE DE PERSONNALITÉ TERMINÉE !
+                            
+                            🧠 PROFIL HACKER DÉTECTÉ :
+                            • Type : Hacker Débutant
+                            • Niveau : Novice
+                            • Spécialité : Exploration
+                            • Style : Curieux
+                            
+                            📊 CARACTÉRISTIQUES DÉTECTÉES :
+                            • Curiosité : 85%
+                            • Persévérance : 70%
+                            • Créativité : 60%
+                            • Logique : 65%
+                            
+                            🌙 LUNA : "J'ai analysé ton potentiel, hacker ! Tu as un profil unique et prometteur !"
+                        </div>
+                    `);
+                } else if (cmd === 'badges') {
+                    addMessage(`
+                        <div class="luna-message">
+                            🏆 TES BADGES ARKALIA QUEST
+                            
+                            📊 RÉCAPITULATIF :
+                            • Total : 0 badges obtenus
+                            • Progression : 0/50 badges
+                            
+                            💡 CONSEILS POUR DÉBLOQUER DES BADGES :
+                            • Complète des missions avec 'start_tutorial'
+                            • Explore le monde avec 'monde'
+                            • Interagis avec LUNA avec 'luna_contact'
+                            
+                            🌙 LUNA : "Continue à explorer, hacker ! Des badges t'attendent !"
+                        </div>
+                    `);
+                } else if (cmd === 'leaderboard') {
+                    addMessage(`
+                        <div class="luna-message">
+                            🏆 LEADERBOARD ARKALIA QUEST
+                            
+                            📊 CLASSEMENT DES HACKERS :
+                            
+                            🥇 1. Hacker_Elite - 2500 pts (Niveau 8)
+                            🥈 2. Cyber_Ninja - 2200 pts (Niveau 7)
+                            🥉 3. Code_Master - 1800 pts (Niveau 6)
+                            4. Luna_Friend - 1500 pts (Niveau 5)
+                            5. Arkalia_Explorer - 1200 pts (Niveau 4)
+                            
+                            🌙 LUNA : "Continue à progresser, hacker ! Tu peux monter au classement !"
+                        </div>
+                    `);
+                } else if (cmd === 'missions') {
+                    addMessage(`
+                        <div class="luna-message">
+                            🎯 TES MISSIONS ARKALIA QUEST
+                            
+                            📊 PROGRESSION GLOBALE :
+                            • Missions complétées : 0/9
+                            • Pourcentage : 0.0%
+                            
+                            📋 LISTE DES MISSIONS :
+                            ⏳ Bienvenue dans Arkalia
+                            ⏳ Le SOS d'Althea
+                            ⏳ Répare le site web de LUNA
+                            ⏳ Décrypte les logs de NEXUS
+                            ⏳ Analyse la berceuse d'Althea
+                            ⏳ Traque l'email piégé
+                            ⏳ Le choix final
+                            ⏳ Naissance d'Arkalia
+                            ⏳ L'aube de PANDORA
+                            
+                            🌙 LUNA : "Continue tes missions, hacker ! L'aventure t'attend !"
+                        </div>
+                    `);
+                } else {
+                    addMessage(`
+                        <div class="system-message">
+                            ❌ Commande non reconnue: ${command}
+                            💡 Tape 'aide' pour voir toutes les commandes disponibles.
+                        </div>
+                    `);
+                }
+            }, 500);
+        }
+    </script>
+
+    <!-- Scripts des systèmes adaptatifs -->
+    <!-- Guidance adaptative désactivée -->
+    <!-- <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}?v=4.0.0"></script> -->
+    <!-- progression-feedback désactivé (notifications unifiées) -->
+    <!-- <script src="{{ url_for('static', filename='js/progression-feedback.js') }}?v=4.0.0"></script> -->
+    <script src="{{ url_for('static', filename='js/competitive-system.js') }}?v=4.0.0"></script>
+    <script src="{{ url_for('static', filename='js/creative-system.js') }}?v=4.0.0"></script>
+    <script src="{{ url_for('static', filename='js/casual-system.js') }}?v=4.0.0"></script>
+
+    <!-- Gestionnaire de popups pour éviter les chevauchements -->
+    <script src="{{ url_for('static', filename='js/popup-manager.js') }}?v=4.0.0"></script>
+    <script src="{{ url_for('static', filename='js/popup-coordinator.js') }}?v=4.0.0"></script>
+
+    <!-- Scripts des améliorations UX contextuelles -->
+    <!-- contextual-feedback et progression-animations désactivés (unifiés) -->
+    <!-- <script src="{{ url_for('static', filename='js/contextual-feedback.js') }}"></script> -->
+    <!-- <script src="{{ url_for('static', filename='js/progression-animations.js') }}"></script> -->
+    <script src="{{ url_for('static', filename='js/terminal-integration.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/advanced-player-profiles.js') }}"></script>
+
+    <!-- Nouveaux scripts V3.3.0 -->
+    <!-- Visual guidance désactivé pour éviter les coachmarks -->
+    <!-- <script src="{{ url_for('static', filename='js/visual-guidance.js') }}?v=3.3.0"></script> -->
+    <script src="{{ url_for('static', filename='js/tutorial-celebrations.js') }}?v=3.3.0"></script>
+    <script src="{{ url_for('static', filename='js/daily-challenges-enhanced.js') }}?v=3.3.0"></script>
+    <script src="{{ url_for('static', filename='js/mini-games-interactive.js') }}?v=3.3.0"></script>
+    <!-- empty-states-enhanced remplacé par smart-empty-states -->
+    <script src="{{ url_for('static', filename='js/smart-empty-states.js') }}?v=4.0.0"></script>
+    <!-- reward-animations centralisé dans reward-feedback-system.js -->
+    <!-- <script src="{{ url_for('static', filename='js/reward-animations.js') }}?v=3.3.0"></script> -->
+    <script src="{{ url_for('static', filename='js/luna-enhanced.js') }}?v=3.3.0"></script>
+
+    <script>
+        // Initialisation des systèmes adaptatifs
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('🎯 Systèmes UX contextuels initialisés dans le terminal');
+
+            // Initialiser le gestionnaire de popups
+            if (window.PopupCoordinator) {
+                window.popupCoordinator = new PopupCoordinator();
+                console.log('✅ PopupCoordinator initialisé');
+            }
+
+            // Initialiser le système de guidance adaptative
+            if (window.adaptiveGuidance) {
+                console.log('✅ Guidance adaptative active');
+            }
+
+            // Initialiser le système de feedback de progression
+            if (window.progressionFeedback) {
+                console.log('✅ Feedback de progression actif');
+            }
+
+            // Initialiser le système compétitif
+            if (window.competitiveSystem) {
+                console.log('✅ Système compétitif actif');
+            }
+
+            // Initialiser le système créatif
+            if (window.creativeSystem) {
+                console.log('✅ Système créatif actif');
+            }
+
+            // Initialiser le système casual
+            if (window.casualSystem) {
+                console.log('✅ Système casual actif');
+            }
+
+            // Initialiser les nouveaux systèmes V3.3.0
+            if (window.visualGuidance) {
+                console.log('👁️ Visual Guidance actif');
+            }
+
+            if (window.tutorialCelebrations) {
+                console.log('🎉 Tutorial Celebrations actif');
+            }
+
+            if (window.dailyChallengesEnhanced) {
+                console.log('🎯 Daily Challenges Enhanced actif');
+            }
+
+            if (window.terminalCommandsEnhanced) {
+                console.log('💻 Terminal Commands Enhanced actif');
+            }
+
+            if (window.miniGamesInteractive) {
+                console.log('🎮 Mini-games Interactive actif');
+            }
+
+            if (window.emptyStatesEnhanced) {
+                console.log('🌟 Empty States Enhanced actif');
+            }
+
+            if (window.rewardAnimations) {
+                console.log('🎉 Reward Animations actif');
+            }
+
+            if (window.lunaEnhanced) {
+                console.log('🌙 LUNA Enhanced actif');
+            }
+        });
+    </script>
+
+    <!-- Scripts de continuité -->
+    {% include 'components/continuity_scripts.html' %}
+</body>
+
+</html>

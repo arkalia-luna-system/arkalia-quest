@@ -173,12 +173,12 @@ class MissingCommands:
         if random.random() < 0.7:
             message = f"""🎮 MINI-JEU TERMINÉ !
 
-🎯 JEU : {game['name']} ({game['type']})
-❓ QUESTION : {game['question']}
-✅ RÉPONSE : {game['options'][game['correct']]}
+🎯 JEU : {game["name"]} ({game["type"]})
+❓ QUESTION : {game["question"]}
+✅ RÉPONSE : {game["options"][game["correct"]]}
 
 🎉 VICTOIRE ! Vous avez résolu le défi !
-🏆 +{game['points']} points gagnés !
+🏆 +{game["points"]} points gagnés !
 💡 Mini-jeu ajouté à votre collection !"""
 
             return {
@@ -190,10 +190,10 @@ class MissingCommands:
             }
         message = f"""🎮 MINI-JEU ÉCHOUÉ !
 
-🎯 JEU : {game['name']} ({game['type']})
-❓ QUESTION : {game['question']}
-❌ RÉPONSE : {game['options'][random.randint(0, 3)]}
-✅ BONNE RÉPONSE : {game['options'][game['correct']]}
+🎯 JEU : {game["name"]} ({game["type"]})
+❓ QUESTION : {game["question"]}
+❌ RÉPONSE : {game["options"][random.randint(0, 3)]}
+✅ BONNE RÉPONSE : {game["options"][game["correct"]]}
 
 😔 ÉCHEC ! Mais ne vous découragez pas !
 💡 Réessayez ! La pratique rend parfait !
@@ -286,10 +286,10 @@ Utilisez 'play_game' pour réessayer."""
 • API: v2.0.0
 
 📊 STATISTIQUES JOUEUR :
-• Score: {profile.get('score', 0)}
-• Niveau: {profile.get('level', 1)}
-• Badges: {len(profile.get('badges', []))}
-• Missions: {len(profile.get('missions_completed', []))}
+• Score: {profile.get("score", 0)}
+• Niveau: {profile.get("level", 1)}
+• Badges: {len(profile.get("badges", []))}
+• Missions: {len(profile.get("missions_completed", []))}
 
 🛠️ SYSTÈME :
 • Mémoire: Optimisée

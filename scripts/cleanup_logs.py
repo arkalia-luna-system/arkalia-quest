@@ -14,10 +14,10 @@ def cleanup_logs():
     logs_dir = Path("logs")
 
     if not logs_dir.exists():
-        print("❌ Dossier logs introuvable")
+        print(r"❌ Dossier logs introuvable")
         return
 
-    print("🧹 Nettoyage des logs en cours...")
+    print(r"🧹 Nettoyage des logs en cours...")
 
     # Sauvegarder les logs actuels
     backup_dir = logs_dir / "backup"
@@ -63,7 +63,7 @@ def cleanup_logs():
         except Exception as e:
             print(f"❌ Erreur suppression {backup_file}: {e}")
 
-    print("✅ Nettoyage terminé!")
+    print(r"✅ Nettoyage terminé!")
 
 
 if __name__ == "__main__":

@@ -4,13 +4,26 @@
 Tests de performance sous charge pour valider la scalabilité
 """
 
+import os
 import statistics
+import sys
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Any, Optional
 
 import requests
+
+# Ajouter le répertoire racine au path
+project_root = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+)
+sys.path.insert(0, project_root)
+
+from utils.logger import GameLogger  # noqa: E402
+
+# Initialiser le logger
+game_logger = GameLogger()
 
 
 class LoadTester:
@@ -90,7 +103,7 @@ class LoadTester:
         duration: int = 60,
     ) -> dict[str, Any]:
         """Lance un test de charge"""
-        print(
+        game_logger.info(
             f"🚀 Démarrage du test de charge: {concurrent_users} utilisateurs, {duration}s"
         )
 
@@ -119,7 +132,7 @@ class LoadTester:
                 try:
                     future.result()
                 except Exception as e:
-                    print(f"❌ Erreur utilisateur: {e}")
+                    game_logger.info(f"❌ Erreur utilisateur: {e}")
 
         self.results["end_time"] = time.time()
         return self.generate_report()
@@ -195,7 +208,7 @@ class LoadTester:
 
 def run_comprehensive_load_test():
     """Lance un test de charge complet"""
-    print("🧪 TESTS DE CHARGE COMPLETS - ARKALIA QUEST")
+    game_logger.info(r"🧪 TESTS DE CHARGE COMPLETS - ARKALIA QUEST")
     print("=" * 60)
 
     # Configuration des tests
@@ -237,7 +250,7 @@ def run_comprehensive_load_test():
             summary = report["test_summary"]
             performance = report["performance_metrics"]
 
-            print("📊 Résultats:")
+            game_logger.info(r"📊 Résultats:")
             print(f"   Requêtes totales: {summary['total_requests']}")
             print(f"   Taux de succès: {summary['success_rate']:.1f}%")
             print(f"   Requêtes/seconde: {performance['requests_per_second']:.1f}")
@@ -247,14 +260,14 @@ def run_comprehensive_load_test():
             print(f"   Temps réponse P95: {performance['p95_response_time']:.3f}s")
 
             if report["recommendations"]:
-                print("\n💡 Recommandations:")
+                game_logger.info(r"\n💡 Recommandations:")
                 for rec in report["recommendations"]:
-                    print(f"   {rec}")
+                    game_logger.info(f"   {rec}")
         else:
             print(f"❌ Erreur: {report['error']}")
 
     # Rapport final
-    print("\n🎉 Test de charge terminé!")
+    game_logger.info(r"\n🎉 Test de charge terminé!")
     print("=" * 60)
 
 

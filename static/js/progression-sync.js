@@ -69,48 +69,48 @@ class ProgressionSync {
     }
 
     updateDashboard(progressionData) {
-        // Mettre à jour les éléments du dashboard
+        if (!progressionData || typeof progressionData !== 'object') return;
         const levelElement = document.querySelector('.player-level, .level-value, #player-level');
         if (levelElement) {
-            levelElement.textContent = progressionData.level;
+            levelElement.textContent = progressionData.level ?? 1;
         }
 
         const xpElement = document.querySelector('.player-xp, .xp-value, #player-xp');
         if (xpElement) {
-            xpElement.textContent = progressionData.xp;
+            xpElement.textContent = progressionData.xp ?? 0;
         }
 
         const scoreElement = document.querySelector('.player-score, .score-value, #player-score');
         if (scoreElement) {
-            scoreElement.textContent = progressionData.score;
+            scoreElement.textContent = progressionData.score ?? 0;
         }
 
         const coinsElement = document.querySelector('.player-coins, .coins-value, #player-coins');
         if (coinsElement) {
-            coinsElement.textContent = progressionData.coins;
+            coinsElement.textContent = progressionData.coins ?? 0;
         }
 
-        // Mettre à jour les badges
         const badgesContainer = document.querySelector('.badges-container, .player-badges, #player-badges');
-        if (badgesContainer && progressionData.badges) {
+        if (badgesContainer && Array.isArray(progressionData.badges)) {
             badgesContainer.innerHTML = progressionData.badges.map(badge =>
-                `<span class="badge">${badge}</span>`
+                `<span class="badge">${badge != null ? String(badge) : ''}</span>`
             ).join('');
         }
 
-        // Mettre à jour les statistiques
-        this.updateStats(progressionData.stats);
+        if (progressionData.stats) {
+            this.updateStats(progressionData.stats);
+        }
     }
 
     updateProfile(progressionData) {
-        // Mettre à jour la page de profil
+        if (!progressionData || typeof progressionData !== 'object') return;
         const profileElements = {
-            'level': progressionData.level,
-            'xp': progressionData.xp,
-            'score': progressionData.score,
-            'coins': progressionData.coins,
-            'badges': progressionData.badges?.length || 0,
-            'missions': progressionData.missions_completed?.length || 0
+            'level': progressionData.level ?? 1,
+            'xp': progressionData.xp ?? 0,
+            'score': progressionData.score ?? 0,
+            'coins': progressionData.coins ?? 0,
+            'badges': Array.isArray(progressionData.badges) ? progressionData.badges.length : 0,
+            'missions': Array.isArray(progressionData.missions_completed) ? progressionData.missions_completed.length : 0
         };
 
         Object.entries(profileElements).forEach(([key, value]) => {

@@ -4,7 +4,7 @@
 
 # **Statut : ACTIF**
 
-# **Dernière mise à jour : Août 2025**
+*Dernière mise à jour : 7 février 2026*
 
 **Résumé :** Guide technique pour les développeurs Arkalia Quest (architecture, bonnes pratiques, outils).
 

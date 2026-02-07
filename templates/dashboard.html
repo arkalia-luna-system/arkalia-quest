@@ -15,9 +15,9 @@
 
     <!-- PWA Icons -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/icon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/icon-16x16.png">
-    <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/icon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='icons/icon-16x16.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
 
     <!-- CSS LUNA VISION -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}">
@@ -422,6 +422,32 @@
             line-height: 1.4;
         }
 
+        .luna-emotion-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 10px 18px;
+            background: rgba(167, 139, 250, 0.12);
+            border: 1px solid rgba(167, 139, 250, 0.35);
+            border-radius: 12px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9em;
+        }
+        .luna-emotion-label { color: var(--violet-lunaire); font-weight: 600; }
+        .luna-emotion-value {
+            color: var(--argent-holographique);
+            text-transform: capitalize;
+        }
+        .luna-emotion-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--violet-lunaire);
+            opacity: 0.8;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
         .real-time-indicator {
             position: fixed;
             top: 20px;
@@ -579,6 +605,13 @@
                 <p class="dashboard-subtitle" id="dashboard-subtitle">Centre de contrôle de ta progression</p>
             </div>
 
+            <!-- Indicateur d'émotion LUNA (API luna-emotions) -->
+            <div class="luna-emotion-indicator" id="luna-emotion-indicator" aria-live="polite">
+                <span class="luna-emotion-label">🌙 LUNA</span>
+                <span class="luna-emotion-value" id="luna-emotion-value">—</span>
+                <span class="luna-emotion-dot" id="luna-emotion-dot" title="Intensité"></span>
+            </div>
+
             <!-- Grille des widgets -->
             <div class="dashboard-grid">
                 <!-- Widget Score Total -->
@@ -674,6 +707,40 @@
                 </div>
             </div>
 
+            <!-- Widget Défis du jour (API daily-challenges) -->
+            <div class="widget" id="daily-challenges-widget">
+                <div class="widget-header">
+                    <h3 class="widget-title">🎯 Défis du jour</h3>
+                    <span class="widget-icon">⏰</span>
+                </div>
+                <div class="widget-content">
+                    <div class="metric-display">
+                        <span class="metric-value" id="daily-challenges-count">--</span>
+                        <div class="metric-label">Défis aujourd'hui</div>
+                    </div>
+                    <a href="/terminal" class="nav-link" style="display: inline-block; margin-top: 12px; padding: 8px 14px; border-radius: 8px; background: rgba(167,139,250,0.25); font-size: 0.9em;">Voir les défis</a>
+                </div>
+            </div>
+
+            <!-- Accès rapide : 100% du jeu depuis un seul endroit -->
+            <div class="widget" style="grid-column: 1 / -1;">
+                <div class="widget-header">
+                    <h3 class="widget-title">🚀 Accès rapide</h3>
+                    <span class="widget-icon">🗺️</span>
+                </div>
+                <div class="widget-content" style="flex-direction: row; flex-wrap: wrap; gap: 12px; justify-content: center;">
+                    <a href="/tutorial" class="nav-link" style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">🎯 Tutoriel</a>
+                    <a href="/skill-tree" class="nav-link" style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">⚡ Compétences</a>
+                    <a href="/leaderboard" class="nav-link" style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">🏆 Classement</a>
+                    <a href="/terminal" class="nav-link" style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">⌨️ Terminal</a>
+                    <a href="/explorateur" class="nav-link" style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">🗺️ Explorateur</a>
+                    <a href="/mail" class="nav-link" style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">✉️ Mail</a>
+                    <a href="/audio" class="nav-link" style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">🔊 Audio</a>
+                    <a href="/technical-tutorials" class="nav-link" style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">📚 Tutoriels tech.</a>
+                    <a href="/accessibility" class="nav-link" style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">♿ Accessibilité</a>
+                </div>
+            </div>
+
             <!-- Panneau des notifications -->
             <div class="notifications-panel">
                 <div class="notifications-header">
@@ -706,9 +773,23 @@
     <script src="{{ url_for('static', filename='js/system-integrator.js') }}"></script>
 
     <script>
+        // Charger les défis du jour (API daily-challenges)
+        async function loadDailyChallenges() {
+            const el = document.getElementById('daily-challenges-count');
+            if (!el) return;
+            try {
+                const res = await fetch('/api/daily-challenges?user_id=main_user', { headers: { 'Accept': 'application/json' } });
+                if (!res.ok) { el.textContent = '0'; return; }
+                const data = await res.json();
+                const count = (data.challenges && Array.isArray(data.challenges)) ? data.challenges.length : (data.challenges && typeof data.challenges === 'object') ? Object.keys(data.challenges).length : 0;
+                el.textContent = count;
+            } catch (_) { el.textContent = '0'; }
+        }
+
         // Charger les données du dashboard
         async function loadDashboardData() {
             try {
+                loadDailyChallenges();
                 // Essayer d'abord l'API de progression
                 const progressionResponse = await fetch('/api/progression/data');
                 if (progressionResponse.ok) {
@@ -735,46 +816,59 @@
             }
         }
 
-        // Mettre à jour le dashboard avec les données de progression
+        // Mettre à jour le dashboard avec les données de progression (IDs alignés avec le HTML)
         function updateDashboardFromProgression(data) {
-            const progression = data.progression;
+            if (!data) return;
+            const progression = data.progression && typeof data.progression === 'object' ? data.progression : {};
+            const score = progression.score ?? 0;
+            const level = progression.level ?? 1;
+            const missionsCount = Array.isArray(progression.achievements_unlocked) ? progression.achievements_unlocked.length : 0;
+            const badgesCount = Array.isArray(progression.badges) ? progression.badges.length : 0;
 
-            // Mettre à jour les métriques
-            document.getElementById('total_score').textContent = progression.score || 0;
-            document.getElementById('current_level').textContent = progression.level || 1;
-            document.getElementById('missions_completees').textContent = progression.achievements_unlocked ? progression.achievements_unlocked.length : 0;
-            document.getElementById('badges_count').textContent = progression.badges ? progression.badges.length : 0;
+            const totalScoreEl = document.getElementById('total-score');
+            const levelPctEl = document.getElementById('level-percentage');
+            const missionsEl = document.getElementById('missions-completed');
+            const badgesEl = document.getElementById('badges-count');
+            const perfEl = document.getElementById('performance-score');
+            const playTimeEl = document.getElementById('play-time');
 
-            // Mettre à jour les défis quotidiens
-            if (data.daily_challenges) {
-                updateDailyChallengesDisplay(data.daily_challenges);
-            }
+            if (totalScoreEl) totalScoreEl.textContent = score;
+            if (levelPctEl) levelPctEl.textContent = level;
+            if (missionsEl) missionsEl.textContent = missionsCount;
+            if (badgesEl) badgesEl.textContent = badgesCount;
+            if (perfEl) perfEl.textContent = score > 0 ? Math.round(score / 10) : 0;
+            if (playTimeEl) playTimeEl.textContent = score > 0 ? Math.round(score / 100) : 0;
 
-            // Mettre à jour le leaderboard
-            if (data.leaderboard) {
-                updateLeaderboardDisplay(data.leaderboard);
+            // Anneau de progression (estimation % depuis le niveau)
+            const levelProgress = Math.min(100, (level - 1) * 25 + (progression.xp || 0) % 25);
+            const progressCircle = document.querySelector('.progress-ring .progress');
+            if (progressCircle) {
+                const circumference = 2 * Math.PI * 45;
+                progressCircle.style.strokeDashoffset = circumference - (levelProgress / 100) * circumference;
             }
         }
 
         function updateDashboardMetrics(data) {
-            // Masquer les widgets avec des valeurs zéro au lieu d'afficher N/A
+            if (!data || typeof data !== 'object') return;
             const totalScoreWidget = document.querySelector('.widget:nth-child(1)');
             const missionsWidget = document.querySelector('.widget:nth-child(2)');
             const badgesWidget = document.querySelector('.widget:nth-child(3)');
             const performanceWidget = document.querySelector('.widget:nth-child(4)');
             const playTimeWidget = document.querySelector('.widget:nth-child(5)');
 
-            // Afficher/masquer les widgets selon les données
-            totalScoreWidget.style.display = data.total_score > 0 ? 'block' : 'none';
-            missionsWidget.style.display = data.missions_completees > 0 ? 'block' : 'none';
-            badgesWidget.style.display = data.badges_count > 0 ? 'block' : 'none';
-            performanceWidget.style.display = data.total_score > 0 ? 'block' : 'none';
-            playTimeWidget.style.display = data.total_score > 0 ? 'block' : 'none';
+            const totalScore = Number(data.total_score) || 0;
+            const missionsCompletees = Number(data.missions_completees) || 0;
+            const badgesCount = Number(data.badges_count) || 0;
 
-            // Afficher un message d'encouragement si aucun widget n'est visible
+            if (totalScoreWidget) totalScoreWidget.style.display = totalScore > 0 ? 'block' : 'none';
+            if (missionsWidget) missionsWidget.style.display = missionsCompletees > 0 ? 'block' : 'none';
+            if (badgesWidget) badgesWidget.style.display = badgesCount > 0 ? 'block' : 'none';
+            if (performanceWidget) performanceWidget.style.display = totalScore > 0 ? 'block' : 'none';
+            if (playTimeWidget) playTimeWidget.style.display = totalScore > 0 ? 'block' : 'none';
+
             const dashboardGrid = document.querySelector('.dashboard-grid');
             const emptyState = document.getElementById('empty-dashboard-state');
-            if (!emptyState && data.total_score === 0 && data.missions_completees === 0 && data.badges_count === 0) {
+            if (!emptyState && totalScore === 0 && missionsCompletees === 0 && badgesCount === 0 && dashboardGrid) {
                 const emptyStateDiv = document.createElement('div');
                 emptyStateDiv.id = 'empty-dashboard-state';
                 emptyStateDiv.className = 'empty-state-widget';
@@ -789,31 +883,34 @@
                 dashboardGrid.appendChild(emptyStateDiv);
             }
 
-            // Mettre à jour les valeurs
-            document.getElementById('total-score').textContent = data.total_score || 0;
-            document.getElementById('missions-completed').textContent = data.missions_completees || 0;
-            document.getElementById('badges-count').textContent = data.badges_count || 0;
-            document.getElementById('performance-score').textContent = data.total_score > 0 ? Math.round(data.total_score / 10) : 0;
-            document.getElementById('play-time').textContent = data.total_score > 0 ? Math.round(data.total_score / 100) : 0;
+            const totalScoreEl = document.getElementById('total-score');
+            const missionsEl = document.getElementById('missions-completed');
+            const badgesEl = document.getElementById('badges-count');
+            const perfEl = document.getElementById('performance-score');
+            const playTimeEl = document.getElementById('play-time');
+            if (totalScoreEl) totalScoreEl.textContent = totalScore;
+            if (missionsEl) missionsEl.textContent = missionsCompletees;
+            if (badgesEl) badgesEl.textContent = badgesCount;
+            if (perfEl) perfEl.textContent = totalScore > 0 ? Math.round(totalScore / 10) : 0;
+            if (playTimeEl) playTimeEl.textContent = totalScore > 0 ? Math.round(totalScore / 100) : 0;
         }
 
         function updateProgressRing(data) {
-            const levelProgress = data.level_progress || 0;
+            if (!data) return;
+            const levelProgress = Number(data.level_progress) || 0;
             const progressCircle = document.querySelector('.progress-ring .progress');
             const percentageText = document.getElementById('level-percentage');
-
             const circumference = 2 * Math.PI * 45;
             const offset = circumference - (levelProgress / 100) * circumference;
-
-            progressCircle.style.strokeDashoffset = offset;
-            percentageText.textContent = Math.round(levelProgress) + '%';
+            if (progressCircle) progressCircle.style.strokeDashoffset = offset;
+            if (percentageText) percentageText.textContent = Math.round(levelProgress) + '%';
         }
 
         function updateMissionsChart(data) {
             const chartContainer = document.getElementById('missions-chart');
+            if (!chartContainer) return;
             chartContainer.innerHTML = '';
 
-            // Données simulées pour le graphique
             const missionData = [65, 80, 45, 90, 70, 85];
 
             missionData.forEach((value, index) => {
@@ -826,11 +923,13 @@
         }
 
         function updateNotifications(data) {
+            if (!data || typeof data !== 'object') return;
             const container = document.getElementById('notifications-container');
+            if (!container) return;
             container.innerHTML = '';
 
             const notifications = [];
-            if ((data.missions_completees || 0) > 0) {
+            if ((Number(data.missions_completees) || 0) > 0) {
                 notifications.push({
                     icon: '🎯',
                     title: 'Mission Complétée',
@@ -838,7 +937,7 @@
                     time: 'Il y a 2 min'
                 });
             }
-            if ((data.current_level || 0) > 1) {
+            if ((Number(data.current_level) || 0) > 1) {
                 notifications.push({
                     icon: '⭐',
                     title: 'Niveau Atteint',
@@ -846,7 +945,7 @@
                     time: 'Il y a 15 min'
                 });
             }
-            if ((data.badges_count || 0) > 0) {
+            if ((Number(data.badges_count) || 0) > 0) {
                 notifications.push({
                     icon: '🏅',
                     title: 'Badge Débloqué',
@@ -855,7 +954,7 @@
                 });
             }
 
-            notifications.forEach((notification, index) => {
+            notifications.forEach((notification) => {
                 const item = document.createElement('div');
                 item.className = 'notification-item';
                 item.innerHTML = `
@@ -871,19 +970,22 @@
         }
 
         function updateLunaInsights(data) {
+            if (!data || typeof data !== 'object') return;
             const insights = document.getElementById('luna-insights');
-
+            if (!insights) return;
+            const totalScore = Number(data.total_score) || 0;
+            const missionsCompletees = Number(data.missions_completees) || 0;
+            const badgesCount = Number(data.badges_count) || 0;
             let message = '';
-            if (data.total_score >= 1000) {
+            if (totalScore >= 1000) {
                 message = "Tes performances sont exceptionnelles ! Tu domines le classement.";
-            } else if (data.missions_completees >= 10) {
+            } else if (missionsCompletees >= 10) {
                 message = "Tu progresses rapidement. Tes missions révèlent ton potentiel.";
-            } else if (data.badges_count >= 5) {
+            } else if (badgesCount >= 5) {
                 message = "Tes badges montrent ta diversité. Continue d'explorer !";
             } else {
                 message = "Bienvenue dans ton dashboard ! Je surveille tes progrès.";
             }
-
             insights.textContent = message;
         }
 
@@ -891,12 +993,34 @@
         function startRealTimeUpdates() {
             setInterval(() => {
                 loadDashboardData();
+                loadLunaEmotion(); // Rafraîchir l'émotion LUNA en même temps
             }, 30000); // Mise à jour toutes les 30 secondes
         }
 
         // Animation du titre
+        async function loadLunaEmotion() {
+            const valueEl = document.getElementById('luna-emotion-value');
+            const dotEl = document.getElementById('luna-emotion-dot');
+            if (!valueEl) return;
+            try {
+                const res = await fetch('/api/luna-emotions', { headers: { 'Accept': 'application/json' } });
+                if (!res.ok) return;
+                const data = await res.json();
+                if (data.success && data.emotion) {
+                    const e = data.emotion;
+                    const name = (e.emotion || '').replace(/_/g, ' ');
+                    valueEl.textContent = name || '—';
+                    if (dotEl) {
+                        dotEl.style.background = e.color || 'var(--violet-lunaire)';
+                        dotEl.style.opacity = (e.intensity != null) ? 0.4 + 0.6 * Math.min(1, e.intensity) : '0.8';
+                    }
+                }
+            } catch (_) {}
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             loadDashboardData();
+            loadLunaEmotion();
             startRealTimeUpdates();
 
             // Animation du titre
@@ -938,9 +1062,8 @@
 
     <!-- Scripts des systèmes adaptatifs -->
     <!-- Guidance adaptative désactivée -->
-    <!-- <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}"></script> -->
-    <!-- progression-feedback désactivé (notifications unifiées) -->
-    <!-- <script src="{{ url_for('static', filename='js/progression-feedback.js') }}"></script> -->
+    <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/progression-feedback.js') }}"></script>
     <script src="{{ url_for('static', filename='js/competitive-system.js') }}"></script>
     <script src="{{ url_for('static', filename='js/creative-system.js') }}"></script>
     <script src="{{ url_for('static', filename='js/casual-system.js') }}"></script>

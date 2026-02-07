@@ -158,17 +158,16 @@ class ReadyStateManager {
     }
 
     userHasData(playerData) {
-        if (!playerData) return false;
+        if (!playerData || typeof playerData !== 'object') return false;
 
-        // Vérifier les critères de données
         const criteria = [
-            playerData.xp > 0,
-            playerData.score > 0,
-            playerData.coins > 0,
-            playerData.badges && playerData.badges.length > 0,
-            playerData.missions_completed && playerData.missions_completed.length > 0,
-            playerData.skills && Object.keys(playerData.skills).length > 0,
-            playerData.stats && (
+            (playerData.xp || 0) > 0,
+            (playerData.score || 0) > 0,
+            (playerData.coins || 0) > 0,
+            Array.isArray(playerData.badges) && playerData.badges.length > 0,
+            Array.isArray(playerData.missions_completed) && playerData.missions_completed.length > 0,
+            playerData.skills && typeof playerData.skills === 'object' && Object.keys(playerData.skills).length > 0,
+            playerData.stats && typeof playerData.stats === 'object' && (
                 playerData.stats.total_commands > 0 ||
                 playerData.stats.total_luna_commands > 0 ||
                 playerData.stats.total_mini_games > 0 ||

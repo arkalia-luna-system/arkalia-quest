@@ -74,12 +74,28 @@ class ThemeManager {
 
     init() {
         this.loadTheme();
+        this.loadThemeFromServer();
         this.createThemeSelector();
         this.setupEventListeners();
         this.applyTheme(this.currentTheme);
 
         // console.log('🎨 Theme Manager initialisé');
     }
+
+    loadThemeFromServer() {
+        fetch('/api/customization/player?player_id=main_user')
+            .then((r) => r.ok ? r.json() : null)
+            .then((data) => {
+                if (data?.success && data?.customization?.current_theme?.id) {
+                    const themeId = data.customization.current_theme.id;
+                    if (this.availableThemes[themeId]) {
+                        this.currentTheme = themeId;
+                    }
+                }
+            })
+            .catch(() => {});
+    }
+
 
     createThemeSelector() {
         // Créer le sélecteur de thème
@@ -265,6 +281,11 @@ class ThemeManager {
 
     saveTheme() {
         localStorage.setItem('arkalia_theme', this.currentTheme);
+        fetch(`/api/customization/themes/${encodeURIComponent(this.currentTheme)}/set`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ player_id: 'main_user' })
+        }).then((r) => r.ok ? r.json() : null).catch(() => {});
     }
 
     loadTheme() {

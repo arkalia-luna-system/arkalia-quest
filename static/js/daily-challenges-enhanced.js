@@ -374,39 +374,46 @@ class DailyChallengesEnhanced {
 
         this.activeChallenges.forEach(challenge => {
             const challengeElement = this.createChallengeElement(challenge);
-            listContainer.appendChild(challengeElement);
+            if (challengeElement && challengeElement.id) listContainer.appendChild(challengeElement);
         });
 
         this.updateRewardsSummary();
     }
 
     createChallengeElement(challenge) {
+        if (!challenge || typeof challenge !== 'object') return document.createElement('div');
+        const target = Number(challenge.target) || 1;
+        const progress = Number(challenge.progress) || 0;
+        const reward = challenge.reward && typeof challenge.reward === 'object' ? challenge.reward : { xp: 0, coins: 0, badge: '' };
         const element = document.createElement('div');
         element.className = `challenge-item ${challenge.isCompleted ? 'completed' : ''}`;
-        element.id = `challenge-${challenge.id}`;
+        element.id = `challenge-${challenge.id || ''}`;
 
-        const progressPercentage = (challenge.progress / challenge.target) * 100;
-        const isCompleted = challenge.isCompleted || challenge.progress >= challenge.target;
+        const progressPercentage = target > 0 ? (progress / target) * 100 : 0;
+        const isCompleted = challenge.isCompleted || progress >= target;
+        const title = (challenge.title || '').replace(/</g, '&lt;');
+        const description = (challenge.description || '').replace(/</g, '&lt;');
+        const difficulty = (challenge.difficulty || 'normal').toUpperCase();
 
         element.innerHTML = `
             <div class="challenge-header">
-                <div class="challenge-title">${challenge.title}</div>
-                <div class="challenge-difficulty difficulty-${challenge.difficulty}">
-                    ${challenge.difficulty.toUpperCase()}
+                <div class="challenge-title">${title}</div>
+                <div class="challenge-difficulty difficulty-${challenge.difficulty || 'normal'}">
+                    ${difficulty}
                 </div>
             </div>
-            <div class="challenge-description">${challenge.description}</div>
+            <div class="challenge-description">${description}</div>
             <div class="challenge-progress">
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: ${progressPercentage}%"></div>
                 </div>
                 <div class="progress-text">
-                    ${challenge.progress}/${challenge.target} (${Math.round(progressPercentage)}%)
+                    ${progress}/${target} (${Math.round(progressPercentage)}%)
                 </div>
             </div>
             <div class="challenge-reward">
                 <div class="reward-info">
-                    🏆 ${challenge.reward.xp} XP • ${challenge.reward.coins} Coins • ${challenge.reward.badge}
+                    🏆 ${reward.xp ?? 0} XP • ${reward.coins ?? 0} Coins • ${(reward.badge || '').replace(/</g, '&lt;')}
                 </div>
                 <button class="challenge-action" ${isCompleted ? 'disabled' : ''} 
                         onclick="window.dailyChallengesEnhanced.claimReward('${challenge.id}')">
@@ -423,10 +430,10 @@ class DailyChallengesEnhanced {
         const summaryContainer = document.getElementById('rewards-summary');
         if (!summaryContainer) return;
 
-        const completedChallenges = this.activeChallenges.filter(c => c.isCompleted);
-        const totalXP = completedChallenges.reduce((sum, c) => sum + c.reward.xp, 0);
-        const totalCoins = completedChallenges.reduce((sum, c) => sum + c.reward.coins, 0);
-        const badges = completedChallenges.map(c => c.reward.badge);
+        const completedChallenges = this.activeChallenges.filter(c => c && c.isCompleted);
+        const totalXP = completedChallenges.reduce((sum, c) => sum + (c.reward && c.reward.xp ? c.reward.xp : 0), 0);
+        const totalCoins = completedChallenges.reduce((sum, c) => sum + (c.reward && c.reward.coins ? c.reward.coins : 0), 0);
+        const badges = completedChallenges.map(c => c.reward && c.reward.badge ? c.reward.badge : '').filter(Boolean);
 
         summaryContainer.innerHTML = `
             <div class="reward-item">
@@ -509,14 +516,19 @@ class DailyChallengesEnhanced {
     }
 
     giveReward(reward) {
-        // Mettre à jour le profil utilisateur
-        const profile = JSON.parse(localStorage.getItem('arkalia_profile') || '{}');
-
-        profile.xp = (profile.xp || 0) + reward.xp;
-        profile.coins = (profile.coins || 0) + reward.coins;
-        profile.badges = profile.badges || [];
-        if (!profile.badges.includes(reward.badge)) {
-            profile.badges.push(reward.badge);
+        if (!reward || typeof reward !== 'object') return;
+        let profile = {};
+        try {
+            profile = JSON.parse(localStorage.getItem('arkalia_profile') || '{}');
+        } catch (e) {
+            profile = {};
+        }
+        profile.xp = (profile.xp || 0) + (reward.xp || 0);
+        profile.coins = (profile.coins || 0) + (reward.coins || 0);
+        profile.badges = Array.isArray(profile.badges) ? profile.badges : [];
+        const badge = reward.badge;
+        if (badge && !profile.badges.includes(badge)) {
+            profile.badges.push(badge);
         }
 
         localStorage.setItem('arkalia_profile', JSON.stringify(profile));
@@ -526,6 +538,7 @@ class DailyChallengesEnhanced {
     }
 
     showRewardNotification(reward) {
+        if (!reward || typeof reward !== 'object') return;
         const notification = document.createElement('div');
         notification.className = 'reward-notification';
         notification.style.cssText = `
@@ -542,8 +555,8 @@ class DailyChallengesEnhanced {
         `;
         notification.innerHTML = `
             <div>🎉 Défi complété !</div>
-            <div>+${reward.xp} XP • +${reward.coins} Coins</div>
-            <div>🏆 ${reward.badge}</div>
+            <div>+${reward.xp ?? 0} XP • +${reward.coins ?? 0} Coins</div>
+            <div>🏆 ${(reward.badge || '').replace(/</g, '&lt;')}</div>
         `;
 
         document.body.appendChild(notification);

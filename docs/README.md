@@ -1,13 +1,11 @@
 
-# 📚 **DOCUMENTATION ARKALIA QUEST**
+# Documentation Arkalia Quest
 
-> **Centre de documentation complet pour Arkalia Quest**
+Centre de documentation du projet. *Dernière mise à jour : 7 février 2026.*
 
----
+## Vue d’ensemble
 
-## 🎯 **Vue d'Ensemble**
-
-Bienvenue dans la documentation d'Arkalia Quest ! Ce projet combine apprentissage, gamification et intelligence artificielle dans une architecture moderne et sécurisée.
+Arkalia Quest associe apprentissage, gamification et IA dans une architecture moderne et sécurisée.
 
 ---
 

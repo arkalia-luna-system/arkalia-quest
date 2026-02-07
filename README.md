@@ -18,7 +18,7 @@
 [![Coverage](https://img.shields.io/codecov/c/github/arkalia-luna-system/arkalia-quest)](https://codecov.io/gh/arkalia-luna-system/arkalia-quest)
 [![Security](https://img.shields.io/badge/Security-Bandit%20✓-green)](https://github.com/arkalia-luna-system/arkalia-quest/actions)
 [![Performance](https://img.shields.io/badge/Performance-98%25-brightgreen.svg)](https://github.com/arkalia-luna-system/arkalia-quest)
-[![Changelog](https://img.shields.io/badge/Changelog-v3.3.0-blue.svg)](CHANGELOG.md)
+[![Changelog](https://img.shields.io/badge/Changelog-v4.0.0-blue.svg)](CHANGELOG.md)
 [![Good First Issue](https://img.shields.io/badge/Good%20First-Issue-green.svg)](https://github.com/arkalia-luna-system/arkalia-quest/labels/good%20first%20issue)
 [![Help Wanted](https://img.shields.io/badge/Help-Wanted-orange.svg)](https://github.com/arkalia-luna-system/arkalia-quest/labels/help%20wanted)
 
@@ -75,7 +75,7 @@ graph TB
     style H fill:#e8f5e8
 
 
-```text
+```
 
 
 ---
@@ -90,12 +90,9 @@ graph TB
 
 
 ```bash
-
-
 ./start.sh
-
-
-```text
+```
+Voir [START_SCRIPTS.md](START_SCRIPTS.md) pour les autres scripts (optimisé, évaluation).
 
 
 
@@ -139,7 +136,7 @@ pip install -r requirements.txt
 python -m flask run --host=0.0.0.0 --port=5001
 
 
-```text
+```
 
 
 **🌐 Application accessible sur :** `http://localhost:5001`
@@ -200,7 +197,7 @@ graph LR
     style G fill:#9c27b0
 
 
-```text
+```
 
 
 
@@ -262,7 +259,7 @@ flowchart TD
     style K fill:#d32f2f
 
 
-```text
+```
 
 
 ---
@@ -326,7 +323,7 @@ graph TB
     style M fill:#4caf50
 
 
-```text
+```
 
 
 ---
@@ -380,6 +377,8 @@ Notes:
 
 ## 🧪 **Tests et Qualité**
 
+Voir [tests/README.md](tests/README.md) pour les commandes recommandées et les scripts de test.
+
 ### **Couverture des Tests**
 
 ```mermaid
@@ -394,7 +393,7 @@ pie title Couverture des Tests par Module
     "UI/UX" : 0
 
 
-```text
+```
 
 
 
@@ -425,7 +424,7 @@ pie title Couverture des Tests par Module
 | **📖 Guide d'Utilisation** | Démarrage et utilisation | ✅ Complet | [README_UTILISATION.md](README_UTILISATION.md) |
 | **🔧 Guide Technique** | Architecture et développement | ✅ Complet | [docs/GUIDE_TECHNIQUE_DEVELOPPEUR.md](docs/GUIDE_TECHNIQUE_DEVELOPPEUR.md) |
 | **🚀 Guide de Déploiement** | Déploiement et production | ✅ Complet | [docs/DEPLOYMENT_GUIDE.md](docs/DEPLOYMENT_GUIDE.md) |
-| **📊 Rapports d'Analyse** | Analyses et métriques | ✅ Complet | [reports/](reports/) |
+| **Rapports d'analyse** | Analyses et métriques | Complet | [reports/](reports/) · [docs/rapports/](docs/rapports/) |
 | **📝 Changelog** | Historique des versions | ✅ Complet | [docs/CHANGELOG.md](docs/CHANGELOG.md) |
 
 ---
@@ -454,7 +453,7 @@ stateDiagram-v2
     Retry_Option --> Mission_Active
 
 
-```text
+```
 
 
 
@@ -514,7 +513,7 @@ python tests/performance/test_load_testing.py
 python -m pytest --cov=core --cov-report=html
 
 
-```text
+```
 
 
 
@@ -522,7 +521,7 @@ python -m pytest --cov=core --cov-report=html
 
 
 
-```text
+```
 
 
 arkalia-quest/
@@ -539,7 +538,7 @@ arkalia-quest/
 └── 🚀 start.sh              # Script de démarrage
 
 
-```text
+```
 
 
 ---
@@ -698,11 +697,13 @@ Vous avez choisi **Arkalia Quest**, un projet qui combine :
 - 📚 **Documentation complète** pour les développeurs
 
 
-**Bienvenue dans l'aventure Arkalia !** 🚀✨
+**Bienvenue dans l'aventure Arkalia.**
+
+*Dernière mise à jour : 7 février 2026*
 
 ---
 
-# **🌟 Fait avec ❤️ par l'équipe Arkalia Luna 🌟**
+# Fait par l'équipe Arkalia Luna
 
 [![GitHub](https://img.shields.io/badge/GitHub-Arkalia%20Quest-181717?style=for-the-badge&logo=github)](https://github.com/arkalia-luna-system/arkalia-quest)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)

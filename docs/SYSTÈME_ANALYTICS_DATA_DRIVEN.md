@@ -4,7 +4,7 @@
 
 # **Statut : ACTIF**
 
-# **Dernière mise à jour : Juillet 2025**
+*Dernière mise à jour : 7 février 2026*
 
 **Résumé :** Documentation complète du système d'analytics et suivi utilisateur Arkalia Quest.
 

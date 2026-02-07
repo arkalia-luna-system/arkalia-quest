@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>📚 Tutoriels techniques - ARKALIA QUEST</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-responsive.css') }}?v=4.0.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
+    <style>
+        .tutorials-workspace { min-height: 100vh; background: linear-gradient(135deg, rgba(9,9,11,0.95) 0%, rgba(30,30,40,0.95) 100%); padding: 30px 20px; }
+        .tutorials-header { text-align: center; margin-bottom: 30px; }
+        .tutorials-title { font-family: 'Cormorant', serif; font-size: 2.5em; color: var(--violet-lunaire); margin-bottom: 10px; }
+        .tutorials-subtitle { color: var(--argent-holographique); font-size: 1.1em; }
+        .tutorials-list { max-width: 800px; margin: 0 auto; }
+        .tutorial-card { background: rgba(9,9,11,0.9); border: 2px solid rgba(167,139,250,0.3); border-radius: 12px; padding: 20px; margin-bottom: 16px; transition: all 0.3s ease; }
+        .tutorial-card:hover { border-color: rgba(167,139,250,0.6); }
+        .tutorial-card h3 { color: var(--violet-lunaire); margin: 0 0 8px 0; font-size: 1.2em; }
+        .tutorial-card p { color: var(--argent-holographique); margin: 0 0 12px 0; font-size: 0.95em; }
+        .tutorial-meta { font-size: 0.85em; color: var(--argent-holographique); opacity: 0.8; }
+        .tutorial-loading { text-align: center; color: var(--argent-holographique); padding: 40px; }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu</a>
+    {% include 'components/accessibility_toggle.html' %}
+    <div id="navigation">
+        {% set active_page = 'technical-tutorials' %}
+        {% include 'components/navbar.html' with context %}
+    </div>
+    <main id="main-content" class="tutorials-workspace">
+        <div class="tutorials-header">
+            <h1 class="tutorials-title">📚 TUTORIELS TECHNIQUES</h1>
+            <p class="tutorials-subtitle">Apprends la cybersécurité et le hacking avec LUNA</p>
+        </div>
+        <div class="tutorials-list" id="technical-tutorials-list">
+            <p class="tutorial-loading">Chargement des tutoriels...</p>
+        </div>
+    </main>
+    <script src="{{ url_for('static', filename='js/navigation.js') }}"></script>
+    <script>
+        (async function() {
+            function escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+            const container = document.getElementById('technical-tutorials-list');
+            if (!container) return;
+            try {
+                const res = await fetch('/api/technical-tutorials/available?player_id=main_user', { headers: { 'Accept': 'application/json' } });
+                if (!res.ok) throw new Error(res.status);
+                const tutorials = await res.json();
+                if (!Array.isArray(tutorials) || tutorials.length === 0) {
+                    container.innerHTML = '<p class="tutorial-loading">Aucun tutoriel disponible pour le moment. Joue pour en débloquer !</p>';
+                    return;
+                }
+                container.innerHTML = tutorials.map(t => {
+                    const title = (t.title || t.id || 'Tutoriel');
+                    const desc = t.description || '';
+                    const diff = t.difficulty || '';
+                    const duration = t.duration_minutes ? t.duration_minutes + ' min' : '';
+                    const progress = t.progress && typeof t.progress === 'object' ? (t.progress.completed_steps || 0) + ' / ' + (t.progress.total_steps || '?') : '';
+                    return '<div class="tutorial-card"><h3>' + escapeHtml(title) + '</h3>' + (desc ? '<p>' + escapeHtml(desc) + '</p>' : '') + '<div class="tutorial-meta">' + [diff, duration, progress].filter(Boolean).join(' · ') + '</div></div>';
+                }).join('');
+            } catch (_) {
+                container.innerHTML = '<p class="tutorial-loading">Impossible de charger les tutoriels.</p>';
+            }
+        })();
+    </script>
+</body>
+</html>

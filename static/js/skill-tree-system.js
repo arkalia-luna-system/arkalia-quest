@@ -33,13 +33,12 @@ class SkillTreeSystem {
     }
 
     updateFromServerData(playerData) {
-        // Mettre à jour les compétences avec les données du serveur
-        if (playerData.skills) {
+        if (!playerData || typeof playerData !== 'object') return;
+        if (playerData.skills && typeof playerData.skills === 'object') {
             this.playerSkills = playerData.skills;
         }
 
-        // Mettre à jour l'XP total
-        if (playerData.xp !== undefined) {
+        if (playerData.xp !== undefined && playerData.xp !== null) {
             this.playerTotalXP = playerData.xp;
         }
 

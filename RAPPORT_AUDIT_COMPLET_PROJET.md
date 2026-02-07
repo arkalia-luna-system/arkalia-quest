@@ -91,7 +91,7 @@
 
 #### **Fichiers Peu Utilisés**
 - `core/progression_engine.py` : Utilisé seulement dans 1 fichier
-- `core/analytics_engine.py` : Utilisé seulement dans app.py - **ERREUR DÉTECTÉE** : `'str' object has no attribute 'value'`
+- `core/analytics_engine.py` : Utilisé dans app.py – **ERREUR CORRIGÉE** (fév. 2026) : normalisation `event_type` str/Enum
 - `core/cache_manager.py` : Utilisé seulement dans app.py
 - `core/performance_optimizer.py` : Utilisé seulement dans app.py
 
@@ -264,19 +264,16 @@
 
 ## 🚧 **PROCHAINES ÉTAPES**
 
-### **1. Mise à jour des tests** 🔄
-- **Problème** : Les tests utilisent encore les anciens modules supprimés
-- **Action** : Mettre à jour tous les tests pour utiliser les nouveaux systèmes unifiés
-- **Priorité** : **HAUTE** - Nécessaire avant push
+### **1. Mise à jour des tests** ✅ (partiel)
+- **Fait** : Références `arkalia_engine` supprimées dans `run_critical_tests.py` et `tests/__init__.py` ; `scripts/test_improvements.py` utilise `mission_unified`.
+- **Reste** : Vérifier tests spécialisés si besoin.
 
-### **2. Formatage et linting** 🔄
-- **Action** : Exécuter `black` et `ruff` sur tout le projet
-- **Correction** : Résoudre toutes les erreurs de formatage et de linting
-- **Priorité** : **HAUTE** - Qualité du code
+### **2. Formatage et linting** ✅
+- **Fait** : `black` exécuté (9 fichiers reformatés), `ruff check` passé sans erreur.
+- **Priorité** : Maintenir en lançant régulièrement black + ruff.
 
-### **3. Vérification complète** 🔄
-- **Action** : Tester toutes les fonctionnalités après les fusions
-- **Validation** : S'assurer qu'aucune fonctionnalité n'est cassée
+### **3. Vérification complète** ✅
+- **Fait** : 515 tests passent (hors web_tests / test_utilisateur_automated).
 - **Priorité** : **CRITIQUE** - Avant push final
 
 ### **4. Optimisations restantes** 📋
@@ -395,18 +392,62 @@ rm -rf ~/Library/Caches/*      # Nettoyer caches système
 
 ---
 
+## 🔧 **AUDIT VISUEL / PAGES / INCOHÉRENCES (Février 2026)**
+
+### **Fichiers statiques manquants (404) – CORRIGÉ**
+- **CSS** : `arkalia-core.css`, `themes.css`, `ui-perfection.css`, `competitive-system.css`, `creative-system.css` étaient référencés dans les templates mais absents → **créés** (bases ou alias pour éviter 404).
+- **JS** : `terminal-enhancements.js`, `luna-personality.js`, `visual-feedback-system.js`, `advanced-features.js` référencés (profil, terminal, monde) mais absents → **stubs créés** pour éviter erreurs console et `X is not a function`.
+
+### **Risques null / undefined dans le front (affichage "null") – CORRIGÉ**
+- **ui-polish.js** : `updateDashboardEmptyState` / `updateCounters` – garde sur `progressionData` null et usage de `Array.isArray(progressionData.badges)`.
+- **terminal.js** : `updatePlayerHeader` – garde sur `data` null, éléments DOM optionnels, `data.badges` traité en tableau ou nombre.
+- **terminal.js** : `updateProfileDisplay` – garde sur `profile` null, badges via `Array.isArray(profile.badges)`.
+- **progression-sync.js** : `updateDashboard` / `updateProfile` – garde sur `progressionData`, badges uniquement si `Array.isArray(progressionData.badges)`.
+- **realtime-feedback.js** : `updateDashboardStats` – garde sur `progressionData` et comptages badges/missions sécurisés.
+- **unified-progression-sync.js** : `updateBadges` – vérification `Array.isArray(playerData.badges)` avant `.map`.
+
+### **Doublons / redondances identifiés (à traiter plus tard)**
+- **CSS** : 36 fichiers dans `static/css/` ; plusieurs templates chargent 15+ feuilles (profil, terminal) – possibilité de fusionner par thème.
+- **JS** : plusieurs systèmes de progression (progression-sync.js, unified-progression-sync.js, global-progression-sync.js, realtime-feedback.js, ui-polish.js) avec logiques proches – risque de désync ou affichage incohérent si les structures données divergent.
+- **Templates** : références à des scripts commentés (adaptive-guidance.js, progression-feedback.js, contextual-feedback.js, etc.) – à nettoyer ou réactiver de façon cohérente.
+
+### **Pages / routes**
+- Route **skill-tree** : `/skill-tree` (avec tiret), pas `/skill_tree`.
+- Pas de route `/api/health` ; health check exposé sur `/health`.
+
+### **Suite audit – corrections supplémentaires**
+- **terminal.js** : `updateProgressionDisplay(progression)` – garde sur `progression` null, badges via `Array.isArray(progression.badges)`.
+- **ready-state-manager.js** : `userHasData(playerData)` – garde sur `playerData`, critères avec `Array.isArray(badges/missions_completed)` et vérification `typeof` pour `skills`/`stats`.
+- **profil.html** (inline) : `updateProfileFromProgression`, `updateProgressBarsFromProgression`, `updateProfileStats` – gardes null, éléments DOM optionnels, `Array.isArray` pour badges/achievements_unlocked.
+- **app.py** : `/api/progression-data` – fallback si `progression_engine` absent, `player_data` null, et garantie que `badges`/`missions_completed` sont des listes.
+
+### **Suite 2 – Dashboard, Leaderboard, Skill Tree**
+- **dashboard.html** : `updateDashboardFromProgression` – garde sur `data`, `progression` avec `Array.isArray` pour badges/achievements_unlocked. `updateDashboardMetrics` – garde sur `data`, variables numériques sécurisées, vérification des widgets/éléments avant affichage. `updateProgressRing`, `updateMissionsChart`, `updateNotifications`, `updateLunaInsights` – gardes null et vérification des éléments DOM.
+- **leaderboard.html** : `updateTable(leaderboard)` – vérification de `tbody` avant `innerHTML`.
+- **skill-tree-system.js** : `updateFromServerData(playerData)` – garde sur `playerData` null/non-object, vérification de `playerData.skills` et `playerData.xp`.
+
+### **Suite 3 – Monde, Explorateur, Game Engine**
+- **monde.html** : `updateZoneInfo` – vérification des éléments DOM (current-zone, available-missions), `zone.missions_list` passé en tableau garanti. `updateMissionList` – vérification de `missionList` et `missions` (Array.isArray). `movePlayer` – vérification de `player` avant utilisation. `movePlayerToZone` et `checkZoneProximity` – vérification de `world-map` et `player-position` avant getBoundingClientRect.
+- **explorateur.html** : `loadFile` – vérification de `content`, des éléments `.content-title`, `fileContent`, et du lien actif avant accès.
+- **game-engine.js** : `loadGameData` – try/catch, normalisation de `player.badges` (tableau), `player.stats` (objet), `gameState.unlockedZones` et `availableGames` (tableaux). `checkBadges` – garde Array.isArray(badges), usage de `stats` sécurisé. `showProfile` / message debug – badges et gameState avec Array.isArray. `simulateBadgeUnlock` – garde sur `player.badges` avant push.
+
+### **Suite 4 – Mail, Audio, Accessibilité**
+- **mail.html** : `loadMessages` – vérification de `messageList`, `messagesTitle` et du lien actif ; `messages` garanti tableau ; échappement affichage. `showMessage` – recherche dans `messageData[folder]` uniquement si tableau ; `activeFolder` vérifié avant `loadMessages`. `refreshMessages` – vérification de `activeFolder`.
+- **audio.html** : `loadPlaylist` – vérification de `trackList`, `playerTitle` ; `tracks` garanti tableau ; lien actif vérifié. `updateCurrentTrackInfo` – garde sur `track`, éléments DOM vérifiés ; `track.duration` sécurisé. `startPlayback`, `pausePlayback`, `updateProgress` – vérification des éléments. `testAudio` – vérification de `btn`.
+- **accessibility_panel.html** : `updateAccessibilitySettings` – helpers `toggle(id)` et `inputVal(id, def)` pour éviter accès sur éléments absents. `applyAccessibilitySettings` – valeurs par défaut pour `fontSize` et `elementSpacing`. `resetAccessibilitySettings` et chargement sauvegardé – vérification des éléments avant `.value =`.
+
+---
+
 ## 🎯 **RECOMMANDATIONS PRIORITAIRES**
 
 ### 🔴 **Actions Critiques (À faire immédiatement)**
 
-#### **1. Corriger les Erreurs Critiques**
-- **Corriger** `core/analytics_engine.py` - Erreur `'str' object has no attribute 'value'`
-- **Corriger** API skill-tree - Erreurs 400 sur POST /api/skill-tree/upgrade
+#### **1. Corriger les Erreurs Critiques** ✅
+- **Fait** : `core/analytics_engine.py` – normalisation `event_type` (str/Enum) ; API skill-tree – 400 attendu si XP insuffisant.
+- **Fait** : Références mises à jour (tests, scripts) vers modules unifiés.
 
-#### **2. Fusionner Intelligemment**
-- **Fusionner** `arkalia_engine.py` avec `core/profile_manager.py` (garder les 5 méthodes critiques)
-- **Fusionner** partiellement `security_manager.py` et `security_enhanced.py` (garder les spécificités)
-- **Fusionner** `mission_handler.py` et `enhanced_mission_system.py`
+#### **2. Fusionner Intelligemment** ✅
+- **Fait** : `arkalia_engine` → `core/profile_manager` ; sécurité → `core/security_unified` ; missions → `core/mission_unified`.
 
 #### **3. Fractionner app.py**
 - **Créer** `routes/` avec les routes spécialisées
@@ -480,15 +521,168 @@ rm -rf ~/Library/Caches/*      # Nettoyer caches système
 
 ---
 
+## 🎯 **SUITE 3 – EXPLOITATION 100 % DU JEU** (7 Fév. 2026)
+
+### **Corrections effectuées**
+- **Dashboard** : `updateDashboardFromProgression` utilise les bons IDs DOM (`total-score`, `level-percentage`, `missions-completed`, `badges-count`) pour afficher les données de progression.
+- **Navbar** : ajout des liens Compétences, Tutoriel, Explorateur, Mail, Audio pour que toutes les pages soient accessibles.
+- **Dashboard** : section « Accès rapide » avec liens vers toutes les fonctionnalités (Tutoriel, Compétences, Classement, Terminal, Explorateur, Mail, Audio, Accessibilité).
+- **Monde** : chargement des missions serveur via `/api/enhanced-missions` ; les missions sont fusionnées dans la zone Terminal pour exploiter le backend.
+- **Dashboard** : widget « Défis du jour » appelant `/api/daily-challenges` et affichant le nombre de défis + lien vers le terminal.
+
+### **APIs encore non appelées depuis le frontend**
+| API | Usage suggéré |
+|-----|----------------|
+| `/api/narrative-branches/*` | Page ou section « Histoire / Branches narratives » |
+| `/api/secondary-missions/*` | Intégration dans Monde ou Terminal |
+| `/api/technical-tutorials/*` | Page « Tutoriels techniques » ou lien depuis Accès rapide |
+| `/api/achievements/player`, `/api/achievements/leaderboard` | Section Succès sur Profil ou page dédiée |
+| `/api/leaderboards/category/<category>` | Onglets « Par catégorie » sur la page Classement |
+| `/api/social/*` (guildes, chat) | Page ou panneau Social |
+| `/api/customization/*`, `/api/themes` | Profil : thèmes/avatars reliés au backend |
+| `/api/story/*`, `/api/interactions/*` | Intégration dans le flux narratif / LUNA |
+| `/api/luna-emotions` | Affichage de l’émotion LUNA (header ou bulle) |
+
+### **Recommandations**
+1. Créer une page ou un panneau « Tutoriels techniques » qui appelle `/api/technical-tutorials/available` et affiche le contenu.
+2. Sur la page Classement : ajouter des onglets ou un sélecteur de catégorie utilisant `/api/leaderboards/category/<category>`.
+3. Sur le Profil : appeler `/api/achievements/player/<id>` pour afficher les succès et éventuellement `/api/customization/player` pour thèmes/avatars.
+4. Brancher `theme-manager.js` sur `/api/customization/themes` ou `/api/themes` pour persister le thème côté serveur.
+
+### **Suite 4 – Classement, Profil, Tutoriels techniques** (7 Fév. 2026)
+
+- **Leaderboard** : nouvel onglet « Général » + onglets par catégorie (Vitesse, Créativité, Hacking, Social, Éducation, Exploration, Relation LUNA, Persévérance) via `/api/leaderboards/categories` et `/api/leaderboards/category/<category>`.
+- **Profil** : nouvelle section « Succès » alimentée par `/api/achievements/player/main_user` (liste des achievements débloqués).
+- **Tutoriels techniques** : nouvelle page `/technical-tutorials` et template `technical_tutorials.html` qui appelle `/api/technical-tutorials/available` ; lien ajouté dans la navbar et dans l’Accès rapide du dashboard.
+
+---
+
+## ✅ **SUITE 5 – CORRECTIONS SESSION 7 FÉV. 2026**
+
+### **Corrections effectuées**
+- **Analytics Engine** : Erreur `'str' object has no attribute 'value'` corrigée dans `core/analytics_engine.py` : ajout de `_normalize_event_type()` pour accepter `event_type` en chaîne (API) ou `EventType` (enum).
+- **Références obsolètes** : `tests/run_critical_tests.py` – suppression de `--cov=arkalia_engine` ; `tests/__init__.py` – `arkalia_engine` remplacé par `core.profile_manager` ; `scripts/test_improvements.py` – utilisation de `core.mission_unified` et path racine du projet.
+- **Module core.ark_logger** : Ajout de `core/ark_logger.py` (réexport des loggers depuis `utils.logger`) pour compatibilité.
+- **Formatage et lint** : Exécution de `black` (9 fichiers reformatés) et `ruff check --fix` ; tous les checks passent. **Tests** : 515 tests passent.
+
+### **Prochaines étapes (rappel)**
+- Fractionner app.py, fusionner scripts de test et CSS, nettoyer fichiers orphelins.
+
+---
+
+## ✅ **SUITE 6 – TUTORIEL & DÉFIS QUOTIDIENS (7 FÉV. 2026)**
+
+### **tutorial_welcome.html**
+- **setupQuitConfirmation** : garde sur `confirmBtn` (return si absent) ; utilisation de `dontAsk && dontAsk.checked` pour éviter accès à une propriété d’un élément manquant.
+
+### **daily-challenges-enhanced.js**
+- **createChallengeElement** : garde si `challenge` null/non-objet ; `target` et `progress` normalisés (éviter division par zéro) ; `reward` avec fallback `{ xp: 0, coins: 0, badge: '' }` ; échappement HTML sur titre, description, badge.
+- **renderChallenges** : n’ajoute au DOM que les éléments valides (`challengeElement && challengeElement.id`).
+- **updateRewardsSummary** : filtrage des défis valides ; accès sécurisés à `c.reward.xp`, `c.reward.coins`, `c.reward.badge`.
+- **giveReward** : garde si `reward` null ; parse localStorage en try/catch ; `reward.badge` vérifié avant push.
+- **showRewardNotification** : garde si `reward` null ou non-objet.
+
+---
+
+## ✅ **SUITE 7 – DOC, THÈMES & ÉMOTION LUNA (7 FÉV. 2026)**
+
+### **Documentation**
+- **docs/INDEX_DOCUMENTATION.md** : Ajout du lien vers `RAPPORT_AUDIT_COMPLET_PROJET.md` dans « Rapports et audits » ; nouvelle section « Pages & fonctionnalités (exploitation 100 %) » listant toutes les routes (Terminal, Monde, Profil, Classement, Dashboard, Compétences, Tutoriel, Explorateur, Mail, Audio, Tutoriels techniques, Accessibilité).
+
+### **Theme-manager (static/js/theme-manager.js)**
+- **Chargement** : `loadThemeFromServer()` appelle `GET /api/customization/player?player_id=main_user` au init ; si la réponse contient `customization.current_theme.id` et que ce thème existe dans `availableThemes`, il est appliqué (en plus du fallback localStorage).
+- **Sauvegarde** : `saveTheme()` envoie aussi `POST /api/customization/themes/<theme_id>/set` avec `{ player_id: 'main_user' }` pour persister le thème côté serveur.
+
+### **Émotion LUNA (dashboard)**
+- **API** : Correction dans `app.py` : `get_current_emotion()` remplacé par `get_current_state()` (méthode existante du moteur LUNA).
+- **Dashboard** : Indicateur « 🌙 LUNA » avec émotion courante chargée via `/api/luna-emotions` ; affichage du libellé (emotion) et d’un point dont l’opacité reflète l’intensité et la couleur du thème.
+
+### **Suite 8 – Rafraîchissement émotion LUNA (7 fév. 2026)**
+- **Dashboard** : `loadLunaEmotion()` est appelée aussi dans `startRealTimeUpdates()` (toutes les 30 s) pour garder l’indicateur d’émotion LUNA à jour sans recharger la page.
+- **Tests** : Vérification des tests `test_luna_emotions`, `test_analytics_engine`, `test_customization_engine`, `test_app_routes_basic` — tous passent.
+
+---
+
+## ✅ **SUITE 9 – AUDIT STATIC / DATA / CONFIG (7 FÉV. 2026)**
+
+### **static/**
+- **CSS** : 42 fichiers ; tous les CSS référencés dans les templates existent (arkalia-core, themes, ui-perfection, competitive-system, creative-system, arkalia-luna-vision, accessibility, mission-interface, skill-tree-enhancements, etc.). Fichiers potentiellement orphelins (non référencés) : p.ex. `adaptive-ui.css`, `instant-feedback.css`, `interactive-puzzles.css` — conservés pour usage futur ou chargement dynamique.
+- **JS** : 67 fichiers ; tous les JS chargés par les pages existent (terminal-enhancements, luna-personality, visual-feedback-system, advanced-features, theme-manager, daily-challenges-enhanced, etc.). Scripts commentés dans les templates (adaptive-guidance.js, progression-feedback.js) : fichiers présents, réactivation possible.
+- **Assets** : `icons/` (icon-192x192.png, icon-512x512.png), `images/apple-touch-icon.png`, `manifest.json` — cohérents.
+- **Cohérence URLs** : Remplacement des chemins en dur `/static/...` par `{{ url_for('static', filename='...') }}` dans `tutorial_welcome.html`, `accessibility_panel.html`, `audio.html`, `mail.html`, `explorateur.html` (CSS et JS), puis dans `dashboard.html`, `profil.html`, `leaderboard.html`, `monde.html`, `terminal.html`, `index.html` (favicons : icons/icon-32x32.png, icon-16x16.png, icon-192x192.png). Tous les templates utilisent désormais url_for pour les assets static.
+
+### **data/**
+- **JSON** : Tous les fichiers JSON du dossier (racine, `profiles/`, `tutorial_progress/`, `missions/`) ont été validés (syntaxe OK).
+- **Fichiers optionnels** : `app.py` charge avec fallback si absent : `data/badges.json` (→ `badges_secrets.json` présent, pas `badges.json`), `data/avatars.json`, `data/defis_sociaux.json`, `data/chapitre_6_luna_compromise.json`. `data/learning_data.json` : testé avec `os.path.exists`, données par défaut si absent. Aucune correction requise ; comportement résilient.
+
+### **config/**
+- **Fichiers** : `settings.py` (Config, chemins BASE_DIR, DATA_DIR, LOGS_DIR, etc.), `pytest.ini`, `config.example.py`, déploiement (Dockerfile, Procfile, railway.json, digitalocean.yaml, cloudbuild.yaml, nginx.conf, systemd).
+- **JSON** : `app.json`, `security.json`, `load_test_config.json`, `monitoring_config.json` — syntaxe JSON valide.
+- **Recommandation** : Lancer pytest depuis la racine (pyproject.toml) pour cohérence ; config/pytest.ini utile si exécution depuis config/.
+
+### **docs/**
+- **INDEX_DOCUMENTATION.md** : Tous les liens vers les fichiers docs (ARCHITECTURE_TECHNIQUE, ROADMAP_STRATEGIQUE, STATUT_PROJET_ACTUEL, GUIDE_DEVELOPPEMENT, GUIDE_DEPLOIEMENT, CONTRIBUTING, etc.) pointent vers des fichiers existants. Lien vers RAPPORT_AUDIT_COMPLET_PROJET.md (racine) présent.
+- **Rapports** : docs/rapports/RAPPORT_AUDIT_PROJET.md ; docs/archive/rapports/ (nombreux rapports archivés).
+- **Deux guides déploiement** : GUIDE_DEPLOIEMENT.md et DEPLOYMENT_GUIDE.md — les deux existent ; optionnel : fusion ou renvoi croisé.
+- **Cohérence** : Liens relatifs ../ pour racine (reports/, RAPPORT_AUDIT_COMPLET_PROJET.md) corrects.
+
+### **Suite 10 – global-progression-sync.js (7 fév. 2026)**
+- **detectChanges** : `newData.badges` et `newData.achievements_unlocked` traités comme tableaux uniquement si `Array.isArray()` ; `oldData.badges` et `oldData.achievements_unlocked` avec fallback `[]` pour éviter `.filter` / `.includes` sur undefined.
+- **handleProgressionUpdate** : garde `Array.isArray(this.progressionData.badges)` avant utilisation ; vérification de `detail.badge` avant push.
+
+---
+
 ## 📋 **PROCHAINES ÉTAPES**
 
-1. **Continuer l'audit** des dossiers restants (static/, data/, config/, docs/)
-2. **Implémenter** les corrections prioritaires
-3. **Tester** les modifications
-4. **Valider** la stabilité du système
-5. **Documenter** les changements
+1. ~~Continuer l'audit static/, data/, config/, docs/~~ (Suite 9 complétée)
+2. ~~Cohérence URLs static~~ — Tous les templates utilisent `url_for('static', ...)` (aucun `/static/` en dur). Ruff check OK.
+3. ~~Valider la stabilité~~ — Suite de tests (hors performance/web) : tous passent.
+
+---
+
+## ✅ **SUITE 11 – RESTE À FAIRE EFFECTUÉ (7 FÉV. 2026)**
+
+- **Guides déploiement** : Renvoi croisé ajouté en tête de [GUIDE_DEPLOIEMENT.md](docs/GUIDE_DEPLOIEMENT.md) et [DEPLOYMENT_GUIDE.md](docs/DEPLOYMENT_GUIDE.md).
+- **Scripts de démarrage** : [START_SCRIPTS.md](START_SCRIPTS.md) créé (tableau d’usage) ; port 5000 → 5001 corrigé dans `start.sh` (racine).
+- **Scripts de test** : [tests/README.md](tests/README.md) créé (commande recommandée `pytest tests/`, liste des runners).
+- **Scripts commentés** : `progression-feedback.js` réactivé ; `adaptive-guidance.js` — stub créé (`static/js/adaptive-guidance.js`) qui délègue à `universalNotifications` (évite 404, les templates le chargent déjà).
+- **Fractionner app.py** : Premier pas — package `routes/` créé, blueprint `routes/api.py` avec `GET /api/ping` ; enregistrement dans `app.py`. Les autres routes restent dans app.py (migration progressive possible).
+
+### **Suite 12 – Liens documentation (7 fév. 2026)**
+- **docs/INDEX_DOCUMENTATION.md** : lien vers [START_SCRIPTS.md](../START_SCRIPTS.md) (fichiers essentiels) et [tests/README.md](../tests/README.md) (section Tests & Qualité).
+- **README.md** : dans « Démarrage Rapide », renvoi vers START_SCRIPTS.md après `./start.sh` ; dans « Tests et Qualité », renvoi vers tests/README.md.
+
+### **Suite 13 – Stub adaptive-guidance.js (7 fév. 2026)**
+- **static/js/adaptive-guidance.js** : fichier créé (stub) ; expose `window.adaptiveGuidance` avec `hint()` et `show()` qui délèguent à `universalNotifications`. Évite les 404 sur les pages qui chargent déjà ce script (dashboard, profil, leaderboard, terminal, monde).
+
+### **Suite 13 – Reste à faire implémenté (7 fév. 2026)**
+
+- **Fractionner app.py** : Routes des pages déplacées dans `routes/pages.py` (favicon, tests, index, tutorial, terminal, monde, profil, dashboard, explorateur, mail, audio, accessibility, leaderboard, skill-tree, technical-tutorials). `register_pages(app, charger_profil)` appelé depuis app.py. API reste dans app.py.
+- **Fusionner scripts de démarrage** : `start.sh` unifié avec mode `dev|prod|eval`. `start_optimized.sh` et `start_evaluation.sh` délèguent à `./start.sh prod` et `./start.sh eval`. `START_SCRIPTS.md` mis à jour.
+- **Tests** : `run_tests.sh` à la racine lance pytest sur `tests/`.
+- **Regrouper CSS/JS** : `docs/CSS_JS_BUNDLES.md` créé (groupes par type de page, pistes pour bundles). Lien dans INDEX_DOCUMENTATION.
+- **Scripts commentés** : `static/js/adaptive-guidance.js` stub créé (délègue à `universalNotifications`) ; balises décommentées dans dashboard, profil, leaderboard, terminal, monde.
+- **Guides déploiement** : Renvois croisés renforcés en tête de GUIDE_DEPLOIEMENT.md et DEPLOYMENT_GUIDE.md + lien vers config/platforms.md.
+
+### **Suite 14 – Suite continue (7 fév. 2026)**
+
+- **Bundle CSS** : `static/css/arkalia-bundle-pages.css` créé (15 @import des CSS communs Luna). Documentation dans docs/CSS_JS_BUNDLES.md (utilisation optionnelle dans les templates).
+- **Routes API dans le blueprint** : `/api/luna-emotions` et `/api/mission-handler/available` déplacées dans `routes/api.py` ; moteurs exposés via `app.config['LUNA_EMOTIONS_ENGINE']` et `app.config['MISSION_UNIFIED']`.
+- **tests/README.md** : ajout de `./run_tests.sh` dans le tableau des scripts de lancement.
+
+### **Suite 15 – Vérification « ce qui manque » (7 fév. 2026)**
+- **docs/INDEX_DOCUMENTATION.md** : lien corrigé pour README_UTILISATION.md (pointe vers `docs/README_UTILISATION.md`, pas la racine).
+- **Vérifications** : routes/pages.py et register_pages OK ; start.sh (dev|prod|eval) et délégation start_optimized/evaluation OK ; run_tests.sh à la racine OK ; START_SCRIPTS.md à jour ; docs/CSS_JS_BUNDLES.md et arkalia-bundle-pages.css présents ; adaptive-guidance.js stub en place ; liens config/platforms.md, STATUT_PROJET_ACTUEL.md, rapports valides. Tests pytest : tous passent.
+
+### **Suite 16 – tests/README (7 fév. 2026)**
+- **tests/README.md** : section « Lancer un sous-ensemble » ajoutée (exemples : `tests/core/`, `-k "luna"`, `tests/api/ tests/core/`).
+
+## 📌 **RESTE À FAIRE (OPTIONNEL)**
+
+- **Adopter le bundle CSS** : remplacer les multiples `<link>` par `arkalia-bundle-pages.css` dans une ou plusieurs pages Luna (à valider visuellement).
+- **Migrer plus de routes API** : déplacer d’autres blocs /api/* vers routes/api.py (ex. /api/status, /api/mission-handler/available).
 
 ---
 
 **Rapport généré automatiquement par l'Assistant IA**  
-**Dernière mise à jour** : 17 Septembre 2025, 22:58
+**Dernière mise à jour** : 7 Février 2026 (Suite 16 : tests/README sous-ensemble)

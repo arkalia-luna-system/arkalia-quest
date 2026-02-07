@@ -1,0 +1,7 @@
+/* Alias thèmes - profil.html référence themes.css */
+/* Variables communes pour cohérence avec arkalia-themes */
+:root {
+    --theme-primary: #8b5cf6;
+    --theme-bg: #0f0f12;
+    --theme-card: #18181b;
+}

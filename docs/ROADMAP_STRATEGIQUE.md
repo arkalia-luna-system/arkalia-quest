@@ -1,32 +1,12 @@
-# Document
+# Roadmap stratégique — Arkalia Quest
+
+Feuille de route : grandes étapes et jalons. Liens : [README](README.md) · [Statut projet](STATUT_PROJET_ACTUEL.md) · [Changelog doc](CHANGELOG_DOCUMENTATION.md).
+
+*Dernière mise à jour : 7 février 2026.*
 
 ---
 
-# **Statut : ACTIF**
-
-# **Dernière mise à jour : Juillet 2025**
-
-**Résumé :** Feuille de route stratégique du projet Arkalia Quest, listant les grandes étapes et jalons.
-
-# **Liens utiles :**
-
-- [Documentation principale](README.md)
-
-- [Statut projet](STATUT_PROJET_ACTUEL.md)
-
-- [Changelog documentation](CHANGELOG_DOCUMENTATION.md)
-
----
-
-# 🚀 ROADMAP STRATÉGIQUE - ARKALIA QUEST 2024-2025
-
-**Date de création :** 9 juillet 2025
-**Version :** Arkalia Quest v3.0
-**Statut :** ✅ **PRODUCTION READY** avec plan d'évolution
-
----
-
-## 📊 RÉSUMÉ EXÉCUTIF
+## Résumé exécutif
 
 ### ✅ **ÉTAT ACTUEL EXCELLENT**
 

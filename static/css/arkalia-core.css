@@ -1,0 +1,34 @@
+/* ===== ARKALIA CORE - Base commune (variables + reset) ===== */
+/* Référencé par index, monde, skill_tree - évite 404 */
+
+:root {
+    --luna-space-xs: 0.25rem;
+    --luna-space-sm: 0.5rem;
+    --luna-space-md: 1rem;
+    --luna-space-lg: 1.5rem;
+    --luna-space-xl: 2rem;
+    --luna-radius-sm: 6px;
+    --luna-radius-md: 10px;
+    --luna-radius-lg: 14px;
+    --luna-text-sm: 0.875rem;
+    --luna-text-base: 1rem;
+    --luna-text-lg: 1.125rem;
+    --luna-transition: 0.2s ease;
+    --luna-violet: #8b5cf6;
+    --luna-purple: #7c3aed;
+    --luna-text-accent: #fafafa;
+    --luna-bg: #0f0f12;
+    --luna-card: #18181b;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--luna-bg);
+    color: var(--luna-text-accent);
+    line-height: 1.5;
+}

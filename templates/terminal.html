@@ -15,9 +15,9 @@
 
     <!-- PWA Icons -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/icon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/icon-16x16.png">
-    <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/icon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='icons/icon-16x16.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -1325,9 +1325,8 @@
 
     <!-- Scripts des systèmes adaptatifs -->
     <!-- Guidance adaptative désactivée -->
-    <!-- <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}?v=4.0.0"></script> -->
-    <!-- progression-feedback désactivé (notifications unifiées) -->
-    <!-- <script src="{{ url_for('static', filename='js/progression-feedback.js') }}?v=4.0.0"></script> -->
+    <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/progression-feedback.js') }}?v=4.0.0"></script>
     <script src="{{ url_for('static', filename='js/competitive-system.js') }}?v=4.0.0"></script>
     <script src="{{ url_for('static', filename='js/creative-system.js') }}?v=4.0.0"></script>
     <script src="{{ url_for('static', filename='js/casual-system.js') }}?v=4.0.0"></script>

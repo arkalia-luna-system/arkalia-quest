@@ -37,7 +37,7 @@ CRITICAL_MODULES = [
     "core.educational_games_engine",
     "core.tutorial_manager",
     "core.analytics_engine",
-    "arkalia_engine",
+    "core.profile_manager",
     "app",
 ]
 

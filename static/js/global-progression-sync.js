@@ -126,15 +126,17 @@ class GlobalProgressionSync {
         }
 
         // Détecter les nouveaux badges
-        const newBadges = newData.badges.filter(badge => !oldData.badges.includes(badge));
+        const oldBadges = Array.isArray(oldData.badges) ? oldData.badges : [];
+        const newBadges = Array.isArray(newData.badges) ? newData.badges.filter(badge => !oldBadges.includes(badge)) : [];
         newBadges.forEach(badge => {
             this.showBadgeUnlock(badge);
         });
 
         // Détecter les nouveaux achievements
-        const newAchievements = newData.achievements_unlocked.filter(
-            achievement => !oldData.achievements_unlocked.includes(achievement)
-        );
+        const oldAchievements = Array.isArray(oldData.achievements_unlocked) ? oldData.achievements_unlocked : [];
+        const newAchievements = Array.isArray(newData.achievements_unlocked) ? newData.achievements_unlocked.filter(
+            achievement => !oldAchievements.includes(achievement)
+        ) : [];
         newAchievements.forEach(achievement => {
             this.showAchievementUnlock(achievement);
         });
@@ -188,7 +190,8 @@ class GlobalProgressionSync {
         } else if (detail.type === 'level_up') {
             this.progressionData.level = detail.newLevel;
         } else if (detail.type === 'badge_earned') {
-            if (!this.progressionData.badges.includes(detail.badge)) {
+            if (!Array.isArray(this.progressionData.badges)) this.progressionData.badges = [];
+            if (detail.badge && !this.progressionData.badges.includes(detail.badge)) {
                 this.progressionData.badges.push(detail.badge);
             }
         }

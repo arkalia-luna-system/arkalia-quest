@@ -3,7 +3,10 @@
 
 ## 📋 **Vue d'Ensemble**
 
-Ce guide couvre le déploiement d'Arkalia Quest sur **toutes les plateformes cloud et d'hébergement** disponibles. Le projet est maintenant **100% prêt pour la production** avec une configuration professionnelle.
+Ce guide couvre le déploiement sur **toutes les plateformes cloud** (Heroku, Render, Railway, Docker, etc.). Configuration 100 % production.
+
+**Guide principal (FR) :** [GUIDE_DEPLOIEMENT.md](GUIDE_DEPLOIEMENT.md) — prérequis, Docker, CI/CD, monitoring.  
+**Détail plateformes :** [config/platforms.md](../config/platforms.md).
 
 ## 🎯 **Plateformes Supportées**
 

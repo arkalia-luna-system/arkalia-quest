@@ -1,15 +1,15 @@
 {
-    "user_id": "test_user",
-    "current_step": 1,
-    "total_steps": 5,
-    "started_at": "2026-02-07T14:08:03.435451",
-    "completed_at": "2026-02-07T14:08:03.433662",
-    "skipped": true,
-    "user_choices": {},
-    "analytics": {
-        "time_per_step": {},
-        "total_time": 0,
-        "success_rate": 0,
-        "blocking_points": []
-    }
+  "user_id": "test_user",
+  "current_step": 1,
+  "total_steps": 5,
+  "started_at": "2026-02-07T14:43:53.832747",
+  "completed_at": "2026-02-07T14:43:53.831054",
+  "skipped": true,
+  "user_choices": {},
+  "analytics": {
+    "time_per_step": {},
+    "total_time": 0,
+    "success_rate": 0,
+    "blocking_points": []
+  }
 }

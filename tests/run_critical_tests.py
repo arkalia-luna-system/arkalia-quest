@@ -309,7 +309,6 @@ def run_coverage_analysis():
             "-m",
             "pytest",
             "--cov=core",
-            "--cov=arkalia_engine",
             "--cov=app",
             "--cov-report=html",
             "--cov-report=term-missing",

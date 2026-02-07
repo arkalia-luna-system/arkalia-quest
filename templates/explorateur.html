@@ -609,16 +609,17 @@
         // Fonctions
         function loadFile(fileType) {
             const content = fileData[fileType];
-            if (content) {
-                document.querySelector('.content-title').textContent = content.title;
-                document.getElementById('fileContent').innerHTML = formatJSON(content.content);
+            if (!content) return;
+            const titleEl = document.querySelector('.content-title');
+            const fileContentEl = document.getElementById('fileContent');
+            if (titleEl) titleEl.textContent = content.title || '';
+            if (fileContentEl) fileContentEl.innerHTML = formatJSON(content.content);
 
-                // Mise à jour de la navigation active
-                document.querySelectorAll('.nav-link').forEach(link => {
-                    link.classList.remove('active');
-                });
-                document.querySelector(`[data-file="${fileType}"]`).classList.add('active');
-            }
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            const activeNav = document.querySelector(`[data-file="${fileType}"]`);
+            if (activeNav) activeNav.classList.add('active');
         }
 
         function formatJSON(jsonString) {
@@ -677,8 +678,8 @@
 
         // Utilise la fonction playSound() globale du AudioManager
     </script>
-    <script src="/static/js/audio-manager.js"></script>
-    <script src="/static/js/navigation.js"></script>
+    <script src="{{ url_for('static', filename='js/audio-manager.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/navigation.js') }}"></script>
 </body>
 
 </html>

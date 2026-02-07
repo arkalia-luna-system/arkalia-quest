@@ -4,7 +4,7 @@
 
 # **Statut : ACTIF**
 
-# **Dernière mise à jour : Juillet 2025**
+*Dernière mise à jour : 7 février 2026*
 
 **Résumé :** Critères d'évaluation stratégique et métriques de succès pour Arkalia Quest.
 

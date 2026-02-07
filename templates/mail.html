@@ -637,11 +637,11 @@
 
         // Fonctions
         function loadMessages(folder) {
-            const messages = messageData[folder] || [];
+            const messages = Array.isArray(messageData[folder]) ? messageData[folder] : [];
             const messageList = document.getElementById('messageList');
             const messagesTitle = document.querySelector('.messages-title');
+            if (!messageList) return;
 
-            // Mise à jour du titre
             const folderNames = {
                 inbox: '📥 Boîte de réception',
                 sent: '📤 Messages envoyés',
@@ -649,51 +649,46 @@
                 missions: '🎯 Missions',
                 system: '⚙️ Système'
             };
-            messagesTitle.textContent = folderNames[folder];
+            if (messagesTitle) messagesTitle.textContent = folderNames[folder] || folder;
 
-            // Affichage des messages
             messageList.innerHTML = messages.map(message => `
                 <div class="message-item ${message.unread ? 'message-unread' : ''}" onclick="showMessage(${message.id})">
                     <div class="message-header">
-                        <span class="message-sender">${message.sender}</span>
-                        <span class="message-date">${message.date}</span>
+                        <span class="message-sender">${(message.sender || '').replace(/</g, '&lt;')}</span>
+                        <span class="message-date">${(message.date || '')}</span>
                     </div>
-                    <div class="message-subject">${message.subject}</div>
-                    <div class="message-preview">${message.preview}</div>
+                    <div class="message-subject">${(message.subject || '').replace(/</g, '&lt;')}</div>
+                    <div class="message-preview">${(message.preview || '').replace(/</g, '&lt;')}</div>
                 </div>
             `).join('');
 
-            // Mise à jour de la navigation active
-            document.querySelectorAll('.folder-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            document.querySelector(`[data-folder="${folder}"]`).classList.add('active');
+            document.querySelectorAll('.folder-link').forEach(link => link.classList.remove('active'));
+            const activeNav = document.querySelector(`[data-folder="${folder}"]`);
+            if (activeNav) activeNav.classList.add('active');
         }
 
         function showMessage(messageId) {
-            // Trouver le message
             let message = null;
             for (const folder in messageData) {
-                message = messageData[folder].find(m => m.id === messageId);
-                if (message) break;
+                const list = messageData[folder];
+                if (Array.isArray(list)) {
+                    message = list.find(m => m.id === messageId);
+                    if (message) break;
+                }
             }
 
             if (message) {
-                // Marquer comme lu
                 message.unread = false;
+                alert(`${message.sender || ''}\n\n${message.subject || ''}\n\n${message.content || ''}`);
 
-                // Afficher le contenu (simulation d'une popup ou modal)
-                alert(`${message.sender}\n\n${message.subject}\n\n${message.content}`);
-
-                // Recharger les messages pour mettre à jour l'affichage
-                const activeFolder = document.querySelector('.folder-link.active').dataset.folder;
-                loadMessages(activeFolder);
+                const activeFolder = document.querySelector('.folder-link.active');
+                if (activeFolder && activeFolder.dataset.folder) loadMessages(activeFolder.dataset.folder);
             }
         }
 
         function refreshMessages() {
-            const activeFolder = document.querySelector('.folder-link.active').dataset.folder;
-            loadMessages(activeFolder);
+            const activeFolder = document.querySelector('.folder-link.active');
+            if (activeFolder && activeFolder.dataset.folder) loadMessages(activeFolder.dataset.folder);
         }
 
         function composeMessage() {
@@ -723,8 +718,8 @@
 
         // Utilise la fonction playSound() globale du AudioManager
     </script>
-    <script src="/static/js/audio-manager.js"></script>
-    <script src="/static/js/navigation.js"></script>
+    <script src="{{ url_for('static', filename='js/audio-manager.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/navigation.js') }}"></script>
 </body>
 
 </html>

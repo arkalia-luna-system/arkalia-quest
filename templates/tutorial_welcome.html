@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- CSS LUNA VISION -->
-    <link rel="stylesheet" href="/static/css/arkalia-luna-vision.css">
-    <link rel="stylesheet" href="/static/css/accessibility.css">
-    <link rel="stylesheet" href="/static/css/arkalia-responsive.css?v=4.0.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-responsive.css') }}?v=4.0.0">
 
     <style>
         .tutorial-container {
@@ -462,22 +462,21 @@
     </div>
 
     <!-- Scripts -->
-    <script src="/static/js/accessibility.js"></script>
+    <script src="{{ url_for('static', filename='js/accessibility.js') }}"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Animation d'entrée
             const card = document.querySelector('.tutorial-card');
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
+            if (card) {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.8s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 300);
+            }
 
-            setTimeout(() => {
-                card.style.transition = 'all 0.8s ease';
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-            }, 300);
-
-            // Animation des étapes
             const steps = document.querySelectorAll('.tutorial-step');
             steps.forEach((step, index) => {
                 step.style.opacity = '0';
@@ -511,16 +510,18 @@
                 // Vérifier d'abord la progression sauvegardée
                 const savedProgress = localStorage.getItem('arkalia_tutorial_progress');
                 if (savedProgress) {
-                    const progress = JSON.parse(savedProgress);
-                    if (progress.completed_steps && progress.completed_steps.length > 0) {
-                        showProgressRestored(progress);
-                    }
+                    try {
+                        const progress = JSON.parse(savedProgress);
+                        if (progress && Array.isArray(progress.completed_steps) && progress.completed_steps.length > 0) {
+                            showProgressRestored(progress);
+                        }
+                    } catch (e) { /* ignore invalid saved progress */ }
                 }
 
                 const response = await fetch('/api/tutorial/steps');
                 if (response.ok) {
                     const data = await response.json();
-                    if (data.tutoriel && data.tutoriel.etapes) {
+                    if (data && data.tutoriel && Array.isArray(data.tutoriel.etapes)) {
                         displayTutorialSteps(data.tutoriel.etapes);
                     }
                 }
@@ -529,8 +530,8 @@
             }
         }
 
-        // Fonction pour afficher la progression restaurée
         function showProgressRestored(progress) {
+            if (!progress || !Array.isArray(progress.completed_steps)) return;
             if (window.lunaVision) {
                 window.lunaVision.showLunaMessage(
                     `Progression restaurée ! Tu as complété ${progress.completed_steps.length} étapes.`,
@@ -554,24 +555,24 @@
             }, 3000);
         }
 
-        // Fonction pour afficher les étapes du tutoriel
         function displayTutorialSteps(etapes) {
             const stepsContainer = document.getElementById('tutorial-steps');
-            if (!stepsContainer) return;
+            if (!stepsContainer || !Array.isArray(etapes)) return;
 
             stepsContainer.innerHTML = '';
 
             etapes.forEach((etape, index) => {
+                const step = etape || {};
                 const stepElement = document.createElement('div');
                 stepElement.className = 'tutorial-step-dynamic';
                 stepElement.innerHTML = `
-                    <div class="step-number-dynamic">${etape.id}</div>
+                    <div class="step-number-dynamic">${(step.id ?? index + 1)}</div>
                     <div class="step-content-dynamic">
-                        <h3 class="step-title-dynamic">${etape.titre}</h3>
-                        <p class="step-message-dynamic">${etape.message}</p>
+                        <h3 class="step-title-dynamic">${(step.titre || '').replace(/</g, '&lt;')}</h3>
+                        <p class="step-message-dynamic">${(step.message || '').replace(/</g, '&lt;')}</p>
                         <div class="step-command-dynamic">
-                            <code>${etape.commande}</code>
-                            <span class="step-help-dynamic">${etape.aide}</span>
+                            <code>${(step.commande || '').replace(/</g, '&lt;')}</code>
+                            <span class="step-help-dynamic">${(step.aide || '').replace(/</g, '&lt;')}</span>
                         </div>
                     </div>
                 `;
@@ -585,23 +586,21 @@
             });
         }
 
-        // Confirmation quitter tutoriel
         function setupQuitConfirmation() {
             const modal = document.getElementById('quit-modal');
             const cancelBtn = document.getElementById('quit-cancel');
             const confirmBtn = document.getElementById('quit-confirm');
             const dontAsk = document.getElementById('dont-ask-again');
+            if (!modal || !cancelBtn || !confirmBtn) return;
             let pendingHref = null;
 
-            // Ne pas redemander si l'utilisateur a choisi ainsi
             const skipConfirm = localStorage.getItem('arkalia_tutorial_quit_confirm_disabled') === '1';
 
             function openModal(href) {
                 pendingHref = href;
                 modal.classList.add('active');
                 modal.setAttribute('aria-hidden', 'false');
-                // Focus pour a11y
-                setTimeout(() => cancelBtn.focus(), 50);
+                setTimeout(() => { if (cancelBtn) cancelBtn.focus(); }, 50);
             }
 
             function closeModal() {
@@ -624,7 +623,7 @@
                     // Sauvegarde rapide de progression (best effort)
                     await fetch('/api/tutorial/progress/main_user');
                 } catch (e) { /* no-op */ }
-                if (dontAsk.checked) {
+                if (dontAsk && dontAsk.checked) {
                     localStorage.setItem('arkalia_tutorial_quit_confirm_disabled', '1');
                 }
                 if (pendingHref) window.location.href = pendingHref;

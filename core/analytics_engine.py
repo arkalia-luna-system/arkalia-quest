@@ -17,7 +17,7 @@ import threading
 import time
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Optional
+from typing import Any, Optional, Union
 
 # Configuration du logging
 logging.basicConfig(level=logging.INFO)
@@ -197,9 +197,27 @@ class AnalyticsEngine:
             :16
         ]
 
+    def _normalize_event_type(self, event_type: Union[EventType, str]) -> EventType:
+        """Accepte EventType ou str (ex: depuis l'API) et retourne un EventType."""
+        if isinstance(event_type, EventType):
+            return event_type
+        if isinstance(event_type, str):
+            try:
+                return EventType(event_type)
+            except ValueError:
+                for e in EventType:
+                    if e.value == event_type:
+                        return e
+                logger.warning(
+                    "Type d'événement inconnu %r, utilisation de INTERACTION",
+                    event_type,
+                )
+                return EventType.INTERACTION
+        return EventType.INTERACTION
+
     def track_event(
         self,
-        event_type: EventType,
+        event_type: Union[EventType, str],
         user_id: str,
         session_id: str,
         data: Optional[dict[str, Any]] = None,
@@ -207,6 +225,7 @@ class AnalyticsEngine:
     ):
         """Tracker un événement"""
         try:
+            event_type = self._normalize_event_type(event_type)
             # Anonymiser l'ID utilisateur
             anonymized_user_id = self._anonymize_user_id(user_id)
 

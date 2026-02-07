@@ -14,13 +14,13 @@
 
     <!-- PWA Icons -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="/static/images/apple-touch-icon.png">
-    <link rel="manifest" href="/static/manifest.json">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
 
     <!-- CSS LUNA VISION -->
-    <link rel="stylesheet" href="/static/css/arkalia-luna-vision.css">
-    <link rel="stylesheet" href="/static/css/accessibility.css">
-    <link rel="stylesheet" href="/static/css/arkalia-responsive.css?v=4.0.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-responsive.css') }}?v=4.0.0">
 
     <style>
         .accessibility-workspace {
@@ -281,6 +281,7 @@
 <body>
     <!-- Navigation principale -->
     <div class="nav-wrapper">
+        {% set active_page = 'accessibility' %}
         {% include 'components/navbar.html' with context %}
     </div>
 
@@ -454,9 +455,9 @@
     </main>
 
     <!-- Scripts LUNA VISION -->
-    <script src="/static/js/navigation.js"></script>
-    <script src="/static/js/accessibility.js"></script>
-    <script src="/static/js/audio-manager.js"></script>
+    <script src="{{ url_for('static', filename='js/navigation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/accessibility.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/audio-manager.js') }}"></script>
 
     <script>
         // Gestion des contrôles d'accessibilité
@@ -503,22 +504,29 @@
         }
 
         function updateAccessibilitySettings() {
+            const toggle = (id) => {
+                const el = document.getElementById(id);
+                return el && el.classList ? el.classList.contains('active') : false;
+            };
+            const inputVal = (id, def) => {
+                const el = document.getElementById(id);
+                return el && el.value !== undefined ? el.value : def;
+            };
             const settings = {
-                highContrast: document.getElementById('high-contrast').classList.contains('active'),
-                fontSize: document.getElementById('font-size').value,
-                reducedMotion: document.getElementById('reduced-motion').classList.contains('active'),
-                subtitles: document.getElementById('subtitles').classList.contains('active'),
-                effectsVolume: document.getElementById('effects-volume').value,
-                audioDescription: document.getElementById('audio-description').classList.contains('active'),
-                keyboardNav: document.getElementById('keyboard-nav').classList.contains('active'),
-                focusVisible: document.getElementById('focus-visible').classList.contains('active'),
-                keyboardShortcuts: document.getElementById('keyboard-shortcuts').classList.contains('active'),
-                darkMode: document.getElementById('dark-mode').classList.contains('active'),
-                elementSpacing: document.getElementById('element-spacing').value,
-                customCursor: document.getElementById('custom-cursor').classList.contains('active')
+                highContrast: toggle('high-contrast'),
+                fontSize: inputVal('font-size', 'medium'),
+                reducedMotion: toggle('reduced-motion'),
+                subtitles: toggle('subtitles'),
+                effectsVolume: inputVal('effects-volume', 80),
+                audioDescription: toggle('audio-description'),
+                keyboardNav: toggle('keyboard-nav'),
+                focusVisible: toggle('focus-visible'),
+                keyboardShortcuts: toggle('keyboard-shortcuts'),
+                darkMode: toggle('dark-mode'),
+                elementSpacing: inputVal('element-spacing', 'normal'),
+                customCursor: toggle('custom-cursor')
             };
 
-            // Appliquer les paramètres
             applyAccessibilitySettings(settings);
 
             // Sauvegarder localement
@@ -533,14 +541,13 @@
                 document.body.style.filter = 'none';
             }
 
-            // Taille du texte
             const fontSizeMap = {
                 'small': '14px',
                 'medium': '16px',
                 'large': '18px',
                 'xlarge': '20px'
             };
-            document.body.style.fontSize = fontSizeMap[settings.fontSize];
+            document.body.style.fontSize = fontSizeMap[settings.fontSize] || fontSizeMap.medium || '16px';
 
             // Animations réduites
             if (settings.reducedMotion) {
@@ -556,13 +563,12 @@
                 document.body.classList.remove('dark-mode');
             }
 
-            // Espacement des éléments
             const spacingMap = {
                 'compact': '0.5',
                 'normal': '1',
                 'spacious': '1.5'
             };
-            document.body.style.setProperty('--element-spacing', spacingMap[settings.elementSpacing]);
+            document.body.style.setProperty('--element-spacing', spacingMap[settings.elementSpacing] || spacingMap.normal || '1');
 
             // Focus global visible
             if (settings.focusVisible) {
@@ -638,14 +644,16 @@
         }
 
         function resetAccessibilitySettings() {
-            // Réinitialiser tous les contrôles
             document.querySelectorAll('.control-toggle').forEach(toggle => {
                 toggle.classList.remove('active');
             });
 
-            document.getElementById('font-size').value = 'medium';
-            document.getElementById('element-spacing').value = 'normal';
-            document.getElementById('effects-volume').value = 80;
+            const fontSizeEl = document.getElementById('font-size');
+            const spacingEl = document.getElementById('element-spacing');
+            const volumeEl = document.getElementById('effects-volume');
+            if (fontSizeEl) fontSizeEl.value = 'medium';
+            if (spacingEl) spacingEl.value = 'normal';
+            if (volumeEl) volumeEl.value = 80;
 
             // Réinitialiser les paramètres
             updateAccessibilitySettings();
@@ -698,9 +706,12 @@
             setActive('custom-cursor', !!savedSettings.customCursor);
             setActive('large-spacing', !!savedSettings.largeSpacing);
 
-            if (savedSettings.fontSize) document.getElementById('font-size').value = savedSettings.fontSize;
-            if (savedSettings.elementSpacing) document.getElementById('element-spacing').value = savedSettings.elementSpacing;
-            if (savedSettings.effectsVolume) document.getElementById('effects-volume').value = savedSettings.effectsVolume;
+            const fontSizeEl = document.getElementById('font-size');
+            const spacingEl = document.getElementById('element-spacing');
+            const volumeEl = document.getElementById('effects-volume');
+            if (fontSizeEl && savedSettings.fontSize) fontSizeEl.value = savedSettings.fontSize;
+            if (spacingEl && savedSettings.elementSpacing) spacingEl.value = savedSettings.elementSpacing;
+            if (volumeEl && savedSettings.effectsVolume !== undefined) volumeEl.value = savedSettings.effectsVolume;
 
             // Appliquer les paramètres
             updateAccessibilitySettings();

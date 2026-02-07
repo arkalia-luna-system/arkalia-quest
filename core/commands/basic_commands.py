@@ -306,7 +306,9 @@ la vérité sur NEXUS et la menace de PANDORA.
 
         # Messages pour les badges
         if not badges:
-            badge_message = "🎖️ Aucun badge encore - Tes premiers exploits t'attendent !"
+            badge_message = (
+                "🎖️ Aucun badge encore - Tes premiers exploits t'attendent !"
+            )
         elif len(badges) < 5:
             badge_message = (
                 f"🎖️ {len(badges)} badge(s) - Tu commences à te faire remarquer !"

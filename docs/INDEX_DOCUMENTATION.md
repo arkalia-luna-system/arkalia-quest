@@ -1,6 +1,6 @@
-# 📚 **INDEX DE DOCUMENTATION - ARKALIA QUEST V3.3.0**
+# Index de la documentation — Arkalia Quest
 
-> **Guide complet de navigation dans la documentation du projet**
+Guide de navigation dans la documentation du projet. *Dernière mise à jour : 7 février 2026.*
 
 ---
 
@@ -10,7 +10,8 @@
 
 - **[README.md](../README.md)** - Documentation principale du projet
 - **[CHANGELOG.md](../CHANGELOG.md)** - Historique des versions
-- **[README_UTILISATION.md](../README_UTILISATION.md)** - Guide utilisateur
+- **[README_UTILISATION.md](README_UTILISATION.md)** - Guide utilisateur (docs)
+- **[START_SCRIPTS.md](../START_SCRIPTS.md)** - Scripts de démarrage (start.sh, start_optimized.sh, etc.)
 
 ### **🏗️ Architecture & Technique**
 
@@ -22,7 +23,7 @@
 
 - **[GUIDE_DEVELOPPEMENT.md](GUIDE_DEVELOPPEMENT.md)** - Guide de développement
 - **[GUIDE_TECHNIQUE_DEVELOPPEUR.md](GUIDE_TECHNIQUE_DEVELOPPEUR.md)** - Guide technique
-- **[GUIDE_DEPLOIEMENT.md](GUIDE_DEPLOIEMENT.md)** - Guide de déploiement
+- **[GUIDE_DEPLOIEMENT.md](GUIDE_DEPLOIEMENT.md)** - Guide de déploiement (voir aussi [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md) et config/platforms.md)
 - **[CONTRIBUTING.md](CONTRIBUTING.md)** - Guide de contribution
 
 ---
@@ -31,18 +32,28 @@
 
 ### **🧪 Tests & Qualité**
 
+- **[../tests/README.md](../tests/README.md)** - Lancer les tests (pytest depuis la racine, scripts disponibles)
 - **[CHECKLISTS_TEST_UTILISATEUR.md](CHECKLISTS_TEST_UTILISATEUR.md)** - Checklists de tests
 - **[TEST_PLAN_UTILISATEUR.md](TEST_PLAN_UTILISATEUR.md)** - Plan de tests utilisateur
 - **[GUIDE_TEST_UTILISATEUR.md](GUIDE_TEST_UTILISATEUR.md)** - Guide de tests
 
-### **📈 Rapports de Performance**
+### Rapports et audits
 
-- **[../reports/PLAN_AMELIORATION_TESTS_ADO.md](../reports/PLAN_AMELIORATION_TESTS_ADO.md)** - Plan d'amélioration
-- **[../reports/RAPPORT_OPTIMISATION_PERFORMANCE.md](../reports/RAPPORT_OPTIMISATION_PERFORMANCE.md)** - Optimisations
+- **[../RAPPORT_AUDIT_COMPLET_PROJET.md](../RAPPORT_AUDIT_COMPLET_PROJET.md)** — Audit complet (racine) : exploitation 100 %, static/config/docs, url_for, LUNA. Voir [rapports/README.md](rapports/README.md).
+- **[rapports/RAPPORT_AUDIT_PROJET.md](rapports/RAPPORT_AUDIT_PROJET.md)** — Audit projet (7 fév. 2026)
+- **[reports/README.md](reports/README.md)** — Rapports d’évaluation
+- **[../reports/PLAN_AMELIORATION_TESTS_ADO.md](../reports/PLAN_AMELIORATION_TESTS_ADO.md)** — Plan d'amélioration tests
+- **[../reports/RAPPORT_OPTIMISATION_PERFORMANCE.md](../reports/RAPPORT_OPTIMISATION_PERFORMANCE.md)** — Optimisations
 
 ---
 
 ## 🗂️ **ORGANISATION DES FICHIERS**
+
+### **📁 Autres dossiers clés**
+
+- **static/** : `css/` (41 fichiers), `js/` (62 fichiers), `icons/`, `images/`, `manifest.json` — voir rapport d’audit complet pour détails (orphelins, scripts commentés).
+- **config/** : Configuration app (settings.py, config.example.py), déploiement (Procfile, Dockerfile, railway.json, etc.), pytest.ini, platforms.md (guide déploiement multi-plateformes).
+- **Regroupement CSS/JS** : [CSS_JS_BUNDLES.md](CSS_JS_BUNDLES.md) — groupes par type de page, bundle `arkalia-bundle-pages.css` disponible.
 
 ### **📁 Structure Recommandée**
 
@@ -59,18 +70,21 @@ docs/
 ├── versions/                       # Versions
 │   ├── CHANGELOG.md
 │   └── CHANGELOG_v3.0.0.md
-├── rapports/                       # Rapports
+├── rapports/                       # Rapports actifs
 │   ├── README.md
-│   └── STATUT_FINAL.md
-└── archive/                        # Archives (obsolètes)
-    └── README_ARCHIVE.md
+│   └── RAPPORT_AUDIT_PROJET.md
+├── audits/                        # Audits (résumé + lien consolidé)
+│   ├── README.md
+│   └── RESUME_AUDIT_FINAL.md
+└── archive/                       # Archives
+    ├── README_ARCHIVE.md
+    ├── rapports/                  # Anciens rapports
+    └── audits/                    # Audits détaillés
 ```
 
-### **🗑️ Fichiers à Nettoyer**
+### Archives
 
-- **46 fichiers** dans `docs/archive/` (obsolètes)
-- **Doublons** : `CHANGELOG.md` (3 versions)
-- **Fichiers temporaires** : `._*` (métadonnées macOS)
+- Rapports obsolètes dans `docs/archive/` et `docs/archive/rapports/` (voir [README_ARCHIVE.md](archive/README_ARCHIVE.md)).
 
 ---
 
@@ -135,6 +149,12 @@ docs/
 
 ---
 
+## 🗺️ **PAGES & FONCTIONNALITÉS (EXPLOITATION 100 %)**
+
+- **Accueil** `/` — **Terminal** `/terminal` — **Monde** `/monde` — **Profil** `/profil` — **Classement** `/leaderboard` (avec onglets par catégorie) — **Dashboard** `/dashboard` (défis du jour, accès rapide) — **Compétences** `/skill-tree` — **Tutoriel** `/tutorial` — **Explorateur** `/explorateur` — **Mail** `/mail` — **Audio** `/audio` — **Tutoriels techniques** `/technical-tutorials` — **Accessibilité** `/accessibility`.
+
+---
+
 ## 🎮 **ARKALIA QUEST V3.2.0 - STATUT FINAL**
 
 **✅ PRODUCTION READY**
@@ -148,5 +168,4 @@ docs/
 
 ---
 
-*Dernière mise à jour : 15 septembre 2025*
-*Version : Arkalia Quest V3.2.0*
+*Dernière mise à jour : 7 février 2026*

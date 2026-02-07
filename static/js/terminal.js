@@ -1695,14 +1695,18 @@ function updateAudioToggle(enabled) {
 
 // Met à jour le header avec les infos du joueur
 function updatePlayerHeader(data) {
-    if (data.niveau !== undefined) {
-        document.getElementById('playerLevel').textContent = data.niveau;
+    if (!data || typeof data !== 'object') return;
+    const levelEl = document.getElementById('playerLevel');
+    const scoreEl = document.getElementById('playerScore');
+    const badgesEl = document.getElementById('playerBadges');
+    if (levelEl && data.niveau !== undefined && data.niveau !== null) {
+        levelEl.textContent = data.niveau;
     }
-    if (data.score !== undefined) {
-        document.getElementById('playerScore').textContent = data.score;
+    if (scoreEl && data.score !== undefined && data.score !== null) {
+        scoreEl.textContent = data.score;
     }
-    if (data.badges !== undefined) {
-        document.getElementById('playerBadges').textContent = data.badges.length || 0;
+    if (badgesEl && data.badges !== undefined) {
+        badgesEl.textContent = Array.isArray(data.badges) ? data.badges.length : (Number(data.badges) || 0);
     }
 }
 
@@ -2412,10 +2416,10 @@ function refreshProgressionData() {
 
 // Fonction pour mettre à jour l'affichage de la progression
 function updateProgressionDisplay(progression) {
-    // Mettre à jour le niveau
+    if (!progression || typeof progression !== 'object') return;
     const levelElements = document.querySelectorAll('.level, .niveau, [data-level]');
     levelElements.forEach(el => {
-        el.textContent = progression.level || 1;
+        el.textContent = progression.level ?? 1;
     });
 
     // Mettre à jour le score
@@ -2436,10 +2440,10 @@ function updateProgressionDisplay(progression) {
         el.textContent = progression.coins || 0;
     });
 
-    // Mettre à jour les badges
     const badgesElements = document.querySelectorAll('.badges, [data-badges]');
+    const badgesCount = Array.isArray(progression.badges) ? progression.badges.length : 0;
     badgesElements.forEach(el => {
-        el.textContent = progression.badges ? progression.badges.length : 0;
+        el.textContent = badgesCount;
     });
 }
 
@@ -2578,34 +2582,31 @@ function showScoreJumpEffect(score) {
 
 // Fonction pour mettre à jour l'affichage du profil classique
 function updateProfileDisplay(profile) {
-    // Mettre à jour le niveau
+    if (!profile || typeof profile !== 'object') return;
     const levelElements = document.querySelectorAll('.level, .niveau, [data-level], #current_level');
     levelElements.forEach(el => {
-        el.textContent = profile.level || profile.niveau || 1;
+        el.textContent = profile.level ?? profile.niveau ?? 1;
     });
 
-    // Mettre à jour le score
     const scoreElements = document.querySelectorAll('.score, [data-score], #total_score');
     scoreElements.forEach(el => {
-        el.textContent = profile.score || 0;
+        el.textContent = profile.score ?? 0;
     });
 
-    // Mettre à jour l'XP
     const xpElements = document.querySelectorAll('.xp, [data-xp]');
     xpElements.forEach(el => {
-        el.textContent = profile.xp || 0;
+        el.textContent = profile.xp ?? 0;
     });
 
-    // Mettre à jour les coins
     const coinsElements = document.querySelectorAll('.coins, [data-coins]');
     coinsElements.forEach(el => {
-        el.textContent = profile.coins || 0;
+        el.textContent = profile.coins ?? 0;
     });
 
-    // Mettre à jour les badges
     const badgesElements = document.querySelectorAll('.badges, [data-badges], #badges_count');
+    const badgesCount = Array.isArray(profile.badges) ? profile.badges.length : 0;
     badgesElements.forEach(el => {
-        el.textContent = profile.badges ? profile.badges.length : 0;
+        el.textContent = badgesCount;
     });
 
     // Mettre à jour les missions complétées

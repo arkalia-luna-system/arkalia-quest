@@ -742,6 +742,6 @@ Toutes les contributions sont appréciées ! Les contributeurs seront mentionné
 
 ---
 
-# **Merci de contribuer à Arkalia Quest ! 🎮✨**
+# Merci de contribuer à Arkalia Quest
 
-## *Ensemble, créons l'éducation de demain !*
+*Dernière mise à jour : 7 février 2026*

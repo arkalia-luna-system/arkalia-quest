@@ -1,7 +1,7 @@
-# 📊 RÉSUMÉ AUDIT FINAL ARKALIA QUEST
+# Résumé audit final — Arkalia Quest
 
-**Date:** 2025-09-17T20:40:07  
-**Statut:** Améliorations significatives appliquées
+**Date :** 2025-09-17  
+**Référence historique.** Vue consolidée actuelle : [RAPPORT_AUDIT_PROJET.md](../rapports/RAPPORT_AUDIT_PROJET.md) (7 fév. 2026).
 
 ## 🎯 RÉSULTATS DE L'AUDIT
 

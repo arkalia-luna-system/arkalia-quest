@@ -40,9 +40,19 @@ class GameEngine {
     loadGameData() {
         const saved = localStorage.getItem('arkaliaGameData');
         if (saved) {
-            const data = JSON.parse(saved);
-            this.player = { ...this.player, ...data.player };
-            this.gameState = { ...this.gameState, ...data.gameState };
+            try {
+                const data = JSON.parse(saved);
+                if (data.player) this.player = { ...this.player, ...data.player };
+                if (data.gameState) this.gameState = { ...this.gameState, ...data.gameState };
+                if (!Array.isArray(this.player.badges)) this.player.badges = [];
+                if (!this.player.stats || typeof this.player.stats !== 'object') {
+                    this.player.stats = { gamesPlayed: 0, gamesWon: 0, totalScore: 0, timePlayed: 0 };
+                }
+                if (!Array.isArray(this.gameState.unlockedZones)) this.gameState.unlockedZones = ['terminal'];
+                if (!Array.isArray(this.gameState.availableGames)) this.gameState.availableGames = ['logic_puzzle_1'];
+            } catch (e) {
+                console.warn('Arkalia: loadGameData failed', e);
+            }
         }
     }
 
@@ -164,24 +174,20 @@ class GameEngine {
 
     // SYSTÈME DE BADGES
     checkBadges() {
+        if (!Array.isArray(this.player.badges)) this.player.badges = [];
+        const stats = this.player.stats || {};
         const newBadges = [];
 
-        // Badge premier niveau
         if (this.player.level >= 2 && !this.player.badges.includes('first_level')) {
             newBadges.push({ id: 'first_level', name: 'Premier Pas', icon: '🌟', description: 'Atteint le niveau 2' });
         }
-
-        // Badge premier jeu
-        if (this.player.stats.gamesPlayed >= 1 && !this.player.badges.includes('first_game')) {
+        if ((stats.gamesPlayed || 0) >= 1 && !this.player.badges.includes('first_game')) {
             newBadges.push({ id: 'first_game', name: 'Gamer', icon: '🎮', description: 'A joué à son premier jeu' });
         }
-
-        // Badge score élevé
         if (this.player.score >= 1000 && !this.player.badges.includes('high_score')) {
             newBadges.push({ id: 'high_score', name: 'Score Master', icon: '🏆', description: 'Atteint 1000 points' });
         }
 
-        // Ajouter les nouveaux badges
         newBadges.forEach(badge => {
             this.player.badges.push(badge.id);
             this.showBadgeEarned(badge);
@@ -482,14 +488,14 @@ class GameEngine {
 ✅ Jeux Gagnés: ${this.player.stats.gamesWon}
 ⏱️ Temps de Jeu: ${Math.floor(this.player.stats.timePlayed / 60)} minutes
 
-🏆 BADGES (${this.player.badges.length}):
-${this.player.badges.map(badgeId => this.getBadgeInfo(badgeId)).join('\n')}
+🏆 BADGES (${Array.isArray(this.player.badges) ? this.player.badges.length : 0}):
+${Array.isArray(this.player.badges) ? this.player.badges.map(badgeId => this.getBadgeInfo(badgeId)).join('\n') : ''}
 
 🌍 ZONES DÉBLOQUÉES:
-${this.gameState.unlockedZones.join(', ')}
+${Array.isArray(this.gameState.unlockedZones) ? this.gameState.unlockedZones.join(', ') : 'terminal'}
 
 🎮 JEUX DISPONIBLES:
-${this.gameState.availableGames.join(', ')}
+${Array.isArray(this.gameState.availableGames) ? this.gameState.availableGames.join(', ') : 'logic_puzzle_1'}
         `;
         this.showTerminalMessage(profileText, 'info');
     }
@@ -593,6 +599,7 @@ ${this.gameState.availableGames.join(', ')}
     }
 
     simulateBadgeUnlock() {
+        if (!Array.isArray(this.player.badges)) this.player.badges = [];
         const badgeId = 'simulation_badge_' + Date.now();
         this.player.badges.push(badgeId);
         this.player.score += 50;
@@ -649,8 +656,8 @@ ${this.gameState.availableGames.join(', ')}
 📊 STATISTIQUES :
 • Score actuel : ${this.player.score}
 • Niveau : ${this.player.level}
-• Badges : ${this.player.badges.length}
-• Jeux joués : ${this.player.stats.gamesPlayed}
+• Badges : ${Array.isArray(this.player.badges) ? this.player.badges.length : 0}
+• Jeux joués : ${(this.player.stats && this.player.stats.gamesPlayed) || 0}
 
 💡 MODE DÉVELOPPEUR :
 Toutes les fonctionnalités sont disponibles !`;

@@ -7,8 +7,10 @@ import os
 import sys
 from pathlib import Path
 
-# Ajouter le répertoire racine au path
-sys.path.append(str(Path(__file__).parent))
+# Ajouter la racine du projet au path pour importer core
+_root = Path(__file__).resolve().parent.parent
+if str(_root) not in sys.path:
+    sys.path.insert(0, str(_root))
 
 
 def test_progression_engine():
@@ -50,9 +52,9 @@ def test_skill_tree_system():
     print("\n🧪 Test du système d'arbre de compétences...")
 
     try:
-        from core.enhanced_mission_system import EnhancedMissionSystem
+        from core.mission_unified import mission_unified
 
-        system = EnhancedMissionSystem()
+        system = mission_unified
 
         # Test de récupération de l'arbre de compétences
         profile = {"level": 1, "xp": 0, "skills": {}}

@@ -1,7 +1,9 @@
-
 # 🚀 **GUIDE DE DÉPLOIEMENT - ARKALIA QUEST**
 
-> **Guide complet pour déployer Arkalia Quest en production**
+> **Guide principal en français** pour déployer Arkalia Quest en production (prérequis, config, Docker, CI/CD).
+
+**Voir aussi :** [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md) — détail par plateforme (Heroku, Railway, Render, Docker, etc.).  
+**Multi-plateformes :** [config/platforms.md](../config/platforms.md).
 
 ---
 
@@ -540,6 +542,6 @@ sqlite3 data/database/arkalia.db ".tables"
 ## 🌟 **Conclusion**
 
 
-Ce guide couvre les aspects essentiels du déploiement d'Arkalia Quest. Pour plus de détails, consultez la [documentation complète](ARCHITECTURE_TECHNIQUE.md).
+Ce guide couvre les aspects essentiels du déploiement d'Arkalia Quest. Pour plus de détails : [ARCHITECTURE_TECHNIQUE.md](ARCHITECTURE_TECHNIQUE.md).
 
-**Bon déploiement !** 🚀✨
+*Dernière mise à jour : 7 février 2026*

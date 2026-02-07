@@ -1,0 +1,14 @@
+/* Creative system - création / personnalisation */
+/* Référencé par profil, terminal, monde, dashboard - évite 404 */
+
+.creative-panel,
+.creative-zone {
+    margin: 0;
+    padding: 0;
+}
+
+.creative-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}

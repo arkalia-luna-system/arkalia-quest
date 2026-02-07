@@ -11,50 +11,27 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Ajouté
 
-- 🔌 API Terminal: `POST /api/terminal/command` (via `CommandHandlerV2`) avec suggestions intelligentes et messages "en développement" pour commandes WIP.
-- 🎭 Popups closables universellement (X, overlay, Escape) via `popup-manager.js` + coordination `popup-coordinator.js`.
-- 🧠 Smart Empty States: masquage des stats à zéro + placeholders motivants (`smart-empty-states.js` + CSS).
-- 🎉 Reward Feedback System: effets visuels/sonores pour level-up, badges, missions, XP.
-- 🌍 Monde interactif: actions jouables par zone (hack, minage, furtif, puzzle quantique) dans `world-interactions.js`.
+- API Terminal : `POST /api/terminal/command` (CommandHandlerV2), suggestions et messages « en développement ».
+- Popups closables (X, overlay, Escape) via `popup-manager.js` / `popup-coordinator.js`.
+- Smart Empty States : stats à zéro masquées, placeholders (`smart-empty-states.js` + CSS).
+- Reward Feedback System : effets visuels/sonores (level-up, badges, missions, XP).
+- Monde interactif : actions par zone (hack, minage, furtif, puzzle quantique) dans `world-interactions.js`.
+- Visual Guidance, Tutorial Celebrations, mini-jeux jouables, Empty States, LUNA Enhanced, Daily Challenges, Terminal Commands Enhanced.
 
 ### Modifié
 
-- 📱 Responsive consolidé: remplacement de `static/css/responsive.css` par `static/css/arkalia-responsive.css` dans tous les templates.
-- 🚀 Démarrage dev clarifié: utiliser `python -m flask run`.
+- Responsive : `responsive.css` remplacé par `arkalia-responsive.css` dans tous les templates.
+- Démarrage dev : privilégier `python -m flask run`.
 
 ### Supprimé
 
-- 🧹 Fichiers redondants: `static/js/instant-feedback-system.js`, `engines/luna_ai.py`, `engines/luna_ai_v2.py`, `utils/luna_ai_v2.py`.
+- Fichiers redondants : `instant-feedback-system.js`, `luna_ai.py`, `luna_ai_v2.py` (engines/utils).
 
 ### Corrigé
 
-- 🐛 Sécurité: validation d’IP et robustesse de l’endpoint terminal.
-- 🧼 Docs: alignement README/solutions avec l’implémentation actuelle.
-
-### Ajouté
-
-- 👁️ Visual Guidance System (guidage visuel pour débutants)
-- 🎉 Tutorial Celebrations (animations de célébration)
-- 🎮 Mini-games Interactive (vrais jeux jouables)
-- 🌟 Empty States Enhanced (états vides motivants)
-- 🎉 Reward Animations (animations de récompenses)
-- 🌙 LUNA Enhanced (IA plus intelligente)
-- 🎯 Daily Challenges Enhanced (défis quotidiens interactifs)
-- 💻 Terminal Commands Enhanced (commandes variées et intelligentes)
-
-### Amélioré
-
-- 🔧 Consolidation des doublons (daily-challenges.js, terminal-commands-enhanced.js)
-- ⚡ Optimisation des performances (réduction duplication de code)
-- 🎯 Activation des fonctionnalités inactives
-- 📊 Correction erreur analytics backend (int + str)
-
-### Corrigé
-
-- ❌ Erreur `this.addPersonalizedGreetings is not a function`
-- ❌ Erreur `Cannot read properties of undefined (reading 'length')`
-- ❌ Erreur analytics `unsupported operand type(s) for +: 'int' and 'str'`
-- ❌ Problèmes UX identifiés dans le rapport de test
+- Sécurité endpoint terminal (validation IP).
+- Erreurs JS : `addPersonalizedGreetings`, `undefined.length`, analytics int+str.
+- Docs alignées avec l’implémentation.
 
 ## [3.2.0] - 2025-09-15
 
@@ -152,3 +129,7 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - [3.0.0]: https://github.com/arkalia-luna-system/arkalia-quest/compare/v2.0.0...v3.0.0
 - [2.0.0]: https://github.com/arkalia-luna-system/arkalia-quest/compare/v1.0.0...v2.0.0
 - [1.0.0]: https://github.com/arkalia-luna-system/arkalia-quest/releases/tag/v1.0.0
+
+---
+
+*Dernière révision : 7 février 2026*

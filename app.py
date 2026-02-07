@@ -6,7 +6,7 @@ import time
 import types
 from datetime import datetime, timedelta
 
-from flask import Flask, jsonify, render_template, request, send_from_directory, session
+from flask import Flask, jsonify, request, session
 from flask_compress import Compress
 
 # Imports avec gestion d'erreur robuste
@@ -132,6 +132,18 @@ effects_engine = EffectsEngine() if EffectsEngine else None
 # Configuration de la compression gzip
 Compress(app)
 
+# Exposer les engines pour les blueprints (éviter imports circulaires)
+app.config["LUNA_EMOTIONS_ENGINE"] = luna_emotions_engine
+app.config["MISSION_UNIFIED"] = mission_unified
+
+# Blueprint API (routes extraites progressivement)
+try:
+    from routes.api import api_bp
+
+    app.register_blueprint(api_bp)
+except ImportError:
+    pass  # routes optionnel en cas d'environnement minimal
+
 # Instance globale du moteur de jeux éducatifs
 try:
     games_engine = EducationalGamesEngine() if EducationalGamesEngine else None
@@ -180,6 +192,9 @@ def _validate_json_inputs():
 
     data = request.get_json()
     if not data:
+        return True
+
+    if not security_unified:
         return True
 
     for key, value in data.items():
@@ -268,6 +283,12 @@ def _check_command_security(cmd, client_ip):
 
 def _execute_command(cmd, profil):
     """Exécute la commande et retourne la réponse"""
+    if not command_handler:
+        return {
+            "réussite": False,
+            "message": "❌ Système de commandes indisponible.",
+            "profile_updated": False,
+        }
     try:
         reponse = command_handler.handle_command(cmd, profil)
         game_logger.debug(f"Réponse du handler: {reponse}")
@@ -283,8 +304,10 @@ def _execute_command(cmd, profil):
 
 def _update_gamification(cmd, profil, reponse):
     """Met à jour la gamification (badges et achievements)"""
-    if reponse.get("réussite", False):
-        # Vérifier les badges secrets et achievements
+    if not reponse.get("réussite", False) or not gamification:
+        return reponse
+    # Vérifier les badges secrets et achievements
+    try:
         unlocked_badges = gamification.check_badges_secrets(
             profil, "command_used", command=cmd
         )
@@ -294,24 +317,27 @@ def _update_gamification(cmd, profil, reponse):
             "command_used",
             command=cmd,
         )
+    except Exception:
+        unlocked_badges = []
+        unlocked_achievements = []
 
-        # Ajouter les nouveaux badges et achievements
-        if unlocked_badges:
-            reponse["nouveaux_badges"] = unlocked_badges
-        if unlocked_achievements:
-            reponse["nouveaux_achievements"] = unlocked_achievements
+    # Ajouter les nouveaux badges et achievements
+    if unlocked_badges:
+        reponse["nouveaux_badges"] = unlocked_badges
+    if unlocked_achievements:
+        reponse["nouveaux_achievements"] = unlocked_achievements
 
-        # Mettre à jour le profil si nécessaire
-        if reponse.get("profile_updated", False):
-            session["profile"] = reponse.get("profile", profil)
-            sauvegarder_profil(reponse.get("profile", profil))
+    # Mettre à jour le profil si nécessaire
+    if reponse.get("profile_updated", False):
+        session["profile"] = reponse.get("profile", profil)
+        sauvegarder_profil(reponse.get("profile", profil))
 
-        # Synchroniser l'XP avec le profil de session
-        if "profile" not in session:
-            session["profile"] = profil
-        session["profile"]["xp"] = profil.get("xp", 0)
-        session["profile"]["level"] = profil.get("level", 1)
-        session["profile"]["score"] = profil.get("score", 0)
+    # Synchroniser l'XP avec le profil de session
+    if "profile" not in session:
+        session["profile"] = profil
+    session["profile"]["xp"] = profil.get("xp", 0)
+    session["profile"]["level"] = profil.get("level", 1)
+    session["profile"]["score"] = profil.get("score", 0)
 
     return reponse
 
@@ -512,9 +538,9 @@ COMMANDES_AUTORISEES = {
 def charger_profil():
     try:
         # Utiliser le nouveau système de progression
-
-        # Récupérer le profil depuis le système de progression
         player_id = "main_user"
+        if not progression_engine:
+            raise ValueError("progression_engine non disponible")
         progression_data = progression_engine.get_player_progression(player_id)
 
         # Convertir au format attendu par le frontend
@@ -745,78 +771,13 @@ def executer_chapitre_6(etape):
     return {"chapitre_6": False, "erreur": "Étape non trouvée"}
 
 
-@app.route("/favicon.ico")
-def favicon():
-    return send_from_directory(".", "favicon.ico")
+# Routes des pages (déplacées dans routes/pages.py)
+try:
+    from routes.pages import register_pages
 
-
-@app.route("/tests/<filename>")
-def serve_test_file(filename):
-    """Sert les fichiers de test HTML depuis le dossier tests/"""
-    return send_from_directory("tests", filename)
-
-
-@app.route("/")
-def index():
-    return render_template("index.html")
-
-
-@app.route("/tutorial")
-def tutorial():
-    """Page tutoriel d'accueil pour nouveaux utilisateurs"""
-    return render_template("tutorial_welcome.html")
-
-
-@app.route("/terminal")
-def terminal():
-    return render_template("terminal.html")
-
-
-@app.route("/monde")
-def monde():
-    profil = charger_profil()
-    return render_template("monde.html", profil=profil)
-
-
-@app.route("/profil")
-def profil():
-    profil = charger_profil()
-    return render_template("profil.html", profil=profil)
-
-
-@app.route("/dashboard")
-def dashboard():
-    """Page dashboard avec statistiques et actions rapides"""
-    profil = charger_profil()
-    return render_template("dashboard.html", profil=profil)
-
-
-@app.route("/explorateur")
-def explorateur():
-    """Module explorateur de fichiers immersif"""
-    profil = charger_profil()
-    return render_template("explorateur.html", profil=profil)
-
-
-@app.route("/mail")
-def mail():
-    """Module système de mail narratif"""
-    profil = charger_profil()
-    return render_template("mail.html", profil=profil)
-
-
-@app.route("/audio")
-def audio():
-    """Module système audio avancé"""
-    profil = charger_profil()
-    return render_template("audio.html", profil=profil)
-
-
-@app.route("/accessibility")
-def accessibility():
-    """Panneau d'accessibilité pour personnaliser l'expérience utilisateur"""
-    profil = charger_profil()
-    return render_template("accessibility_panel.html", profil=profil)
+    register_pages(app, charger_profil)
+except ImportError:
+    pass
 
 
 # ===== API ACCESSIBILITÉ =====
@@ -1375,18 +1336,6 @@ def get_gamification_leaderboard():
         )
 
 
-@app.route("/leaderboard")
-def leaderboard_page():
-    """Page du leaderboard"""
-    return render_template("leaderboard.html")
-
-
-@app.route("/skill-tree")
-def skill_tree_page():
-    """Page de l'arbre de compétences"""
-    return render_template("skill_tree.html")
-
-
 @app.route("/api/skill-tree")
 def api_skill_tree():
     """API pour l'arbre de compétences"""
@@ -1599,11 +1548,26 @@ def api_sync_progression():
 def api_progression_data():
     """API pour récupérer les données de progression pour l'affichage"""
     try:
-        # Récupérer les données de progression réelles
-        # Utiliser le même joueur que le terminal
         player_id = "main_user"
-        player_data = progression_engine.get_player_progression(player_id)
-
+        if not progression_engine:
+            return jsonify(
+                {
+                    "success": True,
+                    "progression": {
+                        "level": 1,
+                        "xp": 0,
+                        "score": 0,
+                        "coins": 0,
+                        "badges": [],
+                        "skills": {},
+                        "missions_completed": [],
+                        "stats": {},
+                    },
+                }
+            )
+        player_data = progression_engine.get_player_progression(player_id) or {}
+        badges = player_data.get("badges")
+        missions = player_data.get("missions_completed")
         return jsonify(
             {
                 "success": True,
@@ -1612,10 +1576,12 @@ def api_progression_data():
                     "xp": player_data.get("xp", 0),
                     "score": player_data.get("score", 0),
                     "coins": player_data.get("coins", 0),
-                    "badges": player_data.get("badges", []),
-                    "skills": player_data.get("skills", {}),
-                    "missions_completed": player_data.get("missions_completed", []),
-                    "stats": player_data.get("stats", {}),
+                    "badges": badges if isinstance(badges, list) else [],
+                    "skills": player_data.get("skills", {}) or {},
+                    "missions_completed": (
+                        missions if isinstance(missions, list) else []
+                    ),
+                    "stats": player_data.get("stats", {}) or {},
                 },
             }
         )
@@ -1656,26 +1622,6 @@ def api_enhanced_mission_detail(mission_id):
         return jsonify({"success": False, "error": str(e)}), 500
 
 
-@app.route("/api/luna-emotions")
-def api_luna_emotions():
-    """API pour les émotions de LUNA"""
-    try:
-        emotions_data = luna_emotions_engine.get_current_emotion()
-        return jsonify({"success": True, "emotion": emotions_data})
-    except Exception as e:
-        return jsonify({"success": False, "error": str(e)}), 500
-
-
-@app.route("/api/mission-handler/available")
-def api_mission_handler_available():
-    """API pour les missions disponibles via le gestionnaire unifié"""
-    try:
-        available_missions = mission_unified.get_all_missions()
-        return jsonify({"success": True, "missions": available_missions})
-    except Exception as e:
-        return jsonify({"success": False, "error": str(e)}), 500
-
-
 @app.route("/api/profile-manager/stats")
 def api_profile_manager_stats():
     """API pour les statistiques du gestionnaire de profils"""
@@ -1689,8 +1635,10 @@ def api_profile_manager_stats():
 @app.route("/api/database-optimizer/stats")
 def api_database_optimizer_stats():
     """API pour les statistiques de l'optimiseur de base de données"""
+    if not database_optimizer:
+        return jsonify({"success": False, "error": "Non disponible"}), 503
     try:
-        stats = database_optimizer.get_stats()
+        stats = database_optimizer.get_performance_stats()
         return jsonify({"success": True, "stats": stats})
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
@@ -1701,6 +1649,20 @@ def get_gamification_summary():
     """Récupère un résumé de la gamification pour le joueur actuel"""
     try:
         profil = charger_profil()
+        if not gamification:
+            return jsonify(
+                {
+                    "success": True,
+                    "total_score": profil.get("score", 0),
+                    "current_level": profil.get("level", 1),
+                    "missions_completees": 0,
+                    "badges_count": len(profil.get("badges", [])),
+                    "level_progress": 0,
+                    "total_experience": profil.get("score", 0),
+                    "goals_achieved": 0,
+                    "accuracy": 85,
+                }
+            )
         user_id = profil.get("id", "default")
         summary = gamification.get_gamification_summary(user_id, profil)
 
@@ -3440,6 +3402,16 @@ def api_get_achievement_leaderboard():
         return jsonify({"error": str(e)}), 500
 
 
+@app.route("/api/leaderboards/categories", methods=["GET"])
+def api_get_leaderboard_categories():
+    """Retourne la liste des catégories de classement"""
+    try:
+        categories = category_leaderboards.get_categories()
+        return jsonify({"success": True, "categories": categories})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
 @app.route("/api/leaderboards/category/<category>", methods=["GET"])
 def api_get_category_leaderboard(category):
     """Récupère le classement d'une catégorie"""
@@ -3602,13 +3574,7 @@ def api_get_tutorial_concepts():
 
 
 if __name__ == "__main__":
-    # Mode production optimisé - serveur de développement désactivé
-    game_logger.info("🚀 Utilisez Gunicorn pour la production :")
-    game_logger.info("   gunicorn -c gunicorn.conf.py app:app")
-    game_logger.info("   ou Docker : docker-compose up")
-    game_logger.info("")
-    game_logger.info(
-        "⚠️  Serveur de développement désactivé pour éviter les fuites de ressources"
-    )
-    game_logger.info("   Utilisez 'python -m flask run' pour le développement")
-    # app.run(host="0.0.0.0", port=5001, debug=False, threaded=True)
+    # Démarrage du serveur de développement (./start.sh ou python app.py)
+    game_logger.info("🚀 Démarrage du serveur de développement sur http://0.0.0.0:5001")
+    game_logger.info("   Production : gunicorn -c gunicorn.conf.py app:app")
+    app.run(host="0.0.0.0", port=5001, debug=False, threaded=True)

@@ -179,12 +179,12 @@ class MissionUnified:
             if category in updated_skill_tree:
                 for skill_name, level in skills.items():
                     if skill_name in updated_skill_tree[category]["skills"]:
-                        updated_skill_tree[category]["skills"][skill_name][
-                            "level"
-                        ] = level
+                        updated_skill_tree[category]["skills"][skill_name]["level"] = (
+                            level
+                        )
                         updated_skill_tree[category]["skills"][skill_name][
                             "unlocked"
-                        ] = (level > 0)
+                        ] = level > 0
 
         return updated_skill_tree
 

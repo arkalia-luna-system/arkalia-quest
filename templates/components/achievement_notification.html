@@ -524,8 +524,9 @@
         }
     }
 
-    // Initialiser le gestionnaire
+    // Initialiser le gestionnaire (exposer pour onclick="achievementManager.removeNotification(...)")
     const achievementManager = new AchievementNotificationManager();
+    window.achievementManager = achievementManager;
 
     // Fonctions globales pour faciliter l'utilisation
     function showAchievement(data) {

@@ -932,5 +932,10 @@ document.addEventListener('DOMContentLoaded', () => {
     window.worldInteractions = new WorldInteractions();
 });
 
-// Exporter pour utilisation globale
+// Exporter pour utilisation globale (onclick="movePlayer('up')" dans monde.html)
 window.WorldInteractions = WorldInteractions;
+window.movePlayer = function (direction) {
+    if (window.worldInteractions && typeof window.worldInteractions.movePlayer === 'function') {
+        window.worldInteractions.movePlayer(direction);
+    }
+};

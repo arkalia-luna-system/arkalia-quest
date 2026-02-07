@@ -38,5 +38,3 @@ def mission_handler_available():
         return jsonify({"success": True, "missions": available_missions})
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
-
-

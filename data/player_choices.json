@@ -512,10 +512,37 @@
         "context": {},
         "timestamp": "2026-02-07T14:53:08.158205",
         "consequences": []
+      },
+      {
+        "id": "7e5f9470-26d1-4155-bd3f-74053b0a211e",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:53:49.842118",
+        "consequences": []
+      },
+      {
+        "id": "4a734198-2377-4160-a967-ae38d93d866e",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:54:22.548172",
+        "consequences": []
+      },
+      {
+        "id": "57f055b2-e772-4749-85c7-0a76ffd23bd6",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:54:44.409293",
+        "consequences": []
       }
     ],
     "unlocked_arcs": [],
     "discovered_easter_eggs": [
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
       "arkalia_secret",
       "arkalia_secret",
       "arkalia_secret",

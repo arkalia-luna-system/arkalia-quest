@@ -85,9 +85,9 @@ def test_performance_optimizations():
     except ImportError as e:
         print(f"❌ Erreur d'import: {e}")
 
-    assert (
-        tests_passed == total_tests
-    ), f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
+    assert tests_passed == total_tests, (
+        f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
+    )
     return (tests_passed, total_tests)
 
 
@@ -167,9 +167,9 @@ def test_security_enhancements():
     except Exception as e:
         game_logger.info(f"❌ Erreur test tokens: {e}")
 
-    assert (
-        tests_passed == total_tests
-    ), f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
+    assert tests_passed == total_tests, (
+        f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
+    )
     return (tests_passed, total_tests)
 
 
@@ -231,9 +231,9 @@ def test_cache_system():
     except Exception as e:
         game_logger.info(f"❌ Erreur test stats cache: {e}")
 
-    assert (
-        tests_passed == total_tests
-    ), f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
+    assert tests_passed == total_tests, (
+        f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
+    )
     return (tests_passed, total_tests)
 
 
@@ -294,9 +294,9 @@ def test_performance_monitoring():
     except Exception as e:
         game_logger.info(f"❌ Erreur test suggestions: {e}")
 
-    assert (
-        tests_passed == total_tests
-    ), f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
+    assert tests_passed == total_tests, (
+        f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
+    )
     return (tests_passed, total_tests)
 
 
@@ -351,9 +351,9 @@ def test_database_optimizations():
     except Exception as e:
         game_logger.info(f"❌ Erreur test stats DB: {e}")
 
-    assert (
-        tests_passed == total_tests
-    ), f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
+    assert tests_passed == total_tests, (
+        f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
+    )
     return (tests_passed, total_tests)
 
 
@@ -420,9 +420,9 @@ def test_application_integration():
     else:
         game_logger.info(r"❌ Certains fichiers statiques sont manquants")
 
-    assert (
-        tests_passed == total_tests
-    ), f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
+    assert tests_passed == total_tests, (
+        f"Seulement {tests_passed}/{total_tests} tests de performance ont réussi"
+    )
     return (tests_passed, total_tests)
 
 

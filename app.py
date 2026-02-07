@@ -834,7 +834,14 @@ def api_accessibility_save():
 
 @app.route("/data/profil_joueur.json")
 def get_profil():
-    return jsonify(db_manager.load_profile("main_user"))
+    if not db_manager:
+        return jsonify({"id": "main_user", "name": "Hacker", "score": 0, "level": 1, "badges": []})
+    try:
+        profile = db_manager.load_profile("main_user")
+        return jsonify(profile if profile is not None else {"id": "main_user", "name": "Hacker", "score": 0, "level": 1, "badges": []})
+    except Exception as e:
+        game_logger.error(f"Erreur chargement profil JSON: {e}")
+        return jsonify({"id": "main_user", "name": "Hacker", "score": 0, "level": 1, "badges": []})
 
 
 @app.route("/api/progression/data")
@@ -881,8 +888,8 @@ def get_progression_data():
 def execute_terminal_command():
     """Exécute une commande du terminal avec progression"""
     try:
-        data = request.get_json()
-        command = data.get("command", "").lower().strip()
+        data = request.get_json(silent=True) or {}
+        command = (data.get("command") or "").lower().strip()
 
         if not command:
             return jsonify({"error": "Commande vide"}), 400

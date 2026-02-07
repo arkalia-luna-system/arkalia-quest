@@ -25,7 +25,7 @@ Comparaison avec la recherche et les bonnes pratiques 2024–2025 pour rendre le
 | **Musique / ambiance** | La musique est le seul élément avec effet significatif sur le plaisir (meta-analysis). | Pas d’ambiance sonore = expérience plus plate. |
 | **Curiosité + compétence** | Le "juicy feedback" motive surtout par curiosité et sentiment de compétence (CHI 2024). | Feedback flou ou rare = "je ne sais pas si j’ai réussi". |
 
-**Appliqué à Arkalia** : Promesse claire, CTA unique, feedback terminal (flash + son + bandeau progression), défi acte_1, navbar simplifiée. **Feedback lisible** (indicateur flottant « +X XP » / « ✓ »), **micro-interactions** (game-feel.css), **ambiance sonore** optionnelle (bouton accueil + page Audio).
+**Appliqué à Arkalia** : Promesse claire, CTA unique « Rejoindre LUNA » → Aventure, feedback sur la page Histoire (son + indicateur flottant +XP, barre de progression, célébration bouton). **Feedback lisible** (indicateur flottant « +X pts » à chaque chapitre validé), **micro-interactions** (game-feel.css), **ambiance sonore** optionnelle (bouton accueil + page Audio). Terminal en mode expert pour les joueurs avancés.
 
 ---
 
@@ -60,33 +60,33 @@ Comparaison avec la recherche et les bonnes pratiques 2024–2025 pour rendre le
 
 | Principe | Source | Application Arkalia |
 | -------- | ------ | -------------------- |
-| **Gameplay immédiat** | Onboarding = partie du jeu (BBC GEL). | Accueil → un CTA "Commencer l’aventure" → Terminal. |
+| **Gameplay immédiat** | Onboarding = partie du jeu (BBC GEL). | Accueil → CTA « Rejoindre LUNA » → page Aventure (/histoire). |
 | **Contexte narratif** | Donner du sens aux actions (Inworld). | "LUNA a besoin de toi", promesse 15 mots. |
-| **1–3 personnages** | Connexion émotionnelle (Inworld). | LUNA mise en avant (avatar, messages). |
-| **Objectif clair** | "Boussole" pour le joueur (Inworld). | "Tape acte_1 pour ta première mission." |
-| **Aide contextuelle** | Au moment du besoin, pas en bloc (NNGroup). | Bannière "tape acte_1" sur le terminal, pas de tutoriel long. |
+| **1–3 personnages** | Connexion émotionnelle (Inworld). | LUNA mise en avant (avatar, bloc LUNA sur la page Aventure). |
+| **Objectif clair** | "Boussole" pour le joueur (Inworld). | "Clique Continuer pour valider chaque chapitre." |
+| **Aide contextuelle** | Au moment du besoin, pas en bloc (NNGroup). | Hint « Clique sur Continuer pour le prochain chapitre » sur la page Aventure ; tutoriel welcome pointe vers /histoire. |
 
-**Appliqué** : Accroche en une ligne sous la promesse ("Tu tapes des commandes, tu débloques des missions. C’est parti."), CTA principal mis en avant avec **micro-interaction** (pulse léger, hover satisfaisant).
+**Appliqué** : Accroche sous la promesse ("Aide LUNA à sauver Arkalia : choisis ton chemin, vis l’aventure."), CTA principal mis en avant avec **micro-interaction** (pulse léger, hover satisfaisant).
 
 ---
 
 ## Checklist "jeu fun, agréable, fonctionnel, visuel top"
 
 - [x] **Promesse en 15 mots** visible sur l’accueil.
-- [x] **Un CTA principal** (Commencer l’aventure).
+- [x] **Un CTA principal** (Rejoindre LUNA → page Aventure /histoire).
 - [x] **Micro-intro narrative** (LUNA a besoin de toi).
-- [x] **Source de vérité** (progression depuis l’API, bandeau terminal).
-- [x] **Feedback terminal** : flash succès/échec + son.
-- [x] **Première mission claire** : bannière acte_1, défi "Choisis le bon code".
-- [x] **Navbar simplifiée** tant qu’acte_1 n’est pas fait.
-- [x] **Accroche 30 s** : une ligne "Tu tapes des commandes…" + CTA avec micro-interaction.
-- [x] **Game feel** : indicateur flottant succès (+XP/✓), bouton Exécuter et CTA avec hover/transition satisfaisants (game-feel.css).
+- [x] **Source de vérité** (progression depuis l’API ; page Aventure avec barre de progression par chapitre).
+- [x] **Feedback Aventure** : son succès + indicateur flottant +XP + célébration bouton « Continuer » à chaque chapitre validé.
+- [x] **Première mission claire** : page Aventure, lire le chapitre puis cliquer « Continuer » ; tutoriel welcome pointe vers /histoire.
+- [x] **Navbar** : lien « Aventure » visible ; Monde/Profil etc. débloqués après le premier chapitre.
+- [x] **Accroche 30 s** : « Aide LUNA à sauver Arkalia… » + CTA avec micro-interaction.
+- [x] **Game feel** : indicateur flottant +X pts sur la page Aventure, bouton Continuer avec classe .celebrate au clic ; game-feel.css sur CTA et terminal.
 - [x] **Ambiance sonore** optionnelle : bouton « Ambiance » sur l’accueil + page 🔊 Audio (toggle Musique de fond), préférence sauvegardée.
-- [x] **Accessibilité game-feel** : respect `prefers-reduced-motion` et `body.reduced-motion`, focus visible (CTA, bouton Exécuter).
-- [x] **Messages d’erreur** : hint « Tape "aide" pour voir les commandes » quand commande inconnue.
-- [x] **Modal acte_1** : micro-célébration (scale + glow) avant fermeture au bon code.
-- [x] **Prochaine étape** : bannière « tape acte_2 » (puis acte_3… epilogue) après chaque mission.
-- [x] **Visuel / UI** : tableau comparatif avec Metaphor, Beastieball, Gnorp Apologue, CHI 2024 (voir section « Ce que les meilleurs jeux font au niveau visuel ») ; game-feel étendu aux boutons de commande rapide (.command-btn), focus-visible et reduced-motion cohérents.
+- [x] **Accessibilité game-feel** : respect `prefers-reduced-motion` et `body.reduced-motion`, focus visible (CTA, bouton Continuer, Exécuter terminal).
+- [x] **Messages d’erreur** : messages encourageants sur la page Aventure (« Réessaie ou reviens à l’accueil ») ; terminal : hint « Tape "aide" » si commande inconnue.
+- [x] **Célébration** : bouton « Continuer » avec pulse/glow après validation de chapitre (page Aventure).
+- [x] **Prochaine étape** : hint « Clique sur Continuer pour le prochain chapitre » ; écran de fin avec liens Monde / Profil / Accueil.
+- [x] **Visuel / UI** : tableau comparatif avec Metaphor, Beastieball, Gnorp Apologue, CHI 2024 ; game-feel étendu ; page Aventure avec bloc LUNA et barre de progression.
 - [ ] **Playtests** avec 2–3 ados (voir [PLAYTEST_GUIDE_ADOS.md](PLAYTEST_GUIDE_ADOS.md)) — guide prêt, à organiser en conditions réelles.
 
 ---
@@ -98,6 +98,7 @@ Toutes les pages du jeu ont été alignées sur le même langage visuel et l’a
 | Page | game-feel.css | Focus visible | Reduced motion |
 | ---- | ------------- | ------------- | -------------- |
 | Accueil (index) | oui | CTA, cartes, liens | portail, avatar, CTA, cartes |
+| Aventure (/histoire) | oui (reward-animations, styles inline) | bouton Continuer, liens | barre progression, float XP |
 | Terminal | oui | input, Exécuter, commandes rapides, modal acte_1 | (dans game-feel global) |
 | Monde | oui | zones, boutons direction | fond, grille, zones, joueur |
 | Profil | oui | boutons, liens | fond, titres |
@@ -111,13 +112,13 @@ Toutes les pages du jeu ont été alignées sur le même langage visuel et l’a
 | Accessibilité | oui | boutons, liens | fond, titre |
 | Tutoriels techniques | oui | boutons, liens, cartes | — |
 
-La navbar (composant partagé) a un focus visible via `accessibility.css` (`.nav-link:focus-visible`) et `game-feel.css` (`.burger-btn:focus-visible` pour le menu mobile). **Cohérence** : toutes les pages (accueil, terminal, monde, profil, dashboard, leaderboard, skill-tree, etc.) utilisent le même composant `navbar.html` avec `active_page` et `profil` ; la nav est simplifiée (Accueil, Terminal, Tutoriel) tant que la mission acte_1 n’est pas complétée.
+La navbar (composant partagé) a un focus visible via `accessibility.css` (`.nav-link:focus-visible`) et `game-feel.css` (`.burger-btn:focus-visible` pour le menu mobile). **Cohérence** : toutes les pages (accueil, aventure, terminal, monde, profil, dashboard, leaderboard, skill-tree, etc.) utilisent le même composant `navbar.html` avec `active_page` et `profil` ; le lien « Aventure » est le parcours principal recommandé.
 
 ---
 
 ## Résumé
 
-Le jeu n’est pas "nul" : il est **solide techniquement** et **déjà aligné** avec une grande partie de la recherche (promesse, onboarding, feedback lié au succès, game feel). Améliorations en place : **feedback lisible** (indicateur flottant « +X XP » / « ✓ » à chaque succès), **micro-interactions** (game-feel.css), **accroche 30 s**, **ambiance sonore** optionnelle (bouton sur l’accueil + toggle sur la page 🔊 Audio), **accessibilité** (reduced-motion, focus visible), **messages d’erreur** amicaux, **célébration** du défi acte_1. Il reste les **playtests** avec ados pour valider et itérer.
+Le jeu n’est pas "nul" : il est **solide techniquement** et **aligné** avec la recherche (promesse, onboarding par l’Aventure, feedback lié au succès, game feel). En place : **parcours principal** Accueil → Aventure (chapitres + bouton Continuer), **feedback lisible** (indicateur flottant +X pts, son, célébration bouton), **micro-interactions** (game-feel.css), **accroche 30 s**, **ambiance sonore** optionnelle, **accessibilité** (reduced-motion, focus visible), **messages d’erreur** encourageants. Il reste les **playtests** avec ados pour valider et itérer.
 
 ---
 
@@ -138,8 +139,8 @@ Le jeu n’est pas "nul" : il est **solide techniquement** et **déjà aligné**
 ### Retours playtest du [JJ/MM/AAAA] (2–3 ados)
 
 - **Clarté** : …
-- **Premier pas (CTA → terminal)** : …
-- **Boucle acte_1 (défi code)** : …
+- **Premier pas (CTA → Aventure, clic Continuer)** : …
+- **Boucle chapitres (lire → Continuer)** : …
 - **Points à améliorer** : …
 - **Note moyenne /10** : …
 - **Changements priorisés** : 1) … 2) …
@@ -166,5 +167,7 @@ Le jeu n’est pas "nul" : il est **solide techniquement** et **déjà aligné**
 | Ambiance sonore + sons succès/erreur | `static/js/audio-manager.js` |
 | Terminal : envoi commande, float +XP/✓, flash, modal acte_1 | `templates/terminal.html` (script inline + `sendCommand` / `processCommand`) |
 | Accueil : CTA, bouton Ambiance | `templates/index.html` |
+| Aventure : chapitres, barre progression, Continuer, float +XP, son | `templates/histoire.html`, `data/story_chapters.json` |
+| API état / choix histoire | `app.py` → `GET /api/story/state`, `POST /api/story/choice` |
 | Bandeau progression (niveau, score) | `templates/terminal.html` (`#terminalProgressionStrip`, `refreshProgressionFromServer`) |
 | API commande terminal | `app.py` → `POST /api/terminal/command` |

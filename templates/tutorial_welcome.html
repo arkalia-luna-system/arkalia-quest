@@ -389,8 +389,8 @@
             <div class="tutorial-header">
                 <h1 class="tutorial-title">🎯 BIENVENUE DANS ARKALIA QUEST</h1>
                 <p class="tutorial-subtitle">
-                    En deux minutes tu sauras tout. Ensuite : va au terminal et tape <strong>acte_1</strong> pour lancer
-                    ta première mission.
+                    En deux minutes tu sauras tout. Ensuite : <strong>rejoins l’aventure</strong> et clique sur
+                    <strong>Continuer</strong> pour avancer chapitre par chapitre avec LUNA.
                 </p>
             </div>
 
@@ -398,20 +398,20 @@
                 <span class="step-number">1</span>
                 <span class="step-title">🎮 QU'EST-CE QUE C'EST ?</span>
                 <p class="step-description">
-                    <strong>Arkalia Quest</strong> : tu incarnes un hacker dans un monde virtuel. Tu débloques une
-                    histoire, des missions et des défis avec <strong>LUNA</strong>, une IA à tes côtés. Chaque commande
-                    te rapproche du but — c'est toi qui fais avancer l'aventure.
+                    <strong>Arkalia Quest</strong> : tu vis une aventure narrative avec <strong>LUNA</strong>, une IA à tes
+                    côtés. Tu débloques l’histoire chapitre par chapitre, gagnes des points et explores le monde. C’est toi
+                    qui fais avancer l’aventure en un clic.
                 </p>
             </div>
 
             <div class="tutorial-step">
                 <span class="step-number">2</span>
-                <span class="step-title">⌨️ COMMENT JOUER ?</span>
+                <span class="step-title">🎮 COMMENT JOUER ?</span>
                 <p class="step-description">
-                    <strong>C'est simple :</strong>
-                    <br>• Va sur le <strong>Terminal</strong> et tape <strong>acte_1</strong> pour ta première mission
-                    <br>• Tape <strong>aide</strong> pour voir toutes les commandes
-                    <br>• Clique sur les boutons ou explore les menus pour découvrir le reste
+                    <strong>C’est simple :</strong>
+                    <br>• Clique sur <strong>Rejoindre l’aventure</strong> (ou le lien « Aventure » dans le menu)
+                    <br>• Lis le chapitre, puis clique sur <strong>Continuer</strong> pour valider et passer au suivant
+                    <br>• Explore le Monde et ton Profil une fois le premier chapitre terminé
                 </p>
             </div>
 
@@ -428,10 +428,10 @@
                 <span class="step-number">4</span>
                 <span class="step-title">🎯 TES OBJECTIFS</span>
                 <p class="step-description">
-                    <strong>Ton but :</strong> Débloquer l'histoire en complétant les actes (acte_1, acte_2…), gagner
-                    des points et des badges, explorer le monde.
+                    <strong>Ton but :</strong> Débloquer l’histoire en complétant les chapitres (clique « Continuer »),
+                    gagner des points et des badges, explorer le monde.
                     <br><br>
-                    <strong>Pas de pression.</strong> Commence par acte_1 au terminal, le reste viendra.
+                    <strong>Pas de pression.</strong> Commence par rejoindre l’aventure et valider ton premier chapitre.
                 </p>
             </div>
 
@@ -441,19 +441,20 @@
             </div>
 
             <div class="luna-tip">
-                <strong>Conseil de LUNA :</strong> Clique sur « Essayer le terminal » puis tape <strong>acte_1</strong>
-                pour commencer l'aventure. Si tu es perdu, tape <strong>aide</strong>.
+                <strong>Conseil de LUNA :</strong> Clique sur <strong>Rejoindre l’aventure</strong> puis sur
+                <strong>Continuer</strong> pour valider chaque chapitre. Le Monde et le Profil se débloquent après ton
+                premier chapitre.
             </div>
 
             <div class="tutorial-actions">
-                <a href="/terminal" class="tutorial-btn btn-primary">🚀 ALLER AU TERMINAL (tape acte_1)</a>
+                <a href="/histoire" class="tutorial-btn btn-primary">📖 REJOINDRE L'AVENTURE</a>
                 <a href="/monde" class="tutorial-btn btn-secondary">🌍 EXPLORER LE MONDE</a>
                 <a href="/profil" class="tutorial-btn btn-secondary">👤 VOIR MON PROFIL</a>
             </div>
 
             <div style="margin-top: 30px; opacity: 0.7; font-size: 0.9em;">
-                <p>💡 <strong>Prochaine étape :</strong> Terminal → tape <strong>acte_1</strong> → défi → mission
-                    validée. C'est parti !</p>
+                <p>💡 <strong>Prochaine étape :</strong> Aventure → lis le chapitre → <strong>Continuer</strong> →
+                    chapitre validé. C’est parti !</p>
             </div>
         </div>
     </div>
@@ -656,7 +657,7 @@
                 const link = e.target.closest('a');
                 if (!link) return;
                 const href = link.getAttribute('href') || '';
-                const isInternalNav = [/^\/$/, /^\/terminal/, /^\/monde/, /^\/profil/, /^\/leaderboard/, /^\/dashboard/].some(r => r.test(href));
+                const isInternalNav = [/^\/$/, /^\/histoire/, /^\/terminal/, /^\/monde/, /^\/profil/, /^\/leaderboard/, /^\/dashboard/].some(r => r.test(href));
                 if (!isInternalNav) return;
                 if (skipConfirm) return;
                 // Bloquer et demander confirmation

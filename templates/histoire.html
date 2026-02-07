@@ -15,18 +15,30 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-responsive.css') }}?v=4.0.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}?v=3.1.1">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/game-feel.css') }}?v=4.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reward-animations.css') }}?v=3.1.1">
 
     <style>
         body { margin: 0; background: var(--luna-bg, #0f0f12); color: #fafafa; min-height: 100vh; }
         .story-workspace { min-height: 100vh; padding: 20px; box-sizing: border-box; }
         .story-container { max-width: 720px; margin: 0 auto; padding: 24px 16px; }
+        .story-luna-block { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; padding: 16px 20px; background: rgba(167,139,250,0.12); border: 1px solid rgba(167,139,250,0.35); border-radius: 14px; }
+        .story-luna-avatar { font-size: 2.5em; flex-shrink: 0; filter: drop-shadow(0 0 12px rgba(167,139,250,0.6)); }
+        .story-luna-label { font-family: 'Inter', sans-serif; font-size: 0.95em; color: var(--violet-lunaire, #a78bfa); font-weight: 600; }
+        .story-progress-bar { display: flex; gap: 4px; margin-bottom: 20px; }
+        .story-progress-bar span { flex: 1; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.15); transition: background 0.4s ease; }
+        .story-progress-bar span.done { background: var(--matrix-green, #00ff00); box-shadow: 0 0 8px rgba(0,255,0,0.5); }
+        .story-progress-bar span.current { background: var(--violet-lunaire, #a78bfa); box-shadow: 0 0 10px rgba(167,139,250,0.6); }
         .story-title { font-family: 'Cormorant', serif; font-size: 2.2em; color: var(--violet-lunaire, #a78bfa); margin-bottom: 20px; text-shadow: 0 0 20px rgba(167,139,250,0.5); }
         .story-message { white-space: pre-wrap; font-family: 'Inter', sans-serif; line-height: 1.7; color: var(--argent-holographique, #e4e4e7); background: rgba(0,0,0,0.3); border: 1px solid rgba(167,139,250,0.25); border-radius: 12px; padding: 24px; margin-bottom: 28px; min-height: 120px; }
-        .story-progress { font-size: 0.9em; color: rgba(255,255,255,0.6); margin-bottom: 16px; }
+        .story-progress { font-size: 0.9em; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
+        .story-next-hint { font-size: 0.85em; color: var(--matrix-green); margin-top: 12px; opacity: 0.9; }
         .story-btn { display: inline-block; padding: 16px 32px; background: linear-gradient(135deg, rgba(0,255,0,0.2), rgba(0,255,255,0.1)); border: 2px solid rgba(0,255,0,0.5); border-radius: 12px; color: var(--matrix-green, #00ff00); font-weight: 700; font-size: 1.05em; cursor: pointer; transition: all 0.3s ease; text-decoration: none; }
         .story-btn:hover { background: linear-gradient(135deg, rgba(0,255,0,0.35), rgba(0,255,255,0.2)); box-shadow: 0 0 24px rgba(0,255,0,0.4); transform: translateY(-2px); }
         .story-btn:focus-visible { outline: 2px solid var(--matrix-green); outline-offset: 2px; }
         .story-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .story-btn.celebrate { animation: storyBtnPulse 0.5s ease; }
+        @keyframes storyBtnPulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); box-shadow: 0 0 30px rgba(0,255,0,0.6); } 100% { transform: scale(1); } }
+        @media (prefers-reduced-motion: reduce) { .story-btn.celebrate { animation: none; } }
         .story-completed { text-align: center; padding: 40px 20px; }
         .story-completed .story-message { margin-bottom: 24px; }
         .story-links { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
@@ -34,6 +46,8 @@
         .story-links a:hover { background: rgba(0,255,0,0.15); }
         .story-loading { text-align: center; padding: 60px 20px; color: rgba(255,255,255,0.7); }
         .story-error { color: #f87171; padding: 16px; background: rgba(248,113,113,0.15); border-radius: 10px; margin-bottom: 16px; }
+        #story-float-xp { position: fixed; left: 50%; top: 40%; transform: translate(-50%,0); z-index: 9999; font-size: 1.4em; font-weight: 700; color: var(--matrix-green); text-shadow: 0 0 12px rgba(0,255,0,0.8); pointer-events: none; opacity: 0; transition: opacity 0.2s, transform 0.9s; }
+        #story-float-xp.show { opacity: 1; transform: translate(-50%, -60px); }
     </style>
 </head>
 
@@ -49,9 +63,15 @@
                 Chargement de l'aventure…
             </div>
             <div id="story-content" class="story-content" style="display: none;" aria-live="polite">
+                <div class="story-luna-block" aria-hidden="true">
+                    <span class="story-luna-avatar" id="story-luna-avatar">🌙</span>
+                    <span class="story-luna-label" id="story-luna-label">LUNA est à tes côtés</span>
+                </div>
+                <div class="story-progress-bar" id="story-progress-bar" role="presentation" aria-hidden="true"></div>
                 <p class="story-progress" id="story-progress"></p>
                 <h1 class="story-title" id="story-title"></h1>
                 <div class="story-message" id="story-message"></div>
+                <p class="story-next-hint" id="story-next-hint" style="display: none;"></p>
                 <div id="story-actions">
                     <button type="button" class="story-btn" id="story-continue">Continuer</button>
                 </div>
@@ -67,8 +87,10 @@
             </div>
             <div id="story-error" class="story-error" style="display: none;" role="alert"></div>
         </div>
+        <div id="story-float-xp" aria-live="polite"></div>
     </main>
 
+    <script src="{{ url_for('static', filename='js/audio-manager.js') }}?v=3.1.1" defer></script>
     <script>
 (function() {
     const loadingEl = document.getElementById('story-loading');
@@ -76,10 +98,40 @@
     const completedEl = document.getElementById('story-completed');
     const errorEl = document.getElementById('story-error');
     const progressEl = document.getElementById('story-progress');
+    const progressBarEl = document.getElementById('story-progress-bar');
     const titleEl = document.getElementById('story-title');
     const messageEl = document.getElementById('story-message');
+    const nextHintEl = document.getElementById('story-next-hint');
     const completedMessageEl = document.getElementById('story-completed-message');
     const continueBtn = document.getElementById('story-continue');
+    const floatXpEl = document.getElementById('story-float-xp');
+    const totalChapters = 8;
+
+    function buildProgressBar(completedCount, currentIndex) {
+        if (!progressBarEl) return;
+        progressBarEl.innerHTML = '';
+        for (var i = 0; i < totalChapters; i++) {
+            var span = document.createElement('span');
+            if (i < completedCount) span.classList.add('done');
+            else if (i === currentIndex) span.classList.add('current');
+            progressBarEl.appendChild(span);
+        }
+    }
+
+    function playSuccessSound() {
+        try {
+            if (window.audioManager && window.audioManager.playSound) window.audioManager.playSound('success');
+        } catch (e) {}
+    }
+
+    function showFloatXp(amount) {
+        if (!floatXpEl || !amount) return;
+        floatXpEl.textContent = '+' + amount + ' pts';
+        floatXpEl.classList.remove('show');
+        floatXpEl.offsetHeight;
+        floatXpEl.classList.add('show');
+        setTimeout(function() { floatXpEl.classList.remove('show'); }, 1200);
+    }
 
     function showLoading() {
         loadingEl.style.display = 'block';
@@ -104,7 +156,7 @@
         contentEl.style.display = 'none';
         completedEl.style.display = 'none';
         errorEl.style.display = 'block';
-        errorEl.textContent = msg || 'Erreur de chargement';
+        errorEl.textContent = msg || 'Erreur de chargement. Réessaie ou retourne à l’accueil.';
     }
 
     function renderState(data) {
@@ -113,9 +165,13 @@
             showCompleted();
             return;
         }
-        progressEl.textContent = 'Chapitre ' + (data.completed_count + 1) + ' / ' + data.total;
+        var currentIndex = data.completed_count || 0;
+        progressEl.textContent = 'Chapitre ' + (currentIndex + 1) + ' / ' + (data.total || totalChapters);
+        buildProgressBar(currentIndex, currentIndex);
         titleEl.textContent = data.title || '';
         messageEl.textContent = data.message || '';
+        nextHintEl.style.display = 'none';
+        nextHintEl.textContent = '';
         continueBtn.dataset.chapterId = data.current_chapter_id || '';
         continueBtn.disabled = !data.current_chapter_id;
         showContent();
@@ -127,7 +183,7 @@
             .then(function(r) { return r.json(); })
             .then(function(data) {
                 if (data.success) renderState(data);
-                else showError(data.error || 'Impossible de charger l\'histoire');
+                else showError(data.error || 'L’aventure n’a pas pu se charger. Réessaie ou reviens à l’accueil.');
             })
             .catch(function() { showError('Erreur réseau'); });
     }
@@ -144,26 +200,38 @@
             .then(function(r) { return r.json(); })
             .then(function(data) {
                 if (data.success) {
+                    playSuccessSound();
+                    var scoreGagne = data.score_gagne || 0;
+                    if (scoreGagne > 0) showFloatXp(scoreGagne);
+                    continueBtn.classList.add('celebrate');
+                    setTimeout(function() { continueBtn.classList.remove('celebrate'); }, 500);
+
                     if (data.completed) {
                         completedMessageEl.textContent = data.message || 'Tu as terminé l\'aventure !';
                         showCompleted();
-                    } else if (data.next_chapter) {
-                        progressEl.textContent = 'Chapitre ' + (data.completed_count + 1) + ' / ' + data.total;
+                        return;
+                    }
+                    if (data.next_chapter) {
+                        var count = data.completed_count || 0;
+                        progressEl.textContent = 'Chapitre ' + (count + 1) + ' / ' + (data.total || totalChapters);
+                        buildProgressBar(count, count);
                         titleEl.textContent = data.next_chapter.title || '';
                         messageEl.textContent = data.next_chapter.message || '';
                         continueBtn.dataset.chapterId = data.next_chapter.id;
                         continueBtn.disabled = false;
+                        nextHintEl.style.display = 'block';
+                        nextHintEl.textContent = 'Clique sur « Continuer » pour le prochain chapitre.';
                         showContent();
                     } else {
                         loadState();
                     }
                 } else {
-                    showError(data.error || 'Échec de l\'action');
+                    showError(data.error || 'Oups, ça n’a pas marché. Réessaie ou reviens à l’accueil.');
                     continueBtn.disabled = false;
                 }
             })
             .catch(function() {
-                showError('Erreur réseau');
+                showError('Erreur réseau. Vérifie ta connexion et réessaie.');
                 continueBtn.disabled = false;
             });
     });

@@ -13,7 +13,7 @@ Comparaison avec la recherche et les bonnes pratiques 2024–2025 pour rendre le
 - **Onboarding** : Inworld.ai *Best practices for video game onboarding*, BBC GEL *How to design onboarding for games*, NNGroup *Onboarding Tutorials vs. Contextual Help*, Moldstud *Engaging Onboarding 2024*.
 - **Micro-interactions** : Sitepoint *Button micro-interactions*, Codrops *CSS button hover animations*, *Button glow & pulse*.
 - **Visuel / UI des meilleurs jeux** : *Metaphor: ReFantazio* (Best Art Direction TGA 2024), *Beastieball* (langage visuel cohérent, Gamedeveloper.com), *Twilight Oracle* (clarté visuelle), *(the) Gnorp Apologue* (design minimal à fort impact), *How does Juicy Game Feedback Motivate?* (curiosité, compétence, CHI 2024).
-- **Refonte visuelle 2026** : *Solace State* (cyberpunk émotionnel, visual novel), *Read Only Memories: Neurodiver* (couleurs vives, personnage Luna), *Hades* / Supergiant (intégrité artistique, UI non intrusive). Voir [REFONTE_VISUELLE_2026.md](REFONTE_VISUELLE_2026.md).
+- **Visuel** : En production, visuel minimal unifié ([REPARTIR_SUR_DES_BASES_SANES.md](REPARTIR_SUR_DES_BASES_SANES.md), `arkalia-minimal.css`). Référence historique : [REFONTE_VISUELLE_2026.md](REFONTE_VISUELLE_2026.md) (Solace State, Neurodiver, Hades).
 
 ---
 

@@ -1,7 +1,9 @@
 # Refonte visuelle Arkalia Quest — 2026
 
 **Date :** 7 février 2026  
-**Objectif :** Auditer le jeu (but, histoire, visuel), s’inspirer des meilleurs jeux similaires et **changer complètement le visuel** pour une identité forte et cohérente.
+**Statut :** Référence conservée ; en production le projet utilise désormais le **visuel minimal** (`arkalia-minimal.css`) sur toutes les pages. Voir [REPARTIR_SUR_DES_BASES_SANES.md](REPARTIR_SUR_DES_BASES_SANES.md).
+
+**Objectif (historique) :** Auditer le jeu (but, histoire, visuel), s’inspirer des meilleurs jeux similaires et **changer complètement le visuel** pour une identité forte et cohérente.
 
 ---
 
@@ -16,10 +18,10 @@
 | **Cœur du gameplay** | **Aventure narrative** : page /histoire avec chapitres (prologue → acte_1… acte_6 → épilogue), bouton « Continuer » et choix (acte_5). Terminal en mode expert. |
 | **Histoire** | LUNA (IA émotionnelle) et le joueur (hacker) doivent sauver Arkalia : SOS d’Althea, NEXUS, PANDORA, fusion LUNA/NEXUS → ARKALIA. Thèmes : confiance, choix, cybersécurité. |
 
-### 1.2 Problèmes du visuel actuel
+### 1.2 Problèmes du visuel actuel (corrigés)
 
-- **Palette générique** : fond #0f0f12, violet #a78bfa, vert matrix #00ff00 → ressemble à des dizaines de thèmes « terminal / hacker ».
-- **Peu d’identité** : mélange violet Luna + vert matrix sans direction artistique claire.
+- **Palette générique** : fond #0f0f12, violet #a78bfa, **vert matrix #00ff00 (supprimé)** → remplacé par ambre + cyan uniquement.
+- **Peu d’identité** : mélange violet Luna + vert matrix → **palette unifiée ambre/corail + cyan, aucun vert**.
 - **Typographie** : Inter + Cormorant + IBM Plex Mono → lisible mais sans personnalité forte.
 - **Ressenti** : « outil » ou « dashboard » plutôt qu’« aventure narrative ».
 - **Incohérence** : beaucoup de fichiers CSS (40+), variables éparpillées (--violet-lunaire, --matrix-green, --luna-*).
@@ -56,7 +58,7 @@
 - **Ambiance** : Nuit profonde (monde en danger) mais **chaleur** (LUNA, espoir, lien). Pas « terminal froid ».
 - **Fond** : Bleu nuit profond (#0a0e17) avec très légers dégradés (indigo/violet très sombre), pas de néon agressif.
 - **Couleur principale (LUNA / héros)** : **Ambre / corail** (#e07c54, #f59e7c) — chaleur, vie, personnage.
-- **Couleur secondaire (actions, succès)** : **Cyan doux** (#67d4e0) ou **vert émeraude** (#34d399) — clic, validation, progression.
+- **Couleur secondaire (actions, succès)** : **Cyan doux** (#67d4e0) uniquement — clic, validation, progression. **Aucun vert.**
 - **Texte** : Blanc cassé (#f4f4f5) pour le principal, gris doux (#94a3b8) pour secondaire.
 - **Typographie** :  
   - **Titres** : une police avec caractère (ex. **Outfit** ou **Sora**) — moderne, lisible, pas « serif classique ».  
@@ -73,7 +75,7 @@
 --arkalia-hero: #e07c54;        /* ambre / LUNA */
 --arkalia-hero-light: #f59e7c;
 --arkalia-accent: #67d4e0;     /* cyan actions */
---arkalia-success: #34d399;
+--arkalia-success: var(--arkalia-accent);  /* plus de vert */
 --arkalia-text: #f4f4f5;
 --arkalia-text-muted: #94a3b8;
 --arkalia-border: rgba(224, 124, 84, 0.25);

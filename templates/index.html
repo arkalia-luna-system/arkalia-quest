@@ -104,8 +104,8 @@
     <!-- CSS des corrections d'audit visuel -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/audit-visual-fixes.css') }}?v=3.5.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/theme-selection-enhanced.css') }}?v=3.5.0">
-    <!-- Refonte visuelle 2026 — Nuit émotionnelle (ambre/cyan) -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-visual-2026.css') }}?v=1.0">
+    <!-- Visuel minimal (remplace refonte 2026 pour un rendu sobre) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-minimal.css') }}?v=1.0">
 
     <!-- CSS gameplay/popups en différé (ne bloque pas le premier rendu) -->
     <link rel="preload" href="{{ url_for('static', filename='css/zone-exploration-enhanced.css') }}?v=3.6.0" as="style"
@@ -277,7 +277,7 @@
         .hero-hook {
             font-family: 'Inter', sans-serif;
             font-size: 1em;
-            color: var(--matrix-green);
+            color: var(--arkalia-hero, #e07c54);
             margin-bottom: 36px;
             opacity: 0;
             animation: fadeInUp 2s ease-out 1.8s forwards;
@@ -302,7 +302,7 @@
             font-size: 1.15em;
             order: -1;
             border-width: 3px;
-            box-shadow: 0 0 30px rgba(0, 255, 0, 0.25);
+            box-shadow: 0 0 30px rgba(224, 124, 84, 0.25);
         }
 
         .cta-buttons .cta-btn.primary .cta-text {
@@ -322,9 +322,9 @@
         .cta-btn {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 1em;
-            color: var(--matrix-green);
-            background: linear-gradient(135deg, rgba(0, 255, 0, 0.15), rgba(0, 255, 255, 0.1));
-            border: 2px solid rgba(0, 255, 0, 0.4);
+            color: var(--arkalia-hero, #e07c54);
+            background: linear-gradient(135deg, rgba(224, 124, 84, 0.2), rgba(103, 212, 224, 0.12));
+            border: 2px solid rgba(224, 124, 84, 0.45);
             border-radius: 15px;
             padding: 20px 25px;
             cursor: pointer;
@@ -344,7 +344,7 @@
 
         .cta-icon {
             font-size: 2.5em;
-            filter: drop-shadow(0 0 15px rgba(0, 255, 0, 0.6));
+            filter: drop-shadow(0 0 15px rgba(224, 124, 84, 0.5));
             margin-bottom: 8px;
         }
 
@@ -352,13 +352,13 @@
             font-size: 0.9em;
             font-weight: 700;
             letter-spacing: 1px;
-            color: var(--matrix-green);
+            color: var(--arkalia-hero, #e07c54);
             line-height: 1.2;
         }
 
         .cta-subtitle {
             font-size: 0.7em;
-            color: var(--matrix-accent);
+            color: var(--arkalia-accent, #67d4e0);
             opacity: 0.8;
             font-weight: 400;
             letter-spacing: 0.5px;
@@ -380,19 +380,19 @@
         }
 
         .cta-btn:hover {
-            color: var(--matrix-accent);
-            border-color: var(--matrix-green);
-            background: linear-gradient(135deg, rgba(0, 255, 0, 0.25), rgba(0, 255, 255, 0.2));
-            box-shadow: 0 10px 40px rgba(0, 255, 0, 0.4);
+            color: var(--arkalia-hero-light, #f59e7c);
+            border-color: var(--arkalia-hero-light, #f59e7c);
+            background: linear-gradient(135deg, rgba(224, 124, 84, 0.35), rgba(103, 212, 224, 0.2));
+            box-shadow: 0 10px 40px rgba(224, 124, 84, 0.35);
             transform: translateY(-8px) scale(1.03);
         }
 
         .cta-btn:hover .cta-text {
-            color: var(--matrix-accent);
+            color: var(--arkalia-hero-light, #f59e7c);
         }
 
         .cta-btn:hover .cta-icon {
-            filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.8));
+            filter: drop-shadow(0 0 20px rgba(224, 124, 84, 0.6));
             transform: scale(1.1);
         }
 
@@ -402,18 +402,18 @@
         }
 
         .cta-btn.primary {
-            background: linear-gradient(135deg, rgba(0, 255, 0, 0.25), rgba(0, 255, 255, 0.15));
-            border-color: var(--matrix-green);
-            box-shadow: 0 6px 30px rgba(0, 255, 0, 0.3);
+            background: linear-gradient(135deg, rgba(224, 124, 84, 0.25), rgba(103, 212, 224, 0.15));
+            border-color: var(--arkalia-hero, #e07c54);
+            box-shadow: 0 6px 30px rgba(224, 124, 84, 0.3);
         }
 
         .cta-btn.primary .cta-icon {
-            filter: drop-shadow(0 0 20px rgba(0, 255, 0, 0.8));
+            filter: drop-shadow(0 0 20px rgba(224, 124, 84, 0.6));
         }
 
         .cta-btn.primary:hover {
-            background: linear-gradient(135deg, rgba(0, 255, 0, 0.35), rgba(0, 255, 255, 0.25));
-            box-shadow: 0 12px 50px rgba(0, 255, 0, 0.6);
+            background: linear-gradient(135deg, rgba(224, 124, 84, 0.35), rgba(103, 212, 224, 0.25));
+            box-shadow: 0 12px 50px rgba(224, 124, 84, 0.4);
         }
 
         .features-grid {
@@ -654,7 +654,8 @@
 
             <!-- CTA principal : une entrée claire pour commencer (audit P1) -->
             <p class="cta-hint animate-fade-in-up"
-                style="margin-bottom: 0.5rem; font-size: 0.9em; color: var(--matrix-green); font-weight: 600;">👉 Clique
+                style="margin-bottom: 0.5rem; font-size: 0.9em; color: var(--arkalia-hero, #e07c54); font-weight: 600;">
+                👉 Clique
                 ici pour rejoindre LUNA et vivre l'aventure</p>
             <div class="cta-buttons horizontal animate-fade-in-up" role="navigation" aria-label="Navigation principale">
                 <a href="/histoire" class="cta-btn primary btn-perfect cta-perfect hover-lift ripple-effect"
@@ -847,13 +848,14 @@
                 }
             }, 8000);
 
-            // Animation des cartes au survol
+            // Animation des cartes au survol (7 cartes = 7 titres)
             const featureCards = document.querySelectorAll('.feature-card');
+            const featureTitles = ['L\'aventure de LUNA', 'IA LUNA', 'Badges & Niveaux', 'Monde Immersif', 'Terminal (optionnel)', 'Ta Progression', 'Missions & Actes'];
             featureCards.forEach((card, index) => {
                 card.addEventListener('mouseenter', () => {
                     if (window.lunaVision) {
-                        const titles = ['IA LUNA', 'Badges & Niveaux', 'Monde Immersif', 'Terminal', 'Ta Progression', 'Missions & Actes'];
-                        window.lunaVision.showLunaMessage(`Découvre ${titles[index]}...`, 2000);
+                        const title = featureTitles[index] || featureTitles[0];
+                        window.lunaVision.showLunaMessage('Découvre ' + title + '...', 2000);
                     }
                 });
             });

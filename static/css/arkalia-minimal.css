@@ -1,0 +1,118 @@
+/* ===== ARKALIA — VISUEL MINIMAL ===== */
+/* Utilisé sur accueil + histoire pour un rendu sobre, lisible, sans conflits. */
+/* Remplace arkalia-visual-2026 sur ces pages. */
+
+:root {
+    --minimal-bg: #0d1117;
+    --minimal-surface: #161b22;
+    --minimal-text: #e6edf3;
+    --minimal-muted: #8b949e;
+    --minimal-accent: #58a6ff;
+    --minimal-success: #3fb950;
+    --minimal-border: rgba(255, 255, 255, 0.12);
+}
+
+body,
+body.luna-theme {
+    background: var(--minimal-bg) !important;
+    color: var(--minimal-text) !important;
+}
+
+.portal-container,
+.story-workspace {
+    background: var(--minimal-bg) !important;
+}
+
+/* Titres lisibles */
+.hero-title,
+.story-title,
+.feature-title,
+h1.hero-title {
+    color: var(--minimal-text) !important;
+    text-shadow: none !important;
+}
+
+.hero-subtitle,
+.story-message,
+.feature-description,
+.luna-greeting {
+    color: var(--minimal-muted) !important;
+}
+
+/* CTA et boutons : un seul accent bleu */
+.cta-btn,
+.cta-btn.primary,
+.story-btn,
+.story-link-btn {
+    background: rgba(88, 166, 255, 0.15) !important;
+    border: 1px solid var(--minimal-accent) !important;
+    color: var(--minimal-accent) !important;
+    box-shadow: none !important;
+}
+
+.cta-btn:hover,
+.cta-btn.primary:hover,
+.story-btn:hover,
+.story-link-btn:hover {
+    background: rgba(88, 166, 255, 0.25) !important;
+    border-color: var(--minimal-accent) !important;
+}
+
+.cta-btn .cta-text,
+.cta-btn.primary .cta-text {
+    color: var(--minimal-accent) !important;
+}
+
+/* Bloc LUNA / cartes */
+.story-luna-block,
+.feature-card {
+    background: var(--minimal-surface) !important;
+    border: 1px solid var(--minimal-border) !important;
+    box-shadow: none !important;
+}
+
+.story-luna-label,
+.story-title {
+    color: var(--minimal-accent) !important;
+}
+
+/* Barre de progression */
+.story-progress-bar span.done {
+    background: var(--minimal-success) !important;
+    box-shadow: none !important;
+}
+
+.story-progress-bar span.current {
+    background: var(--minimal-accent) !important;
+    box-shadow: none !important;
+}
+
+/* Choix acte 5 */
+.story-choice-btn {
+    background: rgba(88, 166, 255, 0.12) !important;
+    border: 1px solid var(--minimal-accent) !important;
+    color: var(--minimal-accent) !important;
+}
+
+.story-choice-btn:hover {
+    background: rgba(88, 166, 255, 0.22) !important;
+}
+
+.story-next-hint,
+.story-choice-made {
+    color: var(--minimal-success) !important;
+}
+
+/* Avatar LUNA : discret */
+.luna-avatar {
+    filter: none !important;
+}
+
+/* Liens génériques */
+a {
+    color: var(--minimal-accent);
+}
+
+a:hover {
+    color: var(--minimal-text);
+}

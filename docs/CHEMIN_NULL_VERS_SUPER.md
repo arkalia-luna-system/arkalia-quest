@@ -1,6 +1,6 @@
 # Ce qu’il manque pour passer de « null » à « super »
 
-*Résumé après vérification du 7 février 2026 : app lancée, /, /histoire, /tutorial OK ; commit poussé en local ; push à faire par toi avec `git push origin develop`.*
+*Résumé après vérification du 7 février 2026 : app lancée, /, /histoire, /tutorial OK. **Visuel minimal unifié** : `arkalia-minimal.css` sur toutes les pages (remplace refonte 2026). Docs à jour ; push sur `develop` après validation.*
 
 ---
 
@@ -22,6 +22,7 @@
 - **Message narratif par choix** (acte_5) : `choice_messages` dans le JSON, API retourne `choice_message`, affiché sur la page (« Tu as choisi la fusion… », etc.).
 - **Un seul endroit aide** : en cas de commande inconnue au terminal, hint « tape aide » + « Va au Tutoriel ou à l’Aventure (menu) ».
 - **Sauvegarde / reprise** : GET /api/story/state = chapitre en cours ; reprise correcte au retour sur /histoire.
+- **Visuel minimal unifié** : une seule feuille `arkalia-minimal.css` (fond sombre, accent bleu) sur toutes les pages ; plus de conflits avec la refonte 2026. Voir [REPARTIR_SUR_DES_BASES_SANES.md](REPARTIR_SUR_DES_BASES_SANES.md).
 
 ---
 

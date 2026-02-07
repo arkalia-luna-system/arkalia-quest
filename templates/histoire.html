@@ -16,65 +16,401 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}?v=3.1.1">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/game-feel.css') }}?v=4.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/reward-animations.css') }}?v=3.1.1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-visual-2026.css') }}?v=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-minimal.css') }}?v=1.0">
 
     <style>
-        body { margin: 0; background: var(--luna-bg, #0f0f12); color: #fafafa; min-height: 100vh; }
-        .story-workspace { min-height: 100vh; padding: 20px; box-sizing: border-box; }
-        .story-container { max-width: 720px; margin: 0 auto; padding: 24px 16px; }
-        .story-luna-block { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; padding: 16px 20px; background: rgba(167,139,250,0.12); border: 1px solid rgba(167,139,250,0.35); border-radius: 14px; }
-        .story-luna-avatar { font-size: 2.5em; flex-shrink: 0; filter: drop-shadow(0 0 12px rgba(167,139,250,0.6)); }
-        .story-luna-label { font-family: 'Inter', sans-serif; font-size: 0.95em; color: var(--violet-lunaire, #a78bfa); font-weight: 600; }
-        .story-progress-bar { display: flex; gap: 4px; margin-bottom: 20px; }
-        .story-progress-bar span { flex: 1; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.15); transition: background 0.4s ease; }
-        .story-progress-bar span.done { background: var(--matrix-green, #00ff00); box-shadow: 0 0 8px rgba(0,255,0,0.5); }
-        .story-progress-bar span.current { background: var(--violet-lunaire, #a78bfa); box-shadow: 0 0 10px rgba(167,139,250,0.6); }
-        .story-title-row { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
-        .story-title { font-family: 'Cormorant', serif; font-size: 2.2em; color: var(--violet-lunaire, #a78bfa); margin: 0; text-shadow: 0 0 20px rgba(167,139,250,0.5); }
-        .story-message { white-space: pre-wrap; font-family: 'Inter', sans-serif; line-height: 1.7; color: var(--argent-holographique, #e4e4e7); background: rgba(0,0,0,0.3); border: 1px solid rgba(167,139,250,0.25); border-radius: 12px; padding: 24px; margin-bottom: 28px; min-height: 120px; }
-        .story-progress { font-size: 0.9em; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
-        .story-next-hint { font-size: 0.85em; color: var(--matrix-green); margin-top: 12px; opacity: 0.9; }
-        .story-btn { display: inline-block; padding: 16px 32px; background: linear-gradient(135deg, rgba(0,255,0,0.2), rgba(0,255,255,0.1)); border: 2px solid rgba(0,255,0,0.5); border-radius: 12px; color: var(--matrix-green, #00ff00); font-weight: 700; font-size: 1.05em; cursor: pointer; transition: all 0.3s ease; text-decoration: none; }
-        .story-btn:hover { background: linear-gradient(135deg, rgba(0,255,0,0.35), rgba(0,255,255,0.2)); box-shadow: 0 0 24px rgba(0,255,0,0.4); transform: translateY(-2px); }
-        .story-btn:focus-visible { outline: 2px solid var(--matrix-green); outline-offset: 2px; }
-        .story-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-        .story-btn.celebrate { animation: storyBtnPulse 0.5s ease; }
-        @keyframes storyBtnPulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); box-shadow: 0 0 30px rgba(0,255,0,0.6); } 100% { transform: scale(1); } }
-        @media (prefers-reduced-motion: reduce) { .story-btn.celebrate { animation: none; } }
-        .story-completed { text-align: center; padding: 40px 20px; }
-        .story-completed .story-message { margin-bottom: 24px; }
-        .story-completed-sub { font-size: 1.1em; color: var(--argent-holographique); margin-bottom: 16px; }
-        .story-links { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
-        .story-links a.story-link-btn { color: var(--matrix-green); text-decoration: none; padding: 14px 24px; border: 2px solid rgba(0,255,0,0.5); border-radius: 10px; font-weight: 600; transition: all 0.25s ease; }
-        .story-links a.story-link-btn:hover { background: rgba(0,255,0,0.2); box-shadow: 0 0 20px rgba(0,255,0,0.3); transform: translateY(-2px); }
-        .story-links a { color: var(--matrix-green); text-decoration: none; padding: 10px 20px; border: 1px solid rgba(0,255,0,0.4); border-radius: 8px; }
-        .story-links a:hover { background: rgba(0,255,0,0.15); }
-        .story-loading { text-align: center; padding: 60px 20px; color: rgba(255,255,255,0.7); }
-        .story-error { color: #f87171; padding: 16px; background: rgba(248,113,113,0.15); border-radius: 10px; margin-bottom: 16px; }
-        #story-float-xp { position: fixed; left: 50%; top: 40%; transform: translate(-50%,0); z-index: 9999; font-size: 1.4em; font-weight: 700; color: var(--matrix-green); text-shadow: 0 0 12px rgba(0,255,0,0.8); pointer-events: none; opacity: 0; transition: opacity 0.2s, transform 0.9s; }
-        #story-float-xp.show { opacity: 1; transform: translate(-50%, -60px); }
-        .story-content { transition: opacity 0.35s ease, transform 0.35s ease; }
-        .story-content.story-transition { opacity: 0; transform: translateY(12px); }
-        .story-choices { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
-        .story-choice-btn { padding: 14px 24px; background: rgba(167,139,250,0.2); border: 2px solid rgba(167,139,250,0.5); border-radius: 12px; color: var(--violet-lunaire, #a78bfa); font-weight: 600; cursor: pointer; transition: all 0.25s ease; }
-        .story-choice-btn:hover { background: rgba(167,139,250,0.35); box-shadow: 0 0 20px rgba(167,139,250,0.4); transform: translateY(-2px); }
-        .story-choice-btn:focus-visible { outline: 2px solid var(--violet-lunaire); outline-offset: 2px; }
-        .story-workspace.story-bg-mystery { background: linear-gradient(160deg, #0f0f12 0%, #1a0a2e 50%, #0f0f12 100%); }
-        .story-workspace.story-bg-cyber { background: linear-gradient(160deg, #0a1628 0%, #0f0f12 50%, #051a0a 100%); }
-        .story-workspace.story-bg-data { background: linear-gradient(160deg, #0f0f12 0%, #0d1b2a 50%, #0f0f12 100%); }
-        .story-workspace.story-bg-music { background: linear-gradient(160deg, #1a0f2e 0%, #0f0f12 50%, #0f0f12 100%); }
-        .story-workspace.story-bg-alert { background: linear-gradient(160deg, #2e1a0a 0%, #0f0f12 50%, #0f0f12 100%); }
-        .story-workspace.story-bg-tension { background: linear-gradient(160deg, #2e0a0a 0%, #1a0a0a 50%, #0f0f12 100%); }
-        .story-workspace.story-bg-aurora { background: linear-gradient(160deg, #0a1a2e 0%, #0f2e1a 30%, #0f0f12 100%); }
-        .story-workspace.story-bg-dawn { background: linear-gradient(160deg, #1a1a0f 0%, #2e2e1a 40%, #0f0f12 100%); }
-        @media (prefers-reduced-motion: reduce) { .story-content { transition: none; } .story-content.story-transition { opacity: 1; transform: none; } }
-        .story-ambient-toggle { position: absolute; top: 16px; right: 16px; padding: 8px 14px; background: rgba(167,139,250,0.2); border: 1px solid rgba(167,139,250,0.4); border-radius: 8px; color: var(--violet-lunaire); font-size: 0.9em; cursor: pointer; transition: all 0.2s ease; }
-        .story-ambient-toggle:hover { background: rgba(167,139,250,0.35); }
-        .story-ambient-toggle:focus-visible { outline: 2px solid var(--violet-lunaire); outline-offset: 2px; }
-        .story-new-badge { display: inline-block; margin-left: 10px; padding: 4px 10px; background: var(--matrix-green); color: #000; font-size: 0.65em; font-weight: 700; border-radius: 20px; animation: storyNewPulse 2s ease infinite; }
-        @keyframes storyNewPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.8; } }
-        @media (prefers-reduced-motion: reduce) { .story-new-badge { animation: none; } }
-        .story-choice-made { font-size: 0.95em; color: var(--matrix-green); margin-bottom: 12px; padding: 8px 14px; background: rgba(0,255,0,0.1); border-radius: 8px; }
+        body {
+            margin: 0;
+            background: var(--arkalia-bg, #0a0e17);
+            color: var(--arkalia-text, #f4f4f5);
+            min-height: 100vh;
+        }
+
+        .story-workspace {
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .story-container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 24px 16px;
+        }
+
+        .story-luna-block {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            padding: 16px 20px;
+            background: rgba(224, 124, 84, 0.1);
+            border: 1px solid rgba(224, 124, 84, 0.3);
+            border-radius: 14px;
+        }
+
+        .story-luna-avatar {
+            font-size: 2.5em;
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 12px rgba(224, 124, 84, 0.5));
+        }
+
+        .story-luna-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95em;
+            color: var(--arkalia-hero, #e07c54);
+            font-weight: 600;
+        }
+
+        .story-progress-bar {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+        }
+
+        .story-progress-bar span {
+            flex: 1;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.15);
+            transition: background 0.4s ease;
+        }
+
+        .story-progress-bar span.done {
+            background: var(--arkalia-accent, #67d4e0);
+            box-shadow: 0 0 8px rgba(103, 212, 224, 0.5);
+        }
+
+        .story-progress-bar span.current {
+            background: var(--arkalia-hero, #e07c54);
+            box-shadow: 0 0 10px rgba(224, 124, 84, 0.5);
+        }
+
+        .story-title-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .story-title {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            font-size: 2.2em;
+            color: var(--arkalia-hero, #e07c54);
+            margin: 0;
+            text-shadow: 0 0 20px rgba(224, 124, 84, 0.4);
+        }
+
+        .story-message {
+            white-space: pre-wrap;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: var(--arkalia-text-muted, #94a3b8);
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(224, 124, 84, 0.25);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 28px;
+            min-height: 120px;
+        }
+
+        .story-progress {
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 8px;
+        }
+
+        .story-next-hint {
+            font-size: 0.85em;
+            color: var(--arkalia-hero, #e07c54);
+            margin-top: 12px;
+            opacity: 0.9;
+        }
+
+        .story-btn {
+            display: inline-block;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, rgba(224, 124, 84, 0.25), rgba(103, 212, 224, 0.12));
+            border: 2px solid rgba(224, 124, 84, 0.5);
+            border-radius: 12px;
+            color: var(--arkalia-hero, #e07c54);
+            font-weight: 700;
+            font-size: 1.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .story-btn:hover {
+            background: linear-gradient(135deg, rgba(224, 124, 84, 0.4), rgba(103, 212, 224, 0.2));
+            box-shadow: 0 0 24px rgba(224, 124, 84, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .story-btn:focus-visible {
+            outline: 2px solid var(--arkalia-hero);
+            outline-offset: 2px;
+        }
+
+        .story-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .story-btn.celebrate {
+            animation: storyBtnPulse 0.5s ease;
+        }
+
+        @keyframes storyBtnPulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.08);
+                box-shadow: 0 0 30px rgba(224, 124, 84, 0.5);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .story-btn.celebrate {
+                animation: none;
+            }
+        }
+
+        .story-completed {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .story-completed .story-message {
+            margin-bottom: 24px;
+        }
+
+        .story-completed-sub {
+            font-size: 1.1em;
+            color: var(--arkalia-text-muted);
+            margin-bottom: 16px;
+        }
+
+        .story-links {
+            margin-top: 28px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            justify-content: center;
+        }
+
+        .story-links a.story-link-btn {
+            color: var(--arkalia-hero, #e07c54);
+            text-decoration: none;
+            padding: 14px 24px;
+            border: 2px solid rgba(224, 124, 84, 0.5);
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.25s ease;
+        }
+
+        .story-links a.story-link-btn:hover {
+            background: rgba(224, 124, 84, 0.2);
+            box-shadow: 0 0 20px rgba(224, 124, 84, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .story-links a {
+            color: var(--arkalia-hero, #e07c54);
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid rgba(224, 124, 84, 0.4);
+            border-radius: 8px;
+        }
+
+        .story-links a:hover {
+            background: rgba(224, 124, 84, 0.15);
+        }
+
+        .story-loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .story-error {
+            color: #f87171;
+            padding: 16px;
+            background: rgba(248, 113, 113, 0.15);
+            border-radius: 10px;
+            margin-bottom: 16px;
+        }
+
+        #story-float-xp {
+            position: fixed;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%, 0);
+            z-index: 9999;
+            font-size: 1.4em;
+            font-weight: 700;
+            color: var(--arkalia-accent, #67d4e0);
+            text-shadow: 0 0 12px rgba(103, 212, 224, 0.7);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s, transform 0.9s;
+        }
+
+        #story-float-xp.show {
+            opacity: 1;
+            transform: translate(-50%, -60px);
+        }
+
+        .story-content {
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+
+        .story-content.story-transition {
+            opacity: 0;
+            transform: translateY(12px);
+        }
+
+        .story-choices {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .story-choice-btn {
+            padding: 14px 24px;
+            background: rgba(224, 124, 84, 0.15);
+            border: 2px solid rgba(224, 124, 84, 0.4);
+            border-radius: 12px;
+            color: var(--arkalia-hero, #e07c54);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .story-choice-btn:hover {
+            background: rgba(224, 124, 84, 0.3);
+            box-shadow: 0 0 20px rgba(224, 124, 84, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .story-choice-btn:focus-visible {
+            outline: 2px solid var(--arkalia-hero);
+            outline-offset: 2px;
+        }
+
+        .story-workspace.story-bg-mystery {
+            background: linear-gradient(160deg, #0a0e17 0%, #1a0a2e 50%, #0a0e17 100%);
+        }
+
+        .story-workspace.story-bg-cyber {
+            background: linear-gradient(160deg, #0a1628 0%, #0a0e17 50%, #051a0a 100%);
+        }
+
+        .story-workspace.story-bg-data {
+            background: linear-gradient(160deg, #0a0e17 0%, #0d1b2a 50%, #0a0e17 100%);
+        }
+
+        .story-workspace.story-bg-music {
+            background: linear-gradient(160deg, #1a0f2e 0%, #0a0e17 50%, #0a0e17 100%);
+        }
+
+        .story-workspace.story-bg-alert {
+            background: linear-gradient(160deg, #2e1a0a 0%, #0a0e17 50%, #0a0e17 100%);
+        }
+
+        .story-workspace.story-bg-tension {
+            background: linear-gradient(160deg, #2e0a0a 0%, #1a0a0a 50%, #0a0e17 100%);
+        }
+
+        .story-workspace.story-bg-aurora {
+            background: linear-gradient(160deg, #0a1a2e 0%, #0f2e1a 30%, #0a0e17 100%);
+        }
+
+        .story-workspace.story-bg-dawn {
+            background: linear-gradient(160deg, #1a1a0f 0%, #2e2e1a 40%, #0a0e17 100%);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .story-content {
+                transition: none;
+            }
+
+            .story-content.story-transition {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .story-ambient-toggle {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            padding: 8px 14px;
+            background: rgba(224, 124, 84, 0.15);
+            border: 1px solid rgba(224, 124, 84, 0.35);
+            border-radius: 8px;
+            color: var(--arkalia-hero);
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .story-ambient-toggle:hover {
+            background: rgba(224, 124, 84, 0.3);
+        }
+
+        .story-ambient-toggle:focus-visible {
+            outline: 2px solid var(--arkalia-hero);
+            outline-offset: 2px;
+        }
+
+        .story-new-badge {
+            display: inline-block;
+            margin-left: 10px;
+            padding: 4px 10px;
+            background: var(--arkalia-accent, #67d4e0);
+            color: #0a0e17;
+            font-size: 0.65em;
+            font-weight: 700;
+            border-radius: 20px;
+            animation: storyNewPulse 2s ease infinite;
+        }
+
+        @keyframes storyNewPulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .story-new-badge {
+                animation: none;
+            }
+        }
+
+        .story-choice-made {
+            font-size: 0.95em;
+            color: var(--arkalia-hero);
+            margin-bottom: 12px;
+            padding: 8px 14px;
+            background: rgba(224, 124, 84, 0.12);
+            border-radius: 8px;
+        }
     </style>
 </head>
 
@@ -86,7 +422,8 @@
 
     <main id="main" class="story-workspace" role="main">
         <div class="story-container" style="position: relative;">
-            <button type="button" class="story-ambient-toggle" id="story-ambient-toggle" aria-label="Activer ou couper la musique d’ambiance" style="display: none;">🔊 Ambiance</button>
+            <button type="button" class="story-ambient-toggle" id="story-ambient-toggle"
+                aria-label="Activer ou couper la musique d’ambiance" style="display: none;">🔊 Ambiance</button>
             <div id="story-loading" class="story-loading" aria-live="polite">
                 Chargement de l'aventure…
             </div>
@@ -126,259 +463,259 @@
 
     <script src="{{ url_for('static', filename='js/audio-manager.js') }}?v=3.1.1" defer></script>
     <script>
-(function() {
-    const loadingEl = document.getElementById('story-loading');
-    const contentEl = document.getElementById('story-content');
-    const completedEl = document.getElementById('story-completed');
-    const errorEl = document.getElementById('story-error');
-    const progressEl = document.getElementById('story-progress');
-    const progressBarEl = document.getElementById('story-progress-bar');
-    const titleEl = document.getElementById('story-title');
-    const messageEl = document.getElementById('story-message');
-    const nextHintEl = document.getElementById('story-next-hint');
-    const completedMessageEl = document.getElementById('story-completed-message');
-    const continueBtn = document.getElementById('story-continue');
-    const choicesEl = document.getElementById('story-choices');
-    const lunaLabelEl = document.getElementById('story-luna-label');
-    const workspaceEl = document.querySelector('.story-workspace');
-    const floatXpEl = document.getElementById('story-float-xp');
-    const ambientToggleEl = document.getElementById('story-ambient-toggle');
-    const choiceMadeEl = document.getElementById('story-choice-made');
-    const newBadgeEl = document.getElementById('story-new-badge');
-    const totalChapters = 8;
-    var lastChoiceLabel = '';
-    var newBadgeTimeout = null;
+        (function () {
+            const loadingEl = document.getElementById('story-loading');
+            const contentEl = document.getElementById('story-content');
+            const completedEl = document.getElementById('story-completed');
+            const errorEl = document.getElementById('story-error');
+            const progressEl = document.getElementById('story-progress');
+            const progressBarEl = document.getElementById('story-progress-bar');
+            const titleEl = document.getElementById('story-title');
+            const messageEl = document.getElementById('story-message');
+            const nextHintEl = document.getElementById('story-next-hint');
+            const completedMessageEl = document.getElementById('story-completed-message');
+            const continueBtn = document.getElementById('story-continue');
+            const choicesEl = document.getElementById('story-choices');
+            const lunaLabelEl = document.getElementById('story-luna-label');
+            const workspaceEl = document.querySelector('.story-workspace');
+            const floatXpEl = document.getElementById('story-float-xp');
+            const ambientToggleEl = document.getElementById('story-ambient-toggle');
+            const choiceMadeEl = document.getElementById('story-choice-made');
+            const newBadgeEl = document.getElementById('story-new-badge');
+            const totalChapters = 8;
+            var lastChoiceLabel = '';
+            var newBadgeTimeout = null;
 
-    function buildProgressBar(completedCount, currentIndex) {
-        if (!progressBarEl) return;
-        progressBarEl.innerHTML = '';
-        for (var i = 0; i < totalChapters; i++) {
-            var span = document.createElement('span');
-            if (i < completedCount) span.classList.add('done');
-            else if (i === currentIndex) span.classList.add('current');
-            progressBarEl.appendChild(span);
-        }
-    }
+            function buildProgressBar(completedCount, currentIndex) {
+                if (!progressBarEl) return;
+                progressBarEl.innerHTML = '';
+                for (var i = 0; i < totalChapters; i++) {
+                    var span = document.createElement('span');
+                    if (i < completedCount) span.classList.add('done');
+                    else if (i === currentIndex) span.classList.add('current');
+                    progressBarEl.appendChild(span);
+                }
+            }
 
-    function playSuccessSound() {
-        try {
-            if (window.audioManager && window.audioManager.playSound) window.audioManager.playSound('success');
-        } catch (e) {}
-    }
+            function playSuccessSound() {
+                try {
+                    if (window.audioManager && window.audioManager.playSound) window.audioManager.playSound('success');
+                } catch (e) { }
+            }
 
-    function showFloatXp(amount) {
-        if (!floatXpEl || !amount) return;
-        floatXpEl.textContent = '+' + amount + ' pts';
-        floatXpEl.classList.remove('show');
-        floatXpEl.offsetHeight;
-        floatXpEl.classList.add('show');
-        setTimeout(function() { floatXpEl.classList.remove('show'); }, 1200);
-    }
+            function showFloatXp(amount) {
+                if (!floatXpEl || !amount) return;
+                floatXpEl.textContent = '+' + amount + ' pts';
+                floatXpEl.classList.remove('show');
+                floatXpEl.offsetHeight;
+                floatXpEl.classList.add('show');
+                setTimeout(function () { floatXpEl.classList.remove('show'); }, 1200);
+            }
 
-    function showLoading() {
-        loadingEl.style.display = 'block';
-        contentEl.style.display = 'none';
-        completedEl.style.display = 'none';
-        errorEl.style.display = 'none';
-        if (ambientToggleEl) ambientToggleEl.style.display = 'none';
-    }
-    function showContent() {
-        loadingEl.style.display = 'none';
-        contentEl.style.display = 'block';
-        completedEl.style.display = 'none';
-        errorEl.style.display = 'none';
-        if (ambientToggleEl) ambientToggleEl.style.display = 'block';
-    }
-    function showCompleted() {
-        loadingEl.style.display = 'none';
-        contentEl.style.display = 'none';
-        completedEl.style.display = 'block';
-        errorEl.style.display = 'none';
-        if (ambientToggleEl) ambientToggleEl.style.display = 'block';
-    }
-    function showError(msg) {
-        loadingEl.style.display = 'none';
-        contentEl.style.display = 'none';
-        completedEl.style.display = 'none';
-        errorEl.style.display = 'block';
-        errorEl.textContent = msg || 'Erreur de chargement. Réessaie ou retourne à l’accueil.';
-    }
+            function showLoading() {
+                loadingEl.style.display = 'block';
+                contentEl.style.display = 'none';
+                completedEl.style.display = 'none';
+                errorEl.style.display = 'none';
+                if (ambientToggleEl) ambientToggleEl.style.display = 'none';
+            }
+            function showContent() {
+                loadingEl.style.display = 'none';
+                contentEl.style.display = 'block';
+                completedEl.style.display = 'none';
+                errorEl.style.display = 'none';
+                if (ambientToggleEl) ambientToggleEl.style.display = 'block';
+            }
+            function showCompleted() {
+                loadingEl.style.display = 'none';
+                contentEl.style.display = 'none';
+                completedEl.style.display = 'block';
+                errorEl.style.display = 'none';
+                if (ambientToggleEl) ambientToggleEl.style.display = 'block';
+            }
+            function showError(msg) {
+                loadingEl.style.display = 'none';
+                contentEl.style.display = 'none';
+                completedEl.style.display = 'none';
+                errorEl.style.display = 'block';
+                errorEl.textContent = msg || 'Erreur de chargement. Réessaie ou retourne à l’accueil.';
+            }
 
-    function setWorkspaceBackground(klass) {
-        if (!workspaceEl) return;
-        workspaceEl.classList.remove('story-bg-mystery', 'story-bg-cyber', 'story-bg-data', 'story-bg-music', 'story-bg-alert', 'story-bg-tension', 'story-bg-aurora', 'story-bg-dawn');
-        if (klass) workspaceEl.classList.add(klass);
-    }
+            function setWorkspaceBackground(klass) {
+                if (!workspaceEl) return;
+                workspaceEl.classList.remove('story-bg-mystery', 'story-bg-cyber', 'story-bg-data', 'story-bg-music', 'story-bg-alert', 'story-bg-tension', 'story-bg-aurora', 'story-bg-dawn');
+                if (klass) workspaceEl.classList.add(klass);
+            }
 
-    function renderState(data) {
-        if (data.completed) {
-            completedMessageEl.textContent = data.message || 'Tu as terminé l\'aventure. Reviens pour de nouvelles missions !';
-            showCompleted();
-            return;
-        }
-        var currentIndex = data.completed_count || 0;
-        progressEl.textContent = 'Chapitre ' + (currentIndex + 1) + ' / ' + (data.total || totalChapters);
-        buildProgressBar(currentIndex, currentIndex);
-        titleEl.textContent = data.title || '';
-        messageEl.textContent = data.message || '';
-        nextHintEl.style.display = 'none';
-        nextHintEl.textContent = '';
-        if (choiceMadeEl) { choiceMadeEl.style.display = 'none'; choiceMadeEl.textContent = ''; }
-        if (newBadgeEl) { newBadgeEl.style.display = 'none'; if (newBadgeTimeout) clearTimeout(newBadgeTimeout); }
-        if (lunaLabelEl) lunaLabelEl.textContent = data.emotion ? 'LUNA : ' + data.emotion : 'LUNA est à tes côtés';
-        setWorkspaceBackground(data.background || '');
+            function renderState(data) {
+                if (data.completed) {
+                    completedMessageEl.textContent = data.message || 'Tu as terminé l\'aventure. Reviens pour de nouvelles missions !';
+                    showCompleted();
+                    return;
+                }
+                var currentIndex = data.completed_count || 0;
+                progressEl.textContent = 'Chapitre ' + (currentIndex + 1) + ' / ' + (data.total || totalChapters);
+                buildProgressBar(currentIndex, currentIndex);
+                titleEl.textContent = data.title || '';
+                messageEl.textContent = data.message || '';
+                nextHintEl.style.display = 'none';
+                nextHintEl.textContent = '';
+                if (choiceMadeEl) { choiceMadeEl.style.display = 'none'; choiceMadeEl.textContent = ''; }
+                if (newBadgeEl) { newBadgeEl.style.display = 'none'; if (newBadgeTimeout) clearTimeout(newBadgeTimeout); }
+                if (lunaLabelEl) lunaLabelEl.textContent = data.emotion ? 'LUNA : ' + data.emotion : 'LUNA est à tes côtés';
+                setWorkspaceBackground(data.background || '');
 
-        var choices = data.choices;
-        if (choices && choices.length > 0) {
-            continueBtn.style.display = 'none';
-            choicesEl.style.display = 'flex';
-            choicesEl.innerHTML = '';
-            choices.forEach(function(c) {
-                var btn = document.createElement('button');
-                btn.type = 'button';
-                btn.className = 'story-choice-btn';
-                btn.textContent = c.label || c.id;
-                btn.dataset.chapterId = data.current_chapter_id || '';
-                btn.dataset.choiceId = c.id || '';
-                choicesEl.appendChild(btn);
-            });
-        } else {
-            continueBtn.style.display = 'inline-block';
-            choicesEl.style.display = 'none';
-            choicesEl.innerHTML = '';
-            continueBtn.dataset.chapterId = data.current_chapter_id || '';
-            continueBtn.disabled = !data.current_chapter_id;
-        }
-        showContent();
-    }
-
-    function loadState() {
-        showLoading();
-        fetch('/api/story/state')
-            .then(function(r) { return r.json(); })
-            .then(function(data) {
-                if (data.success) renderState(data);
-                else showError(data.error || 'L’aventure n’a pas pu se charger. Réessaie ou reviens à l’accueil.');
-            })
-            .catch(function() { showError('Erreur réseau'); });
-    }
-
-    function submitChoice(chapterId, choiceId, choiceLabel) {
-        if (!chapterId) return;
-        if (choiceLabel) lastChoiceLabel = choiceLabel;
-        else lastChoiceLabel = '';
-        continueBtn.disabled = true;
-        var choiceBtns = choicesEl.querySelectorAll('.story-choice-btn');
-        choiceBtns.forEach(function(b) { b.disabled = true; });
-        var body = { chapter_id: chapterId };
-        if (choiceId) body.choice_id = choiceId;
-        fetch('/api/story/choice', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
-        })
-            .then(function(r) { return r.json(); })
-            .then(function(data) {
-                if (data.success) {
-                    playSuccessSound();
-                    var scoreGagne = data.score_gagne || 0;
-                    if (scoreGagne > 0) showFloatXp(scoreGagne);
-                    continueBtn.classList.add('celebrate');
-                    setTimeout(function() { continueBtn.classList.remove('celebrate'); }, 500);
-
-                    if (data.completed) {
-                        completedMessageEl.textContent = data.message || 'Tu as terminé l\'aventure !';
-                        showCompleted();
-                        return;
-                    }
-                    if (data.next_chapter) {
-                        var count = data.completed_count || 0;
-                        var next = data.next_chapter;
-                        progressEl.textContent = 'Chapitre ' + (count + 1) + ' / ' + (data.total || totalChapters);
-                        buildProgressBar(count, count);
-                        if (contentEl.classList) contentEl.classList.add('story-transition');
-                        setTimeout(function() {
-                            titleEl.textContent = next.title || '';
-                            messageEl.textContent = next.message || '';
-                            if (choiceMadeEl && (data.choice_message || lastChoiceLabel)) {
-                                choiceMadeEl.textContent = data.choice_message || ('Tu as choisi : ' + lastChoiceLabel);
-                                choiceMadeEl.style.display = 'block';
-                                lastChoiceLabel = '';
-                            }
-                            if (newBadgeEl) {
-                                newBadgeEl.style.display = 'inline-block';
-                                if (newBadgeTimeout) clearTimeout(newBadgeTimeout);
-                                newBadgeTimeout = setTimeout(function() { if (newBadgeEl) newBadgeEl.style.display = 'none'; }, 5000);
-                            }
-                            if (lunaLabelEl) lunaLabelEl.textContent = next.emotion ? 'LUNA : ' + next.emotion : 'LUNA est à tes côtés';
-                            setWorkspaceBackground(next.background || '');
-                            if (next.choices && next.choices.length > 0) {
-                                continueBtn.style.display = 'none';
-                                choicesEl.style.display = 'flex';
-                                choicesEl.innerHTML = '';
-                                next.choices.forEach(function(c) {
-                                    var btn = document.createElement('button');
-                                    btn.type = 'button';
-                                    btn.className = 'story-choice-btn';
-                                    btn.textContent = c.label || c.id;
-                                    btn.dataset.chapterId = next.id || '';
-                                    btn.dataset.choiceId = c.id || '';
-                                    choicesEl.appendChild(btn);
-                                });
-                            } else {
-                                continueBtn.style.display = 'inline-block';
-                                choicesEl.style.display = 'none';
-                                choicesEl.innerHTML = '';
-                                continueBtn.dataset.chapterId = next.id || '';
-                                continueBtn.disabled = false;
-                            }
-                            if (contentEl.classList) contentEl.classList.remove('story-transition');
-                            nextHintEl.style.display = 'block';
-                            nextHintEl.textContent = 'Clique sur « Continuer » ou choisis une option pour la suite.';
-                            showContent();
-                        }, 320);
-                    } else {
-                        loadState();
-                    }
+                var choices = data.choices;
+                if (choices && choices.length > 0) {
+                    continueBtn.style.display = 'none';
+                    choicesEl.style.display = 'flex';
+                    choicesEl.innerHTML = '';
+                    choices.forEach(function (c) {
+                        var btn = document.createElement('button');
+                        btn.type = 'button';
+                        btn.className = 'story-choice-btn';
+                        btn.textContent = c.label || c.id;
+                        btn.dataset.chapterId = data.current_chapter_id || '';
+                        btn.dataset.choiceId = c.id || '';
+                        choicesEl.appendChild(btn);
+                    });
                 } else {
-                    showError(data.error || 'Oups, ça n’a pas marché. Réessaie ou reviens à l’accueil.');
-                    continueBtn.disabled = false;
-                    choicesEl.querySelectorAll('.story-choice-btn').forEach(function(b) { b.disabled = false; });
+                    continueBtn.style.display = 'inline-block';
+                    choicesEl.style.display = 'none';
+                    choicesEl.innerHTML = '';
+                    continueBtn.dataset.chapterId = data.current_chapter_id || '';
+                    continueBtn.disabled = !data.current_chapter_id;
                 }
-            })
-            .catch(function() {
-                showError('Erreur réseau. Vérifie ta connexion et réessaie.');
-                continueBtn.disabled = false;
-                choicesEl.querySelectorAll('.story-choice-btn').forEach(function(b) { b.disabled = false; });
+                showContent();
+            }
+
+            function loadState() {
+                showLoading();
+                fetch('/api/story/state')
+                    .then(function (r) { return r.json(); })
+                    .then(function (data) {
+                        if (data.success) renderState(data);
+                        else showError(data.error || 'L’aventure n’a pas pu se charger. Réessaie ou reviens à l’accueil.');
+                    })
+                    .catch(function () { showError('Erreur réseau'); });
+            }
+
+            function submitChoice(chapterId, choiceId, choiceLabel) {
+                if (!chapterId) return;
+                if (choiceLabel) lastChoiceLabel = choiceLabel;
+                else lastChoiceLabel = '';
+                continueBtn.disabled = true;
+                var choiceBtns = choicesEl.querySelectorAll('.story-choice-btn');
+                choiceBtns.forEach(function (b) { b.disabled = true; });
+                var body = { chapter_id: chapterId };
+                if (choiceId) body.choice_id = choiceId;
+                fetch('/api/story/choice', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
+                })
+                    .then(function (r) { return r.json(); })
+                    .then(function (data) {
+                        if (data.success) {
+                            playSuccessSound();
+                            var scoreGagne = data.score_gagne || 0;
+                            if (scoreGagne > 0) showFloatXp(scoreGagne);
+                            continueBtn.classList.add('celebrate');
+                            setTimeout(function () { continueBtn.classList.remove('celebrate'); }, 500);
+
+                            if (data.completed) {
+                                completedMessageEl.textContent = data.message || 'Tu as terminé l\'aventure !';
+                                showCompleted();
+                                return;
+                            }
+                            if (data.next_chapter) {
+                                var count = data.completed_count || 0;
+                                var next = data.next_chapter;
+                                progressEl.textContent = 'Chapitre ' + (count + 1) + ' / ' + (data.total || totalChapters);
+                                buildProgressBar(count, count);
+                                if (contentEl.classList) contentEl.classList.add('story-transition');
+                                setTimeout(function () {
+                                    titleEl.textContent = next.title || '';
+                                    messageEl.textContent = next.message || '';
+                                    if (choiceMadeEl && (data.choice_message || lastChoiceLabel)) {
+                                        choiceMadeEl.textContent = data.choice_message || ('Tu as choisi : ' + lastChoiceLabel);
+                                        choiceMadeEl.style.display = 'block';
+                                        lastChoiceLabel = '';
+                                    }
+                                    if (newBadgeEl) {
+                                        newBadgeEl.style.display = 'inline-block';
+                                        if (newBadgeTimeout) clearTimeout(newBadgeTimeout);
+                                        newBadgeTimeout = setTimeout(function () { if (newBadgeEl) newBadgeEl.style.display = 'none'; }, 5000);
+                                    }
+                                    if (lunaLabelEl) lunaLabelEl.textContent = next.emotion ? 'LUNA : ' + next.emotion : 'LUNA est à tes côtés';
+                                    setWorkspaceBackground(next.background || '');
+                                    if (next.choices && next.choices.length > 0) {
+                                        continueBtn.style.display = 'none';
+                                        choicesEl.style.display = 'flex';
+                                        choicesEl.innerHTML = '';
+                                        next.choices.forEach(function (c) {
+                                            var btn = document.createElement('button');
+                                            btn.type = 'button';
+                                            btn.className = 'story-choice-btn';
+                                            btn.textContent = c.label || c.id;
+                                            btn.dataset.chapterId = next.id || '';
+                                            btn.dataset.choiceId = c.id || '';
+                                            choicesEl.appendChild(btn);
+                                        });
+                                    } else {
+                                        continueBtn.style.display = 'inline-block';
+                                        choicesEl.style.display = 'none';
+                                        choicesEl.innerHTML = '';
+                                        continueBtn.dataset.chapterId = next.id || '';
+                                        continueBtn.disabled = false;
+                                    }
+                                    if (contentEl.classList) contentEl.classList.remove('story-transition');
+                                    nextHintEl.style.display = 'block';
+                                    nextHintEl.textContent = 'Clique sur « Continuer » ou choisis une option pour la suite.';
+                                    showContent();
+                                }, 320);
+                            } else {
+                                loadState();
+                            }
+                        } else {
+                            showError(data.error || 'Oups, ça n’a pas marché. Réessaie ou reviens à l’accueil.');
+                            continueBtn.disabled = false;
+                            choicesEl.querySelectorAll('.story-choice-btn').forEach(function (b) { b.disabled = false; });
+                        }
+                    })
+                    .catch(function () {
+                        showError('Erreur réseau. Vérifie ta connexion et réessaie.');
+                        continueBtn.disabled = false;
+                        choicesEl.querySelectorAll('.story-choice-btn').forEach(function (b) { b.disabled = false; });
+                    });
+            }
+
+            continueBtn.addEventListener('click', function () { submitChoice(continueBtn.dataset.chapterId, '', ''); });
+            choicesEl.addEventListener('click', function (e) {
+                var btn = e.target.closest('.story-choice-btn');
+                if (btn) submitChoice(btn.dataset.chapterId, btn.dataset.choiceId || '', btn.textContent || '');
             });
-    }
 
-    continueBtn.addEventListener('click', function() { submitChoice(continueBtn.dataset.chapterId, '', ''); });
-    choicesEl.addEventListener('click', function(e) {
-        var btn = e.target.closest('.story-choice-btn');
-        if (btn) submitChoice(btn.dataset.chapterId, btn.dataset.choiceId || '', btn.textContent || '');
-    });
-
-    if (ambientToggleEl) {
-        function updateAmbientLabel() {
-            try {
-                ambientToggleEl.textContent = (window.audioManager && window.audioManager.isAmbientMusicEnabled && window.audioManager.isAmbientMusicEnabled()) ? '🔇 Couper ambiance' : '🔊 Ambiance';
-            } catch (e) {}
-        }
-        ambientToggleEl.addEventListener('click', function() {
-            try {
-                if (window.audioManager && window.audioManager.setAmbientMusicEnabled) {
-                    var on = !(window.audioManager.isAmbientMusicEnabled && window.audioManager.isAmbientMusicEnabled());
-                    window.audioManager.setAmbientMusicEnabled(on);
-                    updateAmbientLabel();
+            if (ambientToggleEl) {
+                function updateAmbientLabel() {
+                    try {
+                        ambientToggleEl.textContent = (window.audioManager && window.audioManager.isAmbientMusicEnabled && window.audioManager.isAmbientMusicEnabled()) ? '🔇 Couper ambiance' : '🔊 Ambiance';
+                    } catch (e) { }
                 }
-            } catch (e) {}
-        });
-        updateAmbientLabel();
-    }
+                ambientToggleEl.addEventListener('click', function () {
+                    try {
+                        if (window.audioManager && window.audioManager.setAmbientMusicEnabled) {
+                            var on = !(window.audioManager.isAmbientMusicEnabled && window.audioManager.isAmbientMusicEnabled());
+                            window.audioManager.setAmbientMusicEnabled(on);
+                            updateAmbientLabel();
+                        }
+                    } catch (e) { }
+                });
+                updateAmbientLabel();
+            }
 
-    loadState();
-})();
+            loadState();
+        })();
     </script>
 </body>
 

@@ -7,6 +7,16 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [3.3.0] - 2025-09-15
 
+## [4.0.3] - 2026-02-07
+
+### Visuel minimal unifié
+
+- **Une seule feuille visuelle** : `static/css/arkalia-minimal.css` (fond `#0d1117`, accent bleu `#58a6ff`, texte lisible) remplace `arkalia-visual-2026.css` sur **toutes** les pages (accueil, histoire, terminal, monde, profil, dashboard, leaderboard, tutoriel, skill-tree, explorateur, mail, audio, accessibilité, tutoriels techniques).
+- **Cohérence** : plus de conflits entre refonte 2026 (ambre/cyan) et thèmes Luna/Matrix ; rendu sobre et prévisible.
+- **Documentation** : [docs/REPARTIR_SUR_DES_BASES_SANES.md](docs/REPARTIR_SUR_DES_BASES_SANES.md) (diagnostic, plan, questionnaire) ; STATUT, INDEX, REFONTE_VISUELLE_2026, CHEMIN_NULL_VERS_SUPER, POINT_PROJET_2026 mis à jour pour refléter le visuel minimal.
+
+---
+
 ## [4.0.2] - 2026-02-07
 
 ### Amélioré (Jeu parfait — docs et cohérence)

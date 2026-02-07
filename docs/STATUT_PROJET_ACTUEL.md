@@ -26,7 +26,7 @@ Jeu narratif éducatif (hacking) pour adolescents, inclusif et accessible.
 - LUNA AI V3, défis quotidiens, thèmes (Matrix, Cyberpunk, Neon, Dark, Retro, Ocean)
 - Performance (réduction appels API), nettoyage code, UI/UX modernisées
 - API Terminal v4.0, popups closables, smart empty states, reward feedback, monde interactif
-- **Audit UX 2026** : promesse 15 mots et micro-intro sur l’accueil, CTA principal. Parcours recommandé : **Accueil → Terminal → acte_1** (première mission).
+- **Audit UX 2026** : promesse 15 mots et micro-intro sur l’accueil, CTA principal, accueil plus léger (4 scripts). Terminal : source de vérité (progression depuis API), feedback succès/échec, bannière première mission, défi acte_1 (modal « Choisis le bon code »). Parcours recommandé : **Accueil → Terminal → acte_1**. Guide playtest : [PLAYTEST_GUIDE_ADOS.md](PLAYTEST_GUIDE_ADOS.md).
 
 ---
 

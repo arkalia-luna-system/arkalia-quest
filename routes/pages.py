@@ -23,7 +23,8 @@ def register_pages(app, charger_profil):
 
     @app.route("/terminal")
     def terminal():
-        return render_template("terminal.html")
+        profil = charger_profil()
+        return render_template("terminal.html", profil=profil)
 
     @app.route("/monde")
     def monde():

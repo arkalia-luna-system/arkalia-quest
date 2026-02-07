@@ -639,33 +639,16 @@
             document.head.appendChild(script);
         }
 
-        // Charger les scripts après le chargement de la page
+        // Accueil léger : uniquement scripts utiles pour le portail (audit UX 2026)
         window.addEventListener('load', function () {
-            const scripts = [
-                '{{ url_for("static", filename="js/audio-manager.js") }}?v=3.1.1',
-                '{{ url_for("static", filename="js/real-time-monitor.js") }}?v=3.1.1',
-                '{{ url_for("static", filename="js/game-engine.js") }}',
-                '{{ url_for("static", filename="js/mission-system.js") }}',
-                '{{ url_for("static", filename="js/visual-feedback-system.js") }}',
-                '{{ url_for("static", filename="js/ai_engine.js") }}',
-                '{{ url_for("static", filename="js/analytics.js") }}',
-                '{{ url_for("static", filename="js/service-worker.js") }}',
-                '{{ url_for("static", filename="js/performance-ux-optimizer.js") }}',
+            var portalScripts = [
+                '{{ url_for("static", filename="js/performance-ux-optimizer.js") }}?v=3.1.1',
                 '{{ url_for("static", filename="js/bug-fixes.js") }}',
-                '{{ url_for("static", filename="js/reward-system.js") }}',
-                '{{ url_for("static", filename="js/loading-manager.js") }}',
-                // Guidance adaptative désactivée
-                // '{{ url_for("static", filename="js/adaptive-guidance.js") }}?v=3.3.1',
-                '{{ url_for("static", filename="js/advanced-player-profiles.js") }}?v=3.3.1',
-                '{{ url_for("static", filename="js/adaptive-ui-manager.js") }}?v=3.3.1',
-                '{{ url_for("static", filename="js/interactive-zones-system.js") }}?v=3.3.1',
-                // '{{ url_for("static", filename="js/progression-feedback.js") }}',
-                '{{ url_for("static", filename="js/casual-system.js") }}',
-                '{{ url_for("static", filename="js/system-integrator.js") }}'
+                '{{ url_for("static", filename="js/audio-manager.js") }}?v=3.1.1',
+                '{{ url_for("static", filename="js/service-worker.js") }}'
             ];
-
-            scripts.forEach((src, index) => {
-                setTimeout(() => loadScript(src), index * 100); // Chargement échelonné
+            portalScripts.forEach(function (src, index) {
+                setTimeout(function () { loadScript(src); }, index * 80);
             });
         });
     </script>
@@ -684,7 +667,7 @@
             setTimeout(() => {
                 const subtitle = document.getElementById('hero-subtitle');
                 if (window.lunaVision && subtitle) {
-                    window.lunaVision.typeText(subtitle, "Portail d'entrée dans l'esprit de LUNA", 50);
+                    window.lunaVision.typeText(subtitle, "Tu es un hacker qui aide LUNA : missions au terminal, actes et mini-jeux.", 50);
                 }
             }, 3000);
 
@@ -692,7 +675,7 @@
             setTimeout(() => {
                 const greeting = document.getElementById('luna-greeting');
                 if (window.lunaVision && greeting) {
-                    window.lunaVision.typeText(greeting, '"Bienvenue, hacker. Je suis LUNA, ton guide dans cette aventure cybernétique. Commence par le tutoriel pour comprendre comment jouer !"', 30);
+                    window.lunaVision.typeText(greeting, '"LUNA a besoin de toi. Tu es le seul à pouvoir l\'aider. Prêt à commencer ?"', 30);
                 }
             }, 5000);
 

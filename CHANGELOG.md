@@ -11,8 +11,9 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Amélioré (Audit UX 2026)
 
-- **Page d'accueil** : promesse en 15 mots affichée (« Tu es un hacker qui aide LUNA : missions au terminal, actes et mini-jeux »), micro-intro narrative (« LUNA a besoin de toi… »), CTA principal « Commencer l'aventure » mis en avant (classe `primary`).
-- **Documentation** : README et STATUT mis à jour avec la promesse ; nouvel audit [docs/audits/AUDIT_JEU_MEILLEURES_PRATIQUES_2026.md](docs/audits/AUDIT_JEU_MEILLEURES_PRATIQUES_2026.md) (bonnes pratiques jeu, résumé essentiel, prochaines étapes). INDEX_DOCUMENTATION et audits/README pointent vers l'audit 2026.
+- **Page d'accueil** : promesse en 15 mots affichée (« Tu es un hacker qui aide LUNA : missions au terminal, actes et mini-jeux »), micro-intro narrative (« LUNA a besoin de toi… »), CTA principal « Commencer l'aventure » mis en avant (classe `primary`). Accueil plus léger : chargement différé réduit à 4 scripts (performance, bug-fixes, audio, service-worker).
+- **Terminal** : (1) Source de vérité unique : bandeau « Niveau X | Score Y » rechargé depuis `GET /api/profile/summary` au chargement et après chaque commande. (2) Feedback visuel unifié : flash vert (succès) ou rouge (échec) sur la zone de sortie. (3) Première mission : bannière « tape acte_1 » si acte_1 non complété ; page terminal reçoit `profil` (route `/terminal`). (4) Vrai gameplay acte_1 : après succès de la commande `acte_1`, modal « Défi — Choisis le bon code » (A/B/C) pour valider la mission.
+- **Documentation** : README et STATUT mis à jour avec la promesse ; nouvel audit [docs/audits/AUDIT_JEU_MEILLEURES_PRATIQUES_2026.md](docs/audits/AUDIT_JEU_MEILLEURES_PRATIQUES_2026.md) ; [docs/PLAYTEST_GUIDE_ADOS.md](docs/PLAYTEST_GUIDE_ADOS.md) (guide playtest 15 min). INDEX_DOCUMENTATION et audits/README mis à jour.
 
 ---
 

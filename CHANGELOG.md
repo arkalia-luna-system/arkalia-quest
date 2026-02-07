@@ -7,6 +7,15 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [3.3.0] - 2025-09-15
 
+## [4.0.1] - 2026-02-07
+
+### Amélioré (Audit UX 2026)
+
+- **Page d'accueil** : promesse en 15 mots affichée (« Tu es un hacker qui aide LUNA : missions au terminal, actes et mini-jeux »), micro-intro narrative (« LUNA a besoin de toi… »), CTA principal « Commencer l'aventure » mis en avant (classe `primary`).
+- **Documentation** : README et STATUT mis à jour avec la promesse ; nouvel audit [docs/audits/AUDIT_JEU_MEILLEURES_PRATIQUES_2026.md](docs/audits/AUDIT_JEU_MEILLEURES_PRATIQUES_2026.md) (bonnes pratiques jeu, résumé essentiel, prochaines étapes). INDEX_DOCUMENTATION et audits/README pointent vers l'audit 2026.
+
+---
+
 ## [4.0.0] - 2025-09-16
 
 ### Ajouté

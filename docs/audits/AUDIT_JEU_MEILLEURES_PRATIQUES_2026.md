@@ -198,4 +198,11 @@ Ensuite : **playtests** avec des ados (même 2–3), et itérer sur la clarté e
 
 ---
 
+## Prochaines étapes (à faire)
+
+- **Fait (fév. 2026)** : 1. Promesse 15 mots + CTA principal ; 4. Micro-intro narrative.
+- **À faire** : 2. Source de vérité (backend = référence, documenter sync / localStorage). 3. Parcours recommandé clair (Accueil → Terminal → acte_1). 5. Unifier le feedback sur la commande terminal. 6. Alléger l’index (bundle ou chargement différé). Puis playtests.
+
+---
+
 *Références : ActuGaming (indie 2024–2025), Exscape (indie 2025), O-Pentech (créer un jeu 2025), NNGroup (usability heuristics board games), Game Design Workshop (playcentric approach), rapports d’audit existants du projet.*

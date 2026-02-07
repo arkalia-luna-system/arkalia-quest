@@ -227,3 +227,13 @@ htmlcov/
 # Test results
 .pytest_cache/
 test-results/
+
+# Backups (copies complètes du projet, inutiles en version control)
+backups/
+
+# Artifacts générés (audits, sorties de scripts)
+artifacts/
+
+# Rapports de tests générés (JSON volumineux, régénérés par les tests)
+reports/*.json
+reports/test_reports/

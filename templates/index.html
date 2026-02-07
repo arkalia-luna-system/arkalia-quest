@@ -15,8 +15,8 @@
 
     <!-- PWA Icons -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/icon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='icons/icon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
     <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
 
     <!-- CSS ARKALIA CONSOLIDÉ - Version 4.0 -->
@@ -536,17 +536,15 @@
         <!-- Avatar de LUNA -->
         <div class="luna-avatar">🌙</div>
 
-        <!-- Section héro -->
+        <!-- Section héro : promesse claire (15 mots) + micro-intro narrative -->
         <div class="hero-section animate-fade-in-up">
             <h1 class="hero-title animate-fade-in-up" id="main-title">ARKALIA QUEST</h1>
-            <p class="hero-subtitle animate-fade-in-up" id="hero-subtitle">Portail d'entrée dans l'esprit de LUNA</p>
-            <p class="luna-greeting animate-fade-in-up" id="luna-greeting">"Bienvenue, hacker. Je suis LUNA, ton guide
-                dans cette aventure
-                cybernétique. Prêt à commencer l'aventure ?"</p>
+            <p class="hero-subtitle animate-fade-in-up" id="hero-subtitle">Tu es un hacker qui aide LUNA : missions au terminal, actes et mini-jeux.</p>
+            <p class="luna-greeting animate-fade-in-up" id="luna-greeting">"LUNA a besoin de toi. Tu es le seul à pouvoir l'aider. Prêt à commencer ?"</p>
 
-            <!-- Boutons d'action améliorés avec accessibilité -->
+            <!-- CTA principal : une entrée claire pour commencer -->
             <div class="cta-buttons horizontal animate-fade-in-up" role="navigation" aria-label="Navigation principale">
-                <a href="/terminal" class="cta-btn btn-perfect cta-perfect hover-lift ripple-effect"
+                <a href="/terminal" class="cta-btn primary btn-perfect cta-perfect hover-lift ripple-effect"
                     title="Accéder au terminal de commandes" role="button" aria-describedby="terminal-desc">
                     <span class="cta-icon" aria-hidden="true">🚀</span>
                     <span class="cta-text">COMMENCER L'AVENTURE</span>

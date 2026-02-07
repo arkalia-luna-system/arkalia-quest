@@ -2,6 +2,8 @@
 
 Jeu narratif éducatif (hacking) pour adolescents, inclusif et accessible.
 
+**Promesse (15 mots) :** Tu es un hacker qui aide LUNA : missions au terminal, actes et mini-jeux.
+
 *Dernière mise à jour : 7 février 2026.*
 
 ---
@@ -58,3 +60,4 @@ Jeu narratif éducatif (hacking) pour adolescents, inclusif et accessible.
 - Documentation : `docs/`, [INDEX_DOCUMENTATION.md](INDEX_DOCUMENTATION.md)
 - Déploiement : [GUIDE_DEPLOIEMENT.md](GUIDE_DEPLOIEMENT.md)
 - Audit consolidé : [rapports/RAPPORT_AUDIT_PROJET.md](rapports/RAPPORT_AUDIT_PROJET.md)
+- Audit UX / bonnes pratiques 2026 : [audits/AUDIT_JEU_MEILLEURES_PRATIQUES_2026.md](audits/AUDIT_JEU_MEILLEURES_PRATIQUES_2026.md)

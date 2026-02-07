@@ -48,6 +48,8 @@
 
 Arkalia Quest est un jeu éducatif intelligent conçu pour les adolescents, combinant apprentissage, gamification et intelligence artificielle dans une architecture moderne et sécurisée.
 
+**Promesse (15 mots) :** Tu es un hacker qui aide LUNA : missions au terminal, actes et mini-jeux.
+
 ```mermaid
 
 

@@ -89,7 +89,7 @@ class ZoneExplorationEnhanced {
 
     enhanceZoneInteraction(zone) {
         const zoneId = zone.dataset.zone;
-        
+
         // Ajouter des effets visuels au survol
         zone.addEventListener('mouseenter', () => {
             this.showZonePreview(zoneId);
@@ -215,7 +215,7 @@ class ZoneExplorationEnhanced {
 
         // Simuler l'exploration
         this.showExplorationFeedback();
-        
+
         // Mettre à jour la progression
         this.updateZoneProgress(10);
 
@@ -326,9 +326,9 @@ class ZoneExplorationEnhanced {
         if (!canvas) return;
 
         const ctx = canvas.getContext('2d');
-        
+
         // Logique du mini-jeu basée sur l'ID
-        switch(gameId) {
+        switch (gameId) {
             case 'data_traffic':
                 this.initDataTrafficGame(ctx);
                 break;
@@ -373,8 +373,10 @@ class ZoneExplorationEnhanced {
             ctx.fillRect(30, playerY - 10, 20, 20);
 
             // Mettre à jour l'affichage
-            document.getElementById('game-score').textContent = score;
-            document.getElementById('game-time').textContent = Math.floor(time / 60) + 's';
+            const scoreEl = document.getElementById('game-score');
+            const timeEl = document.getElementById('game-time');
+            if (scoreEl) scoreEl.textContent = score;
+            if (timeEl) timeEl.textContent = Math.floor(time / 60) + 's';
 
             // Continuer la boucle
             if (time < 600) { // 10 secondes
@@ -447,8 +449,10 @@ class ZoneExplorationEnhanced {
             time++;
 
             // Mettre à jour l'affichage
-            document.getElementById('game-score').textContent = Math.floor(progress);
-            document.getElementById('game-time').textContent = Math.floor(time / 60) + 's';
+            const scoreEl = document.getElementById('game-score');
+            const timeEl = document.getElementById('game-time');
+            if (scoreEl) scoreEl.textContent = Math.floor(progress);
+            if (timeEl) timeEl.textContent = Math.floor(time / 60) + 's';
 
             // Continuer la boucle
             if (progress < 100 && time < 1200) {
@@ -495,8 +499,10 @@ class ZoneExplorationEnhanced {
             ctx.fill();
 
             // Mettre à jour l'affichage
-            document.getElementById('game-score').textContent = score;
-            document.getElementById('game-time').textContent = Math.floor(time / 60) + 's';
+            const scoreEl = document.getElementById('game-score');
+            const timeEl = document.getElementById('game-time');
+            if (scoreEl) scoreEl.textContent = score;
+            if (timeEl) timeEl.textContent = Math.floor(time / 60) + 's';
 
             time++;
             if (time < 900) { // 15 secondes
@@ -542,8 +548,10 @@ class ZoneExplorationEnhanced {
             ctx.fillText(`Temps: ${Math.floor(time / 60)}s`, 100, 160);
 
             // Mettre à jour l'affichage
-            document.getElementById('game-score').textContent = score;
-            document.getElementById('game-time').textContent = Math.floor(time / 60) + 's';
+            const scoreEl = document.getElementById('game-score');
+            const timeEl = document.getElementById('game-time');
+            if (scoreEl) scoreEl.textContent = score;
+            if (timeEl) timeEl.textContent = Math.floor(time / 60) + 's';
 
             time++;
             if (time < 600) { // 10 secondes
@@ -684,11 +692,11 @@ class ZoneExplorationEnhanced {
         // Mettre à jour l'affichage
         const progressFill = document.getElementById('zone-progress-fill');
         const progressText = document.querySelector('.progress-text');
-        
+
         if (progressFill) {
             progressFill.style.width = this.explorationProgress[this.currentZone] + '%';
         }
-        
+
         if (progressText) {
             progressText.textContent = `Progression: ${this.explorationProgress[this.currentZone]}%`;
         }

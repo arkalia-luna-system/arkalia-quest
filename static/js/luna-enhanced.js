@@ -375,12 +375,12 @@ class LunaEnhanced {
     }
 
     displayResponse(response) {
-        // Afficher la réponse dans le terminal
         const terminalOutput = document.querySelector('.terminal-output, .luna-response, .command-output');
-        if (terminalOutput) {
+        if (terminalOutput && response != null) {
             const responseElement = document.createElement('div');
             responseElement.className = 'luna-response enhanced';
-            responseElement.innerHTML = response.replace(/\n/g, '<br>');
+            const safe = String(response).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+            responseElement.innerHTML = safe.replace(/\n/g, '<br>');
             terminalOutput.appendChild(responseElement);
 
             // Scroll vers le bas

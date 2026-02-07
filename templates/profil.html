@@ -15,8 +15,8 @@
 
     <!-- PWA Icons -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/icon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='icons/icon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
     <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
 
     <!-- CSS LUNA VISION -->
@@ -48,6 +48,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/competitive-system.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/creative-system.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/casual-system.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game-feel.css') }}?v=4.0">
 
     <style>
         /* Styles spécifiques au profil immersif */
@@ -432,14 +433,56 @@
             letter-spacing: 0.5px;
         }
 
-        .achievements-api-section { background: rgba(9, 9, 11, 0.9); border: 2px solid rgba(167, 139, 250, 0.3); border-radius: 15px; padding: 30px; margin-bottom: 40px; backdrop-filter: blur(15px); }
-        .achievements-api-list .loading-placeholder { color: var(--argent-holographique); margin: 0; }
-        .achievements-summary { font-family: 'IBM Plex Mono', monospace; color: var(--violet-lunaire); margin-bottom: 15px; }
-        .achievements-unlocked-list { list-style: none; padding: 0; margin: 0; }
-        .achievement-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid rgba(167,139,250,0.2); }
-        .achievement-item .achievement-name { font-weight: 600; color: var(--violet-lunaire); }
-        .achievement-item .achievement-desc { font-size: 0.9em; color: var(--argent-holographique); margin-left: auto; }
-        .achievement-more { padding: 10px 0; color: var(--argent-holographique); font-size: 0.9em; }
+        .achievements-api-section {
+            background: rgba(9, 9, 11, 0.9);
+            border: 2px solid rgba(167, 139, 250, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(15px);
+        }
+
+        .achievements-api-list .loading-placeholder {
+            color: var(--argent-holographique);
+            margin: 0;
+        }
+
+        .achievements-summary {
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--violet-lunaire);
+            margin-bottom: 15px;
+        }
+
+        .achievements-unlocked-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .achievement-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(167, 139, 250, 0.2);
+        }
+
+        .achievement-item .achievement-name {
+            font-weight: 600;
+            color: var(--violet-lunaire);
+        }
+
+        .achievement-item .achievement-desc {
+            font-size: 0.9em;
+            color: var(--argent-holographique);
+            margin-left: auto;
+        }
+
+        .achievement-more {
+            padding: 10px 0;
+            color: var(--argent-holographique);
+            font-size: 0.9em;
+        }
 
         .timeline-section {
             background: rgba(9, 9, 11, 0.9);
@@ -560,6 +603,24 @@
             margin-right: 8px;
         }
 
+        @media (prefers-reduced-motion: reduce) {
+            .profile-background {
+                animation: none !important;
+            }
+
+            .profile-title,
+            .profile-subtitle {
+                animation: none !important;
+                opacity: 1;
+            }
+        }
+
+        .profile-workspace button:focus-visible,
+        .profile-workspace a:focus-visible {
+            outline: 2px solid var(--violet-lunaire, #a78bfa);
+            outline-offset: 3px;
+        }
+
         @media (max-width: 768px) {
             .profile-title {
                 font-size: 2.2em;
@@ -611,9 +672,13 @@
                     <a href="/profil" class="nav-link active">👤 PROFIL</a>
                     <a href="/leaderboard" class="nav-link">🏆 CLASSEMENT</a>
                     <a href="/dashboard" class="nav-link">📊 DASHBOARD</a>
-                    <button class="nav-link daily-challenges-btn" onclick="showDailyChallenges()">🎯 DÉFIS
+                    <button type="button" class="nav-link daily-challenges-btn"
+                        onclick="typeof showDailyChallenges==='function'&&showDailyChallenges()"
+                        aria-label="Ouvrir les défis quotidiens">🎯 DÉFIS
                         QUOTIDIENS</button>
-                    <button class="nav-link theme-btn" onclick="showThemeManager()">🎨 THÈMES</button>
+                    <button type="button" class="nav-link theme-btn"
+                        onclick="typeof showThemeManager==='function'&&showThemeManager()"
+                        aria-label="Choisir un thème">🎨 THÈMES</button>
                 </div>
             </div>
         </nav>
@@ -809,8 +874,9 @@
 
                 // Fallback sur l'API profile/summary
                 const response = await fetch('/api/profile/summary');
+                if (!response.ok) return;
                 const data = await response.json();
-
+                if (!data || typeof data !== 'object') return;
                 if (data.success) {
                     updateProfileStats(data);
                     updateProgressBars(data);
@@ -915,9 +981,10 @@
             badges.forEach(badge => {
                 const badgeItem = document.createElement('div');
                 badgeItem.className = 'badge-item';
+                const safeName = escapeHtml(String(badge));
                 badgeItem.innerHTML = `
                     <span class="badge-icon">🏅</span>
-                    <div class="badge-name">${badge}</div>
+                    <div class="badge-name">${safeName}</div>
                 `;
                 badgesGrid.appendChild(badgeItem);
             });
@@ -950,8 +1017,8 @@
                 const timelineItem = document.createElement('div');
                 timelineItem.className = 'timeline-item';
                 timelineItem.innerHTML = `
-                    <div class="timeline-date">${item.date}</div>
-                    <div class="timeline-event">${item.event}</div>
+                    <div class="timeline-date">${escapeHtml(String(item.date))}</div>
+                    <div class="timeline-event">${escapeHtml(String(item.event))}</div>
                 `;
                 timeline.appendChild(timelineItem);
             });

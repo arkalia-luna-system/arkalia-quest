@@ -80,6 +80,7 @@
         onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="{{ url_for('static', filename='css/performance-optimized.css') }}" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ url_for('static', filename='css/interface-improvements.css') }}?v=3.1.1"></noscript>
 
     <!-- CSS des corrections d'audit visuel -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/audit-visual-fixes.css') }}?v=3.5.0">
@@ -238,10 +239,20 @@
             font-family: 'IBM Plex Mono', monospace;
             font-size: 1.1em;
             color: var(--bleu-spectre);
-            margin-bottom: 40px;
+            margin-bottom: 12px;
             opacity: 0;
             animation: fadeInUp 2s ease-out 1.5s forwards;
             font-style: italic;
+        }
+
+        .hero-hook {
+            font-family: 'Inter', sans-serif;
+            font-size: 1em;
+            color: var(--matrix-green);
+            margin-bottom: 36px;
+            opacity: 0;
+            animation: fadeInUp 2s ease-out 1.8s forwards;
+            font-weight: 600;
         }
 
         .cta-buttons {
@@ -451,6 +462,34 @@
             }
         }
 
+        .ambient-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            padding: 8px 14px;
+            font-size: 0.85em;
+            background: rgba(167, 139, 250, 0.15);
+            border: 1px solid rgba(167, 139, 250, 0.4);
+            border-radius: 10px;
+            color: var(--argent-holographique);
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            animation: fadeIn 2s ease-out 3.5s forwards;
+        }
+        .ambient-toggle:hover { background: rgba(167, 139, 250, 0.25); color: var(--violet-lunaire); }
+        .ambient-toggle.on #ambientIcon { opacity: 1; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .portal-background,
+            .luna-avatar,
+            .luna-avatar::before,
+            .luna-status::before { animation: none !important; }
+            .luna-avatar:hover { transform: none; }
+            .cta-btn:hover { transform: none; }
+            .feature-card:hover { transform: none; }
+        }
+
         @media (max-width: 768px) {
             .hero-title {
                 font-size: 2.8em;
@@ -496,6 +535,7 @@
         }
     </style>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/command-effects.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game-feel.css') }}?v=4.0">
 </head>
 
 <body>
@@ -520,10 +560,10 @@
                     <a href="/profil" class="nav-link">👤 PROFIL</a>
                     <a href="/leaderboard" class="nav-link">🏆 CLASSEMENT</a>
                     <a href="/dashboard" class="nav-link">📊 DASHBOARD</a>
-                    <button class="nav-link daily-challenges-btn" onclick="showDailyChallenges()">🎯 DÉFIS
+                    <button type="button" class="nav-link daily-challenges-btn" onclick="typeof showDailyChallenges==='function'&&showDailyChallenges()" aria-label="Ouvrir les défis quotidiens">🎯 DÉFIS
                         QUOTIDIENS</button>
                     <a href="/skill-tree" class="nav-link">⚡ COMPÉTENCES</a>
-                    <button class="nav-link theme-btn" onclick="showThemeManager()">🎨 THÈMES</button>
+                    <button type="button" class="nav-link theme-btn" onclick="typeof showThemeManager==='function'&&showThemeManager()" aria-label="Choisir un thème">🎨 THÈMES</button>
                 </div>
             </div>
         </nav>
@@ -541,6 +581,7 @@
             <h1 class="hero-title animate-fade-in-up" id="main-title">ARKALIA QUEST</h1>
             <p class="hero-subtitle animate-fade-in-up" id="hero-subtitle">Tu es un hacker qui aide LUNA : missions au terminal, actes et mini-jeux.</p>
             <p class="luna-greeting animate-fade-in-up" id="luna-greeting">"LUNA a besoin de toi. Tu es le seul à pouvoir l'aider. Prêt à commencer ?"</p>
+            <p class="hero-hook animate-fade-in-up" id="hero-hook">Tu tapes des commandes, tu débloques des missions. C'est parti.</p>
 
             <!-- CTA principal : une entrée claire pour commencer -->
             <div class="cta-buttons horizontal animate-fade-in-up" role="navigation" aria-label="Navigation principale">
@@ -617,7 +658,37 @@
         <div class="luna-status" id="luna-status">
             LUNA en ligne - Prête à t'accompagner
         </div>
+        <!-- Ambiance sonore optionnelle (effet plaisir, recherche 2024) -->
+        <button type="button" class="ambient-toggle" id="ambientToggle" aria-label="Activer ou désactiver l'ambiance sonore" title="Ambiance sonore">
+            <span id="ambientIcon">🔇</span> <span id="ambientLabel">Ambiance</span>
+        </button>
     </main>
+
+    <script>
+    (function() {
+        function updateAmbientUI() {
+            var on = localStorage.getItem('arkalia_ambient_music') === 'on';
+            var icon = document.getElementById('ambientIcon');
+            var label = document.getElementById('ambientLabel');
+            var btn = document.getElementById('ambientToggle');
+            if (icon) icon.textContent = on ? '\u266B' : '\uD83D\uDD07';
+            if (label) label.textContent = on ? 'Ambiance ON' : 'Ambiance';
+            if (btn) btn.classList.toggle('on', on);
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            updateAmbientUI();
+            var btn = document.getElementById('ambientToggle');
+            if (btn) btn.addEventListener('click', function() {
+                if (!window.audioManager) return;
+                var ctx = window.audioManager.audioContext;
+                if (ctx && typeof ctx.resume === 'function') ctx.resume();
+                var next = !window.audioManager.isAmbientMusicEnabled();
+                window.audioManager.setAmbientMusicEnabled(next);
+                updateAmbientUI();
+            });
+        });
+    })();
+    </script>
 
     <!-- Scripts LUNA VISION -->
     <!-- Mots-clés pour les tests (cachés) -->
@@ -628,6 +699,7 @@
     <!-- Scripts critiques chargés immédiatement -->
     <script src="{{ url_for('static', filename='js/accessibility.js') }}?v=3.1.1"></script>
     <script src="{{ url_for('static', filename='js/performance-ux-optimizer.js') }}?v=3.1.1"></script>
+    <script src="{{ url_for('static', filename='js/audio-manager.js') }}?v=3.1.1"></script>
 
     <!-- Scripts non-critiques chargés de manière différée -->
     <script>
@@ -725,114 +797,8 @@
     <script src="{{ url_for('static', filename='js/audit-visual-enhancements.js') }}?v=3.5.0"></script>
 
     <script>
-        // Initialisation des nouvelles fonctionnalités
         document.addEventListener('DOMContentLoaded', function () {
-            console.log('🚀 Arkalia Quest V3.3.0 - Systèmes UX contextuels chargés');
-
-            // Initialiser le gestionnaire de thèmes
-            if (window.ThemeManager) {
-                console.log('🎨 Theme Manager initialisé');
-            }
-
-            // Initialiser les défis quotidiens améliorés
-            if (window.DailyChallengesEnhanced) {
-                console.log('🎯 Daily Challenges Enhanced initialisé');
-            }
-
-            // Initialiser le guidage visuel
-            if (window.VisualGuidance) {
-                console.log('👁️ Visual Guidance initialisé');
-            }
-
-            // Initialiser les célébrations tutoriel
-            if (window.TutorialCelebrations) {
-                console.log('🎉 Tutorial Celebrations initialisé');
-            }
-
-            // Initialiser les commandes terminal améliorées
-            if (window.terminalCommandsEnhanced) {
-                console.log('💻 Terminal Commands Enhanced initialisé');
-            }
-
-            // Initialiser les mini-jeux interactifs
-            if (window.miniGamesInteractive) {
-                console.log('🎮 Mini-games Interactive initialisé');
-            }
-
-            // Initialiser les empty states améliorés
-            if (window.emptyStatesEnhanced) {
-                console.log('🌟 Empty States Enhanced initialisé');
-            }
-
-            // Initialiser les animations de récompenses
-            if (window.rewardAnimations) {
-                console.log('🎉 Reward Animations initialisé');
-            }
-
-            // Initialiser LUNA améliorée
-            if (window.lunaEnhanced) {
-                console.log('🌙 LUNA Enhanced initialisé');
-            }
-
-            // Initialiser les systèmes UX contextuels
-            if (window.contextualFeedback) {
-                console.log('💬 Système de feedback contextuel initialisé');
-            }
-
-            if (window.progressionAnimations) {
-                console.log('🎬 Système d\'animations de progression initialisé');
-            }
-
-            if (window.interactiveMiniGames) {
-                console.log('🎮 Mini-jeux interactifs initialisés');
-            }
-
-            if (window.enhancedEmptyStates) {
-                console.log('🌟 Empty states améliorés initialisés');
-            }
-
-            // Initialiser les nouveaux systèmes de perfection
-            if (window.smartNotifications) {
-                console.log('🔔 Notifications intelligentes initialisées');
-            }
-
-            // Initialiser les systèmes de gameplay améliorés
-            if (window.zoneExplorationEnhanced) {
-                console.log('🗺️ Zone Exploration Enhanced initialisé');
-            }
-
-            if (window.dailyMissions) {
-                console.log('🎯 Daily Missions Enhanced initialisé');
-            }
-
-            if (window.motivationalEmptyStates) {
-                console.log('🌟 Motivational Empty States initialisé');
-            }
-
-            if (window.timerChallenges) {
-                console.log('⏱️ Timer Challenges initialisé');
-            }
-
-            if (window.interactivePuzzles) {
-                console.log('🧩 Interactive Puzzles initialisé');
-            }
-
-            if (window.gameplayIntegration) {
-                console.log('🎮 Gameplay Integration initialisé');
-            }
-
-            // Initialiser les systèmes de gestion des popups
-            if (window.popupManager) {
-                console.log('🎭 Popup Manager initialisé');
-            }
-
-            if (window.popupCoordinator) {
-                console.log('🎭 Popup Coordinator initialisé');
-            }
-
-            if (window.accessibilityFeedback) {
-                console.log('♿ Feedback d\'accessibilité initialisé');
-            }
+            if (window.ARKALIA_DEBUG) console.log('🚀 Arkalia Quest - Systèmes chargés');
         });
     </script>
 

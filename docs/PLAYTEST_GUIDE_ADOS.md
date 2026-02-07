@@ -21,6 +21,14 @@ Vérifier en 15–20 minutes :
 - Prévoir un navigateur (Chrome/Firefox) sur ordinateur ou tablette.
 - Ne pas aider pendant le test ; noter les actions et les remarques.
 
+### Checklist rapide (vérifier que tout fonctionne)
+
+- [ ] L’accueil s’affiche (promesse 15 mots, CTA « Commencer l’aventure »).
+- [ ] Clic sur « Commencer l’aventure » → ouverture du terminal.
+- [ ] Bannière « tape acte_1 » visible (si profil sans acte_1 fait).
+- [ ] Une commande (ex. `aide`) renvoie une réponse et le bandeau Niveau/Score se met à jour.
+- [ ] Commande `acte_1` → modal « Choisis le bon code » avec 3 boutons ; un bon code valide et affiche « Prochaine étape : tape acte_2 ».
+
 ---
 
 ## Scénario (15 min)
@@ -76,4 +84,4 @@ Vérifier en 15–20 minutes :
 
 ---
 
-*Référence : audit [AUDIT_JEU_MEILLEURES_PRATIQUES_2026.md](audits/AUDIT_JEU_MEILLEURES_PRATIQUES_2026.md).*
+*Références : audit [AUDIT_JEU_MEILLEURES_PRATIQUES_2026.md](audits/AUDIT_JEU_MEILLEURES_PRATIQUES_2026.md), checklist fun/visuel [COMPARAISON_JEUX_SOURCES_EXTERNES.md](COMPARAISON_JEUX_SOURCES_EXTERNES.md).*

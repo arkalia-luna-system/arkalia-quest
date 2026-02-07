@@ -422,11 +422,14 @@ class DailyMissionsEnhanced {
     }
 
     updatePlayerProfile(mission) {
-        // Simuler la mise à jour du profil
-        const profile = JSON.parse(localStorage.getItem('playerProfile') || '{}');
-        profile.xp = (profile.xp || 0) + mission.xp;
-        profile.coins = (profile.coins || 0) + mission.coins;
-        localStorage.setItem('playerProfile', JSON.stringify(profile));
+        try {
+            const profile = JSON.parse(localStorage.getItem('playerProfile') || '{}');
+            profile.xp = (profile.xp || 0) + (mission.xp || 0);
+            profile.coins = (profile.coins || 0) + (mission.coins || 0);
+            localStorage.setItem('playerProfile', JSON.stringify(profile));
+        } catch (e) {
+            console.warn('Arkalia: updatePlayerProfile parse error', e);
+        }
     }
 
     showMissionCompletion(mission) {

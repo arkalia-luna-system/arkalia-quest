@@ -91,7 +91,7 @@ class UnifiedProgressionSync {
     }
 
     updateUI(playerData) {
-        // Mettre à jour tous les éléments UI avec les nouvelles données
+        if (!playerData || typeof playerData !== 'object') return;
         this.updateStats(playerData);
         this.updateSkillTree(playerData);
         this.updateMissions(playerData);
@@ -100,7 +100,7 @@ class UnifiedProgressionSync {
     }
 
     updateStats(playerData) {
-        // Mettre à jour les stats dans le dashboard
+        if (!playerData || typeof playerData !== 'object') return;
         const elements = {
             'player-level': playerData.level || 1,
             'player-xp': playerData.xp || 0,
@@ -135,14 +135,15 @@ class UnifiedProgressionSync {
     updateBadges(playerData) {
         const badgeContainer = document.querySelector('.badges-container');
         if (!badgeContainer || !playerData || !Array.isArray(playerData.badges)) return;
+        const escape = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
         badgeContainer.innerHTML = playerData.badges
             .filter(badge => badge != null && String(badge).trim())
-            .map(badge => `<span class="badge">${String(badge)}</span>`)
+            .map(badge => `<span class="badge">${escape(badge)}</span>`)
             .join('');
     }
 
     updateProgressBars(playerData) {
-        // Mettre à jour les barres de progression
+        if (!playerData || typeof playerData !== 'object') return;
         const progressBars = document.querySelectorAll('.progress-bar');
         progressBars.forEach(bar => {
             const level = playerData.level || 1;

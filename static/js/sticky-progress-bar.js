@@ -389,25 +389,31 @@ class StickyProgressBar {
     toggle() {
         this.isVisible = !this.isVisible;
 
+        if (!this.element) return;
+        const icon = this.element.querySelector('.toggle-icon');
         if (this.isVisible) {
             this.element.classList.remove('hidden');
-            this.element.querySelector('.toggle-icon').textContent = '−';
+            if (icon) icon.textContent = '−';
         } else {
             this.element.classList.add('hidden');
-            this.element.querySelector('.toggle-icon').textContent = '+';
+            if (icon) icon.textContent = '+';
         }
     }
 
     show() {
         this.isVisible = true;
+        if (!this.element) return;
         this.element.classList.remove('hidden');
-        this.element.querySelector('.toggle-icon').textContent = '−';
+        const icon = this.element.querySelector('.toggle-icon');
+        if (icon) icon.textContent = '−';
     }
 
     hide() {
         this.isVisible = false;
+        if (!this.element) return;
         this.element.classList.add('hidden');
-        this.element.querySelector('.toggle-icon').textContent = '+';
+        const icon = this.element.querySelector('.toggle-icon');
+        if (icon) icon.textContent = '+';
     }
 
     // Méthode pour forcer une mise à jour

@@ -48,10 +48,12 @@ class PersonalizedMessages {
     }
 
     updateLunaMessage(message) {
+        if (message == null) return;
+        const safe = String(message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
         const lunaElements = document.querySelectorAll('.luna-greeting, .luna-message');
         lunaElements.forEach(element => {
             if (element.textContent.includes('Bienvenue') || element.textContent.includes('LUNA:')) {
-                element.innerHTML = message;
+                element.innerHTML = safe.replace(/\n/g, '<br>');
                 element.classList.add('luna-notification');
             }
         });

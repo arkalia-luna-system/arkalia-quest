@@ -13,6 +13,8 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game-feel.css') }}?v=4.0">
 
     <style>
         * {
@@ -469,6 +471,11 @@
                 gap: 15px;
             }
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            body::before, body::after { animation: none !important; }
+        }
+        button:focus-visible, a:focus-visible { outline: 2px solid #00ff00; outline-offset: 3px; }
     </style>
 </head>
 
@@ -651,14 +658,15 @@
             };
             if (messagesTitle) messagesTitle.textContent = folderNames[folder] || folder;
 
+            function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
             messageList.innerHTML = messages.map(message => `
-                <div class="message-item ${message.unread ? 'message-unread' : ''}" onclick="showMessage(${message.id})">
+                <div class="message-item ${message.unread ? 'message-unread' : ''}" onclick="showMessage(${Number(message.id) || 0})">
                     <div class="message-header">
-                        <span class="message-sender">${(message.sender || '').replace(/</g, '&lt;')}</span>
-                        <span class="message-date">${(message.date || '')}</span>
+                        <span class="message-sender">${esc(message.sender || '')}</span>
+                        <span class="message-date">${esc(message.date || '')}</span>
                     </div>
-                    <div class="message-subject">${(message.subject || '').replace(/</g, '&lt;')}</div>
-                    <div class="message-preview">${(message.preview || '').replace(/</g, '&lt;')}</div>
+                    <div class="message-subject">${esc(message.subject || '')}</div>
+                    <div class="message-preview">${esc(message.preview || '')}</div>
                 </div>
             `).join('');
 

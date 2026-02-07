@@ -13,6 +13,8 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game-feel.css') }}?v=4.0">
 
     <style>
         * {
@@ -399,6 +401,11 @@
                 gap: 15px;
             }
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            body::before, body::after { animation: none !important; }
+        }
+        button:focus-visible, a:focus-visible { outline: 2px solid #00ff00; outline-offset: 3px; }
     </style>
 </head>
 
@@ -622,12 +629,15 @@
             if (activeNav) activeNav.classList.add('active');
         }
 
+        function escapeHtml(s) {
+            return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
         function formatJSON(jsonString) {
             try {
                 const obj = JSON.parse(jsonString);
-                return '<pre>' + JSON.stringify(obj, null, 2) + '</pre>';
+                return '<pre>' + escapeHtml(JSON.stringify(obj, null, 2)) + '</pre>';
             } catch (e) {
-                return '<pre>' + jsonString + '</pre>';
+                return '<pre>' + escapeHtml(jsonString) + '</pre>';
             }
         }
 

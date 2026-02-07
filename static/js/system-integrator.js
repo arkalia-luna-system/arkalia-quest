@@ -278,12 +278,16 @@ class SystemIntegrator {
     loadSystemState() {
         const saved = localStorage.getItem('arkalia_system_state');
         if (saved) {
-            const state = JSON.parse(saved);
-            this.systems.forEach((system, name) => {
-                if (system && typeof system.loadState === 'function' && state[name]) {
-                    system.loadState(state[name]);
-                }
-            });
+            try {
+                const state = JSON.parse(saved);
+                this.systems.forEach((system, name) => {
+                    if (system && typeof system.loadState === 'function' && state[name]) {
+                        system.loadState(state[name]);
+                    }
+                });
+            } catch (e) {
+                console.warn('Arkalia: loadSystemState parse error', e);
+            }
         }
     }
 }

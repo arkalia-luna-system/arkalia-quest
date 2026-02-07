@@ -4975,5 +4975,1076 @@
       "auto_accept": false,
       "min_level": 1
     }
+  },
+  "ff86767c-ed8a-458a-a20e-e245566cb2c5": {
+    "id": "ff86767c-ed8a-458a-a20e-e245566cb2c5",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "test_user",
+    "members": [
+      "test_user"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:16:12.445416",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "fe8c60b8-8604-4939-8ca7-4a07ffeeecda": {
+    "id": "fe8c60b8-8604-4939-8ca7-4a07ffeeecda",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:16:12.462476",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "1ff2715d-7de6-4600-9477-cbc2e04f82c8": {
+    "id": "1ff2715d-7de6-4600-9477-cbc2e04f82c8",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:16:12.479440",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "99e69ac6-4dea-4507-aa03-d5655c22761d": {
+    "id": "99e69ac6-4dea-4507-aa03-d5655c22761d",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "test_user",
+    "members": [
+      "test_user"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:17:17.099787",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "96cdeff1-9a24-4234-a740-c837267cffd0": {
+    "id": "96cdeff1-9a24-4234-a740-c837267cffd0",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:17:17.112484",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "ed26b34e-7202-4a09-9d19-607e4c8dbde4": {
+    "id": "ed26b34e-7202-4a09-9d19-607e4c8dbde4",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:17:17.125357",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "a340679c-3ca6-4148-b091-789bb45e8c38": {
+    "id": "a340679c-3ca6-4148-b091-789bb45e8c38",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "test_user",
+    "members": [
+      "test_user"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:25:44.323319",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "93390a3c-03c4-4c61-a8c0-aefd64d3aece": {
+    "id": "93390a3c-03c4-4c61-a8c0-aefd64d3aece",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:25:44.331997",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "205b807b-f491-4669-87fd-b39a85d3d677": {
+    "id": "205b807b-f491-4669-87fd-b39a85d3d677",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:25:44.339650",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "3e811b4f-59e0-4652-831e-752df8352978": {
+    "id": "3e811b4f-59e0-4652-831e-752df8352978",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "test_user",
+    "members": [
+      "test_user"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:29:54.600753",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "c9d4e532-09c3-480f-b518-69ac5fc980ef": {
+    "id": "c9d4e532-09c3-480f-b518-69ac5fc980ef",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:29:54.622813",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "b6d49e56-e422-4434-95e2-5016df0790c4": {
+    "id": "b6d49e56-e422-4434-95e2-5016df0790c4",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:29:54.639454",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "ee26d315-0941-421e-a0d2-8ac24318da97": {
+    "id": "ee26d315-0941-421e-a0d2-8ac24318da97",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "test_user",
+    "members": [
+      "test_user"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:31:01.486726",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "9bf3852b-0431-4dcd-96f0-4edd739998c1": {
+    "id": "9bf3852b-0431-4dcd-96f0-4edd739998c1",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:31:01.502013",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "28dea3ee-2186-4413-932b-d960e2d7d3f7": {
+    "id": "28dea3ee-2186-4413-932b-d960e2d7d3f7",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:31:01.513865",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "dc9ee6b0-79bd-480c-bf58-5853393dd4f8": {
+    "id": "dc9ee6b0-79bd-480c-bf58-5853393dd4f8",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "test_user",
+    "members": [
+      "test_user"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:34:00.581586",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "8b69fa87-8438-4727-bc96-fee656dc8f87": {
+    "id": "8b69fa87-8438-4727-bc96-fee656dc8f87",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:34:00.594491",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "605bbfff-683d-459a-b54e-21262373a87f": {
+    "id": "605bbfff-683d-459a-b54e-21262373a87f",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:34:00.608004",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "e0599772-b68b-41f3-a472-71dbd18e94f4": {
+    "id": "e0599772-b68b-41f3-a472-71dbd18e94f4",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "test_user",
+    "members": [
+      "test_user"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:35:33.050402",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "3e36e55a-1efe-46fb-aa8b-5dac0f557504": {
+    "id": "3e36e55a-1efe-46fb-aa8b-5dac0f557504",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:35:33.060746",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "e0273468-8828-4ff9-9f91-b44ded226d86": {
+    "id": "e0273468-8828-4ff9-9f91-b44ded226d86",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:35:33.069555",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "91ee4025-dde7-43a8-a3f5-7f8ad8d168b0": {
+    "id": "91ee4025-dde7-43a8-a3f5-7f8ad8d168b0",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "test_user",
+    "members": [
+      "test_user"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:37:59.315421",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "7e50cec6-7fec-43d3-8668-1e4d8f300055": {
+    "id": "7e50cec6-7fec-43d3-8668-1e4d8f300055",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:37:59.333633",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "630f1b11-d20d-4533-9dcd-0c1ae0dde947": {
+    "id": "630f1b11-d20d-4533-9dcd-0c1ae0dde947",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:37:59.350903",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "fe371748-6184-4a8a-8d8d-de2b6e5bc8a7": {
+    "id": "fe371748-6184-4a8a-8d8d-de2b6e5bc8a7",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "test_user",
+    "members": [
+      "test_user"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:39:27.875715",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "032b0f25-22dc-4a99-b190-cc3d563accec": {
+    "id": "032b0f25-22dc-4a99-b190-cc3d563accec",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:39:27.885367",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "9f1d44b2-ef90-4d16-b3e2-8479b379bb0e": {
+    "id": "9f1d44b2-ef90-4d16-b3e2-8479b379bb0e",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:39:27.894679",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "85c638cc-878f-496b-b6bc-9bc83d04de70": {
+    "id": "85c638cc-878f-496b-b6bc-9bc83d04de70",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "test_user",
+    "members": [
+      "test_user"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:40:33.799073",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "081db8cd-9eb8-4c95-92df-2accd92c9a4f": {
+    "id": "081db8cd-9eb8-4c95-92df-2accd92c9a4f",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:40:33.811509",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "9908b9ab-0776-40c3-9961-9eea19e3daac": {
+    "id": "9908b9ab-0776-40c3-9961-9eea19e3daac",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:40:33.820481",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "d18a35f0-c4a3-452f-bb83-a2c738852dc2": {
+    "id": "d18a35f0-c4a3-452f-bb83-a2c738852dc2",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "test_user",
+    "members": [
+      "test_user"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:41:57.522927",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "613418f4-4388-4a99-9f06-2a7015726966": {
+    "id": "613418f4-4388-4a99-9f06-2a7015726966",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:41:57.531201",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "68b70b19-6229-4fea-bc25-95a177813489": {
+    "id": "68b70b19-6229-4fea-bc25-95a177813489",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:41:57.538158",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "c510a830-4d25-4ba8-8187-6e69e297bd05": {
+    "id": "c510a830-4d25-4ba8-8187-6e69e297bd05",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "test_user",
+    "members": [
+      "test_user"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:45:30.510874",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "589e27bb-b3c9-433f-8f57-1cd7083d56fd": {
+    "id": "589e27bb-b3c9-433f-8f57-1cd7083d56fd",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:45:30.524591",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "15ac0005-17d1-442d-ad41-7e92f78a3165": {
+    "id": "15ac0005-17d1-442d-ad41-7e92f78a3165",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:45:30.537044",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "15d8af03-6b14-488f-b080-92b770401023": {
+    "id": "15d8af03-6b14-488f-b080-92b770401023",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "test_user",
+    "members": [
+      "test_user"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:45:33.029304",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "60201c68-d42f-4825-8c1f-84d121d518bb": {
+    "id": "60201c68-d42f-4825-8c1f-84d121d518bb",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:45:33.037562",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "d5947b2d-3a71-431a-b0e7-389b95429d66": {
+    "id": "d5947b2d-3a71-431a-b0e7-389b95429d66",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:45:33.045827",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "c303ad71-81c0-4969-9017-c1573870568d": {
+    "id": "c303ad71-81c0-4969-9017-c1573870568d",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "test_user",
+    "members": [
+      "test_user"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:45:41.693717",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "96b0a3c7-e221-4269-9cca-4d594f8c29a7": {
+    "id": "96b0a3c7-e221-4269-9cca-4d594f8c29a7",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:45:41.703874",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "148788f9-d7c6-4ac8-8fbe-470b0afb638d": {
+    "id": "148788f9-d7c6-4ac8-8fbe-470b0afb638d",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:45:41.714061",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "35c25e51-e4cc-4501-8ff7-eb4d76e69261": {
+    "id": "35c25e51-e4cc-4501-8ff7-eb4d76e69261",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "test_user",
+    "members": [
+      "test_user"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:47:53.955979",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "bec923cb-7415-4ccb-ad18-3e4e91355e81": {
+    "id": "bec923cb-7415-4ccb-ad18-3e4e91355e81",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:47:53.966489",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "3230e89b-f6a4-471f-b793-d4d247bc444a": {
+    "id": "3230e89b-f6a4-471f-b793-d4d247bc444a",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:47:53.976258",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "2012c59a-956d-45ed-bab9-3d79722fa297": {
+    "id": "2012c59a-956d-45ed-bab9-3d79722fa297",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "test_user",
+    "members": [
+      "test_user"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:48:03.530111",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "44eeaed5-f5b0-4714-a09c-647c178872df": {
+    "id": "44eeaed5-f5b0-4714-a09c-647c178872df",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:48:03.538352",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "da7a74b5-5a86-4c19-9f03-b85e98e6cbb7": {
+    "id": "da7a74b5-5a86-4c19-9f03-b85e98e6cbb7",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:48:03.546121",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "8a1419f1-c499-4b78-a293-9b0d1d055651": {
+    "id": "8a1419f1-c499-4b78-a293-9b0d1d055651",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "test_user",
+    "members": [
+      "test_user"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:48:14.746543",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "93c06204-30cb-4f15-a78b-802b679020fe": {
+    "id": "93c06204-30cb-4f15-a78b-802b679020fe",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:48:14.762349",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
+  },
+  "99c3c496-0c37-4221-b896-440fcc055c92": {
+    "id": "99c3c496-0c37-4221-b896-440fcc055c92",
+    "name": "Test Guild",
+    "description": "",
+    "creator": "owner",
+    "members": [
+      "owner"
+    ],
+    "officers": [],
+    "created_at": "2026-02-07T17:48:14.775100",
+    "level": 1,
+    "experience": 0,
+    "badges": [],
+    "achievements": [],
+    "chat_history": [],
+    "settings": {
+      "public": true,
+      "auto_accept": false,
+      "min_level": 1
+    }
   }
 }

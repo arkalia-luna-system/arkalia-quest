@@ -13,6 +13,8 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game-feel.css') }}?v=4.0">
 
     <style>
         * {
@@ -583,6 +585,11 @@
                 flex-wrap: wrap;
             }
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            body::before, body::after { animation: none !important; }
+        }
+        button:focus-visible, a:focus-visible { outline: 2px solid #00ff00; outline-offset: 3px; }
     </style>
 </head>
 
@@ -637,6 +644,10 @@
                 <div class="player-header">
                     <h2 class="player-title">🌌 Ambient Hacking</h2>
                     <div class="player-actions">
+                        <label class="action-btn toggle-ambient" style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer;">
+                            <span id="ambientMusicLabel">🎵 Musique de fond</span>
+                            <input type="checkbox" id="ambientMusicToggle" aria-label="Activer la musique de fond légère">
+                        </label>
                         <button class="action-btn" onclick="toggleShuffle()">🔀 Shuffle</button>
                         <button class="action-btn" onclick="toggleLoop()">🔁 Loop</button>
                         <button class="action-btn" onclick="testAudio()" id="test-audio-btn">🔊 Test Audio</button>
@@ -926,6 +937,19 @@
                 } else {
                     testBtn.textContent = '🔇 Activer Audio';
                 }
+            }
+
+            // Musique de fond optionnelle (ambiance légère — voir COMPARAISON_JEUX_SOURCES_EXTERNES.md)
+            const ambientToggle = document.getElementById('ambientMusicToggle');
+            const ambientLabel = document.getElementById('ambientMusicLabel');
+            if (ambientToggle && window.audioManager) {
+                ambientToggle.checked = window.audioManager.isAmbientMusicEnabled();
+                if (ambientLabel) ambientLabel.textContent = ambientToggle.checked ? '🎵 Musique de fond (on)' : '🎵 Musique de fond';
+                ambientToggle.addEventListener('change', function () {
+                    const on = this.checked;
+                    window.audioManager.setAmbientMusicEnabled(on);
+                    if (ambientLabel) ambientLabel.textContent = on ? '🎵 Musique de fond (on)' : '🎵 Musique de fond';
+                });
             }
 
             // Gestion des clics sur les playlists

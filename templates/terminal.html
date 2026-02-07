@@ -458,6 +458,16 @@
             color: var(--violet-lunaire);
             font-weight: 600;
         }
+        .next-step-banner {
+            background: linear-gradient(135deg, rgba(0,255,0,0.08), rgba(0,255,255,0.06));
+            border: 1px solid rgba(0,255,0,0.35);
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-bottom: 12px;
+            color: var(--matrix-green);
+            font-weight: 600;
+            font-size: 0.95em;
+        }
         .acte1-modal-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0,0,0,0.85);
@@ -485,8 +495,18 @@
             font-family: 'Share Tech Mono', monospace;
         }
         .acte1-modal-btns button:hover { background: rgba(0,255,0,0.25); }
+        .acte1-modal-btns button:focus-visible {
+            outline: 2px solid var(--matrix-green, #00ff00);
+            outline-offset: 3px;
+        }
         .acte1-modal-btns button.correct { border-color: #10b981; }
         .acte1-modal-btns button.wrong { border-color: #ef4444; opacity: 0.7; }
+        .acte1-modal.celebrate { animation: acte1-celebrate 0.4s ease-out; }
+        @keyframes acte1-celebrate {
+            0%   { transform: scale(1); box-shadow: 0 0 0 rgba(16, 185, 129, 0); }
+            50%  { transform: scale(1.05); box-shadow: 0 0 40px rgba(16, 185, 129, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 0 20px rgba(16, 185, 129, 0.3); }
+        }
 
         .terminal-input-container {
             display: flex;
@@ -553,6 +573,11 @@
         .terminal-input::placeholder {
             color: rgba(167, 139, 250, 0.5);
             font-style: italic;
+        }
+
+        .terminal-input:focus-visible {
+            outline: 2px solid var(--violet-lunaire, #a78bfa);
+            outline-offset: 2px;
         }
 
         .terminal-send {
@@ -822,6 +847,7 @@
         }
     </style>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/command-effects.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game-feel.css') }}?v=4.0">
 </head>
 
 <body>
@@ -859,6 +885,22 @@
             <div class="first-mission-banner" id="firstMissionBanner">
                 🎯 Première mission : tape <strong>acte_1</strong> dans le terminal ci-dessous.
             </div>
+            {% endif %}
+            {% if profil is defined and profil %}
+            {% set completed = profil.get('missions_completed') or [] %}
+            {% if 'acte_1' in completed and 'acte_2' not in completed %}
+            <div class="next-step-banner" id="nextStepBanner">➡️ Prochaine étape : tape <strong>acte_2</strong></div>
+            {% elif 'acte_2' in completed and 'acte_3' not in completed %}
+            <div class="next-step-banner" id="nextStepBanner">➡️ Prochaine étape : tape <strong>acte_3</strong></div>
+            {% elif 'acte_3' in completed and 'acte_4' not in completed %}
+            <div class="next-step-banner" id="nextStepBanner">➡️ Prochaine étape : tape <strong>acte_4</strong></div>
+            {% elif 'acte_4' in completed and 'acte_5' not in completed %}
+            <div class="next-step-banner" id="nextStepBanner">➡️ Prochaine étape : tape <strong>acte_5</strong></div>
+            {% elif 'acte_5' in completed and 'acte_6' not in completed %}
+            <div class="next-step-banner" id="nextStepBanner">➡️ Prochaine étape : tape <strong>acte_6</strong></div>
+            {% elif 'acte_6' in completed and 'epilogue' not in completed %}
+            <div class="next-step-banner" id="nextStepBanner">➡️ Prochaine étape : tape <strong>epilogue</strong></div>
+            {% endif %}
             {% endif %}
 
             <!-- Zone de sortie du terminal (id messagesContainer pour terminal.js) -->
@@ -1055,10 +1097,7 @@
             const command = input ? input.value.trim() : '';
 
             if (command) {
-                // Afficher la commande utilisateur (échappée pour éviter XSS)
-                addMessage(`<span class="user-message">${escapeHtml(command)}</span>`);
-
-                // Traiter la commande
+                // La commande est affichée une seule fois dans processCommand (style terminal prompt + commande)
                 processCommand(command);
 
                 // Vider l'input
@@ -1073,6 +1112,7 @@
 
         function addMessage(message) {
             const output = document.getElementById('messagesContainer');
+            if (!output) return;
 
             // Limiter le nombre de messages pour éviter l'accumulation
             const maxMessages = 10;
@@ -1116,11 +1156,21 @@
                     outputEl.classList.remove('terminal-feedback-error');
                     outputEl.classList.add('terminal-feedback-success');
                     setTimeout(function() { outputEl.classList.remove('terminal-feedback-success'); }, 800);
+                    try { if (window.initAudio) window.initAudio(); if (window.playSuccessSound) window.playSuccessSound(); } catch (e) {}
                     addMessage(`
                         <div class="luna-message">
-                            ${result.message || 'Commande exécutée.'}
+                            ${escapeHtml(result.message || 'Commande exécutée.')}
                         </div>
                     `);
+                    var points = (result.data && result.data.score_gagne) ? result.data.score_gagne : (result.score_gagne || 0);
+                    var floatText = points > 0 ? '+'.concat(points, ' XP') : '\u2713';
+                    var floatEl = document.createElement('div');
+                    floatEl.className = 'game-feel-float-success';
+                    floatEl.textContent = floatText;
+                    floatEl.setAttribute('aria-hidden', 'true');
+                    if (outputEl.style.position !== 'relative') outputEl.style.position = 'relative';
+                    outputEl.appendChild(floatEl);
+                    setTimeout(function() { if (floatEl.parentNode) floatEl.remove(); }, 1200);
                     refreshProgressionFromServer();
                     if (cmd === 'acte_1') {
                         var banner = document.getElementById('firstMissionBanner');
@@ -1131,9 +1181,12 @@
                     outputEl.classList.remove('terminal-feedback-success');
                     outputEl.classList.add('terminal-feedback-error');
                     setTimeout(function() { outputEl.classList.remove('terminal-feedback-error'); }, 800);
+                    try { if (window.initAudio) window.initAudio(); if (window.playErrorSound) window.playErrorSound(); } catch (e) {}
+                    var errText = result.error || result.message || 'Erreur inconnue';
+                    var hint = (errText.indexOf('reconnue') !== -1 || errText.indexOf('inconnue') !== -1) ? ' Tape \'aide\' pour voir les commandes.' : '';
                     addMessage(`
                         <div class="error-message">
-                            ❌ Erreur: ${result.error || result.message || 'Erreur inconnue'}
+                            \u274C ${escapeHtml(errText)}${escapeHtml(hint)}
                         </div>
                     `);
                 }
@@ -1162,10 +1215,12 @@
                 .catch(function() {});
         }
 
-        var acte1CorrectCode = 'B';
         function showActe1ChallengeModal() {
             var overlay = document.getElementById('acte1ModalOverlay');
             if (!overlay) return;
+            var codes = ['A', 'B', 'C'];
+            var correctIndex = Math.floor(Math.random() * 3);
+            var acte1CorrectCode = codes[correctIndex];
             overlay.style.display = 'flex';
             var btns = document.querySelectorAll('#acte1ModalBtns button');
             btns.forEach(function(btn) {
@@ -1175,9 +1230,33 @@
                     var chosen = btn.getAttribute('data-code');
                     if (chosen === acte1CorrectCode) {
                         btn.classList.add('correct');
-                        overlay.style.display = 'none';
-                        removeActe1ModalListeners();
-                        addMessage('<div class="luna-message">✅ Défi réussi ! Mission acte_1 validée.</div>');
+                        var modal = overlay.querySelector('.acte1-modal');
+                        if (modal) {
+                            modal.classList.add('celebrate');
+                            setTimeout(function() {
+                                modal.classList.remove('celebrate');
+                                overlay.style.display = 'none';
+                                removeActe1ModalListeners();
+                                addMessage('<div class="luna-message">✅ Défi réussi ! Mission acte_1 validée.</div>');
+                                var nextBanner = document.getElementById('nextStepBanner');
+                                if (!nextBanner) {
+                                    var strip = document.getElementById('terminalProgressionStrip');
+                                    nextBanner = document.createElement('div');
+                                    nextBanner.id = 'nextStepBanner';
+                                    nextBanner.className = 'next-step-banner';
+                                    nextBanner.innerHTML = '\u27A1\uFE0F Prochaine \u00e9tape : tape <strong>acte_2</strong>';
+                                    if (strip && strip.nextSibling) strip.parentNode.insertBefore(nextBanner, strip.nextSibling);
+                                    else if (strip) strip.parentNode.appendChild(nextBanner);
+                                }
+                                if (nextBanner) nextBanner.style.display = 'block';
+                            }, 400);
+                        } else {
+                            overlay.style.display = 'none';
+                            removeActe1ModalListeners();
+                            addMessage('<div class="luna-message">✅ Défi réussi ! Mission acte_1 validée.</div>');
+                            var nextBanner = document.getElementById('nextStepBanner');
+                            if (nextBanner) nextBanner.style.display = 'block';
+                        }
                     } else {
                         btn.classList.add('wrong');
                         btn.disabled = true;
@@ -1516,73 +1595,9 @@
     <script src="{{ url_for('static', filename='js/luna-enhanced.js') }}?v=3.3.0"></script>
 
     <script>
-        // Initialisation des systèmes adaptatifs
         document.addEventListener('DOMContentLoaded', function () {
-            console.log('🎯 Systèmes UX contextuels initialisés dans le terminal');
-
-            // Initialiser le gestionnaire de popups
-            if (window.PopupCoordinator) {
-                window.popupCoordinator = new PopupCoordinator();
-                console.log('✅ PopupCoordinator initialisé');
-            }
-
-            // Initialiser le système de guidance adaptative
-            if (window.adaptiveGuidance) {
-                console.log('✅ Guidance adaptative active');
-            }
-
-            // Initialiser le système de feedback de progression
-            if (window.progressionFeedback) {
-                console.log('✅ Feedback de progression actif');
-            }
-
-            // Initialiser le système compétitif
-            if (window.competitiveSystem) {
-                console.log('✅ Système compétitif actif');
-            }
-
-            // Initialiser le système créatif
-            if (window.creativeSystem) {
-                console.log('✅ Système créatif actif');
-            }
-
-            // Initialiser le système casual
-            if (window.casualSystem) {
-                console.log('✅ Système casual actif');
-            }
-
-            // Initialiser les nouveaux systèmes V3.3.0
-            if (window.visualGuidance) {
-                console.log('👁️ Visual Guidance actif');
-            }
-
-            if (window.tutorialCelebrations) {
-                console.log('🎉 Tutorial Celebrations actif');
-            }
-
-            if (window.dailyChallengesEnhanced) {
-                console.log('🎯 Daily Challenges Enhanced actif');
-            }
-
-            if (window.terminalCommandsEnhanced) {
-                console.log('💻 Terminal Commands Enhanced actif');
-            }
-
-            if (window.miniGamesInteractive) {
-                console.log('🎮 Mini-games Interactive actif');
-            }
-
-            if (window.emptyStatesEnhanced) {
-                console.log('🌟 Empty States Enhanced actif');
-            }
-
-            if (window.rewardAnimations) {
-                console.log('🎉 Reward Animations actif');
-            }
-
-            if (window.lunaEnhanced) {
-                console.log('🌙 LUNA Enhanced actif');
-            }
+            if (window.PopupCoordinator) window.popupCoordinator = new PopupCoordinator();
+            if (window.ARKALIA_DEBUG) console.log('🎯 Terminal - Systèmes chargés');
         });
     </script>
 

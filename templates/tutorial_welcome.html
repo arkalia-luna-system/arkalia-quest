@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-responsive.css') }}?v=4.0.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game-feel.css') }}?v=4.0">
 
     <style>
         .tutorial-container {
@@ -340,6 +341,12 @@
             gap: 8px;
             margin-top: 10px;
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            .tutorial-background { animation: none !important; }
+        }
+        .tutorial-container button:focus-visible,
+        .tutorial-container a:focus-visible { outline: 2px solid var(--violet-lunaire, #a78bfa); outline-offset: 3px; }
 
         @media (max-width: 768px) {
             .tutorial-card {

@@ -15,8 +15,8 @@
 
     <!-- PWA Icons -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/icon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='icons/icon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
     <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
 
     <!-- CSS LUNA VISION -->
@@ -38,6 +38,7 @@
 
     <!-- CSS des corrections d'audit visuel -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/audit-visual-fixes.css') }}?v=3.5.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game-feel.css') }}?v=4.0">
 
     <style>
         /* Styles spécifiques au dashboard immersif */
@@ -545,6 +546,13 @@
             line-height: 1.6;
         }
 
+        @media (prefers-reduced-motion: reduce) {
+            .dashboard-background { animation: none !important; }
+            .dashboard-title, .dashboard-subtitle { animation: none !important; opacity: 1; }
+        }
+        .dashboard-workspace button:focus-visible,
+        .dashboard-workspace a:focus-visible { outline: 2px solid var(--violet-lunaire, #a78bfa); outline-offset: 3px; }
+
         @media (max-width: 768px) {
             .dashboard-title {
                 font-size: 2.2em;
@@ -802,8 +810,9 @@
 
                 // Fallback sur l'API gamification
                 const response = await fetch('/api/gamification/summary');
+                if (!response.ok) return;
                 const data = await response.json();
-
+                if (!data || typeof data !== 'object') return;
                 if (data.success) {
                     updateDashboardMetrics(data);
                     updateProgressRing(data);

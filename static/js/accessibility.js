@@ -6,12 +6,12 @@
 // Stub lunaVision pour éviter les erreurs si un script appelle window.lunaVision avant qu'il soit défini
 if (typeof window.lunaVision === 'undefined') {
     window.lunaVision = {
-        showLunaMessage: function () {},
-        setEmotion: function () {},
+        showLunaMessage: function () { },
+        setEmotion: function () { },
         typeText: function (el, text) {
             if (el && text != null) el.textContent = String(text);
         },
-        createPortalParticles: function () {},
+        createPortalParticles: function () { },
     };
 }
 // Wrappers sûrs pour les boutons nav (disponibles avant theme-manager / daily-challenges)
@@ -54,18 +54,32 @@ class AccessibilityManager {
     // ===== GESTION DES PARAMÈTRES =====
 
     loadSettings() {
-        const saved = localStorage.getItem('arkalia_accessibility');
-        return saved ? JSON.parse(saved) : {
-            daltonian: false,
-            highContrast: false,
-            dyslexia: false,
-            reducedMotion: false,
-            fontSize: 'normal',
-            hapticFeedback: true,
-            zoom: 'normal',
-            spacing: 'normal',
-            highlight: false
-        };
+        try {
+            const saved = localStorage.getItem('arkalia_accessibility');
+            return saved ? JSON.parse(saved) : {
+                daltonian: false,
+                highContrast: false,
+                dyslexia: false,
+                reducedMotion: false,
+                fontSize: 'normal',
+                hapticFeedback: true,
+                zoom: 'normal',
+                spacing: 'normal',
+                highlight: false
+            };
+        } catch (e) {
+            return {
+                daltonian: false,
+                highContrast: false,
+                dyslexia: false,
+                reducedMotion: false,
+                fontSize: 'normal',
+                hapticFeedback: true,
+                zoom: 'normal',
+                spacing: 'normal',
+                highlight: false
+            };
+        }
     }
 
     saveSettings() {

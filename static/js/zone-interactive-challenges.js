@@ -129,7 +129,8 @@ class ZoneInteractiveChallenges {
         this.addChallengeStyles();
 
         // Événements
-        modal.querySelector('.close-modal').addEventListener('click', () => {
+        const closeBtn = modal.querySelector('.close-modal');
+        if (closeBtn) closeBtn.addEventListener('click', () => {
             this.hideModal(modal);
         });
 
@@ -427,17 +428,12 @@ class ZoneInteractiveChallenges {
         `;
 
         // Événements
-        interface.querySelector('.close-challenge').addEventListener('click', () => {
-            this.endChallenge(challenge.id);
-        });
-
-        interface.querySelector('.cancel-challenge').addEventListener('click', () => {
-            this.endChallenge(challenge.id);
-        });
-
-        interface.querySelector('.submit-challenge').addEventListener('click', () => {
-            this.submitChallenge(challenge);
-        });
+        const closeCh = interface.querySelector('.close-challenge');
+        const cancelCh = interface.querySelector('.cancel-challenge');
+        const submitCh = interface.querySelector('.submit-challenge');
+        if (closeCh) closeCh.addEventListener('click', () => this.endChallenge(challenge.id));
+        if (cancelCh) cancelCh.addEventListener('click', () => this.endChallenge(challenge.id));
+        if (submitCh) submitCh.addEventListener('click', () => this.submitChallenge(challenge));
 
         return interface;
     }

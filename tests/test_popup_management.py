@@ -164,13 +164,13 @@ class TestPopupManagement(unittest.TestCase):
         self.assertIn("popup-manager.css", content)
 
     def test_popup_initialization_logs(self):
-        """Vérifier les logs d'initialisation"""
+        """Vérifier que les scripts popup sont chargés sur la page d'accueil"""
         with open("templates/index.html", encoding="utf-8") as f:
             content = f.read()
 
-        # Vérifier les logs
-        self.assertIn("Popup Manager initialisé", content)
-        self.assertIn("Popup Coordinator initialisé", content)
+        # Vérifier que les scripts sont inclus (pas les logs console, retirés en prod)
+        self.assertIn("popup-manager.js", content)
+        self.assertIn("popup-coordinator.js", content)
 
 
 if __name__ == "__main__":

@@ -8,6 +8,10 @@ class AudioManager {
         this.audioContext = null;
         this.audioUnlocked = false;
         this.volume = 0.3;
+        /** Musique de fond légère (ambiance) — optionnelle, préférence localStorage arkalia_ambient_music */
+        this.ambientMusicEnabled = localStorage.getItem('arkalia_ambient_music') === 'on';
+        this.ambientNodes = [];
+        this.ambientGainNode = null;
         this.init();
     }
 
@@ -140,6 +144,84 @@ class AudioManager {
      */
     playHackSound() {
         this.playSound('hack');
+    }
+
+    /**
+     * Démarre la musique de fond légère (ambiance optionnelle).
+     * Référence : Nature 2025 — la musique a un effet significatif sur le plaisir.
+     */
+    startAmbientMusic() {
+        if (!this.audioContext || !this.ambientMusicEnabled) return;
+        this.stopAmbientMusic();
+        try {
+            const ctx = this.audioContext;
+            if (ctx.state === 'suspended') {
+                ctx.resume().catch(() => {});
+            }
+            const gainMaster = ctx.createGain();
+            gainMaster.gain.setValueAtTime(0.06, ctx.currentTime);
+            gainMaster.connect(ctx.destination);
+            this.ambientGainNode = gainMaster;
+
+            const playTone = (freq, delay, duration, type = 'sine') => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, ctx.currentTime + delay);
+                gain.gain.setValueAtTime(0, ctx.currentTime + delay);
+                gain.gain.linearRampToValueAtTime(0.4, ctx.currentTime + delay + 0.5);
+                gain.gain.setValueAtTime(0.4, ctx.currentTime + delay + duration - 0.5);
+                gain.gain.linearRampToValueAtTime(0, ctx.currentTime + delay + duration);
+                osc.connect(gain);
+                gain.connect(gainMaster);
+                osc.start(ctx.currentTime + delay);
+                osc.stop(ctx.currentTime + delay + duration);
+            };
+
+            const loopAmbient = () => {
+                if (!this.ambientMusicEnabled || !this.ambientGainNode) return;
+                const base = 220;
+                playTone(base, 0, 4, 'sine');
+                playTone(base * 1.26, 0.5, 3.5, 'sine');
+                playTone(base * 0.75, 1, 4.5, 'sine');
+            };
+
+            loopAmbient();
+            this.ambientInterval = setInterval(loopAmbient, 4000);
+        } catch (e) {
+            console.warn('⚠️ Ambiance sonore non disponible:', e);
+        }
+    }
+
+    /**
+     * Arrête la musique de fond.
+     */
+    stopAmbientMusic() {
+        if (this.ambientInterval) {
+            clearInterval(this.ambientInterval);
+            this.ambientInterval = null;
+        }
+        this.ambientNodes = [];
+        if (this.ambientGainNode) {
+            try { this.ambientGainNode.disconnect(); } catch (_) {}
+            this.ambientGainNode = null;
+        }
+    }
+
+    /**
+     * Active ou désactive la musique de fond et persiste le choix.
+     * @param {boolean} enabled
+     */
+    setAmbientMusicEnabled(enabled) {
+        this.ambientMusicEnabled = !!enabled;
+        localStorage.setItem('arkalia_ambient_music', enabled ? 'on' : 'off');
+        if (enabled) this.startAmbientMusic();
+        else this.stopAmbientMusic();
+    }
+
+    /** Indique si la musique de fond est activée. */
+    isAmbientMusicEnabled() {
+        return this.ambientMusicEnabled;
     }
 }
 

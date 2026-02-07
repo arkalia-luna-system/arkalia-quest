@@ -146,12 +146,14 @@ class MissionSystem {
     loadMissionProgress() {
         const saved = localStorage.getItem('arkaliaMissionProgress');
         if (saved) {
-            const progress = JSON.parse(saved);
-            this.missionHistory = progress.history || [];
-            this.currentMission = progress.current || null;
-
-            // Mettre à jour le statut des missions
-            this.updateMissionStatuses();
+            try {
+                const progress = JSON.parse(saved);
+                this.missionHistory = progress.history || [];
+                this.currentMission = progress.current || null;
+                this.updateMissionStatuses();
+            } catch (e) {
+                console.warn('Arkalia: loadMissionProgress parse error', e);
+            }
         }
     }
 

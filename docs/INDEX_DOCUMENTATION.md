@@ -43,6 +43,7 @@ Guide de navigation dans la documentation du projet. *Dernière mise à jour : 7
 - **[rapports/RAPPORT_AUDIT_PROJET.md](rapports/RAPPORT_AUDIT_PROJET.md)** — Audit projet (7 fév. 2026)
 - **[audits/AUDIT_JEU_MEILLEURES_PRATIQUES_2026.md](audits/AUDIT_JEU_MEILLEURES_PRATIQUES_2026.md)** — Audit UX vs meilleurs jeux 2024–2025, promesse 15 mots, prochaines étapes
 - **[PLAYTEST_GUIDE_ADOS.md](PLAYTEST_GUIDE_ADOS.md)** — Guide playtest 15 min pour ados (scénario, grille, indicateurs)
+- **[COMPARAISON_JEUX_SOURCES_EXTERNES.md](COMPARAISON_JEUX_SOURCES_EXTERNES.md)** — Pourquoi le jeu peut sembler nul vs autres (sources 2024–2025), fun / game feel / onboarding ; tableau « Couverture des pages » (game-feel + focus + reduced-motion sur les 13 pages)
 - **[reports/README.md](reports/README.md)** — Rapports d’évaluation
 - **[../reports/PLAN_AMELIORATION_TESTS_ADO.md](../reports/PLAN_AMELIORATION_TESTS_ADO.md)** — Plan d'amélioration tests
 - **[../reports/RAPPORT_OPTIMISATION_PERFORMANCE.md](../reports/RAPPORT_OPTIMISATION_PERFORMANCE.md)** — Optimisations

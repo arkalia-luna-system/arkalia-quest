@@ -333,10 +333,14 @@ class UniversalFeedback {
     loadSettings() {
         const settings = localStorage.getItem('universalFeedbackSettings');
         if (settings) {
-            const parsed = JSON.parse(settings);
-            this.audioEnabled = parsed.audioEnabled || true;
-            this.autoHideDelay = parsed.autoHideDelay || 5000;
-            this.debugMode = parsed.debugMode || false;
+            try {
+                const parsed = JSON.parse(settings);
+                this.audioEnabled = parsed.audioEnabled !== false;
+                this.autoHideDelay = parsed.autoHideDelay || 5000;
+                this.debugMode = parsed.debugMode || false;
+            } catch (e) {
+                // garder les valeurs par défaut
+            }
         }
     }
 

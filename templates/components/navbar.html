@@ -1,4 +1,5 @@
 {% set current = active_page|default('') %}
+{% set first_mission_done = (profil is defined and profil and 'acte_1' in (profil.get('missions_completed') or [])) if (profil is defined) else true %}
 <nav class="main-nav" role="navigation" aria-label="Navigation principale">
     <div class="nav-container">
         <button class="burger-btn" id="burger-btn" aria-label="Ouvrir le menu" aria-controls="primary-nav"
@@ -11,6 +12,9 @@
                 {% endif %}>🏠 ACCUEIL</a>
             <a href="/terminal" class="nav-link {{ 'active' if current=='terminal' }}" {% if current=='terminal'
                 %}aria-current="page" {% endif %}>⌨️ TERMINAL</a>
+            <a href="/tutorial" class="nav-link {{ 'active' if current=='tutorial' }}" {% if current=='tutorial'
+                %}aria-current="page" {% endif %}>🎯 TUTORIEL</a>
+            {% if first_mission_done %}
             <a href="/monde" class="nav-link {{ 'active' if current=='world' }}" {% if current=='world'
                 %}aria-current="page" {% endif %}>🌍 MONDE</a>
             <a href="/profil" class="nav-link {{ 'active' if current=='profile' }}" {% if current=='profile'
@@ -21,8 +25,6 @@
                 %}aria-current="page" {% endif %}>📊 DASHBOARD</a>
             <a href="/skill-tree" class="nav-link {{ 'active' if current=='skill-tree' }}" {% if current=='skill-tree'
                 %}aria-current="page" {% endif %}>⚡ COMPÉTENCES</a>
-            <a href="/tutorial" class="nav-link {{ 'active' if current=='tutorial' }}" {% if current=='tutorial'
-                %}aria-current="page" {% endif %}>🎯 TUTORIEL</a>
             <a href="/explorateur" class="nav-link {{ 'active' if current=='explorateur' }}" {% if current=='explorateur'
                 %}aria-current="page" {% endif %}>🗺️ EXPLORATEUR</a>
             <a href="/mail" class="nav-link {{ 'active' if current=='mail' }}" {% if current=='mail'
@@ -32,6 +34,7 @@
             <a href="/technical-tutorials" class="nav-link {{ 'active' if current=='technical-tutorials' }}" {% if current=='technical-tutorials' %}aria-current="page" {% endif %}>📚 TUTORIELS TECH.</a>
             <a href="/accessibility" class="nav-link {{ 'active' if current=='accessibility' }}" {% if
                 current=='accessibility' %}aria-current="page" {% endif %}>♿ ACCESSIBILITÉ</a>
+            {% endif %}
         </div>
     </div>
 </nav>

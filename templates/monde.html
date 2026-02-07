@@ -15,8 +15,8 @@
 
     <!-- PWA Icons -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/icon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='icons/icon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
     <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
 
     <!-- CSS ARKALIA CONSOLIDÉ - Version 4.0 -->
@@ -35,6 +35,7 @@
     <!-- CSS spécialisés pour le monde -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}?v=4.0.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/mini-games.css') }}?v=4.0.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game-feel.css') }}?v=4.0">
 
     <style>
         /* Styles spécifiques au monde immersif */
@@ -339,6 +340,16 @@
             box-shadow: none;
         }
 
+        .zone:active:not(.locked) {
+            transform: scale(0.96);
+            transition-duration: 0.1s;
+        }
+
+        .zone:focus-visible {
+            outline: 2px solid var(--violet-lunaire, #a78bfa);
+            outline-offset: 4px;
+        }
+
         .zone-icon {
             font-size: 1.5em;
             margin-bottom: 5px;
@@ -571,6 +582,11 @@
             transform: translateY(-2px);
         }
 
+        .nav-button:focus-visible {
+            outline: 2px solid var(--violet-lunaire, #a78bfa);
+            outline-offset: 3px;
+        }
+
         .luna-world-guide {
             position: fixed;
             bottom: 20px;
@@ -653,6 +669,24 @@
             font-weight: 600;
             min-width: 50px;
             text-align: right;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .world-background,
+            .map-grid,
+            .zone::before,
+            .player-position {
+                animation: none !important;
+            }
+
+            .zone:hover {
+                transform: none;
+            }
+
+            .zone:active:not(.locked) {
+                transform: none;
+            }
         }
 
         @media (max-width: 768px) {
@@ -784,23 +818,23 @@
 
                     <!-- Contrôles de navigation améliorés -->
                     <div class="navigation-controls">
-                        <button class="nav-button direction-btn" onclick="movePlayer('up')"
-                            title="Déplacer vers le Nord">
+                        <button type="button" class="nav-button direction-btn" onclick="movePlayer('up')"
+                            title="Déplacer vers le Nord" aria-label="Déplacer vers le nord">
                             <span class="direction-icon">⬆️</span>
                             <span class="direction-text">NORD</span>
                         </button>
-                        <button class="nav-button direction-btn" onclick="movePlayer('down')"
-                            title="Déplacer vers le Sud">
+                        <button type="button" class="nav-button direction-btn" onclick="movePlayer('down')"
+                            title="Déplacer vers le Sud" aria-label="Déplacer vers le sud">
                             <span class="direction-icon">⬇️</span>
                             <span class="direction-text">SUD</span>
                         </button>
-                        <button class="nav-button direction-btn" onclick="movePlayer('left')"
-                            title="Déplacer vers l'Ouest">
+                        <button type="button" class="nav-button direction-btn" onclick="movePlayer('left')"
+                            title="Déplacer vers l'Ouest" aria-label="Déplacer vers l'ouest">
                             <span class="direction-icon">⬅️</span>
                             <span class="direction-text">OUEST</span>
                         </button>
-                        <button class="nav-button direction-btn" onclick="movePlayer('right')"
-                            title="Déplacer vers l'Est">
+                        <button type="button" class="nav-button direction-btn" onclick="movePlayer('right')"
+                            title="Déplacer vers l'Est" aria-label="Déplacer vers l'est">
                             <span class="direction-icon">➡️</span>
                             <span class="direction-text">EST</span>
                         </button>
@@ -1179,7 +1213,8 @@
             zones.forEach(zone => {
                 zone.addEventListener('mouseenter', () => {
                     if (window.lunaVision && !zone.classList.contains('locked')) {
-                        const zoneName = zone.querySelector('.zone-name').textContent;
+                        const nameEl = zone.querySelector('.zone-name');
+                        const zoneName = nameEl ? nameEl.textContent : 'Zone';
                         window.lunaVision.showLunaMessage(`Zone ${zoneName} - Explore ses secrets...`, 2000);
                     }
                 });
@@ -1202,34 +1237,8 @@
     {% include 'components/continuity_scripts.html' %}
 
     <script>
-        // Initialisation des systèmes adaptatifs
         document.addEventListener('DOMContentLoaded', function () {
-            console.log('🌍 Systèmes adaptatifs initialisés dans le monde');
-
-            // Initialiser le système de guidance adaptative
-            if (window.adaptiveGuidance) {
-                console.log('✅ Guidance adaptative active');
-            }
-
-            // Initialiser le système de feedback de progression
-            if (window.progressionFeedback) {
-                console.log('✅ Feedback de progression actif');
-            }
-
-            // Initialiser le système compétitif
-            if (window.competitiveSystem) {
-                console.log('✅ Système compétitif actif');
-            }
-
-            // Initialiser le système créatif
-            if (window.creativeSystem) {
-                console.log('✅ Système créatif actif');
-            }
-
-            // Initialiser le système casual
-            if (window.casualSystem) {
-                console.log('✅ Système casual actif');
-            }
+            if (window.ARKALIA_DEBUG) console.log('🌍 Monde - Systèmes chargés');
         });
     </script>
 </body>

@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-responsive.css') }}?v=4.0.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game-feel.css') }}?v=4.0">
 
     <style>
         .accessibility-workspace {
@@ -246,6 +247,13 @@
             color: var(--violet-lunaire);
             margin-right: 8px;
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            .accessibility-background { animation: none !important; }
+            .accessibility-title { animation: none !important; opacity: 1; }
+        }
+        .accessibility-workspace button:focus-visible,
+        .accessibility-workspace a:focus-visible { outline: 2px solid var(--violet-lunaire, #a78bfa); outline-offset: 3px; }
 
         @media (max-width: 768px) {
             .accessibility-title {

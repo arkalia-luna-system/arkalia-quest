@@ -93,7 +93,7 @@ class ThemeManager {
                     }
                 }
             })
-            .catch(() => {});
+            .catch(() => { });
     }
 
 
@@ -101,11 +101,12 @@ class ThemeManager {
         // Créer le sélecteur de thème
         const themeSelector = document.createElement('div');
         themeSelector.className = 'theme-selector';
+        const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
         themeSelector.innerHTML = `
             <select id="theme-select" aria-label="Choisir un thème">
                 <option value="">🎨 Choisir un thème</option>
                 ${Object.entries(this.availableThemes).map(([key, theme]) =>
-            `<option value="${key}">${theme.icon} ${theme.name}</option>`
+            `<option value="${esc(key)}">${theme.icon || ''} ${esc(theme.name || '')}</option>`
         ).join('')}
             </select>
         `;
@@ -118,8 +119,9 @@ class ThemeManager {
     }
 
     setupEventListeners() {
-        // Écouter les changements de thème
-        document.getElementById('theme-select').addEventListener('change', (e) => {
+        const select = document.getElementById('theme-select');
+        if (!select) return;
+        select.addEventListener('change', (e) => {
             this.changeTheme(e.target.value);
         });
 
@@ -294,7 +296,7 @@ class ThemeManager {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ player_id: 'main_user' })
-        }).then((r) => r.ok ? r.json() : null).catch(() => {});
+        }).then((r) => r.ok ? r.json() : null).catch(() => { });
     }
 
     loadTheme() {

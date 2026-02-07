@@ -201,6 +201,7 @@ Ensuite : **playtests** avec des ados (même 2–3), et itérer sur la clarté e
 ## Prochaines étapes (à faire)
 
 - **Fait (fév. 2026)** : 1. Promesse 15 mots + CTA principal ; 4. Micro-intro narrative. Puis : 2. Source de vérité (terminal recharge Niveau/Score depuis GET /api/profile/summary après chaque commande ; bandeau progression). 3. Parcours recommandé (bannière « Première mission : tape acte_1 » + page terminal reçoit profil). 5. Feedback terminal unifié (flash vert/rouge sur la zone de sortie). 6. Accueil plus léger (scripts portail réduits à 4 sur index). Vrai gameplay acte_1 : défi « Choisis le bon code » (modal) après succès de la commande acte_1. Guide playtest : [PLAYTEST_GUIDE_ADOS.md](../PLAYTEST_GUIDE_ADOS.md).
+- **Fait (suite)** : Navbar simplifiée (Accueil + Terminal + Tutoriel uniquement) tant qu’acte_1 n’est pas complété ; code correct acte_1 aléatoire (A/B/C) ; son succès/échec sur le terminal (playSuccessSound / playErrorSound) ; index reçoit profil pour cohérence.
 - **À faire** : Playtests réels avec 2–3 ados ; itérer selon retours.
 
 ---

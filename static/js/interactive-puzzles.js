@@ -518,7 +518,11 @@ class InteractivePuzzles {
     loadPuzzleHistory() {
         const saved = localStorage.getItem('puzzleHistory');
         if (saved) {
-            this.puzzleHistory = JSON.parse(saved);
+            try {
+                this.puzzleHistory = JSON.parse(saved);
+            } catch (e) {
+                console.warn('Arkalia: loadPuzzleHistory parse error', e);
+            }
         }
     }
 

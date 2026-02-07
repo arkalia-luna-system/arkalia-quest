@@ -290,6 +290,7 @@ class GameEngine {
         const startBtn = modal.querySelector('#game-start');
         const quitBtn = modal.querySelector('#game-quit');
         const content = modal.querySelector('#game-content');
+        if (!startBtn || !quitBtn || !content) return;
 
         startBtn.addEventListener('click', () => {
             this.showQuestion(game, currentQuestion, content, (isCorrect) => {
@@ -313,7 +314,9 @@ class GameEngine {
     }
 
     showQuestion(game, questionIndex, container, callback) {
+        if (!container || !game || !Array.isArray(game.questions)) return;
         const question = game.questions[questionIndex];
+        if (!question) return;
         container.innerHTML = `
             <div class="question-container">
                 <h3>Question ${questionIndex + 1}</h3>
@@ -351,7 +354,8 @@ class GameEngine {
         const xpGained = Math.floor(score / 10);
         this.addXP(xpGained, 'mini-jeu');
 
-        modal.querySelector('.game-content').innerHTML = `
+        const gameContent = modal.querySelector('.game-content');
+        if (gameContent) gameContent.innerHTML = `
             <div class="game-results">
                 <h3>🎉 Jeu Terminé !</h3>
                 <div class="results-stats">
@@ -511,10 +515,11 @@ ${Array.isArray(this.gameState.availableGames) ? this.gameState.availableGames.j
 
     showTerminalMessage(message, type = 'info') {
         const terminalOutput = document.getElementById('terminal-output');
-        if (terminalOutput) {
+        if (terminalOutput && message != null) {
             const messageDiv = document.createElement('div');
             messageDiv.className = `terminal-message ${type}`;
-            messageDiv.innerHTML = message.replace(/\n/g, '<br>');
+            const safe = String(message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+            messageDiv.innerHTML = safe.replace(/\n/g, '<br>');
             terminalOutput.appendChild(messageDiv);
             terminalOutput.scrollTop = terminalOutput.scrollHeight;
         }

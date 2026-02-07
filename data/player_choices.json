@@ -544,10 +544,163 @@
         "context": {},
         "timestamp": "2026-02-07T14:58:15.598919",
         "consequences": []
+      },
+      {
+        "id": "a372fdad-86e0-479d-9dda-e33781a14728",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T17:16:10.696705",
+        "consequences": []
+      },
+      {
+        "id": "fabdfba8-b81d-4b41-b44a-017303e4ef94",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T17:17:16.008928",
+        "consequences": []
+      },
+      {
+        "id": "5fad5f53-afd3-4805-9852-8af2146574ba",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T17:25:43.602245",
+        "consequences": []
+      },
+      {
+        "id": "f7419319-63eb-4c88-a515-cbef306e2b7a",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T17:29:52.611990",
+        "consequences": []
+      },
+      {
+        "id": "873a2933-fae1-4be0-b95a-49bf1ffd04b4",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T17:31:00.106272",
+        "consequences": []
+      },
+      {
+        "id": "f7ce1457-264b-4aec-9fa3-5d9c96d4392d",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T17:33:59.482161",
+        "consequences": []
+      },
+      {
+        "id": "2087f5d3-fab0-4133-8f3a-54f69bba8ef7",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T17:35:32.073644",
+        "consequences": []
+      },
+      {
+        "id": "df434160-69c7-4145-a4bc-e28c7e2876f2",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T17:37:57.721095",
+        "consequences": []
+      },
+      {
+        "id": "f330cadb-7720-4d50-a131-e54de48beb9c",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T17:39:27.133283",
+        "consequences": []
+      },
+      {
+        "id": "6583ab0f-6f81-44a0-84ec-3761afdff3a7",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T17:40:33.036286",
+        "consequences": []
+      },
+      {
+        "id": "7065fdc1-42aa-46d6-9a79-083c7e32789c",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T17:41:56.889278",
+        "consequences": []
+      },
+      {
+        "id": "2a31461a-20ac-449d-9218-80a23a3797e5",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T17:45:29.619718",
+        "consequences": []
+      },
+      {
+        "id": "76c61269-9d8c-4784-8205-406dc079e993",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T17:45:32.355978",
+        "consequences": []
+      },
+      {
+        "id": "82817004-91a2-4eed-9414-c24890d54ac6",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T17:45:40.609949",
+        "consequences": []
+      },
+      {
+        "id": "1d2f0d87-dd56-46db-b859-fdf02fff1edf",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T17:47:52.947303",
+        "consequences": []
+      },
+      {
+        "id": "67388379-1934-47ca-a793-32291f7ab621",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T17:48:02.588357",
+        "consequences": []
+      },
+      {
+        "id": "2b9ae409-2eeb-4936-8698-ab6937a077f8",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T17:48:13.177720",
+        "consequences": []
       }
     ],
     "unlocked_arcs": [],
     "discovered_easter_eggs": [
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
+      "arkalia_secret",
       "arkalia_secret",
       "arkalia_secret",
       "arkalia_secret",

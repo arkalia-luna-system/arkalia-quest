@@ -116,7 +116,7 @@ body.reduced-motion {
 
 /* Curseur personnalisé */
 body.custom-cursor {
-    cursor: url('/static/icons/icon-16x16.png'), auto;
+    cursor: url('/static/icons/icon-192x192.png'), auto;
 }
 
 /* Focus visible global (si activé) */

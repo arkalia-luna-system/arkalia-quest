@@ -226,17 +226,21 @@ class TutorialSystem {
 
         const step = this.steps[stepIndex];
         const modal = this.overlay.querySelector('.tutorial-modal');
+        if (!modal) return;
 
-        modal.querySelector('.tutorial-icon').textContent = step.icon;
-        modal.querySelector('.tutorial-title').textContent = step.title;
-        modal.querySelector('.tutorial-description').textContent = step.description;
-
+        const iconEl = modal.querySelector('.tutorial-icon');
+        const titleEl = modal.querySelector('.tutorial-title');
+        const descEl = modal.querySelector('.tutorial-description');
         const nextBtn = modal.querySelector('.tutorial-btn.primary');
-        nextBtn.textContent = step.action;
-        nextBtn.dataset.action = stepIndex === this.steps.length - 1 ? 'complete' : 'next';
-
-        modal.querySelector('.tutorial-progress').textContent =
-            `Étape ${stepIndex + 1} sur ${this.steps.length}`;
+        const progressEl = modal.querySelector('.tutorial-progress');
+        if (iconEl) iconEl.textContent = step.icon || '';
+        if (titleEl) titleEl.textContent = step.title || '';
+        if (descEl) descEl.textContent = step.description || '';
+        if (nextBtn) {
+            nextBtn.textContent = step.action || 'Suivant';
+            nextBtn.dataset.action = stepIndex === this.steps.length - 1 ? 'complete' : 'next';
+        }
+        if (progressEl) progressEl.textContent = `Étape ${stepIndex + 1} sur ${this.steps.length}`;
 
         // Mettre en surbrillance l'élément si spécifié
         if (step.highlight) {

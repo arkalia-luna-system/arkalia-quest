@@ -945,7 +945,7 @@ class SkillTreeSystem {
                 }
 
                 // Notification avec effet sonore
-                this.showUpgradeNotification(skill.name, result.new_level);
+                this.showUpgradeNotification(skill ? skill.name : skillId, result.new_level);
 
                 // Afficher les confettis si c'est un level up
                 if (result.level_up) {

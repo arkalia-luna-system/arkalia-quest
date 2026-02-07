@@ -26,7 +26,10 @@ Jeu narratif éducatif (hacking) pour adolescents, inclusif et accessible.
 - LUNA AI V3, défis quotidiens, thèmes (Matrix, Cyberpunk, Neon, Dark, Retro, Ocean)
 - Performance (réduction appels API), nettoyage code, UI/UX modernisées
 - API Terminal v4.0, popups closables, smart empty states, reward feedback, monde interactif
-- **Audit UX 2026** : promesse 15 mots et micro-intro sur l’accueil, CTA principal, accueil plus léger (4 scripts). Terminal : source de vérité (progression depuis API), feedback succès/échec, bannière première mission, défi acte_1 (modal « Choisis le bon code »). Parcours recommandé : **Accueil → Terminal → acte_1**. Guide playtest : [PLAYTEST_GUIDE_ADOS.md](PLAYTEST_GUIDE_ADOS.md).
+- **Audit UX 2026** : promesse 15 mots et micro-intro sur l’accueil, CTA principal, accueil plus léger (4 scripts). Terminal : source de vérité (progression depuis API), feedback succès/échec + sons, bannière première mission, défi acte_1 (modal « Choisis le bon code », code correct aléatoire A/B/C). Navbar simplifiée (Accueil, Terminal, Tutoriel) jusqu’à acte_1 complété. Parcours recommandé : **Accueil → Terminal → acte_1**. Guide playtest : [PLAYTEST_GUIDE_ADOS.md](PLAYTEST_GUIDE_ADOS.md).
+- **Fun & visuel** : Comparaison avec sources externes dans [COMPARAISON_JEUX_SOURCES_EXTERNES.md](COMPARAISON_JEUX_SOURCES_EXTERNES.md). Accroche 30 s ; game-feel (micro-interactions, +XP/✓, reduced-motion, focus visible) ; bouton Ambiance sur l’accueil ; messages d’erreur terminal amicaux ; célébration modal acte_1 ; bannière « Prochaine étape : tape acte_2 » (puis acte_3… epilogue) après chaque mission.
+- **Couverture visuelle et accessibilité** : Les 13 pages (accueil, terminal, monde, profil, dashboard, leaderboard, tutoriel, arbre de compétences, explorateur, mail, audio, accessibilité, tutoriels techniques) chargent `game-feel.css`, ont un focus visible (boutons, liens, zones, input terminal, modal acte_1) et respectent `prefers-reduced-motion` (animations désactivées à la demande). Voir le tableau « Couverture des pages » dans [COMPARAISON_JEUX_SOURCES_EXTERNES.md](COMPARAISON_JEUX_SOURCES_EXTERNES.md). Focus burger (menu mobile) dans game-feel.css.
+- **Prêt pour playtests** : [PLAYTEST_GUIDE_ADOS.md](PLAYTEST_GUIDE_ADOS.md) avec scénario 15 min et checklist de vérification avant session.
 
 ---
 

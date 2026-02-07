@@ -15,8 +15,8 @@
 
     <!-- PWA Icons -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/icon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='icons/icon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
     <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
 
     <!-- CSS LUNA VISION -->
@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/competitive-system.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/creative-system.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/casual-system.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game-feel.css') }}?v=4.0">
 
     <style>
         /* Styles spécifiques au leaderboard immersif */
@@ -795,9 +796,20 @@
         /* Focus visible pour l'accessibilité */
         .stat-card:focus,
         .challenge-card:focus,
-        .refresh-button:focus {
+        .challenge-card:focus-visible,
+        .refresh-button:focus,
+        .refresh-button:focus-visible {
             outline: 2px solid var(--violet-lunaire);
             outline-offset: 2px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .leaderboard-background,
+            .leaderboard-title, .leaderboard-subtitle,
+            .leaderboard-row,
+            .crown-icon,
+            .luna-leaderboard-guide::before,
+            .loading-spinner { animation: none !important; }
         }
 
         @media (max-width: 768px) {
@@ -1461,7 +1473,8 @@
             challengeCards.forEach(card => {
                 card.addEventListener('mouseenter', () => {
                     if (window.lunaVision) {
-                        const challengeName = card.querySelector('.challenge-name').textContent;
+                        const nameEl = card.querySelector('.challenge-name');
+                        const challengeName = nameEl ? nameEl.textContent : 'Défi';
                         window.lunaVision.showLunaMessage(`Défi ${challengeName} - Prêt à relever le défi ?`, 2000);
                     }
                 });

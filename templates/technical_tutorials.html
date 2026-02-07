@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-responsive.css') }}?v=4.0.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game-feel.css') }}?v=4.0">
     <style>
         .tutorials-workspace { min-height: 100vh; background: linear-gradient(135deg, rgba(9,9,11,0.95) 0%, rgba(30,30,40,0.95) 100%); padding: 30px 20px; }
         .tutorials-header { text-align: center; margin-bottom: 30px; }
@@ -20,6 +21,9 @@
         .tutorial-card p { color: var(--argent-holographique); margin: 0 0 12px 0; font-size: 0.95em; }
         .tutorial-meta { font-size: 0.85em; color: var(--argent-holographique); opacity: 0.8; }
         .tutorial-loading { text-align: center; color: var(--argent-holographique); padding: 40px; }
+        .tutorials-workspace button:focus-visible,
+        .tutorials-workspace a:focus-visible,
+        .tutorial-card:focus-visible { outline: 2px solid var(--violet-lunaire, #a78bfa); outline-offset: 3px; }
     </style>
 </head>
 <body>
@@ -51,8 +55,9 @@
             try {
                 const res = await fetch('/api/technical-tutorials/available?player_id=main_user', { headers: { 'Accept': 'application/json' } });
                 if (!res.ok) throw new Error(res.status);
-                const tutorials = await res.json();
-                if (!Array.isArray(tutorials) || tutorials.length === 0) {
+                const raw = await res.json();
+                const tutorials = Array.isArray(raw) ? raw : (raw && Array.isArray(raw.tutorials) ? raw.tutorials : []);
+                if (tutorials.length === 0) {
                     container.innerHTML = '<p class="tutorial-loading">Aucun tutoriel disponible pour le moment. Joue pour en débloquer !</p>';
                     return;
                 }

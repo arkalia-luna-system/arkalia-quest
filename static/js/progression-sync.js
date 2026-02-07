@@ -92,8 +92,9 @@ class ProgressionSync {
 
         const badgesContainer = document.querySelector('.badges-container, .player-badges, #player-badges');
         if (badgesContainer && Array.isArray(progressionData.badges)) {
+            const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
             badgesContainer.innerHTML = progressionData.badges.map(badge =>
-                `<span class="badge">${badge != null ? String(badge) : ''}</span>`
+                `<span class="badge">${badge != null ? esc(badge) : ''}</span>`
             ).join('');
         }
 

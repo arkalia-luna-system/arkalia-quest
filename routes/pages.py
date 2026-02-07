@@ -15,7 +15,8 @@ def register_pages(app, charger_profil):
 
     @app.route("/")
     def index():
-        return render_template("index.html")
+        profil = charger_profil()
+        return render_template("index.html", profil=profil)
 
     @app.route("/tutorial")
     def tutorial():

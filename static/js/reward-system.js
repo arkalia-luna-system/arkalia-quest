@@ -84,7 +84,8 @@ class RewardSystem {
                 break;
         }
 
-        document.getElementById('reward-notifications').appendChild(notification);
+        const container = document.getElementById('reward-notifications');
+        if (container) container.appendChild(notification);
 
         // Animation d'entrée
         setTimeout(() => {

@@ -11,6 +11,48 @@ let audioContext = null;
 let userLevel = 'beginner'; // Niveau utilisateur pour adaptation
 let lastCommandTime = 0; // Pour détecter la fréquence d'utilisation
 
+/** Évalue une expression mathématique simple sans eval (sécurité). */
+function safeMathEval(expr) {
+    const s = String(expr).replace(/\s/g, '');
+    if (!/^[\d+\-*/().]+$/.test(s)) return undefined;
+    try {
+        const tokens = s.match(/(\d+\.?\d*|[+\-*/()])/g) || [];
+        let i = 0;
+        function parseExpr() {
+            let left = parseTerm();
+            while (tokens[i] === '+' || tokens[i] === '-') {
+                const op = tokens[i++];
+                const right = parseTerm();
+                left = op === '+' ? left + right : left - right;
+            }
+            return left;
+        }
+        function parseTerm() {
+            let left = parseFactor();
+            while (tokens[i] === '*' || tokens[i] === '/') {
+                const op = tokens[i++];
+                const right = parseFactor();
+                left = op === '*' ? left * right : left / right;
+            }
+            return left;
+        }
+        function parseFactor() {
+            if (tokens[i] === '(') {
+                i++;
+                const v = parseExpr();
+                if (tokens[i] === ')') i++;
+                return v;
+            }
+            const n = parseFloat(tokens[i++]);
+            return Number.isFinite(n) ? n : undefined;
+        }
+        const result = parseExpr();
+        return Number.isFinite(result) ? result : undefined;
+    } catch (e) {
+        return undefined;
+    }
+}
+
 // Détection des appareils faibles
 function detectDevicePerformance() {
     const userAgent = navigator.userAgent.toLowerCase();
@@ -474,13 +516,13 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Démarrer l'ambiance sonore (avec fallback)
+    // Musique de fond optionnelle (si activée par le joueur — voir page Audio)
     setTimeout(() => {
-        if (window.audioManager && !isLowPerformanceDevice) {
+        if (window.audioManager && !isLowPerformanceDevice && window.audioManager.isAmbientMusicEnabled()) {
             try {
-                window.audioManager.playSound('ambientSound');
+                window.audioManager.startAmbientMusic();
             } catch (error) {
-                audioEnabled = false;
+                // Silencieux en cas d'erreur
             }
         }
     }, 1000);
@@ -798,17 +840,16 @@ function checkEasterEggs(command) {
         return `⏰ HEURE VIRTUELLE\n\n🕐 ${now.toLocaleTimeString()}\n\n📅 ${now.toLocaleDateString()}\n\n⏱️ Temps de session: ${Math.floor((Date.now() - performance.timing.navigationStart) / 1000)}s\n\n*Le temps est une illusion*`;
     }
 
-    // Easter eggs de calculatrice
+    // Easter eggs de calculatrice (sans eval - sécurité)
     if (cmd.startsWith('calc ') || cmd.startsWith('calculate ')) {
-        const expression = cmd.replace(/^(calc|calculate)\s+/, '');
+        const expression = cmd.replace(/^(calc|calculate)\s+/, '').trim();
         try {
-            // Évaluation sécurisée d'expressions mathématiques simples
-            if (/^[\d\+\-\*\/\(\)\s\.]+$/.test(expression)) {
-                const result = eval(expression);
+            if (/^[\d+\-*/().\s]+$/.test(expression)) {
+                const result = safeMathEval(expression);
+                if (result === undefined || Number.isNaN(result)) throw new Error('Invalid');
                 return `🧮 CALCULATRICE VIRTUELLE\n\n📊 ${expression} = ${result}\n\n💡 Astuce: Utilisez +, -, *, /, ()`;
-            } else {
-                return `❌ Expression invalide\n\n💡 Utilisez seulement des chiffres et +, -, *, /, ()`;
             }
+            return `❌ Expression invalide\n\n💡 Utilisez seulement des chiffres et +, -, *, /, ()`;
         } catch (e) {
             return `❌ Erreur de calcul\n\n💡 Vérifiez votre expression`;
         }
@@ -957,15 +998,14 @@ function checkEasterEggs(command) {
     }
 
     if (cmd === 'calc' || cmd.startsWith('calc ')) {
-        const expression = cmd.replace('calc ', '');
+        const expression = cmd.replace(/^calc\s+/, '').trim();
         try {
-            // Sécurité : seulement les opérations mathématiques basiques
             if (/^[0-9+\-*/().\s]+$/.test(expression)) {
-                const result = eval(expression);
+                const result = safeMathEval(expression);
+                if (result === undefined || Number.isNaN(result)) throw new Error('Invalid');
                 return `🧮 CALCULATRICE\n\n${expression} = ${result}\n\n*LUNA calcule instantanément* ⚡`;
-            } else {
-                return `❌ Expression invalide. Utilisez seulement des chiffres et +, -, *, /, (, )`;
             }
+            return `❌ Expression invalide. Utilisez seulement des chiffres et +, -, *, /, (, )`;
         } catch (error) {
             return `❌ Erreur de calcul. Vérifiez votre expression.`;
         }

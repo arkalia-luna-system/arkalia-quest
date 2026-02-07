@@ -385,8 +385,10 @@ class WorldInteractions {
 
         // Animer l'entrée
         setTimeout(() => {
-            document.querySelector('.world-title').style.animation = 'fadeInUp 1.5s ease-out forwards';
-            document.querySelector('.world-subtitle').style.animation = 'fadeInUp 1.5s ease-out 0.3s forwards';
+            const worldTitle = document.querySelector('.world-title');
+            const worldSubtitle = document.querySelector('.world-subtitle');
+            if (worldTitle) worldTitle.style.animation = 'fadeInUp 1.5s ease-out forwards';
+            if (worldSubtitle) worldSubtitle.style.animation = 'fadeInUp 1.5s ease-out 0.3s forwards';
         }, 500);
     }
 
@@ -424,6 +426,7 @@ class WorldInteractions {
     updateZoneInfo(zoneId) {
         const zone = this.zones[zoneId];
         const zoneDetails = document.getElementById('zone-details');
+        if (!zone || !zoneDetails) return;
 
         zoneDetails.innerHTML = `
             <div class="zone-info-card">
@@ -456,8 +459,9 @@ class WorldInteractions {
     updateMissions(zoneId) {
         const zone = this.zones[zoneId];
         const missionList = document.getElementById('mission-list');
+        if (!zone || !missionList) return;
 
-        if (zone.missions_list.length === 0) {
+        if (!Array.isArray(zone.missions_list) || zone.missions_list.length === 0) {
             missionList.innerHTML = '<div class="zone-description">Aucune mission disponible dans cette zone.</div>';
             return;
         }
@@ -475,20 +479,19 @@ class WorldInteractions {
 
     updatePlayerPosition(zoneId) {
         const zoneElement = document.querySelector(`[data-zone="${zoneId}"]`);
-        if (zoneElement) {
-            const rect = zoneElement.getBoundingClientRect();
-            const mapRect = document.getElementById('world-map').getBoundingClientRect();
+        const mapEl = document.getElementById('world-map');
+        const playerPosition = document.getElementById('player-position');
+        if (!zoneElement || !mapEl || !playerPosition) return;
 
-            const x = ((rect.left - mapRect.left + rect.width / 2) / mapRect.width) * 100;
-            const y = ((rect.top - mapRect.top + rect.height / 2) / mapRect.height) * 100;
+        const rect = zoneElement.getBoundingClientRect();
+        const mapRect = mapEl.getBoundingClientRect();
+        const x = ((rect.left - mapRect.left + rect.width / 2) / mapRect.width) * 100;
+        const y = ((rect.top - mapRect.top + rect.height / 2) / mapRect.height) * 100;
 
-            const playerPosition = document.getElementById('player-position');
-            playerPosition.style.left = x + '%';
-            playerPosition.style.top = y + '%';
-
-            // Animation de déplacement
-            playerPosition.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-        }
+        playerPosition.style.left = x + '%';
+        playerPosition.style.top = y + '%';
+        // Animation de déplacement
+        playerPosition.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
     }
 
     exploreZone(zoneId) {
@@ -568,9 +571,10 @@ class WorldInteractions {
             this.playerPosition.y = Math.max(0, Math.min(100, this.playerPosition.y + delta.y));
 
             const playerPosition = document.getElementById('player-position');
-            playerPosition.style.left = this.playerPosition.x + '%';
-            playerPosition.style.top = this.playerPosition.y + '%';
-
+            if (playerPosition) {
+                playerPosition.style.left = this.playerPosition.x + '%';
+                playerPosition.style.top = this.playerPosition.y + '%';
+            }
             this.showNotification(`Déplacement vers ${direction.toUpperCase()}`, 'info');
         }
     }
@@ -795,7 +799,7 @@ class WorldInteractions {
         `;
 
         const content = modal.querySelector('.modal-content');
-        content.style.cssText = `
+        if (content) content.style.cssText = `
             background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(30, 30, 40, 0.95) 100%);
             border: 2px solid var(--luna-violet, #8b5cf6);
             border-radius: 20px;
@@ -807,7 +811,7 @@ class WorldInteractions {
         `;
 
         const actions = modal.querySelector('.modal-actions');
-        actions.style.cssText = `
+        if (actions) actions.style.cssText = `
             display: flex;
             gap: 15px;
             justify-content: center;
@@ -827,13 +831,12 @@ class WorldInteractions {
         });
 
         const startBtn = modal.querySelector('.btn-start');
-        startBtn.style.cssText += `
+        const cancelBtn = modal.querySelector('.btn-cancel');
+        if (startBtn) startBtn.style.cssText += `
             background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
             color: white;
         `;
-
-        const cancelBtn = modal.querySelector('.btn-cancel');
-        cancelBtn.style.cssText += `
+        if (cancelBtn) cancelBtn.style.cssText += `
             background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
             color: white;
         `;
@@ -841,12 +844,12 @@ class WorldInteractions {
         document.body.appendChild(modal);
 
         // Événements
-        startBtn.addEventListener('click', () => {
+        if (startBtn) startBtn.addEventListener('click', () => {
             modal.remove();
             onStart();
         });
 
-        cancelBtn.addEventListener('click', () => {
+        if (cancelBtn) cancelBtn.addEventListener('click', () => {
             modal.remove();
         });
 

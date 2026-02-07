@@ -1021,17 +1021,22 @@ def api_story_state():
             )
 
         ch = chapters.get(current_id, {})
-        return jsonify(
-            {
-                "success": True,
-                "completed": False,
-                "current_chapter_id": current_id,
-                "title": ch.get("title", current_id),
-                "message": ch.get("message", ""),
-                "completed_count": len(completed),
-                "total": len(order),
-            }
-        )
+        payload = {
+            "success": True,
+            "completed": False,
+            "current_chapter_id": current_id,
+            "title": ch.get("title", current_id),
+            "message": ch.get("message", ""),
+            "completed_count": len(completed),
+            "total": len(order),
+        }
+        if ch.get("choices"):
+            payload["choices"] = ch["choices"]
+        if ch.get("emotion"):
+            payload["emotion"] = ch["emotion"]
+        if ch.get("background"):
+            payload["background"] = ch["background"]
+        return jsonify(payload)
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
 
@@ -1042,6 +1047,9 @@ def api_story_choice():
     try:
         data = request.get_json(silent=True) or {}
         chapter_id = (data.get("chapter_id") or data.get("chapter") or "").strip()
+        _choice_id = (
+            data.get("choice_id") or ""
+        ).strip()  # optional, for future branches
 
         story_data = _load_story_chapters()
         order = story_data.get("chapters_order", [])
@@ -1094,6 +1102,12 @@ def api_story_choice():
                 "title": ch.get("title", next_id),
                 "message": ch.get("message", ""),
             }
+            if ch.get("choices"):
+                next_chapter["choices"] = ch["choices"]
+            if ch.get("emotion"):
+                next_chapter["emotion"] = ch["emotion"]
+            if ch.get("background"):
+                next_chapter["background"] = ch["background"]
 
         return jsonify(
             {

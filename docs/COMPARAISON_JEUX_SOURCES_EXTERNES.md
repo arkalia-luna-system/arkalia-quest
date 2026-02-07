@@ -167,7 +167,7 @@ Le jeu n’est pas "nul" : il est **solide techniquement** et **aligné** avec l
 | Ambiance sonore + sons succès/erreur | `static/js/audio-manager.js` |
 | Terminal : envoi commande, float +XP/✓, flash, modal acte_1 | `templates/terminal.html` (script inline + `sendCommand` / `processCommand`) |
 | Accueil : CTA, bouton Ambiance | `templates/index.html` |
-| Aventure : chapitres, barre progression, Continuer, float +XP, son | `templates/histoire.html`, `data/story_chapters.json` |
+| Aventure : chapitres, choix (acte_5), barre progression, fonds/émotions par chapitre, transition, float +XP, son | `templates/histoire.html`, `data/story_chapters.json` |
 | API état / choix histoire | `app.py` → `GET /api/story/state`, `POST /api/story/choice` |
 | Bandeau progression (niveau, score) | `templates/terminal.html` (`#terminalProgressionStrip`, `refreshProgressionFromServer`) |
 | API commande terminal | `app.py` → `POST /api/terminal/command` |

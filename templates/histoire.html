@@ -41,13 +41,31 @@
         @media (prefers-reduced-motion: reduce) { .story-btn.celebrate { animation: none; } }
         .story-completed { text-align: center; padding: 40px 20px; }
         .story-completed .story-message { margin-bottom: 24px; }
-        .story-links { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+        .story-completed-sub { font-size: 1.1em; color: var(--argent-holographique); margin-bottom: 16px; }
+        .story-links { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+        .story-links a.story-link-btn { color: var(--matrix-green); text-decoration: none; padding: 14px 24px; border: 2px solid rgba(0,255,0,0.5); border-radius: 10px; font-weight: 600; transition: all 0.25s ease; }
+        .story-links a.story-link-btn:hover { background: rgba(0,255,0,0.2); box-shadow: 0 0 20px rgba(0,255,0,0.3); transform: translateY(-2px); }
         .story-links a { color: var(--matrix-green); text-decoration: none; padding: 10px 20px; border: 1px solid rgba(0,255,0,0.4); border-radius: 8px; }
         .story-links a:hover { background: rgba(0,255,0,0.15); }
         .story-loading { text-align: center; padding: 60px 20px; color: rgba(255,255,255,0.7); }
         .story-error { color: #f87171; padding: 16px; background: rgba(248,113,113,0.15); border-radius: 10px; margin-bottom: 16px; }
         #story-float-xp { position: fixed; left: 50%; top: 40%; transform: translate(-50%,0); z-index: 9999; font-size: 1.4em; font-weight: 700; color: var(--matrix-green); text-shadow: 0 0 12px rgba(0,255,0,0.8); pointer-events: none; opacity: 0; transition: opacity 0.2s, transform 0.9s; }
         #story-float-xp.show { opacity: 1; transform: translate(-50%, -60px); }
+        .story-content { transition: opacity 0.35s ease, transform 0.35s ease; }
+        .story-content.story-transition { opacity: 0; transform: translateY(12px); }
+        .story-choices { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+        .story-choice-btn { padding: 14px 24px; background: rgba(167,139,250,0.2); border: 2px solid rgba(167,139,250,0.5); border-radius: 12px; color: var(--violet-lunaire, #a78bfa); font-weight: 600; cursor: pointer; transition: all 0.25s ease; }
+        .story-choice-btn:hover { background: rgba(167,139,250,0.35); box-shadow: 0 0 20px rgba(167,139,250,0.4); transform: translateY(-2px); }
+        .story-choice-btn:focus-visible { outline: 2px solid var(--violet-lunaire); outline-offset: 2px; }
+        .story-workspace.story-bg-mystery { background: linear-gradient(160deg, #0f0f12 0%, #1a0a2e 50%, #0f0f12 100%); }
+        .story-workspace.story-bg-cyber { background: linear-gradient(160deg, #0a1628 0%, #0f0f12 50%, #051a0a 100%); }
+        .story-workspace.story-bg-data { background: linear-gradient(160deg, #0f0f12 0%, #0d1b2a 50%, #0f0f12 100%); }
+        .story-workspace.story-bg-music { background: linear-gradient(160deg, #1a0f2e 0%, #0f0f12 50%, #0f0f12 100%); }
+        .story-workspace.story-bg-alert { background: linear-gradient(160deg, #2e1a0a 0%, #0f0f12 50%, #0f0f12 100%); }
+        .story-workspace.story-bg-tension { background: linear-gradient(160deg, #2e0a0a 0%, #1a0a0a 50%, #0f0f12 100%); }
+        .story-workspace.story-bg-aurora { background: linear-gradient(160deg, #0a1a2e 0%, #0f2e1a 30%, #0f0f12 100%); }
+        .story-workspace.story-bg-dawn { background: linear-gradient(160deg, #1a1a0f 0%, #2e2e1a 40%, #0f0f12 100%); }
+        @media (prefers-reduced-motion: reduce) { .story-content { transition: none; } .story-content.story-transition { opacity: 1; transform: none; } }
     </style>
 </head>
 
@@ -74,15 +92,17 @@
                 <p class="story-next-hint" id="story-next-hint" style="display: none;"></p>
                 <div id="story-actions">
                     <button type="button" class="story-btn" id="story-continue">Continuer</button>
+                    <div class="story-choices" id="story-choices" style="display: none;"></div>
                 </div>
             </div>
             <div id="story-completed" class="story-completed" style="display: none;" aria-live="polite">
                 <h1 class="story-title">🎉 Aventure terminée</h1>
+                <p class="story-completed-sub">Tu as accompli ta mission. Arkalia est sauvée grâce à toi.</p>
                 <div class="story-message" id="story-completed-message"></div>
                 <div class="story-links">
-                    <a href="/monde">Explorer le monde</a>
-                    <a href="/profil">Mon profil</a>
-                    <a href="/">Accueil</a>
+                    <a href="/monde" class="story-link-btn">🌍 Explorer le monde</a>
+                    <a href="/profil" class="story-link-btn">👤 Mon profil</a>
+                    <a href="/" class="story-link-btn">🏠 Accueil</a>
                 </div>
             </div>
             <div id="story-error" class="story-error" style="display: none;" role="alert"></div>
@@ -104,6 +124,9 @@
     const nextHintEl = document.getElementById('story-next-hint');
     const completedMessageEl = document.getElementById('story-completed-message');
     const continueBtn = document.getElementById('story-continue');
+    const choicesEl = document.getElementById('story-choices');
+    const lunaLabelEl = document.getElementById('story-luna-label');
+    const workspaceEl = document.querySelector('.story-workspace');
     const floatXpEl = document.getElementById('story-float-xp');
     const totalChapters = 8;
 
@@ -159,6 +182,12 @@
         errorEl.textContent = msg || 'Erreur de chargement. Réessaie ou retourne à l’accueil.';
     }
 
+    function setWorkspaceBackground(klass) {
+        if (!workspaceEl) return;
+        workspaceEl.classList.remove('story-bg-mystery', 'story-bg-cyber', 'story-bg-data', 'story-bg-music', 'story-bg-alert', 'story-bg-tension', 'story-bg-aurora', 'story-bg-dawn');
+        if (klass) workspaceEl.classList.add(klass);
+    }
+
     function renderState(data) {
         if (data.completed) {
             completedMessageEl.textContent = data.message || 'Tu as terminé l\'aventure. Reviens pour de nouvelles missions !';
@@ -172,8 +201,30 @@
         messageEl.textContent = data.message || '';
         nextHintEl.style.display = 'none';
         nextHintEl.textContent = '';
-        continueBtn.dataset.chapterId = data.current_chapter_id || '';
-        continueBtn.disabled = !data.current_chapter_id;
+        if (lunaLabelEl) lunaLabelEl.textContent = data.emotion ? 'LUNA : ' + data.emotion : 'LUNA est à tes côtés';
+        setWorkspaceBackground(data.background || '');
+
+        var choices = data.choices;
+        if (choices && choices.length > 0) {
+            continueBtn.style.display = 'none';
+            choicesEl.style.display = 'flex';
+            choicesEl.innerHTML = '';
+            choices.forEach(function(c) {
+                var btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'story-choice-btn';
+                btn.textContent = c.label || c.id;
+                btn.dataset.chapterId = data.current_chapter_id || '';
+                btn.dataset.choiceId = c.id || '';
+                choicesEl.appendChild(btn);
+            });
+        } else {
+            continueBtn.style.display = 'inline-block';
+            choicesEl.style.display = 'none';
+            choicesEl.innerHTML = '';
+            continueBtn.dataset.chapterId = data.current_chapter_id || '';
+            continueBtn.disabled = !data.current_chapter_id;
+        }
         showContent();
     }
 
@@ -188,14 +239,17 @@
             .catch(function() { showError('Erreur réseau'); });
     }
 
-    continueBtn.addEventListener('click', function() {
-        var chapterId = continueBtn.dataset.chapterId;
+    function submitChoice(chapterId, choiceId) {
         if (!chapterId) return;
         continueBtn.disabled = true;
+        var choiceBtns = choicesEl.querySelectorAll('.story-choice-btn');
+        choiceBtns.forEach(function(b) { b.disabled = true; });
+        var body = { chapter_id: chapterId };
+        if (choiceId) body.choice_id = choiceId;
         fetch('/api/story/choice', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ chapter_id: chapterId })
+            body: JSON.stringify(body)
         })
             .then(function(r) { return r.json(); })
             .then(function(data) {
@@ -213,27 +267,60 @@
                     }
                     if (data.next_chapter) {
                         var count = data.completed_count || 0;
+                        var next = data.next_chapter;
                         progressEl.textContent = 'Chapitre ' + (count + 1) + ' / ' + (data.total || totalChapters);
                         buildProgressBar(count, count);
-                        titleEl.textContent = data.next_chapter.title || '';
-                        messageEl.textContent = data.next_chapter.message || '';
-                        continueBtn.dataset.chapterId = data.next_chapter.id;
-                        continueBtn.disabled = false;
-                        nextHintEl.style.display = 'block';
-                        nextHintEl.textContent = 'Clique sur « Continuer » pour le prochain chapitre.';
-                        showContent();
+                        if (contentEl.classList) contentEl.classList.add('story-transition');
+                        setTimeout(function() {
+                            titleEl.textContent = next.title || '';
+                            messageEl.textContent = next.message || '';
+                            if (lunaLabelEl) lunaLabelEl.textContent = next.emotion ? 'LUNA : ' + next.emotion : 'LUNA est à tes côtés';
+                            setWorkspaceBackground(next.background || '');
+                            if (next.choices && next.choices.length > 0) {
+                                continueBtn.style.display = 'none';
+                                choicesEl.style.display = 'flex';
+                                choicesEl.innerHTML = '';
+                                next.choices.forEach(function(c) {
+                                    var btn = document.createElement('button');
+                                    btn.type = 'button';
+                                    btn.className = 'story-choice-btn';
+                                    btn.textContent = c.label || c.id;
+                                    btn.dataset.chapterId = next.id || '';
+                                    btn.dataset.choiceId = c.id || '';
+                                    choicesEl.appendChild(btn);
+                                });
+                            } else {
+                                continueBtn.style.display = 'inline-block';
+                                choicesEl.style.display = 'none';
+                                choicesEl.innerHTML = '';
+                                continueBtn.dataset.chapterId = next.id || '';
+                                continueBtn.disabled = false;
+                            }
+                            if (contentEl.classList) contentEl.classList.remove('story-transition');
+                            nextHintEl.style.display = 'block';
+                            nextHintEl.textContent = 'Clique sur « Continuer » ou choisis une option pour la suite.';
+                            showContent();
+                        }, 320);
                     } else {
                         loadState();
                     }
                 } else {
                     showError(data.error || 'Oups, ça n’a pas marché. Réessaie ou reviens à l’accueil.');
                     continueBtn.disabled = false;
+                    choicesEl.querySelectorAll('.story-choice-btn').forEach(function(b) { b.disabled = false; });
                 }
             })
             .catch(function() {
                 showError('Erreur réseau. Vérifie ta connexion et réessaie.');
                 continueBtn.disabled = false;
+                choicesEl.querySelectorAll('.story-choice-btn').forEach(function(b) { b.disabled = false; });
             });
+    }
+
+    continueBtn.addEventListener('click', function() { submitChoice(continueBtn.dataset.chapterId, ''); });
+    choicesEl.addEventListener('click', function(e) {
+        var btn = e.target.closest('.story-choice-btn');
+        if (btn) submitChoice(btn.dataset.chapterId, btn.dataset.choiceId || '');
     });
 
     loadState();

@@ -14,7 +14,7 @@ Jeu narratif éducatif (hacking) pour adolescents, inclusif et accessible.
 
 - **Narratif** : 6 actes + prologue + épilogue
 - **LUNA** : IA émotionnelle, 10 émotions dynamiques
-- **Aventure (page cœur)** : histoire par chapitres (bouton « Continuer »), progression sauvegardée ; **Terminal** en option (mode expert)
+- **Aventure (page cœur)** : histoire par chapitres (bouton « Continuer » ou **choix** sur acte_5), fonds et émotions LUNA par chapitre, transition entre chapitres, écran de fin amélioré ; **Terminal** en option (mode expert)
 - **Mini-jeux** : 9 jeux (logique, code, cybersécurité, cryptographie, réseaux), interface immersive
 - **Guidage** : visual guidance, célébrations tutoriel, états vides, récompenses, API REST
 - **Analytics** : tracking, anonymisation, recommandations, métriques, terminal

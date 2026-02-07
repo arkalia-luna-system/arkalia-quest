@@ -294,9 +294,9 @@ Utilisez 'play_mini_game' pour réessayer."""
         for challenge_id, challenge in challenges.items():
             if challenge["completed"] and not challenge["reward_claimed"]:
                 # Marquer comme réclamé
-                player["daily_challenges_progress"][challenge_id]["reward_claimed"] = (
-                    True
-                )
+                player["daily_challenges_progress"][challenge_id][
+                    "reward_claimed"
+                ] = True
                 rewards_claimed += 1
 
         if rewards_claimed > 0:

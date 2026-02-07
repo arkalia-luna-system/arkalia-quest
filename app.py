@@ -835,13 +835,27 @@ def api_accessibility_save():
 @app.route("/data/profil_joueur.json")
 def get_profil():
     if not db_manager:
-        return jsonify({"id": "main_user", "name": "Hacker", "score": 0, "level": 1, "badges": []})
+        return jsonify(
+            {"id": "main_user", "name": "Hacker", "score": 0, "level": 1, "badges": []}
+        )
     try:
         profile = db_manager.load_profile("main_user")
-        return jsonify(profile if profile is not None else {"id": "main_user", "name": "Hacker", "score": 0, "level": 1, "badges": []})
+        return jsonify(
+            profile
+            if profile is not None
+            else {
+                "id": "main_user",
+                "name": "Hacker",
+                "score": 0,
+                "level": 1,
+                "badges": [],
+            }
+        )
     except Exception as e:
         game_logger.error(f"Erreur chargement profil JSON: {e}")
-        return jsonify({"id": "main_user", "name": "Hacker", "score": 0, "level": 1, "badges": []})
+        return jsonify(
+            {"id": "main_user", "name": "Hacker", "score": 0, "level": 1, "badges": []}
+        )
 
 
 @app.route("/api/progression/data")
@@ -1908,9 +1922,12 @@ def predict_user_behavior():
 def test_database():
     """Test de la base de données"""
     if not DATABASE_AVAILABLE or not db_manager:
-        return jsonify(
-            {"status": "unavailable", "message": "Database module not available"}
-        ), 503
+        return (
+            jsonify(
+                {"status": "unavailable", "message": "Database module not available"}
+            ),
+            503,
+        )
 
     try:
         # Test de création d'un profil

@@ -536,10 +536,19 @@
         "context": {},
         "timestamp": "2026-02-07T14:54:44.409293",
         "consequences": []
+      },
+      {
+        "id": "6a6b47c0-ddd2-4ac3-9e1a-6dfbcb6a2508",
+        "story_arc": "test_choice",
+        "choice": "test_arc",
+        "context": {},
+        "timestamp": "2026-02-07T14:58:15.598919",
+        "consequences": []
       }
     ],
     "unlocked_arcs": [],
     "discovered_easter_eggs": [
+      "arkalia_secret",
       "arkalia_secret",
       "arkalia_secret",
       "arkalia_secret",

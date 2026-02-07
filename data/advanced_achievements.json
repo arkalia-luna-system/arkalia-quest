@@ -10212,26 +10212,116 @@
           "unlocked_at": "2026-02-07T14:54:42.018086",
           "points": 500,
           "category": "persistence"
+        },
+        {
+          "achievement_id": "first_hack",
+          "unlocked_at": "2026-02-07T14:58:13.081096",
+          "points": 50,
+          "category": "hacking"
+        },
+        {
+          "achievement_id": "hack_master",
+          "unlocked_at": "2026-02-07T14:58:13.081249",
+          "points": 1000,
+          "category": "hacking"
+        },
+        {
+          "achievement_id": "stealth_hacker",
+          "unlocked_at": "2026-02-07T14:58:13.081402",
+          "points": 300,
+          "category": "hacking"
+        },
+        {
+          "achievement_id": "world_explorer",
+          "unlocked_at": "2026-02-07T14:58:13.081554",
+          "points": 750,
+          "category": "exploration"
+        },
+        {
+          "achievement_id": "secret_finder",
+          "unlocked_at": "2026-02-07T14:58:13.081704",
+          "points": 400,
+          "category": "exploration"
+        },
+        {
+          "achievement_id": "guild_leader",
+          "unlocked_at": "2026-02-07T14:58:13.081877",
+          "points": 1200,
+          "category": "social"
+        },
+        {
+          "achievement_id": "knowledge_seeker",
+          "unlocked_at": "2026-02-07T14:58:13.082026",
+          "points": 350,
+          "category": "education"
+        },
+        {
+          "achievement_id": "cyber_expert",
+          "unlocked_at": "2026-02-07T14:58:13.082175",
+          "points": 1500,
+          "category": "education"
+        },
+        {
+          "achievement_id": "luna_friend",
+          "unlocked_at": "2026-02-07T14:58:13.082324",
+          "points": 500,
+          "category": "luna"
+        },
+        {
+          "achievement_id": "luna_soulmate",
+          "unlocked_at": "2026-02-07T14:58:13.082472",
+          "points": 2000,
+          "category": "luna"
+        },
+        {
+          "achievement_id": "speed_demon",
+          "unlocked_at": "2026-02-07T14:58:13.082621",
+          "points": 400,
+          "category": "speed"
+        },
+        {
+          "achievement_id": "lightning_fast",
+          "unlocked_at": "2026-02-07T14:58:13.082769",
+          "points": 600,
+          "category": "speed"
+        },
+        {
+          "achievement_id": "creative_genius",
+          "unlocked_at": "2026-02-07T14:58:13.082917",
+          "points": 700,
+          "category": "creativity"
+        },
+        {
+          "achievement_id": "never_give_up",
+          "unlocked_at": "2026-02-07T14:58:13.083201",
+          "points": 300,
+          "category": "persistence"
+        },
+        {
+          "achievement_id": "comeback_kid",
+          "unlocked_at": "2026-02-07T14:58:13.083699",
+          "points": 500,
+          "category": "persistence"
         }
       ],
       "progress": {
-        "action_count_hack_system": 224
+        "action_count_hack_system": 226
       },
       "statistics": {
-        "total_achievements": 1631,
-        "hacking_achievements": 287,
-        "total_points": 1132600,
-        "common_achievements": 112,
-        "rare_achievements": 560,
-        "exploration_achievements": 224,
-        "epic_achievements": 560,
-        "social_achievements": 112,
-        "legendary_achievements": 399,
-        "education_achievements": 224,
-        "luna_achievements": 224,
-        "speed_achievements": 224,
-        "creativity_achievements": 112,
-        "persistence_achievements": 224
+        "total_achievements": 1646,
+        "hacking_achievements": 290,
+        "total_points": 1143150,
+        "common_achievements": 113,
+        "rare_achievements": 565,
+        "exploration_achievements": 226,
+        "epic_achievements": 565,
+        "social_achievements": 113,
+        "legendary_achievements": 403,
+        "education_achievements": 226,
+        "luna_achievements": 226,
+        "speed_achievements": 226,
+        "creativity_achievements": 113,
+        "persistence_achievements": 226
       }
     }
   },

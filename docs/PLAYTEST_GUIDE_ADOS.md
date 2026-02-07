@@ -23,11 +23,11 @@ Vérifier en 15–20 minutes :
 
 ### Checklist rapide (vérifier que tout fonctionne)
 
-- [ ] L’accueil s’affiche (promesse 15 mots, CTA « Commencer l’aventure »).
-- [ ] Clic sur « Commencer l’aventure » → ouverture du terminal.
-- [ ] Bannière « tape acte_1 » visible (si profil sans acte_1 fait).
-- [ ] Une commande (ex. `aide`) renvoie une réponse et le bandeau Niveau/Score se met à jour.
-- [ ] Commande `acte_1` → modal « Choisis le bon code » avec 3 boutons ; un bon code valide et affiche « Prochaine étape : tape acte_2 ».
+- [ ] L’accueil s’affiche (promesse 15 mots, CTA « Rejoindre LUNA » ou équivalent).
+- [ ] Clic sur « Rejoindre LUNA » (ou Aventure) → page /histoire avec un chapitre.
+- [ ] Bouton « Continuer » valide le chapitre (son, +XP, chapitre suivant).
+- [ ] Après le premier chapitre : lien « Monde » / « Profil » visible dans le menu.
+- [ ] (Optionnel) Terminal : commande `aide` renvoie une réponse ; en cas de commande inconnue, message indique Tutoriel ou Aventure.
 
 ---
 
@@ -35,15 +35,15 @@ Vérifier en 15–20 minutes :
 
 1. **Accueil (2 min)**  
    Dire : *« Ouvre la page d’accueil du jeu. En 30 secondes, dis-moi ce que tu crois qu’on fait dans ce jeu. »*  
-   Noter : phrase lue (promesse), bouton cliqué en premier.
+   Noter : phrase lue (promesse), bouton cliqué en premier (Rejoindre LUNA / Aventure attendu).
 
 2. **Première mission (5 min)**  
-   Dire : *« Tu peux jouer. Ton but est de faire ta première mission. »*  
-   Noter : va-t-il au terminal ? Tape-t-il `acte_1` ? Fait-il le défi (choix du code) ? Où s’arrête-t-il ou hésite-t-il ?
+   Dire : *« Tu peux jouer. Ton but est de faire avancer l’aventure (valider au moins un chapitre). »*  
+   Noter : va-t-il sur l’Aventure ? Clique-t-il sur « Continuer » ? Lit-il le texte ? Où s’arrête-t-il ou hésite-t-il ? (Le terminal est en option « mode expert ».)
 
-3. **Après acte_1 (3 min)**  
+3. **Après le premier chapitre (3 min)**  
    Dire : *« Continue un peu. Explore si tu veux. »*  
-   Noter : quelles pages il ouvre (monde, profil, etc.), s’il comprend la progression (niveau, score).
+   Noter : quelles pages il ouvre (monde, profil, etc.), s’il voit la barre de progression et le badge « Nouveau ».
 
 4. **Retour (5 min)**  
    Poser (à l’oral ou court questionnaire) :
@@ -60,19 +60,19 @@ Vérifier en 15–20 minutes :
 |-------------------|-------------------------------------|-----------|-------------|
 | Accueil 30 s     |                                     |           |             |
 | Navigation 1 min  |                                     |           |             |
-| Terminal / acte_1 |                                     |           |             |
-| Défi (code A/B/C) |                                     |           |             |
-| Suite (monde, etc.) |                                   |           |             |
+| Clic Aventure / Rejoindre LUNA |                             |           |             |
+| Lecture chapitre + Continuer |                                 |           |             |
+| Suite (monde, profil, etc.) |                                   |           |             |
 | Retour verbal     |                                     |           |             |
 
 ---
 
 ## Indicateurs utiles
 
-- **Clarté** : a-t-il dit une phrase proche de « hacker qui aide LUNA / missions au terminal » ?
-- **Premier pas** : a-t-il cliqué sur « Commencer l’aventure » (ou équivalent) puis ouvert le terminal ?
-- **Boucle** : a-t-il tapé `acte_1` et fait le défi du code ?
-- **Progression** : a-t-il remarqué le niveau / score (bandeau terminal) ?
+- **Clarté** : a-t-il dit une phrase proche de « aider LUNA / aventure / chapitres » ?
+- **Premier pas** : a-t-il cliqué sur « Rejoindre LUNA » ou « Aventure » puis lu un chapitre et cliqué « Continuer » ?
+- **Boucle** : a-t-il validé au moins un chapitre (Continuer ou choix sur l’acte 5) ?
+- **Progression** : a-t-il remarqué la barre de progression, le +XP ou les liens Monde/Profil après le premier chapitre ?
 
 ---
 
@@ -80,7 +80,7 @@ Vérifier en 15–20 minutes :
 
 - Regrouper les 3 retours : points communs, blocages récurrents, idées.
 - Mettre à jour la doc (STATUT, audit) avec « Retours playtest du [date] ».
-- Prioriser 1–2 changements (ex. texte d’aide, placement du bouton, difficulté du défi acte_1).
+- Prioriser 1–2 changements (ex. texte d’accueil, placement du bouton Continuer, longueur des chapitres).
 
 ---
 

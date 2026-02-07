@@ -1109,17 +1109,20 @@ def api_story_choice():
             if ch.get("background"):
                 next_chapter["background"] = ch["background"]
 
-        return jsonify(
-            {
-                "success": True,
-                "message": result.get("message", ""),
-                "score_gagne": result.get("score_gagne", 0),
-                "next_chapter": next_chapter,
-                "completed": next_id is None,
-                "completed_count": len(completed),
-                "total": len(order),
-            }
-        )
+        payload = {
+            "success": True,
+            "message": result.get("message", ""),
+            "score_gagne": result.get("score_gagne", 0),
+            "next_chapter": next_chapter,
+            "completed": next_id is None,
+            "completed_count": len(completed),
+            "total": len(order),
+        }
+        ch_current = chapters.get(chapter_id, {})
+        choice_messages = ch_current.get("choice_messages") or {}
+        if _choice_id and choice_messages.get(_choice_id):
+            payload["choice_message"] = choice_messages[_choice_id]
+        return jsonify(payload)
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
 

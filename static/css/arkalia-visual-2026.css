@@ -1,0 +1,271 @@
+/* ===== ARKALIA QUEST — REFONTE VISUELLE 2026 ===== */
+/* Direction : « Nuit émotionnelle » — ambre/corail (LUNA) + cyan (actions) + fond bleu nuit */
+/* À charger en dernier pour surcharger les thèmes Luna/Matrix. */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    /* Design system Arkalia 2026 */
+    --arkalia-bg: #0a0e17;
+    --arkalia-surface: #111827;
+    --arkalia-card: #1a2234;
+    --arkalia-hero: #e07c54;
+    --arkalia-hero-light: #f59e7c;
+    --arkalia-accent: #67d4e0;
+    --arkalia-success: #34d399;
+    --arkalia-text: #f4f4f5;
+    --arkalia-text-muted: #94a3b8;
+    --arkalia-border: rgba(224, 124, 84, 0.25);
+    --arkalia-glow: rgba(224, 124, 84, 0.4);
+
+    /* Override variables existantes pour appliquer le nouveau visuel partout */
+    --luna-bg: var(--arkalia-bg);
+    --luna-card: var(--arkalia-card);
+    --luna-text-accent: var(--arkalia-text);
+    --luna-violet: var(--arkalia-hero);
+    --luna-purple: var(--arkalia-hero-light);
+    --violet-lunaire: var(--arkalia-hero);
+    --bleu-spectre: var(--arkalia-accent);
+    --argent-holographique: var(--arkalia-text-muted);
+    --matrix-green: var(--arkalia-success);
+    --matrix-accent: var(--arkalia-accent);
+    --matrix-dark: var(--arkalia-bg);
+    --matrix-glow: var(--arkalia-success);
+    --matrix-highlight: var(--arkalia-accent);
+}
+
+body,
+body.luna-theme {
+    background: var(--arkalia-bg) !important;
+    color: var(--arkalia-text) !important;
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Titres avec caractère */
+.hero-title,
+.story-title,
+.feature-title,
+h1.hero-title {
+    font-family: 'Outfit', 'Inter', sans-serif !important;
+    color: var(--arkalia-hero) !important;
+    text-shadow: 0 0 24px var(--arkalia-glow) !important;
+}
+
+.hero-subtitle,
+.story-message,
+.feature-description,
+.luna-greeting {
+    color: var(--arkalia-text-muted) !important;
+}
+
+.hero-hook,
+.cta-btn.primary .cta-text,
+.story-btn,
+.story-link-btn {
+    color: var(--arkalia-success) !important;
+}
+
+/* CTA et boutons principaux */
+.cta-btn,
+.cta-btn.primary {
+    background: linear-gradient(135deg, rgba(224, 124, 84, 0.2), rgba(103, 212, 224, 0.12)) !important;
+    border-color: var(--arkalia-hero) !important;
+    color: var(--arkalia-text) !important;
+    box-shadow: 0 0 20px rgba(224, 124, 84, 0.2) !important;
+}
+
+.cta-btn .cta-text,
+.cta-btn.primary .cta-text {
+    color: var(--arkalia-hero) !important;
+}
+
+.cta-btn:hover,
+.cta-btn.primary:hover {
+    background: linear-gradient(135deg, rgba(224, 124, 84, 0.35), rgba(103, 212, 224, 0.2)) !important;
+    border-color: var(--arkalia-hero-light) !important;
+    box-shadow: 0 0 28px var(--arkalia-glow) !important;
+}
+
+.cta-btn:hover .cta-text {
+    color: var(--arkalia-hero-light) !important;
+}
+
+.cta-icon {
+    filter: drop-shadow(0 0 12px var(--arkalia-glow)) !important;
+}
+
+/* Avatar LUNA */
+.luna-avatar {
+    background: linear-gradient(135deg, var(--arkalia-hero), var(--arkalia-hero-light)) !important;
+    box-shadow: 0 0 40px var(--arkalia-glow) !important;
+}
+
+.luna-avatar::before {
+    background: linear-gradient(135deg, var(--arkalia-hero), var(--arkalia-accent)) !important;
+}
+
+/* Cartes et blocs */
+.feature-card,
+.story-luna-block {
+    background: rgba(26, 34, 52, 0.85) !important;
+    border-color: var(--arkalia-border) !important;
+}
+
+.feature-card:hover,
+.story-luna-block {
+    border-color: rgba(224, 124, 84, 0.45) !important;
+    box-shadow: 0 0 24px rgba(224, 124, 84, 0.15) !important;
+}
+
+.feature-title {
+    color: var(--arkalia-hero) !important;
+}
+
+/* Page Histoire */
+.story-luna-block {
+    background: rgba(224, 124, 84, 0.1) !important;
+    border: 1px solid var(--arkalia-border) !important;
+}
+
+.story-luna-label {
+    color: var(--arkalia-hero) !important;
+}
+
+.story-progress-bar span.done {
+    background: var(--arkalia-success) !important;
+    box-shadow: 0 0 8px rgba(52, 211, 153, 0.5) !important;
+}
+
+.story-progress-bar span.current {
+    background: var(--arkalia-hero) !important;
+    box-shadow: 0 0 10px var(--arkalia-glow) !important;
+}
+
+.story-message {
+    background: rgba(0, 0, 0, 0.35) !important;
+    border-color: var(--arkalia-border) !important;
+    color: var(--arkalia-text) !important;
+}
+
+.story-btn {
+    background: linear-gradient(135deg, rgba(52, 211, 153, 0.2), rgba(103, 212, 224, 0.1)) !important;
+    border-color: var(--arkalia-success) !important;
+    color: var(--arkalia-success) !important;
+}
+
+.story-btn:hover {
+    background: linear-gradient(135deg, rgba(52, 211, 153, 0.35), rgba(103, 212, 224, 0.2)) !important;
+    box-shadow: 0 0 24px rgba(52, 211, 153, 0.35) !important;
+}
+
+.story-choice-btn {
+    background: rgba(224, 124, 84, 0.15) !important;
+    border-color: var(--arkalia-border) !important;
+    color: var(--arkalia-hero) !important;
+}
+
+.story-choice-btn:hover {
+    background: rgba(224, 124, 84, 0.3) !important;
+    box-shadow: 0 0 20px var(--arkalia-glow) !important;
+}
+
+.story-links a.story-link-btn,
+.story-links a {
+    color: var(--arkalia-success) !important;
+    border-color: rgba(52, 211, 153, 0.5) !important;
+}
+
+.story-links a.story-link-btn:hover,
+.story-links a:hover {
+    background: rgba(52, 211, 153, 0.15) !important;
+    box-shadow: 0 0 16px rgba(52, 211, 153, 0.25) !important;
+}
+
+#story-float-xp.show {
+    color: var(--arkalia-success) !important;
+    text-shadow: 0 0 12px rgba(52, 211, 153, 0.8) !important;
+}
+
+/* Navbar */
+.main-nav .nav-container,
+.nav-container {
+    background: var(--arkalia-surface) !important;
+    border-bottom: 1px solid var(--arkalia-border) !important;
+}
+
+.nav-logo {
+    color: var(--arkalia-hero) !important;
+    font-family: 'Outfit', 'Inter', sans-serif !important;
+}
+
+.nav-link {
+    color: var(--arkalia-text-muted) !important;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--arkalia-hero) !important;
+}
+
+/* Portail accueil */
+.portal-background {
+    background: radial-gradient(ellipse at center, rgba(224, 124, 84, 0.08) 0%, transparent 70%) !important;
+}
+
+.luna-status,
+.ambient-toggle {
+    background: rgba(224, 124, 84, 0.1) !important;
+    border-color: var(--arkalia-border) !important;
+    color: var(--arkalia-text-muted) !important;
+}
+
+.ambient-toggle:hover,
+.luna-status:hover {
+    color: var(--arkalia-hero) !important;
+}
+
+/* Focus et accessibilité (conserver contraste) */
+:focus-visible {
+    outline-color: var(--arkalia-accent) !important;
+}
+
+/* Fonds par chapitre (histoire) — garder la logique, adoucir les teintes */
+.story-workspace.story-bg-mystery {
+    background: linear-gradient(160deg, #0a0e17 0%, #1a0a2e 50%, #0a0e17 100%) !important;
+}
+
+.story-workspace.story-bg-cyber {
+    background: linear-gradient(160deg, #0a1628 0%, #0a0e17 50%, #051a0a 100%) !important;
+}
+
+.story-workspace.story-bg-data {
+    background: linear-gradient(160deg, #0a0e17 0%, #0d1b2a 50%, #0a0e17 100%) !important;
+}
+
+.story-workspace.story-bg-music {
+    background: linear-gradient(160deg, #1a0f2e 0%, #0a0e17 50%, #0a0e17 100%) !important;
+}
+
+.story-workspace.story-bg-alert {
+    background: linear-gradient(160deg, #2e1a0a 0%, #0a0e17 50%, #0a0e17 100%) !important;
+}
+
+.story-workspace.story-bg-tension {
+    background: linear-gradient(160deg, #2e0a0a 0%, #1a0a0a 50%, #0a0e17 100%) !important;
+}
+
+.story-workspace.story-bg-aurora {
+    background: linear-gradient(160deg, #0a1a2e 0%, #0f2e1a 30%, #0a0e17 100%) !important;
+}
+
+.story-workspace.story-bg-dawn {
+    background: linear-gradient(160deg, #1a1a0f 0%, #2e2e1a 40%, #0a0e17 100%) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .portal-background,
+    .luna-avatar,
+    .luna-avatar::before {
+        animation: none !important;
+    }
+}

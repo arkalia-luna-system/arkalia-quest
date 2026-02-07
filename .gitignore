@@ -231,6 +231,9 @@ test-results/
 # Backups (copies complètes du projet, inutiles en version control)
 backups/
 
+# Ancien dossier missions à la racine (le projet utilise data/missions/)
+missions/
+
 # Artifacts générés (audits, sorties de scripts)
 artifacts/
 

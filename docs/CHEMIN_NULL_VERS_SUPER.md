@@ -19,6 +19,9 @@
 - **Badge « Nouveau »** : affiché à côté du titre quand on passe au chapitre suivant (5 s).
 - **« Tu as choisi : … »** : après un choix (acte_5), la phrase s’affiche au-dessus du titre du chapitre suivant.
 - **Navbar** : Monde, Profil, Classement, etc. visibles dès le premier chapitre complété (prologue ou acte_1).
+- **Message narratif par choix** (acte_5) : `choice_messages` dans le JSON, API retourne `choice_message`, affiché sur la page (« Tu as choisi la fusion… », etc.).
+- **Un seul endroit aide** : en cas de commande inconnue au terminal, hint « tape aide » + « Va au Tutoriel ou à l’Aventure (menu) ».
+- **Sauvegarde / reprise** : GET /api/story/state = chapitre en cours ; reprise correcte au retour sur /histoire.
 
 ---
 
@@ -57,7 +60,7 @@
 |----------|--------|--------|
 | ~~Haute~~ ✅ | ~~**Lien Monde / Profil**~~ : navbar affiche Monde/Profil/Classement/etc. dès qu’au moins un chapitre est complété (`missions_completed` non vide). | Fait. |
 | ~~Moyenne~~ ✅ | ~~**Écran de fin**~~ : sous-titre + boutons .story-link-btn (Monde, Profil, Accueil). | Fait. |
-| Basse | **Un seul endroit « aide »** : si tu gardes le terminal en mode expert, une seule aide (ex. « tape aide » ou lien vers le tutoriel) pour éviter la confusion. | Moins de « où je clique ? ». |
+| ~~Basse~~ ✅ | ~~**Un seul endroit « aide »**~~ : terminal en cas d’erreur indique « tape aide » + « Va au Tutoriel ou à l’Aventure (menu) » pour un seul parcours aide/aventure. | Fait. |
 
 ---
 
@@ -74,21 +77,49 @@
 
 | Priorité | Action | Impact |
 |----------|--------|--------|
-| Moyenne | **Branches narratives** : utiliser ou étendre `narrative_branches` / JSON pour que les choix (boutons) mènent à des textes ou chapitres différents. | Histoire qui réagit aux choix = plus mémorable. |
-| Basse | **Sauvegarde / reprise** : s’assurer que quitter puis revenir sur `/histoire` reprend bien au bon chapitre (déjà géré par l’API `story/state`). | Confiance dans la progression. |
+| ~~Moyenne~~ ✅ | ~~**Branches narratives**~~ : acte_5 a des `choice_messages` (phrase narrative par choix) ; l’API retourne `choice_message` et la page l’affiche. | Fait. |
+| ~~Basse~~ ✅ | ~~**Sauvegarde / reprise**~~ : l’API `GET /api/story/state` renvoie le chapitre en cours ; quitter puis revenir sur `/histoire` reprend au bon chapitre. | Vérifié. |
 
 ---
 
-## Ordre recommandé (pour enchaîner après le push)
+## Pour un jeu parfait — ce qui reste (à faire par toi)
 
-1. **Push** `git push origin develop`.
-2. ~~Vrais choix, fonds, émotions LUNA, transitions, écran de fin~~ → **faits** (voir « Déjà en place »).
-3. **Playtests** avec 2–3 ados ; noter les retours.
-4. **Ajuster** 1–2 points prioritaires d’après les retours.
-5. Ensuite : étendre les choix à d’autres chapitres ou branches, musique optionnelle sur la page Histoire.
+Tout le reste listé dans ce doc est **fait** (choix, fonds, émotions, transitions, ambiance, badge Nouveau, « Tu as choisi », message narratif par choix, aide unifiée Terminal → Tutoriel/Aventure, sauvegarde vérifiée). Il ne reste que :
+
+1. **Playtests avec 2–3 ados** (15 min) : suivre [PLAYTEST_GUIDE_ADOS.md](PLAYTEST_GUIDE_ADOS.md), noter les retours dans STATUT_PROJET_ACTUEL (template dans COMPARAISON_JEUX_SOURCES_EXTERNES.md), prioriser 1–2 changements.
+2. **Itérer** après les playtests (texte, bouton, difficulté, ordre des chapitres).
+
+---
+
+## Ordre recommandé (après le push)
+
+1. **Push** : `git add .` puis `git commit -m "..."` (si besoin) puis `git push origin develop`.
+2. **Playtests** avec 2–3 ados ; noter les retours.
+3. **Ajuster** 1–2 points prioritaires d’après les retours.
 
 ---
 
 ## Résumé en une phrase
 
-Pour passer de « null » à « super » : **donner de vrais choix à l’écran**, **ajouter un peu d’image/ambiance**, **tester avec de vrais joueurs**, puis **itérer sur ce qu’ils disent**.
+Le jeu est passé de « null » à **très avancé** : vrais choix, image/ambiance, feedback, aide claire. Pour le rendre **parfait** : **tester avec de vrais joueurs** (playtests) puis **itérer**.
+
+---
+
+## Commandes pour pousser sur develop
+
+À exécuter dans le terminal, **une commande après l’autre** (ne pas coller tout en une ligne) :
+
+```bash
+cd /Volumes/T7/devstation/arkalia-quest
+git add .
+git status
+git commit -m "feat: jeu parfait — message narratif par choix, aide unifiée terminal, doc à jour"
+git push origin develop
+```
+
+Si tu as déjà des changements commités et que tu veux seulement pousser :
+
+```bash
+cd /Volumes/T7/devstation/arkalia-quest
+git push origin develop
+```

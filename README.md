@@ -427,6 +427,7 @@ pie title Couverture des Tests par Module
 | **🔧 Guide Technique** | Architecture et développement | ✅ Complet | [docs/GUIDE_TECHNIQUE_DEVELOPPEUR.md](docs/GUIDE_TECHNIQUE_DEVELOPPEUR.md) |
 | **🚀 Guide de Déploiement** | Déploiement et production | ✅ Complet | [docs/DEPLOYMENT_GUIDE.md](docs/DEPLOYMENT_GUIDE.md) |
 | **Rapports d'analyse** | Analyses et métriques | Complet | [reports/](reports/) · [docs/rapports/](docs/rapports/) |
+| **🎨 Refonte visuelle 2026** | Design system « Nuit émotionnelle » (ambre/cyan) | ✅ Appliquée | [docs/REFONTE_VISUELLE_2026.md](docs/REFONTE_VISUELLE_2026.md) |
 | **📝 Changelog** | Historique des versions | ✅ Complet | [docs/CHANGELOG.md](docs/CHANGELOG.md) |
 
 ---

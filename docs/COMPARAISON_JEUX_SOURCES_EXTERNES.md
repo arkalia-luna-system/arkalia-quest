@@ -88,7 +88,8 @@ Comparaison avec la recherche et les bonnes pratiques 2024–2025 pour rendre le
 - [x] **Célébration** : bouton « Continuer » avec pulse/glow après validation de chapitre (page Aventure).
 - [x] **Prochaine étape** : hint « Clique sur Continuer pour le prochain chapitre » ; écran de fin avec liens Monde / Profil / Accueil.
 - [x] **Visuel / UI** : tableau comparatif avec Metaphor, Beastieball, Gnorp Apologue, CHI 2024 ; game-feel étendu ; page Aventure avec bloc LUNA et barre de progression.
-- [ ] **Playtests** avec 2–3 ados (voir [PLAYTEST_GUIDE_ADOS.md](PLAYTEST_GUIDE_ADOS.md)) — guide prêt, à organiser en conditions réelles.
+- [x] **Aide unifiée** : terminal (commande inconnue) indique « tape aide » + « Va au Tutoriel ou à l’Aventure (menu) ».
+- [ ] **Playtests** avec 2–3 ados (voir [PLAYTEST_GUIDE_ADOS.md](PLAYTEST_GUIDE_ADOS.md)) — seule action restante pour un jeu « parfait ».
 
 ---
 
@@ -179,7 +180,7 @@ Une **refonte complète du visuel** a été documentée et implémentée :
 | Ambiance sonore + sons succès/erreur | `static/js/audio-manager.js` |
 | Terminal : envoi commande, float +XP/✓, flash, modal acte_1 | `templates/terminal.html` (script inline + `sendCommand` / `processCommand`) |
 | Accueil : CTA, bouton Ambiance | `templates/index.html` |
-| Aventure : chapitres, choix (acte_5), barre progression, fonds/émotions, transition, badge Nouveau, « Tu as choisi », toggle Ambiance, float +XP, son | `templates/histoire.html`, `data/story_chapters.json` |
+| Aventure : chapitres, choix (acte_5) + message narratif par choix, barre progression, fonds/émotions, transition, badge Nouveau, « Tu as choisi », toggle Ambiance, float +XP, son | `templates/histoire.html`, `data/story_chapters.json` |
 | API état / choix histoire | `app.py` → `GET /api/story/state`, `POST /api/story/choice` |
 | Bandeau progression (niveau, score) | `templates/terminal.html` (`#terminalProgressionStrip`, `refreshProgressionFromServer`) |
 | API commande terminal | `app.py` → `POST /api/terminal/command` |

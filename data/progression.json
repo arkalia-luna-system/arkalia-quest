@@ -295,18 +295,14 @@
         },
         {
           "command": "any",
-          "timestamp": "2026-02-07T18:40:30.798898"
-        },
-        {
-          "command": "any",
-          "timestamp": "2026-02-07T18:41:34.886746"
+          "timestamp": "2026-02-07T19:05:04.797874"
         }
       ],
       "luna_commands_used": [],
       "mini_games_completed": [],
       "daily_challenges_progress": {
         "hacker_speed": {
-          "progress": 72,
+          "progress": 71,
           "completed": true,
           "reward_claimed": false,
           "notified": true
@@ -331,9 +327,9 @@
         "first_step",
         "speed_demon"
       ],
-      "last_activity": "2026-02-07T18:41:34.886573",
+      "last_activity": "2026-02-07T19:05:04.797728",
       "stats": {
-        "total_commands": 72,
+        "total_commands": 71,
         "total_luna_commands": 0,
         "total_zones_explored": 0,
         "total_mini_games": 0,
@@ -346,9 +342,9 @@
       }
     },
     "main_user": {
-      "score": 2035,
+      "score": 1555,
       "level": 4,
-      "xp": 1035,
+      "xp": 555,
       "coins": 125,
       "badges": [
         "Premier pas",
@@ -853,16 +849,20 @@
           "timestamp": "2026-02-07T18:03:55.855178"
         },
         {
-          "command": "prologue",
-          "timestamp": "2026-02-07T18:13:19.946924"
+          "command": "skill_tree",
+          "timestamp": "2026-02-07T19:03:23.375428"
+        },
+        {
+          "command": "skill_tree",
+          "timestamp": "2026-02-07T19:03:23.379543"
         },
         {
           "command": "help",
-          "timestamp": "2026-02-07T18:40:30.731044"
+          "timestamp": "2026-02-07T19:04:08.806546"
         },
         {
           "command": "help",
-          "timestamp": "2026-02-07T18:41:34.781608"
+          "timestamp": "2026-02-07T19:05:04.717955"
         }
       ],
       "luna_commands_used": [
@@ -874,7 +874,7 @@
       "mini_games_completed": [],
       "daily_challenges_progress": {
         "hacker_speed": {
-          "progress": 126,
+          "progress": 127,
           "completed": true,
           "reward_claimed": false,
           "notified": true
@@ -900,9 +900,9 @@
         "first_step",
         "speed_demon"
       ],
-      "last_activity": "2026-02-07T18:41:34.781237",
+      "last_activity": "2026-02-07T19:05:04.717794",
       "stats": {
-        "total_commands": 126,
+        "total_commands": 127,
         "total_luna_commands": 4,
         "total_zones_explored": 0,
         "total_mini_games": 0,
@@ -912,10 +912,7 @@
         "hacking": {
           "code_breaking": 4
         }
-      },
-      "story_chapters_completed": [
-        "prologue"
-      ]
+      }
     },
     "test_player": {
       "score": 100,

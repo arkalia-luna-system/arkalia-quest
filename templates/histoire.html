@@ -6,7 +6,7 @@
     <title>📖 ARKALIA QUEST - L'aventure de LUNA</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Aide LUNA à sauver Arkalia : choisis ton chemin, vis l'aventure.">
-    <meta name="theme-color" content="#a78bfa">
+    <meta name="theme-color" content="#0a0e17">
 
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-core.css') }}?v=4.0.0">
@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}?v=3.1.1">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/game-feel.css') }}?v=4.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/reward-animations.css') }}?v=3.1.1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-visual-2026.css') }}?v=1.0">
 
     <style>
         body { margin: 0; background: var(--luna-bg, #0f0f12); color: #fafafa; min-height: 100vh; }
@@ -299,8 +300,8 @@
                         setTimeout(function() {
                             titleEl.textContent = next.title || '';
                             messageEl.textContent = next.message || '';
-                            if (choiceMadeEl && lastChoiceLabel) {
-                                choiceMadeEl.textContent = 'Tu as choisi : ' + lastChoiceLabel;
+                            if (choiceMadeEl && (data.choice_message || lastChoiceLabel)) {
+                                choiceMadeEl.textContent = data.choice_message || ('Tu as choisi : ' + lastChoiceLabel);
                                 choiceMadeEl.style.display = 'block';
                                 lastChoiceLabel = '';
                             }

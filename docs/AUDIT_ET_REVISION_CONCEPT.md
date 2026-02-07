@@ -197,11 +197,23 @@ Si tu me dis si tu penches plutôt **histoire/choix** ou **monde/exploration**, 
 
 ---
 
+## Partie 3bis — Refonte visuelle (7 février 2026)
+
+Une **refonte complète du visuel** a été décidée : le style actuel (violet / vert matrix, fond sombre générique) ne convient pas. Objectifs :
+
+- **Audit** : But du jeu (aventure narrative avec LUNA), histoire (Arkalia, NEXUS, PANDORA), identification des points faibles du visuel.
+- **Inspiration** : Jeux similaires analysés — Solace State, Read Only Memories: Neurodiver, Metaphor: ReFantazio, Hades/Supergiant, Beastieball, Gnorp Apologue — pour en tirer principes (langage cohérent, clarté, émotion, identité mémorable).
+- **Nouvelle direction** : « Arkalia — Nuit émotionnelle » — fond bleu nuit (#0a0e17), couleur héros/LUNA en **ambre/corail** (#e07c54), accent **cyan** pour les actions, typographie distinctive pour les titres, UI au service du récit.
+- **Détail** : Voir [REFONTE_VISUELLE_2026.md](REFONTE_VISUELLE_2026.md) pour le design system, variables CSS, et plan d’implémentation. Les MD (AUDIT_ET_REVISION_CONCEPT, COMPARAISON_JEUX_SOURCES_EXTERNES) sont mis à jour en conséquence.
+
+---
+
 ## Partie 4 — Implémentation réalisée (7 février 2026)
 
-- **API** : `GET /api/story/state` (chapitre en cours + contenu), `POST /api/story/choice` (validation du chapitre, récompenses, chapitre suivant). Données dans `data/story_chapters.json` ; progression dans `progression_engine` (`story_chapters_completed`).
-- **Page cœur** : `/histoire` (template `histoire.html`) — affichage du chapitre, bouton « Continuer », puis écran de fin avec liens Monde / Profil / Accueil.
+- **API** : `GET /api/story/state` (chapitre en cours + contenu, optionnellement `choices`, `emotion`, `background`), `POST /api/story/choice` (validation du chapitre, récompenses, chapitre suivant, optionnellement `choice_message` selon le choix). Données dans `data/story_chapters.json` ; progression dans `progression_engine` (`story_chapters_completed`).
+- **Page cœur** : `/histoire` (template `histoire.html`) — affichage du chapitre, bouton « Continuer » ou **choix** (acte_5 : 3 boutons), fonds et émotions LUNA par chapitre, transition, barre de progression, badge « Nouveau », message narratif après choix (« Tu as choisi la fusion… »), bouton Ambiance, écran de fin avec liens Monde / Profil / Accueil.
 - **Accueil** : CTA principal « Rejoindre LUNA » → `/histoire` ; promesse et textes LUNA mis à jour (sans terminal). Terminal en bouton secondaire « Mode expert ».
-- **Navbar** : lien « 📖 AVENTURE » ajouté après Accueil ; Terminal conservé en secondaire.
-- **Documentation** : README, STATUT_PROJET_ACTUEL, index.md mis à jour (nouvelle promesse, parcours Accueil → Aventure).
+- **Navbar** : lien « 📖 AVENTURE » après Accueil ; Monde/Profil/Classement etc. visibles dès qu’au moins un chapitre est complété.
+- **Aide unifiée** : en cas de commande inconnue au terminal, message « tape aide » + « Va au Tutoriel ou à l’Aventure (menu) ».
+- **Documentation** : README, STATUT_PROJET_ACTUEL, INDEX_DOCUMENTATION, CHEMIN_NULL_VERS_SUPER, PLAYTEST_GUIDE_ADOS (parcours Aventure) mis à jour.
 - **Profil** : `charger_profil()` injecte `missions_completed` depuis `story_chapters_completed` pour que la navbar affiche Monde/Profil/etc. après le premier chapitre complété.

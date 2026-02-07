@@ -9,6 +9,16 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [4.0.2] - 2026-02-07
 
+### Amélioré (Jeu parfait — docs et cohérence)
+
+- **Documentation** : [CHEMIN_NULL_VERS_SUPER.md](docs/CHEMIN_NULL_VERS_SUPER.md) ajouté à l’index ; parcours « null → super » et commandes Git pour push. [PLAYTEST_GUIDE_ADOS.md](docs/PLAYTEST_GUIDE_ADOS.md) aligné sur l’Aventure (Rejoindre LUNA, Continuer, premier chapitre) au lieu du terminal/acte_1. [AUDIT_ET_REVISION_CONCEPT.md](docs/AUDIT_ET_REVISION_CONCEPT.md) Partie 4 complétée (choix, choice_message, aide unifiée). [audits/AUDIT_JEU_MEILLEURES_PRATIQUES_2026.md](docs/audits/AUDIT_JEU_MEILLEURES_PRATIQUES_2026.md) « Prochaines étapes » et tableau « Il manque quoi » mis à jour (parcours Aventure, première session simple ✅). STATUT et COMPARAISON : cohérence navbar (Monde/Profil dès 1er chapitre complété).
+
+### Amélioré (Refonte visuelle 2026)
+
+- **Identité visuelle** : Nouvelle direction « Nuit émotionnelle » — fond bleu nuit (`#0a0e17`), ambre/corail pour LUNA et titres (`#e07c54`), cyan pour les actions (`#67d4e0`), typographie Outfit pour les titres. Fichier `static/css/arkalia-visual-2026.css` (design system + override des variables Luna/Matrix).
+- **Pages** : Refonte appliquée à toutes les pages (accueil, aventure, monde, profil, dashboard, leaderboard, tutoriel, skill-tree, terminal, tutoriels techniques, accessibilité, audio, mail, explorateur). Navbar, CTA, bloc LUNA, barre de progression et boutons alignés sur le nouveau visuel.
+- **Documentation** : [docs/REFONTE_VISUELLE_2026.md](docs/REFONTE_VISUELLE_2026.md) (audit, jeux de référence, plan et checklist), INDEX_DOCUMENTATION, index.md, README et STATUT mis à jour.
+
 ### Amélioré (Audit « pourquoi le jeu semble nul »)
 
 - **Accueil** : CTA principal « Commencer l'aventure » renforcé (taille, bordure, ombre) ; boutons « Explorer le monde » et « Mon profil » en secondaire (classe `secondary`, moins mis en avant). Message LUNA déjà présent (« LUNA a besoin de toi »).

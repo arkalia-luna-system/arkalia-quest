@@ -46,7 +46,12 @@
         { "id": "fusion", "label": "Fusion LUNA et NEXUS" },
         { "id": "destruction", "label": "Détruire PANDORA" },
         { "id": "neutralisation", "label": "Neutraliser sans détruire" }
-      ]
+      ],
+      "choice_messages": {
+        "fusion": "Tu as choisi la fusion. LUNA et NEXUS ne feront plus qu'une.",
+        "destruction": "Tu as choisi de détruire PANDORA. Un sacrifice pour la paix.",
+        "neutralisation": "Tu as choisi la neutralisation. Contrôle sans destruction."
+      }
     },
     "acte_6": {
       "id": "acte_6",

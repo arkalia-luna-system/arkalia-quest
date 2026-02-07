@@ -8,8 +8,8 @@
     <!-- Critical above-the-fold : premier rendu sans attendre les CSS externes -->
     <style>
         :root {
-            --luna-bg: #0f0f12;
-            --luna-text: #fafafa;
+            --luna-bg: #0a0e17;
+            --luna-text: #f4f4f5;
         }
 
         body {
@@ -36,7 +36,7 @@
     <!-- PWA Meta Tags -->
     <meta name="description"
         content="Portail d'entrée dans l'esprit de LUNA. Bienvenue dans Arkalia Quest, l'aventure cybernétique immersive.">
-    <meta name="theme-color" content="#a78bfa">
+    <meta name="theme-color" content="#0a0e17">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
@@ -104,6 +104,8 @@
     <!-- CSS des corrections d'audit visuel -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/audit-visual-fixes.css') }}?v=3.5.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/theme-selection-enhanced.css') }}?v=3.5.0">
+    <!-- Refonte visuelle 2026 — Nuit émotionnelle (ambre/cyan) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-visual-2026.css') }}?v=1.0">
 
     <!-- CSS gameplay/popups en différé (ne bloque pas le premier rendu) -->
     <link rel="preload" href="{{ url_for('static', filename='css/zone-exploration-enhanced.css') }}?v=3.6.0" as="style"

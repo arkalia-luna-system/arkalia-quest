@@ -956,6 +956,7 @@
     </style>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/command-effects.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/game-feel.css') }}?v=4.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-visual-2026.css') }}?v=1.0">
 </head>
 
 <body>
@@ -1280,7 +1281,7 @@
                     setTimeout(function () { outputEl.classList.remove('terminal-feedback-error'); }, 800);
                     try { if (window.initAudio) window.initAudio(); if (window.playErrorSound) window.playErrorSound(); } catch (e) { }
                     var errText = result.error || result.message || 'Erreur inconnue';
-                    var hint = (errText.indexOf('reconnue') !== -1 || errText.indexOf('inconnue') !== -1) ? ' Tape \'aide\' pour voir les commandes.' : '';
+                    var hint = (errText.indexOf('reconnue') !== -1 || errText.indexOf('inconnue') !== -1) ? ' Tape \'aide\' pour voir les commandes. Tu préfères l\'aventure ? Va au Tutoriel (menu) ou à l\'Aventure pour l\'histoire.' : '';
                     addMessage(`
                         <div class="error-message">
                             \u274C ${escapeHtml(errText)}${escapeHtml(hint)}
@@ -1657,7 +1658,7 @@
                 } else {
                     addMessage(`
                         <div class="system-message">
-                            « ${escapeHtml(command)} » n'est pas une commande. 💡 Tape <strong>aide</strong> pour voir ce que tu peux faire.
+                            « ${escapeHtml(command)} » n'est pas une commande. 💡 Tape <strong>aide</strong> pour les commandes, ou va au <strong>Tutoriel</strong> / <strong>Aventure</strong> (menu) pour l'histoire.
                         </div>
                     `);
                 }

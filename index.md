@@ -10,7 +10,7 @@ Arkalia Quest est une expérience de jeu unique qui combine :
 
 - **Aventure narrative** par chapitres (bouton « Continuer ») avec LUNA ; terminal en option
 - **Système de progression** avec badges, niveaux et défis
-- **Thèmes visuels** adaptatifs (Matrix, Neon, Cyberpunk, Ocean, Earth, Dopamine)
+- **Identité visuelle 2026** (« Nuit émotionnelle ») : fond bleu nuit, ambre/corail pour LUNA, cyan pour les actions — voir [Refonte visuelle 2026](docs/REFONTE_VISUELLE_2026.md). Thèmes alternatifs (Matrix, Neon, Cyberpunk, etc.) restent disponibles.
 - **Accessibilité complète** avec support des lecteurs d'écran
 - **Architecture modulaire** pour une extensibilité maximale
 
@@ -46,6 +46,11 @@ docker run -p 5000:10000 arkalia-quest
 
 - [Guide de déploiement](docs/GUIDE_DEPLOIEMENT.md) - Instructions de déploiement
 - [Docker](docs/DOCKER_AUTH.md) - Configuration Docker
+
+### Design et UX
+
+- [Refonte visuelle 2026](docs/REFONTE_VISUELLE_2026.md) - Audit, jeux de référence, design system et implémentation
+- [Comparaison jeux / bonnes pratiques](docs/COMPARAISON_JEUX_SOURCES_EXTERNES.md) - Fun, game feel, onboarding
 
 ### Pour les tests
 

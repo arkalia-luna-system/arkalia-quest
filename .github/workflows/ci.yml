@@ -225,6 +225,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     needs: build_package
+    permissions:
+      contents: write  # requis pour push gh-pages par peaceiris/actions-gh-pages
 
     steps:
     - name: 📥 Checkout code

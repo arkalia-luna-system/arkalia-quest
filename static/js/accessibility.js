@@ -3,6 +3,29 @@
  * Gestion complète de l'accessibilité pour tous les utilisateurs
  */
 
+// Stub lunaVision pour éviter les erreurs si un script appelle window.lunaVision avant qu'il soit défini
+if (typeof window.lunaVision === 'undefined') {
+    window.lunaVision = {
+        showLunaMessage: function () {},
+        setEmotion: function () {},
+        typeText: function (el, text) {
+            if (el && text != null) el.textContent = String(text);
+        },
+        createPortalParticles: function () {},
+    };
+}
+// Wrappers sûrs pour les boutons nav (disponibles avant theme-manager / daily-challenges)
+if (typeof window.showThemeManager !== 'function') {
+    window.showThemeManager = function () {
+        if (window.themeManager && typeof window.themeManager.show === 'function') window.themeManager.show();
+    };
+}
+if (typeof window.showDailyChallenges !== 'function') {
+    window.showDailyChallenges = function () {
+        if (window.dailyChallenges && typeof window.dailyChallenges.show === 'function') window.dailyChallenges.show();
+    };
+}
+
 class AccessibilityManager {
     constructor() {
         this.currentMode = 'default';

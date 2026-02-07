@@ -159,6 +159,15 @@ class ThemeManager {
         // console.log(`🎨 Thème changé vers: ${this.availableThemes[themeKey].name}`);
     }
 
+    /** Affiche le sélecteur de thème (appelé par onclick="themeManager.show()") */
+    show() {
+        const sel = document.getElementById('theme-select');
+        if (sel) {
+            sel.focus();
+            sel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
+
     applyTheme(themeKey) {
         const theme = this.availableThemes[themeKey];
         if (!theme) return;
@@ -353,5 +362,6 @@ document.head.appendChild(style);
 // Initialiser le gestionnaire de thèmes
 const themeManager = new ThemeManager();
 
-// Exporter pour utilisation globale
+// Exporter pour utilisation globale (ThemeManager et themeManager pour onclick="themeManager.show()")
 window.ThemeManager = themeManager;
+window.themeManager = themeManager;

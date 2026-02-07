@@ -1149,14 +1149,17 @@ function executeCommand(cmdOverride) {
                     badges: data.profil.badges
                 });
             }
-            const reponse = data.reponse || data; // fallback pour compatibilité
+            let reponse = data.reponse != null ? data.reponse : data; // fallback pour compatibilité
+            if (!reponse || typeof reponse !== 'object') {
+                reponse = { réussite: false, message: 'Réponse invalide du serveur. Réessaie.' };
+            }
 
             // FEEDBACK IMMÉDIAT ET VIVANT - Réaction instantanée
             triggerImmediateFeedback(command, reponse);
 
             if (reponse.réussite || reponse.reussite) {
                 playMatrixSuccessEffect();
-                addMatrixSuccessMessage(reponse.message || 'Succès !');
+                addMatrixSuccessMessage(reponse.message || 'Bien joué !');
 
                 // Système de récompenses Matrix amélioré
                 if (reponse.instant_rewards) {
@@ -1232,7 +1235,7 @@ function executeCommand(cmdOverride) {
                 }
             } else {
                 playMatrixErrorEffect();
-                addMatrixErrorMessage(reponse.message || 'Erreur inconnue.');
+                addMatrixErrorMessage(reponse.message || 'Oups, réessaie ou tape "aide" pour les commandes.');
 
                 // Encouragement personnalisé
                 if (reponse.encouragement) {

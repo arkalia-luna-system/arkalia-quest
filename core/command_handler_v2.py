@@ -195,12 +195,12 @@ class CommandHandlerV2:
                 "profile_updated": False,
             }
 
-        except Exception as e:
-            # Gestion d'erreur
+        except Exception:
+            # Gestion d'erreur (message joueur sans détail technique ; détail loggé dans app.py)
             return {
                 "réussite": False,
                 "ascii_art": "💥",
-                "message": f"💥 Erreur lors de l'exécution de '{command}': {e!s}",
+                "message": "💥 Un petit bug s'est glissé. Réessaie ou tape « aide » pour voir les commandes !",
                 "score_gagne": 0,
                 "profile_updated": False,
             }

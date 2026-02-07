@@ -790,8 +790,8 @@
                 <div class="terminal-status">CONNECTÉ</div>
             </div>
 
-            <!-- Zone de sortie du terminal -->
-            <div class="terminal-output" id="terminal-output">
+            <!-- Zone de sortie du terminal (id messagesContainer pour terminal.js) -->
+            <div class="terminal-output" id="messagesContainer">
                 <div class="system-message">
                     Terminal Arkalia Quest v2.0 initialisé...
                     Connexion à LUNA établie...
@@ -807,7 +807,7 @@
             <!-- Zone de saisie -->
             <div class="terminal-input-container">
                 <span class="terminal-prompt" aria-label="Invite de commande">luna@arkalia:~$</span>
-                <input type="text" class="terminal-input" id="terminal-input" placeholder="Tape ta commande ici..."
+                <input type="text" class="terminal-input" id="commandInput" placeholder="Tape ta commande ici..."
                     autocomplete="off" aria-label="Zone de saisie de commande" aria-describedby="command-help">
                 <button class="terminal-send" onclick="sendCommand()" aria-label="Exécuter la commande"
                     title="Exécuter la commande (Entrée)">
@@ -906,8 +906,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const terminalInput = document.getElementById('terminal-input');
-            const terminalOutput = document.getElementById('terminal-output');
+            const terminalInput = document.getElementById('commandInput');
+            const terminalOutput = document.getElementById('messagesContainer');
 
             // Focus automatique sur l'input
             terminalInput.focus();
@@ -960,8 +960,8 @@
         });
 
         function sendCommand() {
-            const input = document.getElementById('terminal-input');
-            const command = input.value.trim();
+            const input = document.getElementById('commandInput');
+            const command = input ? input.value.trim() : '';
 
             if (command) {
                 // Afficher la commande utilisateur
@@ -976,12 +976,12 @@
         }
 
         function quickCommand(cmd) {
-            document.getElementById('terminal-input').value = cmd;
-            sendCommand();
+            const input = document.getElementById('commandInput');
+            if (input) { input.value = cmd; sendCommand(); }
         }
 
         function addMessage(message) {
-            const output = document.getElementById('terminal-output');
+            const output = document.getElementById('messagesContainer');
 
             // Limiter le nombre de messages pour éviter l'accumulation
             const maxMessages = 10;
@@ -1023,13 +1023,13 @@
                 if (result.success) {
                     addMessage(`
                         <div class="luna-message">
-                            ${result.message}
+                            ${result.message || 'Commande exécutée.'}
                         </div>
                     `);
                 } else {
                     addMessage(`
                         <div class="error-message">
-                            ❌ Erreur: ${result.error}
+                            ❌ Erreur: ${result.error || result.message || 'Erreur inconnue'}
                         </div>
                     `);
                 }
@@ -1112,7 +1112,8 @@
                     `);
                     setTimeout(() => window.location.href = '/monde', 1500);
                 } else if (cmd === 'clear' || cmd === 'cls') {
-                    document.getElementById('terminal-output').innerHTML = '';
+                    const out = document.getElementById('messagesContainer');
+                    if (out) out.innerHTML = '';
                 } else if (cmd === 'luna' || cmd === 'luna_contact') {
                     addMessage(`
                         <div class="luna-message">

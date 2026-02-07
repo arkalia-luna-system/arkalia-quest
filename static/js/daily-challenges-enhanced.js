@@ -172,6 +172,15 @@ class DailyChallengesEnhanced {
         this.startTimer();
     }
 
+    /** Affiche le panneau des défis (appelé par onclick="dailyChallenges.show()") */
+    show() {
+        const el = document.getElementById('daily-challenges-container');
+        if (el) {
+            el.style.display = el.style.display === 'none' ? '' : '';
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
     addChallengeStyles() {
         const style = document.createElement('style');
         style.textContent = `
@@ -647,3 +656,11 @@ class DailyChallengesEnhanced {
 
 // Initialiser le système de défis quotidiens
 window.dailyChallengesEnhanced = new DailyChallengesEnhanced();
+window.dailyChallenges = window.dailyChallengesEnhanced;
+
+/** Fonction globale pour onclick="showDailyChallenges()" (gameplay_enhancements.html) */
+window.showDailyChallenges = function () {
+    if (window.dailyChallenges && typeof window.dailyChallenges.show === 'function') {
+        window.dailyChallenges.show();
+    }
+};

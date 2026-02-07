@@ -681,12 +681,22 @@ rm -rf ~/Library/Caches/*      # Nettoyer caches système
 - **/api/profile-manager/stats** : `get_statistics()` absent sur ProfileManager ; la route utilise `get_all_profiles()` et renvoie `{ profiles_count, available }`. Retour 503 si `profile_manager` absent.
 - **/api/database-optimizer/stats** : `get_stats()` remplacé par `get_performance_stats()` (méthode existante sur DatabaseOptimizer). Retour 503 si `database_optimizer` absent.
 
+### **Suite 19 – Cohérence jeu et amusement (7 fév. 2026)**
+- **Dashboard** : Valeurs par défaut en « 0 » ou « 1 » au lieu de « N/A » (cohérence FR). Gardes NaN/undefined sur score, level, missionsCount, badgesCount et sur le calcul de l’anneau de progression (levelProgress borné 0–100).
+- **Terminal** : Message de succès par défaut « Bien joué ! » au lieu de « Succès ! ». Message d’erreur par défaut « Oups, réessaie ou tape "aide" pour les commandes. » pour encourager le joueur.
+- **Command handler** : En cas d’exception, message joueur générique (« Un petit bug s’est glissé… ») sans afficher le détail technique ; l’exception reste loguée dans app.py. Correction Ruff F841 : `except Exception as e` → `except Exception` (variable inutilisée).
+
+### **Suite 18 – Robustesse moteurs (7 fév. 2026)**
+- **api_sync_progression** : garde si `progression_engine` est None (retourne le profil session sans appeler le moteur).
+- **execute_terminal_command** : mise à jour ProgressionEngine uniquement si `progression_engine` et `profile` présents.
+- **get_available_content** et **get_mission_via_engine** : utilisent le `profile_manager` global au lieu d’instancier un nouveau ProfileManager ; retour 503 si `profile_manager` absent.
+
 ## 📌 **RESTE À FAIRE (OPTIONNEL)**
 
 - **Adopter le bundle CSS** : remplacer les multiples `<link>` par `arkalia-bundle-pages.css` dans une ou plusieurs pages Luna (à valider visuellement).
-- **Migrer plus de routes API** : déplacer d’autres blocs /api/* vers routes/api.py (ex. /api/status, /api/mission-handler/available).
+- **Migrer plus de routes API** : déplacer d’autres blocs /api/* vers routes/api.py (ex. /api/status). `/api/luna-emotions` et `/api/mission-handler/available` sont déjà dans le blueprint.
 
 ---
 
 **Rapport généré automatiquement par l'Assistant IA**  
-**Dernière mise à jour** : 7 Février 2026 (Suite 17 : corrections API profile-manager et database-optimizer stats)
+**Dernière mise à jour** : 7 Février 2026 (Suite 19 : cohérence jeu, dashboard, terminal, command handler)

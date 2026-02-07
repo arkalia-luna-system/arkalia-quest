@@ -846,7 +846,13 @@ def get_progression_data():
             return jsonify(
                 {
                     "success": True,
-                    "progression": {"level": 1, "xp": 0, "score": 0, "coins": 0, "badges": []},
+                    "progression": {
+                        "level": 1,
+                        "xp": 0,
+                        "score": 0,
+                        "coins": 0,
+                        "badges": [],
+                    },
                     "daily_challenges": {},
                     "achievements": [],
                     "leaderboard": [],
@@ -895,7 +901,7 @@ def execute_terminal_command():
             profile = result.get("profile", {})
 
             # Mettre à jour ProgressionEngine avec les données du game engine
-            if profile:
+            if profile and progression_engine:
                 progression_engine.update_player_progression(
                     player_id,
                     "command_used",
@@ -944,9 +950,14 @@ def execute_terminal_command():
 
 @app.route("/data/missions/<mission_name>")
 def get_mission(mission_name):
-    mission = db_manager.load_mission(mission_name)
-    if mission:
-        return jsonify(mission)
+    if not db_manager:
+        return jsonify({"erreur": "Système de missions indisponible"}), 503
+    try:
+        mission = db_manager.load_mission(mission_name)
+        if mission:
+            return jsonify(mission)
+    except Exception as e:
+        game_logger.error(f"Erreur chargement mission {mission_name}: {e}")
     return jsonify({"erreur": f"Mission {mission_name} non trouvée"}), 404
 
 
@@ -1070,18 +1081,16 @@ def commande():
 @app.route("/api/content")
 def get_available_content():
     """Récupère tout le contenu disponible (missions, profils, etc.)"""
-    from core.profile_manager import ProfileManager
-
-    profile_manager = ProfileManager()
+    if not profile_manager:
+        return jsonify({"error": "Profile manager non disponible"}), 503
     return jsonify(profile_manager.get_available_content())
 
 
 @app.route("/api/mission/<mission_name>")
 def get_mission_via_engine(mission_name):
     """Récupère une mission via le moteur unifié"""
-    from core.profile_manager import ProfileManager
-
-    profile_manager = ProfileManager()
+    if not profile_manager:
+        return jsonify({"error": "Profile manager non disponible"}), 503
     result = profile_manager.get_mission_info(mission_name)
     if "error" not in result:
         return jsonify(result)
@@ -1187,8 +1196,8 @@ except ImportError:
 @app.route("/api/database/migrate", methods=["POST"])
 def migrate_to_database():
     """Migre les données JSON vers SQLite"""
-    if not DATABASE_AVAILABLE:
-        return jsonify({"error": "Database module not available"}), 500
+    if not DATABASE_AVAILABLE or not db_manager:
+        return jsonify({"error": "Database module not available"}), 503
 
     try:
         db_manager.migrate_json_to_sqlite()
@@ -1200,8 +1209,8 @@ def migrate_to_database():
 @app.route("/api/database/profile/<username>", methods=["GET"])
 def get_profile_from_db(username):
     """Récupère un profil depuis la base de données"""
-    if not DATABASE_AVAILABLE:
-        return jsonify({"error": "Database module not available"}), 500
+    if not DATABASE_AVAILABLE or not db_manager:
+        return jsonify({"error": "Database module not available"}), 503
 
     try:
         profile = db_manager.load_profile(username)
@@ -1215,8 +1224,8 @@ def get_profile_from_db(username):
 @app.route("/api/database/profile/<username>", methods=["PUT"])
 def save_profile_to_db(username):
     """Sauvegarde un profil dans la base de données"""
-    if not DATABASE_AVAILABLE:
-        return jsonify({"error": "Database module not available"}), 500
+    if not DATABASE_AVAILABLE or not db_manager:
+        return jsonify({"error": "Database module not available"}), 503
 
     try:
         data = request.get_json()
@@ -1231,8 +1240,8 @@ def save_profile_to_db(username):
 @app.route("/api/database/leaderboard", methods=["GET"])
 def get_leaderboard():
     """Récupère le classement des joueurs"""
-    if not DATABASE_AVAILABLE:
-        return jsonify({"error": "Database module not available"}), 500
+    if not DATABASE_AVAILABLE or not db_manager:
+        return jsonify({"error": "Database module not available"}), 503
 
     try:
         limit = request.args.get("limit", 10, type=int)
@@ -1534,9 +1543,10 @@ def api_sync_progression():
             },
         )
 
-        # Récupérer les données de progression réelles
-        # Utiliser le même joueur que le terminal
+        # Récupérer les données de progression réelles (garder si moteur absent)
         player_id = "main_user"
+        if not progression_engine:
+            return jsonify({"success": True, "player_data": profile})
         player_data = progression_engine.get_player_progression(player_id)
 
         # Mettre à jour le profil avec les données réelles
@@ -1890,10 +1900,10 @@ def predict_user_behavior():
 @app.route("/api/test/database", methods=["GET"])
 def test_database():
     """Test de la base de données"""
-    if not DATABASE_AVAILABLE:
+    if not DATABASE_AVAILABLE or not db_manager:
         return jsonify(
             {"status": "unavailable", "message": "Database module not available"}
-        )
+        ), 503
 
     try:
         # Test de création d'un profil

@@ -1020,6 +1020,13 @@ def commande():
             500,
         )
 
+    if reponse is None:
+        reponse = {
+            "réussite": False,
+            "message": "❌ Aucune réponse du système.",
+            "profile_updated": False,
+        }
+
     # Mise à jour de la gamification
     if reponse.get("profile_updated"):
         try:

@@ -677,6 +677,10 @@ rm -rf ~/Library/Caches/*      # Nettoyer caches système
 ### **Suite 16 – tests/README (7 fév. 2026)**
 - **tests/README.md** : section « Lancer un sous-ensemble » ajoutée (exemples : `tests/core/`, `-k "luna"`, `tests/api/ tests/core/`).
 
+### **Suite 17 – Corrections API stats (7 fév. 2026)**
+- **/api/profile-manager/stats** : `get_statistics()` absent sur ProfileManager ; la route utilise `get_all_profiles()` et renvoie `{ profiles_count, available }`. Retour 503 si `profile_manager` absent.
+- **/api/database-optimizer/stats** : `get_stats()` remplacé par `get_performance_stats()` (méthode existante sur DatabaseOptimizer). Retour 503 si `database_optimizer` absent.
+
 ## 📌 **RESTE À FAIRE (OPTIONNEL)**
 
 - **Adopter le bundle CSS** : remplacer les multiples `<link>` par `arkalia-bundle-pages.css` dans une ou plusieurs pages Luna (à valider visuellement).
@@ -685,4 +689,4 @@ rm -rf ~/Library/Caches/*      # Nettoyer caches système
 ---
 
 **Rapport généré automatiquement par l'Assistant IA**  
-**Dernière mise à jour** : 7 Février 2026 (Suite 16 : tests/README sous-ensemble)
+**Dernière mise à jour** : 7 Février 2026 (Suite 17 : corrections API profile-manager et database-optimizer stats)

@@ -4,7 +4,7 @@
     "prologue": {
       "id": "prologue",
       "title": "Le SOS d'Althea",
-      "message": "LUNA : « Hacker, j'ai détecté un message mystérieux... »\n\nLe Dr Althea Voss a envoyé un SOS depuis NEXUS. Le message est codé et contient des informations cruciales sur PANDORA. Tu découvres qu'Althea travaille sur une IA jumelle de LUNA : NEXUS. PANDORA menace l'humanité — seule la fusion de LUNA et NEXUS peut l'arrêter.\n\nLUNA : « Nous devons agir vite. L'humanité compte sur nous ! »",
+      "message": "LUNA : « Hacker, j'ai détecté un message mystérieux... »\n\nLe Dr Althea Voss a envoyé un SOS depuis NEXUS. Message codé, infos cruciales sur PANDORA. Althea travaille sur une IA jumelle : NEXUS. PANDORA menace l'humanité — seule la fusion LUNA-NEXUS peut l'arrêter.\n\nLUNA : « Nous devons agir vite. L'humanité compte sur nous ! »",
       "emotion": "inquiète",
       "background": "story-bg-mystery"
     },

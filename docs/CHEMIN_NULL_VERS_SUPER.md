@@ -15,6 +15,10 @@
 - **Émotions LUNA** : chaque chapitre a une `emotion` affichée dans le bloc LUNA (ex. « LUNA : déterminée », « LUNA : sereine »).
 - **Transition entre chapitres** : courte animation (opacité + translateY) au passage au chapitre suivant.
 - **Écran de fin** : sous-titre « Tu as accompli ta mission », boutons mis en avant (Explorer le monde, Mon profil, Accueil).
+- **Ambiance** : bouton « 🔊 Ambiance » / « 🔇 Couper ambiance » sur la page Histoire (synchro avec accueil).
+- **Badge « Nouveau »** : affiché à côté du titre quand on passe au chapitre suivant (5 s).
+- **« Tu as choisi : … »** : après un choix (acte_5), la phrase s’affiche au-dessus du titre du chapitre suivant.
+- **Navbar** : Monde, Profil, Classement, etc. visibles dès le premier chapitre complété (prologue ou acte_1).
 
 ---
 
@@ -32,8 +36,8 @@
 |----------|--------|--------|
 | ~~Haute~~ ✅ | ~~**Vrais choix**~~ : acte_5 a 3 boutons de choix ; API accepte `choice_id`. À étendre à d’autres chapitres ou branches si besoin. | Fait. |
 | ~~Haute~~ ✅ | ~~**Fonds par chapitre**~~ : fonds CSS (dégradés) par chapitre dans `story_chapters.json` + classe sur `.story-workspace`. | Fait. |
-| Moyenne | **Musique / ambiance** : boucle courte sur la page Histoire (optionnelle, avec toggle comme sur l’accueil). | La recherche montre que la musique améliore le plaisir perçu. |
-| Moyenne | **Texte des chapitres** : relire et raccourcir si trop long ; une idée forte par écran, phrases courtes. | Meilleur rythme, moins de lassitude. |
+| ~~Moyenne~~ ✅ | ~~**Musique / ambiance**~~ : bouton « 🔊 Ambiance » sur la page Histoire (toggle, synchro localStorage avec l’accueil). | Fait. |
+| ~~Moyenne~~ ✅ | ~~**Texte des chapitres**~~ : prologue légèrement raccourci ; une idée forte par écran. | Fait (prologue). |
 
 ---
 
@@ -43,7 +47,7 @@
 |----------|--------|--------|
 | ~~Moyenne~~ ✅ | ~~**Transitions**~~ : classe `.story-transition` (opacité + translateY) au changement de chapitre. | Fait. |
 | ~~Moyenne~~ ✅ | ~~**Émotions LUNA**~~ : champ `emotion` par chapitre dans le JSON, affiché dans le bloc LUNA. | Fait. |
-| Basse | **Indication « nouveau chapitre débloqué »** : petit badge ou texte du type « Nouveau : [titre] » quand on revient sur la page après avoir débloqué un chapitre. | Renforce la récompense. |
+| ~~Basse~~ ✅ | ~~**Badge « Nouveau »**~~ : affiché à côté du titre quand on avance au chapitre suivant (disparition après 5 s). | Fait. |
 
 ---
 
@@ -51,7 +55,7 @@
 
 | Priorité | Action | Impact |
 |----------|--------|--------|
-| Haute | **Lien Monde / Profil après le 1er chapitre** : vérifier que la navbar ou l’écran de fin d’aventure proposent bien « Explorer le monde » et « Mon profil » une fois le premier chapitre validé (déjà prévu côté `charger_profil` / `missions_completed`). | Le joueur sait où aller ensuite. |
+| ~~Haute~~ ✅ | ~~**Lien Monde / Profil**~~ : navbar affiche Monde/Profil/Classement/etc. dès qu’au moins un chapitre est complété (`missions_completed` non vide). | Fait. |
 | ~~Moyenne~~ ✅ | ~~**Écran de fin**~~ : sous-titre + boutons .story-link-btn (Monde, Profil, Accueil). | Fait. |
 | Basse | **Un seul endroit « aide »** : si tu gardes le terminal en mode expert, une seule aide (ex. « tape aide » ou lien vers le tutoriel) pour éviter la confusion. | Moins de « où je clique ? ». |
 

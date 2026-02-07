@@ -28,7 +28,8 @@
         .story-progress-bar span { flex: 1; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.15); transition: background 0.4s ease; }
         .story-progress-bar span.done { background: var(--matrix-green, #00ff00); box-shadow: 0 0 8px rgba(0,255,0,0.5); }
         .story-progress-bar span.current { background: var(--violet-lunaire, #a78bfa); box-shadow: 0 0 10px rgba(167,139,250,0.6); }
-        .story-title { font-family: 'Cormorant', serif; font-size: 2.2em; color: var(--violet-lunaire, #a78bfa); margin-bottom: 20px; text-shadow: 0 0 20px rgba(167,139,250,0.5); }
+        .story-title-row { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+        .story-title { font-family: 'Cormorant', serif; font-size: 2.2em; color: var(--violet-lunaire, #a78bfa); margin: 0; text-shadow: 0 0 20px rgba(167,139,250,0.5); }
         .story-message { white-space: pre-wrap; font-family: 'Inter', sans-serif; line-height: 1.7; color: var(--argent-holographique, #e4e4e7); background: rgba(0,0,0,0.3); border: 1px solid rgba(167,139,250,0.25); border-radius: 12px; padding: 24px; margin-bottom: 28px; min-height: 120px; }
         .story-progress { font-size: 0.9em; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
         .story-next-hint { font-size: 0.85em; color: var(--matrix-green); margin-top: 12px; opacity: 0.9; }
@@ -66,6 +67,13 @@
         .story-workspace.story-bg-aurora { background: linear-gradient(160deg, #0a1a2e 0%, #0f2e1a 30%, #0f0f12 100%); }
         .story-workspace.story-bg-dawn { background: linear-gradient(160deg, #1a1a0f 0%, #2e2e1a 40%, #0f0f12 100%); }
         @media (prefers-reduced-motion: reduce) { .story-content { transition: none; } .story-content.story-transition { opacity: 1; transform: none; } }
+        .story-ambient-toggle { position: absolute; top: 16px; right: 16px; padding: 8px 14px; background: rgba(167,139,250,0.2); border: 1px solid rgba(167,139,250,0.4); border-radius: 8px; color: var(--violet-lunaire); font-size: 0.9em; cursor: pointer; transition: all 0.2s ease; }
+        .story-ambient-toggle:hover { background: rgba(167,139,250,0.35); }
+        .story-ambient-toggle:focus-visible { outline: 2px solid var(--violet-lunaire); outline-offset: 2px; }
+        .story-new-badge { display: inline-block; margin-left: 10px; padding: 4px 10px; background: var(--matrix-green); color: #000; font-size: 0.65em; font-weight: 700; border-radius: 20px; animation: storyNewPulse 2s ease infinite; }
+        @keyframes storyNewPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.8; } }
+        @media (prefers-reduced-motion: reduce) { .story-new-badge { animation: none; } }
+        .story-choice-made { font-size: 0.95em; color: var(--matrix-green); margin-bottom: 12px; padding: 8px 14px; background: rgba(0,255,0,0.1); border-radius: 8px; }
     </style>
 </head>
 
@@ -76,7 +84,8 @@
     </div>
 
     <main id="main" class="story-workspace" role="main">
-        <div class="story-container">
+        <div class="story-container" style="position: relative;">
+            <button type="button" class="story-ambient-toggle" id="story-ambient-toggle" aria-label="Activer ou couper la musique d’ambiance" style="display: none;">🔊 Ambiance</button>
             <div id="story-loading" class="story-loading" aria-live="polite">
                 Chargement de l'aventure…
             </div>
@@ -87,7 +96,11 @@
                 </div>
                 <div class="story-progress-bar" id="story-progress-bar" role="presentation" aria-hidden="true"></div>
                 <p class="story-progress" id="story-progress"></p>
-                <h1 class="story-title" id="story-title"></h1>
+                <p class="story-choice-made" id="story-choice-made" style="display: none;"></p>
+                <div class="story-title-row">
+                    <h1 class="story-title" id="story-title"></h1>
+                    <span class="story-new-badge" id="story-new-badge" style="display: none;">Nouveau</span>
+                </div>
                 <div class="story-message" id="story-message"></div>
                 <p class="story-next-hint" id="story-next-hint" style="display: none;"></p>
                 <div id="story-actions">
@@ -128,7 +141,12 @@
     const lunaLabelEl = document.getElementById('story-luna-label');
     const workspaceEl = document.querySelector('.story-workspace');
     const floatXpEl = document.getElementById('story-float-xp');
+    const ambientToggleEl = document.getElementById('story-ambient-toggle');
+    const choiceMadeEl = document.getElementById('story-choice-made');
+    const newBadgeEl = document.getElementById('story-new-badge');
     const totalChapters = 8;
+    var lastChoiceLabel = '';
+    var newBadgeTimeout = null;
 
     function buildProgressBar(completedCount, currentIndex) {
         if (!progressBarEl) return;
@@ -161,18 +179,21 @@
         contentEl.style.display = 'none';
         completedEl.style.display = 'none';
         errorEl.style.display = 'none';
+        if (ambientToggleEl) ambientToggleEl.style.display = 'none';
     }
     function showContent() {
         loadingEl.style.display = 'none';
         contentEl.style.display = 'block';
         completedEl.style.display = 'none';
         errorEl.style.display = 'none';
+        if (ambientToggleEl) ambientToggleEl.style.display = 'block';
     }
     function showCompleted() {
         loadingEl.style.display = 'none';
         contentEl.style.display = 'none';
         completedEl.style.display = 'block';
         errorEl.style.display = 'none';
+        if (ambientToggleEl) ambientToggleEl.style.display = 'block';
     }
     function showError(msg) {
         loadingEl.style.display = 'none';
@@ -201,6 +222,8 @@
         messageEl.textContent = data.message || '';
         nextHintEl.style.display = 'none';
         nextHintEl.textContent = '';
+        if (choiceMadeEl) { choiceMadeEl.style.display = 'none'; choiceMadeEl.textContent = ''; }
+        if (newBadgeEl) { newBadgeEl.style.display = 'none'; if (newBadgeTimeout) clearTimeout(newBadgeTimeout); }
         if (lunaLabelEl) lunaLabelEl.textContent = data.emotion ? 'LUNA : ' + data.emotion : 'LUNA est à tes côtés';
         setWorkspaceBackground(data.background || '');
 
@@ -239,8 +262,10 @@
             .catch(function() { showError('Erreur réseau'); });
     }
 
-    function submitChoice(chapterId, choiceId) {
+    function submitChoice(chapterId, choiceId, choiceLabel) {
         if (!chapterId) return;
+        if (choiceLabel) lastChoiceLabel = choiceLabel;
+        else lastChoiceLabel = '';
         continueBtn.disabled = true;
         var choiceBtns = choicesEl.querySelectorAll('.story-choice-btn');
         choiceBtns.forEach(function(b) { b.disabled = true; });
@@ -274,6 +299,16 @@
                         setTimeout(function() {
                             titleEl.textContent = next.title || '';
                             messageEl.textContent = next.message || '';
+                            if (choiceMadeEl && lastChoiceLabel) {
+                                choiceMadeEl.textContent = 'Tu as choisi : ' + lastChoiceLabel;
+                                choiceMadeEl.style.display = 'block';
+                                lastChoiceLabel = '';
+                            }
+                            if (newBadgeEl) {
+                                newBadgeEl.style.display = 'inline-block';
+                                if (newBadgeTimeout) clearTimeout(newBadgeTimeout);
+                                newBadgeTimeout = setTimeout(function() { if (newBadgeEl) newBadgeEl.style.display = 'none'; }, 5000);
+                            }
                             if (lunaLabelEl) lunaLabelEl.textContent = next.emotion ? 'LUNA : ' + next.emotion : 'LUNA est à tes côtés';
                             setWorkspaceBackground(next.background || '');
                             if (next.choices && next.choices.length > 0) {
@@ -317,11 +352,29 @@
             });
     }
 
-    continueBtn.addEventListener('click', function() { submitChoice(continueBtn.dataset.chapterId, ''); });
+    continueBtn.addEventListener('click', function() { submitChoice(continueBtn.dataset.chapterId, '', ''); });
     choicesEl.addEventListener('click', function(e) {
         var btn = e.target.closest('.story-choice-btn');
-        if (btn) submitChoice(btn.dataset.chapterId, btn.dataset.choiceId || '');
+        if (btn) submitChoice(btn.dataset.chapterId, btn.dataset.choiceId || '', btn.textContent || '');
     });
+
+    if (ambientToggleEl) {
+        function updateAmbientLabel() {
+            try {
+                ambientToggleEl.textContent = (window.audioManager && window.audioManager.isAmbientMusicEnabled && window.audioManager.isAmbientMusicEnabled()) ? '🔇 Couper ambiance' : '🔊 Ambiance';
+            } catch (e) {}
+        }
+        ambientToggleEl.addEventListener('click', function() {
+            try {
+                if (window.audioManager && window.audioManager.setAmbientMusicEnabled) {
+                    var on = !(window.audioManager.isAmbientMusicEnabled && window.audioManager.isAmbientMusicEnabled());
+                    window.audioManager.setAmbientMusicEnabled(on);
+                    updateAmbientLabel();
+                }
+            } catch (e) {}
+        });
+        updateAmbientLabel();
+    }
 
     loadState();
 })();

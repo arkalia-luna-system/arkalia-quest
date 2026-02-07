@@ -13,6 +13,7 @@ Comparaison avec la recherche et les bonnes pratiques 2024–2025 pour rendre le
 - **Onboarding** : Inworld.ai *Best practices for video game onboarding*, BBC GEL *How to design onboarding for games*, NNGroup *Onboarding Tutorials vs. Contextual Help*, Moldstud *Engaging Onboarding 2024*.
 - **Micro-interactions** : Sitepoint *Button micro-interactions*, Codrops *CSS button hover animations*, *Button glow & pulse*.
 - **Visuel / UI des meilleurs jeux** : *Metaphor: ReFantazio* (Best Art Direction TGA 2024), *Beastieball* (langage visuel cohérent, Gamedeveloper.com), *Twilight Oracle* (clarté visuelle), *(the) Gnorp Apologue* (design minimal à fort impact), *How does Juicy Game Feedback Motivate?* (curiosité, compétence, CHI 2024).
+- **Refonte visuelle 2026** : *Solace State* (cyberpunk émotionnel, visual novel), *Read Only Memories: Neurodiver* (couleurs vives, personnage Luna), *Hades* / Supergiant (intégrité artistique, UI non intrusive). Voir [REFONTE_VISUELLE_2026.md](REFONTE_VISUELLE_2026.md).
 
 ---
 
@@ -122,6 +123,17 @@ Le jeu n’est pas "nul" : il est **solide techniquement** et **aligné** avec l
 
 ---
 
+## Refonte visuelle 2026 (7 février 2026)
+
+Une **refonte complète du visuel** a été documentée et implémentée :
+
+- **Problème** : Palette violet + vert matrix trop générique, peu d’identité, ressenti « outil » plutôt qu’« aventure ».
+- **Références ajoutées** : Solace State, Read Only Memories: Neurodiver, Metaphor: ReFantazio, Hades/Supergiant pour principes (langage cohérent, clarté, émotion).
+- **Nouvelle direction** : « Arkalia — Nuit émotionnelle » — fond bleu nuit, ambre/corail pour LUNA et chaleur, cyan pour actions, design system dans `arkalia-visual-2026.css`. Détail : [REFONTE_VISUELLE_2026.md](REFONTE_VISUELLE_2026.md).
+- **Checklist** : Accueil, /histoire, navbar, contraste WCAG, reduced-motion, pas de régression sur les autres pages.
+
+---
+
 ## Prochaines étapes
 
 1. **Organiser les playtests** avec 2–3 ados (scénario 15 min dans [PLAYTEST_GUIDE_ADOS.md](PLAYTEST_GUIDE_ADOS.md)).
@@ -167,7 +179,7 @@ Le jeu n’est pas "nul" : il est **solide techniquement** et **aligné** avec l
 | Ambiance sonore + sons succès/erreur | `static/js/audio-manager.js` |
 | Terminal : envoi commande, float +XP/✓, flash, modal acte_1 | `templates/terminal.html` (script inline + `sendCommand` / `processCommand`) |
 | Accueil : CTA, bouton Ambiance | `templates/index.html` |
-| Aventure : chapitres, choix (acte_5), barre progression, fonds/émotions par chapitre, transition, float +XP, son | `templates/histoire.html`, `data/story_chapters.json` |
+| Aventure : chapitres, choix (acte_5), barre progression, fonds/émotions, transition, badge Nouveau, « Tu as choisi », toggle Ambiance, float +XP, son | `templates/histoire.html`, `data/story_chapters.json` |
 | API état / choix histoire | `app.py` → `GET /api/story/state`, `POST /api/story/choice` |
 | Bandeau progression (niveau, score) | `templates/terminal.html` (`#terminalProgressionStrip`, `refreshProgressionFromServer`) |
 | API commande terminal | `app.py` → `POST /api/terminal/command` |

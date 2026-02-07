@@ -1,5 +1,5 @@
 {% set current = active_page|default('') %}
-{% set first_mission_done = (profil is defined and profil and 'acte_1' in (profil.get('missions_completed') or [])) if (profil is defined) else true %}
+{% set first_mission_done = (profil is defined and profil and (profil.get('missions_completed') or [])|length > 0) if (profil is defined) else true %}
 <nav class="main-nav" role="navigation" aria-label="Navigation principale">
     <div class="nav-container">
         <button class="burger-btn" id="burger-btn" aria-label="Ouvrir le menu" aria-controls="primary-nav"

@@ -14,7 +14,7 @@ Jeu narratif éducatif (hacking) pour adolescents, inclusif et accessible.
 
 - **Narratif** : 6 actes + prologue + épilogue
 - **LUNA** : IA émotionnelle, 10 émotions dynamiques
-- **Aventure (page cœur)** : histoire par chapitres (bouton « Continuer » ou **choix** sur acte_5), fonds et émotions LUNA par chapitre, transition entre chapitres, écran de fin amélioré ; **Terminal** en option (mode expert)
+- **Aventure (page cœur)** : histoire par chapitres (bouton « Continuer » ou **choix** sur acte_5), fonds et émotions LUNA par chapitre, transition, écran de fin ; **bouton Ambiance** (musique optionnelle), **badge « Nouveau »** et **« Tu as choisi : … »** après un choix ; **Terminal** en option (mode expert)
 - **Mini-jeux** : 9 jeux (logique, code, cybersécurité, cryptographie, réseaux), interface immersive
 - **Guidage** : visual guidance, célébrations tutoriel, états vides, récompenses, API REST
 - **Analytics** : tracking, anonymisation, recommandations, métriques, terminal
@@ -32,6 +32,7 @@ Jeu narratif éducatif (hacking) pour adolescents, inclusif et accessible.
 - **Couverture visuelle et accessibilité** : Les 13 pages (accueil, terminal, monde, profil, dashboard, leaderboard, tutoriel, arbre de compétences, explorateur, mail, audio, accessibilité, tutoriels techniques) chargent `game-feel.css`, ont un focus visible (boutons, liens, zones, input terminal, modal acte_1) et respectent `prefers-reduced-motion` (animations désactivées à la demande). Voir le tableau « Couverture des pages » dans [COMPARAISON_JEUX_SOURCES_EXTERNES.md](COMPARAISON_JEUX_SOURCES_EXTERNES.md). Focus burger (menu mobile) dans game-feel.css.
 - **Prêt pour playtests** : [PLAYTEST_GUIDE_ADOS.md](PLAYTEST_GUIDE_ADOS.md) avec scénario 15 min et checklist de vérification avant session.
 - **Audit "pourquoi le jeu semble nul"** : [audits/AUDIT_COMPLET_POURQUOI_LE_JEU_SEMBLE_NUL.md](audits/AUDIT_COMPLET_POURQUOI_LE_JEU_SEMBLE_NUL.md) — parcours, contenu, technique. P0 fait (accueil « LUNA a besoin de toi », aide acte_1 en premier). P1 fait : CTA renforcé, états vides encourageants (leaderboard, profil, monde, dashboard, badges), feedback +X points après acte_1 (pill + son). **Terminal allégé** : 3 scripts en chargement critique (accessibility, audio-manager, terminal.js) + inline ; le reste chargé après `window.load`. **Flux API** : terminal utilise uniquement `POST /api/terminal/command` (détail dans [ARCHITECTURE_TECHNIQUE.md](ARCHITECTURE_TECHNIQUE.md)).
+- **Refonte visuelle 2026** : Nouvelle identité « Arkalia — Nuit émotionnelle » (fond bleu nuit, ambre/corail pour LUNA, cyan pour actions), design system dans [REFONTE_VISUELLE_2026.md](REFONTE_VISUELLE_2026.md) et `static/css/arkalia-visual-2026.css`. Accueil, Aventure, navbar et pages alignés sur le nouveau visuel.
 
 ---
 

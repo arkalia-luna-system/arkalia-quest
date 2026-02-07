@@ -29,6 +29,8 @@ class BasicCommands:
             "commands": self.handle_aide,
             "liste": self.handle_aide,
             "menu": self.handle_aide,
+            "aide_avance": self.handle_aide_avance,
+            "aide_detail": self.handle_aide_avance,
             # Commandes de progression
             "unlock_universe": self.handle_unlock_universe,
             "scan_persona": self.handle_scan_persona,
@@ -174,6 +176,25 @@ la vérité sur NEXUS et la menace de PANDORA.
         return {
             "réussite": True,
             "ascii_art": "🌌",
+            "message": help_message,
+            "profile_updated": False,
+        }
+
+    def handle_aide_avance(self, profile: dict[str, Any]) -> dict[str, Any]:
+        """Aide détaillée (toutes les commandes) pour qui a déjà vu l'aide courte."""
+        help_message = """🌌 ARKALIA QUEST - AIDE DÉTAILLÉE
+
+🎯 HISTOIRE : prologue, acte_1 à acte_6, epilogue
+📋 BASE : aide, profil, status, clear, badges, leaderboard, missions
+🎮 JEUX : games, play_game, daily_challenges
+⚡ ACTION : hack_system, kill_virus, find_shadow, challenge_corp, decode_portal, hacker_coffre, boss_final
+🤖 LUNA : luna_contact, luna_emotion, luna_engine, luna_dance
+🌍 monde/world, explorer, naviguer
+
+💡 Tape 'aide' pour l'aide courte. 🌙"""
+        return {
+            "réussite": True,
+            "ascii_art": "📋",
             "message": help_message,
             "profile_updated": False,
         }

@@ -7,10 +7,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Critical above-the-fold : premier rendu sans attendre les CSS externes -->
     <style>
-    :root{--luna-bg:#0f0f12;--luna-text:#fafafa;}
-    body{margin:0;background:var(--luna-bg);color:var(--luna-text);min-height:100vh;}
-    .portal-container{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-    .main-nav,.nav-container{position:relative;}
+        :root {
+            --luna-bg: #0f0f12;
+            --luna-text: #fafafa;
+        }
+
+        body {
+            margin: 0;
+            background: var(--luna-bg);
+            color: var(--luna-text);
+            min-height: 100vh;
+        }
+
+        .portal-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-nav,
+        .nav-container {
+            position: relative;
+        }
     </style>
 
     <!-- PWA Meta Tags -->
@@ -77,21 +97,32 @@
         onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="{{ url_for('static', filename='css/performance-optimized.css') }}" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ url_for('static', filename='css/interface-improvements.css') }}?v=3.1.1"></noscript>
+    <noscript>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/interface-improvements.css') }}?v=3.1.1">
+    </noscript>
 
     <!-- CSS des corrections d'audit visuel -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/audit-visual-fixes.css') }}?v=3.5.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/theme-selection-enhanced.css') }}?v=3.5.0">
 
     <!-- CSS gameplay/popups en différé (ne bloque pas le premier rendu) -->
-    <link rel="preload" href="{{ url_for('static', filename='css/zone-exploration-enhanced.css') }}?v=3.6.0" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="{{ url_for('static', filename='css/daily-missions-enhanced.css') }}?v=3.6.0" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="{{ url_for('static', filename='css/motivational-empty-states.css') }}?v=3.6.0" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="{{ url_for('static', filename='css/timer-challenges.css') }}?v=3.6.0" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="{{ url_for('static', filename='css/interactive-puzzles.css') }}?v=3.6.0" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="{{ url_for('static', filename='css/gameplay-integration.css') }}?v=3.6.0" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="{{ url_for('static', filename='css/popup-manager.css') }}?v=3.7.0" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ url_for('static', filename='css/popup-manager.css') }}?v=3.7.0"></noscript>
+    <link rel="preload" href="{{ url_for('static', filename='css/zone-exploration-enhanced.css') }}?v=3.6.0" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/daily-missions-enhanced.css') }}?v=3.6.0" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/motivational-empty-states.css') }}?v=3.6.0" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/timer-challenges.css') }}?v=3.6.0" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/interactive-puzzles.css') }}?v=3.6.0" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/gameplay-integration.css') }}?v=3.6.0" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/popup-manager.css') }}?v=3.7.0" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/popup-manager.css') }}?v=3.7.0">
+    </noscript>
 
     <style>
         /* Styles spécifiques au portail d'accueil */
@@ -261,6 +292,7 @@
             animation: fadeInUp 2s ease-out 2s forwards;
             padding: 20px;
         }
+
         /* CTA principal prioritaire : plus grand, plus visible (audit P1) */
         .cta-buttons .cta-btn.primary {
             grid-column: 1 / -1;
@@ -270,12 +302,17 @@
             border-width: 3px;
             box-shadow: 0 0 30px rgba(0, 255, 0, 0.25);
         }
-        .cta-buttons .cta-btn.primary .cta-text { font-size: 1.05em; }
+
+        .cta-buttons .cta-btn.primary .cta-text {
+            font-size: 1.05em;
+        }
+
         .cta-buttons .cta-btn.secondary {
             opacity: 0.85;
             min-height: 100px;
             font-size: 0.95em;
         }
+
         .cta-buttons .cta-btn:not(.primary):hover {
             opacity: 1;
         }
@@ -493,17 +530,36 @@
             opacity: 0;
             animation: fadeIn 2s ease-out 3.5s forwards;
         }
-        .ambient-toggle:hover { background: rgba(167, 139, 250, 0.25); color: var(--violet-lunaire); }
-        .ambient-toggle.on #ambientIcon { opacity: 1; }
+
+        .ambient-toggle:hover {
+            background: rgba(167, 139, 250, 0.25);
+            color: var(--violet-lunaire);
+        }
+
+        .ambient-toggle.on #ambientIcon {
+            opacity: 1;
+        }
 
         @media (prefers-reduced-motion: reduce) {
+
             .portal-background,
             .luna-avatar,
             .luna-avatar::before,
-            .luna-status::before { animation: none !important; }
-            .luna-avatar:hover { transform: none; }
-            .cta-btn:hover { transform: none; }
-            .feature-card:hover { transform: none; }
+            .luna-status::before {
+                animation: none !important;
+            }
+
+            .luna-avatar:hover {
+                transform: none;
+            }
+
+            .cta-btn:hover {
+                transform: none;
+            }
+
+            .feature-card:hover {
+                transform: none;
+            }
         }
 
         @media (max-width: 768px) {
@@ -555,6 +611,11 @@
 </head>
 
 <body>
+    <noscript>
+        <p style="padding:1rem;text-align:center;background:rgba(167,139,250,0.2);color:var(--argent-holographique);">
+            Arkalia Quest fonctionne mieux avec JavaScript activé. Active-le pour vivre l'aventure et débloquer les
+            chapitres.</p>
+    </noscript>
     <!-- Skip Links pour accessibilité -->
     <a href="#main-content" class="skip-link">Aller au contenu principal</a>
     <a href="#navigation" class="skip-link">Aller à la navigation</a>
@@ -563,26 +624,10 @@
     <!-- Panneau d'accessibilité -->
     {% include 'components/accessibility_toggle.html' %}
 
-    <!-- Navigation LUNA -->
+    <!-- Navigation LUNA (composant unifié) -->
     <div id="navigation">
-        <nav class="main-nav">
-            <div class="nav-container">
-                <div class="nav-logo">ARKALIA QUEST</div>
-                <div class="nav-links">
-                    <a href="/" class="nav-link active">🏠 ACCUEIL</a>
-                    <a href="/tutorial" class="nav-link">🎯 TUTORIEL</a>
-                    <a href="/terminal" class="nav-link">⌨️ TERMINAL</a>
-                    <a href="/monde" class="nav-link">🌍 MONDE</a>
-                    <a href="/profil" class="nav-link">👤 PROFIL</a>
-                    <a href="/leaderboard" class="nav-link">🏆 CLASSEMENT</a>
-                    <a href="/dashboard" class="nav-link">📊 DASHBOARD</a>
-                    <button type="button" class="nav-link daily-challenges-btn" onclick="typeof showDailyChallenges==='function'&&showDailyChallenges()" aria-label="Ouvrir les défis quotidiens">🎯 DÉFIS
-                        QUOTIDIENS</button>
-                    <a href="/skill-tree" class="nav-link">⚡ COMPÉTENCES</a>
-                    <button type="button" class="nav-link theme-btn" onclick="typeof showThemeManager==='function'&&showThemeManager()" aria-label="Choisir un thème">🎨 THÈMES</button>
-                </div>
-            </div>
-        </nav>
+        {% set active_page = 'home' %}
+        {% include 'components/navbar.html' with context %}
     </div>
 
     <main id="main-content" class="portal-container">
@@ -595,19 +640,26 @@
         <!-- Section héro : promesse claire (15 mots) + micro-intro narrative -->
         <div class="hero-section animate-fade-in-up">
             <h1 class="hero-title animate-fade-in-up" id="main-title">ARKALIA QUEST</h1>
-            <p class="hero-subtitle animate-fade-in-up" id="hero-subtitle">Tu es un hacker qui aide LUNA : missions au terminal, actes et mini-jeux.</p>
-            <p class="luna-greeting animate-fade-in-up" id="luna-greeting">"LUNA a besoin de toi. Tu es prêt à commencer ?"</p>
-            <p class="hero-hook animate-fade-in-up" id="hero-hook">Une commande, une mission. Plus tu joues, plus tu débloques. C'est parti.</p>
-            <p class="hero-inspire animate-fade-in-up" style="margin-top: 1rem; font-size: 0.95em; color: var(--bleu-spectre); font-style: italic;">Deviens le hacker dont Arkalia a besoin.</p>
+            <p class="hero-subtitle animate-fade-in-up" id="hero-subtitle">Aide LUNA à sauver Arkalia : choisis ton
+                chemin, vis l'aventure.</p>
+            <p class="luna-greeting animate-fade-in-up" id="luna-greeting">"LUNA a besoin de toi. Ensemble on va sauver
+                Arkalia — tu es prêt ?"</p>
+            <p class="hero-hook animate-fade-in-up" id="hero-hook">Clique pour vivre l'histoire. Chaque chapitre te
+                rapproche du salut. C'est parti.</p>
+            <p class="hero-inspire animate-fade-in-up"
+                style="margin-top: 1rem; font-size: 0.95em; color: var(--bleu-spectre); font-style: italic;">Deviens le
+                hacker dont Arkalia a besoin.</p>
 
             <!-- CTA principal : une entrée claire pour commencer (audit P1) -->
-            <p class="cta-hint animate-fade-in-up" style="margin-bottom: 0.5rem; font-size: 0.9em; color: var(--matrix-green); font-weight: 600;">👉 Clique ici pour lancer ta première mission</p>
+            <p class="cta-hint animate-fade-in-up"
+                style="margin-bottom: 0.5rem; font-size: 0.9em; color: var(--matrix-green); font-weight: 600;">👉 Clique
+                ici pour rejoindre LUNA et vivre l'aventure</p>
             <div class="cta-buttons horizontal animate-fade-in-up" role="navigation" aria-label="Navigation principale">
-                <a href="/terminal" class="cta-btn primary btn-perfect cta-perfect hover-lift ripple-effect"
-                    title="Accéder au terminal de commandes" role="button" aria-describedby="terminal-desc">
-                    <span class="cta-icon" aria-hidden="true">🚀</span>
-                    <span class="cta-text">COMMENCER L'AVENTURE</span>
-                    <span class="cta-subtitle" id="terminal-desc">Là où tout commence</span>
+                <a href="/histoire" class="cta-btn primary btn-perfect cta-perfect hover-lift ripple-effect"
+                    title="Rejoindre LUNA et commencer l'aventure" role="button" aria-describedby="aventure-desc">
+                    <span class="cta-icon" aria-hidden="true">🌙</span>
+                    <span class="cta-text">REJOINDRE LUNA</span>
+                    <span class="cta-subtitle" id="aventure-desc">L'aventure commence ici</span>
                 </a>
                 <a href="/monde" class="cta-btn secondary hover-lift ripple-effect" title="Explorer le monde d'Arkalia"
                     role="button" aria-describedby="monde-desc">
@@ -621,6 +673,11 @@
                     <span class="cta-text">MON PROFIL</span>
                     <span class="cta-subtitle" id="profil-desc">Statistiques</span>
                 </a>
+                <a href="/terminal" class="cta-btn secondary" title="Mode terminal (avancé)" role="button">
+                    <span class="cta-icon" aria-hidden="true">⌨️</span>
+                    <span class="cta-text">TERMINAL</span>
+                    <span class="cta-subtitle">Mode expert</span>
+                </a>
             </div>
         </div>
 
@@ -630,76 +687,88 @@
         <!-- Grille des fonctionnalités -->
         <div class="features-grid">
             <div class="feature-card">
+                <span class="feature-icon">📖</span>
+                <h3 class="feature-title">L'aventure de LUNA</h3>
+                <p class="feature-description">Vis l'histoire par chapitres. Clique sur « Continuer » pour avancer et
+                    débloquer la suite. Pas de commandes à taper.</p>
+            </div>
+
+            <div class="feature-card">
                 <span class="feature-icon">🌙</span>
                 <h3 class="feature-title">IA LUNA</h3>
-                <p class="feature-description">Ton alliée : elle s'adapte à toi et te guide. C'est elle qui te donne les missions au terminal.</p>
+                <p class="feature-description">Ton alliée : elle te guide dans l'aventure et t'accompagne pour sauver
+                    Arkalia.</p>
             </div>
 
             <div class="feature-card">
                 <span class="feature-icon">🎮</span>
                 <h3 class="feature-title">Badges & Niveaux</h3>
-                <p class="feature-description">Chaque action compte. Débloque des badges et monte en niveau en jouant.</p>
+                <p class="feature-description">Chaque chapitre complété te rapporte des points et des badges.</p>
             </div>
 
             <div class="feature-card">
                 <span class="feature-icon">🌌</span>
                 <h3 class="feature-title">Monde Immersif</h3>
-                <p class="feature-description">Zones, missions et mystères à explorer une fois les premiers actes débloqués.</p>
+                <p class="feature-description">Zones, missions et mystères à explorer. Débloque le monde en progressant
+                    dans l'histoire.</p>
             </div>
 
             <div class="feature-card">
                 <span class="feature-icon">⚡</span>
-                <h3 class="feature-title">Terminal</h3>
-                <p class="feature-description">C'est ici que tout se passe : tu tapes des commandes, LUNA répond, les missions avancent.</p>
+                <h3 class="feature-title">Terminal (optionnel)</h3>
+                <p class="feature-description">Pour les experts : commandes et missions avancées au terminal.</p>
             </div>
 
             <div class="feature-card">
                 <span class="feature-icon">📊</span>
                 <h3 class="feature-title">Ta Progression</h3>
-                <p class="feature-description">Score, niveau, missions complétées : tout est suivi. Consulte ton profil ou le dashboard.</p>
+                <p class="feature-description">Score, niveau, missions complétées : tout est suivi. Consulte ton profil
+                    ou le dashboard.</p>
             </div>
 
             <div class="feature-card">
                 <span class="feature-icon">🎯</span>
                 <h3 class="feature-title">Missions & Actes</h3>
-                <p class="feature-description">Une histoire en actes. Commence par acte_1 au terminal, puis enchaîne.</p>
+                <p class="feature-description">Prologue, actes 1 à 6 et épilogue. Avance à ton rythme en cliquant sur
+                    « Continuer ».</p>
             </div>
         </div>
 
         <!-- Statut LUNA -->
         <div class="luna-status" id="luna-status">
-            LUNA en ligne — Ta première mission t'attend. Lance-toi !
+            LUNA en ligne — Rejoins l'aventure et sauve Arkalia !
         </div>
         <!-- Ambiance sonore optionnelle (effet plaisir, recherche 2024) -->
-        <button type="button" class="ambient-toggle" id="ambientToggle" aria-label="Activer ou désactiver l'ambiance sonore" title="Ambiance sonore">
+        <button type="button" class="ambient-toggle" id="ambientToggle"
+            aria-label="Activer ou désactiver l'ambiance sonore" title="Ambiance sonore">
             <span id="ambientIcon">🔇</span> <span id="ambientLabel">Ambiance</span>
         </button>
     </main>
 
     <script>
-    (function() {
-        function updateAmbientUI() {
-            var on = localStorage.getItem('arkalia_ambient_music') === 'on';
-            var icon = document.getElementById('ambientIcon');
-            var label = document.getElementById('ambientLabel');
-            var btn = document.getElementById('ambientToggle');
-            if (icon) icon.textContent = on ? '\u266B' : '\uD83D\uDD07';
-            if (label) label.textContent = on ? 'Ambiance ON' : 'Ambiance';
-            if (btn) btn.classList.toggle('on', on);
-        }
-        document.addEventListener('DOMContentLoaded', function() {
-            updateAmbientUI();
-            var btn = document.getElementById('ambientToggle');
-            if (btn) btn.addEventListener('click', function() {
-                if (!window.audioManager) return;
-                var ctx = window.audioManager.audioContext;
-                if (ctx && typeof ctx.resume === 'function') ctx.resume();
-                var next = !window.audioManager.isAmbientMusicEnabled();
-                window.audioManager.setAmbientMusicEnabled(next);
+        (function () {
+            function updateAmbientUI() {
+                var on = localStorage.getItem('arkalia_ambient_music') === 'on';
+                var icon = document.getElementById('ambientIcon');
+                var label = document.getElementById('ambientLabel');
+                var btn = document.getElementById('ambientToggle');
+                if (icon) icon.textContent = on ? '\u266B' : '\uD83D\uDD07';
+                if (label) label.textContent = on ? 'Ambiance ON' : 'Ambiance';
+                if (btn) btn.classList.toggle('on', on);
+            }
+            document.addEventListener('DOMContentLoaded', function () {
                 updateAmbientUI();
+                var btn = document.getElementById('ambientToggle');
+                if (btn) btn.addEventListener('click', function () {
+                    if (!window.audioManager) return;
+                    var ctx = window.audioManager.audioContext;
+                    if (ctx && typeof ctx.resume === 'function') ctx.resume();
+                    var next = !window.audioManager.isAmbientMusicEnabled();
+                    window.audioManager.setAmbientMusicEnabled(next);
+                    updateAmbientUI();
+                });
             });
-        });
-    })();
+        })();
     </script>
 
     <!-- Scripts LUNA VISION -->
@@ -715,10 +784,10 @@
     <script src="{{ url_for('static', filename='js/reward-feedback-system.js') }}?v=4.0.0" defer></script>
     <script src="{{ url_for('static', filename='js/ui-perfection.js') }}?v=3.3.1" defer></script>
 
-    <!-- Scripts critiques chargés immédiatement -->
-    <script src="{{ url_for('static', filename='js/accessibility.js') }}?v=3.1.1"></script>
-    <script src="{{ url_for('static', filename='js/performance-ux-optimizer.js') }}?v=3.1.1"></script>
-    <script src="{{ url_for('static', filename='js/audio-manager.js') }}?v=3.1.1"></script>
+    <!-- Scripts critiques en defer (ne bloquent plus le parsing, exécution avant DOMContentLoaded) -->
+    <script src="{{ url_for('static', filename='js/accessibility.js') }}?v=3.1.1" defer></script>
+    <script src="{{ url_for('static', filename='js/performance-ux-optimizer.js') }}?v=3.1.1" defer></script>
+    <script src="{{ url_for('static', filename='js/audio-manager.js') }}?v=3.1.1" defer></script>
 
     <!-- Scripts non-critiques chargés de manière différée -->
     <script>
@@ -756,7 +825,7 @@
             setTimeout(() => {
                 const subtitle = document.getElementById('hero-subtitle');
                 if (window.lunaVision && subtitle) {
-                    window.lunaVision.typeText(subtitle, "Tu es un hacker qui aide LUNA : missions au terminal, actes et mini-jeux.", 50);
+                    window.lunaVision.typeText(subtitle, "Aide LUNA à sauver Arkalia : choisis ton chemin, vis l'aventure.", 50);
                 }
             }, 3000);
 
@@ -771,7 +840,7 @@
             // Message de LUNA contextuel
             setTimeout(() => {
                 if (window.lunaVision) {
-                    window.lunaVision.showLunaMessage("Clique sur « Commencer l'aventure » — ton premier défi t'attend au terminal.", 4000);
+                    window.lunaVision.showLunaMessage("Clique sur « Rejoindre LUNA » pour vivre l'aventure.", 4000);
                     window.lunaVision.setEmotion('welcoming');
                 }
             }, 8000);
@@ -794,8 +863,8 @@
         });
     </script>
 
-    <!-- Scripts personnalisés -->
-    <script src="{{ url_for('static', filename='js/personalized-messages.js') }}?v=3.3.1"></script>
+    <!-- Scripts personnalisés (defer = premier rendu plus rapide) -->
+    <script src="{{ url_for('static', filename='js/personalized-messages.js') }}?v=3.3.1" defer></script>
 
     <!-- Nouveaux scripts V3 - Chargement optimisé -->
     <script src="{{ url_for('static', filename='js/theme-manager.js') }}?v=3.3.0" defer></script>
@@ -803,7 +872,7 @@
     <!-- Visual guidance désactivé -->
     <!-- <script src="{{ url_for('static', filename='js/visual-guidance.js') }}?v=3.3.0" defer></script> -->
     <script src="{{ url_for('static', filename='js/tutorial-celebrations.js') }}?v=3.3.0" defer></script>
-    <script src="{{ url_for('static', filename='js/mini-games-interactive.js') }}?v=3.3.0"></script>
+    <script src="{{ url_for('static', filename='js/mini-games-interactive.js') }}?v=3.3.0" defer></script>
     <!-- reward-animations non nécessaire: unifié dans reward-feedback-system.js -->
     <!-- <script src="{{ url_for('static', filename='js/reward-animations.js') }}?v=3.3.0" defer></script> -->
     <script src="{{ url_for('static', filename='js/luna-enhanced.js') }}?v=3.3.0" defer></script>
@@ -811,7 +880,7 @@
     <!-- Scripts de perfection avancés -->
 
     <!-- Scripts des corrections d'audit visuel -->
-    <script src="{{ url_for('static', filename='js/audit-visual-enhancements.js') }}?v=3.5.0"></script>
+    <script src="{{ url_for('static', filename='js/audit-visual-enhancements.js') }}?v=3.5.0" defer></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -819,28 +888,28 @@
         });
     </script>
 
-    <!-- Scripts des systèmes de gameplay améliorés -->
-    <script src="{{ url_for('static', filename='js/zone-exploration-enhanced.js') }}?v=3.6.0"></script>
-    <script src="{{ url_for('static', filename='js/daily-missions-enhanced.js') }}?v=3.6.0"></script>
-    <script src="{{ url_for('static', filename='js/motivational-empty-states.js') }}?v=3.6.0"></script>
-    <script src="{{ url_for('static', filename='js/timer-challenges.js') }}?v=3.6.0"></script>
-    <script src="{{ url_for('static', filename='js/interactive-puzzles.js') }}?v=3.6.0"></script>
-    <script src="{{ url_for('static', filename='js/gameplay-integration.js') }}?v=3.6.0"></script>
+    <!-- Scripts des systèmes de gameplay améliorés (defer) -->
+    <script src="{{ url_for('static', filename='js/zone-exploration-enhanced.js') }}?v=3.6.0" defer></script>
+    <script src="{{ url_for('static', filename='js/daily-missions-enhanced.js') }}?v=3.6.0" defer></script>
+    <script src="{{ url_for('static', filename='js/motivational-empty-states.js') }}?v=3.6.0" defer></script>
+    <script src="{{ url_for('static', filename='js/timer-challenges.js') }}?v=3.6.0" defer></script>
+    <script src="{{ url_for('static', filename='js/interactive-puzzles.js') }}?v=3.6.0" defer></script>
+    <script src="{{ url_for('static', filename='js/gameplay-integration.js') }}?v=3.6.0" defer></script>
 
     <!-- Scripts du gestionnaire de popups -->
-    <script src="{{ url_for('static', filename='js/popup-manager.js') }}?v=3.7.0"></script>
-    <script src="{{ url_for('static', filename='js/popup-coordinator.js') }}?v=3.7.0"></script>
+    <script src="{{ url_for('static', filename='js/popup-manager.js') }}?v=3.7.0" defer></script>
+    <script src="{{ url_for('static', filename='js/popup-coordinator.js') }}?v=3.7.0" defer></script>
 
     <!-- Système de synchronisation de progression -->
-    <script src="{{ url_for('static', filename='js/progression-sync.js') }}?v=1.0.0"></script>
-    <script src="{{ url_for('static', filename='js/gamification-feedback.js') }}?v=1.0.0"></script>
-    <script src="{{ url_for('static', filename='js/realtime-feedback.js') }}?v=1.0.0"></script>
-    <script src="{{ url_for('static', filename='js/ui-polish.js') }}?v=1.0.0"></script>
+    <script src="{{ url_for('static', filename='js/progression-sync.js') }}?v=1.0.0" defer></script>
+    <script src="{{ url_for('static', filename='js/gamification-feedback.js') }}?v=1.0.0" defer></script>
+    <script src="{{ url_for('static', filename='js/realtime-feedback.js') }}?v=1.0.0" defer></script>
+    <script src="{{ url_for('static', filename='js/ui-polish.js') }}?v=1.0.0" defer></script>
 
     <!-- Systèmes de correction des bugs critiques -->
-    <script src="{{ url_for('static', filename='js/unified-progression-sync.js') }}?v=1.0.0"></script>
-    <script src="{{ url_for('static', filename='js/luna-notification-manager.js') }}?v=1.0.0"></script>
-    <script src="{{ url_for('static', filename='js/ready-state-manager.js') }}?v=1.0.0"></script>
+    <script src="{{ url_for('static', filename='js/unified-progression-sync.js') }}?v=1.0.0" defer></script>
+    <script src="{{ url_for('static', filename='js/luna-notification-manager.js') }}?v=1.0.0" defer></script>
+    <script src="{{ url_for('static', filename='js/ready-state-manager.js') }}?v=1.0.0" defer></script>
 
     <!-- Composant de gameplay enhancements -->
     {% include 'components/gameplay_enhancements.html' %}

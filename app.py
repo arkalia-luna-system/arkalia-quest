@@ -544,6 +544,8 @@ def charger_profil():
         progression_data = progression_engine.get_player_progression(player_id)
 
         # Convertir au format attendu par le frontend
+        # story_chapters_completed = progression histoire (prologue, acte_1, ...)
+        story_completed = progression_data.get("story_chapters_completed", [])
         profil = {
             "id": player_id,
             "name": "Hacker",
@@ -554,6 +556,7 @@ def charger_profil():
             "xp": progression_data.get("xp", 0),
             "coins": progression_data.get("coins", 0),
             "badges": progression_data.get("badges", []),
+            "missions_completed": story_completed,
             "personnalite": {
                 "type": "non_detecte",
                 "traits": [],
@@ -967,6 +970,144 @@ def execute_terminal_command():
             ),
             500,
         )
+
+
+def _load_story_chapters():
+    """Charge les chapitres d'histoire depuis data/story_chapters.json"""
+    path = os.path.join(os.path.dirname(__file__), "data", "story_chapters.json")
+    try:
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return {"chapters_order": [], "chapters": {}}
+
+
+@app.route("/api/story/state", methods=["GET"])
+def api_story_state():
+    """Retourne l'état actuel de l'histoire (chapitre en cours, contenu)."""
+    try:
+        data = _load_story_chapters()
+        order = data.get("chapters_order", [])
+        chapters = data.get("chapters", {})
+        if not order or not chapters:
+            return (
+                jsonify({"success": False, "error": "Données histoire manquantes"}),
+                503,
+            )
+
+        player_id = "main_user"
+        prog = (
+            progression_engine.get_player_progression(player_id)
+            if progression_engine
+            else {}
+        )
+        completed = prog.get("story_chapters_completed", [])
+
+        current_id = None
+        for ch_id in order:
+            if ch_id not in completed:
+                current_id = ch_id
+                break
+
+        if current_id is None:
+            return jsonify(
+                {
+                    "success": True,
+                    "completed": True,
+                    "completed_count": len(completed),
+                    "total": len(order),
+                    "message": "Tu as terminé l'aventure. Reviens pour de nouvelles missions !",
+                }
+            )
+
+        ch = chapters.get(current_id, {})
+        return jsonify(
+            {
+                "success": True,
+                "completed": False,
+                "current_chapter_id": current_id,
+                "title": ch.get("title", current_id),
+                "message": ch.get("message", ""),
+                "completed_count": len(completed),
+                "total": len(order),
+            }
+        )
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/story/choice", methods=["POST"])
+def api_story_choice():
+    """Valide le chapitre en cours (bouton Continuer) et passe au suivant."""
+    try:
+        data = request.get_json(silent=True) or {}
+        chapter_id = (data.get("chapter_id") or data.get("chapter") or "").strip()
+
+        story_data = _load_story_chapters()
+        order = story_data.get("chapters_order", [])
+        chapters = story_data.get("chapters", {})
+        if chapter_id not in order or chapter_id not in chapters:
+            return jsonify({"success": False, "error": "Chapitre invalide"}), 400
+
+        from core.game_engine import GameEngine
+
+        game_engine = GameEngine()
+        result = game_engine.process_command(chapter_id, "main_user")
+
+        if not result.get("réussite", False):
+            return (
+                jsonify(
+                    {
+                        "success": False,
+                        "error": result.get("message", "Échec de la mission"),
+                    }
+                ),
+                400,
+            )
+
+        player_id = "main_user"
+        if progression_engine:
+            progression_engine.update_player_progression(
+                player_id, "story_chapter", {"chapter_id": chapter_id}
+            )
+            score_gagne = result.get("score_gagne", 0)
+            if score_gagne > 0:
+                progression_engine.update_player_progression(
+                    player_id, "score_earned", {"points": score_gagne}
+                )
+            prog = progression_engine.get_player_progression(player_id)
+            completed = prog.get("story_chapters_completed", [])
+        else:
+            completed = []
+
+        next_id = None
+        for ch_id in order:
+            if ch_id not in completed:
+                next_id = ch_id
+                break
+
+        next_chapter = None
+        if next_id:
+            ch = chapters.get(next_id, {})
+            next_chapter = {
+                "id": next_id,
+                "title": ch.get("title", next_id),
+                "message": ch.get("message", ""),
+            }
+
+        return jsonify(
+            {
+                "success": True,
+                "message": result.get("message", ""),
+                "score_gagne": result.get("score_gagne", 0),
+                "next_chapter": next_chapter,
+                "completed": next_id is None,
+                "completed_count": len(completed),
+                "total": len(order),
+            }
+        )
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
 
 
 @app.route("/data/missions/<mission_name>")

@@ -42,6 +42,7 @@ Guide de navigation dans la documentation du projet. *Dernière mise à jour : 7
 - **[../RAPPORT_AUDIT_COMPLET_PROJET.md](../RAPPORT_AUDIT_COMPLET_PROJET.md)** — Audit complet (racine) : exploitation 100 %, static/config/docs, url_for, LUNA. Voir [rapports/README.md](rapports/README.md).
 - **[rapports/RAPPORT_AUDIT_PROJET.md](rapports/RAPPORT_AUDIT_PROJET.md)** — Audit projet (7 fév. 2026)
 - **[audits/AUDIT_JEU_MEILLEURES_PRATIQUES_2026.md](audits/AUDIT_JEU_MEILLEURES_PRATIQUES_2026.md)** — Audit UX vs meilleurs jeux 2024–2025, promesse 15 mots, prochaines étapes
+- **[AUDIT_ET_REVISION_CONCEPT.md](AUDIT_ET_REVISION_CONCEPT.md)** — Audit complet du projet + révision du concept (abandon du terminal, nouveau concept narratif/exploration)
 - **[PLAYTEST_GUIDE_ADOS.md](PLAYTEST_GUIDE_ADOS.md)** — Guide playtest 15 min pour ados (scénario, grille, indicateurs)
 - **[COMPARAISON_JEUX_SOURCES_EXTERNES.md](COMPARAISON_JEUX_SOURCES_EXTERNES.md)** — Pourquoi le jeu peut sembler nul vs autres (sources 2024–2025), fun / game feel / onboarding ; tableau « Couverture des pages » (game-feel + focus + reduced-motion sur les 13 pages)
 - **[reports/README.md](reports/README.md)** — Rapports d’évaluation
@@ -154,7 +155,7 @@ docs/
 
 ## 🗺️ **PAGES & FONCTIONNALITÉS (EXPLOITATION 100 %)**
 
-- **Accueil** `/` — **Terminal** `/terminal` — **Monde** `/monde` — **Profil** `/profil` — **Classement** `/leaderboard` (avec onglets par catégorie) — **Dashboard** `/dashboard` (défis du jour, accès rapide) — **Compétences** `/skill-tree` — **Tutoriel** `/tutorial` — **Explorateur** `/explorateur` — **Mail** `/mail` — **Audio** `/audio` — **Tutoriels techniques** `/technical-tutorials` — **Accessibilité** `/accessibility`.
+- **Accueil** `/` — **Aventure** `/histoire` — **Terminal** `/terminal` — **Monde** `/monde` — **Profil** `/profil` — **Classement** `/leaderboard` (avec onglets par catégorie) — **Dashboard** `/dashboard` (défis du jour, accès rapide) — **Compétences** `/skill-tree` — **Tutoriel** `/tutorial` — **Explorateur** `/explorateur` — **Mail** `/mail` — **Audio** `/audio` — **Tutoriels techniques** `/technical-tutorials` — **Accessibilité** `/accessibility`.
 
 ---
 

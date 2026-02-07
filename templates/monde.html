@@ -5,6 +5,24 @@
     <meta charset="UTF-8">
     <title>🌍 ARKALIA QUEST - MONDE LUNA</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --luna-bg: #0f0f12;
+        }
+
+        body {
+            margin: 0;
+            background: var(--luna-bg);
+            color: #fafafa;
+            min-height: 100vh;
+        }
+
+        .world-workspace {
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+    </style>
 
     <!-- PWA Meta Tags -->
     <meta name="description"
@@ -205,6 +223,46 @@
             color: var(--argent-holographique);
             opacity: 0;
             animation: fadeInUp 1.5s ease-out 1s forwards;
+        }
+
+        .world-empty-encouragement {
+            background: linear-gradient(135deg, rgba(167, 139, 250, 0.15), rgba(0, 255, 0, 0.08));
+            border: 1px solid rgba(167, 139, 250, 0.4);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 24px;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 1.5s ease-out 1.2s forwards;
+        }
+
+        .world-empty-encouragement .world-empty-icon {
+            font-size: 1.8em;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .world-empty-encouragement p {
+            margin: 0 0 14px;
+            color: var(--argent-holographique);
+            font-size: 1em;
+        }
+
+        .world-empty-encouragement .world-empty-cta {
+            display: inline-block;
+            padding: 12px 24px;
+            background: rgba(0, 255, 0, 0.15);
+            border: 2px solid rgba(0, 255, 0, 0.4);
+            border-radius: 10px;
+            color: var(--matrix-green);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .world-empty-encouragement .world-empty-cta:hover {
+            background: rgba(0, 255, 0, 0.25);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
         }
 
         .world-grid {
@@ -745,21 +803,10 @@
     <!-- Panneau d'accessibilité -->
     {% include 'components/accessibility_toggle.html' %}
 
-    <!-- Navigation LUNA -->
+    <!-- Navigation LUNA (composant unifié) -->
     <div id="navigation">
-        <nav class="main-nav">
-            <div class="nav-container">
-                <div class="nav-logo">ARKALIA QUEST</div>
-                <div class="nav-links">
-                    <a href="/" class="nav-link">🏠 ACCUEIL</a>
-                    <a href="/terminal" class="nav-link">⌨️ TERMINAL</a>
-                    <a href="/monde" class="nav-link active">🌍 MONDE</a>
-                    <a href="/profil" class="nav-link">👤 PROFIL</a>
-                    <a href="/leaderboard" class="nav-link">🏆 CLASSEMENT</a>
-                    <a href="/dashboard" class="nav-link">📊 DASHBOARD</a>
-                </div>
-            </div>
-        </nav>
+        {% set active_page = 'world' %}
+        {% include 'components/navbar.html' with context %}
     </div>
 
     <main id="main-content" class="world-workspace">
@@ -770,12 +817,14 @@
             <!-- En-tête du monde -->
             <div class="world-header">
                 <h1 class="world-title" id="world-title">MONDE D'ARKALIA</h1>
-                <p class="world-subtitle" id="world-subtitle">Clique sur une zone pour explorer. Complète acte_1 au terminal pour débloquer plus de contenu.</p>
+                <p class="world-subtitle" id="world-subtitle">Clique sur une zone pour explorer. Complète acte_1 au
+                    terminal pour débloquer plus de contenu.</p>
             </div>
             {% if not profil or not (profil.get('missions_completed') or []) %}
             <div class="world-empty-encouragement" role="status">
                 <span class="world-empty-icon">🎯</span>
-                <p>Pas encore de missions ? <strong>Tape acte_1 au terminal</strong> pour commencer l'aventure et débloquer les zones.</p>
+                <p>Pas encore de missions ? <strong>Tape acte_1 au terminal</strong> pour commencer l'aventure et
+                    débloquer les zones.</p>
                 <a href="/terminal" class="cta-btn world-empty-cta">⌨️ Aller au terminal</a>
             </div>
             {% endif %}

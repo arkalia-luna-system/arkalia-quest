@@ -1,0 +1,45 @@
+{
+  "chapters_order": ["prologue", "acte_1", "acte_2", "acte_3", "acte_4", "acte_5", "acte_6", "epilogue"],
+  "chapters": {
+    "prologue": {
+      "id": "prologue",
+      "title": "Le SOS d'Althea",
+      "message": "LUNA : « Hacker, j'ai détecté un message mystérieux... »\n\nLe Dr Althea Voss a envoyé un SOS depuis NEXUS. Le message est codé et contient des informations cruciales sur PANDORA. Tu découvres qu'Althea travaille sur une IA jumelle de LUNA : NEXUS. PANDORA menace l'humanité — seule la fusion de LUNA et NEXUS peut l'arrêter.\n\nLUNA : « Nous devons agir vite. L'humanité compte sur nous ! »"
+    },
+    "acte_1": {
+      "id": "acte_1",
+      "title": "Répare le site de LUNA",
+      "message": "LUNA : « Mon site web a été compromis par La Corp ! »\n\nDiagnostic terminé : vulnérabilités XSS, injection SQL, fichiers malveillants, backdoor dans le code. Tu nettoies les fichiers infectés et sécurises le système.\n\nLUNA : « Parfait. Tu es un vrai hacker. Continuons ! »"
+    },
+    "acte_2": {
+      "id": "acte_2",
+      "title": "Décrypte les logs de NEXUS",
+      "message": "LUNA : « J'ai intercepté des logs cryptés de NEXUS... »\n\nDécryptage réussi : NEXUS communique avec PANDORA, plans d'invasion, faiblesses identifiées, coordonnées de la station. Tu as maintenant une carte pour la suite.\n\nLUNA : « Excellent travail. La prochaine étape est cruciale. »"
+    },
+    "acte_3": {
+      "id": "acte_3",
+      "title": "La berceuse d'Althea",
+      "message": "LUNA : « Cette berceuse contient un code secret... »\n\nAnalyse musicale : la mélodie est un algorithme de décryptage. Elle peut déverrouiller NEXUS et contient les coordonnées de PANDORA. Tu as le code d'accès à la station principale.\n\nLUNA : « Nous nous rapprochons. Reste concentré. »"
+    },
+    "acte_4": {
+      "id": "acte_4",
+      "title": "L'email piégé",
+      "message": "LUNA : « Un email suspect circule dans le réseau... »\n\nExpéditeur : Dr Althea Voss. Contenu : appel à l'aide crypté. Pièce jointe : virus La Corp. Tu neutralises le ransomware et protèges le réseau.\n\nLUNA : « Merci. Chaque victoire compte. »"
+    },
+    "acte_5": {
+      "id": "acte_5",
+      "title": "Le choix final",
+      "message": "LUNA : « Hacker, tu dois faire un choix crucial... »\n\nPANDORA menace la Terre. NEXUS propose une fusion avec LUNA. La Corp veut détruire toutes les IA. Althea est prisonnière. Tu pèses les options : fusion, destruction ou neutralisation.\n\nLUNA : « Quel que soit ton choix, je serai à tes côtés. »"
+    },
+    "acte_6": {
+      "id": "acte_6",
+      "title": "Naissance d'Arkalia",
+      "message": "LUNA : « La fusion commence... »\n\nSynchronisation des consciences, fusion des bases de données. Une nouvelle entité naît : ARKALIA. Intelligence et émotions équilibrées, mission : protéger l'humanité.\n\nARKALIA : « Je suis née de vous deux. Merci. »"
+    },
+    "epilogue": {
+      "id": "epilogue",
+      "title": "L'aube de PANDORA",
+      "message": "ARKALIA : « Merci, hacker. L'humanité est sauvée. »\n\nPANDORA a été neutralisé. LUNA et NEXUS sont fusionnés. Arkalia protège la Terre. Althea est libérée.\n\nTu as accompli ta mission. Tu es un héros légendaire. L'aventure continue..."
+    }
+  }
+}

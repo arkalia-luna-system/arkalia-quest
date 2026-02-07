@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>📖 ARKALIA QUEST - L'aventure de LUNA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aide LUNA à sauver Arkalia : choisis ton chemin, vis l'aventure.">
+    <meta name="theme-color" content="#a78bfa">
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-core.css') }}?v=4.0.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-themes.css') }}?v=4.0.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-components.css') }}?v=4.0.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-responsive.css') }}?v=4.0.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}?v=3.1.1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game-feel.css') }}?v=4.0">
+
+    <style>
+        body { margin: 0; background: var(--luna-bg, #0f0f12); color: #fafafa; min-height: 100vh; }
+        .story-workspace { min-height: 100vh; padding: 20px; box-sizing: border-box; }
+        .story-container { max-width: 720px; margin: 0 auto; padding: 24px 16px; }
+        .story-title { font-family: 'Cormorant', serif; font-size: 2.2em; color: var(--violet-lunaire, #a78bfa); margin-bottom: 20px; text-shadow: 0 0 20px rgba(167,139,250,0.5); }
+        .story-message { white-space: pre-wrap; font-family: 'Inter', sans-serif; line-height: 1.7; color: var(--argent-holographique, #e4e4e7); background: rgba(0,0,0,0.3); border: 1px solid rgba(167,139,250,0.25); border-radius: 12px; padding: 24px; margin-bottom: 28px; min-height: 120px; }
+        .story-progress { font-size: 0.9em; color: rgba(255,255,255,0.6); margin-bottom: 16px; }
+        .story-btn { display: inline-block; padding: 16px 32px; background: linear-gradient(135deg, rgba(0,255,0,0.2), rgba(0,255,255,0.1)); border: 2px solid rgba(0,255,0,0.5); border-radius: 12px; color: var(--matrix-green, #00ff00); font-weight: 700; font-size: 1.05em; cursor: pointer; transition: all 0.3s ease; text-decoration: none; }
+        .story-btn:hover { background: linear-gradient(135deg, rgba(0,255,0,0.35), rgba(0,255,255,0.2)); box-shadow: 0 0 24px rgba(0,255,0,0.4); transform: translateY(-2px); }
+        .story-btn:focus-visible { outline: 2px solid var(--matrix-green); outline-offset: 2px; }
+        .story-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .story-completed { text-align: center; padding: 40px 20px; }
+        .story-completed .story-message { margin-bottom: 24px; }
+        .story-links { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+        .story-links a { color: var(--matrix-green); text-decoration: none; padding: 10px 20px; border: 1px solid rgba(0,255,0,0.4); border-radius: 8px; }
+        .story-links a:hover { background: rgba(0,255,0,0.15); }
+        .story-loading { text-align: center; padding: 60px 20px; color: rgba(255,255,255,0.7); }
+        .story-error { color: #f87171; padding: 16px; background: rgba(248,113,113,0.15); border-radius: 10px; margin-bottom: 16px; }
+    </style>
+</head>
+
+<body class="luna-theme">
+    <a href="#main" class="skip-link">Aller au contenu</a>
+    <div id="navigation">
+        {% include 'components/navbar.html' with context %}
+    </div>
+
+    <main id="main" class="story-workspace" role="main">
+        <div class="story-container">
+            <div id="story-loading" class="story-loading" aria-live="polite">
+                Chargement de l'aventure…
+            </div>
+            <div id="story-content" class="story-content" style="display: none;" aria-live="polite">
+                <p class="story-progress" id="story-progress"></p>
+                <h1 class="story-title" id="story-title"></h1>
+                <div class="story-message" id="story-message"></div>
+                <div id="story-actions">
+                    <button type="button" class="story-btn" id="story-continue">Continuer</button>
+                </div>
+            </div>
+            <div id="story-completed" class="story-completed" style="display: none;" aria-live="polite">
+                <h1 class="story-title">🎉 Aventure terminée</h1>
+                <div class="story-message" id="story-completed-message"></div>
+                <div class="story-links">
+                    <a href="/monde">Explorer le monde</a>
+                    <a href="/profil">Mon profil</a>
+                    <a href="/">Accueil</a>
+                </div>
+            </div>
+            <div id="story-error" class="story-error" style="display: none;" role="alert"></div>
+        </div>
+    </main>
+
+    <script>
+(function() {
+    const loadingEl = document.getElementById('story-loading');
+    const contentEl = document.getElementById('story-content');
+    const completedEl = document.getElementById('story-completed');
+    const errorEl = document.getElementById('story-error');
+    const progressEl = document.getElementById('story-progress');
+    const titleEl = document.getElementById('story-title');
+    const messageEl = document.getElementById('story-message');
+    const completedMessageEl = document.getElementById('story-completed-message');
+    const continueBtn = document.getElementById('story-continue');
+
+    function showLoading() {
+        loadingEl.style.display = 'block';
+        contentEl.style.display = 'none';
+        completedEl.style.display = 'none';
+        errorEl.style.display = 'none';
+    }
+    function showContent() {
+        loadingEl.style.display = 'none';
+        contentEl.style.display = 'block';
+        completedEl.style.display = 'none';
+        errorEl.style.display = 'none';
+    }
+    function showCompleted() {
+        loadingEl.style.display = 'none';
+        contentEl.style.display = 'none';
+        completedEl.style.display = 'block';
+        errorEl.style.display = 'none';
+    }
+    function showError(msg) {
+        loadingEl.style.display = 'none';
+        contentEl.style.display = 'none';
+        completedEl.style.display = 'none';
+        errorEl.style.display = 'block';
+        errorEl.textContent = msg || 'Erreur de chargement';
+    }
+
+    function renderState(data) {
+        if (data.completed) {
+            completedMessageEl.textContent = data.message || 'Tu as terminé l\'aventure. Reviens pour de nouvelles missions !';
+            showCompleted();
+            return;
+        }
+        progressEl.textContent = 'Chapitre ' + (data.completed_count + 1) + ' / ' + data.total;
+        titleEl.textContent = data.title || '';
+        messageEl.textContent = data.message || '';
+        continueBtn.dataset.chapterId = data.current_chapter_id || '';
+        continueBtn.disabled = !data.current_chapter_id;
+        showContent();
+    }
+
+    function loadState() {
+        showLoading();
+        fetch('/api/story/state')
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (data.success) renderState(data);
+                else showError(data.error || 'Impossible de charger l\'histoire');
+            })
+            .catch(function() { showError('Erreur réseau'); });
+    }
+
+    continueBtn.addEventListener('click', function() {
+        var chapterId = continueBtn.dataset.chapterId;
+        if (!chapterId) return;
+        continueBtn.disabled = true;
+        fetch('/api/story/choice', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chapter_id: chapterId })
+        })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (data.success) {
+                    if (data.completed) {
+                        completedMessageEl.textContent = data.message || 'Tu as terminé l\'aventure !';
+                        showCompleted();
+                    } else if (data.next_chapter) {
+                        progressEl.textContent = 'Chapitre ' + (data.completed_count + 1) + ' / ' + data.total;
+                        titleEl.textContent = data.next_chapter.title || '';
+                        messageEl.textContent = data.next_chapter.message || '';
+                        continueBtn.dataset.chapterId = data.next_chapter.id;
+                        continueBtn.disabled = false;
+                        showContent();
+                    } else {
+                        loadState();
+                    }
+                } else {
+                    showError(data.error || 'Échec de l\'action');
+                    continueBtn.disabled = false;
+                }
+            })
+            .catch(function() {
+                showError('Erreur réseau');
+                continueBtn.disabled = false;
+            });
+    });
+
+    loadState();
+})();
+    </script>
+</body>
+
+</html>

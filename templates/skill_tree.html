@@ -221,7 +221,10 @@
 
         .skill-tree-container button:focus-visible,
         .skill-tree-container a:focus-visible,
-        .skill-tree-container [role="button"]:focus-visible { outline: 2px solid var(--matrix-green, #00ff00); outline-offset: 3px; }
+        .skill-tree-container [role="button"]:focus-visible {
+            outline: 2px solid var(--matrix-green, #00ff00);
+            outline-offset: 3px;
+        }
 
         @media (max-width: 768px) {
             .skill-tree-container {
@@ -250,10 +253,13 @@
 </head>
 
 <body>
-    <!-- Bouton retour -->
-    <a href="/" class="back-button">← RETOUR</a>
-
-    <div class="skill-tree-container">
+    <a href="#main-content" class="skip-link">Aller au contenu</a>
+    {% include 'components/accessibility_toggle.html' %}
+    <div id="navigation">
+        {% set active_page = 'skill-tree' %}
+        {% include 'components/navbar.html' with context %}
+    </div>
+    <main id="main-content" class="skill-tree-container">
         <!-- En-tête -->
         <div class="skill-tree-header">
             <h1 class="skill-tree-title">⚡ ARBRE DE COMPÉTENCES</h1>
@@ -288,7 +294,7 @@
         <div class="skill-tree-grid" id="skill-tree-grid">
             <!-- Le contenu sera généré dynamiquement par JavaScript -->
         </div>
-    </div>
+    </main>
 
     <!-- Scripts -->
     <script src="{{ url_for('static', filename='js/gamification-feedback.js') }}?v=1.0.0"></script>

@@ -111,7 +111,7 @@ Toutes les pages du jeu ont été alignées sur le même langage visuel et l’a
 | Accessibilité | oui | boutons, liens | fond, titre |
 | Tutoriels techniques | oui | boutons, liens, cartes | — |
 
-La navbar (composant partagé) a un focus visible via `accessibility.css` (`.nav-link:focus-visible`) et `game-feel.css` (`.burger-btn:focus-visible` pour le menu mobile).
+La navbar (composant partagé) a un focus visible via `accessibility.css` (`.nav-link:focus-visible`) et `game-feel.css` (`.burger-btn:focus-visible` pour le menu mobile). **Cohérence** : toutes les pages (accueil, terminal, monde, profil, dashboard, leaderboard, skill-tree, etc.) utilisent le même composant `navbar.html` avec `active_page` et `profil` ; la nav est simplifiée (Accueil, Terminal, Tutoriel) tant que la mission acte_1 n’est pas complétée.
 
 ---
 

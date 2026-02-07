@@ -5,6 +5,25 @@
     <meta charset="UTF-8">
     <title>⌨️ ARKALIA QUEST - TERMINAL LUNA</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --luna-bg: #0f0f12;
+        }
+
+        body {
+            margin: 0;
+            background: var(--luna-bg);
+            color: #fafafa;
+            min-height: 100vh;
+        }
+
+        .terminal-workspace {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+    </style>
 
     <!-- PWA Meta Tags -->
     <meta name="description"
@@ -19,28 +38,13 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
     <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
 
-    <!-- Fonts -->
+    <!-- Fonts (preconnect = chargement plus rapide) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
-    <!-- CSS LUNA VISION -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-responsive.css') }}?v=4.0.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/interface-improvements.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/empty-states.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/reward-animations.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/loading-animations.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/progression-animations.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/adaptive-guidance.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/progression-feedback.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/competitive-system.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/creative-system.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/casual-system.css') }}">
-
-    <!-- CSS des améliorations UX contextuelles -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/contextual-feedback.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/game-interface.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/mission-interface.css') }}">
+    <!-- CSS terminal (bundle = 1 requête au lieu de 16, généré par scripts/build_terminal_css.py) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/terminal-bundle.css') }}?v=4.0.2">
 
     <style>
         /* Styles spécifiques au terminal immersif */
@@ -429,12 +433,13 @@
 
         /* Feedback visuel unique succès/échec (audit UX 2026) */
         .terminal-output.terminal-feedback-success {
-            box-shadow: inset 0 2px 10px rgba(0,0,0,0.8), 0 0 30px rgba(0, 255, 0, 0.6);
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 255, 0, 0.6);
             border-color: var(--matrix-green);
             transition: box-shadow 0.3s ease, border-color 0.3s ease;
         }
+
         .terminal-output.terminal-feedback-error {
-            box-shadow: inset 0 2px 10px rgba(0,0,0,0.8), 0 0 30px rgba(255, 0, 0, 0.4);
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 0, 0, 0.4);
             border-color: #ff4444;
             transition: box-shadow 0.3s ease, border-color 0.3s ease;
         }
@@ -445,22 +450,24 @@
             color: var(--matrix-green);
             padding: 8px 12px;
             margin-bottom: 12px;
-            background: rgba(0,0,0,0.6);
-            border: 1px solid rgba(0,255,0,0.3);
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(0, 255, 0, 0.3);
             border-radius: 8px;
         }
+
         .first-mission-banner {
-            background: linear-gradient(135deg, rgba(167,139,250,0.2), rgba(96,165,250,0.15));
-            border: 1px solid rgba(167,139,250,0.5);
+            background: linear-gradient(135deg, rgba(167, 139, 250, 0.2), rgba(96, 165, 250, 0.15));
+            border: 1px solid rgba(167, 139, 250, 0.5);
             border-radius: 10px;
             padding: 12px 16px;
             margin-bottom: 16px;
             color: var(--violet-lunaire);
             font-weight: 600;
         }
+
         .next-step-banner {
-            background: linear-gradient(135deg, rgba(0,255,0,0.08), rgba(0,255,255,0.06));
-            border: 1px solid rgba(0,255,0,0.35);
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.08), rgba(0, 255, 255, 0.06));
+            border: 1px solid rgba(0, 255, 0, 0.35);
             border-radius: 10px;
             padding: 10px 14px;
             margin-bottom: 12px;
@@ -468,71 +475,145 @@
             font-weight: 600;
             font-size: 0.95em;
         }
+
         .terminal-progression-strip .points-gained-pill {
             display: inline-block;
             margin-left: 12px;
             padding: 4px 10px;
-            background: linear-gradient(135deg, rgba(0,255,0,0.25), rgba(0,255,255,0.15));
-            border: 1px solid rgba(0,255,0,0.5);
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.25), rgba(0, 255, 255, 0.15));
+            border: 1px solid rgba(0, 255, 0, 0.5);
             border-radius: 20px;
             color: var(--matrix-green);
             font-weight: 700;
             font-size: 0.9em;
             animation: pointsPillPop 0.4s ease-out, pointsPillFade 2s ease-out 0.5s forwards;
         }
+
         #progressionScore.score-just-updated {
             animation: scorePulse 1s ease-out;
         }
+
         @keyframes pointsPillPop {
-            0% { transform: scale(0.8); opacity: 0; }
-            50% { transform: scale(1.15); }
-            100% { transform: scale(1); opacity: 1; }
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
+
         @keyframes pointsPillFade {
-            to { opacity: 0.3; }
+            to {
+                opacity: 0.3;
+            }
         }
+
         @keyframes scorePulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; color: var(--matrix-green); }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.6;
+                color: var(--matrix-green);
+            }
         }
+
         .acte1-modal-overlay {
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.85);
-            display: flex; align-items: center; justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             z-index: 9999;
         }
+
         .acte1-modal {
-            background: linear-gradient(135deg, rgba(9,9,11,0.98), rgba(30,30,40,0.98));
+            background: linear-gradient(135deg, rgba(9, 9, 11, 0.98), rgba(30, 30, 40, 0.98));
             border: 2px solid var(--violet-lunaire);
             border-radius: 16px;
             padding: 24px;
             max-width: 400px;
             text-align: center;
         }
-        .acte1-modal h3 { color: var(--matrix-green); margin-bottom: 12px; }
-        .acte1-modal p { color: var(--argent-holographique); margin-bottom: 20px; }
-        .acte1-modal-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+        .acte1-modal h3 {
+            color: var(--matrix-green);
+            margin-bottom: 12px;
+        }
+
+        .acte1-modal p {
+            color: var(--argent-holographique);
+            margin-bottom: 20px;
+        }
+
+        .acte1-modal-btns {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
         .acte1-modal-btns button {
             padding: 14px 24px;
             border: 2px solid var(--matrix-green);
-            background: rgba(0,255,0,0.1);
+            background: rgba(0, 255, 0, 0.1);
             color: var(--matrix-green);
             border-radius: 10px;
             cursor: pointer;
             font-family: 'Share Tech Mono', monospace;
         }
-        .acte1-modal-btns button:hover { background: rgba(0,255,0,0.25); }
+
+        .acte1-modal-btns button:hover {
+            background: rgba(0, 255, 0, 0.25);
+        }
+
         .acte1-modal-btns button:focus-visible {
             outline: 2px solid var(--matrix-green, #00ff00);
             outline-offset: 3px;
         }
-        .acte1-modal-btns button.correct { border-color: #10b981; }
-        .acte1-modal-btns button.wrong { border-color: #ef4444; opacity: 0.7; }
-        .acte1-modal.celebrate { animation: acte1-celebrate 0.4s ease-out; }
+
+        .acte1-modal-btns button.correct {
+            border-color: #10b981;
+        }
+
+        .acte1-modal-btns button.wrong {
+            border-color: #ef4444;
+            opacity: 0.7;
+        }
+
+        .acte1-modal.celebrate {
+            animation: acte1-celebrate 0.4s ease-out;
+        }
+
         @keyframes acte1-celebrate {
-            0%   { transform: scale(1); box-shadow: 0 0 0 rgba(16, 185, 129, 0); }
-            50%  { transform: scale(1.05); box-shadow: 0 0 40px rgba(16, 185, 129, 0.6); }
-            100% { transform: scale(1); box-shadow: 0 0 20px rgba(16, 185, 129, 0.3); }
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 rgba(16, 185, 129, 0);
+            }
+
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 40px rgba(16, 185, 129, 0.6);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+            }
         }
 
         .terminal-input-container {
@@ -916,17 +997,21 @@
             {% if profil is defined and profil %}
             {% set completed = profil.get('missions_completed') or [] %}
             {% if 'acte_1' in completed and 'acte_2' not in completed %}
-            <div class="next-step-banner" id="nextStepBanner">➡️ La suite t'attend : tape <strong>acte_2</strong> pour continuer l'aventure</div>
+            <div class="next-step-banner" id="nextStepBanner">➡️ La suite t'attend : tape <strong>acte_2</strong> pour
+                continuer l'aventure</div>
             {% elif 'acte_2' in completed and 'acte_3' not in completed %}
-            <div class="next-step-banner" id="nextStepBanner">➡️ Continue : tape <strong>acte_3</strong> pour la suite de l'histoire</div>
+            <div class="next-step-banner" id="nextStepBanner">➡️ Continue : tape <strong>acte_3</strong> pour la suite
+                de l'histoire</div>
             {% elif 'acte_3' in completed and 'acte_4' not in completed %}
-            <div class="next-step-banner" id="nextStepBanner">➡️ Tape <strong>acte_4</strong> pour découvrir la suite</div>
+            <div class="next-step-banner" id="nextStepBanner">➡️ Tape <strong>acte_4</strong> pour découvrir la suite
+            </div>
             {% elif 'acte_4' in completed and 'acte_5' not in completed %}
             <div class="next-step-banner" id="nextStepBanner">➡️ Tape <strong>acte_5</strong> — on approche du but</div>
             {% elif 'acte_5' in completed and 'acte_6' not in completed %}
             <div class="next-step-banner" id="nextStepBanner">➡️ Dernier acte : tape <strong>acte_6</strong></div>
             {% elif 'acte_6' in completed and 'epilogue' not in completed %}
-            <div class="next-step-banner" id="nextStepBanner">➡️ Fin de l'aventure : tape <strong>epilogue</strong> pour le final</div>
+            <div class="next-step-banner" id="nextStepBanner">➡️ Fin de l'aventure : tape <strong>epilogue</strong> pour
+                le final</div>
             {% endif %}
             {% endif %}
 
@@ -937,7 +1022,9 @@
                 </div>
 
                 <div class="luna-message">
-                    Salut ! Je suis LUNA. 🌙 L'aventure commence ici : tape <strong>acte_1</strong> pour ta première mission — un défi t'attend. Tu peux aussi taper <strong>aide</strong> pour explorer toutes les commandes.
+                    Salut ! Je suis LUNA. 🌙 L'aventure commence ici : tape <strong>acte_1</strong> pour ta première
+                    mission — un défi t'attend. Tu peux aussi taper <strong>aide</strong> pour explorer toutes les
+                    commandes.
                 </div>
             </div>
 
@@ -954,7 +1041,8 @@
 
             <!-- Aide contextuelle -->
             <div id="command-help" class="command-help" aria-live="polite">
-                Astuce : <strong>acte_1</strong> pour commencer, <strong>aide</strong> pour la liste des commandes
+                Astuce : <strong>acte_1</strong> pour commencer, <strong>aide</strong> pour la liste. <span
+                    style="opacity:0.85;">Appuie sur Entrée pour exécuter.</span>
             </div>
 
             <!-- Commandes disponibles (cachées pour les tests) -->
@@ -1020,7 +1108,8 @@
     </main>
 
     <!-- Modal défi acte_1 (vrai gameplay après la commande) -->
-    <div class="acte1-modal-overlay" id="acte1ModalOverlay" style="display: none;" role="dialog" aria-labelledby="acte1ModalTitle" aria-modal="true">
+    <div class="acte1-modal-overlay" id="acte1ModalOverlay" style="display: none;" role="dialog"
+        aria-labelledby="acte1ModalTitle" aria-modal="true">
         <div class="acte1-modal">
             <h3 id="acte1ModalTitle">🔐 Ton premier défi — Choisis le bon code</h3>
             <p>Un seul des trois codes débloque le site. Fais confiance à ton instinct : lequel est le bon ?</p>
@@ -1032,30 +1121,13 @@
         </div>
     </div>
 
-    <!-- Scripts LUNA VISION (defer = pas de blocage du rendu, clics plus réactifs) -->
-    <script src="{{ url_for('static', filename='js/navigation.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/terminal-enhancements.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/personalized-messages.js') }}?v=3.3.1" defer></script>
-    <script src="{{ url_for('static', filename='js/game-engine.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/mission-system.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/visual-feedback-system.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/advanced-features.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/ai_engine.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/analytics.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/hacking-effects.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/service-worker.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/performance-ux-optimizer.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/bug-fixes.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/reward-system.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/system-integrator.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/terminal.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/educational_games.js') }}" defer></script>
+    <!-- Scripts critiques (premier envoi de commande + sons + accessibilité) -->
     <script src="{{ url_for('static', filename='js/accessibility.js') }}" defer></script>
     <script src="{{ url_for('static', filename='js/audio-manager.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/visual-effects.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/terminal.js') }}" defer></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var terminalInput = document.getElementById('commandInput');
             var terminalOutput = document.getElementById('messagesContainer');
 
@@ -1180,8 +1252,8 @@
                 if (result.success) {
                     outputEl.classList.remove('terminal-feedback-error');
                     outputEl.classList.add('terminal-feedback-success');
-                    setTimeout(function() { outputEl.classList.remove('terminal-feedback-success'); }, 800);
-                    try { if (window.initAudio) window.initAudio(); if (window.playSuccessSound) window.playSuccessSound(); } catch (e) {}
+                    setTimeout(function () { outputEl.classList.remove('terminal-feedback-success'); }, 800);
+                    try { if (window.initAudio) window.initAudio(); if (window.playSuccessSound) window.playSuccessSound(); } catch (e) { }
                     addMessage(`
                         <div class="luna-message">
                             ${escapeHtml(result.message || 'Commande exécutée.')}
@@ -1195,7 +1267,7 @@
                     floatEl.setAttribute('aria-hidden', 'true');
                     if (outputEl.style.position !== 'relative') outputEl.style.position = 'relative';
                     outputEl.appendChild(floatEl);
-                    setTimeout(function() { if (floatEl.parentNode) floatEl.remove(); }, 1200);
+                    setTimeout(function () { if (floatEl.parentNode) floatEl.remove(); }, 1200);
                     refreshProgressionFromServer();
                     if (cmd === 'acte_1') {
                         var banner = document.getElementById('firstMissionBanner');
@@ -1205,8 +1277,8 @@
                 } else {
                     outputEl.classList.remove('terminal-feedback-success');
                     outputEl.classList.add('terminal-feedback-error');
-                    setTimeout(function() { outputEl.classList.remove('terminal-feedback-error'); }, 800);
-                    try { if (window.initAudio) window.initAudio(); if (window.playErrorSound) window.playErrorSound(); } catch (e) {}
+                    setTimeout(function () { outputEl.classList.remove('terminal-feedback-error'); }, 800);
+                    try { if (window.initAudio) window.initAudio(); if (window.playErrorSound) window.playErrorSound(); } catch (e) { }
                     var errText = result.error || result.message || 'Erreur inconnue';
                     var hint = (errText.indexOf('reconnue') !== -1 || errText.indexOf('inconnue') !== -1) ? ' Tape \'aide\' pour voir les commandes.' : '';
                     addMessage(`
@@ -1218,7 +1290,7 @@
             } catch (error) {
                 if (outputEl) {
                     outputEl.classList.add('terminal-feedback-error');
-                    setTimeout(function() { outputEl.classList.remove('terminal-feedback-error'); }, 800);
+                    setTimeout(function () { outputEl.classList.remove('terminal-feedback-error'); }, 800);
                 }
                 processStaticCommand(cmd);
             }
@@ -1226,8 +1298,8 @@
 
         function refreshProgressionFromServer() {
             fetch('/api/profile/summary')
-                .then(function(r) { return r.json(); })
-                .then(function(data) {
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
                     if (data.success && data.profile) {
                         var p = data.profile;
                         var levelEl = document.getElementById('progressionLevel');
@@ -1237,7 +1309,7 @@
                         window.dispatchEvent(new CustomEvent('arkalia:profile-updated', { detail: p }));
                     }
                 })
-                .catch(function() {});
+                .catch(function () { });
         }
 
         function showPointsGainedPill(points) {
@@ -1251,7 +1323,7 @@
             strip.appendChild(pill);
             var scoreEl = document.getElementById('progressionScore');
             if (scoreEl) scoreEl.classList.add('score-just-updated');
-            setTimeout(function() {
+            setTimeout(function () {
                 if (pill.parentNode) pill.remove();
                 if (scoreEl) scoreEl.classList.remove('score-just-updated');
             }, 2500);
@@ -1265,17 +1337,17 @@
             var acte1CorrectCode = codes[correctIndex];
             overlay.style.display = 'flex';
             var btns = document.querySelectorAll('#acte1ModalBtns button');
-            btns.forEach(function(btn) {
+            btns.forEach(function (btn) {
                 btn.classList.remove('correct', 'wrong');
                 btn.disabled = false;
-                btn.onclick = function() {
+                btn.onclick = function () {
                     var chosen = btn.getAttribute('data-code');
                     if (chosen === acte1CorrectCode) {
                         btn.classList.add('correct');
                         var modal = overlay.querySelector('.acte1-modal');
                         if (modal) {
                             modal.classList.add('celebrate');
-                            setTimeout(function() {
+                            setTimeout(function () {
                                 modal.classList.remove('celebrate');
                                 overlay.style.display = 'none';
                                 removeActe1ModalListeners();
@@ -1293,6 +1365,9 @@
                                 if (nextBanner) nextBanner.style.display = 'block';
                                 refreshProgressionFromServer();
                                 showPointsGainedPill(300);
+                                try { if (window.initAudio) window.initAudio(); if (window.playSuccessSound) window.playSuccessSound(); } catch (e) { }
+                                var cmdInput = document.getElementById('commandInput');
+                                if (cmdInput) cmdInput.focus();
                             }, 400);
                         } else {
                             overlay.style.display = 'none';
@@ -1311,6 +1386,9 @@
                             if (nextBanner) nextBanner.style.display = 'block';
                             refreshProgressionFromServer();
                             showPointsGainedPill(300);
+                            try { if (window.initAudio) window.initAudio(); if (window.playSuccessSound) window.playSuccessSound(); } catch (e) { }
+                            var cmdInput = document.getElementById('commandInput');
+                            if (cmdInput) cmdInput.focus();
                         }
                     } else {
                         btn.classList.add('wrong');
@@ -1322,6 +1400,8 @@
             function closeModal() {
                 overlay.style.display = 'none';
                 removeActe1ModalListeners();
+                var cmdInput = document.getElementById('commandInput');
+                if (cmdInput) cmdInput.focus();
             }
             function keyHandler(e) {
                 if (e.key === 'Escape') { closeModal(); }
@@ -1586,34 +1666,58 @@
     </script>
 
     <!-- Scripts des systèmes adaptatifs -->
-    <!-- Guidance adaptative désactivée -->
-    <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/progression-feedback.js') }}?v=4.0.0" defer></script>
-    <script src="{{ url_for('static', filename='js/competitive-system.js') }}?v=4.0.0" defer></script>
-    <script src="{{ url_for('static', filename='js/creative-system.js') }}?v=4.0.0" defer></script>
-    <script src="{{ url_for('static', filename='js/casual-system.js') }}?v=4.0.0" defer></script>
-
-    <script src="{{ url_for('static', filename='js/popup-manager.js') }}?v=4.0.0" defer></script>
-    <script src="{{ url_for('static', filename='js/popup-coordinator.js') }}?v=4.0.0" defer></script>
-
-    <!-- Scripts des améliorations UX contextuelles -->
-    <!-- contextual-feedback et progression-animations désactivés (unifiés) -->
-    <!-- <script src="{{ url_for('static', filename='js/contextual-feedback.js') }}"></script> -->
-    <!-- <script src="{{ url_for('static', filename='js/progression-animations.js') }}"></script> -->
-    <script src="{{ url_for('static', filename='js/terminal-integration.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/advanced-player-profiles.js') }}" defer></script>
-
-    <script src="{{ url_for('static', filename='js/tutorial-celebrations.js') }}?v=3.3.0" defer></script>
-    <script src="{{ url_for('static', filename='js/daily-challenges-enhanced.js') }}?v=3.3.0" defer></script>
-    <script src="{{ url_for('static', filename='js/mini-games-interactive.js') }}?v=3.3.0" defer></script>
-    <script src="{{ url_for('static', filename='js/smart-empty-states.js') }}?v=4.0.0" defer></script>
-    <script src="{{ url_for('static', filename='js/luna-enhanced.js') }}?v=3.3.0" defer></script>
-
+    <!-- Scripts non-critiques : chargés après window.load (meilleur LCP/FCP) -->
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            if (window.PopupCoordinator) window.popupCoordinator = new PopupCoordinator();
-            if (window.ARKALIA_DEBUG) console.log('🎯 Terminal - Systèmes chargés');
-        });
+        (function () {
+            var srcs = [
+                "{{ url_for('static', filename='js/navigation.js') }}",
+                "{{ url_for('static', filename='js/terminal-enhancements.js') }}",
+                "{{ url_for('static', filename='js/personalized-messages.js') }}?v=3.3.1",
+                "{{ url_for('static', filename='js/game-engine.js') }}",
+                "{{ url_for('static', filename='js/mission-system.js') }}",
+                "{{ url_for('static', filename='js/visual-feedback-system.js') }}",
+                "{{ url_for('static', filename='js/advanced-features.js') }}",
+                "{{ url_for('static', filename='js/ai_engine.js') }}",
+                "{{ url_for('static', filename='js/analytics.js') }}",
+                "{{ url_for('static', filename='js/hacking-effects.js') }}",
+                "{{ url_for('static', filename='js/service-worker.js') }}",
+                "{{ url_for('static', filename='js/performance-ux-optimizer.js') }}",
+                "{{ url_for('static', filename='js/bug-fixes.js') }}",
+                "{{ url_for('static', filename='js/reward-system.js') }}",
+                "{{ url_for('static', filename='js/system-integrator.js') }}",
+                "{{ url_for('static', filename='js/educational_games.js') }}",
+                "{{ url_for('static', filename='js/visual-effects.js') }}",
+                "{{ url_for('static', filename='js/adaptive-guidance.js') }}",
+                "{{ url_for('static', filename='js/progression-feedback.js') }}?v=4.0.0",
+                "{{ url_for('static', filename='js/competitive-system.js') }}?v=4.0.0",
+                "{{ url_for('static', filename='js/creative-system.js') }}?v=4.0.0",
+                "{{ url_for('static', filename='js/casual-system.js') }}?v=4.0.0",
+                "{{ url_for('static', filename='js/popup-manager.js') }}?v=4.0.0",
+                "{{ url_for('static', filename='js/popup-coordinator.js') }}?v=4.0.0",
+                "{{ url_for('static', filename='js/terminal-integration.js') }}",
+                "{{ url_for('static', filename='js/advanced-player-profiles.js') }}",
+                "{{ url_for('static', filename='js/tutorial-celebrations.js') }}?v=3.3.0",
+                "{{ url_for('static', filename='js/daily-challenges-enhanced.js') }}?v=3.3.0",
+                "{{ url_for('static', filename='js/mini-games-interactive.js') }}?v=3.3.0",
+                "{{ url_for('static', filename='js/smart-empty-states.js') }}?v=4.0.0",
+                "{{ url_for('static', filename='js/luna-enhanced.js') }}?v=3.3.0"
+            ];
+            function loadNext(i) {
+                if (i >= srcs.length) {
+                    document.dispatchEvent(new CustomEvent('arkalia:terminal-secondary-loaded'));
+                    if (window.PopupCoordinator) window.popupCoordinator = new PopupCoordinator();
+                    return;
+                }
+                var s = document.createElement('script');
+                s.src = srcs[i];
+                s.defer = true;
+                s.onload = function () { loadNext(i + 1); };
+                s.onerror = function () { loadNext(i + 1); };
+                document.body.appendChild(s);
+            }
+            if (document.readyState === 'complete') loadNext(0);
+            else window.addEventListener('load', function () { loadNext(0); });
+        })();
     </script>
 
     <!-- Scripts de continuité -->

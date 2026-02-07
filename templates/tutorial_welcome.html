@@ -343,10 +343,16 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .tutorial-background { animation: none !important; }
+            .tutorial-background {
+                animation: none !important;
+            }
         }
+
         .tutorial-container button:focus-visible,
-        .tutorial-container a:focus-visible { outline: 2px solid var(--violet-lunaire, #a78bfa); outline-offset: 3px; }
+        .tutorial-container a:focus-visible {
+            outline: 2px solid var(--violet-lunaire, #a78bfa);
+            outline-offset: 3px;
+        }
 
         @media (max-width: 768px) {
             .tutorial-card {
@@ -372,16 +378,19 @@
 </head>
 
 <body>
+    <a href="#main-content" class="skip-link">Aller au contenu</a>
+    {% include 'components/accessibility_toggle.html' %}
     <div class="tutorial-container">
         <div class="tutorial-background"></div>
 
         <a href="/" class="skip-tutorial">⏭️ Passer le tutoriel</a>
 
-        <div class="tutorial-card">
+        <div class="tutorial-card" id="main-content">
             <div class="tutorial-header">
                 <h1 class="tutorial-title">🎯 BIENVENUE DANS ARKALIA QUEST</h1>
                 <p class="tutorial-subtitle">
-                    En deux minutes tu sauras tout. Ensuite : va au terminal et tape <strong>acte_1</strong> pour lancer ta première mission.
+                    En deux minutes tu sauras tout. Ensuite : va au terminal et tape <strong>acte_1</strong> pour lancer
+                    ta première mission.
                 </p>
             </div>
 
@@ -389,7 +398,9 @@
                 <span class="step-number">1</span>
                 <span class="step-title">🎮 QU'EST-CE QUE C'EST ?</span>
                 <p class="step-description">
-                    <strong>Arkalia Quest</strong> : tu incarnes un hacker dans un monde virtuel. Tu débloques une histoire, des missions et des défis avec <strong>LUNA</strong>, une IA à tes côtés. Chaque commande te rapproche du but — c'est toi qui fais avancer l'aventure.
+                    <strong>Arkalia Quest</strong> : tu incarnes un hacker dans un monde virtuel. Tu débloques une
+                    histoire, des missions et des défis avec <strong>LUNA</strong>, une IA à tes côtés. Chaque commande
+                    te rapproche du but — c'est toi qui fais avancer l'aventure.
                 </p>
             </div>
 
@@ -408,7 +419,8 @@
                 <span class="step-number">3</span>
                 <span class="step-title">🌙 QUI EST LUNA ?</span>
                 <p class="step-description">
-                    <strong>LUNA</strong> est ton alliée : elle te guide, répond à tes questions et s'adapte à toi. Elle veut que tu réussisses — et elle est là à chaque étape pour t'encourager.
+                    <strong>LUNA</strong> est ton alliée : elle te guide, répond à tes questions et s'adapte à toi. Elle
+                    veut que tu réussisses — et elle est là à chaque étape pour t'encourager.
                 </p>
             </div>
 
@@ -416,7 +428,8 @@
                 <span class="step-number">4</span>
                 <span class="step-title">🎯 TES OBJECTIFS</span>
                 <p class="step-description">
-                    <strong>Ton but :</strong> Débloquer l'histoire en complétant les actes (acte_1, acte_2…), gagner des points et des badges, explorer le monde.
+                    <strong>Ton but :</strong> Débloquer l'histoire en complétant les actes (acte_1, acte_2…), gagner
+                    des points et des badges, explorer le monde.
                     <br><br>
                     <strong>Pas de pression.</strong> Commence par acte_1 au terminal, le reste viendra.
                 </p>
@@ -428,7 +441,8 @@
             </div>
 
             <div class="luna-tip">
-                <strong>Conseil de LUNA :</strong> Clique sur « Essayer le terminal » puis tape <strong>acte_1</strong> pour commencer l'aventure. Si tu es perdu, tape <strong>aide</strong>.
+                <strong>Conseil de LUNA :</strong> Clique sur « Essayer le terminal » puis tape <strong>acte_1</strong>
+                pour commencer l'aventure. Si tu es perdu, tape <strong>aide</strong>.
             </div>
 
             <div class="tutorial-actions">
@@ -438,7 +452,8 @@
             </div>
 
             <div style="margin-top: 30px; opacity: 0.7; font-size: 0.9em;">
-                <p>💡 <strong>Prochaine étape :</strong> Terminal → tape <strong>acte_1</strong> → défi → mission validée. C'est parti !</p>
+                <p>💡 <strong>Prochaine étape :</strong> Terminal → tape <strong>acte_1</strong> → défi → mission
+                    validée. C'est parti !</p>
             </div>
         </div>
     </div>

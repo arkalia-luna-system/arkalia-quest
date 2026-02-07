@@ -5,6 +5,23 @@
     <meta charset="UTF-8">
     <title>👤 ARKALIA QUEST - PROFIL LUNA</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --luna-bg: #0f0f12;
+        }
+
+        body {
+            margin: 0;
+            background: var(--luna-bg);
+            color: #fafafa;
+            min-height: 100vh;
+        }
+
+        .profile-workspace {
+            min-height: 100vh;
+            position: relative;
+        }
+    </style>
 
     <!-- PWA Meta Tags -->
     <meta name="description"
@@ -660,28 +677,10 @@
     <!-- Panneau d'accessibilité -->
     {% include 'components/accessibility_toggle.html' %}
 
-    <!-- Navigation LUNA -->
+    <!-- Navigation LUNA (composant unifié) -->
     <div id="navigation">
-        <nav class="main-nav">
-            <div class="nav-container">
-                <div class="nav-logo">ARKALIA QUEST</div>
-                <div class="nav-links">
-                    <a href="/" class="nav-link">🏠 ACCUEIL</a>
-                    <a href="/terminal" class="nav-link">⌨️ TERMINAL</a>
-                    <a href="/monde" class="nav-link">🌍 MONDE</a>
-                    <a href="/profil" class="nav-link active">👤 PROFIL</a>
-                    <a href="/leaderboard" class="nav-link">🏆 CLASSEMENT</a>
-                    <a href="/dashboard" class="nav-link">📊 DASHBOARD</a>
-                    <button type="button" class="nav-link daily-challenges-btn"
-                        onclick="typeof showDailyChallenges==='function'&&showDailyChallenges()"
-                        aria-label="Ouvrir les défis quotidiens">🎯 DÉFIS
-                        QUOTIDIENS</button>
-                    <button type="button" class="nav-link theme-btn"
-                        onclick="typeof showThemeManager==='function'&&showThemeManager()"
-                        aria-label="Choisir un thème">🎨 THÈMES</button>
-                </div>
-            </div>
-        </nav>
+        {% set active_page = 'profile' %}
+        {% include 'components/navbar.html' with context %}
     </div>
 
     <main id="main-content" class="profile-workspace">
@@ -692,7 +691,11 @@
             <!-- En-tête du profil -->
             <div class="profile-header">
                 <h1 class="profile-title" id="profile-title">MON PROFIL</h1>
-                <p class="profile-subtitle" id="profile-subtitle">Ton score, ton niveau, tes missions et tes badges — tout ce que tu as débloqué</p>
+                <p class="profile-subtitle" id="profile-subtitle">Ton score, ton niveau, tes missions et tes badges —
+                    tout ce que tu as débloqué</p>
+                <p class="profile-tip"
+                    style="margin-top:8px;font-size:0.9em;opacity:0.9;color:var(--argent-holographique);">Tu débutes ?
+                    Tape <strong>acte_1</strong> au terminal pour lancer ta première mission.</p>
             </div>
 
             <!-- Section Avatar 3D -->
@@ -798,27 +801,25 @@
     <!-- Composant de notifications d'achievement -->
     {% include 'components/achievement_notification.html' %}
 
-    <!-- Scripts LUNA VISION -->
-    <script src="{{ url_for('static', filename='js/audio-manager.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/effects.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/accessibility.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/game-engine.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/mission-system.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/luna-personality.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/personalized-messages.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/visual-feedback-system.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/advanced-features.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/ai_engine.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/analytics.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/immersive_effects.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/performance-ux-optimizer.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bug-fixes.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/reward-system.js') }}"></script>
-
-    <!-- Nouveaux scripts V3 -->
-    <script src="{{ url_for('static', filename='js/theme-manager.js') }}?v=3.2.0"></script>
-    <script src="{{ url_for('static', filename='js/daily-challenges-enhanced.js') }}?v=3.3.0"></script>
-    <script src="{{ url_for('static', filename='js/system-integrator.js') }}"></script>
+    <!-- Scripts LUNA VISION (defer = chargement non bloquant, exécution dans l'ordre) -->
+    <script src="{{ url_for('static', filename='js/audio-manager.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/effects.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/accessibility.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/game-engine.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/mission-system.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/luna-personality.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/personalized-messages.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/visual-feedback-system.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/advanced-features.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/ai_engine.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/analytics.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/immersive_effects.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/performance-ux-optimizer.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/bug-fixes.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/reward-system.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/theme-manager.js') }}?v=3.2.0" defer></script>
+    <script src="{{ url_for('static', filename='js/daily-challenges-enhanced.js') }}?v=3.3.0" defer></script>
+    <script src="{{ url_for('static', filename='js/system-integrator.js') }}" defer></script>
 
     <script>
         // Charger les succès (API achievements/player)
@@ -1089,15 +1090,12 @@
         });
     </script>
 
-    <!-- Scripts des systèmes adaptatifs -->
-    <!-- Guidance adaptative désactivée -->
-    <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}"></script>
-    <!-- Scripts de continuité -->
+    <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}" defer></script>
     {% include 'components/continuity_scripts.html' %}
-    <script src="{{ url_for('static', filename='js/progression-feedback.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/competitive-system.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/creative-system.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/casual-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/progression-feedback.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/competitive-system.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/creative-system.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/casual-system.js') }}" defer></script>
 
     <script>
         // Initialisation des systèmes adaptatifs

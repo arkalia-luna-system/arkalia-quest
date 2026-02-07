@@ -67,10 +67,29 @@ body.high-contrast {
     --success-color: #4ade80;
 
     /* Bordures visibles (ciblées = moins de reflow qu'un * global) */
-    main, nav, section, article, header, footer, aside,
-    .card, .feature-card, .cta-btn, .nav-link, .main-nav, .nav-container,
-    a, button, input, select, textarea, [role="button"],
-    .popup-overlay, .popup-content, .modal, .alert {
+    main,
+    nav,
+    section,
+    article,
+    header,
+    footer,
+    aside,
+    .card,
+    .feature-card,
+    .cta-btn,
+    .nav-link,
+    .main-nav,
+    .nav-container,
+    a,
+    button,
+    input,
+    select,
+    textarea,
+    [role="button"],
+    .popup-overlay,
+    .popup-content,
+    .modal,
+    .alert {
         border: 2px solid var(--text-color) !important;
     }
 
@@ -857,6 +876,7 @@ body.low-performance {
     --spacing-lg: 30px;
 }
 
+/* Ciblage global volontaire : désactive animations/transitions pour mode basse perfo (reduced-motion) */
 body.low-performance * {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;

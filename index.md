@@ -8,7 +8,7 @@
 
 Arkalia Quest est une expérience de jeu unique qui combine :
 
-- **Interface terminal immersive** avec LUNA, votre IA guide
+- **Aventure narrative** par chapitres (bouton « Continuer ») avec LUNA ; terminal en option
 - **Système de progression** avec badges, niveaux et défis
 - **Thèmes visuels** adaptatifs (Matrix, Neon, Cyberpunk, Ocean, Earth, Dopamine)
 - **Accessibilité complète** avec support des lecteurs d'écran

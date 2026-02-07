@@ -366,9 +366,13 @@ sequenceDiagram
     end
 
 
-```text
+```
 
+### **Terminal et API des commandes**
 
+- **Source de vérité** : la page terminal (`templates/terminal.html`) envoie les commandes via **`POST /api/terminal/command`** (script inline : `sendCommand` → `processCommand`). C’est le seul flux utilisé pour l’exécution des commandes.
+- **Scripts** : `terminal.js` fournit des variantes de réponses et des améliorations (CommandEnhancer) ; il ne remplace pas l’envoi. Aucun autre endpoint (ex. `/commande`) n’est utilisé par le template terminal pour l’envoi.
+- **Chargement** : 3 scripts critiques (accessibility, audio-manager, terminal.js) + inline ; le reste des scripts est chargé après `window.load` pour améliorer le LCP/FCP.
 
 ### **Flux de Données en Temps Réel**
 

@@ -435,11 +435,17 @@
             font-family: 'IBM Plex Mono', monospace;
             font-size: 0.9em;
         }
-        .luna-emotion-label { color: var(--violet-lunaire); font-weight: 600; }
+
+        .luna-emotion-label {
+            color: var(--violet-lunaire);
+            font-weight: 600;
+        }
+
         .luna-emotion-value {
             color: var(--argent-holographique);
             text-transform: capitalize;
         }
+
         .luna-emotion-dot {
             width: 10px;
             height: 10px;
@@ -547,11 +553,22 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .dashboard-background { animation: none !important; }
-            .dashboard-title, .dashboard-subtitle { animation: none !important; opacity: 1; }
+            .dashboard-background {
+                animation: none !important;
+            }
+
+            .dashboard-title,
+            .dashboard-subtitle {
+                animation: none !important;
+                opacity: 1;
+            }
         }
+
         .dashboard-workspace button:focus-visible,
-        .dashboard-workspace a:focus-visible { outline: 2px solid var(--violet-lunaire, #a78bfa); outline-offset: 3px; }
+        .dashboard-workspace a:focus-visible {
+            outline: 2px solid var(--violet-lunaire, #a78bfa);
+            outline-offset: 3px;
+        }
 
         @media (max-width: 768px) {
             .dashboard-title {
@@ -610,7 +627,11 @@
             <!-- En-tête du dashboard -->
             <div class="dashboard-header">
                 <h1 class="dashboard-title" id="dashboard-title">DASHBOARD</h1>
-                <p class="dashboard-subtitle" id="dashboard-subtitle">Ta progression en un coup d'œil — score, niveau, missions et badges</p>
+                <p class="dashboard-subtitle" id="dashboard-subtitle">Ta progression en un coup d'œil — score, niveau,
+                    missions et badges</p>
+                <p class="dashboard-tip"
+                    style="margin-top:8px;font-size:0.9em;opacity:0.9;color:var(--argent-holographique);">Pas encore de
+                    points ? Va au terminal et tape <strong>acte_1</strong> pour commencer.</p>
             </div>
 
             <!-- Indicateur d'émotion LUNA (API luna-emotions) -->
@@ -726,7 +747,9 @@
                         <span class="metric-value" id="daily-challenges-count">--</span>
                         <div class="metric-label">Défis aujourd'hui</div>
                     </div>
-                    <a href="/terminal" class="nav-link" style="display: inline-block; margin-top: 12px; padding: 8px 14px; border-radius: 8px; background: rgba(167,139,250,0.25); font-size: 0.9em;">Voir les défis</a>
+                    <a href="/terminal" class="nav-link"
+                        style="display: inline-block; margin-top: 12px; padding: 8px 14px; border-radius: 8px; background: rgba(167,139,250,0.25); font-size: 0.9em;">Voir
+                        les défis</a>
                 </div>
             </div>
 
@@ -736,16 +759,33 @@
                     <h3 class="widget-title">🚀 Accès rapide</h3>
                     <span class="widget-icon">🗺️</span>
                 </div>
-                <div class="widget-content" style="flex-direction: row; flex-wrap: wrap; gap: 12px; justify-content: center;">
-                    <a href="/tutorial" class="nav-link" style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">🎯 Tutoriel</a>
-                    <a href="/skill-tree" class="nav-link" style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">⚡ Compétences</a>
-                    <a href="/leaderboard" class="nav-link" style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">🏆 Classement</a>
-                    <a href="/terminal" class="nav-link" style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">⌨️ Terminal</a>
-                    <a href="/explorateur" class="nav-link" style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">🗺️ Explorateur</a>
-                    <a href="/mail" class="nav-link" style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">✉️ Mail</a>
-                    <a href="/audio" class="nav-link" style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">🔊 Audio</a>
-                    <a href="/technical-tutorials" class="nav-link" style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">📚 Tutoriels tech.</a>
-                    <a href="/accessibility" class="nav-link" style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">♿ Accessibilité</a>
+                <div class="widget-content"
+                    style="flex-direction: row; flex-wrap: wrap; gap: 12px; justify-content: center;">
+                    <a href="/tutorial" class="nav-link"
+                        style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">🎯
+                        Tutoriel</a>
+                    <a href="/skill-tree" class="nav-link"
+                        style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">⚡
+                        Compétences</a>
+                    <a href="/leaderboard" class="nav-link"
+                        style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">🏆
+                        Classement</a>
+                    <a href="/terminal" class="nav-link"
+                        style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">⌨️
+                        Terminal</a>
+                    <a href="/explorateur" class="nav-link"
+                        style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">🗺️
+                        Explorateur</a>
+                    <a href="/mail" class="nav-link"
+                        style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">✉️ Mail</a>
+                    <a href="/audio" class="nav-link"
+                        style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">🔊 Audio</a>
+                    <a href="/technical-tutorials" class="nav-link"
+                        style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">📚 Tutoriels
+                        tech.</a>
+                    <a href="/accessibility" class="nav-link"
+                        style="padding: 10px 16px; border-radius: 8px; background: rgba(167,139,250,0.2);">♿
+                        Accessibilité</a>
                 </div>
             </div>
 
@@ -1026,7 +1066,7 @@
                         dotEl.style.opacity = (e.intensity != null) ? 0.4 + 0.6 * Math.min(1, e.intensity) : '0.8';
                     }
                 }
-            } catch (_) {}
+            } catch (_) { }
         }
 
         document.addEventListener('DOMContentLoaded', () => {

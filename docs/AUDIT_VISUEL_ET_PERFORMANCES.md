@@ -94,12 +94,32 @@
 4. **Documentation**  
    - Ce fichier `AUDIT_VISUEL_ET_PERFORMANCES.md` sert de référence pour les prochaines optimisations (bundling CSS/JS, réduction du nombre de feuilles, etc.).
 
+### Correctif 4.0.2 (suite)
+
+5. **accessibility.css – mode `high-contrast-enhanced`**  
+   - Remplacement de `body.high-contrast-enhanced * { color; background-color; border-color }` par des **sélecteurs ciblés** (main, nav, section, .card, .cta-btn, .terminal-container, a, button, input, h1–h4, p, span, li, td, th, etc.) pour limiter le reflow en mode contraste renforcé.
+
+6. **Terminal – bundle CSS**  
+   - Script `scripts/build_terminal_css.py` : concatène les 16 feuilles CSS du terminal en un seul fichier `static/css/terminal-bundle.css`.  
+   - `templates/terminal.html` charge désormais **1 feuille** au lieu de 16 (moins de requêtes, parsing plus simple).  
+   - Après modification d’une CSS source du terminal, relancer : `python scripts/build_terminal_css.py`.
+
+### Correctif suite « continuer »
+
+7. **Index – scripts en defer**  
+   - Tous les scripts de l’accueil (accessibility, performance-ux-optimizer, audio-manager, personalized-messages, mini-games-interactive, audit-visual-enhancements, zone-exploration-enhanced, popup-manager, progression-sync, etc.) passés en **defer** pour ne plus bloquer le parsing HTML → FCP (First Contentful Paint) plus rapide.
+
+8. **Terminal – preconnect polices**  
+   - Ajout de `preconnect` vers `fonts.googleapis.com` et `fonts.gstatic.com` pour accélérer le chargement de la police Share Tech Mono.
+
 ---
 
-## 5. Suite des actions (correctif « continuer »)
+## 5. Suite des actions (correctifs « continuer »)
 
-- **Critical CSS inline** : bloc minimal en tête du `<head>` (variables, body, .portal-container, .main-nav) pour un premier rendu immédiat sans attendre les CSS externes.
-- **CSS gameplay en différé** : zone-exploration, daily-missions, motivational-empty-states, timer-challenges, interactive-puzzles, gameplay-integration et popup-manager passés en `preload` + `onload` ; fallback `<noscript>` pour popup-manager.
+- **Index** : Critical CSS inline (variables, body, .portal-container) ; CSS gameplay en `preload` + `onload` ; fallback `<noscript>` pour popup-manager.
+- **Terminal** : Critical CSS inline (body, .terminal-workspace) ; page déjà servie avec `terminal-bundle.css` (1 requête).
+- **Monde** : Critical CSS inline (body, .world-workspace).
+- **Profil** : Critical CSS inline (body, .profile-workspace) ; tous les scripts externes passés en `defer` pour chargement non bloquant.
 
 ## 6. Pistes restantes
 

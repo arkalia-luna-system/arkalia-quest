@@ -15,6 +15,10 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - **Commande aide** : Pour les joueurs intermédiaires, **acte_1** est maintenant en premier dans la liste des missions (aligné avec la bannière du terminal). Fallback statique du terminal : ajout d’un bloc « COMMENCE ICI : acte_1 » en tête de l’aide.
 - **Terminal** : Tous les scripts chargés en **defer** pour ne plus bloquer le rendu → premier affichage et clics plus réactifs. Après succès du défi acte_1 (modal), appel à `refreshProgressionFromServer()` pour mettre à jour le bandeau Niveau/Score immédiatement.
 - **États vides** : Leaderboard et profil (badges) affichent un message encourageant (« Joue au terminal, tape acte_1… pour apparaître ici / débloquer tes badges »). Composant badges : lien « Aller au terminal » et texte orienté acte_1.
+- **Accessibilité (perfs)** : En mode `high-contrast-enhanced`, remplacement du sélecteur global `*` par des sélecteurs ciblés dans `accessibility.css` pour limiter le reflow (recommandation audit visuel).
+- **Terminal – bundle CSS** : Les 16 feuilles CSS du terminal sont concaténées en un seul fichier `terminal-bundle.css` via `python scripts/build_terminal_css.py` ; la page terminal ne charge plus qu’une seule feuille.
+- **Index – scripts en defer** : Tous les scripts de l’accueil (y compris ceux précédemment « critiques ») sont chargés en **defer** pour ne plus bloquer le parsing → premier affichage (FCP) plus rapide.
+- **Terminal – preconnect** : `preconnect` vers Google Fonts pour un chargement plus rapide de la police.
 
 ### Références
 

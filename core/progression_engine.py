@@ -157,6 +157,7 @@ class ProgressionEngine:
                 "mini_games_completed": [],
                 "daily_challenges_progress": {},
                 "achievements_unlocked": [],
+                "story_chapters_completed": [],
                 "last_activity": datetime.now().isoformat(),
                 "stats": {
                     "total_commands": 0,
@@ -234,6 +235,15 @@ class ProgressionEngine:
             badge = metadata.get("badge", "")
             if badge not in player["badges"]:
                 player["badges"].append(badge)
+
+        elif action == "story_chapter":
+            chapter_id = metadata.get("chapter_id", "")
+            if chapter_id and "story_chapters_completed" not in player:
+                player["story_chapters_completed"] = []
+            if chapter_id and chapter_id not in player.get(
+                "story_chapters_completed", []
+            ):
+                player.setdefault("story_chapters_completed", []).append(chapter_id)
 
         elif action == "skill_upgrade":
             category = metadata.get("category", "")

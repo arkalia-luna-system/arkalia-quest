@@ -18,6 +18,11 @@ def register_pages(app, charger_profil):
         profil = charger_profil()
         return render_template("index.html", profil=profil)
 
+    @app.route("/histoire")
+    def histoire():
+        profil = charger_profil()
+        return render_template("histoire.html", profil=profil, active_page="histoire")
+
     @app.route("/tutorial")
     def tutorial():
         return render_template("tutorial_welcome.html")
@@ -64,11 +69,13 @@ def register_pages(app, charger_profil):
 
     @app.route("/leaderboard")
     def leaderboard_page():
-        return render_template("leaderboard.html")
+        profil = charger_profil()
+        return render_template("leaderboard.html", profil=profil)
 
     @app.route("/skill-tree")
     def skill_tree_page():
-        return render_template("skill_tree.html")
+        profil = charger_profil()
+        return render_template("skill_tree.html", profil=profil)
 
     @app.route("/technical-tutorials")
     def technical_tutorials_page():

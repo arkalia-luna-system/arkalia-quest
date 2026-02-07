@@ -68,54 +68,20 @@ class BasicCommands:
 
         # Aide adaptative selon le niveau
         if player_level == 1 and not completed_missions:
-            # Nouveau joueur
+            # Nouveau joueur — aligné avec la bannière "tape acte_1"
             help_message = """🌌 ARKALIA QUEST - BIENVENUE HACKER !
 
-🌟 TON HISTOIRE :
-Tu es un ado hacker qui a découvert un SOS mystérieux du Dr Althea Voss.
-LUNA, une IA émotionnelle, s'est éveillée dans ton terminal.
+🎯 COMMENCE ICI (comme sur la bannière) :
+• acte_1 → Ta première mission : réparer le site de LUNA (un défi t’attend !)
 
-🎯 COMMENCE ICI :
-• start_tutorial → Démarre l'aventure (PREMIÈRE FOIS)
-• luna_contact → Parle avec LUNA, ton IA complice
-• prologue → Découvre le SOS d'Althea Voss
+📋 ENSUITE :
+• aide → Revoir cette aide
+• profil → Ton profil et ton score
+• monde → Explorer Arkalia
+• prologue → Découvre le SOS d’Althea Voss
+• luna_contact → Parler avec LUNA
 
-💻 TES PREMIERS POUVOIRS :
-• hack_system → Hack le système de La Corp
-• kill_virus → Tue le virus de La Corp
-• games → Mini-jeux éducatifs
-
-🎮 MINI-JEUX INTERACTIFS :
-• simple_hack → Jeu de hack binaire
-• sequence_game → Jeu de mémoire
-• typing_challenge → Défi de frappe
-• play_game → Lancer un mini-jeu
-
-🎨 EFFETS ET ANIMATIONS :
-• level_up → Simulation montée de niveau
-• badge_unlock → Simulation déblocage badge
-• matrix_mode → Thème Matrix
-• cyberpunk_mode → Thème Cyberpunk
-
-🎨 THÈMES MODERNES :
-• themes → Liste tous les thèmes
-• theme [nom] → Changer de thème
-• feedback_themes → Donner ton avis sur les thèmes
-
-🔍 DIAGNOSTIC :
-• check_objects → Vérifier les objets disponibles
-• debug_mode → Informations système
-
-📋 COMMANDES DISPONIBLES :
-• aide/help/commands → Cette aide
-• profil/profile → Ton profil détaillé
-• status → Statut du système
-• clear/cls → Nettoyer le terminal
-• monde → Accéder au monde Arkalia
-• badges → Tes badges obtenus
-• leaderboard → Classement des hackers
-
-🌙 LUNA t'attend pour commencer l'aventure !"""
+💡 Astuce : tape acte_1 tout de suite pour débloquer l’aventure. 🌙"""
 
         elif "prologue" in completed_missions:
             # Joueur avancé
@@ -173,16 +139,14 @@ la vérité sur NEXUS, sa sœur jumelle IA, et la menace de PANDORA.
 🎯 OBJECTIF : Sauve Arkalia de PANDORA !"""
 
         else:
-            # Joueur intermédiaire
+            # Joueur intermédiaire — acte_1 en premier (aligné avec la bannière)
             help_message = """🌌 ARKALIA QUEST - HACKER EN PROGRESSION !
 
 🌟 TON HISTOIRE :
 Tu as commencé l'aventure avec LUNA. Ensemble, vous devez découvrir
 la vérité sur NEXUS et la menace de PANDORA.
 
-🎯 TES MISSIONS :
-• luna_contact → Parle avec LUNA
-• prologue → Décrypte le SOS d'Althea Voss
+🎯 TES MISSIONS (commence par acte_1 si tu ne l'as pas fait) :
 • acte_1 → Répare le site web de LUNA
 • acte_2 → Décrypte les logs de NEXUS
 • acte_3 → Analyse la berceuse d'Althea
@@ -190,6 +154,8 @@ la vérité sur NEXUS et la menace de PANDORA.
 • acte_5 → Le choix final
 • acte_6 → Naissance d'Arkalia
 • epilogue → L'aube de PANDORA
+• prologue → Décrypte le SOS d'Althea Voss
+• luna_contact → Parle avec LUNA
 
 💻 TES POUVOIRS :
 • hack_system → Hack le système de La Corp

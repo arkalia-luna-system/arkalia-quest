@@ -770,9 +770,15 @@
             <!-- En-tête du monde -->
             <div class="world-header">
                 <h1 class="world-title" id="world-title">MONDE D'ARKALIA</h1>
-                <p class="world-subtitle" id="world-subtitle">Explore les zones mystérieuses et découvre des missions
-                </p>
+                <p class="world-subtitle" id="world-subtitle">Clique sur une zone pour explorer. Complète acte_1 au terminal pour débloquer plus de contenu.</p>
             </div>
+            {% if not profil or not (profil.get('missions_completed') or []) %}
+            <div class="world-empty-encouragement" role="status">
+                <span class="world-empty-icon">🎯</span>
+                <p>Pas encore de missions ? <strong>Tape acte_1 au terminal</strong> pour commencer l'aventure et débloquer les zones.</p>
+                <a href="/terminal" class="cta-btn world-empty-cta">⌨️ Aller au terminal</a>
+            </div>
+            {% endif %}
 
             <!-- Grille principale -->
             <div class="world-grid">
@@ -892,7 +898,7 @@
 
         <!-- Guide LUNA -->
         <div class="luna-world-guide" id="luna-world-guide">
-            Explore le monde d'Arkalia pour découvrir de nouvelles missions...
+            Clique sur une zone pour en savoir plus. Complète les actes au terminal pour débloquer plus de contenu.
         </div>
     </main>
 

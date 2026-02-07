@@ -5,6 +5,13 @@
     <meta charset="UTF-8">
     <title>🌌 ARKALIA QUEST - PORTAL LUNA</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Critical above-the-fold : premier rendu sans attendre les CSS externes -->
+    <style>
+    :root{--luna-bg:#0f0f12;--luna-text:#fafafa;}
+    body{margin:0;background:var(--luna-bg);color:var(--luna-text);min-height:100vh;}
+    .portal-container{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+    .main-nav,.nav-container{position:relative;}
+    </style>
 
     <!-- PWA Meta Tags -->
     <meta name="description"
@@ -31,16 +38,6 @@
 
     <!-- Responsive design -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-responsive.css') }}?v=4.0.0">
-
-    <!-- Systèmes Universels Unifiés V4.0.0 -->
-    <!-- Remplace 10+ fichiers redondants par 3 systèmes unifiés -->
-    <script src="{{ url_for('static', filename='js/universal-notifications.js') }}?v=4.0.0"></script>
-    <script src="{{ url_for('static', filename='js/universal-empty-states.js') }}?v=4.0.0"></script>
-    <!-- Notifications unifiées: universal-notifications.js conservé, universal-feedback redondant -->
-    <!-- <script src="{{ url_for('static', filename='js/universal-feedback.js') }}?v=4.0.0"></script> -->
-    <script src="{{ url_for('static', filename='js/smart-empty-states.js') }}?v=4.0.0"></script>
-    <script src="{{ url_for('static', filename='js/reward-feedback-system.js') }}?v=4.0.0"></script>
-    <script src="{{ url_for('static', filename='js/ui-perfection.js') }}?v=3.3.1"></script>
 
     <!-- CSS critiques chargés immédiatement -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}?v=3.1.1">
@@ -86,16 +83,15 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/audit-visual-fixes.css') }}?v=3.5.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/theme-selection-enhanced.css') }}?v=3.5.0">
 
-    <!-- CSS des systèmes de gameplay améliorés -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/zone-exploration-enhanced.css') }}?v=3.6.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/daily-missions-enhanced.css') }}?v=3.6.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/motivational-empty-states.css') }}?v=3.6.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/timer-challenges.css') }}?v=3.6.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/interactive-puzzles.css') }}?v=3.6.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/gameplay-integration.css') }}?v=3.6.0">
-
-    <!-- CSS du gestionnaire de popups -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/popup-manager.css') }}?v=3.7.0">
+    <!-- CSS gameplay/popups en différé (ne bloque pas le premier rendu) -->
+    <link rel="preload" href="{{ url_for('static', filename='css/zone-exploration-enhanced.css') }}?v=3.6.0" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/daily-missions-enhanced.css') }}?v=3.6.0" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/motivational-empty-states.css') }}?v=3.6.0" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/timer-challenges.css') }}?v=3.6.0" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/interactive-puzzles.css') }}?v=3.6.0" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/gameplay-integration.css') }}?v=3.6.0" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/popup-manager.css') }}?v=3.7.0" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ url_for('static', filename='css/popup-manager.css') }}?v=3.7.0"></noscript>
 
     <style>
         /* Styles spécifiques au portail d'accueil */
@@ -265,6 +261,24 @@
             animation: fadeInUp 2s ease-out 2s forwards;
             padding: 20px;
         }
+        /* CTA principal prioritaire : plus grand, plus visible (audit P1) */
+        .cta-buttons .cta-btn.primary {
+            grid-column: 1 / -1;
+            min-height: 140px;
+            font-size: 1.15em;
+            order: -1;
+            border-width: 3px;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.25);
+        }
+        .cta-buttons .cta-btn.primary .cta-text { font-size: 1.05em; }
+        .cta-buttons .cta-btn.secondary {
+            opacity: 0.85;
+            min-height: 100px;
+            font-size: 0.95em;
+        }
+        .cta-buttons .cta-btn:not(.primary):hover {
+            opacity: 1;
+        }
 
         .cta-btn {
             font-family: 'IBM Plex Mono', monospace;
@@ -370,6 +384,8 @@
             margin-bottom: 50px;
             opacity: 0;
             animation: fadeInUp 2s ease-out 2.5s forwards;
+            content-visibility: auto;
+            contain-intrinsic-size: auto 600px;
         }
 
         .feature-card {
@@ -580,24 +596,26 @@
         <div class="hero-section animate-fade-in-up">
             <h1 class="hero-title animate-fade-in-up" id="main-title">ARKALIA QUEST</h1>
             <p class="hero-subtitle animate-fade-in-up" id="hero-subtitle">Tu es un hacker qui aide LUNA : missions au terminal, actes et mini-jeux.</p>
-            <p class="luna-greeting animate-fade-in-up" id="luna-greeting">"LUNA a besoin de toi. Tu es le seul à pouvoir l'aider. Prêt à commencer ?"</p>
-            <p class="hero-hook animate-fade-in-up" id="hero-hook">Tu tapes des commandes, tu débloques des missions. C'est parti.</p>
+            <p class="luna-greeting animate-fade-in-up" id="luna-greeting">"LUNA a besoin de toi. Tu es prêt à commencer ?"</p>
+            <p class="hero-hook animate-fade-in-up" id="hero-hook">Une commande, une mission. Plus tu joues, plus tu débloques. C'est parti.</p>
+            <p class="hero-inspire animate-fade-in-up" style="margin-top: 1rem; font-size: 0.95em; color: var(--bleu-spectre); font-style: italic;">Deviens le hacker dont Arkalia a besoin.</p>
 
-            <!-- CTA principal : une entrée claire pour commencer -->
+            <!-- CTA principal : une entrée claire pour commencer (audit P1) -->
+            <p class="cta-hint animate-fade-in-up" style="margin-bottom: 0.5rem; font-size: 0.9em; color: var(--matrix-green); font-weight: 600;">👉 Clique ici pour lancer ta première mission</p>
             <div class="cta-buttons horizontal animate-fade-in-up" role="navigation" aria-label="Navigation principale">
                 <a href="/terminal" class="cta-btn primary btn-perfect cta-perfect hover-lift ripple-effect"
                     title="Accéder au terminal de commandes" role="button" aria-describedby="terminal-desc">
                     <span class="cta-icon" aria-hidden="true">🚀</span>
                     <span class="cta-text">COMMENCER L'AVENTURE</span>
-                    <span class="cta-subtitle" id="terminal-desc">Terminal LUNA</span>
+                    <span class="cta-subtitle" id="terminal-desc">Là où tout commence</span>
                 </a>
-                <a href="/monde" class="cta-btn hover-lift ripple-effect" title="Explorer le monde d'Arkalia"
+                <a href="/monde" class="cta-btn secondary hover-lift ripple-effect" title="Explorer le monde d'Arkalia"
                     role="button" aria-describedby="monde-desc">
                     <span class="cta-icon" aria-hidden="true">🌍</span>
                     <span class="cta-text">EXPLORER LE MONDE</span>
                     <span class="cta-subtitle" id="monde-desc">Zones mystérieuses</span>
                 </a>
-                <a href="/profil" class="cta-btn" title="Voir votre profil" role="button"
+                <a href="/profil" class="cta-btn secondary" title="Voir votre profil" role="button"
                     aria-describedby="profil-desc">
                     <span class="cta-icon" aria-hidden="true">👤</span>
                     <span class="cta-text">MON PROFIL</span>
@@ -614,49 +632,43 @@
             <div class="feature-card">
                 <span class="feature-icon">🌙</span>
                 <h3 class="feature-title">IA LUNA</h3>
-                <p class="feature-description">Une intelligence artificielle sensible qui s'adapte à ta personnalité et
-                    guide ton parcours dans Arkalia Quest.</p>
+                <p class="feature-description">Ton alliée : elle s'adapte à toi et te guide. C'est elle qui te donne les missions au terminal.</p>
             </div>
 
             <div class="feature-card">
                 <span class="feature-icon">🎮</span>
-                <h3 class="feature-title">Gamification Avancée</h3>
-                <p class="feature-description">Système de badges, niveaux et achievements qui évolue avec tes actions et
-                    ta progression.</p>
+                <h3 class="feature-title">Badges & Niveaux</h3>
+                <p class="feature-description">Chaque action compte. Débloque des badges et monte en niveau en jouant.</p>
             </div>
 
             <div class="feature-card">
                 <span class="feature-icon">🌌</span>
                 <h3 class="feature-title">Monde Immersif</h3>
-                <p class="feature-description">Un univers cybernétique riche avec des missions, des défis et des
-                    mystères à découvrir.</p>
+                <p class="feature-description">Zones, missions et mystères à explorer une fois les premiers actes débloqués.</p>
             </div>
 
             <div class="feature-card">
                 <span class="feature-icon">⚡</span>
-                <h3 class="feature-title">Terminal Interactif</h3>
-                <p class="feature-description">Interface de commande immersive pour communiquer avec LUNA et maîtriser
-                    les outils de hacking.</p>
+                <h3 class="feature-title">Terminal</h3>
+                <p class="feature-description">C'est ici que tout se passe : tu tapes des commandes, LUNA répond, les missions avancent.</p>
             </div>
 
             <div class="feature-card">
                 <span class="feature-icon">📊</span>
-                <h3 class="feature-title">Analytics Intelligents</h3>
-                <p class="feature-description">Suivi détaillé de tes performances et insights personnalisés pour
-                    optimiser ton parcours.</p>
+                <h3 class="feature-title">Ta Progression</h3>
+                <p class="feature-description">Score, niveau, missions complétées : tout est suivi. Consulte ton profil ou le dashboard.</p>
             </div>
 
             <div class="feature-card">
                 <span class="feature-icon">🎯</span>
-                <h3 class="feature-title">Missions Personnalisées</h3>
-                <p class="feature-description">Des défis adaptés à ton niveau et à tes préférences pour une expérience
-                    unique.</p>
+                <h3 class="feature-title">Missions & Actes</h3>
+                <p class="feature-description">Une histoire en actes. Commence par acte_1 au terminal, puis enchaîne.</p>
             </div>
         </div>
 
         <!-- Statut LUNA -->
         <div class="luna-status" id="luna-status">
-            LUNA en ligne - Prête à t'accompagner
+            LUNA en ligne — Ta première mission t'attend. Lance-toi !
         </div>
         <!-- Ambiance sonore optionnelle (effet plaisir, recherche 2024) -->
         <button type="button" class="ambient-toggle" id="ambientToggle" aria-label="Activer ou désactiver l'ambiance sonore" title="Ambiance sonore">
@@ -696,6 +708,13 @@
         jeux éducatifs educational games mini-jeux minigames logique logic cybersécurité cybersecurity
     </div>
 
+    <!-- Systèmes universels (defer = ne bloque pas le premier rendu) -->
+    <script src="{{ url_for('static', filename='js/universal-notifications.js') }}?v=4.0.0" defer></script>
+    <script src="{{ url_for('static', filename='js/universal-empty-states.js') }}?v=4.0.0" defer></script>
+    <script src="{{ url_for('static', filename='js/smart-empty-states.js') }}?v=4.0.0" defer></script>
+    <script src="{{ url_for('static', filename='js/reward-feedback-system.js') }}?v=4.0.0" defer></script>
+    <script src="{{ url_for('static', filename='js/ui-perfection.js') }}?v=3.3.1" defer></script>
+
     <!-- Scripts critiques chargés immédiatement -->
     <script src="{{ url_for('static', filename='js/accessibility.js') }}?v=3.1.1"></script>
     <script src="{{ url_for('static', filename='js/performance-ux-optimizer.js') }}?v=3.1.1"></script>
@@ -711,12 +730,10 @@
             document.head.appendChild(script);
         }
 
-        // Accueil léger : uniquement scripts utiles pour le portail (audit UX 2026)
+        // Accueil léger : scripts secondaires après load (performance-ux-optimizer et audio-manager déjà en tête)
         window.addEventListener('load', function () {
             var portalScripts = [
-                '{{ url_for("static", filename="js/performance-ux-optimizer.js") }}?v=3.1.1',
                 '{{ url_for("static", filename="js/bug-fixes.js") }}',
-                '{{ url_for("static", filename="js/audio-manager.js") }}?v=3.1.1',
                 '{{ url_for("static", filename="js/service-worker.js") }}'
             ];
             portalScripts.forEach(function (src, index) {
@@ -747,14 +764,14 @@
             setTimeout(() => {
                 const greeting = document.getElementById('luna-greeting');
                 if (window.lunaVision && greeting) {
-                    window.lunaVision.typeText(greeting, '"LUNA a besoin de toi. Tu es le seul à pouvoir l\'aider. Prêt à commencer ?"', 30);
+                    window.lunaVision.typeText(greeting, '"J\'ai besoin de toi. Ensemble on va débloquer cette histoire — tu es prêt ?"', 30);
                 }
             }, 5000);
 
             // Message de LUNA contextuel
             setTimeout(() => {
                 if (window.lunaVision) {
-                    window.lunaVision.showLunaMessage("Le portail est ouvert. Commence par le tutoriel pour comprendre le jeu !", 4000);
+                    window.lunaVision.showLunaMessage("Clique sur « Commencer l'aventure » — ton premier défi t'attend au terminal.", 4000);
                     window.lunaVision.setEmotion('welcoming');
                 }
             }, 8000);
@@ -764,7 +781,7 @@
             featureCards.forEach((card, index) => {
                 card.addEventListener('mouseenter', () => {
                     if (window.lunaVision) {
-                        const titles = ['IA LUNA', 'Gamification Avancée', 'Monde Immersif', 'Terminal Interactif', 'Analytics Intelligents', 'Missions Personnalisées'];
+                        const titles = ['IA LUNA', 'Badges & Niveaux', 'Monde Immersif', 'Terminal', 'Ta Progression', 'Missions & Actes'];
                         window.lunaVision.showLunaMessage(`Découvre ${titles[index]}...`, 2000);
                     }
                 });

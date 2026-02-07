@@ -7,6 +7,22 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [3.3.0] - 2025-09-15
 
+## [4.0.2] - 2026-02-07
+
+### Amélioré (Audit « pourquoi le jeu semble nul »)
+
+- **Accueil** : CTA principal « Commencer l'aventure » renforcé (taille, bordure, ombre) ; boutons « Explorer le monde » et « Mon profil » en secondaire (classe `secondary`, moins mis en avant). Message LUNA déjà présent (« LUNA a besoin de toi »).
+- **Commande aide** : Pour les joueurs intermédiaires, **acte_1** est maintenant en premier dans la liste des missions (aligné avec la bannière du terminal). Fallback statique du terminal : ajout d’un bloc « COMMENCE ICI : acte_1 » en tête de l’aide.
+- **Terminal** : Tous les scripts chargés en **defer** pour ne plus bloquer le rendu → premier affichage et clics plus réactifs. Après succès du défi acte_1 (modal), appel à `refreshProgressionFromServer()` pour mettre à jour le bandeau Niveau/Score immédiatement.
+- **États vides** : Leaderboard et profil (badges) affichent un message encourageant (« Joue au terminal, tape acte_1… pour apparaître ici / débloquer tes badges »). Composant badges : lien « Aller au terminal » et texte orienté acte_1.
+
+### Références
+
+- [docs/audits/AUDIT_COMPLET_POURQUOI_LE_JEU_SEMBLE_NUL.md](docs/audits/AUDIT_COMPLET_POURQUOI_LE_JEU_SEMBLE_NUL.md)
+- [docs/AUDIT_VISUEL_ET_PERFORMANCES.md](docs/AUDIT_VISUEL_ET_PERFORMANCES.md)
+
+---
+
 ## [4.0.1] - 2026-02-07
 
 ### Amélioré (Audit UX 2026)
@@ -17,6 +33,7 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - **Jeu parfait (suite)** : Navbar simplifiée (Accueil + Terminal + Tutoriel seulement) tant qu’acte_1 n’est pas complété ; code correct du défi acte_1 aléatoire (A, B ou C) ; son succès/échec sur le terminal (playSuccessSound / playErrorSound) ; index reçoit `profil` pour cohérence.
 - **Fun & visuel (sources externes)** : Doc [docs/COMPARAISON_JEUX_SOURCES_EXTERNES.md](docs/COMPARAISON_JEUX_SOURCES_EXTERNES.md) (pourquoi le jeu peut sembler nul vs autres jeux, recherche 2024–2025). Accroche 30 s sur l’index (« Tu tapes des commandes, tu débloques des missions. C’est parti. »). CSS [static/css/game-feel.css](static/css/game-feel.css) : micro-interactions CTA principal (pulse, hover), bouton Exécuter terminal (hover/active), indicateur flottant succès (+XP ou ✓), cartes index plus réactives ; respect `prefers-reduced-motion` et focus visible. **Suite** : bouton « Ambiance » sur l’accueil (musique de fond optionnelle, préférence sauvegardée) ; messages d’erreur terminal amicaux (hint « Tape "aide" pour voir les commandes ») ; micro-célébration modal acte_1 (scale + glow) avant fermeture. **Suite** : bannière « Prochaine étape : tape acte_2 » (puis acte_3… epilogue) sur le terminal selon missions complétées, + mise à jour dynamique après défi acte_1.
 - **Couverture game-feel sur toutes les pages** : `game-feel.css` chargé sur les 13 pages (accueil, terminal, monde, profil, dashboard, leaderboard, tutoriel, arbre de compétences, explorateur, mail, audio, accessibilité, tutoriels techniques). Sur chaque page : focus visible (boutons, liens, zones/input selon le contexte) et `prefers-reduced-motion` pour désactiver les animations de fond/particules. COMPARAISON : nouvelle section « Couverture des pages » (tableau récap) ; focus burger (menu mobile) dans game-feel.css.
+- **Docs playtest & maintenance** : [PLAYTEST_GUIDE_ADOS.md](docs/PLAYTEST_GUIDE_ADOS.md) — checklist rapide avant session (accueil, terminal, acte_1, bannière acte_2). [COMPARAISON_JEUX_SOURCES_EXTERNES.md](docs/COMPARAISON_JEUX_SOURCES_EXTERNES.md) — template « Retours playtest du [date] » à coller dans STATUT ; tableau « Liens utiles » ; section « Référence code » (game-feel.css, audio-manager.js, terminal.html, app.py). STATUT : mention « Prêt pour playtests » + bannière acte_2→epilogue.
 
 ---
 

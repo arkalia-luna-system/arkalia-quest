@@ -36,7 +36,7 @@
     <main id="main-content" class="tutorials-workspace">
         <div class="tutorials-header">
             <h1 class="tutorials-title">📚 TUTORIELS TECHNIQUES</h1>
-            <p class="tutorials-subtitle">Apprends la cybersécurité et le hacking avec LUNA</p>
+            <p class="tutorials-subtitle">Débloque des tutoriels en jouant — cybersécurité et hacking avec LUNA</p>
         </div>
         <div class="tutorials-list" id="technical-tutorials-list">
             <p class="tutorial-loading">Chargement des tutoriels...</p>
@@ -58,7 +58,7 @@
                 const raw = await res.json();
                 const tutorials = Array.isArray(raw) ? raw : (raw && Array.isArray(raw.tutorials) ? raw.tutorials : []);
                 if (tutorials.length === 0) {
-                    container.innerHTML = '<p class="tutorial-loading">Aucun tutoriel disponible pour le moment. Joue pour en débloquer !</p>';
+                    container.innerHTML = '<p class="tutorial-loading">Aucun tutoriel débloqué pour l\'instant. Complète des missions au terminal pour en débloquer.</p>';
                     return;
                 }
                 container.innerHTML = tutorials.map(t => {
@@ -70,7 +70,7 @@
                     return '<div class="tutorial-card"><h3>' + escapeHtml(title) + '</h3>' + (desc ? '<p>' + escapeHtml(desc) + '</p>' : '') + '<div class="tutorial-meta">' + [diff, duration, progress].filter(Boolean).join(' · ') + '</div></div>';
                 }).join('');
             } catch (_) {
-                container.innerHTML = '<p class="tutorial-loading">Impossible de charger les tutoriels.</p>';
+                container.innerHTML = '<p class="tutorial-loading">Chargement en pause. Réessaie ou va au terminal faire une mission.</p>';
             }
         })();
     </script>

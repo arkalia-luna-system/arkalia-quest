@@ -154,6 +154,7 @@ Le jeu n’est pas "nul" : il est **solide techniquement** et **déjà aligné**
 | [PLAYTEST_GUIDE_ADOS.md](PLAYTEST_GUIDE_ADOS.md) | Scénario 15 min, grille d’observation, checklist avant session |
 | [STATUT_PROJET_ACTUEL.md](STATUT_PROJET_ACTUEL.md) | Vue d’ensemble, métriques, où coller les retours playtest |
 | [audits/AUDIT_JEU_MEILLEURES_PRATIQUES_2026.md](audits/AUDIT_JEU_MEILLEURES_PRATIQUES_2026.md) | Audit UX / bonnes pratiques détaillé |
+| [audits/AUDIT_COMPLET_POURQUOI_LE_JEU_SEMBLE_NUL.md](audits/AUDIT_COMPLET_POURQUOI_LE_JEU_SEMBLE_NUL.md) | Audit complet "pourquoi le jeu semble nul" + corrections P0/P1/P2 |
 
 ---
 

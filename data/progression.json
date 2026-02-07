@@ -292,13 +292,29 @@
         {
           "command": "any",
           "timestamp": "2026-02-07T17:48:13.297533"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T17:52:04.395491"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T17:53:41.346993"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T17:55:35.569125"
+        },
+        {
+          "command": "any",
+          "timestamp": "2026-02-07T18:00:18.991307"
         }
       ],
       "luna_commands_used": [],
       "mini_games_completed": [],
       "daily_challenges_progress": {
         "hacker_speed": {
-          "progress": 70,
+          "progress": 74,
           "completed": true,
           "reward_claimed": false,
           "notified": true
@@ -323,9 +339,9 @@
         "first_step",
         "speed_demon"
       ],
-      "last_activity": "2026-02-07T17:48:13.297268",
+      "last_activity": "2026-02-07T18:00:18.991165",
       "stats": {
-        "total_commands": 70,
+        "total_commands": 74,
         "total_luna_commands": 0,
         "total_zones_explored": 0,
         "total_mini_games": 0,
@@ -338,9 +354,9 @@
       }
     },
     "main_user": {
-      "score": 1155,
+      "score": 1495,
       "level": 4,
-      "xp": 155,
+      "xp": 495,
       "coins": 125,
       "badges": [
         "Premier pas",
@@ -803,6 +819,46 @@
         {
           "command": "help",
           "timestamp": "2026-02-07T17:48:13.159043"
+        },
+        {
+          "command": "skill_tree",
+          "timestamp": "2026-02-07T17:49:55.679280"
+        },
+        {
+          "command": "skill_tree",
+          "timestamp": "2026-02-07T17:49:55.680723"
+        },
+        {
+          "command": "skill_tree",
+          "timestamp": "2026-02-07T17:50:23.843255"
+        },
+        {
+          "command": "skill_tree",
+          "timestamp": "2026-02-07T17:50:23.856134"
+        },
+        {
+          "command": "acte_1",
+          "timestamp": "2026-02-07T17:50:50.062070"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T17:52:04.361339"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T17:53:41.255322"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T17:55:35.479812"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T17:58:09.447990"
+        },
+        {
+          "command": "help",
+          "timestamp": "2026-02-07T18:00:18.919005"
         }
       ],
       "luna_commands_used": [
@@ -814,7 +870,7 @@
       "mini_games_completed": [],
       "daily_challenges_progress": {
         "hacker_speed": {
-          "progress": 113,
+          "progress": 123,
           "completed": true,
           "reward_claimed": false,
           "notified": true
@@ -840,9 +896,9 @@
         "first_step",
         "speed_demon"
       ],
-      "last_activity": "2026-02-07T17:48:13.158819",
+      "last_activity": "2026-02-07T18:00:18.918825",
       "stats": {
-        "total_commands": 113,
+        "total_commands": 123,
         "total_luna_commands": 4,
         "total_zones_explored": 0,
         "total_mini_games": 0,

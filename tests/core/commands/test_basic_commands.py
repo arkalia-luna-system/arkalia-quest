@@ -27,11 +27,11 @@ def mock_profile():
 
 
 def test_handle_aide_new_player(basic_commands):
-    """Test aide pour nouveau joueur"""
+    """Test aide pour nouveau joueur — aligné sur bannière acte_1 (audit 2026)"""
     profile = {"level": 1, "missions_completed": []}
     result = basic_commands.handle_aide(profile)
     assert "BIENVENUE HACKER" in result["message"]
-    assert "start_tutorial" in result["message"]
+    assert "acte_1" in result["message"]
 
 
 def test_handle_aide_experienced_player(basic_commands):

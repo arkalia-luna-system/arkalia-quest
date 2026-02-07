@@ -468,6 +468,33 @@
             font-weight: 600;
             font-size: 0.95em;
         }
+        .terminal-progression-strip .points-gained-pill {
+            display: inline-block;
+            margin-left: 12px;
+            padding: 4px 10px;
+            background: linear-gradient(135deg, rgba(0,255,0,0.25), rgba(0,255,255,0.15));
+            border: 1px solid rgba(0,255,0,0.5);
+            border-radius: 20px;
+            color: var(--matrix-green);
+            font-weight: 700;
+            font-size: 0.9em;
+            animation: pointsPillPop 0.4s ease-out, pointsPillFade 2s ease-out 0.5s forwards;
+        }
+        #progressionScore.score-just-updated {
+            animation: scorePulse 1s ease-out;
+        }
+        @keyframes pointsPillPop {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes pointsPillFade {
+            to { opacity: 0.3; }
+        }
+        @keyframes scorePulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; color: var(--matrix-green); }
+        }
         .acte1-modal-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0,0,0,0.85);
@@ -883,44 +910,41 @@
             </div>
             {% if profil is defined and profil and 'acte_1' not in (profil.get('missions_completed') or []) %}
             <div class="first-mission-banner" id="firstMissionBanner">
-                🎯 Première mission : tape <strong>acte_1</strong> dans le terminal ci-dessous.
+                🎯 Ta première mission t'attend : tape <strong>acte_1</strong> ci-dessous pour commencer.
             </div>
             {% endif %}
             {% if profil is defined and profil %}
             {% set completed = profil.get('missions_completed') or [] %}
             {% if 'acte_1' in completed and 'acte_2' not in completed %}
-            <div class="next-step-banner" id="nextStepBanner">➡️ Prochaine étape : tape <strong>acte_2</strong></div>
+            <div class="next-step-banner" id="nextStepBanner">➡️ La suite t'attend : tape <strong>acte_2</strong> pour continuer l'aventure</div>
             {% elif 'acte_2' in completed and 'acte_3' not in completed %}
-            <div class="next-step-banner" id="nextStepBanner">➡️ Prochaine étape : tape <strong>acte_3</strong></div>
+            <div class="next-step-banner" id="nextStepBanner">➡️ Continue : tape <strong>acte_3</strong> pour la suite de l'histoire</div>
             {% elif 'acte_3' in completed and 'acte_4' not in completed %}
-            <div class="next-step-banner" id="nextStepBanner">➡️ Prochaine étape : tape <strong>acte_4</strong></div>
+            <div class="next-step-banner" id="nextStepBanner">➡️ Tape <strong>acte_4</strong> pour découvrir la suite</div>
             {% elif 'acte_4' in completed and 'acte_5' not in completed %}
-            <div class="next-step-banner" id="nextStepBanner">➡️ Prochaine étape : tape <strong>acte_5</strong></div>
+            <div class="next-step-banner" id="nextStepBanner">➡️ Tape <strong>acte_5</strong> — on approche du but</div>
             {% elif 'acte_5' in completed and 'acte_6' not in completed %}
-            <div class="next-step-banner" id="nextStepBanner">➡️ Prochaine étape : tape <strong>acte_6</strong></div>
+            <div class="next-step-banner" id="nextStepBanner">➡️ Dernier acte : tape <strong>acte_6</strong></div>
             {% elif 'acte_6' in completed and 'epilogue' not in completed %}
-            <div class="next-step-banner" id="nextStepBanner">➡️ Prochaine étape : tape <strong>epilogue</strong></div>
+            <div class="next-step-banner" id="nextStepBanner">➡️ Fin de l'aventure : tape <strong>epilogue</strong> pour le final</div>
             {% endif %}
             {% endif %}
 
             <!-- Zone de sortie du terminal (id messagesContainer pour terminal.js) -->
             <div class="terminal-output" id="messagesContainer">
                 <div class="system-message">
-                    Terminal Arkalia Quest v2.0 initialisé...
-                    Connexion à LUNA établie...
-                    Prêt pour les commandes.
+                    Terminal Arkalia Quest v2.0 — Connexion LUNA OK.
                 </div>
 
                 <div class="luna-message">
-                    Salut hacker ! Je suis LUNA, ton assistant IA. Tape 'aide' pour voir toutes les commandes
-                    disponibles.
+                    Salut ! Je suis LUNA. 🌙 L'aventure commence ici : tape <strong>acte_1</strong> pour ta première mission — un défi t'attend. Tu peux aussi taper <strong>aide</strong> pour explorer toutes les commandes.
                 </div>
             </div>
 
             <!-- Zone de saisie -->
             <div class="terminal-input-container">
                 <span class="terminal-prompt" aria-label="Invite de commande">luna@arkalia:~$</span>
-                <input type="text" class="terminal-input" id="commandInput" placeholder="Tape ta commande ici..."
+                <input type="text" class="terminal-input" id="commandInput" placeholder="Ex: acte_1 ou aide"
                     autocomplete="off" aria-label="Zone de saisie de commande" aria-describedby="command-help">
                 <button class="terminal-send" onclick="sendCommand()" aria-label="Exécuter la commande"
                     title="Exécuter la commande (Entrée)">
@@ -930,7 +954,7 @@
 
             <!-- Aide contextuelle -->
             <div id="command-help" class="command-help" aria-live="polite">
-                Tape 'aide' pour voir toutes les commandes disponibles
+                Astuce : <strong>acte_1</strong> pour commencer, <strong>aide</strong> pour la liste des commandes
             </div>
 
             <!-- Commandes disponibles (cachées pour les tests) -->
@@ -998,8 +1022,8 @@
     <!-- Modal défi acte_1 (vrai gameplay après la commande) -->
     <div class="acte1-modal-overlay" id="acte1ModalOverlay" style="display: none;" role="dialog" aria-labelledby="acte1ModalTitle" aria-modal="true">
         <div class="acte1-modal">
-            <h3 id="acte1ModalTitle">🔐 Défi Acte 1 — Choisis le bon code</h3>
-            <p>LUNA a besoin du code correct pour débloquer le site. Un seul des trois codes est valide.</p>
+            <h3 id="acte1ModalTitle">🔐 Ton premier défi — Choisis le bon code</h3>
+            <p>Un seul des trois codes débloque le site. Fais confiance à ton instinct : lequel est le bon ?</p>
             <div class="acte1-modal-btns" id="acte1ModalBtns">
                 <button type="button" data-code="A">Code A</button>
                 <button type="button" data-code="B">Code B</button>
@@ -1008,27 +1032,27 @@
         </div>
     </div>
 
-    <!-- Scripts LUNA VISION -->
-    <script src="{{ url_for('static', filename='js/navigation.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/terminal-enhancements.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/personalized-messages.js') }}?v=3.3.1"></script>
-    <script src="{{ url_for('static', filename='js/game-engine.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/mission-system.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/visual-feedback-system.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/advanced-features.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/ai_engine.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/analytics.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/hacking-effects.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/service-worker.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/performance-ux-optimizer.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bug-fixes.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/reward-system.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/system-integrator.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/terminal.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/educational_games.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/accessibility.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/audio-manager.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/visual-effects.js') }}"></script>
+    <!-- Scripts LUNA VISION (defer = pas de blocage du rendu, clics plus réactifs) -->
+    <script src="{{ url_for('static', filename='js/navigation.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/terminal-enhancements.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/personalized-messages.js') }}?v=3.3.1" defer></script>
+    <script src="{{ url_for('static', filename='js/game-engine.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/mission-system.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/visual-feedback-system.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/advanced-features.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/ai_engine.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/analytics.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/hacking-effects.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/service-worker.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/performance-ux-optimizer.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/bug-fixes.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/reward-system.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/system-integrator.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/terminal.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/educational_games.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/accessibility.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/audio-manager.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/visual-effects.js') }}" defer></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -1049,7 +1073,7 @@
             // Animation d'initialisation
             setTimeout(() => {
                 if (window.lunaVision) {
-                    window.lunaVision.showLunaMessage("Terminal prêt. Je suis là pour t'aider...", 3000);
+                    window.lunaVision.showLunaMessage("Tape acte_1 pour lancer ta première mission — ou aide pour la liste.", 3000);
                     window.lunaVision.setEmotion('focused');
                 }
             }, 2000);
@@ -1069,6 +1093,7 @@
 
             // Suggestions de commandes contextuelles
             const suggestions = [
+                "Ta première mission : tape acte_1",
                 "Tape 'aide' pour voir toutes les commandes",
                 "Utilise 'profil' pour voir tes statistiques",
                 "Explore le 'monde' pour découvrir de nouvelles missions",
@@ -1124,7 +1149,7 @@
                 }
             }
 
-            output.innerHTML += message;
+            output.insertAdjacentHTML('beforeend', message);
             output.scrollTop = output.scrollHeight;
         }
 
@@ -1215,6 +1240,23 @@
                 .catch(function() {});
         }
 
+        function showPointsGainedPill(points) {
+            if (!points || points <= 0) return;
+            var strip = document.getElementById('terminalProgressionStrip');
+            if (!strip) return;
+            var pill = document.createElement('span');
+            pill.className = 'points-gained-pill';
+            pill.setAttribute('aria-live', 'polite');
+            pill.textContent = '\uD83D\uDC8E +' + points;
+            strip.appendChild(pill);
+            var scoreEl = document.getElementById('progressionScore');
+            if (scoreEl) scoreEl.classList.add('score-just-updated');
+            setTimeout(function() {
+                if (pill.parentNode) pill.remove();
+                if (scoreEl) scoreEl.classList.remove('score-just-updated');
+            }, 2500);
+        }
+
         function showActe1ChallengeModal() {
             var overlay = document.getElementById('acte1ModalOverlay');
             if (!overlay) return;
@@ -1237,30 +1279,43 @@
                                 modal.classList.remove('celebrate');
                                 overlay.style.display = 'none';
                                 removeActe1ModalListeners();
-                                addMessage('<div class="luna-message">✅ Défi réussi ! Mission acte_1 validée.</div>');
+                                addMessage('<div class="luna-message">🎉 Bravo ! Tu as réussi ton premier défi. Mission acte_1 validée — l\'aventure ne fait que commencer. Tape <strong>acte_2</strong> quand tu seras prêt pour la suite.</div>');
                                 var nextBanner = document.getElementById('nextStepBanner');
                                 if (!nextBanner) {
                                     var strip = document.getElementById('terminalProgressionStrip');
                                     nextBanner = document.createElement('div');
                                     nextBanner.id = 'nextStepBanner';
                                     nextBanner.className = 'next-step-banner';
-                                    nextBanner.innerHTML = '\u27A1\uFE0F Prochaine \u00e9tape : tape <strong>acte_2</strong>';
+                                    nextBanner.innerHTML = '\u27A1\uFE0F La suite t\'attend : tape <strong>acte_2</strong> pour continuer l\'aventure';
                                     if (strip && strip.nextSibling) strip.parentNode.insertBefore(nextBanner, strip.nextSibling);
                                     else if (strip) strip.parentNode.appendChild(nextBanner);
                                 }
                                 if (nextBanner) nextBanner.style.display = 'block';
+                                refreshProgressionFromServer();
+                                showPointsGainedPill(300);
                             }, 400);
                         } else {
                             overlay.style.display = 'none';
                             removeActe1ModalListeners();
-                            addMessage('<div class="luna-message">✅ Défi réussi ! Mission acte_1 validée.</div>');
+                            addMessage('<div class="luna-message">🎉 Bravo ! Tu as réussi ton premier défi. Mission acte_1 validée — l\'aventure ne fait que commencer. Tape <strong>acte_2</strong> quand tu seras prêt pour la suite.</div>');
                             var nextBanner = document.getElementById('nextStepBanner');
+                            if (!nextBanner) {
+                                var strip = document.getElementById('terminalProgressionStrip');
+                                nextBanner = document.createElement('div');
+                                nextBanner.id = 'nextStepBanner';
+                                nextBanner.className = 'next-step-banner';
+                                nextBanner.innerHTML = '\u27A1\uFE0F La suite t\'attend : tape <strong>acte_2</strong> pour continuer l\'aventure';
+                                if (strip && strip.nextSibling) strip.parentNode.insertBefore(nextBanner, strip.nextSibling);
+                                else if (strip) strip.parentNode.appendChild(nextBanner);
+                            }
                             if (nextBanner) nextBanner.style.display = 'block';
+                            refreshProgressionFromServer();
+                            showPointsGainedPill(300);
                         }
                     } else {
                         btn.classList.add('wrong');
                         btn.disabled = true;
-                        addMessage('<div class="terminal-message warning">Code incorrect. Réessaie avec un autre.</div>');
+                        addMessage('<div class="terminal-message warning">Pas celui-ci — essaie un autre code. Tu y es presque !</div>');
                     }
                 };
             });
@@ -1284,54 +1339,22 @@
                 if (cmd === 'aide' || cmd === 'help' || cmd === 'commands' || cmd === 'liste' || cmd === 'menu') {
                     addMessage(`
                         <div class="system-message">
-                            🌌 ARKALIA QUEST - COMMANDES DISPONIBLES
-                            
-                            📋 COMMANDES DE BASE :
-                            • aide/help/commands/liste/menu - Affiche cette aide
-                            • profil/profile - Affiche ton profil
-                            • status - Affiche ton statut
-                            • clear/cls - Efface l'écran
-                            • unlock_universe - Débloque l'univers Arkalia
-                            • scan_persona - Analyse ta personnalité
-                            • badges - Affiche tes badges
-                            • leaderboard - Classement des hackers
-                            • missions - Tes missions disponibles
-                            
-                            🎯 COMMANDES TUTORIEL :
-                            • start_tutorial/tutorial/tuto - Démarre le tutoriel
-                            
-                            🎮 COMMANDES JEUX :
-                            • games - Liste les mini-jeux
-                            • play_game - Joue à un mini-jeu
-                            • game_stats - Statistiques des jeux
-                            • daily_challenges - Défis quotidiens
-                            
-                            📖 COMMANDES HISTOIRE :
-                            • prologue - Découvre le SOS d'Althea
-                            • acte_1 à acte_6 - Progression de l'histoire
-                            • epilogue - Fin de l'aventure
-                            
-                            ⚡ COMMANDES ACTION :
-                            • hack_system - Hack le système de La Corp
-                            • kill_virus - Tue le virus de La Corp
-                            • find_shadow - Trouve SHADOW-13
-                            • challenge_corp - Défie La Corp
-                            • decode_portal - Décode les portails
-                            • hacker_coffre - Ouvre le coffre hacker
-                            • boss_final - Combat final
-                            
-                            🤖 COMMANDES LUNA :
-                            • luna_contact/luna - Parle avec LUNA
-                            • luna_emotion - Voir les émotions de LUNA
-                            • luna_help - Aide LUNA
-                            • luna_status - Statut de LUNA
-                            • luna_engine - Active le moteur IA
-                            • luna_analyze - Analyse des données
-                            • luna_learning - Mode apprentissage
-                            • luna_dance - LUNA danse
-                            
-                            🌍 COMMANDES NAVIGATION :
-                            • monde/world - Explore le monde Arkalia
+                            🌌 ARKALIA QUEST - BIENVENUE
+                            🎯 COMMENCE ICI : <strong>acte_1</strong> (ta première mission, un défi t'attend !)
+                            📋 Ensuite : <strong>aide</strong> • <strong>profil</strong> • <strong>monde</strong> • <strong>prologue</strong> • <strong>luna_contact</strong>
+                            💡 Tape acte_1 pour débloquer l'aventure. 🌙
+                        </div>
+                    `);
+                } else if (cmd === 'aide_avance' || cmd === 'aide_detail') {
+                    addMessage(`
+                        <div class="system-message">
+                            🌌 ARKALIA QUEST - AIDE DÉTAILLÉE
+                            🎯 HISTOIRE : prologue, acte_1 à acte_6, epilogue
+                            📋 BASE : aide, profil, status, clear, badges, leaderboard, missions
+                            🎮 JEUX : games, play_game, daily_challenges
+                            ⚡ ACTION : hack_system, kill_virus, find_shadow, challenge_corp, decode_portal
+                            🤖 LUNA : luna_contact, luna_emotion, luna_engine, luna_dance
+                            🌍 monde/world - Explorer Arkalia
                             • explorer - Mode exploration
                             • naviguer - Navigation dans le monde
                         </div>
@@ -1554,8 +1577,7 @@
                 } else {
                     addMessage(`
                         <div class="system-message">
-                            ❌ Commande non reconnue: ${escapeHtml(command)}
-                            💡 Tape 'aide' pour voir toutes les commandes disponibles.
+                            « ${escapeHtml(command)} » n'est pas une commande. 💡 Tape <strong>aide</strong> pour voir ce que tu peux faire.
                         </div>
                     `);
                 }
@@ -1565,34 +1587,27 @@
 
     <!-- Scripts des systèmes adaptatifs -->
     <!-- Guidance adaptative désactivée -->
-    <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/progression-feedback.js') }}?v=4.0.0"></script>
-    <script src="{{ url_for('static', filename='js/competitive-system.js') }}?v=4.0.0"></script>
-    <script src="{{ url_for('static', filename='js/creative-system.js') }}?v=4.0.0"></script>
-    <script src="{{ url_for('static', filename='js/casual-system.js') }}?v=4.0.0"></script>
+    <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/progression-feedback.js') }}?v=4.0.0" defer></script>
+    <script src="{{ url_for('static', filename='js/competitive-system.js') }}?v=4.0.0" defer></script>
+    <script src="{{ url_for('static', filename='js/creative-system.js') }}?v=4.0.0" defer></script>
+    <script src="{{ url_for('static', filename='js/casual-system.js') }}?v=4.0.0" defer></script>
 
-    <!-- Gestionnaire de popups pour éviter les chevauchements -->
-    <script src="{{ url_for('static', filename='js/popup-manager.js') }}?v=4.0.0"></script>
-    <script src="{{ url_for('static', filename='js/popup-coordinator.js') }}?v=4.0.0"></script>
+    <script src="{{ url_for('static', filename='js/popup-manager.js') }}?v=4.0.0" defer></script>
+    <script src="{{ url_for('static', filename='js/popup-coordinator.js') }}?v=4.0.0" defer></script>
 
     <!-- Scripts des améliorations UX contextuelles -->
     <!-- contextual-feedback et progression-animations désactivés (unifiés) -->
     <!-- <script src="{{ url_for('static', filename='js/contextual-feedback.js') }}"></script> -->
     <!-- <script src="{{ url_for('static', filename='js/progression-animations.js') }}"></script> -->
-    <script src="{{ url_for('static', filename='js/terminal-integration.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/advanced-player-profiles.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/terminal-integration.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/advanced-player-profiles.js') }}" defer></script>
 
-    <!-- Nouveaux scripts V3.3.0 -->
-    <!-- Visual guidance désactivé pour éviter les coachmarks -->
-    <!-- <script src="{{ url_for('static', filename='js/visual-guidance.js') }}?v=3.3.0"></script> -->
-    <script src="{{ url_for('static', filename='js/tutorial-celebrations.js') }}?v=3.3.0"></script>
-    <script src="{{ url_for('static', filename='js/daily-challenges-enhanced.js') }}?v=3.3.0"></script>
-    <script src="{{ url_for('static', filename='js/mini-games-interactive.js') }}?v=3.3.0"></script>
-    <!-- empty-states-enhanced remplacé par smart-empty-states -->
-    <script src="{{ url_for('static', filename='js/smart-empty-states.js') }}?v=4.0.0"></script>
-    <!-- reward-animations centralisé dans reward-feedback-system.js -->
-    <!-- <script src="{{ url_for('static', filename='js/reward-animations.js') }}?v=3.3.0"></script> -->
-    <script src="{{ url_for('static', filename='js/luna-enhanced.js') }}?v=3.3.0"></script>
+    <script src="{{ url_for('static', filename='js/tutorial-celebrations.js') }}?v=3.3.0" defer></script>
+    <script src="{{ url_for('static', filename='js/daily-challenges-enhanced.js') }}?v=3.3.0" defer></script>
+    <script src="{{ url_for('static', filename='js/mini-games-interactive.js') }}?v=3.3.0" defer></script>
+    <script src="{{ url_for('static', filename='js/smart-empty-states.js') }}?v=4.0.0" defer></script>
+    <script src="{{ url_for('static', filename='js/luna-enhanced.js') }}?v=3.3.0" defer></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

@@ -16,8 +16,9 @@
     perspective: 1000px;
 }
 
-/* Optimiser les transitions */
-* {
+/* Transitions courtes uniquement sur éléments explicites (évite repaints sur *) */
+.perf-transition,
+.btn, .cta-btn, .nav-link, .feature-card, .card {
     transition-duration: 0.2s;
     transition-timing-function: ease-out;
 }

@@ -692,7 +692,7 @@
             <!-- En-tête du profil -->
             <div class="profile-header">
                 <h1 class="profile-title" id="profile-title">MON PROFIL</h1>
-                <p class="profile-subtitle" id="profile-subtitle">Découvre ton parcours et tes accomplissements</p>
+                <p class="profile-subtitle" id="profile-subtitle">Ton score, ton niveau, tes missions et tes badges — tout ce que tu as débloqué</p>
             </div>
 
             <!-- Section Avatar 3D -->
@@ -974,7 +974,7 @@
             badgesGrid.innerHTML = '';
 
             if (badges.length === 0) {
-                badgesGrid.innerHTML = '<p style="text-align: center; color: var(--argent-holographique); grid-column: 1 / -1;">Aucun badge obtenu pour le moment...</p>';
+                badgesGrid.innerHTML = '<p style="text-align: center; color: var(--argent-holographique); grid-column: 1 / -1;">Aucun badge pour le moment.<br><small>Joue au terminal (acte_1, aide) pour débloquer tes premiers badges !</small></p>';
                 return;
             }
 

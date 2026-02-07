@@ -66,8 +66,11 @@ body.high-contrast {
     --error-color: #f87171;
     --success-color: #4ade80;
 
-    /* Bordures visibles sur tous les éléments */
-    * {
+    /* Bordures visibles (ciblées = moins de reflow qu'un * global) */
+    main, nav, section, article, header, footer, aside,
+    .card, .feature-card, .cta-btn, .nav-link, .main-nav, .nav-container,
+    a, button, input, select, textarea, [role="button"],
+    .popup-overlay, .popup-content, .modal, .alert {
         border: 2px solid var(--text-color) !important;
     }
 
@@ -1128,10 +1131,61 @@ body.high-contrast-enhanced {
     --focus-color: #ffff00;
 }
 
-body.high-contrast-enhanced * {
+/* Ciblé au lieu de * pour limiter le reflow (audit perfs) */
+body.high-contrast-enhanced,
+body.high-contrast-enhanced main,
+body.high-contrast-enhanced nav,
+body.high-contrast-enhanced section,
+body.high-contrast-enhanced article,
+body.high-contrast-enhanced header,
+body.high-contrast-enhanced footer,
+body.high-contrast-enhanced aside,
+body.high-contrast-enhanced .card,
+body.high-contrast-enhanced .feature-card,
+body.high-contrast-enhanced .cta-btn,
+body.high-contrast-enhanced .nav-link,
+body.high-contrast-enhanced a,
+body.high-contrast-enhanced button,
+body.high-contrast-enhanced input,
+body.high-contrast-enhanced select,
+body.high-contrast-enhanced textarea,
+body.high-contrast-enhanced .modal,
+body.high-contrast-enhanced .terminal-container,
+body.high-contrast-enhanced .terminal-output,
+body.high-contrast-enhanced .terminal-input-container,
+body.high-contrast-enhanced h1,
+body.high-contrast-enhanced h2,
+body.high-contrast-enhanced h3,
+body.high-contrast-enhanced h4,
+body.high-contrast-enhanced p,
+body.high-contrast-enhanced span,
+body.high-contrast-enhanced li,
+body.high-contrast-enhanced td,
+body.high-contrast-enhanced th,
+body.high-contrast-enhanced label,
+body.high-contrast-enhanced [role="button"] {
     color: var(--text-color) !important;
     background-color: var(--background-color) !important;
     border-color: var(--border-color) !important;
+}
+
+body.high-contrast-enhanced main,
+body.high-contrast-enhanced nav,
+body.high-contrast-enhanced section,
+body.high-contrast-enhanced .card,
+body.high-contrast-enhanced .cta-btn,
+body.high-contrast-enhanced .nav-link,
+body.high-contrast-enhanced a,
+body.high-contrast-enhanced button,
+body.high-contrast-enhanced input,
+body.high-contrast-enhanced select,
+body.high-contrast-enhanced textarea,
+body.high-contrast-enhanced .modal,
+body.high-contrast-enhanced .terminal-container,
+body.high-contrast-enhanced .terminal-output,
+body.high-contrast-enhanced .terminal-input-container,
+body.high-contrast-enhanced [role="button"] {
+    border: 2px solid var(--border-color) !important;
 }
 
 body.high-contrast-enhanced *:focus {

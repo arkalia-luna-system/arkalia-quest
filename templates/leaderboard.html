@@ -896,7 +896,7 @@
             <!-- En-tête du leaderboard -->
             <div class="leaderboard-header">
                 <h1 class="leaderboard-title" id="leaderboard-title">LEADERBOARD HACKERS</h1>
-                <p class="leaderboard-subtitle" id="leaderboard-subtitle">Classement des meilleurs hackers d'Arkalia</p>
+                <p class="leaderboard-subtitle" id="leaderboard-subtitle">Qui a le plus de points ? Joue au terminal pour monter au classement.</p>
             </div>
 
             <!-- Messages d'état -->
@@ -1082,7 +1082,7 @@
             tbody.innerHTML = '';
             const players = (data && data.players) ? data.players : [];
             if (players.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" class="loading">Aucun joueur dans ce classement</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="5" class="loading">Aucun joueur dans ce classement.<br><small style="opacity:0.9;">Joue au terminal (tape acte_1, puis les missions) pour gagner des points et apparaître ici !</small></td></tr>';
                 return;
             }
             players.forEach((p, index) => {
@@ -1264,7 +1264,7 @@
                 tbody.innerHTML = `
                     <tr>
                         <td colspan="5" class="loading">
-                            Aucun joueur dans le classement
+                            Aucun joueur dans le classement.<br><small style="opacity:0.9;">Joue au terminal (tape acte_1, puis les missions) pour gagner des points et apparaître ici !</small>
                         </td>
                     </tr>
                 `;

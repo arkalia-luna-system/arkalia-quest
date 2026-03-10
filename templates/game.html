@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUNA — Hors Connexion</title>
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/static/css/game.css">
+</head>
+<body class="page-game">
+
+  <!-- Barre de statut -->
+  <header class="game-header">
+    <a href="/" class="nav-back" aria-label="Accueil">←</a>
+    <div class="game-chapter-info">
+      <span id="chapter-title" class="chapter-title">Signal</span>
+      <span id="chapter-progress" class="chapter-progress">Chap. 0 / 8</span>
+    </div>
+    <div class="game-trust">
+      <span class="trust-label">Confiance</span>
+      <div class="trust-bar" role="progressbar" aria-label="Confiance LUNA" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+        <div id="trust-fill" class="trust-fill" style="width: 50%"></div>
+      </div>
+      <span id="trust-value" class="trust-value">50%</span>
+    </div>
+  </header>
+
+  <!-- Zone principale du jeu -->
+  <main class="game-main">
+
+    <!-- Panneau LUNA -->
+    <aside class="luna-panel" aria-label="LUNA">
+      <div class="luna-avatar" id="luna-avatar">
+        <div class="avatar-ring" id="avatar-ring"></div>
+        <div class="avatar-core">
+          <span class="avatar-eye left" id="eye-left"></span>
+          <span class="avatar-eye right" id="eye-right"></span>
+        </div>
+        <div class="avatar-glow" id="avatar-glow"></div>
+      </div>
+      <div class="luna-name">LUNA</div>
+      <div class="luna-emotion" id="luna-emotion">...</div>
+    </aside>
+
+    <!-- Zone narrative -->
+    <section class="narrative-zone" aria-live="polite">
+
+      <!-- Contexte de scène -->
+      <p id="scene-context" class="scene-context" aria-live="polite"></p>
+
+      <!-- Dialogue principal -->
+      <div class="dialogue-box" id="dialogue-box">
+        <p id="dialogue-text" class="dialogue-text"></p>
+        <span id="dialogue-cursor" class="dialogue-cursor" aria-hidden="true">▌</span>
+      </div>
+
+      <!-- Réaction LUNA (feedback après un choix) -->
+      <div id="luna-reaction" class="luna-reaction" aria-live="assertive" hidden></div>
+
+      <!-- Boutons de choix -->
+      <div id="choices-container" class="choices-container" role="group" aria-label="Tes choix" hidden>
+      </div>
+
+      <!-- Bouton avancer (fin de chapitre) -->
+      <div id="advance-container" class="advance-container" hidden>
+        <button id="advance-btn" class="btn-advance">
+          Chapitre suivant →
+        </button>
+      </div>
+
+      <!-- Écran de fin -->
+      <div id="ending-container" class="ending-container" hidden>
+        <div class="ending-content">
+          <div class="ending-badge" id="ending-badge">FIN</div>
+          <h2 id="ending-title" class="ending-title"></h2>
+          <p id="ending-xp" class="ending-xp"></p>
+          <div class="ending-actions">
+            <a href="/profil" class="btn-secondary">Voir mon profil</a>
+            <button id="replay-btn" class="btn-outline">Rejouer</button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- XP indicator flottant -->
+  <div id="xp-indicator" class="xp-indicator" aria-live="assertive" hidden>+0 XP</div>
+
+  <!-- Écran de transition entre chapitres -->
+  <div id="chapter-transition" class="chapter-transition" hidden aria-hidden="true">
+    <div class="transition-content">
+      <span class="transition-chapter-num" id="transition-num">CHAPITRE 1</span>
+      <h2 class="transition-chapter-title" id="transition-title"></h2>
+      <div class="transition-bar"></div>
+    </div>
+  </div>
+
+  <script src="/static/js/game.js" defer></script>
+</body>
+</html>

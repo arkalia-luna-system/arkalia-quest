@@ -295,7 +295,7 @@
         },
         {
           "command": "any",
-          "timestamp": "2026-02-07T19:05:04.797874"
+          "timestamp": "2026-02-07T19:17:39.709679"
         }
       ],
       "luna_commands_used": [],
@@ -327,7 +327,7 @@
         "first_step",
         "speed_demon"
       ],
-      "last_activity": "2026-02-07T19:05:04.797728",
+      "last_activity": "2026-02-07T19:17:39.709528",
       "stats": {
         "total_commands": 71,
         "total_luna_commands": 0,
@@ -342,9 +342,9 @@
       }
     },
     "main_user": {
-      "score": 1555,
+      "score": 1615,
       "level": 4,
-      "xp": 555,
+      "xp": 615,
       "coins": 125,
       "badges": [
         "Premier pas",
@@ -857,12 +857,32 @@
           "timestamp": "2026-02-07T19:03:23.379543"
         },
         {
-          "command": "help",
-          "timestamp": "2026-02-07T19:04:08.806546"
+          "command": "skill_tree",
+          "timestamp": "2026-02-07T19:06:52.221934"
+        },
+        {
+          "command": "skill_tree",
+          "timestamp": "2026-02-07T19:06:52.222834"
+        },
+        {
+          "command": "skill_tree",
+          "timestamp": "2026-02-07T19:08:59.402473"
+        },
+        {
+          "command": "skill_tree",
+          "timestamp": "2026-02-07T19:08:59.407787"
+        },
+        {
+          "command": "skill_tree",
+          "timestamp": "2026-02-07T19:09:02.255976"
+        },
+        {
+          "command": "skill_tree",
+          "timestamp": "2026-02-07T19:09:02.269693"
         },
         {
           "command": "help",
-          "timestamp": "2026-02-07T19:05:04.717955"
+          "timestamp": "2026-02-07T19:17:39.632121"
         }
       ],
       "luna_commands_used": [
@@ -874,7 +894,7 @@
       "mini_games_completed": [],
       "daily_challenges_progress": {
         "hacker_speed": {
-          "progress": 127,
+          "progress": 132,
           "completed": true,
           "reward_claimed": false,
           "notified": true
@@ -900,9 +920,9 @@
         "first_step",
         "speed_demon"
       ],
-      "last_activity": "2026-02-07T19:05:04.717794",
+      "last_activity": "2026-02-07T19:17:39.631959",
       "stats": {
-        "total_commands": 127,
+        "total_commands": 132,
         "total_luna_commands": 4,
         "total_zones_explored": 0,
         "total_mini_games": 0,

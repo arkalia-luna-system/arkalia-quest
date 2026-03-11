@@ -1573,7 +1573,7 @@
     {
       "id": "fin_c",
       "title": "PANDORA",
-      "atmosphere": "liberté mélancolique",
+      "atmosphere": "liberte-melancolique",
       "unlock_condition": "chapitre_6_complete_path_c",
       "is_ending": true,
       "ending_id": "ending_c",

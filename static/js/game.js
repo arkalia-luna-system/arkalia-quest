@@ -26,31 +26,37 @@ let DOM = {};
 
 function initDOM() {
   DOM = {
-    chapterTitle:       $("chapter-title"),
-    chapterProgress:    $("chapter-progress"),
-    trustFill:          $("trust-fill"),
-    trustValue:         $("trust-value"),
-    lunaAvatar:         $("luna-avatar"),
-    avatarRing:         $("avatar-ring"),
-    avatarGlow:         $("avatar-glow"),
-    lunaEmotion:        $("luna-emotion"),
-    sceneContext:       $("scene-context"),
-    dialogueBox:        $("dialogue-box"),
-    dialogueText:       $("dialogue-text"),
-    dialogueCursor:     $("dialogue-cursor"),
-    lunaReaction:       $("luna-reaction"),
-    choicesContainer:   $("choices-container"),
-    advanceContainer:   $("advance-container"),
-    advanceBtn:         $("advance-btn"),
-    endingContainer:    $("ending-container"),
-    endingBadge:        $("ending-badge"),
-    endingTitle:        $("ending-title"),
-    endingXp:           $("ending-xp"),
-    replayBtn:          $("replay-btn"),
-    xpIndicator:        $("xp-indicator"),
-    chapterTransition:  $("chapter-transition"),
-    transitionNum:      $("transition-num"),
-    transitionTitle:    $("transition-title"),
+    chapterTitle:        $("chapter-title"),
+    chapterProgress:     $("chapter-progress"),
+    playerNameTag:       $("player-name-tag"),
+    trustFill:           $("trust-fill"),
+    trustValue:          $("trust-value"),
+    lunaAvatar:          $("luna-avatar"),
+    avatarRing:          $("avatar-ring"),
+    avatarGlow:          $("avatar-glow"),
+    lunaEmotion:         $("luna-emotion"),
+    sceneContext:        $("scene-context"),
+    dialogueBox:         $("dialogue-box"),
+    dialogueText:        $("dialogue-text"),
+    dialogueCursor:      $("dialogue-cursor"),
+    lunaReaction:        $("luna-reaction"),
+    choicesContainer:    $("choices-container"),
+    advanceContainer:    $("advance-container"),
+    advanceBtn:          $("advance-btn"),
+    endingContainer:     $("ending-container"),
+    endingIcon:          $("ending-icon"),
+    endingBadge:         $("ending-badge"),
+    endingTitle:         $("ending-title"),
+    endingDescription:   $("ending-description"),
+    endingTrust:         $("ending-trust"),
+    endingXp:            $("ending-xp"),
+    endingPersonalized:  $("ending-personalized"),
+    endingParticles:     $("ending-particles"),
+    replayBtn:           $("replay-btn"),
+    xpIndicator:         $("xp-indicator"),
+    chapterTransition:   $("chapter-transition"),
+    transitionNum:       $("transition-num"),
+    transitionTitle:     $("transition-title"),
   };
 }
 
@@ -101,6 +107,12 @@ function renderState(state) {
 function updateHeader(state) {
   if (DOM.chapterTitle)    DOM.chapterTitle.textContent    = state.chapter_title || "";
   if (DOM.chapterProgress) DOM.chapterProgress.textContent = `Chap. ${state.chapter_progress} / ${state.total_chapters}`;
+
+  // Afficher le prénom du joueur si disponible
+  if (DOM.playerNameTag && state.player_name) {
+    DOM.playerNameTag.textContent = state.player_name;
+    DOM.playerNameTag.style.display = "inline";
+  }
 
   // Afficher le prénom du joueur dans le header
   const nameTag = document.getElementById("player-name-tag");

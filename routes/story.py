@@ -1,11 +1,13 @@
 """
 Routes API — Narration LUNA Hors Connexion.
 
-GET  /api/story/state    → état courant du joueur
-POST /api/story/choice   → appliquer un choix
-POST /api/story/advance  → avancer au chapitre suivant
-POST /api/story/reset    → remettre à zéro
-GET  /api/story/summary  → résumé de sauvegarde (pour l'accueil)
+GET  /api/story/state        → état courant du joueur
+POST /api/story/choice       → appliquer un choix
+POST /api/story/advance      → avancer au chapitre suivant
+POST /api/story/reset        → remettre à zéro
+GET  /api/story/summary      → résumé de sauvegarde (pour l'accueil)
+POST /api/story/name         → enregistrer le prénom du joueur
+GET  /api/story/leaderboard  → classement local des joueurs
 """
 
 from flask import Blueprint, jsonify, make_response, request
@@ -14,6 +16,7 @@ from core.story_engine import get_story_engine
 from core.story_save import (
     delete_state,
     generate_player_id,
+    get_leaderboard,
     get_save_summary,
     load_state,
     save_state,
@@ -182,5 +185,17 @@ def get_summary():
         if not summary:
             summary = {"exists": False}
         return _json_with_cookie({"success": True, **summary}, player_id, is_new)
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+# ── GET /api/story/leaderboard ────────────────────────────────────────────
+
+@story_bp.route("/leaderboard", methods=["GET"])
+def leaderboard_view():
+    """Classement local — top 10 joueurs par XP."""
+    try:
+        scores = get_leaderboard(limit=10)
+        return jsonify({"success": True, "scores": scores})
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500

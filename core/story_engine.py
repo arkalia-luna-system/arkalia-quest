@@ -63,9 +63,13 @@ class StoryEngine:
         # Filtrer les choix selon les flags du joueur si nécessaire
         choices = scene.get("choices", [])
 
-        player_name = player_state.get("player_name") or "joueur"
+        player_name = player_state.get("player_name") or ""
         raw_dialogue = scene.get("dialogue", "")
-        dialogue = raw_dialogue.replace("{{joueur}}", player_name)
+        # Substitution du prénom dans le dialogue (supporte {name} et {{joueur}})
+        if player_name:
+            dialogue = raw_dialogue.replace("{name}", player_name).replace("{{joueur}}", player_name)
+        else:
+            dialogue = raw_dialogue.replace("{name}", "").replace("{{joueur}}", "joueur")
 
         return {
             "chapter_id": chapter_id,
@@ -88,7 +92,7 @@ class StoryEngine:
             "next_chapter": scene.get("next_chapter"),
             "xp": player_state.get("xp", 0),
             "last_luna_reaction": player_state.get("last_luna_reaction"),
-            "player_name": player_state.get("player_name"),
+            "player_name": player_name,
         }
 
     # ------------------------------------------------------------------ #

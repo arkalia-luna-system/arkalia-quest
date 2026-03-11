@@ -87,5 +87,46 @@ def get_save_summary(player_id: str) -> Optional[dict]:
     }
 
 
+def get_leaderboard(limit: int = 10) -> list[dict]:
+    """
+    Retourne le classement des meilleurs joueurs (par XP décroissant).
+    Le nom est anonymisé : les 3 premiers caractères + '***' (ou 'Joueur ???' si absent).
+    """
+    with _get_conn() as conn:
+        rows = conn.execute(
+            "SELECT state_json FROM story_saves ORDER BY updated_at DESC"
+        ).fetchall()
+
+    entries = []
+    for row in rows:
+        try:
+            state = json.loads(row["state_json"])
+        except (json.JSONDecodeError, TypeError):
+            continue
+
+        xp = state.get("xp", 0)
+        if xp == 0:
+            continue  # Ignorer les joueurs sans progression
+
+        raw_name = (state.get("player_name") or "").strip()
+        if raw_name:
+            # Garder les 3 premiers caractères + *** pour la confidentialité
+            display_name = raw_name[:3] + "***" if len(raw_name) > 3 else raw_name + "***"
+        else:
+            display_name = "Joueur anonyme"
+
+        entries.append({
+            "name":             display_name,
+            "xp":               xp,
+            "luna_trust":       state.get("luna_trust", 50),
+            "chapters_done":    len(state.get("chapters_completed", [])),
+            "endings_unlocked": state.get("endings_unlocked", []),
+        })
+
+    # Trier par XP décroissant, puis par trust en cas d'égalité
+    entries.sort(key=lambda e: (-e["xp"], -e["luna_trust"]))
+    return entries[:limit]
+
+
 # Init au chargement du module
 init_db()

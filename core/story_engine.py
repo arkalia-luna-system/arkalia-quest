@@ -104,6 +104,9 @@ class StoryEngine:
             "is_ending_final": scene.get("is_ending_final", False),
             "ending_id": scene.get("ending_id"),
             "next_chapter": scene.get("next_chapter"),
+            "next_chapter_title": self._chapters_index.get(
+                scene.get("next_chapter", ""), {}
+            ).get("title", ""),
             "xp": player_state.get("xp", 0),
             "last_luna_reaction": player_state.get("last_luna_reaction"),
             "player_name": player_name,
@@ -195,6 +198,7 @@ class StoryEngine:
             "new_chapter": next_chapter_id,
             "new_scene": first_scene["id"],
             "chapter_title": next_chapter.get("title", ""),
+            "chapter_quote": next_chapter.get("chapter_quote", next_chapter.get("quote", "")),
         }
 
     # ------------------------------------------------------------------ #

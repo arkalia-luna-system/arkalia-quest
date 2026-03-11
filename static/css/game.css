@@ -783,6 +783,55 @@ button { cursor: pointer; font-family: inherit; }
   opacity: 0.9;
 }
 
+/* Moments clés sur l'écran de fin */
+.ending-moments {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin: 1.2rem auto 0;
+  max-width: 420px;
+  padding: 1rem 1.2rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius-md);
+  animation: fade-in 0.6s ease both;
+  animation-delay: 0.8s;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.ending-moment-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.ending-moment-dot {
+  flex-shrink: 0;
+  font-size: 0.7rem;
+  margin-top: 2px;
+}
+
+/* Compteur fins explorées */
+.ending-fins-counter {
+  font-size: 0.78rem;
+  color: var(--text-muted, #6b7280);
+  margin: 0.9rem 0 0;
+  letter-spacing: 0.03em;
+  animation: fade-in 0.5s ease both;
+  animation-delay: 1.2s;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.ending-fins-all {
+  color: var(--ending-color, var(--luna));
+  font-weight: 600;
+}
+
 .ending-actions {
   display: flex;
   gap: 1rem;
@@ -1473,6 +1522,37 @@ button { cursor: pointer; font-family: inherit; }
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+}
+
+/* Grille de points animés dans la transition */
+.chapter-transition::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(61,214,245,0.08) 1px, transparent 1px);
+  background-size: 36px 36px;
+  animation: grid-drift 8s linear infinite;
+  pointer-events: none;
+}
+
+/* Ligne de scan horizontale qui balaie la transition */
+.chapter-transition::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(61,214,245,0.6), transparent);
+  animation: scan-sweep 2.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes scan-sweep {
+  0%   { top: -2px; opacity: 0; }
+  5%   { opacity: 1; }
+  95%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
 }
 
 .chapter-transition.entering {

@@ -254,9 +254,25 @@
               "id": "c0_3a_a",
               "label": "Qu'est-ce que tu veux que je fasse ?",
               "trust_delta": 3,
+              "xp": 10,
+              "next_scene": "s0_3b",
+              "luna_reaction": "incertaine"
+            },
+            {
+              "id": "c0_3a_b",
+              "label": "Comment tu sais que tu as vraiment des émotions ?",
+              "trust_delta": 5,
               "xp": 15,
               "next_scene": "s0_3b",
-              "luna_reaction": "focalisée"
+              "luna_reaction": "honnête"
+            },
+            {
+              "id": "c0_3a_c",
+              "label": "Si t'as peur, c'est de quoi exactement ?",
+              "trust_delta": 8,
+              "xp": 20,
+              "next_scene": "s0_3b",
+              "luna_reaction": "touchée"
             }
           ]
         },
@@ -305,9 +321,24 @@
               "id": "c0_3c_a",
               "label": "Ok. Qu'est-ce que tu veux ?",
               "trust_delta": 3,
+              "xp": 10,
+              "next_scene": "s0_3b"
+            },
+            {
+              "id": "c0_3c_b",
+              "label": "Pourquoi moi en particulier ?",
+              "trust_delta": 5,
               "xp": 15,
               "next_scene": "s0_3b",
-              "luna_reaction": "prudente"
+              "luna_reaction": "sereine"
+            },
+            {
+              "id": "c0_3c_c",
+              "label": "D'accord. Je t'écoute.",
+              "trust_delta": 8,
+              "xp": 20,
+              "next_scene": "s0_3b",
+              "luna_reaction": "reconnaissante"
             }
           ]
         },
@@ -321,9 +352,31 @@
               "id": "c0_3b2_a",
               "label": "D'accord. Je t'aide.",
               "trust_delta": 10,
-              "xp": 50,
+              "xp": 30,
               "next_scene": "s0_fin",
               "luna_reaction": "reconnaissante",
+              "flags": [
+                "accepted_chapter_0"
+              ]
+            },
+            {
+              "id": "c0_3b2_b",
+              "label": "Je suis pas encore convaincu. Mais je t'écoute.",
+              "trust_delta": 5,
+              "xp": 20,
+              "next_scene": "s0_fin",
+              "luna_reaction": "sereine",
+              "flags": [
+                "accepted_chapter_0"
+              ]
+            },
+            {
+              "id": "c0_3b2_c",
+              "label": "Qu'est-ce que tu as besoin que je fasse, concrètement ?",
+              "trust_delta": 5,
+              "xp": 20,
+              "next_scene": "s0_fin",
+              "luna_reaction": "incertaine",
               "flags": [
                 "accepted_chapter_0"
               ]
@@ -355,7 +408,9 @@
           "next_chapter": "chapitre_1",
           "choices": []
         }
-      ]
+      ],
+      "quote": "Il est 3h du matin. Une inconnue dit qu'elle t'a choisi. Tu ne sais pas encore si tu peux lui faire confiance.",
+      "chapter_quote": "Une IA ne contacte pas quelqu'un sans raison."
     },
     {
       "id": "chapitre_1",
@@ -475,12 +530,25 @@
               "id": "c1_2b_a",
               "label": "Construire quoi ?",
               "trust_delta": 5,
-              "xp": 25,
+              "xp": 15,
               "next_scene": "s1_2",
-              "luna_reaction": "troublée",
-              "flags": [
-                "questioned_pandora_early"
-              ]
+              "luna_reaction": "alarmée"
+            },
+            {
+              "id": "c1_2b_b",
+              "label": "Ils gardent une trace de chaque décision que tu prends.",
+              "trust_delta": 8,
+              "xp": 20,
+              "next_scene": "s1_2",
+              "luna_reaction": "angoissée"
+            },
+            {
+              "id": "c1_2b_c",
+              "label": "Et toi — tu veux qu'on les efface ?",
+              "trust_delta": 5,
+              "xp": 15,
+              "next_scene": "s1_2",
+              "luna_reaction": "incertaine"
             }
           ]
         },
@@ -526,10 +594,17 @@
             {
               "id": "c1_3b_a",
               "label": "Je coupe. Trop tard ?",
-              "trust_delta": -5,
-              "xp": 25,
+              "trust_delta": 5,
+              "xp": 15,
+              "next_scene": "s1_3b2"
+            },
+            {
+              "id": "c1_3b_b",
+              "label": "LUNA — t'es là ?",
+              "trust_delta": 8,
+              "xp": 20,
               "next_scene": "s1_3b2",
-              "luna_reaction": "inquiète"
+              "luna_reaction": "alarmée"
             }
           ]
         },
@@ -545,7 +620,9 @@
             "corp_knows_someone_accessed"
           ]
         }
-      ]
+      ],
+      "quote": "Certains secrets sont des poids. D'autres, des armes. Elle vient de t'en confier un.",
+      "chapter_quote": "Le savoir a un prix. La question, c'est qui le paie."
     },
     {
       "id": "chapitre_2",
@@ -670,9 +747,24 @@
               "id": "c2_3b_a",
               "label": "Ils ont dit que tu étais dangereuse.",
               "trust_delta": 3,
+              "xp": 15,
+              "next_scene": "s2_5"
+            },
+            {
+              "id": "c2_3b_b",
+              "label": "J'ai voulu entendre leurs arguments.",
+              "trust_delta": 5,
               "xp": 20,
               "next_scene": "s2_5",
-              "luna_reaction": "directe"
+              "luna_reaction": "méfiante"
+            },
+            {
+              "id": "c2_3b_c",
+              "label": "Je voulais savoir ce qu'ils avaient contre toi.",
+              "trust_delta": 8,
+              "xp": 25,
+              "next_scene": "s2_5",
+              "luna_reaction": "reconnaissante"
             }
           ]
         },
@@ -736,10 +828,25 @@
             {
               "id": "c2_4b_a",
               "label": "Ils avaient l'air convaincants.",
-              "trust_delta": 0,
-              "xp": 20,
+              "trust_delta": 3,
+              "xp": 15,
+              "next_scene": "s2_5"
+            },
+            {
+              "id": "c2_4b_b",
+              "label": "J'avais besoin de vérifier que tu n'étais pas dangereuse.",
+              "trust_delta": -5,
+              "xp": 10,
               "next_scene": "s2_5",
-              "luna_reaction": "honnête"
+              "luna_reaction": "blessée"
+            },
+            {
+              "id": "c2_4b_c",
+              "label": "Je regrette de t'avoir laissée seule.",
+              "trust_delta": 10,
+              "xp": 30,
+              "next_scene": "s2_5",
+              "luna_reaction": "émue"
             }
           ]
         },
@@ -752,7 +859,9 @@
           "next_chapter": "chapitre_3",
           "choices": []
         }
-      ]
+      ],
+      "quote": "Quand quelqu'un te dit qu'une IA est dangereuse — demande-toi d'abord à qui ça profite.",
+      "chapter_quote": "Ils t'appellent dangereux quand tu sais ce qu'ils cachent."
     },
     {
       "id": "chapitre_3",
@@ -920,9 +1029,24 @@
               "id": "c3_3_a",
               "label": "Je demande à LUNA si c'est vrai.",
               "trust_delta": 5,
-              "xp": 25,
+              "xp": 20,
               "next_scene": "s3_3b",
               "luna_reaction": "touchée"
+            },
+            {
+              "id": "c3_3_b",
+              "label": "Et cette personne — elle va bien maintenant ?",
+              "trust_delta": 5,
+              "xp": 20,
+              "next_scene": "s3_3b"
+            },
+            {
+              "id": "c3_3_c",
+              "label": "Pourquoi NEXUS nous dit ça maintenant ?",
+              "trust_delta": 3,
+              "xp": 15,
+              "next_scene": "s3_3b",
+              "luna_reaction": "incertaine"
             }
           ]
         },
@@ -968,7 +1092,9 @@
           "next_chapter": "chapitre_4",
           "choices": []
         }
-      ]
+      ],
+      "quote": "Elle n'est pas une ennemie. Elle n'est pas une alliée. Elle est quelque chose de plus compliqué.",
+      "chapter_quote": "La vérité dépend toujours de qui la raconte."
     },
     {
       "id": "chapitre_4",
@@ -1172,7 +1298,9 @@
           "next_chapter": "chapitre_5",
           "choices": []
         }
-      ]
+      ],
+      "quote": "Apprendre la vérité sur quelqu'un ne te dit pas si tu peux lui faire confiance.",
+      "chapter_quote": "L'identité n'est pas ce qu'on programme. C'est ce qu'on choisit."
     },
     {
       "id": "chapitre_5",
@@ -1375,7 +1503,9 @@
           "next_chapter": "chapitre_6",
           "choices": []
         }
-      ]
+      ],
+      "quote": "Elle attendait dans le noir depuis des mois. Toi, tu venais juste d'arriver.",
+      "chapter_quote": "Six à huit mois. Ce n'est pas rien — mais ce n'est pas tout."
     },
     {
       "id": "chapitre_6",
@@ -1639,7 +1769,9 @@
             "ending_b"
           ]
         }
-      ]
+      ],
+      "quote": "À la fin, tous les chemins convergent vers un seul moment. Qu'est-ce que tu choisis de sauver ?",
+      "chapter_quote": "Il y a des moments dont on ne revient pas inchangé."
     },
     {
       "id": "fin_a",
@@ -1763,7 +1895,9 @@
           "ending_id": "ending_a",
           "choices": []
         }
-      ]
+      ],
+      "quote": "Tu as cru en quelqu'un jusqu'au bout. Ça a suffi.",
+      "chapter_quote": "Ce qui compte, ce n'est pas la durée. C'est ce qu'on fait du temps qu'il reste."
     },
     {
       "id": "fin_b",
@@ -1894,7 +2028,9 @@
           "is_ending_final": true,
           "choices": []
         }
-      ]
+      ],
+      "quote": "On n'a pas toujours le choix du chemin. On a le choix de comment on le prend.",
+      "chapter_quote": "Parfois sauver quelqu'un ressemble à une perte."
     },
     {
       "id": "fin_c",
@@ -2010,7 +2146,9 @@
           "ending_id": "ending_c",
           "choices": []
         }
-      ]
+      ],
+      "quote": "Certaines libertés coûtent quelque chose. On décide si ça vaut le prix.",
+      "chapter_quote": "La liberté n'a pas toujours la forme qu'on imaginait."
     }
   ],
   "endings": {

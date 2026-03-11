@@ -26,23 +26,30 @@ let _ambientAtmo        = null;   // atmosphère courante
 
 // Labels lisibles pour les flags — côté client
 const FLAG_LABELS_JS = {
-  "accepted_chapter_0":          "Tu as choisi d'aider LUNA.",
-  "looked_at_pandora":           "Tu as examiné PANDORA avant de le transférer.",
-  "saw_luna_logs":               "Tu as découvert les logs de LUNA.",
-  "corp_knows_someone_accessed": "La Corp a tracé ta connexion.",
-  "listened_to_corp":            "Tu as écouté l'agent de La Corp.",
-  "agreed_to_pause_luna":        "Tu as coupé le contact avec LUNA.",
-  "listened_to_nexus":           "Tu as écouté NEXUS en premier.",
-  "knows_about_miroir":          "Tu connais le Projet Miroir.",
-  "questioned_pandora_early":    "Tu as questionné les intentions de La Corp.",
-  "nexus_considering":           "Tu as ébranlé les certitudes de NEXUS.",
-  "nexus_helped":                "NEXUS a changé de camp pour vous.",
-  "abandoned_nexus":             "Tu n'as pas attendu NEXUS.",
-  "tried_nexus":                 "Tu as tenté de convaincre NEXUS.",
-  "pandora_public":              "Tu as choisi de rendre PANDORA public.",
-  "luna_alone_path":             "Tu as choisi de continuer avec LUNA seul.",
-  "stayed_with_luna":            "Tu es resté loyal à LUNA.",
-  "allied_with_corp":            "Tu as collaboré avec La Corp.",
+  // Début
+  "accepted_chapter_0":       "Tu as accepté d'aider LUNA dès le début.",
+  "reassured_luna":           "Tu as rassuré LUNA sur ses doutes.",
+  // Exploration
+  "looked_at_pandora":        "Tu as examiné PANDORA avant de le transférer.",
+  "saw_luna_logs":            "Tu as découvert les logs de LUNA.",
+  "questioned_pandora_early": "Tu as interrogé LUNA sur La Corp.",
+  "knows_about_miroir":       "Tu connais le Projet Miroir.",
+  // La Corp
+  "listened_to_corp":         "Tu as écouté l'agent de La Corp.",
+  "agreed_to_pause_luna":     "Tu as coupé le contact avec LUNA.",
+  // NEXUS
+  "listened_to_nexus":        "Tu as écouté NEXUS en premier.",
+  "tried_nexus":              "Tu as tenté de convaincre NEXUS.",
+  "nexus_considering":        "Tu as ébranlé les certitudes de NEXUS.",
+  "nexus_helped":             "NEXUS a changé de camp pour vous.",
+  "abandoned_nexus":          "Tu n'as pas attendu NEXUS.",
+  // Choix finale
+  "chose_pandora_public":     "Tu as opté pour rendre les données publiques.",
+  "pandora_public":           "Tu as rendu PANDORA public.",
+  // Chemins de fin
+  "ending_a_path":            "Tu as suivi le chemin de la Fusion.",
+  "ending_b_path":            "Tu as suivi le chemin du Sacrifice.",
+  "ending_c_path":            "Tu as suivi le chemin de PANDORA.",
 };
 
 // ── DOM ───────────────────────────────────────────────────────────────────
@@ -276,8 +283,12 @@ function updateLunaPanel(state) {
   }
 
   // Glitch sur le texte et le contexte lors d'émotions intenses
+  const wasGlitching = DOM.dialogueText?.classList.contains("glitch");
   if (DOM.dialogueText)  DOM.dialogueText.classList.toggle("glitch", isGlitching);
   if (DOM.sceneContext)  DOM.sceneContext.classList.toggle("glitch", isGlitching);
+
+  // Son de glitch au changement d'état (première fois)
+  if (isGlitching && !wasGlitching && _sfxEnabled) playGlitch();
 
   // Teinte de la boîte dialogue selon locuteur
   if (DOM.dialogueBox) {
@@ -714,6 +725,33 @@ function renderEnding(state) {
     ? meta.personalized(name, trust)
     : "";
 
+  // Moments clés acquis durant le run
+  const $moments = document.getElementById("ending-moments");
+  if ($moments) {
+    const flags = (state.flags || []).filter(f => FLAG_LABELS_JS[f]);
+    if (flags.length > 0) {
+      $moments.innerHTML = flags
+        .map(f => `<div class="ending-moment-item"><span class="ending-moment-dot" style="color:${meta.color}">◈</span><span>${FLAG_LABELS_JS[f]}</span></div>`)
+        .join("");
+      $moments.hidden = false;
+    }
+  }
+
+  // Compteur fins explorées (previous_endings + celle-ci)
+  const $finsCounter = document.getElementById("ending-fins-counter");
+  if ($finsCounter) {
+    const prevEndings = state.previous_endings || [];
+    const allEndings = new Set([...prevEndings.map(e => e.ending_id || e), state.ending_id].filter(Boolean));
+    const count = allEndings.size;
+    if (count >= 3) {
+      $finsCounter.textContent = "✦ Tu as exploré les 3 fins. Parcours complet.";
+      $finsCounter.className   = "ending-fins-counter ending-fins-all";
+    } else {
+      $finsCounter.textContent = `${count}/3 fin${count > 1 ? "s" : ""} découverte${count > 1 ? "s" : ""} — il en reste à explorer.`;
+      $finsCounter.className   = "ending-fins-counter";
+    }
+  }
+
   // Couleur dominante selon la fin
   DOM.endingContainer.style.setProperty("--ending-color", meta.color);
 
@@ -981,6 +1019,39 @@ function stopAmbientDrone(fadeMs = 1500) {
   setTimeout(() => {
     nodes.forEach(n => { try { n.stop?.(); n.disconnect?.(); } catch {} });
   }, fadeMs + 200);
+}
+
+/** Son de glitch — bruit blanc court + chute de fréquence */
+function playGlitch() {
+  const ctx = getCtx();
+  if (!ctx) return;
+
+  // Bruit blanc (static)
+  const bufLen = Math.floor(ctx.sampleRate * 0.18);
+  const buf    = ctx.createBuffer(1, bufLen, ctx.sampleRate);
+  const data   = buf.getChannelData(0);
+  for (let i = 0; i < bufLen; i++) data[i] = (Math.random() * 2 - 1);
+  const noise  = ctx.createBufferSource();
+  noise.buffer = buf;
+  const noiseGain = ctx.createGain();
+  noiseGain.gain.setValueAtTime(0.15, ctx.currentTime);
+  noiseGain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.18);
+  noise.connect(noiseGain);
+  noiseGain.connect(ctx.destination);
+  noise.start();
+
+  // Chute de fréquence (oscillateur qui dévisse)
+  const osc  = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "sawtooth";
+  osc.frequency.setValueAtTime(880, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(55, ctx.currentTime + 0.25);
+  gain.gain.setValueAtTime(0.08, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.25);
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start();
+  osc.stop(ctx.currentTime + 0.25);
 }
 
 /** Jingle de transition de chapitre — bref et atmosphérique */

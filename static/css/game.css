@@ -196,6 +196,10 @@ button { cursor: pointer; font-family: inherit; }
 .page-home,
 .page-home .home-title,
 .page-home .home-sender,
+.page-profil .page-title,
+.page-profil .profil-name,
+.page-profil .section-label,
+.page-profil .lb-rank-num,
 .transition-chapter-num,
 .transition-chapter-title {
   font-family: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
@@ -866,6 +870,57 @@ button { cursor: pointer; font-family: inherit; }
   opacity: 0.9;
 }
 
+/* ── Titre de hacker ───────────────────────────────────────── */
+.hacker-rank {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 1.4rem auto 0;
+  padding: 1rem 1.8rem;
+  background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.2));
+  border: 1px solid var(--ending-color, var(--luna));
+  border-radius: var(--radius-md);
+  box-shadow: 0 0 18px -4px var(--ending-color, var(--luna-glow));
+  max-width: 340px;
+  animation: hacker-rank-reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 0.4s;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.hacker-rank-label {
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ending-color, var(--luna));
+  opacity: 0.7;
+}
+
+.hacker-rank-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--ending-color, var(--luna));
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 16px var(--ending-color, var(--luna-glow));
+}
+
+.hacker-rank-desc {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  text-align: center;
+  max-width: 260px;
+}
+
+@keyframes hacker-rank-reveal {
+  0%   { opacity: 0; transform: translateY(10px) scale(0.95); }
+  60%  { opacity: 1; transform: translateY(-2px) scale(1.02); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
 /* Moments clés sur l'écran de fin */
 .ending-moments {
   display: flex;
@@ -923,6 +978,67 @@ button { cursor: pointer; font-family: inherit; }
   margin-top: 0.5rem;
 }
 
+/* ── Popup "Exploit débloqué" ───────────────────────────── */
+.exploit-popup {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  z-index: 400;
+  background: rgba(5,5,12,0.95);
+  border: 1px solid var(--luna);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 1.1rem;
+  box-shadow: 0 0 24px -4px var(--luna-glow), 0 4px 16px rgba(0,0,0,0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.exploit-popup.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.exploit-popup-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.exploit-icon {
+  font-size: 1.1rem;
+  color: var(--luna);
+  animation: exploit-pulse 1.2s ease infinite;
+}
+
+@keyframes exploit-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+.exploit-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.exploit-title {
+  font-size: 0.6rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--luna);
+  opacity: 0.7;
+}
+
+.exploit-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+
 /* ── Indicateur XP flottant ────────────────────────────────── */
 .xp-indicator {
   position: fixed;
@@ -948,6 +1064,8 @@ button { cursor: pointer; font-family: inherit; }
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
 }
 
 .simple-header {
@@ -1814,6 +1932,19 @@ button { cursor: pointer; font-family: inherit; }
 @keyframes idle-toast-in {
   from { opacity: 0; transform: translateX(-50%) translateY(12px); }
   to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ── Konami toast variant ───────────────────────────────────────── */
+.konami-toast {
+  border-color: rgba(0,212,255,0.35) !important;
+  background: rgba(0,20,40,0.97) !important;
+}
+.konami-toast .idle-dot { background: #00d4ff !important; box-shadow: 0 0 6px #00d4ff !important; }
+
+@keyframes konami-flash {
+  0%   { opacity: 1; }
+  50%  { opacity: 0.6; }
+  100% { opacity: 0; }
 }
 
 /* ── Toast de sauvegarde ────────────────────────────────────────── */

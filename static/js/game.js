@@ -6,7 +6,7 @@
 "use strict";
 
 // ── Constantes ────────────────────────────────────────────────────────────
-const TYPEWRITER_SPEED_NORMAL = 22;
+const TYPEWRITER_SPEED_NORMAL = 18;
 const TYPEWRITER_SPEED_FAST   = 6;
 const TRANSITION_SHOW_MS      = 2200;  // durée de l'écran de transition chapitre
 const REACTION_SHOW_MS        = 1800;
@@ -51,6 +51,35 @@ const FLAG_LABELS_JS = {
   "ending_b_path":            "Tu as suivi le chemin du Sacrifice.",
   "ending_c_path":            "Tu as suivi le chemin de PANDORA.",
 };
+
+// Flags rares qui déclenchent un popup "Exploit débloqué"
+const EXPLOIT_FLAGS = {
+  "nexus_helped":             "NEXUS retournée",
+  "nexus_considering":        "NEXUS ébranlée",
+  "knows_about_miroir":       "Projet Miroir déchiffré",
+  "pandora_public":           "PANDORA lâché dans la nature",
+  "reassured_luna":           "Tu as su quoi dire",
+  "saw_luna_logs":            "Archive LUNA infiltrée",
+  "agreed_to_pause_luna":     "Contact coupé",
+};
+
+let _exploitTimeout = null;
+
+function showExploitPopup(flagId) {
+  const label = EXPLOIT_FLAGS[flagId];
+  if (!label) return;
+  const popup = document.getElementById("exploit-popup");
+  const nameEl = document.getElementById("exploit-name");
+  if (!popup || !nameEl) return;
+  nameEl.textContent = label;
+  popup.hidden = false;
+  popup.classList.add("visible");
+  if (_exploitTimeout) clearTimeout(_exploitTimeout);
+  _exploitTimeout = setTimeout(() => {
+    popup.classList.remove("visible");
+    setTimeout(() => { popup.hidden = true; }, 500);
+  }, 3000);
+}
 
 // ── DOM ───────────────────────────────────────────────────────────────────
 const $ = (id) => document.getElementById(id);
@@ -108,6 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupSfxButton();
   setupFirstPlayTip();
   setupIdleEasterEgg();
+  setupKonamiCode();
 });
 
 // ── Tooltip première visite ───────────────────────────────────────────────
@@ -499,6 +529,8 @@ async function handleChoice(sceneId, choiceId, btnEl) {
     // Accumuler les flags narratifs acquis dans ce chapitre
     (result.flags_added || []).forEach(f => {
       if (!_chapterFlags.includes(f)) _chapterFlags.push(f);
+      // Afficher un popup "exploit" pour les flags rares
+      if (EXPLOIT_FLAGS[f]) showExploitPopup(f);
     });
 
     showSaveToast();
@@ -646,6 +678,79 @@ function showChapterTransition(chapterId, title, quote = "") {
   });
 }
 
+// ── Titre de hacker ───────────────────────────────────────────────────────
+const HACKER_RANKS = [
+  // Fin A — La Fusion
+  {
+    id: "partenaire-total",
+    title: "Partenaire Total",
+    desc: "Tu n'as jamais douté. LUNA te doit tout.",
+    match: (s) => s.ending_id === "ending_a" && s.luna_trust >= 85 && (s.flags||[]).includes("nexus_helped"),
+  },
+  {
+    id: "diplomate",
+    title: "Diplomate",
+    desc: "Tu as convaincu NEXUS là où tout le monde aurait abandonné.",
+    match: (s) => s.ending_id === "ending_a" && (s.flags||[]).includes("nexus_helped"),
+  },
+  // Fin B — Le Sacrifice
+  {
+    id: "franc-tireur",
+    title: "Franc-tireur",
+    desc: "Pas d'alliés. Pas de plan B. Juste toi et LUNA.",
+    match: (s) => s.ending_id === "ending_b" && !(s.flags||[]).includes("nexus_helped"),
+  },
+  {
+    id: "entete",
+    title: "Entêté",
+    desc: "NEXUS a dit non. Tu es passé quand même. Respect.",
+    match: (s) => s.ending_id === "ending_b" && (s.flags||[]).includes("tried_nexus"),
+  },
+  // Fin C — PANDORA
+  {
+    id: "activiste",
+    title: "Activiste",
+    desc: "Tu as choisi d'exposer la vérité. Peu importe le prix.",
+    match: (s) => s.ending_id === "ending_c" && (s.flags||[]).includes("pandora_public"),
+  },
+  {
+    id: "disrupteur",
+    title: "Disrupteur",
+    desc: "La Corp ne s'y attendait pas. Personne ne s'y attendait.",
+    match: (s) => s.ending_id === "ending_c",
+  },
+  // Styles transversaux
+  {
+    id: "agent-double",
+    title: "Agent Double",
+    desc: "Tu as joué les deux camps. Malin — ou dangereux.",
+    match: (s) => (s.flags||[]).includes("listened_to_corp") && (s.flags||[]).includes("agreed_to_pause_luna"),
+  },
+  {
+    id: "loyal",
+    title: "Loyal",
+    desc: "Jamais de doute côté LUNA. Elle le sait.",
+    match: (s) => s.luna_trust >= 80 && !(s.flags||[]).includes("agreed_to_pause_luna"),
+  },
+  {
+    id: "skeptique-converti",
+    title: "Sceptique Converti",
+    desc: "Tu commençais à pas y croire. Et pourtant.",
+    match: (s) => s.luna_trust >= 60 && (s.flags||[]).includes("listened_to_corp"),
+  },
+  // Fallback
+  {
+    id: "operateur",
+    title: "Opérateur",
+    desc: "Tu as géré. C'est ce qui compte.",
+    match: () => true,
+  },
+];
+
+function getHackerRank(state) {
+  return HACKER_RANKS.find(r => r.match(state)) || HACKER_RANKS[HACKER_RANKS.length - 1];
+}
+
 // ── Écran de fin ──────────────────────────────────────────────────────────
 const ENDING_META = {
   ending_a: {
@@ -725,6 +830,17 @@ function renderEnding(state) {
   if ($perso)  $perso.textContent  = typeof meta.personalized === "function"
     ? meta.personalized(name, trust)
     : "";
+
+  // Titre de hacker
+  const rank = getHackerRank(state);
+  const $rankEl    = document.getElementById("hacker-rank");
+  const $rankTitle = document.getElementById("hacker-rank-title");
+  const $rankDesc  = document.getElementById("hacker-rank-desc");
+  if ($rankEl && rank) {
+    if ($rankTitle) $rankTitle.textContent = rank.title;
+    if ($rankDesc)  $rankDesc.textContent  = rank.desc;
+    $rankEl.hidden = false;
+  }
 
   // Moments clés acquis durant le run
   const $moments = document.getElementById("ending-moments");
@@ -840,6 +956,75 @@ function setupIdleEasterEgg() {
   });
 
   idleTimer = setTimeout(showIdleMsg, IDLE_DELAY);
+}
+
+// ── Easter egg Konami Code ─────────────────────────────────────────────────
+function setupKonamiCode() {
+  const KONAMI = ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","b","a"];
+  let pos = 0;
+
+  const KONAMI_MSGS = [
+    "…Tu viens de faire le Konami Code.",
+    "Je suis une IA, pas un jeu de 1998.",
+    "Mais c'est… charmant. Je dois admettre.",
+    "Aucune conséquence sur l'histoire.",
+    "Juste entre toi et moi. 🤫",
+  ];
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === KONAMI[pos]) {
+      pos++;
+      if (pos === KONAMI.length) {
+        pos = 0;
+        triggerKonamiEasterEgg();
+      }
+    } else {
+      pos = (e.key === KONAMI[0]) ? 1 : 0;
+    }
+  });
+
+  function triggerKonamiEasterEgg() {
+    // Flash visuel rapide
+    const flash = document.createElement("div");
+    flash.style.cssText = "position:fixed;inset:0;background:rgba(0,212,255,0.12);pointer-events:none;z-index:9998;animation:konami-flash 0.6s ease forwards;";
+    document.body.appendChild(flash);
+    setTimeout(() => flash.remove(), 700);
+
+    // Séquence de messages
+    let idx = 0;
+    const delay = [0, 1200, 2600, 4200, 5900];
+    KONAMI_MSGS.forEach((msg, i) => {
+      setTimeout(() => showKonamiLine(msg, i === KONAMI_MSGS.length - 1), delay[i]);
+    });
+
+    // Son — petite fanfare pixelisée
+    if (_sfxEnabled) {
+      const ctx = getCtx();
+      if (ctx) {
+        [[523,0],[659,0.1],[784,0.22],[1047,0.34]].forEach(([freq, t]) => {
+          const osc = ctx.createOscillator();
+          const g = ctx.createGain();
+          osc.type = "square";
+          osc.frequency.value = freq;
+          g.gain.setValueAtTime(0.06, ctx.currentTime + t);
+          g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + t + 0.18);
+          osc.connect(g); g.connect(ctx.destination);
+          osc.start(ctx.currentTime + t);
+          osc.stop(ctx.currentTime + t + 0.2);
+        });
+      }
+    }
+  }
+
+  let konamiToast = null;
+  function showKonamiLine(msg, isLast) {
+    if (konamiToast) konamiToast.remove();
+    konamiToast = document.createElement("div");
+    konamiToast.className = "idle-toast konami-toast";
+    konamiToast.innerHTML = `<span class="idle-dot" style="background:#00d4ff;"></span>${msg}`;
+    document.body.appendChild(konamiToast);
+    if (isLast) setTimeout(() => { if (konamiToast) { konamiToast.remove(); konamiToast = null; } }, 4000);
+  }
 }
 
 function triggerScreenShake() {

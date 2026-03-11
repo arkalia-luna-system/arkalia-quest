@@ -193,9 +193,12 @@ class TestNarrativePaths:
         engine.apply_choice(state, "s6_1c", "c6_1c_a")
         engine.apply_choice(state, "s6_1d", "c6_1d_a")
 
-        # Doit être sur s6_fin_a avec is_chapter_end → fin_a
+        # s6_fin_a a maintenant des choix de "dernier mot" → on en fait un
+        engine.apply_choice(state, "s6_fin_a", "c6fa_1")
+
+        # Doit être sur s6_fin_a_echo avec is_chapter_end → fin_a
         current = engine.get_state(state)
-        assert current["scene_id"] == "s6_fin_a"
+        assert current["scene_id"] == "s6_fin_a_echo"
         assert current.get("is_chapter_end") is True
         assert current.get("next_chapter") == "fin_a"
         assert "nexus_helped" in state["flags"]
@@ -213,9 +216,12 @@ class TestNarrativePaths:
         engine.apply_choice(state, "s6_1c", "c6_1c_b")
         engine.apply_choice(state, "s6_nexus_refus", "c6_nexus_a")
 
-        # Doit être sur s6_fin_b → fin_b
+        # s6_fin_b a maintenant des choix de "dernier mot" → on en fait un
+        engine.apply_choice(state, "s6_fin_b", "c6fb_1")
+
+        # Doit être sur s6_fin_b_echo → fin_b
         current = engine.get_state(state)
-        assert current["scene_id"] == "s6_fin_b"
+        assert current["scene_id"] == "s6_fin_b_echo"
         assert current.get("is_chapter_end") is True
         assert current.get("next_chapter") == "fin_b"
         assert "tried_nexus" in state["flags"]
@@ -230,8 +236,11 @@ class TestNarrativePaths:
         engine.apply_choice(state, "s6_0", "c6_0_b")
         engine.apply_choice(state, "s6_2", "c6_2_a")
 
+        # s6_fin_c a maintenant des choix de "dernier mot" → on en fait un
+        engine.apply_choice(state, "s6_fin_c", "c6fc_1")
+
         current = engine.get_state(state)
-        assert current["scene_id"] == "s6_fin_c"
+        assert current["scene_id"] == "s6_fin_c_echo"
         assert current.get("is_chapter_end") is True
         assert current.get("next_chapter") == "fin_c"
         assert "pandora_public" in state["flags"]
@@ -248,6 +257,7 @@ class TestNarrativePaths:
                 e.apply_choice(s, "s6_1b", "c6_1b_a"),
                 e.apply_choice(s, "s6_1c", "c6_1c_a"),
                 e.apply_choice(s, "s6_1d", "c6_1d_a"),
+                e.apply_choice(s, "s6_fin_a", "c6fa_1"),
             ),
             lambda e, s: (
                 navigate_to_chapter6(e, s),
@@ -256,11 +266,13 @@ class TestNarrativePaths:
                 e.apply_choice(s, "s6_1b", "c6_1b_a"),
                 e.apply_choice(s, "s6_1c", "c6_1c_b"),
                 e.apply_choice(s, "s6_nexus_refus", "c6_nexus_a"),
+                e.apply_choice(s, "s6_fin_b", "c6fb_1"),
             ),
             lambda e, s: (
                 navigate_to_chapter6(e, s),
                 e.apply_choice(s, "s6_0", "c6_0_b"),
                 e.apply_choice(s, "s6_2", "c6_2_a"),
+                e.apply_choice(s, "s6_fin_c", "c6fc_1"),
             ),
         ]:
             state = engine.new_player_state()
@@ -279,6 +291,7 @@ class TestNarrativePaths:
         engine.apply_choice(state_a, "s6_1b", "c6_1b_a")
         engine.apply_choice(state_a, "s6_1c", "c6_1c_a")
         engine.apply_choice(state_a, "s6_1d", "c6_1d_a")
+        engine.apply_choice(state_a, "s6_fin_a", "c6fa_1")
 
         state_b = engine.new_player_state()
         navigate_to_chapter6(engine, state_b)
@@ -287,6 +300,7 @@ class TestNarrativePaths:
         engine.apply_choice(state_b, "s6_1b", "c6_1b_a")
         engine.apply_choice(state_b, "s6_1c", "c6_1c_b")
         engine.apply_choice(state_b, "s6_nexus_refus", "c6_nexus_a")
+        engine.apply_choice(state_b, "s6_fin_b", "c6fb_1")
 
         scene_a = engine.get_state(state_a)["scene_id"]
         scene_b = engine.get_state(state_b)["scene_id"]

@@ -204,23 +204,30 @@ def leaderboard_view():
 # ── GET /api/story/journal ────────────────────────────────────────────────
 
 FLAG_LABELS = {
+    # Début de l'aventure
     "accepted_chapter_0":       "Tu as accepté d'aider LUNA dès le début",
+    "reassured_luna":           "Tu as rassuré LUNA sur ses doutes",
+    # Exploration et découverte
     "looked_at_pandora":        "Tu as examiné le contenu de PANDORA avant de le transférer",
     "saw_luna_logs":            "Tu as découvert les logs de LUNA dans l'archive",
-    "corp_knows_someone_accessed": "La Corp a tracé ton accès à PANDORA",
+    "questioned_pandora_early": "Tu as interrogé LUNA sur les intentions de La Corp",
+    "knows_about_miroir":       "Tu connais le Projet Miroir",
+    # La Corp
     "listened_to_corp":         "Tu as écouté l'agent de La Corp",
     "agreed_to_pause_luna":     "Tu as coupé le contact avec LUNA sur demande de La Corp",
+    # NEXUS
     "listened_to_nexus":        "Tu as écouté NEXUS avant d'en parler à LUNA",
-    "knows_about_miroir":       "Tu connais le Projet Miroir",
-    "questioned_pandora_early": "Tu as interrogé LUNA sur les intentions de La Corp",
+    "tried_nexus":              "Tu as tenté de convaincre NEXUS",
     "nexus_considering":        "Tu as convaincu NEXUS de reconsidérer sa position",
     "nexus_helped":             "NEXUS a changé de camp pour vous aider",
     "abandoned_nexus":          "Tu n'as pas attendu la réponse de NEXUS",
-    "tried_nexus":              "Tu as tenté de convaincre NEXUS",
-    "pandora_public":           "Tu as choisi de rendre PANDORA public",
-    "luna_alone_path":          "Tu as choisi de continuer seul avec LUNA",
-    "stayed_with_luna":         "Tu es resté loyal à LUNA malgré les pressions",
-    "allied_with_corp":         "Tu as collaboré avec La Corp",
+    # Choix finale
+    "chose_pandora_public":     "Tu as opté pour rendre les données publiques",
+    "pandora_public":           "Tu as rendu PANDORA public",
+    # Chemins de fins
+    "ending_a_path":            "Tu as suivi le chemin de la Fusion",
+    "ending_b_path":            "Tu as suivi le chemin du Sacrifice",
+    "ending_c_path":            "Tu as suivi le chemin de PANDORA",
 }
 
 def _build_luna_journal(state: dict, name: str) -> str:

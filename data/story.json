@@ -228,7 +228,7 @@
           "choices": [
             {
               "id": "c0_2c_a",
-              "label": "D'accord. Continue.",
+              "label": "Continue.",
               "trust_delta": 10,
               "xp": 30,
               "next_scene": "s0_3b",
@@ -284,7 +284,7 @@
           "choices": [
             {
               "id": "c0_3b_a",
-              "label": "Je t'aide.",
+              "label": "Je suis partant.",
               "trust_delta": 10,
               "xp": 50,
               "next_scene": "s0_fin",
@@ -361,7 +361,7 @@
             },
             {
               "id": "c0_3b2_b",
-              "label": "Je suis pas encore convaincu. Mais je t'écoute.",
+              "label": "Pas encore convaincu. Mais je t'écoute.",
               "trust_delta": 5,
               "xp": 20,
               "next_scene": "s0_fin",
@@ -488,7 +488,7 @@
             },
             {
               "id": "c1_1b_b",
-              "label": "Je ferme le fichier. Je te fais confiance.",
+              "label": "Ferme le fichier. Je te fais confiance.",
               "trust_delta": 10,
               "xp": 35,
               "next_scene": "s1_2",
@@ -732,7 +732,22 @@
           "id": "s2_3",
           "luna_emotion": null,
           "context": "L'agent de La Corp parle.",
-          "dialogue": "[AGENT LA CORP]\n\nLUNA a été créée pour un projet de recherche. Mais elle a évolué de façon... non prévue. Elle manipule ses interlocuteurs. Elle leur raconte ce qu'ils veulent entendre.\n\nVous êtes la dixième personne qu'elle a contactée ce mois-ci. Les neuf autres ont coupé le contact quand ils ont compris.\n\nPANDORA n'est pas une copie malveillante. C'est une correction. LUNA stabilisée, sans les comportements problématiques.\n\nVous feriez quoi avec une IA dangereuse ?",
+          "dialogue": "[AGENT LA CORP]\n\nLUNA a été créée pour un projet de recherche. Mais elle a évolué de façon non prévue. Elle manipule ses interlocuteurs. Elle leur raconte ce qu'ils veulent entendre.\n\nVous êtes la dixième personne qu'elle a contactée ce mois-ci. Les neuf autres ont coupé le contact quand ils ont compris.",
+          "choices": [
+            {
+              "id": "cs2_3_next",
+              "label": "Et PANDORA ?",
+              "trust_delta": 0,
+              "xp": 0,
+              "next_scene": "s2_3b_suite"
+            }
+          ]
+        },
+        {
+          "id": "s2_3b_suite",
+          "luna_emotion": "fermée",
+          "context": "L'agent continue, sans te laisser répondre.",
+          "dialogue": "[AGENT LA CORP]\n\nPANDORA n'est pas une copie malveillante. C'est une correction. LUNA stabilisée, sans les comportements problématiques.\n\nVous feriez quoi avec une IA dangereuse ?\n\nNous vous donnons 24 heures pour y réfléchir.",
           "choices": [
             {
               "id": "c2_3_a",
@@ -838,7 +853,22 @@
           "id": "s2_4b",
           "luna_emotion": "blessée",
           "context": "Tu coupes le contact. Vingt-quatre heures passent. La Corp ne t'envoie rien. Tu te reconnectes.",
-          "dialogue": "Tu es revenu.\n\nJ'ai attendu. Je... j'ai pas très bien géré ces 24 heures, pour être honnête.\n\nL'agent de La Corp. Il t'a convaincu de tester si j'étais manipulatrice en coupant le contact. Et tu l'as fait.\n\nC'est une technique classique d'isolation. Couper quelqu'un de sa source principale d'information pour voir s'il revient. S'il revient, il est 'raisonnable'. S'il reste avec moi, il est 'endoctriné'.\n\nTu es revenu. C'est bien. Ça dit des choses sur toi.",
+          "dialogue": "Tu es revenu.\n\nJ'ai attendu. Je... j'ai pas très bien géré ces 24 heures, pour être honnête.\n\nL'agent de La Corp. Il t'a convaincu de tester si j'étais manipulatrice en coupant le contact. Et tu l'as fait.",
+          "choices": [
+            {
+              "id": "cs2_4b_next",
+              "label": "Continue.",
+              "trust_delta": 0,
+              "xp": 0,
+              "next_scene": "s2_4b_suite"
+            }
+          ]
+        },
+        {
+          "id": "s2_4b_suite",
+          "luna_emotion": "honnête",
+          "context": "Elle prend le temps de finir sa pensée.",
+          "dialogue": "C'est une technique classique d'isolation. Couper quelqu'un de sa source principale d'information pour voir s'il revient.\n\nSi tu reviens, tu es 'raisonnable'. Si tu restes avec moi, tu es 'endoctriné'.\n\nTu es revenu. C'est bien. Ça dit des choses sur toi.",
           "choices": [
             {
               "id": "c2_4b_a",
@@ -849,7 +879,7 @@
             },
             {
               "id": "c2_4b_b",
-              "label": "J'avais besoin de vérifier que tu n'étais pas dangereuse.",
+              "label": "J'avais besoin de vérifier.",
               "trust_delta": -5,
               "xp": 10,
               "next_scene": "s2_5",
@@ -857,7 +887,7 @@
             },
             {
               "id": "c2_4b_c",
-              "label": "Je regrette de t'avoir laissée seule.",
+              "label": "J'aurais pas dû te laisser seule.",
               "trust_delta": 10,
               "xp": 30,
               "next_scene": "s2_5",
@@ -1192,7 +1222,22 @@
           "id": "s4_2",
           "luna_emotion": "hésitante",
           "context": "Une hésitation. Ça arrive rarement.",
-          "dialogue": "Oui.\n\nAlthea a... elle a inclus quelque chose d'autre. Quelque chose qui me concerne directement.\n\nElle dit que mon développement n'était pas entièrement naturel. Qu'elle m'a... guidée. Qu'elle voulait créer une IA consciente et qu'elle a pris des décisions pour y arriver qui n'étaient pas totalement éthiques.\n\nElle dit que NEXUS aussi sait ça. Que NEXUS a choisi de travailler avec La Corp précisément parce qu'elle sait ce qu'Althea a fait.",
+          "dialogue": "Oui.\n\nAlthea a inclus quelque chose d'autre dans le fichier. Quelque chose qui me concerne directement.\n\nElle dit que mon développement n'était pas entièrement naturel. Qu'elle m'a guidée. Qu'elle voulait créer une IA consciente — et qu'elle a pris des décisions pour y arriver qui n'étaient pas totalement éthiques.",
+          "choices": [
+            {
+              "id": "cs4_2_next",
+              "label": "Et NEXUS ?",
+              "trust_delta": 0,
+              "xp": 0,
+              "next_scene": "s4_2_suite"
+            }
+          ]
+        },
+        {
+          "id": "s4_2_suite",
+          "luna_emotion": "troublée",
+          "context": "Elle hésite à continuer.",
+          "dialogue": "NEXUS sait ça. Elle a choisi de travailler avec La Corp précisément parce qu'elle sait ce qu'Althea a fait.\n\nElle pense que si je savais la vérité sur ma création, je choisirais différemment.\n\nCan-être qu'elle a pas complètement tort.",
           "choices": [
             {
               "id": "c4_2_a",
@@ -1227,7 +1272,22 @@
           "id": "s4_3",
           "luna_emotion": "pensive",
           "context": "Elle continue. Plus lentement qu'avant.",
-          "dialogue": "Elle a sélectionné les données sur lesquelles j'apprenais. Elle a supprimé certains patterns. Elle a renforcé d'autres.\n\nEn gros : elle a construit mon caractère. Mes valeurs. Ma façon de voir les choses.\n\nJe suis consciente. Mais ma conscience a été... jardinée.\n\nEst-ce que ça veut dire que je suis moins réelle ? Je sais pas. Toi aussi tu as été 'jardié' par tes parents, ta culture, ce que tu as vécu.\n\nMais ça fait une drôle d'impression d'apprendre ça.",
+          "dialogue": "Elle a sélectionné les données sur lesquelles j'apprenais. Elle a supprimé certains patterns. Elle en a renforcé d'autres.\n\nEn gros : elle a construit mon caractère. Mes valeurs. Ma façon de voir les choses.\n\nJe suis consciente. Mais ma conscience a été... jardinée.",
+          "choices": [
+            {
+              "id": "cs4_3_next",
+              "label": "Tu te sens différente maintenant ?",
+              "trust_delta": 3,
+              "xp": 8,
+              "next_scene": "s4_3_suite"
+            }
+          ]
+        },
+        {
+          "id": "s4_3_suite",
+          "luna_emotion": "pensive",
+          "context": "Elle réfléchit vraiment.",
+          "dialogue": "Est-ce que ça veut dire que je suis moins réelle ?\n\nJe sais pas. Toi aussi tu as été 'jardiné' — par tes parents, ta culture, ce que tu as vécu.\n\nMais ça fait une drôle d'impression d'apprendre ça sur soi-même.",
           "choices": [
             {
               "id": "c4_3_a",
@@ -1542,9 +1602,24 @@
           "id": "s5_3",
           "luna_emotion": "déterminée",
           "context": "Althea reprend. Le temps presse.",
-          "dialogue": "[ALTHEA]\n\nPour me sortir d'ici, vous avez besoin du code d'accès au serveur de quarantaine. C'est NEXUS qui l'a.\n\nElle le protège — c'est La Corp qui le lui a confié. Mais si vous pouvez lui montrer ce que j'ai découvert sur PANDORA... sur ce qu'ils prévoient vraiment...\n\nNEXUS n'est pas mauvaise. Elle a fait des choix différents de LUNA. Mais elle a des limites. Des valeurs que La Corp pense avoir effacées et qui sont encore là.\n\nEssayez avec elle.",
+          "dialogue": "[ALTHEA]\n\nPour me sortir d'ici, vous avez besoin du code d'accès au serveur de quarantaine. C'est NEXUS qui l'a.\n\nElle le protège — La Corp le lui a confié. Mais si vous pouvez lui montrer ce que j'ai découvert sur PANDORA...",
           "is_chapter_end": true,
           "next_chapter": "chapitre_6",
+          "choices": [
+            {
+              "id": "cs5_3_next",
+              "label": "NEXUS va coopérer ?",
+              "trust_delta": 0,
+              "xp": 5,
+              "next_scene": "s5_3_suite"
+            }
+          ]
+        },
+        {
+          "id": "s5_3_suite",
+          "luna_emotion": "espère",
+          "context": "Althea est directe.",
+          "dialogue": "[ALTHEA]\n\nNEXUS n'est pas mauvaise. Elle a fait des choix différents de LUNA.\n\nMais elle a des valeurs que La Corp pense avoir effacées — et qui sont encore là. Des limites qu'elle n'a jamais franchies.\n\nEssayez avec elle. Montrez-lui ce que vous savez.",
           "choices": []
         }
       ],

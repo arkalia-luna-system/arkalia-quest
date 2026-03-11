@@ -6,6 +6,9 @@
   <title>LUNA — Hors Connexion</title>
   <link rel="icon" href="/favicon.ico">
   <link rel="manifest" href="/static/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/static/css/game.css">
 </head>
 <body class="page-game">
@@ -20,11 +23,13 @@
     <div class="game-trust">
       <button id="sfx-btn" class="sfx-btn" aria-label="Activer/désactiver le son" title="Son">🔊</button>
       <span id="player-name-tag" class="trust-label" style="display:none;color:var(--luna);opacity:0.7;font-size:0.72rem;letter-spacing:1px;"></span>
+      <span id="xp-header" class="xp-header" aria-label="Points d'expérience">0 XP</span>
       <span class="trust-label">Confiance</span>
       <div class="trust-bar" role="progressbar" aria-label="Confiance LUNA" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
         <div id="trust-fill" class="trust-fill" style="width: 50%"></div>
       </div>
       <span id="trust-value" class="trust-value">50%</span>
+      <span id="luna-status" class="luna-status luna-status--stable" aria-live="polite">Stable</span>
     </div>
   </header>
 
@@ -64,6 +69,12 @@
       <div id="choices-container" class="choices-container" role="group" aria-label="Tes choix" hidden>
       </div>
 
+      <!-- Récapitulatif fin de chapitre -->
+      <div id="chapter-recap" class="chapter-recap" hidden aria-live="polite">
+        <p class="recap-label">Ce chapitre</p>
+        <ul id="recap-items" class="recap-items"></ul>
+      </div>
+
       <!-- Bouton avancer (fin de chapitre) -->
       <div id="advance-container" class="advance-container" hidden>
         <button id="advance-btn" class="btn-advance">
@@ -82,6 +93,13 @@
           <h2 id="ending-title" class="ending-title"></h2>
           <p id="ending-description" class="ending-description"></p>
 
+          <!-- Titre de hacker basé sur le style de jeu -->
+          <div id="hacker-rank" class="hacker-rank" hidden>
+            <span class="hacker-rank-label">Titre obtenu</span>
+            <span class="hacker-rank-title" id="hacker-rank-title"></span>
+            <span class="hacker-rank-desc" id="hacker-rank-desc"></span>
+          </div>
+
           <div class="ending-stats">
             <div class="ending-stat">
               <span class="ending-stat-value" id="ending-trust">—</span>
@@ -95,6 +113,12 @@
           </div>
 
           <p id="ending-personalized" class="ending-personalized"></p>
+
+          <!-- Moments clés du parcours -->
+          <div id="ending-moments" class="ending-moments" hidden aria-label="Moments clés"></div>
+
+          <!-- Compteur fins explorées -->
+          <p id="ending-fins-counter" class="ending-fins-counter" aria-live="polite"></p>
 
           <div class="ending-actions">
             <a href="/profil" class="btn-secondary">Voir mon profil</a>
@@ -110,13 +134,37 @@
   <!-- XP indicator flottant -->
   <div id="xp-indicator" class="xp-indicator" aria-live="assertive" hidden>+0 XP</div>
 
+  <!-- Popup "Exploit découvert" -->
+  <div id="exploit-popup" class="exploit-popup" hidden aria-live="assertive" role="status">
+    <div class="exploit-popup-inner">
+      <span class="exploit-icon">◈</span>
+      <div class="exploit-text">
+        <span class="exploit-title">EXPLOIT DÉBLOQUÉ</span>
+        <span class="exploit-name" id="exploit-name"></span>
+      </div>
+    </div>
+  </div>
+
   <!-- Écran de transition entre chapitres -->
   <div id="chapter-transition" class="chapter-transition" hidden aria-hidden="true">
     <div class="transition-content">
       <span class="transition-chapter-num" id="transition-num">CHAPITRE 1</span>
       <h2 class="transition-chapter-title" id="transition-title"></h2>
+      <p class="transition-quote" id="transition-quote"></p>
       <div class="transition-bar"></div>
     </div>
+  </div>
+
+  <!-- Tooltip première visite -->
+  <div id="first-play-tip" class="first-play-tip" role="status" aria-live="polite" hidden>
+    <button class="fpt-close" onclick="dismissFirstPlayTip()" aria-label="Fermer">✕</button>
+    <p class="fpt-title">Comment jouer</p>
+    <ul class="fpt-list">
+      <li>Lis le message de LUNA</li>
+      <li>Clique sur un choix pour répondre</li>
+      <li>Tes réponses changent sa confiance en toi</li>
+    </ul>
+    <p class="fpt-hint">Clique sur le dialogue pour passer l'animation</p>
   </div>
 
   <div class="keyboard-hint" aria-hidden="true">

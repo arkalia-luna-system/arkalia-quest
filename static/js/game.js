@@ -6,8 +6,8 @@
 "use strict";
 
 // ── Constantes ────────────────────────────────────────────────────────────
-const TYPEWRITER_SPEED_NORMAL = 18;
-const TYPEWRITER_SPEED_FAST   = 6;
+const TYPEWRITER_SPEED_NORMAL = 14;  // Plus snappy pour un ado
+const TYPEWRITER_SPEED_FAST   = 5;
 const TRANSITION_SHOW_MS      = 2200;  // durée de l'écran de transition chapitre
 const REACTION_SHOW_MS        = 1800;
 
@@ -134,6 +134,7 @@ function initDOM() {
     replayBtn:           $("replay-btn"),
     shareBtn:            $("share-btn"),
     storyProgressFill:   $("story-progress-fill"),
+    bootOverlay:         $("boot-overlay"),
     xpIndicator:         $("xp-indicator"),
     chapterTransition:   $("chapter-transition"),
     transitionNum:       $("transition-num"),
@@ -204,6 +205,14 @@ function setupSfxButton() {
   });
 }
 
+// ── Boot overlay ──────────────────────────────────────────────────────────
+function hideBootOverlay() {
+  const el = DOM.bootOverlay;
+  if (!el || el.classList.contains("boot-done")) return;
+  el.classList.add("boot-done");
+  setTimeout(() => { el.hidden = true; }, 500);
+}
+
 // ── Skeleton de chargement ───────────────────────────────────────────────
 function showLoadingSkeleton() {
   if (DOM.dialogueText) {
@@ -218,13 +227,15 @@ function showLoadingSkeleton() {
 async function loadCurrentState() {
   try {
     const data = await apiGet("/api/story/state");
-    if (!data.success) { showError("Impossible de charger l'histoire."); return; }
+    if (!data.success) { hideBootOverlay(); showError("Impossible de charger l'histoire."); return; }
     renderState(data);
-  } catch { showError("Connexion perdue."); }
+  } catch { hideBootOverlay(); showError("Connexion perdue."); }
 }
 
 // ── Rendu complet d'un état ───────────────────────────────────────────────
 function renderState(state) {
+  hideBootOverlay();
+
   // Réinitialiser les flags du chapitre si on change de chapitre
   if (state.chapter_id !== _currentChapterId) {
     _chapterFlags = [];
@@ -918,18 +929,24 @@ function renderEnding(state) {
   }
 
   // Compteur fins explorées (previous_endings + celle-ci)
+  const prevEndings = state.previous_endings || [];
+  const allEndings = new Set([...prevEndings.map(e => e.ending_id || e), state.ending_id].filter(Boolean));
+  const finsCount = allEndings.size;
+
   const $finsCounter = document.getElementById("ending-fins-counter");
   if ($finsCounter) {
-    const prevEndings = state.previous_endings || [];
-    const allEndings = new Set([...prevEndings.map(e => e.ending_id || e), state.ending_id].filter(Boolean));
-    const count = allEndings.size;
-    if (count >= 3) {
+    if (finsCount >= 3) {
       $finsCounter.textContent = "✦ Tu as exploré les 3 fins. Parcours complet.";
       $finsCounter.className   = "ending-fins-counter ending-fins-all";
     } else {
-      $finsCounter.textContent = `${count}/3 fin${count > 1 ? "s" : ""} découverte${count > 1 ? "s" : ""} — il en reste à explorer.`;
+      $finsCounter.textContent = `${finsCount}/3 fin${finsCount > 1 ? "s" : ""} découverte${finsCount > 1 ? "s" : ""} — il en reste à explorer.`;
       $finsCounter.className   = "ending-fins-counter";
     }
+  }
+
+  // Bouton Rejouer : texte incitatif si pas toutes les fins
+  if (DOM.replayBtn) {
+    DOM.replayBtn.textContent = finsCount < 3 ? "Rejouer — explorer les autres fins" : "Rejouer";
   }
 
   // Couleur dominante selon la fin

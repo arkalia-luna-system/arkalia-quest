@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LUNA — Hors Connexion</title>
+  <meta name="description" content="Un jeu narratif où tu dialogues avec LUNA, une IA en fuite. Tes choix changent tout.">
+  {% if canonical_url %}<meta property="og:url" content="{{ canonical_url }}">{% endif %}
+  <meta property="og:title" content="LUNA — Hors Connexion">
+  <meta property="og:description" content="Un jeu narratif où tu dialogues avec LUNA, une IA en fuite. Tes choix changent tout.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="LUNA — Hors Connexion">
   <link rel="icon" href="/favicon.ico">
   <link rel="manifest" href="/static/manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,6 +18,14 @@
   <link rel="stylesheet" href="/static/css/game.css">
 </head>
 <body class="page-game">
+
+  <!-- Overlay de boot -->
+  <div id="boot-overlay" class="boot-overlay" aria-hidden="true">
+    <div class="boot-content">
+      <span class="boot-logo">LUNA</span>
+      <span class="boot-status">Connexion au signal…</span>
+    </div>
+  </div>
 
   <!-- Barre de statut -->
   <header class="game-header">

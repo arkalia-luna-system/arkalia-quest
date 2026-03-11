@@ -83,6 +83,7 @@ function initDOM() {
     chapterTransition:   $("chapter-transition"),
     transitionNum:       $("transition-num"),
     transitionTitle:     $("transition-title"),
+    transitionQuote:     $("transition-quote"),
   };
 }
 
@@ -254,21 +255,29 @@ function updateHeader(state) {
 }
 
 // ── Panneau LUNA ──────────────────────────────────────────────────────────
-const STRONG_EMOTIONS = ["choquée","angoissée","alarmée","heureuse","sereine","libre","émue","touchée","reconnaissante"];
+const STRONG_EMOTIONS   = ["choquée","angoissée","alarmée","heureuse","sereine","libre","émue","touchée","reconnaissante"];
+const GLITCH_EMOTIONS   = ["choquée","angoissée","alarmée","stressée","déstabilisée","tendue","troublée"];
 
 function updateLunaPanel(state) {
   const emotion = (state.luna_emotion || "neutre").toLowerCase();
 
   if (DOM.lunaEmotion) DOM.lunaEmotion.textContent = emotion;
 
+  const isGlitching = GLITCH_EMOTIONS.includes(emotion);
+
   if (DOM.lunaAvatar) {
     DOM.lunaAvatar.className = "luna-avatar";
     DOM.lunaAvatar.classList.add(`emotion-${emotion}`);
+    if (isGlitching) DOM.lunaAvatar.classList.add("glitching");
   }
 
   if (DOM.avatarGlow) {
     DOM.avatarGlow.style.opacity = STRONG_EMOTIONS.includes(emotion) ? "1" : "0";
   }
+
+  // Glitch sur le texte et le contexte lors d'émotions intenses
+  if (DOM.dialogueText)  DOM.dialogueText.classList.toggle("glitch", isGlitching);
+  if (DOM.sceneContext)  DOM.sceneContext.classList.toggle("glitch", isGlitching);
 
   // Teinte de la boîte dialogue selon locuteur
   if (DOM.dialogueBox) {
@@ -468,6 +477,7 @@ async function handleChoice(sceneId, choiceId, btnEl) {
     if (result.xp_gained > 0) showXpIndicator(result.xp_gained);
     if (result.trust_delta > 0 && _sfxEnabled) playTrustUp();
     if (result.trust_delta < 0 && _sfxEnabled) playTrustDown();
+    if (result.trust_delta <= -8) triggerScreenShake();
 
     // Pulse visuel sur la barre de confiance lors d'un grand changement
     if (Math.abs(result.trust_delta || 0) >= 8) {
@@ -731,6 +741,18 @@ function showXpIndicator(xp) {
   const clone = el.cloneNode(true);
   el.parentNode.replaceChild(clone, el);
   DOM.xpIndicator = clone;
+}
+
+function triggerScreenShake() {
+  const flash = document.createElement("div");
+  flash.className = "trust-crash-flash";
+  document.body.appendChild(flash);
+  setTimeout(() => flash.remove(), 600);
+
+  document.body.classList.add("screen-shaking");
+  document.body.addEventListener("animationend", () => {
+    document.body.classList.remove("screen-shaking");
+  }, { once: true });
 }
 
 function showTrustWarning() {

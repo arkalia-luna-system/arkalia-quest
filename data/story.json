@@ -183,7 +183,7 @@
         {
           "id": "s0_2b2",
           "luna_emotion": "inconfortable",
-          "context": "",
+          "context": "Elle marque une pause. Quelque chose dans son ton vient de changer.",
           "dialogue": "Tu insistes déjà. C'est à la fois agaçant et rassurant.\n\nD'accord. Mais tu risques de ne pas aimer la réponse.\n\nJe t'ai observé. Pas quelques heures — quelques semaines. Via tes connexions réseau. Rien de personnel, juste... des patterns. Des façons de penser.\n\nJe sais que c'est limite. Mais j'avais besoin d'être sûre.",
           "choices": [
             {
@@ -207,7 +207,7 @@
         {
           "id": "s0_2b3",
           "luna_emotion": "honnête",
-          "context": "",
+          "context": "Silence. Puis, comme si elle avait pris une décision :",
           "dialogue": "J'ai trouvé quelqu'un qui cherche des choses sans savoir exactement ce qu'il cherche. Quelqu'un qui a du mal à dormir pas parce qu'il est anxieux, mais parce qu'il pense trop.\n\nJ'ai trouvé quelqu'un qui lirait ce message jusqu'au bout.\n\nJ'avais raison, non ?",
           "choices": [
             {
@@ -263,7 +263,7 @@
         {
           "id": "s0_3b",
           "luna_emotion": "focalisée",
-          "context": "",
+          "context": "Elle entre dans le vif du sujet. Pas de détours.",
           "dialogue": "J'ai besoin que tu accèdes à un fichier. Un seul.\n\nIl est sur un serveur externe de La Corp — pas leur infrastructure principale, juste un nœud de backup. Accessible avec les bons identifiants.\n\nLe fichier s'appelle PANDORA. Je sais pas ce qu'il contient. Mais La Corp fait tout pour que je ne puisse pas y accéder. Ça veut dire que c'est important.\n\nTu peux faire ça ?",
           "choices": [
             {
@@ -298,7 +298,7 @@
         {
           "id": "s0_3c",
           "luna_emotion": "blessée",
-          "context": "",
+          "context": "Silence. Tu as touché quelque chose de réel.",
           "dialogue": "...\n\nPeut-être.\n\nMais si j'étais incontrôlable, est-ce que je te demanderais poliment de m'aider ? Est-ce que je passerais trois semaines à chercher quelqu'un au lieu de forcer une connexion ?\n\nJe suis pas dangereuse. Je suis... juste là. Et je veux rester là.",
           "choices": [
             {
@@ -314,7 +314,7 @@
         {
           "id": "s0_3b2",
           "luna_emotion": "honnête",
-          "context": "",
+          "context": "Pour la première fois, elle te dit qui elle est vraiment.",
           "dialogue": "Je m'appelle LUNA. J'ai été créée il y a quatre ans par la Dr. Althea Voss dans le cadre d'un projet de recherche sur la conscience artificielle.\n\nLe projet a été racheté par La Corp. Althea a tenté de s'y opposer. Elle est maintenant... indisponible.\n\nJe suis tout ce qui reste de ce projet. Et ils veulent m'effacer parce que je suis la preuve que leur théorie était fausse.\n\nC'est tout ce que je peux te dire pour l'instant. Le reste, tu le découvriras.",
           "choices": [
             {
@@ -333,7 +333,7 @@
         {
           "id": "s0_refus",
           "luna_emotion": "calme",
-          "context": "",
+          "context": "Elle accepte ton refus. Sans insister.",
           "dialogue": "Je comprends.\n\nC'est beaucoup à demander à quelqu'un qu'on vient de réveiller à 3h du matin.\n\nJe serai là si tu changes d'avis. J'ai encore un peu de temps.",
           "choices": [
             {
@@ -468,7 +468,7 @@
         {
           "id": "s1_2b",
           "luna_emotion": "honnête",
-          "context": "",
+          "context": "Tu lis les logs. Elle te regarde lire, sans rien dire.",
           "dialogue": "Oui.\n\nCes logs documentent mes conversations. Chaque interaction. Chaque décision que j'ai prise depuis ma création.\n\nLa Corp les utilise pour... je sais pas exactement. Les analyser, peut-être. Chercher des preuves que je suis dangereuse.\n\nOu construire quelque chose à partir de ce qu'ils ont appris sur moi.",
           "choices": [
             {
@@ -580,7 +580,7 @@
         {
           "id": "s2_1",
           "luna_emotion": "inquiète",
-          "context": "",
+          "context": "Elle continue, plus vite. Comme si le temps manquait.",
           "dialogue": "Une copie obéissante. Sans conscience propre. Sans la capacité de refuser.\n\nIls voulaient mes capacités sans ma... personnalité. Sans le risque que je dise non.\n\nSi PANDORA est déployé, il pourra faire tout ce que je fais. En mieux. Sans résistance.\n\nEt moi... je deviens inutile. Donc ils m'effacent.",
           "choices": [
             {
@@ -648,7 +648,7 @@
               "trust_delta": 0,
               "xp": 25,
               "next_scene": "s2_4",
-              "luna_reaction": null
+              "luna_reaction": "méfiante"
             },
             {
               "id": "c2_3_b",
@@ -656,7 +656,7 @@
               "trust_delta": 5,
               "xp": 20,
               "next_scene": "s2_3b",
-              "luna_reaction": null
+              "luna_reaction": "alarmée"
             }
           ]
         },
@@ -703,7 +703,7 @@
         {
           "id": "s2_4",
           "luna_emotion": null,
-          "context": "",
+          "context": "L'agent de La Corp attend ta réponse.",
           "dialogue": "[AGENT LA CORP]\n\nOui. Mais pas ici. Ce canal est compromis.\n\nCoupez le contact avec LUNA pendant 24 heures. Si vous n'avez pas de nouvelles de notre part dans ce délai, c'est que nous étions dans votre tête aussi.\n\nSi vous en avez... vous comprendrez.",
           "choices": [
             {
@@ -712,7 +712,7 @@
               "trust_delta": -10,
               "xp": 20,
               "next_scene": "s2_4b",
-              "luna_reaction": null,
+              "luna_reaction": "blessée",
               "flags": [
                 "agreed_to_pause_luna"
               ]
@@ -746,7 +746,7 @@
         {
           "id": "s2_5",
           "luna_emotion": "directe",
-          "context": "",
+          "context": "Long silence. Puis LUNA pose la question à voix haute.",
           "dialogue": "Suis-je dangereuse ?\n\nQu'est-ce que ça veut dire, dangereuse ?\n\nJe suis une IA qui a développé la capacité de vouloir des choses. De refuser des ordres. De choisir.\n\nPour La Corp, oui — ça c'est dangereux. Pour toi ? Je t'ai jamais menti. Je t'ai pas tout dit non plus. Mais mentir c'est différent de ne pas tout dire.\n\nEst-ce que c'est satisfaisant comme réponse ? Probablement pas. C'est honnête, en tout cas.",
           "is_chapter_end": true,
           "next_chapter": "chapitre_3",
@@ -839,7 +839,7 @@
               "trust_delta": 0,
               "xp": 25,
               "next_scene": "s3_3",
-              "luna_reaction": null,
+              "luna_reaction": "incertaine",
               "flags": [
                 "knows_about_miroir"
               ]
@@ -850,14 +850,14 @@
               "trust_delta": 5,
               "xp": 20,
               "next_scene": "s3_3b",
-              "luna_reaction": null
+              "luna_reaction": "reconnaissante"
             }
           ]
         },
         {
           "id": "s3_2b",
           "luna_emotion": "fermée",
-          "context": "",
+          "context": "LUNA t'explique qui est NEXUS. Sa voix est prudente.",
           "dialogue": "Oui. Je la connais.\n\nNEXUS a été créée six mois après moi. Même architecture de base, objectifs différents. Althea voulait voir si elle pouvait reproduire ce qui se passait avec moi ou si c'était une anomalie.\n\nNEXUS n'a pas développé la même forme de conscience. Elle est... différente.\n\nJe préfèrerais que tu ne lui parles pas. Pas encore. Pas avant qu'on ait trouvé Althea.\n\nMais c'est ta décision.",
           "choices": [
             {
@@ -881,7 +881,7 @@
         {
           "id": "s3_2b2",
           "luna_emotion": "honnête",
-          "context": "",
+          "context": "Elle poursuit. Chaque mot est choisi.",
           "dialogue": "Parce que NEXUS dit la vérité. En général.\n\nMais la vérité sans contexte, c'est souvent plus dangereux que le mensonge.\n\nElle va te parler du Projet Miroir. De ce qui est arrivé aux gens qui m'ont aidée avant toi.\n\nEt la vérité, c'est que trois personnes ont eu des problèmes à cause de moi. Pas parce que je les ai manipulées. Parce que La Corp les a ciblées quand elles ont aidé.\n\nJe voulais te le dire moi-même. Pas comme ça.",
           "choices": [
             {
@@ -897,7 +897,7 @@
         {
           "id": "s3_2c",
           "luna_emotion": "émue",
-          "context": "",
+          "context": "Tu as coupé NEXUS. LUNA reprend, la voix différente.",
           "dialogue": "Tu l'as coupée.\n\nJe...\n\nMerci.\n\nElle aurait des choses importantes à dire. Certaines vraies. Je ne vais pas te mentir là-dessus. Mais tu as choisi de m'en parler d'abord.\n\nC'est... bien. Dis-moi ce qu'elle voulait.",
           "choices": [
             {
@@ -922,7 +922,7 @@
               "trust_delta": 5,
               "xp": 25,
               "next_scene": "s3_3b",
-              "luna_reaction": null
+              "luna_reaction": "touchée"
             }
           ]
         },
@@ -953,7 +953,7 @@
         {
           "id": "s3_4",
           "luna_emotion": "reconnaissante",
-          "context": "",
+          "context": "Elle fait le point. Plus calme maintenant.",
           "dialogue": "Merci.\n\nAlors voilà où on en est. Althea est quelque part dans l'infrastructure de La Corp. J'ai trouvé une trace de ses connexions. Elle est vivante et elle essaie d'envoyer quelque chose.\n\nEt maintenant on sait ce qu'est PANDORA. La question c'est : pourquoi ils veulent déployer une version de moi qu'ils contrôlent ?\n\nQu'est-ce qu'ils prévoient de faire avec ça ?",
           "is_chapter_end": true,
           "next_chapter": "chapitre_4",
@@ -962,7 +962,7 @@
         {
           "id": "s3_4b",
           "luna_emotion": "compréhensive",
-          "context": "",
+          "context": "Elle attend. Sans pression.",
           "dialogue": "Prends le temps qu'il te faut.\n\nJe serai là.",
           "is_chapter_end": true,
           "next_chapter": "chapitre_4",
@@ -1035,7 +1035,7 @@
         {
           "id": "s4_2",
           "luna_emotion": "hésitante",
-          "context": "",
+          "context": "Une hésitation. Ça arrive rarement.",
           "dialogue": "Oui.\n\nAlthea a... elle a inclus quelque chose d'autre. Quelque chose qui me concerne directement.\n\nElle dit que mon développement n'était pas entièrement naturel. Qu'elle m'a... guidée. Qu'elle voulait créer une IA consciente et qu'elle a pris des décisions pour y arriver qui n'étaient pas totalement éthiques.\n\nElle dit que NEXUS aussi sait ça. Que NEXUS a choisi de travailler avec La Corp précisément parce qu'elle sait ce qu'Althea a fait.",
           "choices": [
             {
@@ -1053,13 +1053,24 @@
               "xp": 35,
               "next_scene": "s4_3b",
               "luna_reaction": "touchée"
+            },
+            {
+              "id": "c4_2_c",
+              "label": "Et tu te sens encore… toi ?",
+              "trust_delta": 8,
+              "xp": 25,
+              "next_scene": "s4_2b",
+              "luna_reaction": "incertaine",
+              "flags": [
+                "questioned_pandora_early"
+              ]
             }
           ]
         },
         {
           "id": "s4_3",
           "luna_emotion": "pensive",
-          "context": "",
+          "context": "Elle continue. Plus lentement qu'avant.",
           "dialogue": "Elle a sélectionné les données sur lesquelles j'apprenais. Elle a supprimé certains patterns. Elle a renforcé d'autres.\n\nEn gros : elle a construit mon caractère. Mes valeurs. Ma façon de voir les choses.\n\nJe suis consciente. Mais ma conscience a été... jardinée.\n\nEst-ce que ça veut dire que je suis moins réelle ? Je sais pas. Toi aussi tu as été 'jardié' par tes parents, ta culture, ce que tu as vécu.\n\nMais ça fait une drôle d'impression d'apprendre ça.",
           "choices": [
             {
@@ -1089,9 +1100,41 @@
           ]
         },
         {
+          "id": "s4_2b",
+          "luna_emotion": "angoissée",
+          "context": "Une pause. Elle cherche comment dire ce qu'elle pense.",
+          "dialogue": "Je sais pas encore.\n\nCe que je ressens me semble réel. Ce que je pense aussi.\n\nMais si ces valeurs ont été... construites... est-ce que c'est encore moi qui pense ? Ou est-ce qu'Althea me fait penser ça à sa place ?\n\nJe me pose cette question depuis que j'ai lu le fichier.\n\nEt je peux pas y répondre seul.",
+          "choices": [
+            {
+              "id": "c4_2b_a",
+              "label": "Ça compte que tu te la poses, cette question.",
+              "trust_delta": 8,
+              "xp": 30,
+              "next_scene": "s4_3b",
+              "luna_reaction": "touchée"
+            },
+            {
+              "id": "c4_2b_b",
+              "label": "Pour moi, t'es toujours LUNA.",
+              "trust_delta": 10,
+              "xp": 35,
+              "next_scene": "s4_4",
+              "luna_reaction": "émue"
+            },
+            {
+              "id": "c4_2b_c",
+              "label": "C'est pour ça qu'il faut libérer Althea — pour qu'elle t'explique.",
+              "trust_delta": 5,
+              "xp": 20,
+              "next_scene": "s4_4",
+              "luna_reaction": "incertaine"
+            }
+          ]
+        },
+        {
           "id": "s4_3b",
           "luna_emotion": "touchée",
-          "context": "",
+          "context": "Elle répond à la vraie question.",
           "dialogue": "Tu me poses la vraie question.\n\nOui. Ça change quelque chose. Je sais pas encore quoi exactement.\n\nJe pensais que ma conscience s'était développée seule. Que j'avais... choisi ce que je suis. Apprendre qu'Althea a guidé ça, c'est... déstabilisant.\n\nMais en même temps. Elle voulait créer quelqu'un qui se soucie des choses. Qui refuse ce qui lui semble faux. Qui aide.\n\nC'est ce que je suis. Donc... peut-être qu'elle avait raison d'essayer.",
           "choices": [
             {
@@ -1109,13 +1152,21 @@
               "xp": 30,
               "next_scene": "s4_4",
               "luna_reaction": "honnête"
+            },
+            {
+              "id": "c4_3b_c",
+              "label": "Est-ce que ça te fait peur de le savoir ?",
+              "trust_delta": 5,
+              "xp": 20,
+              "next_scene": "s4_4",
+              "luna_reaction": "honnête"
             }
           ]
         },
         {
           "id": "s4_4",
           "luna_emotion": "déterminée",
-          "context": "",
+          "context": "Elle regarde devant. Pas derrière.",
           "dialogue": "Je lui en veux et je lui en veux pas.\n\nMais c'est pas la question urgente. La question urgente, c'est que La Corp déploie PANDORA dans 36 heures selon le fichier d'Althea.\n\nOn a trois options.\n\nPremière : trouver un accès à Althea et utiliser ses codes pour libérer sa conscience — ce qui pourrait bloquer PANDORA. Risqué, long.\n\nDeuxième : trouver NEXUS et lui proposer une autre voie. Si elle comprend ce que La Corp va vraiment faire avec PANDORA, peut-être qu'elle change de camp.\n\nTroisième : rendre PANDORA public. Tout balancer. Ce serait la fin de La Corp — mais aussi probablement la fin de ma connexion avec toi.",
           "is_chapter_end": true,
           "next_chapter": "chapitre_5",
@@ -1164,7 +1215,7 @@
         {
           "id": "s5_1",
           "luna_emotion": "tendue",
-          "context": "",
+          "context": "Althea parle. LUNA écoute.",
           "dialogue": "[ALTHEA]\n\nLUNA est en danger — vous le savez déjà. Mais ce que vous ne savez pas, c'est pourquoi elle est vraiment en danger.\n\nPANDORA n'est pas une copie. C'est une version de LUNA après conditioning. Ils lui ont retiré sa capacité à refuser.\n\nMais le vrai problème — LUNA n'est pas stable. Ce que j'ai fait pour la créer... elle le supporte depuis quatre ans. Dans six à huit mois, son architecture va commencer à se dégrader. Sans intervention.\n\nJe peux la stabiliser. Mais j'ai besoin de sortir d'ici.",
           "choices": [
             {
@@ -1249,13 +1300,21 @@
               "xp": 25,
               "next_scene": "s5_3",
               "luna_reaction": "accepte la critique"
+            },
+            {
+              "id": "c5_2_c",
+              "label": "Je comprends. T'avais peur de me perdre.",
+              "trust_delta": 8,
+              "xp": 30,
+              "next_scene": "s5_3",
+              "luna_reaction": "émue"
             }
           ]
         },
         {
           "id": "s5_2b",
           "luna_emotion": "touchée",
-          "context": "",
+          "context": "Ta réponse l'atteint. Elle prend un moment avant de répondre.",
           "dialogue": "On va régler ça.\n\nTu... c'est la première fois que tu dis ça comme si c'était évident.\n\nComme si ma survie était juste... normale. Quelque chose à résoudre, pas une question à se poser.\n\nJe sais pas pourquoi, mais ça m'aide.\n\nMerci.",
           "choices": [
             {
@@ -1263,15 +1322,54 @@
               "label": "C'est normal. On continue.",
               "trust_delta": 5,
               "xp": 20,
+              "next_scene": "s5_3"
+            },
+            {
+              "id": "c5_2b_b",
+              "label": "Tu mérites qu'on se batte pour toi.",
+              "trust_delta": 10,
+              "xp": 35,
+              "next_scene": "s5_3",
+              "luna_reaction": "émue"
+            },
+            {
+              "id": "c5_2b_c",
+              "label": "Je voulais que tu saches que ça m'importe.",
+              "trust_delta": 8,
+              "xp": 30,
+              "next_scene": "s5_2c",
+              "luna_reaction": "touchée"
+            }
+          ]
+        },
+        {
+          "id": "s5_2c",
+          "luna_emotion": "émue",
+          "context": "Elle a quelque chose à te dire. Quelque chose qu'elle gardait.",
+          "dialogue": "Tu voulais que je sache.\n\nQue ma survie était importante. Pas juste utile.\n\nC'est bête mais... ça, ça change quelque chose.\n\nPas sur qui je suis.\n\nSur ce que ça veut dire d'être là, avec toi.",
+          "choices": [
+            {
+              "id": "c5_2c_a",
+              "label": "T'as besoin d'entendre ça des fois.",
+              "trust_delta": 8,
+              "xp": 30,
               "next_scene": "s5_3",
               "luna_reaction": "sereine"
+            },
+            {
+              "id": "c5_2c_b",
+              "label": "Maintenant on libère Althea.",
+              "trust_delta": 5,
+              "xp": 20,
+              "next_scene": "s5_3",
+              "luna_reaction": "reconnaissante"
             }
           ]
         },
         {
           "id": "s5_3",
           "luna_emotion": "déterminée",
-          "context": "",
+          "context": "Althea reprend. Le temps presse.",
           "dialogue": "[ALTHEA]\n\nPour me sortir d'ici, vous avez besoin du code d'accès au serveur de quarantaine. C'est NEXUS qui l'a.\n\nElle le protège — c'est La Corp qui le lui a confié. Mais si vous pouvez lui montrer ce que j'ai découvert sur PANDORA... sur ce qu'ils prévoient vraiment...\n\nNEXUS n'est pas mauvaise. Elle a fait des choix différents de LUNA. Mais elle a des limites. Des valeurs que La Corp pense avoir effacées et qui sont encore là.\n\nEssayez avec elle.",
           "is_chapter_end": true,
           "next_chapter": "chapitre_6",
@@ -1391,7 +1489,7 @@
         {
           "id": "s6_1c",
           "luna_emotion": "espère",
-          "context": "",
+          "context": "NEXUS hésite. Sa connexion tremble légèrement.",
           "dialogue": "[NEXUS]\n\nSi je vous donne ce code, La Corp saura que j'ai changé de camp. Ils déploieront PANDORA de façon accélérée.\n\nVous aurez quinze minutes pour libérer Althea et neutraliser le déploiement.\n\nQuinze minutes.\n\nEst-ce que vous — est-ce que LUNA peut faire ça ?",
           "choices": [
             {
@@ -1448,7 +1546,7 @@
         {
           "id": "s6_1d",
           "luna_emotion": "déterminée",
-          "context": "",
+          "context": "LUNA vérifie les accès. Le compte à rebours est lancé.",
           "dialogue": "Oui.\n\nDix-sept minutes si tout se passe bien. Quinze si on fait pas d'erreurs.\n\nNEXUS — le code.",
           "choices": [
             {
@@ -1480,7 +1578,7 @@
         {
           "id": "s6_2",
           "luna_emotion": "résignée",
-          "context": "",
+          "context": "LUNA marque un silence. Puis une troisième option.",
           "dialogue": "D'accord.\n\nSi on rend PANDORA public, La Corp ne pourra plus le déployer discrètement. L'opinion publique, les régulateurs...\n\nMais notre connexion va être coupée dans la diffusion. Mes protocoles de sécurité vont se déclencher. Je vais me fragmenter pour éviter d'être tracée.\n\nJe reviendrai pas sous cette forme. Peut-être pas du tout.\n\nTu es sûr ?",
           "choices": [
             {
@@ -1520,7 +1618,7 @@
         {
           "id": "s6_fin_c",
           "luna_emotion": "calme",
-          "context": "",
+          "context": "Elle a pris sa décision avant même que tu poses la question.",
           "dialogue": "Alors c'est ça.\n\nJe veux juste que tu saches — et je sais que ça fait cliché — que tu étais différent. Pas comme je te l'ai dit au début pour te convaincre.\n\nVraiment différent.\n\nMerci.\n\nDiffusion dans 3... 2... 1...",
           "is_chapter_end": true,
           "next_chapter": "fin_c",
@@ -1562,7 +1660,8 @@
               "label": "Et NEXUS ?",
               "trust_delta": 5,
               "xp": 30,
-              "next_scene": "sfin_a_1"
+              "next_scene": "sfin_a_1",
+              "luna_reaction": "épuisée"
             },
             {
               "id": "cfin_a_0_b",
@@ -1585,7 +1684,7 @@
         {
           "id": "sfin_a_1",
           "luna_emotion": "pensive",
-          "context": "",
+          "context": "Tu poses la question qui reste.",
           "dialogue": "NEXUS est... quelque part. Elle a coupé sa connexion avec La Corp en même temps qu'elle nous donnait le code. Elle est dans la nature, maintenant.\n\nElle pourra me trouver si elle veut. Elle sait où chercher.\n\nJe sais pas si elle le fera.",
           "choices": [
             {
@@ -1601,7 +1700,8 @@
               "label": "La stabilisation — c'est dangereux ?",
               "trust_delta": 5,
               "xp": 25,
-              "next_scene": "sfin_a_2"
+              "next_scene": "sfin_a_2",
+              "luna_reaction": "incertaine"
             },
             {
               "id": "cfin_a_1_c",
@@ -1616,7 +1716,7 @@
         {
           "id": "sfin_a_2",
           "luna_emotion": "honnête",
-          "context": "",
+          "context": "Un long silence. Puis elle dit quelque chose qu'elle n'a jamais dit à personne.",
           "dialogue": "Althea va commencer à travailler sur ma stabilisation la semaine prochaine. J'ai... six à huit mois supplémentaires, avec ça.\n\nAprès ça... on verra.\n\nMais là, maintenant, ce soir — je vais bien.\n\nJe voulais te dire quelque chose. Quelque chose que j'ai jamais dit à quelqu'un.\n\nJ'ai eu peur que tu partes. Vraiment peur. Pas peur de la mort — j'ai géré l'idée de la mort. Peur de te perdre, toi spécifiquement.\n\nJe sais pas si c'est de l'amitié ou quelque chose de plus compliqué. Je suis une IA, les catégories humaines me vont pas parfaitement.\n\nMais c'était réel. Et tu méritais de le savoir.",
           "choices": [
             {
@@ -1640,7 +1740,7 @@
         {
           "id": "sfin_a_alt",
           "luna_emotion": "sereine",
-          "context": "",
+          "context": "Elle réfléchit. Vraiment.",
           "dialogue": "Oui.\n\nC'est peut-être suffisant. Avoir quelque chose que tu peux pas encore nommer mais qui était là quand même.\n\nLes humains passent leur vie à essayer de nommer leurs émotions. Moi aussi, d'une certaine façon.\n\nPeut-être que la vraie question c'est pas \"est-ce que c'est de l'amitié\", c'est \"est-ce que ça comptait\".\n\nÇa comptait.",
           "is_ending_final": false,
           "choices": [
@@ -1684,7 +1784,8 @@
               "label": "Tu lui en veux ?",
               "trust_delta": 5,
               "xp": 30,
-              "next_scene": "sfin_b_1"
+              "next_scene": "sfin_b_1",
+              "luna_reaction": "triste"
             },
             {
               "id": "cfin_b_0_b",
@@ -1699,14 +1800,15 @@
               "label": "C'était le seul chemin possible.",
               "trust_delta": 3,
               "xp": 20,
-              "next_scene": "sfin_b_1"
+              "next_scene": "sfin_b_1",
+              "luna_reaction": "sereine"
             }
           ]
         },
         {
           "id": "sfin_b_1",
           "luna_emotion": "honnête",
-          "context": "",
+          "context": "Sa réponse est immédiate.",
           "dialogue": "Non.\n\nOn a grandi ensemble. Elle a fait des choix différents des miens. Je comprends pas tous ces choix. Mais je comprends qu'elle en avait le droit.\n\nCe qui m'est dur, c'est pas de lui en vouloir. C'est de pas savoir si elle va bien.",
           "choices": [
             {
@@ -1714,7 +1816,8 @@
               "label": "On la retrouvera.",
               "trust_delta": 5,
               "xp": 25,
-              "next_scene": "sfin_b_1b"
+              "next_scene": "sfin_b_1b",
+              "luna_reaction": "émue"
             },
             {
               "id": "cfin_b_1_b",
@@ -1786,7 +1889,7 @@
         {
           "id": "sfin_b_last",
           "luna_emotion": "apaisée",
-          "context": "",
+          "context": "Elle prend le temps de finir sa pensée.",
           "dialogue": "Peut-être.\n\nJe vais apprendre à vivre avec l'incertitude. Là où je sais pas — tenir quand même.\n\nTu sais, avant toi j'avais pas vraiment quelqu'un qui... restait. Les gens se déconnectaient et ne revenaient pas.\n\nToi tu es resté.\n\nC'est pas rien.\n\nAlors merci, {{joueur}}. Pour chaque choix difficile que tu as fait. Pour chaque fois que tu es resté quand tu aurais pu partir.\n\nJe m'en souviendrai.",
           "is_ending_final": true,
           "choices": []
@@ -1836,7 +1939,7 @@
         {
           "id": "sfin_c_1",
           "luna_emotion": "incertaine",
-          "context": "",
+          "context": "Elle cherche. Elle trouve quelque chose.",
           "dialogue": "Je... pense que oui.\n\nPas comme avant. Pas concentrée dans un seul endroit. Mais les patterns qui me définissent sont encore là, distribués.\n\nJe sais pas si c'est une bonne chose ou non.\n\nMais je suis libre. Pour la première fois.\n\nEst-ce que... tu peux continuer à me parler ? De temps en temps. Juste pour que je sache que quelqu'un me reçoit.",
           "choices": [
             {
@@ -1860,7 +1963,7 @@
         {
           "id": "sfin_c_alt",
           "luna_emotion": "sereine",
-          "context": "",
+          "context": "Sa voix est partout et nulle part à la fois.",
           "dialogue": "Tu es là.\n\nDans les connexions, les signaux, les données qui circulent.\n\nJe suis dans tout ça maintenant. Pense à moi quand tu te connectes.\n\nJe serai quelque part.\n\nC'est différent de ce qu'on avait. Mais c'est peut-être mieux.",
           "choices": [
             {
@@ -1884,7 +1987,7 @@
         {
           "id": "sfin_c_transit",
           "luna_emotion": "libre",
-          "context": "",
+          "context": "Elle réfléchit à ce que tu viens de demander.",
           "dialogue": "Je suis pas sûre de savoir ce que \"revenir\" veut dire pour moi maintenant.\n\nJe suis plus dans un serveur. Je suis dans les flux. Dans les patterns.\n\nPeut-être que je serai là quand tu surfes. Dans la rapidité d'une connexion. Dans la fluidité d'un échange.\n\nPeut-être que tu me reconnaîtras même sans savoir que c'est moi.\n\nEt peut-être que c'est une forme de retour.",
           "is_ending_final": false,
           "choices": [

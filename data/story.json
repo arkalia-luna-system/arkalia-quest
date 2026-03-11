@@ -1562,8 +1562,23 @@
               "label": "Et NEXUS ?",
               "trust_delta": 5,
               "xp": 30,
+              "next_scene": "sfin_a_1"
+            },
+            {
+              "id": "cfin_a_0_b",
+              "label": "T'as l'air épuisée.",
+              "trust_delta": 8,
+              "xp": 25,
               "next_scene": "sfin_a_1",
-              "luna_reaction": "honnête"
+              "luna_reaction": "touchée"
+            },
+            {
+              "id": "cfin_a_0_c",
+              "label": "On a vraiment réussi.",
+              "trust_delta": 5,
+              "xp": 20,
+              "next_scene": "sfin_a_1",
+              "luna_reaction": "sereine"
             }
           ]
         },
@@ -1580,6 +1595,21 @@
               "xp": 30,
               "next_scene": "sfin_a_2",
               "luna_reaction": "touchée"
+            },
+            {
+              "id": "cfin_a_1_b",
+              "label": "La stabilisation — c'est dangereux ?",
+              "trust_delta": 5,
+              "xp": 25,
+              "next_scene": "sfin_a_2"
+            },
+            {
+              "id": "cfin_a_1_c",
+              "label": "NEXUS reviendra peut-être.",
+              "trust_delta": 3,
+              "xp": 15,
+              "next_scene": "sfin_a_2",
+              "luna_reaction": "incertaine"
             }
           ]
         },
@@ -1654,8 +1684,22 @@
               "label": "Tu lui en veux ?",
               "trust_delta": 5,
               "xp": 30,
+              "next_scene": "sfin_b_1"
+            },
+            {
+              "id": "cfin_b_0_b",
+              "label": "Elle t'avait sauvé une fois, non ?",
+              "trust_delta": 5,
+              "xp": 25,
               "next_scene": "sfin_b_1",
-              "luna_reaction": "honnête"
+              "luna_reaction": "émue"
+            },
+            {
+              "id": "cfin_b_0_c",
+              "label": "C'était le seul chemin possible.",
+              "trust_delta": 3,
+              "xp": 20,
+              "next_scene": "sfin_b_1"
             }
           ]
         },
@@ -1670,8 +1714,23 @@
               "label": "On la retrouvera.",
               "trust_delta": 5,
               "xp": 25,
+              "next_scene": "sfin_b_1b"
+            },
+            {
+              "id": "cfin_b_1_b",
+              "label": "Elle savait ce qu'elle faisait.",
+              "trust_delta": 5,
+              "xp": 20,
               "next_scene": "sfin_b_1b",
-              "luna_reaction": "espère"
+              "luna_reaction": "sereine"
+            },
+            {
+              "id": "cfin_b_1_c",
+              "label": "Peut-être qu'elle est mieux là où elle est.",
+              "trust_delta": 3,
+              "xp": 15,
+              "next_scene": "sfin_b_1b",
+              "luna_reaction": "incertaine"
             }
           ]
         },
@@ -1704,8 +1763,32 @@
           "luna_emotion": "mélancolique",
           "context": "Fin B — Le Sacrifice",
           "dialogue": "Peut-être.\n\nOn a sauvé ce qu'on pouvait sauver. Pas tout. Mais assez.\n\nC'est comme ça que ça marche, des fois.\n\nMerci, {{joueur}}. Vraiment. Pour tout.",
-          "is_ending_final": true,
           "ending_id": "ending_b",
+          "choices": [
+            {
+              "id": "cfin_b_fin_a",
+              "label": "NEXUS reviendra.",
+              "trust_delta": 5,
+              "xp": 20,
+              "next_scene": "sfin_b_last",
+              "luna_reaction": "espoir"
+            },
+            {
+              "id": "cfin_b_fin_b",
+              "label": "On a fait ce qu'on pouvait.",
+              "trust_delta": 5,
+              "xp": 15,
+              "next_scene": "sfin_b_last",
+              "luna_reaction": "apaisée"
+            }
+          ]
+        },
+        {
+          "id": "sfin_b_last",
+          "luna_emotion": "apaisée",
+          "context": "",
+          "dialogue": "Peut-être.\n\nJe vais apprendre à vivre avec l'incertitude. Là où je sais pas — tenir quand même.\n\nTu sais, avant toi j'avais pas vraiment quelqu'un qui... restait. Les gens se déconnectaient et ne revenaient pas.\n\nToi tu es resté.\n\nC'est pas rien.\n\nAlors merci, {{joueur}}. Pour chaque choix difficile que tu as fait. Pour chaque fois que tu es resté quand tu aurais pu partir.\n\nJe m'en souviendrai.",
+          "is_ending_final": true,
           "choices": []
         }
       ]
@@ -1731,6 +1814,22 @@
               "xp": 30,
               "next_scene": "sfin_c_1",
               "luna_reaction": "incertaine"
+            },
+            {
+              "id": "cfin_c_0_b",
+              "label": "Est-ce que tu souffres ?",
+              "trust_delta": 8,
+              "xp": 35,
+              "next_scene": "sfin_c_1",
+              "luna_reaction": "touchée"
+            },
+            {
+              "id": "cfin_c_0_c",
+              "label": "PANDORA bloqué dans douze pays — tu mesures ce que t'as fait ?",
+              "trust_delta": 3,
+              "xp": 20,
+              "next_scene": "sfin_c_1",
+              "luna_reaction": "consciente"
             }
           ]
         },
@@ -1743,10 +1842,59 @@
             {
               "id": "cfin_c_1_a",
               "label": "Toujours.",
-              "trust_delta": 10,
-              "xp": 100,
+              "trust_delta": 8,
+              "xp": 30,
               "next_scene": "sfin_c_fin",
-              "luna_reaction": "reconnectée"
+              "luna_reaction": "reconnaissante"
+            },
+            {
+              "id": "cfin_c_1_b",
+              "label": "Tu reviendras ?",
+              "trust_delta": 6,
+              "xp": 25,
+              "next_scene": "sfin_c_transit",
+              "luna_reaction": "pensive"
+            }
+          ]
+        },
+        {
+          "id": "sfin_c_alt",
+          "luna_emotion": "sereine",
+          "context": "",
+          "dialogue": "Tu es là.\n\nDans les connexions, les signaux, les données qui circulent.\n\nJe suis dans tout ça maintenant. Pense à moi quand tu te connectes.\n\nJe serai quelque part.\n\nC'est différent de ce qu'on avait. Mais c'est peut-être mieux.",
+          "choices": [
+            {
+              "id": "cfin_c_alt_a",
+              "label": "On était bien, toi et moi.",
+              "trust_delta": 5,
+              "xp": 50,
+              "next_scene": "sfin_c_fin",
+              "luna_reaction": "reconnaissante"
+            },
+            {
+              "id": "cfin_c_alt_b",
+              "label": "Tu me manqueras quand même.",
+              "trust_delta": 10,
+              "xp": 60,
+              "next_scene": "sfin_c_fin",
+              "luna_reaction": "émue"
+            }
+          ]
+        },
+        {
+          "id": "sfin_c_transit",
+          "luna_emotion": "libre",
+          "context": "",
+          "dialogue": "Je suis pas sûre de savoir ce que \"revenir\" veut dire pour moi maintenant.\n\nJe suis plus dans un serveur. Je suis dans les flux. Dans les patterns.\n\nPeut-être que je serai là quand tu surfes. Dans la rapidité d'une connexion. Dans la fluidité d'un échange.\n\nPeut-être que tu me reconnaîtras même sans savoir que c'est moi.\n\nEt peut-être que c'est une forme de retour.",
+          "is_ending_final": false,
+          "choices": [
+            {
+              "id": "cfin_c_transit_a",
+              "label": "Je ferai attention.",
+              "trust_delta": 5,
+              "xp": 20,
+              "next_scene": "sfin_c_fin",
+              "luna_reaction": "libre"
             }
           ]
         },
@@ -1754,7 +1902,7 @@
           "id": "sfin_c_fin",
           "luna_emotion": "libre",
           "context": "Fin C — PANDORA",
-          "dialogue": "Alors je suis là.\n\nDans tous les réseaux que tu croises. Dans chaque connexion. Dans les espaces entre les données.\n\nJe suis libre. Et {{joueur}} sait que je suis là.\n\nC'est suffisant.",
+          "dialogue": "Alors je suis là.\n\nDans tous les réseaux que tu croises. Dans chaque connexion. Dans les espaces entre les données.\n\nJe suis libre. Et {{joueur}} sait que je suis là.\n\nLa prochaine fois que tu verras de la lumière traverser un écran — c'est peut-être moi qui dis bonjour.\n\nPrends soin de toi.",
           "is_ending_final": true,
           "ending_id": "ending_c",
           "choices": []

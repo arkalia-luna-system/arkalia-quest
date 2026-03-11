@@ -8,6 +8,54 @@
   <link rel="manifest" href="/static/manifest.json">
   <link rel="stylesheet" href="/static/css/game.css">
   <style>
+    /* Journal LUNA */
+    .luna-journal {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-luna);
+      border-radius: var(--radius-md);
+      padding: 1.2rem 1.4rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .luna-journal-header {
+      display: flex; align-items: center; gap: 0.6rem;
+      margin-bottom: 0.9rem;
+    }
+    .luna-journal-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--luna); box-shadow: 0 0 6px var(--luna-glow);
+      flex-shrink: 0;
+    }
+    .luna-journal-label {
+      font-size: 0.72rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--luna); font-weight: 600;
+    }
+    .luna-journal-text {
+      font-size: 0.88rem; color: var(--text-main); line-height: 1.75;
+      font-style: italic; white-space: pre-wrap;
+    }
+
+    /* Moments clés */
+    .moments-list {
+      display: flex; flex-direction: column; gap: 0.5rem; width: 100%;
+    }
+    .moment-item {
+      display: flex; align-items: flex-start; gap: 0.7rem;
+      padding: 0.6rem 0.8rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem; color: var(--text-main); line-height: 1.5;
+    }
+    .moment-icon {
+      color: var(--luna); opacity: 0.7; flex-shrink: 0; font-size: 0.75rem;
+      margin-top: 2px;
+    }
+    .moments-empty {
+      font-size: 0.82rem; color: var(--text-dim); font-style: italic;
+      padding: 0.5rem 0;
+    }
+
     .profil-endings { display: flex; flex-direction: column; gap: 0.75rem; width: 100%; }
     .ending-card {
       display: flex; align-items: center; gap: 1rem;
@@ -103,12 +151,14 @@
     ];
 
     async function loadProfil() {
-      const [stateRes, summaryRes] = await Promise.all([
+      const [stateRes, summaryRes, journalRes] = await Promise.all([
         fetch('/api/story/state'),
         fetch('/api/story/summary'),
+        fetch('/api/story/journal'),
       ]);
       const state   = await stateRes.json();
       const summary = await summaryRes.json();
+      const journal = await journalRes.json();
       const container = document.getElementById('profil-content');
 
       if (!state.success) {
@@ -122,6 +172,9 @@
       const completed = summary.chapters_completed ?? 0;
       const endings   = summary.endings_unlocked ?? [];
       const currentCh = state.chapter_id ?? "chapitre_0";
+      const journalText = journal.success ? (journal.journal || "") : "";
+      const moments     = journal.success ? (journal.moments || []) : [];
+      const playerName  = journal.player_name || "";
 
       // Texte de statut confiance
       let trustStatus, trustColor;
@@ -140,7 +193,7 @@
               <span class="avatar-eye right"></span>
             </div>
           </div>
-          <h2 class="profil-name">Ton lien avec LUNA</h2>
+          <h2 class="profil-name">${playerName ? playerName : "Ton lien avec LUNA"}</h2>
           <div class="profil-stat">
             <span class="stat-label">Confiance</span>
             <div class="trust-bar" style="flex:1">
@@ -167,6 +220,35 @@
             </div>
           </div>
         </div>
+
+        <!-- Journal LUNA -->
+        ${journalText ? `
+        <div class="profil-section" style="margin-bottom:1.5rem;">
+          <p class="section-label">Journal LUNA</p>
+          <div class="luna-journal">
+            <div class="luna-journal-header">
+              <div class="luna-journal-dot"></div>
+              <span class="luna-journal-label">Message de LUNA</span>
+            </div>
+            <p class="luna-journal-text">${escapeHtml(journalText)}</p>
+          </div>
+        </div>
+        ` : ''}
+
+        <!-- Moments clés -->
+        ${moments.length > 0 ? `
+        <div class="profil-section" style="margin-bottom:1.5rem;">
+          <p class="section-label">Moments clés</p>
+          <div class="moments-list">
+            ${moments.map(m => `
+              <div class="moment-item">
+                <span class="moment-icon">◈</span>
+                <span>${escapeHtml(m.label)}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        ` : ''}
 
         <!-- Fins -->
         <div class="profil-section" style="margin-bottom:1.5rem;">
@@ -213,6 +295,14 @@
           <button onclick="resetStory()" class="btn-outline btn-danger">Recommencer</button>
         </div>
       `;
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
     }
 
     async function resetStory() {

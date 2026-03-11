@@ -63,10 +63,13 @@ function initDOM() {
 // ── Boot ──────────────────────────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
   initDOM();
+  showLoadingSkeleton();
   loadCurrentState();
   setupAdvanceButton();
   setupReplayButton();
   setupSkipTypewriter();
+  setupTouchSkip();
+  setupKeyboardShortcuts();
   setupAudioContext();
   setupSfxButton();
 });
@@ -85,6 +88,16 @@ function setupSfxButton() {
     localStorage.setItem("luna_sfx", _sfxEnabled ? "on" : "off");
     update();
   });
+}
+
+// ── Skeleton de chargement ───────────────────────────────────────────────
+function showLoadingSkeleton() {
+  if (DOM.dialogueText) {
+    DOM.dialogueText.innerHTML = '<span class="loading-skeleton-line"></span><span class="loading-skeleton-line short"></span>';
+  }
+  if (DOM.sceneContext) DOM.sceneContext.textContent = "Connexion au réseau LUNA…";
+  if (DOM.choicesContainer) DOM.choicesContainer.hidden = true;
+  if (DOM.advanceContainer) DOM.advanceContainer.hidden = true;
 }
 
 // ── Chargement état courant ───────────────────────────────────────────────
@@ -248,6 +261,59 @@ function setupSkipTypewriter() {
   if (!DOM.dialogueBox) return;
   DOM.dialogueBox.addEventListener("click", () => {
     if (!_typewriterDone) _typewriterFast = true;
+  });
+}
+
+// ── Touch mobile : tap sur le dialogue pour skip typewriter ───────────────
+function setupTouchSkip() {
+  if (!DOM.dialogueBox) return;
+  DOM.dialogueBox.addEventListener("touchend", (e) => {
+    if (!_typewriterDone) {
+      _typewriterFast = true;
+      e.preventDefault();
+    }
+  }, { passive: false });
+}
+
+// ── Raccourcis clavier ────────────────────────────────────────────────────
+function setupKeyboardShortcuts() {
+  document.addEventListener("keydown", (e) => {
+    // Ignorer si focus dans un input/textarea
+    if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement?.tagName)) return;
+
+    // Espace / Entrée : skip typewriter ou avancer chapitre
+    if (e.key === " " || e.key === "Enter") {
+      if (!_typewriterDone) {
+        _typewriterFast = true;
+        e.preventDefault();
+        return;
+      }
+      if (DOM.advanceContainer && !DOM.advanceContainer.hidden) {
+        DOM.advanceBtn?.click();
+        e.preventDefault();
+        return;
+      }
+    }
+
+    // 1 / 2 / 3 : sélectionner un choix directement
+    if (["1", "2", "3"].includes(e.key)) {
+      if (!DOM.choicesContainer || DOM.choicesContainer.hidden) return;
+      const idx = parseInt(e.key, 10) - 1;
+      const btns = DOM.choicesContainer.querySelectorAll(".choice-btn:not(:disabled)");
+      if (btns[idx]) {
+        btns[idx].focus();
+        btns[idx].click();
+        e.preventDefault();
+      }
+    }
+
+    // R : rejouer (depuis l'écran de fin)
+    if (e.key === "r" || e.key === "R") {
+      if (DOM.endingContainer && !DOM.endingContainer.hidden) {
+        DOM.replayBtn?.click();
+        e.preventDefault();
+      }
+    }
   });
 }
 

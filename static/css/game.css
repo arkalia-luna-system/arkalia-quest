@@ -963,6 +963,42 @@ button { cursor: pointer; font-family: inherit; }
 .loading-text { color: var(--text-dim); font-style: italic; }
 .error-text   { color: var(--danger); }
 
+/* Skeleton loading */
+.loading-skeleton-line {
+  display: block;
+  height: 1em;
+  width: 80%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--surface) 25%, var(--border) 50%, var(--surface) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+  margin-bottom: 0.6em;
+  opacity: 0.5;
+}
+.loading-skeleton-line.short { width: 50%; }
+
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Hint raccourcis clavier */
+.keyboard-hint {
+  display: none;
+  position: fixed;
+  bottom: 1.2rem;
+  right: 1.2rem;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  opacity: 0.5;
+  pointer-events: none;
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+}
+@media (hover: hover) and (pointer: fine) {
+  .keyboard-hint { display: block; }
+}
+
 [hidden] { display: none !important; }
 
 /* ============================================================

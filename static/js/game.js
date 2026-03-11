@@ -18,7 +18,7 @@ let _typewriterDone    = false;
 let _choicesLocked     = false;
 let _currentSceneId    = null;
 let _audioCtx          = null;
-let _sfxEnabled        = true;
+let _sfxEnabled        = localStorage.getItem("luna_sfx") !== "off";
 
 // ── DOM ───────────────────────────────────────────────────────────────────
 const $ = (id) => document.getElementById(id);
@@ -68,7 +68,24 @@ document.addEventListener("DOMContentLoaded", () => {
   setupReplayButton();
   setupSkipTypewriter();
   setupAudioContext();
+  setupSfxButton();
 });
+
+function setupSfxButton() {
+  const btn = document.getElementById("sfx-btn");
+  if (!btn) return;
+  const update = () => {
+    btn.textContent  = _sfxEnabled ? "🔊" : "🔇";
+    btn.title        = _sfxEnabled ? "Couper le son" : "Activer le son";
+    btn.style.opacity = _sfxEnabled ? "0.7" : "0.35";
+  };
+  update();
+  btn.addEventListener("click", () => {
+    _sfxEnabled = !_sfxEnabled;
+    localStorage.setItem("luna_sfx", _sfxEnabled ? "on" : "off");
+    update();
+  });
+}
 
 // ── Chargement état courant ───────────────────────────────────────────────
 async function loadCurrentState() {
@@ -108,17 +125,10 @@ function updateHeader(state) {
   if (DOM.chapterTitle)    DOM.chapterTitle.textContent    = state.chapter_title || "";
   if (DOM.chapterProgress) DOM.chapterProgress.textContent = `Chap. ${state.chapter_progress} / ${state.total_chapters}`;
 
-  // Afficher le prénom du joueur si disponible
+  // Prénom du joueur dans le header
   if (DOM.playerNameTag && state.player_name) {
     DOM.playerNameTag.textContent = state.player_name;
     DOM.playerNameTag.style.display = "inline";
-  }
-
-  // Afficher le prénom du joueur dans le header
-  const nameTag = document.getElementById("player-name-tag");
-  if (nameTag && state.player_name) {
-    nameTag.textContent = state.player_name.toUpperCase();
-    nameTag.style.display = "inline";
   }
 
   const trust = state.luna_trust ?? 50;
@@ -286,6 +296,8 @@ async function handleChoice(sceneId, choiceId, btnEl) {
     if (result.trust_delta > 0 && _sfxEnabled) playTrustUp();
     if (result.trust_delta < 0 && _sfxEnabled) playTrustDown();
 
+    showSaveToast();
+
     if (result.luna_reaction) await showLunaReaction(result.luna_reaction);
 
     setTimeout(() => renderState(data.next_state), REACTION_SHOW_MS * 0.3);
@@ -340,11 +352,18 @@ function showChapterTransition(chapterId, title) {
     const el = DOM.chapterTransition;
     if (!el) return resolve();
 
-    // Extraire le numéro du chapitre
-    const match = chapterId?.match(/\d+/);
-    const num   = match ? parseInt(match[0]) + 1 : "";
+    // Détecter si c'est un chapitre de fin (fin_a, fin_b, fin_c)
+    const isEnding = chapterId?.startsWith("fin_");
+    let label;
+    if (isEnding) {
+      const finLetter = chapterId?.slice(-1)?.toUpperCase() || "";
+      label = `FIN ${finLetter}`;
+    } else {
+      const match = chapterId?.match(/\d+/);
+      label = match ? `CHAPITRE ${parseInt(match[0])}` : "CHAPITRE";
+    }
 
-    if (DOM.transitionNum)   DOM.transitionNum.textContent   = `CHAPITRE ${num}`;
+    if (DOM.transitionNum)   DOM.transitionNum.textContent   = label;
     if (DOM.transitionTitle) DOM.transitionTitle.textContent = title || "";
 
     el.hidden = false;
@@ -479,6 +498,14 @@ function showTrustDelta(delta) {
   el.textContent = `${delta > 0 ? "+" : ""}${delta} confiance`;
   document.body.appendChild(el);
   setTimeout(() => el.remove(), 1800);
+}
+
+function showSaveToast() {
+  const toast = document.createElement("div");
+  toast.className = "save-toast";
+  toast.textContent = "✓ sauvegardé";
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 1600);
 }
 
 // ── Utilitaires DOM ───────────────────────────────────────────────────────
@@ -656,4 +683,12 @@ async function apiPost(url, body) {
     try { return await res.json(); } catch { throw new Error(`HTTP ${res.status}`); }
   }
   return res.json();
+}
+
+// ── Service Worker (PWA) ──────────────────────────────────────────────────
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/static/js/service-worker.js")
+      .catch(() => {}); // Silencieux si bloqué
+  });
 }

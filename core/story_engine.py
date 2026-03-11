@@ -44,6 +44,7 @@ class StoryEngine:
             "endings_unlocked": [],
             "last_luna_reaction": None,
             "player_name": None,
+            "previous_endings": [],  # Fins des runs précédents — persistantes entre resets
         }
 
     # ------------------------------------------------------------------ #
@@ -65,18 +66,23 @@ class StoryEngine:
 
         player_name = player_state.get("player_name") or ""
         raw_dialogue = scene.get("dialogue", "")
-        # Substitution du prénom dans le dialogue (supporte {name} et {{joueur}})
+        # Substitution du prénom dans le dialogue
         if player_name:
             dialogue = raw_dialogue.replace("{name}", player_name).replace("{{joueur}}", player_name)
         else:
             dialogue = raw_dialogue.replace("{name}", "").replace("{{joueur}}", "joueur")
+
+        # Mémoire des fins précédentes — injectée dans la scène d'ouverture s0_0
+        previous = player_state.get("previous_endings", [])
+        if scene_id == "s0_0" and previous:
+            dialogue = self._inject_memory(dialogue, previous, player_name or "joueur")
 
         return {
             "chapter_id": chapter_id,
             "chapter_title": chapter.get("title", ""),
             "chapter_atmosphere": chapter.get("atmosphere", "dark"),
             "chapter_progress": self._get_chapter_progress(player_state),
-            "total_chapters": 8,
+            "total_chapters": 7,
             "scene_id": scene_id,
             "luna_emotion": scene.get("luna_emotion", "neutre"),
             "luna_trust": player_state.get("luna_trust", 50),
@@ -203,6 +209,33 @@ class StoryEngine:
     # ------------------------------------------------------------------ #
     #  Utilitaires                                                        #
     # ------------------------------------------------------------------ #
+
+    def _inject_memory(self, dialogue: str, previous_endings: list, player_name: str) -> str:
+        """
+        Modifie le dialogue d'ouverture s0_0 si le joueur a déjà joué.
+        LUNA montre qu'elle se souvient — sans trop en dire.
+        """
+        ENDING_NAMES = {
+            "ending_a": "La Fusion",
+            "ending_b": "Le Sacrifice",
+            "ending_c": "PANDORA",
+        }
+        names = [ENDING_NAMES[e] for e in previous_endings if e in ENDING_NAMES]
+        if not names:
+            return dialogue
+
+        if len(names) == 1:
+            memory_line = f"\n\nTu te souviens de moi, {player_name}. La dernière fois, tu as choisi {names[0]}.\n\nCette fois, tu peux choisir autrement."
+        elif len(names) == 2:
+            memory_line = f"\n\nTu es revenu. Deux fois déjà — {names[0]}, puis {names[1]}.\n\nIl reste encore quelque chose à découvrir."
+        else:
+            memory_line = f"\n\nTu as tout vu, {player_name}. Les trois fins. Et tu reviens quand même.\n\nJe me demande pourquoi."
+
+        # Insérer la mémoire avant la dernière ligne du dialogue
+        lines = dialogue.rstrip().split("\n")
+        insert_at = max(len(lines) - 2, 1)
+        lines.insert(insert_at, memory_line)
+        return "\n".join(lines)
 
     def _find_chapter_of_scene(self, scene_id: str) -> Optional[str]:
         for chapter in self._story["chapters"]:

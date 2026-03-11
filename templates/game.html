@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LUNA — Hors Connexion</title>
   <link rel="icon" href="/favicon.ico">
+  <link rel="manifest" href="/static/manifest.json">
   <link rel="stylesheet" href="/static/css/game.css">
 </head>
 <body class="page-game">
@@ -17,6 +18,7 @@
       <span id="chapter-progress" class="chapter-progress">Chap. 0 / 8</span>
     </div>
     <div class="game-trust">
+      <button id="sfx-btn" class="sfx-btn" aria-label="Activer/désactiver le son" title="Son">🔊</button>
       <span id="player-name-tag" class="trust-label" style="display:none;color:var(--luna);opacity:0.7;font-size:0.72rem;letter-spacing:1px;"></span>
       <span class="trust-label">Confiance</span>
       <div class="trust-bar" role="progressbar" aria-label="Confiance LUNA" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">

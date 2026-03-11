@@ -64,10 +64,28 @@ def load_state(player_id: str) -> Optional[dict]:
 
 
 def delete_state(player_id: str) -> None:
-    """Supprime la sauvegarde du joueur (reset)."""
+    """
+    Supprime la sauvegarde du joueur (reset).
+    Preserve les fins débloquées dans previous_endings pour que LUNA s'en souvienne.
+    """
+    old = load_state(player_id)
+    previous = []
+    if old:
+        previous = old.get("previous_endings", [])
+        for eid in old.get("endings_unlocked", []):
+            if eid not in previous:
+                previous.append(eid)
+
     with _get_conn() as conn:
         conn.execute("DELETE FROM story_saves WHERE player_id = ?", (player_id,))
         conn.commit()
+
+    # Réinjecter dans le nouvel état vide si il y a eu des fins
+    if previous:
+        from core.story_engine import get_story_engine
+        new_state = get_story_engine().new_player_state()
+        new_state["previous_endings"] = previous
+        save_state(player_id, new_state)
 
 
 def get_save_summary(player_id: str) -> Optional[dict]:

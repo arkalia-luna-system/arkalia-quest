@@ -5,82 +5,106 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Classement — LUNA</title>
   <link rel="icon" href="/favicon.ico">
+  <link rel="manifest" href="/static/manifest.json">
   <link rel="stylesheet" href="/static/css/game.css">
   <style>
-    .lb-header-info {
-      font-size: 0.78rem;
-      color: var(--text-dim);
-      text-align: center;
-      padding: 0 1rem 1.5rem;
-    }
-
-    .lb-table {
+    .leaderboard-table {
       width: 100%;
-      border-collapse: collapse;
-      font-size: 0.88rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
-
-    .lb-table th {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      padding: 8px 12px;
-      border-bottom: 1px solid var(--border);
-      text-align: left;
-    }
-
-    .lb-table th:last-child,
-    .lb-table td:last-child { text-align: right; }
 
     .lb-row {
-      border-bottom: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
-      transition: background var(--speed-fast);
+      display: grid;
+      grid-template-columns: 40px 1fr auto auto auto;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem 1.2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      animation: fade-in var(--speed-norm) ease-out both;
+      transition: border-color var(--speed-fast);
     }
-    .lb-row:hover { background: var(--bg-card); }
-    .lb-row.lb-me { background: color-mix(in srgb, var(--luna) 8%, transparent); }
-    .lb-row.lb-me td { color: var(--luna); }
 
-    .lb-row td { padding: 12px 12px; vertical-align: middle; }
+    .lb-row:hover { border-color: var(--border-luna); }
+
+    .lb-row.lb-me {
+      border-color: var(--border-action);
+      background: rgba(61, 214, 245, 0.04);
+    }
+
+    .lb-row.lb-top-1 { border-color: rgba(255,215,0,0.4); }
+    .lb-row.lb-top-2 { border-color: rgba(192,192,192,0.4); }
+    .lb-row.lb-top-3 { border-color: rgba(205,127,50,0.4); }
 
     .lb-rank {
       font-family: var(--font-mono);
-      font-size: 0.8rem;
+      font-size: 0.85rem;
+      font-weight: 700;
       color: var(--text-dim);
-      width: 32px;
+      text-align: center;
     }
-    .lb-rank-1 { color: #fbbf24; font-weight: 700; }
-    .lb-rank-2 { color: #94a3b8; font-weight: 700; }
-    .lb-rank-3 { color: #c97c4a; font-weight: 700; }
+    .lb-rank.rank-1 { color: gold; }
+    .lb-rank.rank-2 { color: silver; }
+    .lb-rank.rank-3 { color: #cd7f32; }
 
     .lb-name {
+      font-size: 0.95rem;
       font-weight: 600;
-      color: var(--text-main);
+      color: var(--text-white);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    .lb-name-me { color: var(--luna); }
+    .lb-name.is-me { color: var(--action); }
 
-    .lb-endings {
-      display: flex;
-      gap: 4px;
-      align-items: center;
+    .lb-meta {
+      font-size: 0.72rem;
+      color: var(--text-dim);
     }
 
-    .lb-ending-icon {
-      font-size: 0.85rem;
-      line-height: 1;
+    .lb-chapters {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      white-space: nowrap;
     }
 
     .lb-xp {
       font-family: var(--font-mono);
-      font-size: 0.9rem;
+      font-size: 1rem;
       font-weight: 700;
-      color: var(--text-main);
+      color: var(--luna);
+      white-space: nowrap;
+      min-width: 64px;
+      text-align: right;
     }
 
-    .lb-trust {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
+    .lb-endings {
+      display: flex;
+      gap: 4px;
+    }
+
+    .lb-ending-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--text-dim);
+    }
+    .lb-ending-dot.ending_a { background: var(--success); }
+    .lb-ending-dot.ending_b { background: var(--luna); }
+    .lb-ending-dot.ending_c { background: var(--action); }
+
+    .lb-header-row {
+      display: grid;
+      grid-template-columns: 40px 1fr auto auto auto;
+      gap: 1rem;
+      padding: 0 1.2rem 0.5rem;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
       color: var(--text-dim);
     }
 
@@ -89,122 +113,171 @@
       padding: 3rem 1rem;
       color: var(--text-dim);
       font-style: italic;
-      font-size: 0.9rem;
     }
 
-    .lb-legend {
-      display: flex;
-      gap: 1.25rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 1.5rem;
-      font-size: 0.75rem;
-      color: var(--text-dim);
+    .lb-you-badge {
+      font-size: 0.6rem;
+      background: var(--action-dim);
+      color: var(--action);
+      border: 1px solid var(--border-action);
+      border-radius: var(--radius-full);
+      padding: 1px 6px;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      margin-left: 6px;
+      text-transform: uppercase;
     }
-    .lb-legend span { display: flex; align-items: center; gap: 5px; }
+
+    .lb-stats-bar {
+      display: flex;
+      gap: 1.5rem;
+      padding: 1rem 1.2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .lb-stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .lb-stat-val {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-white);
+    }
+    .lb-stat-lbl {
+      font-size: 0.68rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
   </style>
 </head>
 <body class="page-profil">
 
   <header class="simple-header">
-    <a href="/" class="nav-back">←</a>
+    <a href="/" class="nav-back" aria-label="Accueil">←</a>
     <h1 class="page-title">Classement</h1>
+    <a href="/game" class="btn-outline" style="padding:6px 14px;font-size:0.82rem;">Jouer →</a>
   </header>
 
   <main class="profil-main">
-    <div class="profil-content">
-
-      <p class="lb-header-info">
-        Les meilleurs joueurs — classés par XP collectés.
-        <br>Les prénoms sont partiellement masqués.
-      </p>
-
-      <div id="lb-container">
-        <p class="lb-empty">Chargement…</p>
-      </div>
-
-      <div class="lb-legend">
-        <span><span style="color:#00d4ff">◉</span> Fin A — La Fusion</span>
-        <span><span style="color:#8b5cf6">◈</span> Fin B — Le Sacrifice</span>
-        <span><span style="color:#f97316">◇</span> Fin C — PANDORA</span>
-      </div>
-
-      <div style="text-align:center;margin-top:2rem;">
-        <a href="/game" class="btn-primary" style="display:inline-flex;">
-          <span class="btn-icon">▶</span> Continuer l'histoire
-        </a>
-      </div>
-
+    <div class="profil-content" id="lb-content">
+      <p class="loading-text" style="text-align:center;padding:3rem">Chargement...</p>
     </div>
   </main>
 
   <script>
-    const ENDING_ICONS = {
-      ending_a: { icon: "◉", color: "#00d4ff" },
-      ending_b: { icon: "◈", color: "#8b5cf6" },
-      ending_c: { icon: "◇", color: "#f97316" },
-    };
+    const ENDING_IDS = ["ending_a", "ending_b", "ending_c"];
+    const ENDING_LABELS = { ending_a: "FIN A", ending_b: "FIN B", ending_c: "FIN C" };
 
     async function loadLeaderboard() {
-      const container = document.getElementById("lb-container");
-      try {
-        const [lbRes, meRes] = await Promise.all([
-          fetch("/api/story/leaderboard"),
-          fetch("/api/story/summary"),
-        ]);
-        const lb = await lbRes.json();
-        const me = await meRes.json();
+      const container = document.getElementById("lb-content");
 
-        if (!lb.success || !lb.scores?.length) {
-          container.innerHTML = `<p class="lb-empty">Pas encore assez de joueurs.<br>Sois le premier à terminer l'histoire.</p>`;
-          return;
-        }
+      // Charger classement + état joueur courant en parallèle
+      const [lbRes, meRes] = await Promise.allSettled([
+        fetch("/api/story/leaderboard").then(r => r.json()),
+        fetch("/api/story/summary").then(r => r.json()),
+      ]);
 
-        const myXp = me.success && me.exists ? me.xp : -1;
-        const myName = me.success && me.player_name ? me.player_name : null;
+      const lb     = lbRes.status === "fulfilled" && lbRes.value.success ? lbRes.value.scores : [];
+      const me     = meRes.status === "fulfilled" && meRes.value.success ? meRes.value : null;
+      const myName = me?.player_name || null;
+      const myXp   = me?.xp ?? 0;
 
-        const rows = lb.scores.map((p, i) => {
-          const rank = i + 1;
-          const rankClass = rank <= 3 ? `lb-rank-${rank}` : "";
-          const isMe = myXp > 0 && p.xp === myXp;
+      if (lb.length === 0) {
+        container.innerHTML = `
+          <div class="lb-empty">
+            <p>Aucun joueur avec de la progression pour l'instant.</p>
+            <p style="margin-top:0.5rem;font-size:0.82rem;">Commence l'histoire pour apparaître ici.</p>
+            <a href="/game" class="btn-primary" style="margin-top:1.5rem;display:inline-flex;">
+              Jouer maintenant
+            </a>
+          </div>
+        `;
+        return;
+      }
 
-          const endingsHtml = (p.endings_unlocked || []).map(id => {
-            const e = ENDING_ICONS[id];
-            return e ? `<span class="lb-ending-icon" style="color:${e.color}" title="${id}">${e.icon}</span>` : "";
-          }).join("") || `<span style="color:var(--border)">—</span>`;
+      // Stats globales
+      const totalXp    = lb.reduce((s, e) => s + e.xp, 0);
+      const totalFinA  = lb.filter(e => (e.endings_unlocked || []).includes("ending_a")).length;
+      const avgTrust   = Math.round(lb.reduce((s, e) => s + e.luna_trust, 0) / lb.length);
 
-          return `
-            <tr class="lb-row ${isMe ? "lb-me" : ""}">
-              <td class="lb-rank ${rankClass}">${rank <= 3 ? ["🥇","🥈","🥉"][rank-1] : rank}</td>
-              <td class="lb-name ${isMe ? "lb-name-me" : ""}">${p.name}${isMe ? " ← toi" : ""}</td>
-              <td class="lb-xp">${p.xp.toLocaleString()}</td>
-              <td><span class="lb-trust">${p.luna_trust}%</span></td>
-              <td><div class="lb-endings">${endingsHtml}</div></td>
-            </tr>
-          `;
+      container.innerHTML = `
+        <!-- Stats globales -->
+        <div class="lb-stats-bar">
+          <div class="lb-stat-item">
+            <span class="lb-stat-val">${lb.length}</span>
+            <span class="lb-stat-lbl">Joueurs actifs</span>
+          </div>
+          <div class="lb-stat-item">
+            <span class="lb-stat-val">${totalXp.toLocaleString("fr")}</span>
+            <span class="lb-stat-lbl">XP total</span>
+          </div>
+          <div class="lb-stat-item">
+            <span class="lb-stat-val">${totalFinA}</span>
+            <span class="lb-stat-lbl">Fin A débloquée</span>
+          </div>
+          <div class="lb-stat-item">
+            <span class="lb-stat-val">${avgTrust}%</span>
+            <span class="lb-stat-lbl">Confiance moy.</span>
+          </div>
+        </div>
+
+        <!-- En-tête colonnes -->
+        <div class="lb-header-row">
+          <span>#</span>
+          <span>Joueur</span>
+          <span>Fins</span>
+          <span>Chap.</span>
+          <span style="text-align:right">XP</span>
+        </div>
+
+        <!-- Lignes classement -->
+        <div class="leaderboard-table" id="lb-rows"></div>
+      `;
+
+      const rowsEl = document.getElementById("lb-rows");
+      lb.forEach((entry, idx) => {
+        const rank    = idx + 1;
+        const isMe    = myName && entry.name.startsWith(myName.slice(0,3));
+        const rankCls = rank <= 3 ? `rank-${rank}` : "";
+        const rowCls  = [
+          rank === 1 ? "lb-top-1" : rank === 2 ? "lb-top-2" : rank === 3 ? "lb-top-3" : "",
+          isMe ? "lb-me" : "",
+        ].filter(Boolean).join(" ");
+
+        const rankEmoji = rank === 1 ? "🥇" : rank === 2 ? "🥈" : rank === 3 ? "🥉" : rank;
+
+        const endingDots = ENDING_IDS.map(id => {
+          const unlocked = (entry.endings_unlocked || []).includes(id);
+          return `<div class="lb-ending-dot ${unlocked ? id : ''}" title="${unlocked ? ENDING_LABELS[id] : '?'}"></div>`;
         }).join("");
 
-        container.innerHTML = `
-          <table class="lb-table">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Joueur</th>
-                <th>XP</th>
-                <th>Confiance</th>
-                <th style="text-align:left">Fins</th>
-              </tr>
-            </thead>
-            <tbody>${rows}</tbody>
-          </table>
+        const row = document.createElement("div");
+        row.className = `lb-row ${rowCls}`;
+        row.style.animationDelay = `${idx * 40}ms`;
+        row.innerHTML = `
+          <span class="lb-rank ${rankCls}">${rankEmoji}</span>
+          <span class="lb-name ${isMe ? 'is-me' : ''}">${escapeHtml(entry.name)}${isMe ? '<span class="lb-you-badge">Toi</span>' : ''}</span>
+          <div class="lb-endings">${endingDots}</div>
+          <span class="lb-chapters">${entry.chapters_done}/7</span>
+          <span class="lb-xp">${entry.xp.toLocaleString("fr")} XP</span>
         `;
-      } catch (e) {
-        container.innerHTML = `<p class="lb-empty">Classement temporairement indisponible.</p>`;
-      }
+        rowsEl.appendChild(row);
+      });
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     }
 
     loadLeaderboard();
   </script>
-
 </body>
 </html>

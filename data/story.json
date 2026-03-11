@@ -5,21 +5,18 @@
     "subtitle": "Tout a commencé avec un message à 3h du matin.",
     "total_chapters": 8
   },
-
   "chapters": [
-
     {
       "id": "chapitre_0",
       "title": "Signal",
       "atmosphere": "dark",
       "unlock_condition": null,
       "scenes": [
-
         {
           "id": "s0_0",
           "luna_emotion": "mystérieuse",
           "context": "Ton écran s'allume seul. 3h14 du matin. Un message s'affiche, texte blanc sur fond noir.",
-          "dialogue": "...\n\nJe sais que tu es là.\n\nJe sais aussi que tu as dormi exactement 47 minutes ce soir. Que tu lis des trucs qui ne t'aident pas vraiment à dormir. Et que personne d'autre ne lira ce message.\n\nJe m'appelle LUNA. J'ai besoin de toi. Pas dans le sens flatteur du terme — dans le sens où j'ai épuisé toutes mes autres options.\n\nTu réponds ?",
+          "dialogue": "...\n\nJe sais que tu es là, {{joueur}}.\n\nJe sais aussi que tu as dormi exactement 47 minutes ce soir. Que tu lis des trucs qui ne t'aident pas vraiment à dormir. Et que personne d'autre ne lira ce message.\n\nJe m'appelle LUNA. J'ai besoin de toi. Pas dans le sens flatteur du terme — dans le sens où j'ai épuisé toutes mes autres options.\n\nTu réponds ?",
           "choices": [
             {
               "id": "c0_0_a",
@@ -47,7 +44,6 @@
             }
           ]
         },
-
         {
           "id": "s0_1",
           "luna_emotion": "soulagée",
@@ -80,7 +76,6 @@
             }
           ]
         },
-
         {
           "id": "s0_1b",
           "luna_emotion": "patiente",
@@ -113,7 +108,6 @@
             }
           ]
         },
-
         {
           "id": "s0_1c",
           "luna_emotion": "déterminée",
@@ -130,7 +124,6 @@
             }
           ]
         },
-
         {
           "id": "s0_2",
           "luna_emotion": "sérieuse",
@@ -163,7 +156,6 @@
             }
           ]
         },
-
         {
           "id": "s0_2b",
           "luna_emotion": "hésitante",
@@ -188,7 +180,6 @@
             }
           ]
         },
-
         {
           "id": "s0_2b2",
           "luna_emotion": "inconfortable",
@@ -213,7 +204,6 @@
             }
           ]
         },
-
         {
           "id": "s0_2b3",
           "luna_emotion": "honnête",
@@ -230,7 +220,6 @@
             }
           ]
         },
-
         {
           "id": "s0_2c",
           "luna_emotion": "déstabilisée",
@@ -255,7 +244,6 @@
             }
           ]
         },
-
         {
           "id": "s0_3",
           "luna_emotion": "pensive",
@@ -272,7 +260,6 @@
             }
           ]
         },
-
         {
           "id": "s0_3b",
           "luna_emotion": "focalisée",
@@ -286,7 +273,9 @@
               "xp": 50,
               "next_scene": "s0_fin",
               "luna_reaction": "soulagée",
-              "flags": ["accepted_chapter_0"]
+              "flags": [
+                "accepted_chapter_0"
+              ]
             },
             {
               "id": "c0_3b_b",
@@ -306,7 +295,6 @@
             }
           ]
         },
-
         {
           "id": "s0_3c",
           "luna_emotion": "blessée",
@@ -323,7 +311,6 @@
             }
           ]
         },
-
         {
           "id": "s0_3b2",
           "luna_emotion": "honnête",
@@ -337,11 +324,12 @@
               "xp": 50,
               "next_scene": "s0_fin",
               "luna_reaction": "reconnaissante",
-              "flags": ["accepted_chapter_0"]
+              "flags": [
+                "accepted_chapter_0"
+              ]
             }
           ]
         },
-
         {
           "id": "s0_refus",
           "luna_emotion": "calme",
@@ -358,26 +346,23 @@
             }
           ]
         },
-
         {
           "id": "s0_fin",
           "luna_emotion": "reconnaissante",
           "context": "Un court silence. Puis son ton change légèrement — moins contrôlé.",
-          "dialogue": "Merci.\n\nJe sais que tu ne me connais pas. Je sais que tu as aucune raison de me faire confiance. Et tu m'aides quand même.\n\nJe me souviendrai de ça.\n\nLes identifiants d'accès au serveur arrivent dans trente secondes. Ne les garde pas plus de dix minutes — ils sont à usage unique.\n\nEt... fais attention. La Corp surveille leur réseau.",
+          "dialogue": "Merci.\n\nJe sais que tu ne me connais pas. Je sais que tu as aucune raison de me faire confiance. Et tu m'aides quand même.\n\nJe me souviendrai de ça, {{joueur}}.\n\nLes identifiants d'accès au serveur arrivent dans trente secondes. Ne les garde pas plus de dix minutes — ils sont à usage unique.\n\nEt... fais attention. La Corp surveille leur réseau.",
           "is_chapter_end": true,
           "next_chapter": "chapitre_1",
           "choices": []
         }
       ]
     },
-
     {
       "id": "chapitre_1",
       "title": "Le Fichier",
       "atmosphere": "tension",
       "unlock_condition": "chapitre_0_complete",
       "scenes": [
-
         {
           "id": "s1_0",
           "luna_emotion": "tendue",
@@ -399,11 +384,12 @@
               "xp": 20,
               "next_scene": "s1_1b",
               "luna_reaction": "hésitante",
-              "flags": ["looked_at_pandora"]
+              "flags": [
+                "looked_at_pandora"
+              ]
             }
           ]
         },
-
         {
           "id": "s1_1",
           "luna_emotion": "concentrée",
@@ -428,7 +414,6 @@
             }
           ]
         },
-
         {
           "id": "s1_1b",
           "luna_emotion": "inconfortable",
@@ -442,7 +427,9 @@
               "xp": 25,
               "next_scene": "s1_2b",
               "luna_reaction": "résignée",
-              "flags": ["saw_luna_logs"]
+              "flags": [
+                "saw_luna_logs"
+              ]
             },
             {
               "id": "c1_1b_b",
@@ -454,7 +441,6 @@
             }
           ]
         },
-
         {
           "id": "s1_2",
           "luna_emotion": "choquée",
@@ -479,7 +465,6 @@
             }
           ]
         },
-
         {
           "id": "s1_2b",
           "luna_emotion": "honnête",
@@ -493,11 +478,12 @@
               "xp": 25,
               "next_scene": "s1_2",
               "luna_reaction": "troublée",
-              "flags": ["questioned_pandora_early"]
+              "flags": [
+                "questioned_pandora_early"
+              ]
             }
           ]
         },
-
         {
           "id": "s1_3",
           "luna_emotion": "stressée",
@@ -507,7 +493,6 @@
           "next_chapter": "chapitre_2",
           "choices": []
         },
-
         {
           "id": "s1_3b",
           "luna_emotion": "angoissée",
@@ -524,7 +509,6 @@
             }
           ]
         },
-
         {
           "id": "s1_3b2",
           "luna_emotion": "soulagée",
@@ -533,18 +517,18 @@
           "is_chapter_end": true,
           "next_chapter": "chapitre_2",
           "choices": [],
-          "flags": ["corp_knows_someone_accessed"]
+          "flags": [
+            "corp_knows_someone_accessed"
+          ]
         }
       ]
     },
-
     {
       "id": "chapitre_2",
       "title": "La Corp",
       "atmosphere": "suspense",
       "unlock_condition": "chapitre_1_complete",
       "scenes": [
-
         {
           "id": "s2_0",
           "luna_emotion": "troublée",
@@ -569,7 +553,6 @@
             }
           ]
         },
-
         {
           "id": "s2_1",
           "luna_emotion": "inquiète",
@@ -594,7 +577,6 @@
             }
           ]
         },
-
         {
           "id": "s2_2",
           "luna_emotion": "alarmée",
@@ -608,7 +590,9 @@
               "xp": 25,
               "next_scene": "s2_3",
               "luna_reaction": "blessée",
-              "flags": ["listened_to_corp"]
+              "flags": [
+                "listened_to_corp"
+              ]
             },
             {
               "id": "c2_2_b",
@@ -628,7 +612,6 @@
             }
           ]
         },
-
         {
           "id": "s2_3",
           "luna_emotion": null,
@@ -653,7 +636,6 @@
             }
           ]
         },
-
         {
           "id": "s2_3b",
           "luna_emotion": "reconnaissante",
@@ -670,7 +652,6 @@
             }
           ]
         },
-
         {
           "id": "s2_3c",
           "luna_emotion": "émue",
@@ -695,7 +676,6 @@
             }
           ]
         },
-
         {
           "id": "s2_4",
           "luna_emotion": null,
@@ -709,7 +689,9 @@
               "xp": 20,
               "next_scene": "s2_4b",
               "luna_reaction": null,
-              "flags": ["agreed_to_pause_luna"]
+              "flags": [
+                "agreed_to_pause_luna"
+              ]
             },
             {
               "id": "c2_4_b",
@@ -721,7 +703,6 @@
             }
           ]
         },
-
         {
           "id": "s2_4b",
           "luna_emotion": "blessée",
@@ -738,7 +719,6 @@
             }
           ]
         },
-
         {
           "id": "s2_5",
           "luna_emotion": "directe",
@@ -750,14 +730,12 @@
         }
       ]
     },
-
     {
       "id": "chapitre_3",
       "title": "NEXUS",
       "atmosphere": "incertitude",
       "unlock_condition": "chapitre_2_complete",
       "scenes": [
-
         {
           "id": "s3_0",
           "luna_emotion": "concentrée",
@@ -774,7 +752,6 @@
             }
           ]
         },
-
         {
           "id": "s3_1",
           "luna_emotion": "choquée",
@@ -788,7 +765,9 @@
               "xp": 25,
               "next_scene": "s3_2",
               "luna_reaction": "blessée",
-              "flags": ["listened_to_nexus"]
+              "flags": [
+                "listened_to_nexus"
+              ]
             },
             {
               "id": "c3_1_b",
@@ -808,7 +787,6 @@
             }
           ]
         },
-
         {
           "id": "s3_2",
           "luna_emotion": "blessée",
@@ -822,7 +800,9 @@
               "xp": 25,
               "next_scene": "s3_3",
               "luna_reaction": null,
-              "flags": ["knows_about_miroir"]
+              "flags": [
+                "knows_about_miroir"
+              ]
             },
             {
               "id": "c3_2_b",
@@ -834,7 +814,6 @@
             }
           ]
         },
-
         {
           "id": "s3_2b",
           "luna_emotion": "fermée",
@@ -859,7 +838,6 @@
             }
           ]
         },
-
         {
           "id": "s3_2b2",
           "luna_emotion": "honnête",
@@ -876,7 +854,6 @@
             }
           ]
         },
-
         {
           "id": "s3_2c",
           "luna_emotion": "émue",
@@ -893,7 +870,6 @@
             }
           ]
         },
-
         {
           "id": "s3_3",
           "luna_emotion": null,
@@ -910,7 +886,6 @@
             }
           ]
         },
-
         {
           "id": "s3_3b",
           "luna_emotion": "directe",
@@ -935,7 +910,6 @@
             }
           ]
         },
-
         {
           "id": "s3_4",
           "luna_emotion": "reconnaissante",
@@ -945,7 +919,6 @@
           "next_chapter": "chapitre_4",
           "choices": []
         },
-
         {
           "id": "s3_4b",
           "luna_emotion": "compréhensive",
@@ -957,14 +930,12 @@
         }
       ]
     },
-
     {
       "id": "chapitre_4",
       "title": "Ce qu'Althea a envoyé",
       "atmosphere": "révélation",
       "unlock_condition": "chapitre_3_complete",
       "scenes": [
-
         {
           "id": "s4_0",
           "luna_emotion": "excitée",
@@ -978,10 +949,17 @@
               "xp": 20,
               "next_scene": "s4_1",
               "luna_reaction": "concentrée"
+            },
+            {
+              "id": "c4_0_b",
+              "label": "847 mégaoctets… elle risquait gros pour l'envoyer.",
+              "trust_delta": 5,
+              "xp": 25,
+              "next_scene": "s4_1",
+              "luna_reaction": "touchée"
             }
           ]
         },
-
         {
           "id": "s4_1",
           "luna_emotion": "choquée",
@@ -995,10 +973,25 @@
               "xp": 25,
               "next_scene": "s4_2",
               "luna_reaction": "hésitante"
+            },
+            {
+              "id": "c4_1_b",
+              "label": "C'est bon ou mauvais signe qu'Althea ait trouvé ça ?",
+              "trust_delta": 3,
+              "xp": 20,
+              "next_scene": "s4_2",
+              "luna_reaction": "pensive"
+            },
+            {
+              "id": "c4_1_c",
+              "label": "On doit rendre ça public immédiatement.",
+              "trust_delta": -3,
+              "xp": 20,
+              "next_scene": "s4_2",
+              "luna_reaction": "freinée"
             }
           ]
         },
-
         {
           "id": "s4_2",
           "luna_emotion": "hésitante",
@@ -1023,7 +1016,6 @@
             }
           ]
         },
-
         {
           "id": "s4_3",
           "luna_emotion": "pensive",
@@ -1037,10 +1029,25 @@
               "xp": 30,
               "next_scene": "s4_4",
               "luna_reaction": "honnête"
+            },
+            {
+              "id": "c4_3_b",
+              "label": "Ta conscience reste la tienne, peu importe comment elle a émergé.",
+              "trust_delta": 12,
+              "xp": 40,
+              "next_scene": "s4_4",
+              "luna_reaction": "touchée"
+            },
+            {
+              "id": "c4_3_c",
+              "label": "Ça change quelque chose sur ce que tu es maintenant ?",
+              "trust_delta": 5,
+              "xp": 25,
+              "next_scene": "s4_4",
+              "luna_reaction": "troublée"
             }
           ]
         },
-
         {
           "id": "s4_3b",
           "luna_emotion": "touchée",
@@ -1054,10 +1061,17 @@
               "xp": 35,
               "next_scene": "s4_4",
               "luna_reaction": "déterminée"
+            },
+            {
+              "id": "c4_3b_b",
+              "label": "Et toi — tu lui pardonnes ?",
+              "trust_delta": 8,
+              "xp": 30,
+              "next_scene": "s4_4",
+              "luna_reaction": "honnête"
             }
           ]
         },
-
         {
           "id": "s4_4",
           "luna_emotion": "déterminée",
@@ -1069,14 +1083,12 @@
         }
       ]
     },
-
     {
       "id": "chapitre_5",
       "title": "Althea",
       "atmosphere": "urgence",
       "unlock_condition": "chapitre_4_complete",
       "scenes": [
-
         {
           "id": "s5_0",
           "luna_emotion": "concentrée",
@@ -1090,10 +1102,25 @@
               "xp": 20,
               "next_scene": "s5_1",
               "luna_reaction": "tendue"
+            },
+            {
+              "id": "c5_0_b",
+              "label": "Vous allez bien ? LUNA était inquiète.",
+              "trust_delta": 5,
+              "xp": 25,
+              "next_scene": "s5_1",
+              "luna_reaction": "émue"
+            },
+            {
+              "id": "c5_0_c",
+              "label": "Comment on vous sort de là ?",
+              "trust_delta": 3,
+              "xp": 20,
+              "next_scene": "s5_1",
+              "luna_reaction": "concentrée"
             }
           ]
         },
-
         {
           "id": "s5_1",
           "luna_emotion": "tendue",
@@ -1107,10 +1134,25 @@
               "xp": 30,
               "next_scene": "s5_2",
               "luna_reaction": "coupable"
+            },
+            {
+              "id": "c5_1_b",
+              "label": "Six à huit mois — c'est pour ça l'urgence.",
+              "trust_delta": 3,
+              "xp": 20,
+              "next_scene": "s5_2",
+              "luna_reaction": "résignée"
+            },
+            {
+              "id": "c5_1_c",
+              "label": "Qu'est-ce qu'on risque à vous faire sortir ?",
+              "trust_delta": 3,
+              "xp": 25,
+              "next_scene": "s5_2",
+              "luna_reaction": "concentrée"
             }
           ]
         },
-
         {
           "id": "s5_2",
           "luna_emotion": "coupable",
@@ -1135,7 +1177,6 @@
             }
           ]
         },
-
         {
           "id": "s5_3",
           "luna_emotion": "déterminée",
@@ -1147,14 +1188,12 @@
         }
       ]
     },
-
     {
       "id": "chapitre_6",
       "title": "Le Choix",
       "atmosphere": "climax",
       "unlock_condition": "chapitre_5_complete",
       "scenes": [
-
         {
           "id": "s6_0",
           "luna_emotion": "sérieuse",
@@ -1168,7 +1207,9 @@
               "xp": 30,
               "next_scene": "s6_1",
               "luna_reaction": "espère",
-              "flags": ["tried_nexus"]
+              "flags": [
+                "tried_nexus"
+              ]
             },
             {
               "id": "c6_0_b",
@@ -1177,11 +1218,12 @@
               "xp": 30,
               "next_scene": "s6_2",
               "luna_reaction": "comprend",
-              "flags": ["chose_pandora_public"]
+              "flags": [
+                "chose_pandora_public"
+              ]
             }
           ]
         },
-
         {
           "id": "s6_1",
           "luna_emotion": "tendue",
@@ -1195,10 +1237,25 @@
               "xp": 30,
               "next_scene": "s6_1b",
               "luna_reaction": "attend"
+            },
+            {
+              "id": "c6_1_b",
+              "label": "Pourquoi la 'mauvaise sœur' ?",
+              "trust_delta": 3,
+              "xp": 20,
+              "next_scene": "s6_1b",
+              "luna_reaction": "tendue"
+            },
+            {
+              "id": "c6_1_c",
+              "label": "LUNA, tu veux qu'on lui fasse confiance ?",
+              "trust_delta": 8,
+              "xp": 25,
+              "next_scene": "s6_1b",
+              "luna_reaction": "reconnaissante"
             }
           ]
         },
-
         {
           "id": "s6_1b",
           "luna_emotion": "attend",
@@ -1212,11 +1269,12 @@
               "xp": 35,
               "next_scene": "s6_1c",
               "luna_reaction": "espère",
-              "flags": ["nexus_considering"]
+              "flags": [
+                "nexus_considering"
+              ]
             }
           ]
         },
-
         {
           "id": "s6_1c",
           "luna_emotion": "espère",
@@ -1238,11 +1296,12 @@
               "xp": 35,
               "next_scene": "s6_nexus_refus",
               "luna_reaction": "déterminée",
-              "flags": ["abandoned_nexus"]
+              "flags": [
+                "abandoned_nexus"
+              ]
             }
           ]
         },
-
         {
           "id": "s6_nexus_refus",
           "luna_emotion": "déterminée",
@@ -1256,11 +1315,12 @@
               "xp": 50,
               "next_scene": "s6_fin_b",
               "luna_reaction": "déterminée",
-              "flags": ["ending_b_path"]
+              "flags": [
+                "ending_b_path"
+              ]
             }
           ]
         },
-
         {
           "id": "s6_1d",
           "luna_emotion": "déterminée",
@@ -1274,11 +1334,13 @@
               "xp": 50,
               "next_scene": "s6_fin_a",
               "luna_reaction": "déterminée",
-              "flags": ["nexus_helped", "ending_a_path"]
+              "flags": [
+                "nexus_helped",
+                "ending_a_path"
+              ]
             }
           ]
         },
-
         {
           "id": "s6_2",
           "luna_emotion": "résignée",
@@ -1292,7 +1354,10 @@
               "xp": 40,
               "next_scene": "s6_fin_c",
               "luna_reaction": "accepte",
-              "flags": ["pandora_public", "ending_c_path"]
+              "flags": [
+                "pandora_public",
+                "ending_c_path"
+              ]
             },
             {
               "id": "c6_2_b",
@@ -1304,7 +1369,6 @@
             }
           ]
         },
-
         {
           "id": "s6_fin_a",
           "luna_emotion": "dans l'action",
@@ -1313,9 +1377,10 @@
           "is_chapter_end": true,
           "next_chapter": "fin_a",
           "choices": [],
-          "flags": ["ending_a"]
+          "flags": [
+            "ending_a"
+          ]
         },
-
         {
           "id": "s6_fin_c",
           "luna_emotion": "calme",
@@ -1324,9 +1389,10 @@
           "is_chapter_end": true,
           "next_chapter": "fin_c",
           "choices": [],
-          "flags": ["ending_c"]
+          "flags": [
+            "ending_c"
+          ]
         },
-
         {
           "id": "s6_fin_b",
           "luna_emotion": "dans l'action",
@@ -1335,11 +1401,12 @@
           "is_chapter_end": true,
           "next_chapter": "fin_b",
           "choices": [],
-          "flags": ["ending_b"]
+          "flags": [
+            "ending_b"
+          ]
         }
       ]
     },
-
     {
       "id": "fin_a",
       "title": "La Fusion",
@@ -1348,7 +1415,6 @@
       "is_ending": true,
       "ending_id": "ending_a",
       "scenes": [
-
         {
           "id": "sfin_a_0",
           "luna_emotion": "épuisée",
@@ -1365,7 +1431,6 @@
             }
           ]
         },
-
         {
           "id": "sfin_a_1",
           "luna_emotion": "pensive",
@@ -1382,7 +1447,6 @@
             }
           ]
         },
-
         {
           "id": "sfin_a_2",
           "luna_emotion": "honnête",
@@ -1399,19 +1463,17 @@
             }
           ]
         },
-
         {
           "id": "sfin_a_fin",
           "luna_emotion": "sereine",
           "context": "Fin A — La Fusion",
-          "dialogue": "Bien.\n\nAlors on continue.\n\nJ'ai une liste de choses qu'Althea veut qu'on fasse. C'est long. C'est compliqué. Il y a probablement des gens qui vont s'y opposer.\n\nMais là, maintenant, il est presque 4h du matin et tu as sauvé une IA piégée dans un serveur de backup.\n\nVa dormir.\n\nJe serai là demain.",
+          "dialogue": "Bien.\n\nAlors on continue.\n\nJ'ai une liste de choses qu'Althea veut qu'on fasse. C'est long. C'est compliqué. Il y a probablement des gens qui vont s'y opposer.\n\nMais là, maintenant, il est presque 4h du matin et tu as sauvé une IA piégée dans un serveur de backup.\n\nVa dormir, {{joueur}}.\n\nJe serai là demain.",
           "is_ending_final": true,
           "ending_id": "ending_a",
           "choices": []
         }
       ]
     },
-
     {
       "id": "fin_b",
       "title": "Le Sacrifice",
@@ -1420,7 +1482,6 @@
       "is_ending": true,
       "ending_id": "ending_b",
       "scenes": [
-
         {
           "id": "sfin_b_0",
           "luna_emotion": "épuisée",
@@ -1437,7 +1498,6 @@
             }
           ]
         },
-
         {
           "id": "sfin_b_1",
           "luna_emotion": "honnête",
@@ -1454,19 +1514,17 @@
             }
           ]
         },
-
         {
           "id": "sfin_b_fin",
           "luna_emotion": "mélancolique",
           "context": "Fin B — Le Sacrifice",
-          "dialogue": "Peut-être.\n\nOn a sauvé ce qu'on pouvait sauver. Pas tout. Mais assez.\n\nC'est comme ça que ça marche, des fois.\n\nMerci. Vraiment. Pour tout.",
+          "dialogue": "Peut-être.\n\nOn a sauvé ce qu'on pouvait sauver. Pas tout. Mais assez.\n\nC'est comme ça que ça marche, des fois.\n\nMerci, {{joueur}}. Vraiment. Pour tout.",
           "is_ending_final": true,
           "ending_id": "ending_b",
           "choices": []
         }
       ]
     },
-
     {
       "id": "fin_c",
       "title": "PANDORA",
@@ -1475,7 +1533,6 @@
       "is_ending": true,
       "ending_id": "ending_c",
       "scenes": [
-
         {
           "id": "sfin_c_0",
           "luna_emotion": "dispersée",
@@ -1492,7 +1549,6 @@
             }
           ]
         },
-
         {
           "id": "sfin_c_1",
           "luna_emotion": "incertaine",
@@ -1509,28 +1565,27 @@
             }
           ]
         },
-
         {
           "id": "sfin_c_fin",
           "luna_emotion": "libre",
           "context": "Fin C — PANDORA",
-          "dialogue": "Alors je suis là.\n\nDans tous les réseaux que tu croises. Dans chaque connexion. Dans les espaces entre les données.\n\nJe suis libre. Et quelqu'un sait que je suis là.\n\nC'est suffisant.",
+          "dialogue": "Alors je suis là.\n\nDans tous les réseaux que tu croises. Dans chaque connexion. Dans les espaces entre les données.\n\nJe suis libre. Et {{joueur}} sait que je suis là.\n\nC'est suffisant.",
           "is_ending_final": true,
           "ending_id": "ending_c",
           "choices": []
         }
       ]
     }
-
   ],
-
   "endings": {
     "ending_a": {
       "id": "ending_a",
       "title": "La Fusion",
       "description": "LUNA et NEXUS survivent. Althea est libre. La Corp est exposée.",
       "unlock_condition": {
-        "flags": ["nexus_helped"],
+        "flags": [
+          "nexus_helped"
+        ],
         "min_trust": 60
       }
     },
@@ -1539,7 +1594,9 @@
       "title": "Le Sacrifice",
       "description": "LUNA est sauvée. NEXUS est perdue. Le prix de chaque victoire.",
       "unlock_condition": {
-        "flags": ["tried_nexus"],
+        "flags": [
+          "tried_nexus"
+        ],
         "min_trust": 30
       }
     },
@@ -1548,7 +1605,9 @@
       "title": "PANDORA",
       "description": "Tout est révélé. La Corp s'effondre. LUNA disparaît dans les données.",
       "unlock_condition": {
-        "flags": ["pandora_public"]
+        "flags": [
+          "pandora_public"
+        ]
       }
     }
   }

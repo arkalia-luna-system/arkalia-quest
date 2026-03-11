@@ -43,6 +43,7 @@ class StoryEngine:
             "chapters_completed": [],
             "endings_unlocked": [],
             "last_luna_reaction": None,
+            "player_name": None,
         }
 
     # ------------------------------------------------------------------ #
@@ -62,6 +63,10 @@ class StoryEngine:
         # Filtrer les choix selon les flags du joueur si nécessaire
         choices = scene.get("choices", [])
 
+        player_name = player_state.get("player_name") or "joueur"
+        raw_dialogue = scene.get("dialogue", "")
+        dialogue = raw_dialogue.replace("{{joueur}}", player_name)
+
         return {
             "chapter_id": chapter_id,
             "chapter_title": chapter.get("title", ""),
@@ -72,7 +77,7 @@ class StoryEngine:
             "luna_emotion": scene.get("luna_emotion", "neutre"),
             "luna_trust": player_state.get("luna_trust", 50),
             "context": scene.get("context", ""),
-            "dialogue": scene.get("dialogue", ""),
+            "dialogue": dialogue,
             "choices": [
                 {"id": c["id"], "label": c["label"]}
                 for c in choices
@@ -83,6 +88,7 @@ class StoryEngine:
             "next_chapter": scene.get("next_chapter"),
             "xp": player_state.get("xp", 0),
             "last_luna_reaction": player_state.get("last_luna_reaction"),
+            "player_name": player_state.get("player_name"),
         }
 
     # ------------------------------------------------------------------ #

@@ -150,6 +150,27 @@ def reset_story():
         return jsonify({"success": False, "error": str(e)}), 500
 
 
+# ── POST /api/story/name ──────────────────────────────────────────────────
+
+@story_bp.route("/name", methods=["POST"])
+def set_name():
+    """Enregistre le prénom du joueur dans sa sauvegarde."""
+    data = request.get_json(silent=True) or {}
+    name = (data.get("name") or "").strip()[:30]  # max 30 chars
+
+    if not name:
+        return jsonify({"success": False, "error": "Prénom requis"}), 400
+
+    try:
+        player_id, is_new = _get_or_create_player_id()
+        player_state = _get_player_state(player_id)
+        player_state["player_name"] = name
+        save_state(player_id, player_state)
+        return _json_with_cookie({"success": True, "player_name": name}, player_id, is_new)
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
 # ── GET /api/story/summary ────────────────────────────────────────────────
 
 @story_bp.route("/summary", methods=["GET"])

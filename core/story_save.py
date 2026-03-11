@@ -77,6 +77,7 @@ def get_save_summary(player_id: str) -> Optional[dict]:
         return None
     return {
         "exists": True,
+        "player_name": state.get("player_name"),
         "current_chapter": state.get("current_chapter", "chapitre_0"),
         "luna_trust": state.get("luna_trust", 50),
         "xp": state.get("xp", 0),

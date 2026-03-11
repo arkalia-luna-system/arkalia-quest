@@ -1,64 +1,53 @@
 # Roadmap — LUNA Hors Connexion
 
-*Mars 2026*
+*Mise à jour : Mars 2026*
 
 ---
 
-## Phase 0 — Nettoyage (EN COURS)
+## ✅ Phase 0 — Nettoyage (TERMINÉ)
 
 - [x] Supprimer les docs obsolètes (terminal, vieux audits, vieux rapports)
 - [x] Audit complet du code existant
 - [x] Écrire les nouveaux docs (VISION, ARCHITECTURE, ROADMAP)
-- [ ] Supprimer les fichiers code obsolètes (CSS, JS, templates, Python)
-- [ ] Garder le squelette utile propre
+- [x] Supprimer les fichiers code obsolètes (CSS, JS, templates, Python)
+- [x] Squelette propre — 0 dette technique
 
 ---
 
-## Phase 1 — Le squelette du jeu
+## ✅ Phase 1 — Le squelette du jeu (TERMINÉ)
 
-**Objectif :** avoir quelque chose de jouable, même avec un seul chapitre.
-
-- [ ] Écrire `data/story.json` — Chapitre 0 complet (Signal) avec 3 scènes et vrais choix
-- [ ] Créer `core/story_engine.py` — charge la narration, calcule la scène suivante, gère la confiance
-- [ ] Créer `routes/story.py` — `GET /api/story/state` et `POST /api/story/choice`
-- [ ] Créer `templates/game.html` — écran de jeu (avatar LUNA + dialogue + choix)
-- [ ] Créer `static/css/game.css` — style complet (palette, layout, avatar, boutons)
-- [ ] Créer `static/js/game.js` — typewriter, appels API, transitions
-
-**Résultat :** Le Chapitre 0 est jouable de bout en bout.
+- [x] Écrire `data/story.json` — 8 chapitres + 3 fins avec vrais choix
+- [x] Créer `core/story_engine.py` — moteur narratif complet
+- [x] Créer `routes/story.py` — 5 endpoints API
+- [x] Créer `templates/game.html` — écran de jeu
+- [x] Créer `static/css/game.css` — style complet
+- [x] Créer `static/js/game.js` — typewriter, appels API, transitions
 
 ---
 
-## Phase 2 — L'histoire complète
+## ✅ Phase 2 — L'histoire complète (TERMINÉ)
 
-**Objectif :** 8 chapitres jouables, 3 fins différentes.
-
-- [ ] Écrire les Chapitres 1–7 dans `data/story.json`
-- [ ] Implémenter les 3 fins dans `story_engine.py`
-- [ ] Système de confiance LUNA visible dans l'UI
-- [ ] Sauvegardes automatiques entre chapitres
-- [ ] Adapter `luna_emotions_engine.py` au nouveau système
-
-**Résultat :** Le jeu est complet de la première à la dernière scène.
+- [x] 8 chapitres jouables + 3 fins distinctes (fin_a, fin_b, fin_c)
+- [x] Les 3 fins sont toutes atteignables (bug fin_b corrigé)
+- [x] Système de confiance LUNA visible dans l'UI
+- [x] Sauvegardes automatiques SQLite (persistance par UUID)
+- [x] LUNA se souvient du prénom du joueur (`{{joueur}}` dans les dialogues)
 
 ---
 
-## Phase 3 — Le polish
+## ✅ Phase 3 — Le polish (TERMINÉ)
 
-**Objectif :** ça doit *vraiment* avoir l'air d'un jeu.
-
-- [ ] Avatar LUNA animé (CSS pur, 5–6 expressions)
-- [ ] Effets sonores sur les choix importants
-- [ ] Musique ambiante par chapitre (3 atmosphères)
-- [ ] Transitions entre scènes (fondu, glissement)
-- [ ] Micro-animations sur les boutons de choix
-- [ ] Écran de fin mémorable (animation CSS)
-
-**Résultat :** Quelqu'un qui ne connaît pas le projet peut jouer et trouver ça cool.
+- [x] Avatar LUNA animé (CSS pur, 8 expressions)
+- [x] Effets sonores Web Audio API (typing, choix, trust, transitions)
+- [x] Atmosphères visuelles par chapitre (dark, tense, revelations, confrontation…)
+- [x] Transitions cinématiques entre chapitres
+- [x] Micro-animations sur les boutons de choix
+- [x] Écran de fin avec animation CSS
+- [x] Effet CRT scanlines en arrière-plan
 
 ---
 
-## Phase 4 — Tests et corrections
+## 🔜 Phase 4 — Tests et corrections
 
 **Objectif :** playtest avec 2–3 ados (dont ton fils).
 
@@ -69,12 +58,12 @@
 
 ---
 
-## Phase 5 — Profil et rejouabilité
+## 🔜 Phase 5 — Profil et rejouabilité
 
-- [ ] Page `/profil` : fins débloquées, badges, stats de confiance LUNA
-- [ ] Badges pour chaque fin obtenue
-- [ ] "Souvenir" : LUNA se rappelle de ton nom si tu joues une 2e fois
+- [ ] Badges visuels pour chaque fin obtenue (avec illustration)
+- [ ] "Souvenir" : LUNA mentionne les choix passés si tu rejoues
 - [ ] Indices subtils sur les fins non encore débloquées
+- [ ] Statistiques de confiance et de choix dans le profil
 
 ---
 

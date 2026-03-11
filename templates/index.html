@@ -105,11 +105,10 @@
     <!-- Actions -->
     <div class="home-actions">
       <div class="home-nav" id="home-nav">
-        <!-- Injecté dynamiquement selon la sauvegarde -->
-        <a href="/game" class="btn-primary" id="cta-start">
+        <button class="btn-primary" id="cta-start" onclick="handleStart()">
           <span class="btn-icon">▶</span>
           Répondre au signal
-        </a>
+        </button>
       </div>
       <div class="home-secondary-nav" id="secondary-nav" style="display:none;">
         <a href="/profil">Profil</a>
@@ -121,26 +120,83 @@
 
   </main>
 
+  <!-- Modal prénom -->
+  <div id="name-modal" style="
+    display:none; position:fixed; inset:0;
+    background:rgba(0,0,0,0.85); backdrop-filter:blur(6px);
+    z-index:1000; align-items:center; justify-content:center;
+  ">
+    <div style="
+      background:var(--bg-card); border:1px solid var(--border-action);
+      border-radius:var(--radius-lg); padding:2.5rem 2rem;
+      max-width:420px; width:90%; text-align:center;
+      box-shadow:0 0 60px var(--action-glow);
+    ">
+      <div style="font-size:0.75rem; color:var(--luna); letter-spacing:2px; text-transform:uppercase; margin-bottom:1rem;">
+        LUNA — Message entrant
+      </div>
+      <p style="color:var(--text-main); font-size:1rem; line-height:1.6; margin-bottom:1.5rem;">
+        Avant que je continue — j'ai besoin de savoir comment t'appeler.<br>
+        <span style="color:var(--text-dim); font-size:0.88rem;">Juste un prénom. C'est tout ce qu'il faut.</span>
+      </p>
+      <input
+        id="name-input"
+        type="text"
+        placeholder="Ton prénom..."
+        maxlength="30"
+        autocomplete="off"
+        style="
+          width:100%; box-sizing:border-box;
+          background:var(--bg-deep); border:1px solid var(--border);
+          color:var(--text-main); font-size:1.1rem; font-family:inherit;
+          padding:12px 16px; border-radius:var(--radius-sm);
+          outline:none; text-align:center; margin-bottom:1.25rem;
+          transition:border-color var(--speed-fast);
+        "
+        oninput="this.style.borderColor = this.value.trim() ? 'var(--luna)' : 'var(--border)'"
+        onkeydown="if(event.key==='Enter') confirmName()"
+      >
+      <button
+        onclick="confirmName()"
+        class="btn-primary"
+        style="width:100%; font-size:1rem;"
+      >
+        Commencer
+      </button>
+    </div>
+  </div>
+
   <script>
+    let isNewPlayer = true;
+
     async function checkSave() {
       try {
         const res  = await fetch('/api/story/summary');
         const data = await res.json();
 
-        if (!data.success || !data.exists || data.chapters_completed === 0) return;
+        if (!data.success) return;
 
-        // Une sauvegarde existe avec de la progression
-        const { chapters_completed, luna_trust, endings_unlocked = [] } = data;
+        if (!data.exists || data.chapters_completed === 0) {
+          // Pas de sauvegarde → nouveau joueur
+          isNewPlayer = true;
+          return;
+        }
+
+        // Sauvegarde avec progression
+        isNewPlayer = false;
+        const { chapters_completed, luna_trust, endings_unlocked = [], player_name } = data;
 
         const CHAPTER_NAMES = [
           "Signal","Le Fichier","La Corp","NEXUS",
           "Ce qu'Althea a envoyé","Althea","Le Choix"
         ];
         const chapterName = CHAPTER_NAMES[chapters_completed] || "Le Choix";
+        const greeting = player_name ? `${player_name}` : null;
 
         // Mettre à jour le message
-        document.getElementById('home-message').innerHTML =
-          `LUNA t'attend.<br>Tu en es au chapitre <strong style="color:var(--luna)">${chapters_completed}</strong> — <em>${chapterName}</em>.<br>Confiance : ${luna_trust}%`;
+        document.getElementById('home-message').innerHTML = greeting
+          ? `LUNA t'attend, <strong style="color:var(--luna)">${greeting}</strong>.<br>Chapitre <strong style="color:var(--luna)">${chapters_completed}</strong> — <em>${chapterName}</em>.<br>Confiance : ${luna_trust}%`
+          : `LUNA t'attend.<br>Tu en es au chapitre <strong style="color:var(--luna)">${chapters_completed}</strong> — <em>${chapterName}</em>.<br>Confiance : ${luna_trust}%`;
 
         // Afficher l'info de sauvegarde
         const saveInfo = document.getElementById('save-info');
@@ -148,15 +204,14 @@
           `Sauvegarde — ${chapters_completed} chap. complété${chapters_completed > 1 ? 's' : ''} · ${endings_unlocked.length} fin${endings_unlocked.length !== 1 ? 's' : ''}`;
         saveInfo.classList.add('visible');
 
-        // Remplacer le CTA par "Continuer" + "Recommencer"
+        // Remplacer le CTA
         document.getElementById('home-nav').innerHTML = `
           <a href="/game" class="btn-continue">
             <span>↩</span> Continuer l'histoire
           </a>
-          <a href="/game" class="btn-primary" id="cta-start"
-             onclick="return confirmRestart(event)">
+          <button class="btn-primary" onclick="confirmRestart(event)">
             <span class="btn-icon">▶</span> Recommencer
-          </a>
+          </button>
         `;
 
         // Afficher nav secondaire
@@ -167,12 +222,48 @@
       }
     }
 
-    async function confirmRestart(e) {
-      e.preventDefault();
-      if (!confirm('Recommencer depuis le début ? Ta progression actuelle sera perdue.')) return false;
-      await fetch('/api/story/reset', { method: 'POST' });
+    function handleStart() {
+      if (isNewPlayer) {
+        // Afficher le modal de prénom
+        const modal = document.getElementById('name-modal');
+        modal.style.display = 'flex';
+        setTimeout(() => document.getElementById('name-input').focus(), 50);
+      } else {
+        window.location.href = '/game';
+      }
+    }
+
+    async function confirmName() {
+      const name = document.getElementById('name-input').value.trim();
+      if (!name) {
+        document.getElementById('name-input').focus();
+        return;
+      }
+      try {
+        await fetch('/api/story/name', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name }),
+        });
+      } catch (e) { /* silencieux */ }
       window.location.href = '/game';
     }
+
+    async function confirmRestart(e) {
+      e.preventDefault();
+      if (!confirm('Recommencer depuis le début ? Ta progression actuelle sera perdue.')) return;
+      await fetch('/api/story/reset', { method: 'POST' });
+      // Après reset, demander le prénom à nouveau
+      isNewPlayer = true;
+      document.getElementById('name-modal').style.display = 'flex';
+      document.getElementById('name-input').value = '';
+      setTimeout(() => document.getElementById('name-input').focus(), 50);
+    }
+
+    // Fermer modal si clic en dehors
+    document.getElementById('name-modal').addEventListener('click', function(e) {
+      if (e.target === this) this.style.display = 'none';
+    });
 
     checkSave();
   </script>

@@ -102,6 +102,13 @@ function updateHeader(state) {
   if (DOM.chapterTitle)    DOM.chapterTitle.textContent    = state.chapter_title || "";
   if (DOM.chapterProgress) DOM.chapterProgress.textContent = `Chap. ${state.chapter_progress} / ${state.total_chapters}`;
 
+  // Afficher le prénom du joueur dans le header
+  const nameTag = document.getElementById("player-name-tag");
+  if (nameTag && state.player_name) {
+    nameTag.textContent = state.player_name.toUpperCase();
+    nameTag.style.display = "inline";
+  }
+
   const trust = state.luna_trust ?? 50;
   const prevTrust = DOM.trustFill
     ? parseInt(DOM.trustFill.style.width || "50")

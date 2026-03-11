@@ -192,12 +192,47 @@ button { cursor: pointer; font-family: inherit; }
 /* ============================================================
    PAGE ACCUEIL
    ============================================================ */
+/* ── Police distinctive pour accueil ───────────────────────────── */
+.page-home,
+.page-home .home-title,
+.page-home .home-sender,
+.transition-chapter-num,
+.transition-chapter-title {
+  font-family: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
+}
+
 .page-home {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Fond animé page d'accueil ──────────────────────────────────── */
+.home-bg-grid {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle, rgba(61,214,245,0.07) 1px, transparent 1px),
+    radial-gradient(circle, rgba(224,124,84,0.04) 1px, transparent 1px);
+  background-size: 44px 44px, 88px 88px;
+  background-position: 0 0, 22px 22px;
+  animation: grid-drift 20s linear infinite;
+}
+
+/* Vignette radiale autour du contenu */
+.page-home::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 70% at 50% 50%, transparent 30%, rgba(8,12,20,0.7) 100%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .home-container {
@@ -209,6 +244,8 @@ button { cursor: pointer; font-family: inherit; }
   align-items: center;
   gap: 2rem;
   animation: fade-in var(--speed-slow) ease-out;
+  position: relative;
+  z-index: 2;
 }
 
 .home-signal {
@@ -270,6 +307,52 @@ button { cursor: pointer; font-family: inherit; }
   color: var(--text-white);
   letter-spacing: -0.02em;
   margin-bottom: 1rem;
+}
+
+/* Glitch du titre principal */
+.home-title-glitch {
+  position: relative;
+  display: inline-block;
+  animation: home-glitch 6s ease-in-out infinite;
+}
+
+.home-title-glitch::before,
+.home-title-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.home-title-glitch::before {
+  color: var(--action);
+  animation: home-glitch-before 6s ease-in-out infinite;
+  clip-path: polygon(0 30%, 100% 30%, 100% 50%, 0 50%);
+}
+
+.home-title-glitch::after {
+  color: var(--danger);
+  animation: home-glitch-after 6s ease-in-out infinite;
+  clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%);
+}
+
+@keyframes home-glitch {
+  0%, 88%, 100% { transform: none; }
+  89% { transform: translateX(3px); }
+  90% { transform: translateX(-3px); }
+  91% { transform: none; }
+}
+
+@keyframes home-glitch-before {
+  0%, 88%, 100% { opacity: 0; transform: none; }
+  89% { opacity: 0.8; transform: translateX(-4px); }
+  90% { opacity: 0; }
+}
+
+@keyframes home-glitch-after {
+  0%, 88%, 100% { opacity: 0; transform: none; }
+  90% { opacity: 0.8; transform: translateX(4px); }
+  91% { opacity: 0; }
 }
 
 .home-message {
@@ -1695,6 +1778,44 @@ button { cursor: pointer; font-family: inherit; }
   100% { opacity: 0; }
 }
 
+/* ── Easter egg idle — LUNA te parle ───────────────────────────── */
+.idle-toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-luna);
+  border-radius: var(--radius-full);
+  color: var(--luna);
+  font-size: 0.85rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.03em;
+  z-index: 400;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+  animation: idle-toast-in 0.4s ease-out;
+  box-shadow: 0 0 20px var(--luna-glow);
+}
+
+.idle-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--luna);
+  animation: signal-blink 1.5s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes idle-toast-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
 /* ── Toast de sauvegarde ────────────────────────────────────────── */
 .save-toast {
   position: fixed;
@@ -1742,16 +1863,85 @@ button { cursor: pointer; font-family: inherit; }
 /* ============================================================
    ATMOSPHÈRES PAR CHAPITRE (teinte subtile du bg)
    ============================================================ */
-body.atmo-dark     { --bg-deep: #080c14; }
-body.atmo-tension  { --bg-deep: #0c0a14; }
-body.atmo-suspense { --bg-deep: #0a0c10; }
-body.atmo-révélation { --bg-deep: #0d0a0a; }
-body.atmo-urgence  { --bg-deep: #0f0808; }
-body.atmo-climax   { --bg-deep: #0c0808; }
-body.atmo-espoir   { --bg-deep: #080d10; }
-body.atmo-mélancolie { --bg-deep: #08080e; }
-body.atmo-incertitude { --bg-deep: #0a0c0e; }
-body.atmo-liberte-melancolique { --bg-deep: #060c12; }
+/* Chapitre 0 — sombre, neutre */
+body.atmo-dark {
+  --bg-deep:      #080c14;
+  --atmo-accent:  var(--luna);
+  --atmo-glow:    rgba(0, 212, 255, 0.06);
+}
+/* Chapitre 1 — tension croissante, violet trouble */
+body.atmo-tension {
+  --bg-deep:      #0c0a14;
+  --atmo-accent:  #a78bfa;
+  --atmo-glow:    rgba(139, 92, 246, 0.08);
+}
+/* Chapitre 2 — suspense, bleu-nuit */
+body.atmo-suspense {
+  --bg-deep:      #0a0c12;
+  --atmo-accent:  #60a5fa;
+  --atmo-glow:    rgba(96, 165, 250, 0.07);
+}
+/* Chapitre 3 — incertitude, gris-bleu froid */
+body.atmo-incertitude {
+  --bg-deep:      #0a0c0e;
+  --atmo-accent:  #94a3b8;
+  --atmo-glow:    rgba(148, 163, 184, 0.05);
+}
+/* Chapitre 4 — révélation, rouge chaud tamisé */
+body.atmo-révélation {
+  --bg-deep:      #0e0a0a;
+  --atmo-accent:  #f87171;
+  --atmo-glow:    rgba(248, 113, 113, 0.09);
+}
+/* Chapitre 5 — urgence, orange vif */
+body.atmo-urgence {
+  --bg-deep:      #100907;
+  --atmo-accent:  #fb923c;
+  --atmo-glow:    rgba(251, 146, 60, 0.09);
+}
+/* Chapitre 6 — climax, rouge-noir intense */
+body.atmo-climax {
+  --bg-deep:      #0d0606;
+  --atmo-accent:  #f43f5e;
+  --atmo-glow:    rgba(244, 63, 94, 0.1);
+}
+/* Fin A — espoir, bleu-cyan doux */
+body.atmo-espoir {
+  --bg-deep:      #070e10;
+  --atmo-accent:  #34d399;
+  --atmo-glow:    rgba(52, 211, 153, 0.09);
+}
+/* Fin B — mélancolie, violet doux */
+body.atmo-mélancolie {
+  --bg-deep:      #08060e;
+  --atmo-accent:  #c084fc;
+  --atmo-glow:    rgba(192, 132, 252, 0.08);
+}
+/* Fin C — liberté mélancolique, cyan-orange */
+body.atmo-liberte-melancolique {
+  --bg-deep:      #060c12;
+  --atmo-accent:  #38bdf8;
+  --atmo-glow:    rgba(56, 189, 248, 0.08);
+}
+
+/* ── Application de l'accent atmosphérique ─────────────────── */
+/* La barre de trust prend la couleur de l'ambiance */
+body[class*="atmo-"] .trust-fill {
+  background: var(--atmo-accent, var(--luna));
+  box-shadow: 0 0 8px var(--atmo-accent, var(--luna-glow));
+  transition: background 1.5s ease, box-shadow 1.5s ease;
+}
+/* Le badge de chapitre prend l'accent */
+body[class*="atmo-"] .chapter-badge {
+  border-color: var(--atmo-accent, var(--border-luna));
+  color: var(--atmo-accent, var(--luna));
+  transition: color 1.5s ease, border-color 1.5s ease;
+}
+/* Lueur de fond derrière le dialogue selon l'ambiance */
+body[class*="atmo-"] .dialogue-box::before {
+  background: var(--atmo-glow, transparent);
+  transition: background 2s ease;
+}
 
 /* ============================================================
    SKIP HINT (indication clique pour passer le texte)
@@ -1874,29 +2064,29 @@ body.atmo-liberte-melancolique { --bg-deep: #060c12; }
   transition: opacity 2s ease;
 }
 
-body.atmo-dark      .page-game::before,
-body.atmo-tension   .page-game::before,
-body.atmo-suspense  .page-game::before,
-body.atmo-incertitude .page-game::before { opacity: 1; }
+/* Grille visible sur tous les chapitres, teintée selon l'accent */
+body[class*="atmo-"] .page-game::before {
+  opacity: 1;
+  background-image: radial-gradient(circle, var(--atmo-glow, rgba(61,214,245,0.06)) 1px, transparent 1px);
+}
+
+/* Vitesse de dérive selon l'urgence narrative */
+body.atmo-dark       .page-game::before,
+body.atmo-tension    .page-game::before,
+body.atmo-suspense   .page-game::before,
+body.atmo-incertitude .page-game::before { animation-duration: 30s; }
+
+body.atmo-révélation  .page-game::before { animation-duration: 22s; }
 
 body.atmo-urgence   .page-game::before,
-body.atmo-climax    .page-game::before {
-  opacity: 1;
-  background-image: radial-gradient(circle, rgba(255,77,109,0.07) 1px, transparent 1px);
-  animation: grid-drift 12s linear infinite; /* plus rapide = plus urgence */
-}
+body.atmo-climax    .page-game::before   { animation-duration: 11s; }
 
-body.atmo-espoir    .page-game::before {
-  opacity: 1;
-  background-image: radial-gradient(circle, rgba(63,185,80,0.06) 1px, transparent 1px);
-  animation: grid-drift 35s linear infinite;
-}
+body.atmo-espoir    .page-game::before   { animation-duration: 40s; }
 
 body.atmo-mélancolie .page-game::before,
 body.atmo-liberte-melancolique .page-game::before {
-  opacity: 0.7;
-  background-image: radial-gradient(circle, rgba(139,92,246,0.06) 1px, transparent 1px);
-  animation: grid-drift 40s linear infinite;
+  opacity: 0.65;
+  animation-duration: 45s;
 }
 
 @keyframes grid-drift {

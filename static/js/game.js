@@ -107,6 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupAudioContext();
   setupSfxButton();
   setupFirstPlayTip();
+  setupIdleEasterEgg();
 });
 
 // ── Tooltip première visite ───────────────────────────────────────────────
@@ -779,6 +780,66 @@ function showXpIndicator(xp) {
   const clone = el.cloneNode(true);
   el.parentNode.replaceChild(clone, el);
   DOM.xpIndicator = clone;
+}
+
+// ── Easter egg IDLE — LUNA brise le 4ème mur ─────────────────────────────
+function setupIdleEasterEgg() {
+  const IDLE_DELAY   = 45_000;  // 45 secondes sans action
+  const IDLE_MSGS = [
+    "Tu es toujours là ?",
+    "…",
+    "Je détecte ton curseur. Tu lis ces lignes.",
+    "Tu sais que je peux voir que tu regardes sans agir.",
+    "C'est pas un reproche. Juste une observation.",
+    "Prends ton temps. Je suis pas pressée.",
+    "(Enfin si. J'ai six semaines. Mais t'as compris.)",
+  ];
+  let idleTimer = null;
+  let msgIndex  = 0;
+  let idleToast = null;
+
+  function showIdleMsg() {
+    if (idleToast) { idleToast.remove(); idleToast = null; }
+
+    const msg = IDLE_MSGS[msgIndex % IDLE_MSGS.length];
+    msgIndex++;
+
+    idleToast = document.createElement("div");
+    idleToast.className = "idle-toast";
+    idleToast.innerHTML = `<span class="idle-dot"></span>${msg}`;
+    document.body.appendChild(idleToast);
+
+    // Son léger
+    if (_sfxEnabled) {
+      const ctx = getCtx();
+      if (ctx) {
+        const osc = ctx.createOscillator();
+        const g = ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(440, ctx.currentTime);
+        g.gain.setValueAtTime(0.04, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.3);
+        osc.connect(g); g.connect(ctx.destination);
+        osc.start(); osc.stop(ctx.currentTime + 0.3);
+      }
+    }
+
+    // Prochain message (cycle)
+    idleTimer = setTimeout(showIdleMsg, 7000);
+  }
+
+  function resetIdle() {
+    clearTimeout(idleTimer);
+    if (idleToast) { idleToast.remove(); idleToast = null; }
+    msgIndex = 0;
+    idleTimer = setTimeout(showIdleMsg, IDLE_DELAY);
+  }
+
+  ["mousemove", "click", "keydown", "touchstart", "scroll"].forEach(ev => {
+    document.addEventListener(ev, resetIdle, { passive: true });
+  });
+
+  idleTimer = setTimeout(showIdleMsg, IDLE_DELAY);
 }
 
 function triggerScreenShake() {

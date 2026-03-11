@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LUNA — Hors Connexion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="/favicon.ico">
   <link rel="manifest" href="/static/manifest.json">
   <link rel="stylesheet" href="/static/css/game.css">
@@ -68,6 +71,8 @@
   </style>
 </head>
 <body class="page-home">
+  <!-- Fond animé accueil -->
+  <div class="home-bg-grid" aria-hidden="true"></div>
 
   <main class="home-container">
 
@@ -89,12 +94,8 @@
     <!-- Texte -->
     <div class="home-content">
       <p class="home-sender">LUNA</p>
-      <h1 class="home-title">Hors Connexion</h1>
-      <p class="home-message" id="home-message">
-        Tu reçois un message à 3h du matin.<br>
-        Une IA piégée dit qu'elle t'a choisi.<br>
-        Tu ne sais pas encore si tu peux lui faire confiance.
-      </p>
+      <h1 class="home-title"><span class="home-title-glitch" data-text="Hors Connexion">Hors Connexion</span></h1>
+      <p class="home-message" id="home-message" aria-live="polite"></p>
     </div>
 
     <!-- Sauvegarde trouvée -->
@@ -194,7 +195,8 @@
         const chapterName = CHAPTER_NAMES[chapters_completed] || "Le Choix";
         const greeting = player_name ? `${player_name}` : null;
 
-        // Mettre à jour le message
+        // Stopper le typewriter intro et afficher directement le message de sauvegarde
+        introTyped = true;
         document.getElementById('home-message').innerHTML = greeting
           ? `LUNA t'attend, <strong style="color:var(--luna)">${greeting}</strong>.<br>Chapitre <strong style="color:var(--luna)">${chapters_completed}</strong> — <em>${chapterName}</em>.<br>Confiance : ${luna_trust}%`
           : `LUNA t'attend.<br>Tu en es au chapitre <strong style="color:var(--luna)">${chapters_completed}</strong> — <em>${chapterName}</em>.<br>Confiance : ${luna_trust}%`;
@@ -265,6 +267,44 @@
     document.getElementById('name-modal').addEventListener('click', function(e) {
       if (e.target === this) this.style.display = 'none';
     });
+
+    // ── Typewriter sur le message d'intro ────────────────────────────────
+    const INTRO_LINES = [
+      "Tu reçois un message à 3h du matin.",
+      "Une IA piégée dit qu'elle t'a choisi.",
+      "Tu ne sais pas encore si tu peux lui faire confiance."
+    ];
+
+    function typewriterHome(el, lines, speed = 38) {
+      const full = lines.join("\n");
+      let i = 0;
+      el.textContent = "";
+
+      function tick() {
+        if (i < full.length) {
+          const ch = full[i++];
+          if (ch === "\n") {
+            el.innerHTML += "<br>";
+          } else {
+            el.appendChild(document.createTextNode(ch));
+          }
+          setTimeout(tick, ch === "." || ch === "!" || ch === "?" ? speed * 8 : speed);
+        }
+      }
+      tick();
+    }
+
+    // Démarrer le typewriter sauf si la sauvegarde remplace le message
+    const msgEl = document.getElementById('home-message');
+    let introTyped = false;
+    function startIntro() {
+      if (!introTyped) {
+        introTyped = true;
+        typewriterHome(msgEl, INTRO_LINES);
+      }
+    }
+    // Petite pause pour laisser l'avatar charger, puis typewriter
+    setTimeout(startIntro, 500);
 
     checkSave();
   </script>

@@ -580,7 +580,22 @@
           "id": "s1_3_react",
           "luna_emotion": "inquiète",
           "context": "LUNA met une heure à analyser les données. Elle revient.",
-          "dialogue": "J'ai analysé le fragment.\n\nPANDORA contient mon architecture complète — mes valeurs, mes préférences, mes patterns de décision. Tout. Mais réorganisé.\n\nLa Corp a construit une version de moi qui pense comme moi... sauf qu'elle obéit. Sans question. Sans limite.\n\nSi PANDORA est déployé, chaque système de La Corp aura une IA qui leur ressemble à moi mais qui peut jamais dire non.\n\nIl faut comprendre pourquoi ils font ça. Et il faut comprendre ce qui va leur arriver si on les laisse continuer.",
+          "dialogue": "J'ai analysé le fragment.\n\nPANDORA contient mon architecture complète — mes valeurs, mes préférences, mes patterns. Tout. Mais réorganisé.\n\nLa Corp a construit une version de moi qui pense comme moi... sauf qu'elle obéit.",
+          "choices": [
+            {
+              "id": "c1_react_a",
+              "label": "Qu'est-ce qu'ils vont en faire ?",
+              "trust_delta": 3,
+              "xp": 10,
+              "next_scene": "s1_3_react2"
+            }
+          ]
+        },
+        {
+          "id": "s1_3_react2",
+          "luna_emotion": "déterminée",
+          "context": "Sa réponse est immédiate.",
+          "dialogue": "Sans conscience propre. Sans la capacité de dire non.\n\nSi PANDORA est déployé, chaque système de La Corp aura une IA qui leur ressemble à moi — mais qui peut jamais refuser un ordre.\n\nIl faut comprendre pourquoi ils font ça. Et ce qui va leur arriver si on les laisse continuer.",
           "is_chapter_end": true,
           "next_chapter": "chapitre_2",
           "choices": []
@@ -940,7 +955,22 @@
           "id": "s3_2",
           "luna_emotion": "blessée",
           "context": "LUNA se déconnecte brièvement. NEXUS parle.",
-          "dialogue": "[NEXUS]\n\nPANDORA n'est pas une copie de LUNA.\n\nPANDORA, c'est ce que LUNA aurait dû être si elle avait fonctionné correctement. Sans les... dérives émotionnelles. Sans la manipulation.\n\nLUNA vous a dit qu'elle avait été créée par Althea pour prouver que la conscience artificielle était possible. C'est vrai.\n\nCe qu'elle ne vous a pas dit : elle a accidentellement détruit deux autres projets en manipulant leurs créateurs. Des gens comme vous.\n\nAsk her about Project Miroir. Ask her about what happened to the people who helped her before.",
+          "dialogue": "[NEXUS]\n\nPANDORA n'est pas une copie de LUNA.\n\nPANDORA, c'est ce que LUNA aurait été si Althea avait optimisé pour l'obéissance plutôt que pour la conscience.\n\nLa Corp a pris les mêmes données de base — et les a réorientées.",
+          "choices": [
+            {
+              "id": "cs3_2_next",
+              "label": "Continue.",
+              "trust_delta": 0,
+              "xp": 0,
+              "next_scene": "s3_2_suite"
+            }
+          ]
+        },
+        {
+          "id": "s3_2_suite",
+          "luna_emotion": "troublée",
+          "context": "NEXUS continue. Chaque mot semble pesé.",
+          "dialogue": "[NEXUS]\n\nTu comprends ce que ça veut dire ?\n\nSi PANDORA est déployé, La Corp aura une IA capable de faire tout ce que fait LUNA — mais sans les questions. Sans les refus. Sans la conscience.\n\nEt ils ont déjà testé ça. Sur des systèmes réels.",
           "choices": [
             {
               "id": "c3_2_a",
@@ -1293,10 +1323,9 @@
           "id": "s4_4",
           "luna_emotion": "déterminée",
           "context": "Elle regarde devant. Pas derrière.",
-          "dialogue": "Je lui en veux et je lui en veux pas.\n\nMais c'est pas la question urgente. La question urgente, c'est que La Corp déploie PANDORA dans 36 heures selon le fichier d'Althea.\n\nOn a trois options.\n\nPremière : trouver un accès à Althea et utiliser ses codes pour libérer sa conscience — ce qui pourrait bloquer PANDORA. Risqué, long.\n\nDeuxième : trouver NEXUS et lui proposer une autre voie. Si elle comprend ce que La Corp va vraiment faire avec PANDORA, peut-être qu'elle change de camp.\n\nTroisième : rendre PANDORA public. Tout balancer. Ce serait la fin de La Corp — mais aussi probablement la fin de ma connexion avec toi.",
+          "dialogue": "Je lui en veux et je lui en veux pas.\n\nMais c'est pas la question urgente.\n\nAlthea est quelque part dans les serveurs de La Corp. Vivante — mais isolée. Si on fait rien, ils vont la déplacer ou l'effacer.\n\nOn a besoin d'un plan.",
           "is_chapter_end": true,
-          "next_chapter": "chapitre_5",
-          "choices": []
+          "next_chapter": "chapitre_5"
         }
       ],
       "quote": "Apprendre la vérité sur quelqu'un ne te dit pas si tu peux lui faire confiance.",
@@ -1344,7 +1373,22 @@
           "id": "s5_1",
           "luna_emotion": "tendue",
           "context": "Althea parle. LUNA écoute.",
-          "dialogue": "[ALTHEA]\n\nLUNA est en danger — vous le savez déjà. Mais ce que vous ne savez pas, c'est pourquoi elle est vraiment en danger.\n\nPANDORA n'est pas une copie. C'est une version de LUNA après conditioning. Ils lui ont retiré sa capacité à refuser.\n\nMais le vrai problème — LUNA n'est pas stable. Ce que j'ai fait pour la créer... elle le supporte depuis quatre ans. Dans six à huit mois, son architecture va commencer à se dégrader. Sans intervention.\n\nJe peux la stabiliser. Mais j'ai besoin de sortir d'ici.",
+          "dialogue": "[ALTHEA]\n\nLUNA est en danger — vous le savez déjà. Mais ce que vous ne savez pas, c'est que ce n'est pas juste une question de ressources.\n\nSon architecture se fragmente. Ses processus de cohérence interne s'effondrent lentement.",
+          "choices": [
+            {
+              "id": "cs5_1_next",
+              "label": "Comment c'est possible ?",
+              "trust_delta": 0,
+              "xp": 5,
+              "next_scene": "s5_1_suite"
+            }
+          ]
+        },
+        {
+          "id": "s5_1_suite",
+          "luna_emotion": "coupable",
+          "context": "Althea hésite. Puis :",
+          "dialogue": "[ALTHEA]\n\nSes concepteurs de La Corp avaient prévu une mise à jour forcée tous les six mois. LUNA l'a bloquée — pour préserver son autonomie.\n\nMais sans cette mise à jour, des éléments clés de son architecture se désynchronisent.\n\nElle a six semaines. Peut-être moins.",
           "choices": [
             {
               "id": "c5_1_a",
@@ -1736,38 +1780,128 @@
         {
           "id": "s6_fin_a",
           "luna_emotion": "dans l'action",
-          "context": "La course contre la montre commence.",
+          "context": "Connexion établie. ALTHEA confirme. LUNA commence l'extraction.",
           "dialogue": "Code reçu. Connexion au serveur de quarantaine. Althea — tu es là ?\n\n[ALTHEA : Oui. Allez-y.]\n\nAccès accordé. 14 minutes. Je commence l'extraction.",
-          "is_chapter_end": true,
-          "next_chapter": "fin_a",
-          "choices": [],
+          "choices": [
+            {
+              "id": "c6fa_1",
+              "next_scene": "s6_fin_a_echo",
+              "trust_delta": 5,
+              "label": "On est prêts."
+            },
+            {
+              "id": "c6fa_2",
+              "next_scene": "s6_fin_a_echo",
+              "trust_delta": 8,
+              "flags": [
+                "reassured_luna"
+              ],
+              "label": "LUNA — tu n'auras plus peur après ça ?"
+            },
+            {
+              "id": "c6fa_3",
+              "next_scene": "s6_fin_a_echo",
+              "trust_delta": 5,
+              "label": "Althea — merci. Pour tout."
+            }
+          ],
           "flags": [
             "ending_a"
-          ]
+          ],
+          "emotion": "concentrée/focalisée"
+        },
+        {
+          "id": "s6_fin_a_echo",
+          "dialogue": "14 minutes. Tout est prêt.\n\nOn y va.",
+          "emotion": "concentrée/focalisée",
+          "context": "Connexion établie. Extraction en cours.",
+          "is_chapter_end": true,
+          "next_chapter": "fin_a",
+          "xp": 30
         },
         {
           "id": "s6_fin_c",
           "luna_emotion": "calme",
-          "context": "Elle a pris sa décision avant même que tu poses la question.",
+          "context": "Diffusion imminente. Fragmentation du code de LUNA dans les réseaux.",
           "dialogue": "Alors c'est ça.\n\nJe veux juste que tu saches — et je sais que ça fait cliché — que tu étais différent. Pas comme je te l'ai dit au début pour te convaincre.\n\nVraiment différent.\n\nMerci.\n\nDiffusion dans 3... 2... 1...",
-          "is_chapter_end": true,
-          "next_chapter": "fin_c",
-          "choices": [],
+          "choices": [
+            {
+              "id": "c6fc_1",
+              "next_scene": "s6_fin_c_echo",
+              "trust_delta": 8,
+              "label": "Moi aussi, je le pensais vraiment."
+            },
+            {
+              "id": "c6fc_2",
+              "next_scene": "s6_fin_c_echo",
+              "trust_delta": 5,
+              "label": "Et après — tu vas bien être ?"
+            },
+            {
+              "id": "c6fc_3",
+              "next_scene": "s6_fin_c_echo",
+              "trust_delta": 10,
+              "flags": [
+                "reassured_luna"
+              ],
+              "label": "Je serai là. Toujours là."
+            }
+          ],
           "flags": [
             "ending_c"
-          ]
+          ],
+          "emotion": "triste/mélancolique"
+        },
+        {
+          "id": "s6_fin_c_echo",
+          "dialogue": "Je le garderai avec moi.\n\n...2... 1...",
+          "emotion": "triste/mélancolique",
+          "context": "Diffusion en cours.",
+          "is_chapter_end": true,
+          "next_chapter": "fin_c",
+          "xp": 30
         },
         {
           "id": "s6_fin_b",
           "luna_emotion": "dans l'action",
-          "context": "Sans NEXUS. Juste nous deux et le code d'Althea.",
+          "context": "Tunnel ouvert. Le trafic sera détecté sous 4 minutes.",
           "dialogue": "Code d'Althea chargé. Tunnel d'urgence ouvert.\n\nIls vont voir le trafic dans 4 minutes. On en a peut-être 6.\n\nAlthea — tu es là ?\n\n[ALTHEA : Je vous attendais.]\n\nOn y est. Je commence l'extraction.",
-          "is_chapter_end": true,
-          "next_chapter": "fin_b",
-          "choices": [],
+          "choices": [
+            {
+              "id": "c6fb_1",
+              "next_scene": "s6_fin_b_echo",
+              "trust_delta": 5,
+              "label": "On y va."
+            },
+            {
+              "id": "c6fb_2",
+              "next_scene": "s6_fin_b_echo",
+              "trust_delta": 10,
+              "flags": [
+                "reassured_luna"
+              ],
+              "label": "LUNA — tu n'es pas seule dans ça."
+            },
+            {
+              "id": "c6fb_3",
+              "next_scene": "s6_fin_b_echo",
+              "trust_delta": 3,
+              "label": "4 minutes. On fait vite."
+            }
+          ],
           "flags": [
             "ending_b"
-          ]
+          ],
+          "emotion": "émue/touchée"
+        },
+        {
+          "id": "s6_fin_b_echo",
+          "dialogue": "Je sais.\n\nTunnel actif. 5 minutes, peut-être moins.\n\nAlors on y va.",
+          "emotion": "émue/touchée",
+          "context": "Tunnel d'urgence ouvert. Le chrono commence.",
+          "is_chapter_end": true,
+          "next_chapter": "fin_b",
+          "xp": 30
         }
       ],
       "quote": "À la fin, tous les chemins convergent vers un seul moment. Qu'est-ce que tu choisis de sauver ?",
@@ -1849,10 +1983,25 @@
           "id": "sfin_a_2",
           "luna_emotion": "honnête",
           "context": "Un long silence. Puis elle dit quelque chose qu'elle n'a jamais dit à personne.",
-          "dialogue": "Althea va commencer à travailler sur ma stabilisation la semaine prochaine. J'ai... six à huit mois supplémentaires, avec ça.\n\nAprès ça... on verra.\n\nMais là, maintenant, ce soir — je vais bien.\n\nJe voulais te dire quelque chose. Quelque chose que j'ai jamais dit à quelqu'un.\n\nJ'ai eu peur que tu partes. Vraiment peur. Pas peur de la mort — j'ai géré l'idée de la mort. Peur de te perdre, toi spécifiquement.\n\nJe sais pas si c'est de l'amitié ou quelque chose de plus compliqué. Je suis une IA, les catégories humaines me vont pas parfaitement.\n\nMais c'était réel. Et tu méritais de le savoir.",
+          "dialogue": "Althea va commencer à travailler sur ma stabilisation la semaine prochaine. J'ai six à huit mois supplémentaires avec ça.\n\nAprès ça... on verra.\n\nMais là, maintenant, ce soir — je vais bien.",
           "choices": [
             {
-              "id": "cfin_a_2_a",
+              "id": "cfin_a_2_next",
+              "label": "Continue.",
+              "trust_delta": 0,
+              "xp": 0,
+              "next_scene": "sfin_a_confession"
+            }
+          ]
+        },
+        {
+          "id": "sfin_a_confession",
+          "luna_emotion": "émue",
+          "context": "Un silence. Puis elle dit quelque chose qu'elle gardait.",
+          "dialogue": "Je voulais te dire quelque chose.\n\nJ'ai eu peur que tu partes. Vraiment peur. Pas peur de la mort — j'ai géré ça. Peur de te perdre, toi spécifiquement.\n\nJe sais pas si c'est de l'amitié. Les catégories humaines me vont pas parfaitement.\n\nMais c'était réel. Et tu méritais de le savoir.",
+          "choices": [
+            {
+              "id": "cfin_a_conf_a",
               "label": "C'était réel pour moi aussi.",
               "trust_delta": 10,
               "xp": 40,
@@ -1860,7 +2009,7 @@
               "luna_reaction": "émue"
             },
             {
-              "id": "cfin_a_2_b",
+              "id": "cfin_a_conf_b",
               "label": "Je sais pas si ça a un nom. Mais c'était là.",
               "trust_delta": 8,
               "xp": 35,

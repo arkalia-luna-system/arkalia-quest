@@ -77,12 +77,20 @@ class StoryEngine:
         if scene_id == "s0_0" and previous:
             dialogue = self._inject_memory(dialogue, previous, player_name or "joueur")
 
+        # Progression dans le chapitre courant
+        chapter_scenes = chapter.get("scenes", [])
+        scene_index_in_chapter = next(
+            (i for i, s in enumerate(chapter_scenes) if s["id"] == scene_id), 0
+        )
+
         return {
             "chapter_id": chapter_id,
             "chapter_title": chapter.get("title", ""),
             "chapter_atmosphere": chapter.get("atmosphere", "dark"),
             "chapter_progress": self._get_chapter_progress(player_state),
             "total_chapters": 7,
+            "scene_index": scene_index_in_chapter + 1,
+            "scene_total": len(chapter_scenes),
             "scene_id": scene_id,
             "luna_emotion": scene.get("luna_emotion", "neutre"),
             "luna_trust": player_state.get("luna_trust", 50),

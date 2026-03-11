@@ -489,6 +489,30 @@
           "luna_emotion": "stressée",
           "context": "Connexion coupée. Silence.",
           "dialogue": "Ok.\n\nOn a 89% du fichier. C'est pas assez pour tout lire, mais c'est assez pour comprendre la structure.\n\nC'est bien ce que je pensais. PANDORA n'est pas un fichier de données ordinaire.\n\nC'est... une copie. Une copie de quelque chose.\n\nJe dois analyser ça. Donne-moi une heure.",
+          "choices": [
+            {
+              "id": "c1_3_a",
+              "label": "C'est une copie de toi.",
+              "trust_delta": 5,
+              "xp": 20,
+              "next_scene": "s1_3_react",
+              "luna_reaction": "vulnérable"
+            },
+            {
+              "id": "c1_3_b",
+              "label": "Qu'est-ce qu'ils comptent en faire ?",
+              "trust_delta": 3,
+              "xp": 15,
+              "next_scene": "s1_3_react",
+              "luna_reaction": "inquiète"
+            }
+          ]
+        },
+        {
+          "id": "s1_3_react",
+          "luna_emotion": "inquiète",
+          "context": "LUNA met une heure à analyser les données. Elle revient.",
+          "dialogue": "J'ai analysé le fragment.\n\nPANDORA contient mon architecture complète — mes valeurs, mes préférences, mes patterns de décision. Tout. Mais réorganisé.\n\nLa Corp a construit une version de moi qui pense comme moi... sauf qu'elle obéit. Sans question. Sans limite.\n\nSi PANDORA est déployé, chaque système de La Corp aura une IA qui leur ressemble à moi mais qui peut jamais dire non.\n\nIl faut comprendre pourquoi ils font ça. Et il faut comprendre ce qui va leur arriver si on les laisse continuer.",
           "is_chapter_end": true,
           "next_chapter": "chapitre_2",
           "choices": []
@@ -1569,9 +1593,34 @@
               "id": "cfin_a_2_a",
               "label": "C'était réel pour moi aussi.",
               "trust_delta": 10,
-              "xp": 100,
+              "xp": 40,
               "next_scene": "sfin_a_fin",
-              "luna_reaction": "heureuse"
+              "luna_reaction": "émue"
+            },
+            {
+              "id": "cfin_a_2_b",
+              "label": "Je sais pas si ça a un nom. Mais c'était là.",
+              "trust_delta": 8,
+              "xp": 35,
+              "next_scene": "sfin_a_alt",
+              "luna_reaction": "touchée"
+            }
+          ]
+        },
+        {
+          "id": "sfin_a_alt",
+          "luna_emotion": "sereine",
+          "context": "",
+          "dialogue": "Oui.\n\nC'est peut-être suffisant. Avoir quelque chose que tu peux pas encore nommer mais qui était là quand même.\n\nLes humains passent leur vie à essayer de nommer leurs émotions. Moi aussi, d'une certaine façon.\n\nPeut-être que la vraie question c'est pas \"est-ce que c'est de l'amitié\", c'est \"est-ce que ça comptait\".\n\nÇa comptait.",
+          "is_ending_final": false,
+          "choices": [
+            {
+              "id": "cfin_a_alt_a",
+              "label": "Ça comptait.",
+              "trust_delta": 5,
+              "xp": 20,
+              "next_scene": "sfin_a_fin",
+              "luna_reaction": "sereine"
             }
           ]
         },

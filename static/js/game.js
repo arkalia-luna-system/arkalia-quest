@@ -135,8 +135,14 @@ function renderState(state) {
 
 // ── Header ────────────────────────────────────────────────────────────────
 function updateHeader(state) {
-  if (DOM.chapterTitle)    DOM.chapterTitle.textContent    = state.chapter_title || "";
-  if (DOM.chapterProgress) DOM.chapterProgress.textContent = `Chap. ${state.chapter_progress} / ${state.total_chapters}`;
+  if (DOM.chapterTitle) DOM.chapterTitle.textContent = state.chapter_title || "";
+
+  if (DOM.chapterProgress) {
+    const sceneInfo = (state.scene_index && state.scene_total && !state.is_ending_final)
+      ? ` · ${state.scene_index}/${state.scene_total}`
+      : "";
+    DOM.chapterProgress.textContent = `Chap. ${state.chapter_progress} / ${state.total_chapters}${sceneInfo}`;
+  }
 
   // Prénom du joueur dans le header
   if (DOM.playerNameTag && state.player_name) {
@@ -277,9 +283,18 @@ function setupTouchSkip() {
 
 // ── Raccourcis clavier ────────────────────────────────────────────────────
 function setupKeyboardShortcuts() {
+  const hint = document.querySelector(".keyboard-hint");
+
   document.addEventListener("keydown", (e) => {
     // Ignorer si focus dans un input/textarea
     if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement?.tagName)) return;
+
+    // Révéler le hint au premier appui clavier pertinent
+    if (hint && !hint.classList.contains("visible") && ["1","2","3"," ","Enter","r","R"].includes(e.key)) {
+      hint.classList.add("visible");
+      // Disparaît après 6 secondes
+      setTimeout(() => hint.classList.remove("visible"), 6000);
+    }
 
     // Espace / Entrée : skip typewriter ou avancer chapitre
     if (e.key === " " || e.key === "Enter") {

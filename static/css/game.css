@@ -580,6 +580,7 @@ button { cursor: pointer; font-family: inherit; }
   align-items: flex-start;
   gap: 12px;
   padding: 14px 18px;
+  min-height: 44px; /* Apple HIG touch target */
   background: var(--bg-choice);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -594,6 +595,7 @@ button { cursor: pointer; font-family: inherit; }
     color var(--speed-fast);
   cursor: pointer;
   width: 100%;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .choice-btn::before {
@@ -982,7 +984,7 @@ button { cursor: pointer; font-family: inherit; }
   100% { background-position: -200% 0; }
 }
 
-/* Hint raccourcis clavier */
+/* Hint raccourcis clavier — caché par défaut, révélé par JS après premier usage */
 .keyboard-hint {
   display: none;
   position: fixed;
@@ -990,10 +992,14 @@ button { cursor: pointer; font-family: inherit; }
   right: 1.2rem;
   font-size: 0.72rem;
   color: var(--text-dim);
-  opacity: 0.5;
+  opacity: 0;
   pointer-events: none;
   font-family: var(--font-mono);
   letter-spacing: 0.02em;
+  transition: opacity 0.6s ease;
+}
+.keyboard-hint.visible {
+  opacity: 0.5;
 }
 @media (hover: hover) and (pointer: fine) {
   .keyboard-hint { display: block; }

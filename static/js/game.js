@@ -12,13 +12,36 @@ const TRANSITION_SHOW_MS      = 2200;  // durée de l'écran de transition chapi
 const REACTION_SHOW_MS        = 1800;
 
 // ── État ──────────────────────────────────────────────────────────────────
-let _typewriterTimeout = null;
-let _typewriterFast    = false;
-let _typewriterDone    = false;
-let _choicesLocked     = false;
-let _currentSceneId    = null;
-let _audioCtx          = null;
-let _sfxEnabled        = localStorage.getItem("luna_sfx") !== "off";
+let _typewriterTimeout  = null;
+let _typewriterFast     = false;
+let _typewriterDone     = false;
+let _choicesLocked      = false;
+let _currentSceneId     = null;
+let _currentChapterId   = null;
+let _chapterFlags       = [];   // flags acquis dans le chapitre courant
+let _audioCtx           = null;
+let _sfxEnabled         = localStorage.getItem("luna_sfx") !== "off";
+
+// Labels lisibles pour les flags — côté client
+const FLAG_LABELS_JS = {
+  "accepted_chapter_0":          "Tu as choisi d'aider LUNA.",
+  "looked_at_pandora":           "Tu as examiné PANDORA avant de le transférer.",
+  "saw_luna_logs":               "Tu as découvert les logs de LUNA.",
+  "corp_knows_someone_accessed": "La Corp a tracé ta connexion.",
+  "listened_to_corp":            "Tu as écouté l'agent de La Corp.",
+  "agreed_to_pause_luna":        "Tu as coupé le contact avec LUNA.",
+  "listened_to_nexus":           "Tu as écouté NEXUS en premier.",
+  "knows_about_miroir":          "Tu connais le Projet Miroir.",
+  "questioned_pandora_early":    "Tu as questionné les intentions de La Corp.",
+  "nexus_considering":           "Tu as ébranlé les certitudes de NEXUS.",
+  "nexus_helped":                "NEXUS a changé de camp pour vous.",
+  "abandoned_nexus":             "Tu n'as pas attendu NEXUS.",
+  "tried_nexus":                 "Tu as tenté de convaincre NEXUS.",
+  "pandora_public":              "Tu as choisi de rendre PANDORA public.",
+  "luna_alone_path":             "Tu as choisi de continuer avec LUNA seul.",
+  "stayed_with_luna":            "Tu es resté loyal à LUNA.",
+  "allied_with_corp":            "Tu as collaboré avec La Corp.",
+};
 
 // ── DOM ───────────────────────────────────────────────────────────────────
 const $ = (id) => document.getElementById(id);
@@ -111,6 +134,11 @@ async function loadCurrentState() {
 
 // ── Rendu complet d'un état ───────────────────────────────────────────────
 function renderState(state) {
+  // Réinitialiser les flags du chapitre si on change de chapitre
+  if (state.chapter_id !== _currentChapterId) {
+    _chapterFlags = [];
+    _currentChapterId = state.chapter_id;
+  }
   _currentSceneId = state.scene_id;
 
   updateHeader(state);
@@ -131,6 +159,11 @@ function renderState(state) {
   };
 
   renderDialogue(state.dialogue || "", onComplete);
+
+  // Scroll vers la zone de dialogue sur mobile (petits écrans)
+  if (window.innerWidth <= 640) {
+    DOM.dialogueBox?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 }
 
 // ── Header ────────────────────────────────────────────────────────────────
@@ -158,12 +191,21 @@ function updateHeader(state) {
   if (DOM.trustFill) {
     DOM.trustFill.style.width = `${trust}%`;
     DOM.trustFill.parentElement?.setAttribute("aria-valuenow", trust);
+
+    // Couleur de la barre selon le niveau de confiance
+    const bar = DOM.trustFill.parentElement;
+    bar?.classList.remove("trust-critical", "trust-warm");
+    if (trust <= 30) bar?.classList.add("trust-critical");
+    else if (trust >= 75) bar?.classList.add("trust-warm");
   }
   if (DOM.trustValue) DOM.trustValue.textContent = `${trust}%`;
 
   // Indicateur delta confiance
   const delta = trust - prevTrust;
   if (delta !== 0 && Math.abs(delta) >= 3) showTrustDelta(delta);
+
+  // Avertissement trust critique (première fois sous 30)
+  if (trust <= 30 && prevTrust > 30) showTrustWarning();
 }
 
 // ── Panneau LUNA ──────────────────────────────────────────────────────────
@@ -377,6 +419,16 @@ async function handleChoice(sceneId, choiceId, btnEl) {
     if (result.trust_delta > 0 && _sfxEnabled) playTrustUp();
     if (result.trust_delta < 0 && _sfxEnabled) playTrustDown();
 
+    // Pulse visuel sur la barre de confiance lors d'un grand changement
+    if (Math.abs(result.trust_delta || 0) >= 8) {
+      animateTrustPulse(result.trust_delta > 0 ? "positive" : "negative");
+    }
+
+    // Accumuler les flags narratifs acquis dans ce chapitre
+    (result.flags_added || []).forEach(f => {
+      if (!_chapterFlags.includes(f)) _chapterFlags.push(f);
+    });
+
     showSaveToast();
 
     if (result.luna_reaction) await showLunaReaction(result.luna_reaction);
@@ -384,6 +436,32 @@ async function handleChoice(sceneId, choiceId, btnEl) {
     setTimeout(() => renderState(data.next_state), REACTION_SHOW_MS * 0.3);
 
   } catch { showError("Connexion perdue."); _choicesLocked = false; }
+}
+
+// ── Récapitulatif fin de chapitre ─────────────────────────────────────────
+function showChapterRecap() {
+  const container = document.getElementById("chapter-recap");
+  const list = document.getElementById("recap-items");
+  if (!container || !list) return;
+
+  const interesting = _chapterFlags.filter(f => FLAG_LABELS_JS[f]);
+  if (interesting.length === 0) { container.hidden = true; return; }
+
+  list.innerHTML = interesting
+    .map(f => `<li class="recap-item"><span class="recap-dot">◈</span> ${FLAG_LABELS_JS[f]}</li>`)
+    .join("");
+
+  container.hidden = false;
+  container.classList.add("recap-entering");
+  setTimeout(() => container.classList.remove("recap-entering"), 600);
+}
+
+// ── Pulse de confiance ─────────────────────────────────────────────────────
+function animateTrustPulse(type) {
+  const bar = DOM.trustFill;
+  if (!bar) return;
+  bar.classList.add(`trust-pulse-${type}`);
+  setTimeout(() => bar.classList.remove(`trust-pulse-${type}`), 700);
 }
 
 // ── Réaction LUNA ─────────────────────────────────────────────────────────
@@ -399,6 +477,12 @@ function showLunaReaction(reaction) {
 // ── Bouton avancer — fin de chapitre ─────────────────────────────────────
 function showAdvanceButton() {
   if (DOM.advanceContainer) DOM.advanceContainer.hidden = false;
+
+  // Afficher le récapitulatif des moments clés du chapitre
+  showChapterRecap();
+
+  // Scroll vers la zone d'avancement sur mobile
+  DOM.advanceContainer?.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
 function setupAdvanceButton() {
@@ -571,6 +655,14 @@ function showXpIndicator(xp) {
   const clone = el.cloneNode(true);
   el.parentNode.replaceChild(clone, el);
   DOM.xpIndicator = clone;
+}
+
+function showTrustWarning() {
+  const el = document.createElement("div");
+  el.className = "trust-warning";
+  el.innerHTML = `<span class="tw-icon">⚠</span> LUNA ne te fait presque plus confiance`;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 4000);
 }
 
 function showTrustDelta(delta) {

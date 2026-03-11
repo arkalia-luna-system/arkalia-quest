@@ -965,6 +965,71 @@ button { cursor: pointer; font-family: inherit; }
 .loading-text { color: var(--text-dim); font-style: italic; }
 .error-text   { color: var(--danger); }
 
+/* ── Récapitulatif fin de chapitre ── */
+.chapter-recap {
+  margin: 0 0 1rem;
+  padding: 0.9rem 1.1rem;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-luna);
+  border-radius: var(--radius-md);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.chapter-recap:not([hidden]) {
+  opacity: 1;
+  transform: translateY(0);
+}
+.recap-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--luna);
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+.recap-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.recap-item {
+  font-size: 0.82rem;
+  color: var(--text-main);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  line-height: 1.4;
+}
+.recap-dot {
+  color: var(--luna);
+  opacity: 0.7;
+  flex-shrink: 0;
+  font-size: 0.7rem;
+  margin-top: 2px;
+}
+
+/* ── Pulse barre de confiance ── */
+@keyframes trust-pulse-positive {
+  0%   { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.6); }
+  50%  { box-shadow: 0 0 0 6px rgba(0, 212, 255, 0); }
+  100% { box-shadow: none; }
+}
+@keyframes trust-pulse-negative {
+  0%   { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6); }
+  50%  { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+  100% { box-shadow: none; }
+}
+.trust-fill.trust-pulse-positive {
+  animation: trust-pulse-positive 0.7s ease-out;
+}
+.trust-fill.trust-pulse-negative {
+  animation: trust-pulse-negative 0.7s ease-out;
+}
+
 /* Skeleton loading */
 .loading-skeleton-line {
   display: block;
@@ -1126,6 +1191,118 @@ button { cursor: pointer; font-family: inherit; }
   50%       { transform: scale(1.04); border-color: var(--danger); }
 }
 
+/* ─── Émotions supplémentaires ──────────────────────────────────── */
+
+/* Honnête / directe / sérieuse — regard droit, légèrement plus lumineux */
+.luna-avatar.emotion-honnête .avatar-eye,
+.luna-avatar.emotion-directe .avatar-eye,
+.luna-avatar.emotion-sérieuse .avatar-eye {
+  background: #e2e8f0;
+  box-shadow: 0 0 6px rgba(226,232,240,0.4);
+}
+
+/* Déterminée / concentrée / focalisée / dans l'action — yeux resserrés, couleur action */
+.luna-avatar.emotion-déterminée .avatar-eye,
+.luna-avatar.emotion-concentrée .avatar-eye,
+.luna-avatar.emotion-focalisée .avatar-eye,
+.luna-avatar.emotion-dans\ l\'action .avatar-eye {
+  width: 10px;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--action);
+  box-shadow: 0 0 8px rgba(88,166,255,0.5);
+}
+.luna-avatar.emotion-déterminée .avatar-core,
+.luna-avatar.emotion-concentrée .avatar-core {
+  animation: core-pulse-action 2s ease-in-out infinite;
+}
+@keyframes core-pulse-action {
+  0%, 100% { border-color: var(--action); }
+  50%       { border-color: var(--luna); }
+}
+
+/* Calme / apaisée / patiente — yeux légèrement plus petits, teinte bleue douce */
+.luna-avatar.emotion-calme .avatar-eye,
+.luna-avatar.emotion-apaisée .avatar-eye,
+.luna-avatar.emotion-patiente .avatar-eye {
+  background: #7dd3fc;
+  box-shadow: 0 0 5px rgba(125,211,252,0.3);
+  width: 9px;
+  height: 9px;
+}
+
+/* Soulagée — yeux mi-fermés en arc (soulagement) */
+.luna-avatar.emotion-soulagée .avatar-eye {
+  border-radius: 0 0 50% 50% / 0 0 60% 60%;
+  height: 7px;
+  background: var(--success);
+  box-shadow: 0 0 8px rgba(63,185,80,0.3);
+}
+
+/* Épuisée / résignée — yeux très petits et ternes */
+.luna-avatar.emotion-épuisée .avatar-eye,
+.luna-avatar.emotion-résignée .avatar-eye {
+  height: 4px;
+  width: 10px;
+  border-radius: 2px;
+  background: var(--text-dim);
+  opacity: 0.7;
+}
+.luna-avatar.emotion-épuisée .avatar-core,
+.luna-avatar.emotion-résignée .avatar-core {
+  opacity: 0.75;
+}
+
+/* Mélancolique / incertaine — yeux légèrement asymétriques, bleu froid */
+.luna-avatar.emotion-mélancolique .avatar-eye,
+.luna-avatar.emotion-incertaine .avatar-eye {
+  background: #94a3b8;
+  box-shadow: 0 0 4px rgba(148,163,184,0.3);
+  height: 7px;
+}
+.luna-avatar.emotion-mélancolique .avatar-eye.left { opacity: 0.8; }
+
+/* Vulnérable / coupable — yeux mi-clos, teinte chaleureuse */
+.luna-avatar.emotion-vulnérable .avatar-eye,
+.luna-avatar.emotion-coupable .avatar-eye {
+  height: 6px;
+  background: #fbbf24;
+  box-shadow: 0 0 6px rgba(251,191,36,0.3);
+  border-radius: 50% 50% 40% 40%;
+}
+
+/* Stressée / déstabilisée — yeux clignotants rapides */
+.luna-avatar.emotion-stressée .avatar-eye,
+.luna-avatar.emotion-déstabilisée .avatar-eye {
+  background: #fb923c;
+  animation: eye-blink-fast 1.2s ease-in-out infinite;
+}
+@keyframes eye-blink-fast {
+  0%, 90%, 100% { opacity: 1; transform: scaleY(1); }
+  95%            { opacity: 0; transform: scaleY(0.1); }
+}
+
+/* Excitée — yeux scintillants */
+.luna-avatar.emotion-excitée .avatar-eye {
+  background: #f0abfc;
+  box-shadow: 0 0 10px rgba(240,171,252,0.6);
+  animation: eye-sparkle 0.8s ease-in-out infinite;
+}
+@keyframes eye-sparkle {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 6px rgba(240,171,252,0.4); }
+  50%       { transform: scale(1.2); box-shadow: 0 0 14px rgba(240,171,252,0.8); }
+}
+
+/* Compréhensive / attend / espère — yeux doux, légèrement plus grands */
+.luna-avatar.emotion-compréhensive .avatar-eye,
+.luna-avatar.emotion-attend .avatar-eye,
+.luna-avatar.emotion-espère .avatar-eye {
+  width: 11px;
+  height: 11px;
+  background: #a5f3fc;
+  box-shadow: 0 0 6px rgba(165,243,252,0.3);
+}
+
 /* ============================================================
    TRANSITION DE CHAPITRE
    ============================================================ */
@@ -1218,6 +1395,55 @@ button { cursor: pointer; font-family: inherit; }
 
 .trust-delta.positive { color: var(--luna); }
 .trust-delta.negative { color: var(--danger); }
+
+/* ── Barre de confiance — états critiques ───────────────────────── */
+.trust-bar.trust-critical .trust-fill {
+  background: var(--danger);
+  box-shadow: 0 0 8px rgba(255,77,109,0.5);
+}
+.trust-bar.trust-critical {
+  border-color: rgba(255,77,109,0.4);
+  animation: trust-pulse-danger 1.5s ease-in-out infinite;
+}
+@keyframes trust-pulse-danger {
+  0%, 100% { box-shadow: none; }
+  50%       { box-shadow: 0 0 6px rgba(255,77,109,0.4); }
+}
+
+.trust-bar.trust-warm .trust-fill {
+  background: var(--luna);
+  box-shadow: 0 0 8px var(--luna-glow);
+}
+
+/* ── Avertissement trust critique ───────────────────────────────── */
+.trust-warning {
+  position: fixed;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 18px;
+  background: rgba(255,77,109,0.12);
+  border: 1px solid rgba(255,77,109,0.5);
+  border-radius: var(--radius-md);
+  color: var(--danger);
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+  z-index: 300;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: trust-warn-anim 4s ease-out forwards;
+}
+.trust-warning .tw-icon { font-size: 0.9rem; }
+
+@keyframes trust-warn-anim {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(-6px); }
+  10%  { opacity: 1; transform: translateX(-50%) translateY(0); }
+  75%  { opacity: 1; }
+  100% { opacity: 0; }
+}
 
 /* ── Toast de sauvegarde ────────────────────────────────────────── */
 .save-toast {

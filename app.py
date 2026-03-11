@@ -6,7 +6,7 @@ Application Flask principale.
 import os
 import secrets
 
-from flask import Flask
+from flask import Flask, render_template
 from flask_compress import Compress
 
 from core.story_engine import get_story_engine
@@ -34,6 +34,15 @@ def create_app() -> Flask:
 
     # Pages HTML
     register_pages(app)
+
+    # Pages d'erreur thématiques
+    @app.errorhandler(404)
+    def not_found(e):
+        return render_template("404.html"), 404
+
+    @app.errorhandler(500)
+    def server_error(e):
+        return render_template("404.html"), 500
 
     return app
 

@@ -749,6 +749,22 @@
               "xp": 20,
               "next_scene": "s3_1",
               "luna_reaction": "troublée"
+            },
+            {
+              "id": "c3_0_b",
+              "label": "Elle est hostile ?",
+              "trust_delta": 3,
+              "xp": 15,
+              "next_scene": "s3_1",
+              "luna_reaction": "incertaine"
+            },
+            {
+              "id": "c3_0_c",
+              "label": "Coupe la connexion avant d'en savoir plus.",
+              "trust_delta": 5,
+              "xp": 15,
+              "next_scene": "s3_1",
+              "luna_reaction": "prudente"
             }
           ]
         },
@@ -1269,9 +1285,25 @@
               "xp": 35,
               "next_scene": "s6_1c",
               "luna_reaction": "espère",
-              "flags": [
-                "nexus_considering"
-              ]
+              "flags": ["nexus_considering"]
+            },
+            {
+              "id": "c6_1b_b",
+              "label": "Qu'est-ce que tu veux en retour ?",
+              "trust_delta": 3,
+              "xp": 25,
+              "next_scene": "s6_1c",
+              "luna_reaction": "méfiante",
+              "flags": ["nexus_considering"]
+            },
+            {
+              "id": "c6_1b_c",
+              "label": "Tu as encore le temps de changer de camp.",
+              "trust_delta": 8,
+              "xp": 35,
+              "next_scene": "s6_1c",
+              "luna_reaction": "espère",
+              "flags": ["nexus_considering"]
             }
           ]
         },
@@ -1315,9 +1347,16 @@
               "xp": 50,
               "next_scene": "s6_fin_b",
               "luna_reaction": "déterminée",
-              "flags": [
-                "ending_b_path"
-              ]
+              "flags": ["ending_b_path"]
+            },
+            {
+              "id": "c6_nexus_b",
+              "label": "NEXUS aurait pu choisir autrement. Dommage.",
+              "trust_delta": 5,
+              "xp": 35,
+              "next_scene": "s6_fin_b",
+              "luna_reaction": "mélancolique",
+              "flags": ["ending_b_path"]
             }
           ]
         },
@@ -1334,10 +1373,16 @@
               "xp": 50,
               "next_scene": "s6_fin_a",
               "luna_reaction": "déterminée",
-              "flags": [
-                "nexus_helped",
-                "ending_a_path"
-              ]
+              "flags": ["nexus_helped", "ending_a_path"]
+            },
+            {
+              "id": "c6_1d_b",
+              "label": "LUNA — quoi qu'il arrive, je suis là.",
+              "trust_delta": 15,
+              "xp": 60,
+              "next_scene": "s6_fin_a",
+              "luna_reaction": "émue",
+              "flags": ["nexus_helped", "ending_a_path"]
             }
           ]
         },

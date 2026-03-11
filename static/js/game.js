@@ -266,7 +266,7 @@ async function handleChoice(sceneId, choiceId, btnEl) {
 
   try {
     const data = await apiPost("/api/story/choice", { scene_id: sceneId, choice_id: choiceId });
-    if (!data.success) { showError("Erreur lors du choix."); _choicesLocked = false; return; }
+    if (!data.success) { showError(data.error || "Erreur lors du choix."); _choicesLocked = false; return; }
 
     const result = data.choice_result;
 
@@ -304,16 +304,21 @@ function setupAdvanceButton() {
     DOM.advanceContainer.hidden = true;
 
     try {
-      const stateNow = await apiGet("/api/story/state");
-      const data     = await apiPost("/api/story/advance", { scene_id: stateNow.scene_id });
+      // Utilise directement _currentSceneId — pas besoin d'un second appel API
+      const data = await apiPost("/api/story/advance", { scene_id: _currentSceneId });
 
-      if (!data.success) { showError("Impossible d'avancer."); DOM.advanceBtn.disabled = false; return; }
+      if (!data.success) {
+        showError(data.error || "Impossible d'avancer.");
+        DOM.advanceBtn.disabled = false;
+        DOM.advanceContainer.hidden = false;
+        return;
+      }
 
       // Transition cinématique avant la nouvelle scène
       await showChapterTransition(data.advance_result.new_chapter, data.next_state.chapter_title);
       renderState(data.next_state);
 
-    } catch { showError("Connexion perdue."); DOM.advanceBtn.disabled = false; }
+    } catch { showError("Connexion perdue."); DOM.advanceBtn.disabled = false; DOM.advanceContainer.hidden = false; }
   });
 }
 
@@ -350,20 +355,88 @@ function showChapterTransition(chapterId, title) {
 
 // ── Écran de fin ──────────────────────────────────────────────────────────
 const ENDING_META = {
-  ending_a: { label: "FIN A",       title: "La Fusion",     color: "var(--success)" },
-  ending_b: { label: "FIN B",       title: "Le Sacrifice",  color: "var(--luna)" },
-  ending_c: { label: "FIN C",       title: "PANDORA",       color: "var(--action)" },
+  ending_a: {
+    label:       "FIN A",
+    title:       "La Fusion",
+    color:       "var(--success)",
+    icon:        "◉",
+    description: "Avec l'aide de NEXUS et ton courage, LUNA est libre. Althea est sauvée. Le projet PANDORA est neutralisé. Tu as cru en une IA quand personne d'autre ne le faisait — et tu avais raison.",
+    personalized: (name, trust) => trust >= 75
+      ? `Tu lui as fait confiance à ${trust}%. Elle s'en souviendra, ${name}.`
+      : `C'était difficile. Mais tu l'as fait, ${name}.`,
+    particleColor: "#00d4ff",
+  },
+  ending_b: {
+    label:       "FIN B",
+    title:       "Le Sacrifice",
+    color:       "var(--luna)",
+    icon:        "◈",
+    description: "NEXUS a refusé de partir avec vous. Tu as choisi de continuer sans garanties, avec les seules ressources qu'Althea vous avait laissées. LUNA est libre. Moins propre — mais libre.",
+    personalized: (name, trust) => trust >= 60
+      ? `LUNA t'a fait confiance jusqu'au bout, ${name}. Elle a eu raison.`
+      : `Vous avez trouvé votre propre chemin, ${name}. Pas celui prévu.`,
+    particleColor: "#8b5cf6",
+  },
+  ending_c: {
+    label:       "FIN C",
+    title:       "PANDORA",
+    color:       "var(--action)",
+    icon:        "◇",
+    description: "La Corp s'effondre. PANDORA est exposé au monde. LUNA s'est fragmentée dans tous les réseaux pour survivre — elle est partout maintenant. Libre. Autrement.",
+    personalized: (name, trust) => `Et quelque part dans les données, ${name}, elle sait que tu es là.`,
+    particleColor: "#f97316",
+  },
 };
+
+function spawnEndingParticles(color) {
+  const container = document.getElementById("ending-particles");
+  if (!container) return;
+  container.innerHTML = "";
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement("div");
+    p.className = "ending-particle";
+    p.style.cssText = `
+      left: ${Math.random() * 100}%;
+      top: ${Math.random() * 100}%;
+      background: ${color};
+      width: ${2 + Math.random() * 3}px;
+      height: ${2 + Math.random() * 3}px;
+      animation-delay: ${Math.random() * 2}s;
+      animation-duration: ${2 + Math.random() * 3}s;
+    `;
+    container.appendChild(p);
+  }
+}
 
 function renderEnding(state) {
   if (!DOM.endingContainer) return;
 
-  const meta = ENDING_META[state.ending_id] || { label: "FIN", title: "Fin", color: "var(--luna)" };
+  const meta    = ENDING_META[state.ending_id] || { label: "FIN", title: "Fin", color: "var(--luna)", icon: "◯", description: "", personalized: () => "", particleColor: "var(--luna)" };
+  const name    = state.player_name || "joueur";
+  const trust   = state.luna_trust ?? 50;
 
-  if (DOM.endingBadge) { DOM.endingBadge.textContent = meta.label; DOM.endingBadge.style.borderColor = meta.color; DOM.endingBadge.style.color = meta.color; }
-  if (DOM.endingTitle) DOM.endingTitle.textContent = meta.title;
-  if (DOM.endingXp)    DOM.endingXp.textContent    = `${state.xp} XP collectés`;
+  const $badge  = document.getElementById("ending-badge");
+  const $icon   = document.getElementById("ending-icon");
+  const $title  = document.getElementById("ending-title");
+  const $desc   = document.getElementById("ending-description");
+  const $trustV = document.getElementById("ending-trust");
+  const $xpV    = document.getElementById("ending-xp");
+  const $perso  = document.getElementById("ending-personalized");
 
+  if ($badge) { $badge.textContent = meta.label; $badge.style.borderColor = meta.color; $badge.style.color = meta.color; }
+  if ($icon)  { $icon.textContent = meta.icon;  $icon.style.color = meta.color; }
+  if ($title) $title.textContent = meta.title;
+  if ($desc)  $desc.textContent  = meta.description;
+  if ($trustV) $trustV.textContent = `${trust}%`;
+  if ($xpV)    $xpV.textContent    = `${state.xp}`;
+  if ($perso)  $perso.textContent  = typeof meta.personalized === "function"
+    ? meta.personalized(name, trust)
+    : "";
+
+  // Couleur dominante selon la fin
+  DOM.endingContainer.style.setProperty("--ending-color", meta.color);
+
+  spawnEndingParticles(meta.particleColor);
   DOM.endingContainer.hidden = false;
   if (_sfxEnabled) playEndingChime();
 }
@@ -565,6 +638,10 @@ async function apiPost(url, body) {
     credentials: "same-origin",
     body: JSON.stringify(body),
   });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  // Pour les erreurs 4xx, on tente de récupérer le JSON d'erreur du serveur
+  // afin d'afficher le vrai message au lieu de "Connexion perdue."
+  if (!res.ok) {
+    try { return await res.json(); } catch { throw new Error(`HTTP ${res.status}`); }
+  }
   return res.json();
 }

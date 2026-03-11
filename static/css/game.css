@@ -630,43 +630,142 @@ button { cursor: pointer; font-family: inherit; }
 }
 
 /* Écran de fin */
+/* ── Écran de fin ───────────────────────────────────────────── */
 .ending-container {
+  --ending-color: var(--luna);
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Halo de couleur en arrière-plan */
+.ending-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 40%, color-mix(in srgb, var(--ending-color) 12%, transparent) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.ending-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.ending-particle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0;
+  animation: particle-rise linear forwards;
+}
+
+@keyframes particle-rise {
+  0%   { opacity: 0;   transform: translateY(0)   scale(0); }
+  20%  { opacity: 0.8; transform: translateY(-10px) scale(1); }
+  100% { opacity: 0;   transform: translateY(-80px) scale(0.5); }
 }
 
 .ending-content {
+  position: relative;
+  z-index: 1;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
-  animation: fade-in var(--speed-slow) ease-out;
+  gap: 1.25rem;
+  max-width: 520px;
+  padding: 0 1.5rem;
+  animation: ending-reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes ending-reveal {
+  from { opacity: 0; transform: translateY(24px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+.ending-icon {
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--ending-color);
+  text-shadow: 0 0 30px var(--ending-color);
+  animation: icon-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes icon-pulse {
+  0%, 100% { text-shadow: 0 0 20px var(--ending-color); }
+  50%       { text-shadow: 0 0 50px var(--ending-color), 0 0 80px var(--ending-color); }
 }
 
 .ending-badge {
-  padding: 6px 20px;
-  border: 1px solid var(--luna);
+  padding: 5px 18px;
+  border: 1px solid var(--ending-color);
   border-radius: var(--radius-full);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.2em;
-  color: var(--luna);
+  color: var(--ending-color);
   text-transform: uppercase;
 }
 
 .ending-title {
-  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
   font-weight: 700;
   color: var(--text-white);
+  line-height: 1.15;
 }
 
-.ending-xp {
+.ending-description {
+  font-size: 0.92rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+  max-width: 420px;
+}
+
+.ending-stats {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1.5rem;
+}
+
+.ending-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.ending-stat-value {
   font-family: var(--font-mono);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--ending-color);
+}
+
+.ending-stat-label {
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ending-stat-sep {
+  color: var(--border);
+  font-size: 1.2rem;
+}
+
+.ending-personalized {
+  font-size: 0.88rem;
   color: var(--luna);
-  font-size: 0.9rem;
+  font-style: italic;
+  opacity: 0.9;
 }
 
 .ending-actions {
@@ -674,6 +773,7 @@ button { cursor: pointer; font-family: inherit; }
   gap: 1rem;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 0.5rem;
 }
 
 /* ── Indicateur XP flottant ────────────────────────────────── */

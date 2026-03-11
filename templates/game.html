@@ -71,10 +71,29 @@
 
       <!-- Écran de fin -->
       <div id="ending-container" class="ending-container" hidden>
+        <!-- Particules d'ambiance -->
+        <div class="ending-particles" id="ending-particles" aria-hidden="true"></div>
+
         <div class="ending-content">
+          <div class="ending-icon" id="ending-icon" aria-hidden="true"></div>
           <div class="ending-badge" id="ending-badge">FIN</div>
           <h2 id="ending-title" class="ending-title"></h2>
-          <p id="ending-xp" class="ending-xp"></p>
+          <p id="ending-description" class="ending-description"></p>
+
+          <div class="ending-stats">
+            <div class="ending-stat">
+              <span class="ending-stat-value" id="ending-trust">—</span>
+              <span class="ending-stat-label">Confiance finale</span>
+            </div>
+            <div class="ending-stat-sep" aria-hidden="true">·</div>
+            <div class="ending-stat">
+              <span class="ending-stat-value" id="ending-xp">—</span>
+              <span class="ending-stat-label">XP collectés</span>
+            </div>
+          </div>
+
+          <p id="ending-personalized" class="ending-personalized"></p>
+
           <div class="ending-actions">
             <a href="/profil" class="btn-secondary">Voir mon profil</a>
             <button id="replay-btn" class="btn-outline">Rejouer</button>

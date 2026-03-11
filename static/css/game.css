@@ -467,6 +467,21 @@ button { cursor: pointer; font-family: inherit; }
   z-index: 10;
 }
 
+/* ── Barre de progression de l'histoire ─────────────────── */
+.story-progress-track {
+  height: 2px;
+  background: var(--border);
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+.story-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--luna) 0%, #7c3aed 100%);
+  transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 0 6px rgba(0,212,255,0.5);
+}
+
 .nav-back {
   font-size: 1.1rem;
   color: var(--text-dim);
@@ -545,6 +560,58 @@ button { cursor: pointer; font-family: inherit; }
   color: var(--luna);
   font-family: var(--font-mono);
   min-width: 34px;
+}
+
+/* ── LUNA STATUS indicator ─────────────────────────────────── */
+.luna-status {
+  font-size: 0.64rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  border: 1px solid currentColor;
+  transition: color 0.4s ease, border-color 0.4s ease, background 0.4s ease;
+  white-space: nowrap;
+}
+.luna-status--max      { color: #34d399; border-color: #34d399; background: rgba(52,211,153,0.08); }
+.luna-status--stable   { color: #60a5fa; border-color: #60a5fa; background: rgba(96,165,250,0.08); }
+.luna-status--warn     { color: #fbbf24; border-color: #fbbf24; background: rgba(251,191,36,0.08); }
+.luna-status--danger   { color: #fb923c; border-color: #fb923c; background: rgba(251,146,60,0.08); }
+.luna-status--critical {
+  color: #f43f5e;
+  border-color: #f43f5e;
+  background: rgba(244,63,94,0.12);
+  animation: status-critical-blink 0.9s ease infinite;
+}
+@keyframes status-critical-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+/* ── Mode critique global (trust < 25) ─────────────────────── */
+body.trust-critical-mode .page-game::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  border: 2px solid rgba(244,63,94,0.2);
+  border-radius: 0;
+  animation: critical-border-pulse 2s ease infinite;
+}
+@keyframes critical-border-pulse {
+  0%, 100% { border-color: rgba(244,63,94,0.15); }
+  50%       { border-color: rgba(244,63,94,0.4); }
+}
+body.trust-critical-mode .luna-avatar .avatar-ring {
+  border-color: rgba(244,63,94,0.6) !important;
+  box-shadow: 0 0 20px rgba(244,63,94,0.3) !important;
+  animation: critical-ring-pulse 1.5s ease infinite !important;
+}
+@keyframes critical-ring-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50%       { transform: scale(1.05); opacity: 1; }
 }
 
 /* ── Main jeu ──────────────────────────────────────────────── */
@@ -976,6 +1043,74 @@ button { cursor: pointer; font-family: inherit; }
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 0.5rem;
+}
+
+/* ── Bouton Partager ────────────────────────────────────── */
+.btn-share {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 10px 20px;
+  background: transparent;
+  border: 1px solid rgba(0,212,255,0.4);
+  border-radius: var(--radius-full);
+  color: var(--luna);
+  font-size: 0.82rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background var(--speed-fast), border-color var(--speed-fast), box-shadow var(--speed-fast);
+}
+.btn-share:hover {
+  background: rgba(0,212,255,0.08);
+  border-color: var(--luna);
+  box-shadow: 0 0 14px rgba(0,212,255,0.2);
+}
+.share-icon { font-size: 1rem; line-height: 1; }
+
+.share-toast {
+  border-color: rgba(0,212,255,0.4) !important;
+  color: var(--luna) !important;
+}
+
+/* ── Streak COMBO ───────────────────────────────────────── */
+.streak-popup {
+  position: fixed;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.8);
+  z-index: 400;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(52,211,153,0.12);
+  border: 1px solid rgba(52,211,153,0.5);
+  border-radius: var(--radius-full);
+  padding: 0.3rem 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.streak-popup.visible {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+.streak-x {
+  font-size: 1rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: #34d399;
+}
+
+.streak-label {
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #34d399;
+  opacity: 0.8;
 }
 
 /* ── Popup "Exploit débloqué" ───────────────────────────── */
@@ -1441,13 +1576,48 @@ button { cursor: pointer; font-family: inherit; }
   .luna-panel .luna-name { font-size: 0.6rem; }
   .luna-panel .luna-emotion { display: none; }
 
-  .narrative-zone { padding: 1rem; gap: 1rem; }
-  .dialogue-box { padding: 1rem; }
-  .dialogue-text { font-size: 0.92rem; }
-  .choice-btn { font-size: 0.88rem; padding: 12px 14px; }
+  .narrative-zone { padding: 0.8rem; gap: 0.8rem; }
+  .dialogue-box { padding: 0.9rem 1rem; }
+  .dialogue-text { font-size: 0.9rem; line-height: 1.65; }
 
-  .game-trust .trust-bar { width: 50px; }
+  /* Touch targets plus grands sur mobile (min 44px de hauteur) */
+  .choice-btn {
+    font-size: 0.9rem;
+    padding: 14px 16px;
+    min-height: 44px;
+    border-radius: 8px;
+  }
+
+  .btn-primary, .btn-secondary, .btn-outline {
+    min-height: 44px;
+    padding: 12px 20px;
+  }
+
+  .nav-back {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sfx-btn { min-width: 44px; min-height: 44px; }
+
+  .game-trust .trust-bar { width: 44px; }
   .trust-label { display: none; }
+  .trust-value { font-size: 0.72rem; }
+  .xp-header { display: none; }
+
+  /* Ending screen sur mobile */
+  .ending-actions { flex-direction: column; gap: 0.7rem; }
+  .ending-actions > * { width: 100%; text-align: center; justify-content: center; }
+  .ending-title { font-size: 1.5rem; }
+  .ending-stats { gap: 1.2rem; }
+
+  /* Header compact */
+  .game-header { padding: 8px 12px; gap: 0.6rem; }
+  .chapter-title { font-size: 0.72rem; }
+  .chapter-progress { font-size: 0.65rem; }
 
 }
 
@@ -1691,6 +1861,92 @@ button { cursor: pointer; font-family: inherit; }
   95%            { opacity: 0; transform: scaleY(0.1); }
 }
 
+/* Analytique / logique — yeux calmes, bleu vif, symétrie parfaite */
+.luna-avatar.emotion-analytique .avatar-eye {
+  background: #38bdf8;
+  box-shadow: 0 0 8px rgba(56,189,248,0.5);
+  height: 9px; width: 9px;
+  border-radius: 2px; /* légèrement carré = précision */
+}
+.luna-avatar.emotion-analytique .avatar-core {
+  border-color: rgba(56,189,248,0.35);
+}
+
+/* Froide / distante — yeux blancs/gris, presque éteints */
+.luna-avatar.emotion-froide .avatar-eye,
+.luna-avatar.emotion-distante .avatar-eye {
+  background: #cbd5e1;
+  box-shadow: none;
+  height: 7px; width: 7px;
+  opacity: 0.65;
+}
+.luna-avatar.emotion-froide .avatar-core { opacity: 0.6; }
+
+/* Méfiante — yeux légèrement réduits, orange-ambre */
+.luna-avatar.emotion-méfiante .avatar-eye {
+  background: #f59e0b;
+  box-shadow: 0 0 6px rgba(245,158,11,0.4);
+  height: 7px;
+  width: 11px;
+  border-radius: 3px;
+}
+
+/* Urgente / alarmée-rapide — yeux qui pulsent vite en rouge */
+.luna-avatar.emotion-urgente .avatar-eye {
+  background: #ef4444;
+  box-shadow: 0 0 10px rgba(239,68,68,0.6);
+  animation: eye-urgent-pulse 0.5s ease-in-out infinite;
+}
+@keyframes eye-urgent-pulse {
+  0%, 100% { transform: scaleY(1); opacity: 1; }
+  50%       { transform: scaleY(1.3); opacity: 0.8; }
+}
+
+/* Anxieuse — yeux un peu plus petits, légèrement tremblants */
+.luna-avatar.emotion-anxieuse .avatar-eye {
+  background: #fb923c;
+  box-shadow: 0 0 7px rgba(251,146,60,0.45);
+  height: 7px;
+  animation: eye-anxious 2s ease-in-out infinite;
+}
+@keyframes eye-anxious {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(1px); }
+  40%       { transform: translateX(-1px); }
+  60%       { transform: translateX(0.5px); }
+}
+
+/* Défensive — yeux rétrécis, regard dur, violet */
+.luna-avatar.emotion-défensive .avatar-eye {
+  background: #a78bfa;
+  box-shadow: 0 0 6px rgba(167,139,250,0.4);
+  height: 6px;
+  width: 12px;
+  border-radius: 2px;
+}
+
+/* Déçue / blessée — yeux mi-clos, rouge doux */
+.luna-avatar.emotion-déçue .avatar-eye {
+  background: #f87171;
+  box-shadow: 0 0 5px rgba(248,113,113,0.3);
+  height: 6px;
+  transform: translateY(1px);
+}
+
+/* Avertissante / sérieuse-warning — yeux jaune-ambre, fixés */
+.luna-avatar.emotion-avertissante .avatar-eye {
+  background: #fbbf24;
+  box-shadow: 0 0 8px rgba(251,191,36,0.5);
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  animation: eye-fixed-pulse 2.5s ease-in-out infinite;
+}
+@keyframes eye-fixed-pulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(251,191,36,0.5); }
+  50%       { box-shadow: 0 0 16px rgba(251,191,36,0.8); }
+}
+
 /* Excitée — yeux scintillants */
 .luna-avatar.emotion-excitée .avatar-eye {
   background: #f0abfc;
@@ -1894,6 +2150,68 @@ button { cursor: pointer; font-family: inherit; }
   10%  { opacity: 1; transform: translateX(-50%) translateY(0); }
   75%  { opacity: 1; }
   100% { opacity: 0; }
+}
+
+/* ── Alerte critique confiance ──────────────────────────────── */
+.critical-alert-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.7);
+  animation: critical-overlay-in 0.3s ease both;
+}
+.critical-alert-overlay.hiding {
+  animation: critical-overlay-out 0.5s ease both;
+}
+
+@keyframes critical-overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes critical-overlay-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+.critical-alert-box {
+  display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+  padding: 2rem 2.5rem;
+  background: rgba(5,5,12,0.97);
+  border: 1px solid rgba(244,63,94,0.6);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 0 40px rgba(244,63,94,0.25), 0 8px 32px rgba(0,0,0,0.8);
+  text-align: center;
+  max-width: 340px;
+  animation: critical-box-in 0.4s cubic-bezier(0.22,1,0.36,1) both;
+  animation-delay: 0.1s;
+}
+@keyframes critical-box-in {
+  from { transform: scale(0.9) translateY(10px); opacity: 0; }
+  to   { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.critical-alert-icon {
+  font-size: 2rem;
+  color: #f43f5e;
+  animation: critical-icon-pulse 0.8s ease infinite;
+}
+@keyframes critical-icon-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(1.1); }
+}
+
+.critical-alert-title {
+  font-size: 0.7rem; font-family: var(--font-mono);
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: #f43f5e;
+}
+
+.critical-alert-msg {
+  font-size: 0.88rem; color: var(--text-main); line-height: 1.6;
+  font-style: italic;
 }
 
 /* ── Easter egg idle — LUNA te parle ───────────────────────────── */

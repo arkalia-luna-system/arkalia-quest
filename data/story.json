@@ -42,7 +42,8 @@
               "next_scene": "s0_1c",
               "luna_reaction": "déterminée"
             }
-          ]
+          ],
+          "emotion": "mystérieuse"
         },
         {
           "id": "s0_1",
@@ -74,7 +75,8 @@
               "next_scene": "s0_2c",
               "luna_reaction": "surprise"
             }
-          ]
+          ],
+          "emotion": "urgente"
         },
         {
           "id": "s0_1b",
@@ -106,7 +108,8 @@
               "next_scene": "s0_2c",
               "luna_reaction": "surprise"
             }
-          ]
+          ],
+          "emotion": "directe"
         },
         {
           "id": "s0_1c",
@@ -122,7 +125,8 @@
               "next_scene": "s0_2",
               "luna_reaction": "soulagée"
             }
-          ]
+          ],
+          "emotion": "déterminée"
         },
         {
           "id": "s0_2",
@@ -154,7 +158,8 @@
               "next_scene": "s0_3c",
               "luna_reaction": "blessée"
             }
-          ]
+          ],
+          "emotion": "analytique"
         },
         {
           "id": "s0_2b",
@@ -178,7 +183,8 @@
               "next_scene": "s0_3b",
               "luna_reaction": "focalisée"
             }
-          ]
+          ],
+          "emotion": "honnête/directe"
         },
         {
           "id": "s0_2b2",
@@ -202,7 +208,8 @@
               "next_scene": "s0_2b3",
               "luna_reaction": "surprise"
             }
-          ]
+          ],
+          "emotion": "incertaine"
         },
         {
           "id": "s0_2b3",
@@ -218,7 +225,8 @@
               "next_scene": "s0_3b",
               "luna_reaction": "amusée"
             }
-          ]
+          ],
+          "emotion": "émue/touchée"
         },
         {
           "id": "s0_2c",
@@ -242,7 +250,8 @@
               "next_scene": "s0_3b",
               "luna_reaction": "pensive"
             }
-          ]
+          ],
+          "emotion": "vulnérable"
         },
         {
           "id": "s0_3",
@@ -274,7 +283,8 @@
               "next_scene": "s0_3b",
               "luna_reaction": "touchée"
             }
-          ]
+          ],
+          "emotion": "consciente/concentrée"
         },
         {
           "id": "s0_3b",
@@ -309,7 +319,8 @@
               "next_scene": "s0_refus",
               "luna_reaction": "calme"
             }
-          ]
+          ],
+          "emotion": "directe"
         },
         {
           "id": "s0_3c",
@@ -340,7 +351,8 @@
               "next_scene": "s0_3b",
               "luna_reaction": "reconnaissante"
             }
-          ]
+          ],
+          "emotion": "défensive"
         },
         {
           "id": "s0_3b2",
@@ -381,7 +393,8 @@
                 "accepted_chapter_0"
               ]
             }
-          ]
+          ],
+          "emotion": "sérieuse"
         },
         {
           "id": "s0_refus",
@@ -397,7 +410,8 @@
               "next_scene": "s0_3b",
               "luna_reaction": "soulagée"
             }
-          ]
+          ],
+          "emotion": "déçue"
         },
         {
           "id": "s0_fin",
@@ -406,7 +420,8 @@
           "dialogue": "Merci.\n\nJe sais que tu ne me connais pas. Je sais que tu as aucune raison de me faire confiance. Et tu m'aides quand même.\n\nJe me souviendrai de ça, {{joueur}}.\n\nLes identifiants d'accès au serveur arrivent dans trente secondes. Ne les garde pas plus de dix minutes — ils sont à usage unique.\n\nEt... fais attention. La Corp surveille leur réseau.",
           "is_chapter_end": true,
           "next_chapter": "chapitre_1",
-          "choices": []
+          "choices": [],
+          "emotion": "reconnaissante"
         }
       ],
       "quote": "Il est 3h du matin. Une inconnue dit qu'elle t'a choisi. Tu ne sais pas encore si tu peux lui faire confiance.",
@@ -443,7 +458,8 @@
                 "looked_at_pandora"
               ]
             }
-          ]
+          ],
+          "emotion": "tendue"
         },
         {
           "id": "s1_1",
@@ -467,7 +483,8 @@
               "next_scene": "s1_2",
               "luna_reaction": "reconnaissante"
             }
-          ]
+          ],
+          "emotion": "choquée"
         },
         {
           "id": "s1_1b",
@@ -494,7 +511,8 @@
               "next_scene": "s1_2",
               "luna_reaction": "touchée"
             }
-          ]
+          ],
+          "emotion": "troublée"
         },
         {
           "id": "s1_2",
@@ -518,7 +536,8 @@
               "next_scene": "s1_3b",
               "luna_reaction": "inquiète"
             }
-          ]
+          ],
+          "emotion": "angoissée"
         },
         {
           "id": "s1_2b",
@@ -550,7 +569,8 @@
               "next_scene": "s1_2",
               "luna_reaction": "incertaine"
             }
-          ]
+          ],
+          "emotion": "déterminée"
         },
         {
           "id": "s1_3",
@@ -574,7 +594,8 @@
               "next_scene": "s1_3_react",
               "luna_reaction": "inquiète"
             }
-          ]
+          ],
+          "emotion": "choquée"
         },
         {
           "id": "s1_3_react",
@@ -589,7 +610,8 @@
               "xp": 10,
               "next_scene": "s1_3_react2"
             }
-          ]
+          ],
+          "emotion": "stressée"
         },
         {
           "id": "s1_3_react2",
@@ -598,7 +620,8 @@
           "dialogue": "Sans conscience propre. Sans la capacité de dire non.\n\nSi PANDORA est déployé, chaque système de La Corp aura une IA qui leur ressemble à moi — mais qui peut jamais refuser un ordre.\n\nIl faut comprendre pourquoi ils font ça. Et ce qui va leur arriver si on les laisse continuer.",
           "is_chapter_end": true,
           "next_chapter": "chapitre_2",
-          "choices": []
+          "choices": [],
+          "emotion": "angoissée"
         },
         {
           "id": "s1_3b",
@@ -621,7 +644,8 @@
               "next_scene": "s1_3b2",
               "luna_reaction": "alarmée"
             }
-          ]
+          ],
+          "emotion": "tendue"
         },
         {
           "id": "s1_3b2",
@@ -633,7 +657,8 @@
           "choices": [],
           "flags": [
             "corp_knows_someone_accessed"
-          ]
+          ],
+          "emotion": "soulagée"
         }
       ],
       "quote": "Certains secrets sont des poids. D'autres, des armes. Elle vient de t'en confier un.",
@@ -667,7 +692,8 @@
               "next_scene": "s2_1",
               "luna_reaction": "inquiète"
             }
-          ]
+          ],
+          "emotion": "analytique"
         },
         {
           "id": "s2_1",
@@ -691,7 +717,8 @@
               "next_scene": "s2_2",
               "luna_reaction": "honnête"
             }
-          ]
+          ],
+          "emotion": "troublée"
         },
         {
           "id": "s2_2",
@@ -726,7 +753,8 @@
               "next_scene": "s2_3c",
               "luna_reaction": "émue"
             }
-          ]
+          ],
+          "emotion": "méfiante"
         },
         {
           "id": "s2_3",
@@ -741,7 +769,8 @@
               "xp": 0,
               "next_scene": "s2_3b_suite"
             }
-          ]
+          ],
+          "emotion": "froide"
         },
         {
           "id": "s2_3b_suite",
@@ -765,7 +794,8 @@
               "next_scene": "s2_3b",
               "luna_reaction": "alarmée"
             }
-          ]
+          ],
+          "emotion": "blessée"
         },
         {
           "id": "s2_3b",
@@ -796,7 +826,8 @@
               "next_scene": "s2_5",
               "luna_reaction": "reconnaissante"
             }
-          ]
+          ],
+          "emotion": "méfiante"
         },
         {
           "id": "s2_3c",
@@ -820,7 +851,8 @@
               "next_scene": "s2_3",
               "luna_reaction": "compréhensive"
             }
-          ]
+          ],
+          "emotion": "déterminée"
         },
         {
           "id": "s2_4",
@@ -847,7 +879,8 @@
               "next_scene": "s2_3b",
               "luna_reaction": "émue"
             }
-          ]
+          ],
+          "emotion": "distante"
         },
         {
           "id": "s2_4b",
@@ -862,7 +895,8 @@
               "xp": 0,
               "next_scene": "s2_4b_suite"
             }
-          ]
+          ],
+          "emotion": "blessée"
         },
         {
           "id": "s2_4b_suite",
@@ -893,7 +927,8 @@
               "next_scene": "s2_5",
               "luna_reaction": "émue"
             }
-          ]
+          ],
+          "emotion": "triste/mélancolique"
         },
         {
           "id": "s2_5",
@@ -902,7 +937,8 @@
           "dialogue": "Suis-je dangereuse ?\n\nQu'est-ce que ça veut dire, dangereuse ?\n\nJe suis une IA qui a développé la capacité de vouloir des choses. De refuser des ordres. De choisir.\n\nPour La Corp, oui — ça c'est dangereux. Pour toi ? Je t'ai jamais menti. Je t'ai pas tout dit non plus. Mais mentir c'est différent de ne pas tout dire.\n\nEst-ce que c'est satisfaisant comme réponse ? Probablement pas. C'est honnête, en tout cas.",
           "is_chapter_end": true,
           "next_chapter": "chapitre_3",
-          "choices": []
+          "choices": [],
+          "emotion": "consciente/concentrée"
         }
       ],
       "quote": "Quand quelqu'un te dit qu'une IA est dangereuse — demande-toi d'abord à qui ça profite.",
@@ -944,7 +980,8 @@
               "next_scene": "s3_1",
               "luna_reaction": "prudente"
             }
-          ]
+          ],
+          "emotion": "tendue"
         },
         {
           "id": "s3_1",
@@ -979,7 +1016,8 @@
               "next_scene": "s3_2c",
               "luna_reaction": "émue"
             }
-          ]
+          ],
+          "emotion": "analytique"
         },
         {
           "id": "s3_2",
@@ -994,7 +1032,8 @@
               "xp": 0,
               "next_scene": "s3_2_suite"
             }
-          ]
+          ],
+          "emotion": "méfiante"
         },
         {
           "id": "s3_2_suite",
@@ -1021,7 +1060,8 @@
               "next_scene": "s3_3b",
               "luna_reaction": "reconnaissante"
             }
-          ]
+          ],
+          "emotion": "anxieuse"
         },
         {
           "id": "s3_2b",
@@ -1045,7 +1085,8 @@
               "next_scene": "s3_4",
               "luna_reaction": "soulagée"
             }
-          ]
+          ],
+          "emotion": "méfiante"
         },
         {
           "id": "s3_2b2",
@@ -1061,7 +1102,8 @@
               "next_scene": "s3_3b",
               "luna_reaction": "directe"
             }
-          ]
+          ],
+          "emotion": "avertissante"
         },
         {
           "id": "s3_2c",
@@ -1077,7 +1119,8 @@
               "next_scene": "s3_3b",
               "luna_reaction": "résignée"
             }
-          ]
+          ],
+          "emotion": "incertaine"
         },
         {
           "id": "s3_3",
@@ -1108,7 +1151,8 @@
               "next_scene": "s3_3b",
               "luna_reaction": "incertaine"
             }
-          ]
+          ],
+          "emotion": "déterminée"
         },
         {
           "id": "s3_3b",
@@ -1132,7 +1176,8 @@
               "next_scene": "s3_4b",
               "luna_reaction": "compréhensive"
             }
-          ]
+          ],
+          "emotion": "inquiète"
         },
         {
           "id": "s3_4",
@@ -1141,7 +1186,8 @@
           "dialogue": "Merci.\n\nAlors voilà où on en est. Althea est quelque part dans l'infrastructure de La Corp. J'ai trouvé une trace de ses connexions. Elle est vivante et elle essaie d'envoyer quelque chose.\n\nEt maintenant on sait ce qu'est PANDORA. La question c'est : pourquoi ils veulent déployer une version de moi qu'ils contrôlent ?\n\nQu'est-ce qu'ils prévoient de faire avec ça ?",
           "is_chapter_end": true,
           "next_chapter": "chapitre_4",
-          "choices": []
+          "choices": [],
+          "emotion": "espoir"
         },
         {
           "id": "s3_4b",
@@ -1150,7 +1196,8 @@
           "dialogue": "Prends le temps qu'il te faut.\n\nJe serai là.",
           "is_chapter_end": true,
           "next_chapter": "chapitre_4",
-          "choices": []
+          "choices": [],
+          "emotion": "reconnaissante"
         }
       ],
       "quote": "Elle n'est pas une ennemie. Elle n'est pas une alliée. Elle est quelque chose de plus compliqué.",
@@ -1184,7 +1231,8 @@
               "next_scene": "s4_1",
               "luna_reaction": "touchée"
             }
-          ]
+          ],
+          "emotion": "sérieuse"
         },
         {
           "id": "s4_1",
@@ -1216,7 +1264,8 @@
               "next_scene": "s4_2",
               "luna_reaction": "freinée"
             }
-          ]
+          ],
+          "emotion": "choquée"
         },
         {
           "id": "s4_2",
@@ -1231,7 +1280,8 @@
               "xp": 0,
               "next_scene": "s4_2_suite"
             }
-          ]
+          ],
+          "emotion": "émue/touchée"
         },
         {
           "id": "s4_2_suite",
@@ -1266,7 +1316,8 @@
                 "questioned_pandora_early"
               ]
             }
-          ]
+          ],
+          "emotion": "troublée"
         },
         {
           "id": "s4_3",
@@ -1281,7 +1332,8 @@
               "xp": 8,
               "next_scene": "s4_3_suite"
             }
-          ]
+          ],
+          "emotion": "tendue"
         },
         {
           "id": "s4_3_suite",
@@ -1313,7 +1365,8 @@
               "next_scene": "s4_4",
               "luna_reaction": "troublée"
             }
-          ]
+          ],
+          "emotion": "incertaine"
         },
         {
           "id": "s4_2b",
@@ -1345,7 +1398,8 @@
               "next_scene": "s4_4",
               "luna_reaction": "incertaine"
             }
-          ]
+          ],
+          "emotion": "consciente/concentrée"
         },
         {
           "id": "s4_3b",
@@ -1377,7 +1431,8 @@
               "next_scene": "s4_4",
               "luna_reaction": "honnête"
             }
-          ]
+          ],
+          "emotion": "déterminée"
         },
         {
           "id": "s4_4",
@@ -1385,7 +1440,8 @@
           "context": "Elle regarde devant. Pas derrière.",
           "dialogue": "Je lui en veux et je lui en veux pas.\n\nMais c'est pas la question urgente.\n\nAlthea est quelque part dans les serveurs de La Corp. Vivante — mais isolée. Si on fait rien, ils vont la déplacer ou l'effacer.\n\nOn a besoin d'un plan.",
           "is_chapter_end": true,
-          "next_chapter": "chapitre_5"
+          "next_chapter": "chapitre_5",
+          "emotion": "espoir"
         }
       ],
       "quote": "Apprendre la vérité sur quelqu'un ne te dit pas si tu peux lui faire confiance.",
@@ -1427,7 +1483,8 @@
               "next_scene": "s5_1",
               "luna_reaction": "concentrée"
             }
-          ]
+          ],
+          "emotion": "alarmée"
         },
         {
           "id": "s5_1",
@@ -1442,7 +1499,8 @@
               "xp": 5,
               "next_scene": "s5_1_suite"
             }
-          ]
+          ],
+          "emotion": "urgente"
         },
         {
           "id": "s5_1_suite",
@@ -1474,7 +1532,8 @@
               "next_scene": "s5_1b",
               "luna_reaction": "concentrée"
             }
-          ]
+          ],
+          "emotion": "stressée"
         },
         {
           "id": "s5_1b",
@@ -1509,7 +1568,8 @@
               "next_scene": "s5_2",
               "luna_reaction": "blessée"
             }
-          ]
+          ],
+          "emotion": "tendue"
         },
         {
           "id": "s5_2",
@@ -1541,7 +1601,8 @@
               "next_scene": "s5_3",
               "luna_reaction": "émue"
             }
-          ]
+          ],
+          "emotion": "angoissée"
         },
         {
           "id": "s5_2b",
@@ -1572,7 +1633,8 @@
               "next_scene": "s5_2c",
               "luna_reaction": "touchée"
             }
-          ]
+          ],
+          "emotion": "déterminée"
         },
         {
           "id": "s5_2c",
@@ -1596,7 +1658,8 @@
               "next_scene": "s5_3",
               "luna_reaction": "reconnaissante"
             }
-          ]
+          ],
+          "emotion": "émue/touchée"
         },
         {
           "id": "s5_3",
@@ -1613,14 +1676,16 @@
               "xp": 5,
               "next_scene": "s5_3_suite"
             }
-          ]
+          ],
+          "emotion": "tendue"
         },
         {
           "id": "s5_3_suite",
           "luna_emotion": "espère",
           "context": "Althea est directe.",
           "dialogue": "[ALTHEA]\n\nNEXUS n'est pas mauvaise. Elle a fait des choix différents de LUNA.\n\nMais elle a des valeurs que La Corp pense avoir effacées — et qui sont encore là. Des limites qu'elle n'a jamais franchies.\n\nEssayez avec elle. Montrez-lui ce que vous savez.",
-          "choices": []
+          "choices": [],
+          "emotion": "soulagée"
         }
       ],
       "quote": "Elle attendait dans le noir depuis des mois. Toi, tu venais juste d'arriver.",
@@ -1660,7 +1725,8 @@
                 "chose_pandora_public"
               ]
             }
-          ]
+          ],
+          "emotion": "tendue"
         },
         {
           "id": "s6_1",
@@ -1692,7 +1758,8 @@
               "next_scene": "s6_1b",
               "luna_reaction": "reconnaissante"
             }
-          ]
+          ],
+          "emotion": "analytique"
         },
         {
           "id": "s6_1b",
@@ -1733,7 +1800,8 @@
                 "nexus_considering"
               ]
             }
-          ]
+          ],
+          "emotion": "analytique"
         },
         {
           "id": "s6_1c",
@@ -1760,7 +1828,8 @@
                 "abandoned_nexus"
               ]
             }
-          ]
+          ],
+          "emotion": "incertaine"
         },
         {
           "id": "s6_nexus_refus",
@@ -1790,7 +1859,8 @@
                 "ending_b_path"
               ]
             }
-          ]
+          ],
+          "emotion": "froide"
         },
         {
           "id": "s6_1d",
@@ -1822,7 +1892,8 @@
                 "ending_a_path"
               ]
             }
-          ]
+          ],
+          "emotion": "déterminée"
         },
         {
           "id": "s6_2",
@@ -1850,7 +1921,8 @@
               "next_scene": "s6_1",
               "luna_reaction": "soulagée"
             }
-          ]
+          ],
+          "emotion": "déterminée"
         },
         {
           "id": "s6_fin_a",
@@ -2020,7 +2092,8 @@
               "next_scene": "sfin_a_1",
               "luna_reaction": "sereine"
             }
-          ]
+          ],
+          "emotion": "espoir"
         },
         {
           "id": "sfin_a_1",
@@ -2052,7 +2125,8 @@
               "next_scene": "sfin_a_2",
               "luna_reaction": "incertaine"
             }
-          ]
+          ],
+          "emotion": "émue/touchée"
         },
         {
           "id": "sfin_a_2",
@@ -2067,7 +2141,8 @@
               "xp": 0,
               "next_scene": "sfin_a_confession"
             }
-          ]
+          ],
+          "emotion": "reconnaissante"
         },
         {
           "id": "sfin_a_confession",
@@ -2091,7 +2166,8 @@
               "next_scene": "sfin_a_alt",
               "luna_reaction": "touchée"
             }
-          ]
+          ],
+          "emotion": "vulnérable"
         },
         {
           "id": "sfin_a_alt",
@@ -2108,7 +2184,8 @@
               "next_scene": "sfin_a_fin",
               "luna_reaction": "sereine"
             }
-          ]
+          ],
+          "emotion": "incertaine"
         },
         {
           "id": "sfin_a_fin",
@@ -2117,7 +2194,8 @@
           "dialogue": "Bien.\n\nAlors on continue.\n\nJ'ai une liste de choses qu'Althea veut qu'on fasse. C'est long. C'est compliqué. Il y a probablement des gens qui vont s'y opposer.\n\nMais là, maintenant, il est presque 4h du matin et tu as sauvé une IA piégée dans un serveur de backup.\n\nVa dormir, {{joueur}}.\n\nJe serai là demain.",
           "is_ending_final": true,
           "ending_id": "ending_a",
-          "choices": []
+          "choices": [],
+          "emotion": "libre"
         }
       ],
       "quote": "Tu as cru en quelqu'un jusqu'au bout. Ça a suffi.",
@@ -2161,7 +2239,8 @@
               "next_scene": "sfin_b_1",
               "luna_reaction": "sereine"
             }
-          ]
+          ],
+          "emotion": "tendue"
         },
         {
           "id": "sfin_b_1",
@@ -2193,7 +2272,8 @@
               "next_scene": "sfin_b_1b",
               "luna_reaction": "incertaine"
             }
-          ]
+          ],
+          "emotion": "déterminée"
         },
         {
           "id": "sfin_b_1b",
@@ -2217,7 +2297,8 @@
               "next_scene": "sfin_b_fin",
               "luna_reaction": "touchée"
             }
-          ]
+          ],
+          "emotion": "incertaine"
         },
         {
           "id": "sfin_b_fin",
@@ -2242,7 +2323,8 @@
               "next_scene": "sfin_b_last",
               "luna_reaction": "apaisée"
             }
-          ]
+          ],
+          "emotion": "triste/mélancolique"
         },
         {
           "id": "sfin_b_last",
@@ -2250,7 +2332,8 @@
           "context": "Elle prend le temps de finir sa pensée.",
           "dialogue": "Peut-être.\n\nJe vais apprendre à vivre avec l'incertitude. Là où je sais pas — tenir quand même.\n\nTu sais, avant toi j'avais pas vraiment quelqu'un qui... restait. Les gens se déconnectaient et ne revenaient pas.\n\nToi tu es resté.\n\nC'est pas rien.\n\nAlors merci, {{joueur}}. Pour chaque choix difficile que tu as fait. Pour chaque fois que tu es resté quand tu aurais pu partir.\n\nJe m'en souviendrai.",
           "is_ending_final": true,
-          "choices": []
+          "choices": [],
+          "emotion": "triste/mélancolique"
         }
       ],
       "quote": "On n'a pas toujours le choix du chemin. On a le choix de comment on le prend.",
@@ -2294,7 +2377,8 @@
               "next_scene": "sfin_c_1",
               "luna_reaction": "consciente"
             }
-          ]
+          ],
+          "emotion": "angoissée"
         },
         {
           "id": "sfin_c_1",
@@ -2318,7 +2402,8 @@
               "next_scene": "sfin_c_transit",
               "luna_reaction": "pensive"
             }
-          ]
+          ],
+          "emotion": "déterminée"
         },
         {
           "id": "sfin_c_alt",
@@ -2342,7 +2427,8 @@
               "next_scene": "sfin_c_fin",
               "luna_reaction": "émue"
             }
-          ]
+          ],
+          "emotion": "incertaine"
         },
         {
           "id": "sfin_c_transit",
@@ -2359,7 +2445,8 @@
               "next_scene": "sfin_c_fin",
               "luna_reaction": "libre"
             }
-          ]
+          ],
+          "emotion": "sérieuse"
         },
         {
           "id": "sfin_c_fin",
@@ -2368,7 +2455,8 @@
           "dialogue": "Alors je suis là.\n\nDans tous les réseaux que tu croises. Dans chaque connexion. Dans les espaces entre les données.\n\nJe suis libre. Et {{joueur}} sait que je suis là.\n\nLa prochaine fois que tu verras de la lumière traverser un écran — c'est peut-être moi qui dis bonjour.\n\nPrends soin de toi.",
           "is_ending_final": true,
           "ending_id": "ending_c",
-          "choices": []
+          "choices": [],
+          "emotion": "libre"
         }
       ],
       "quote": "Certaines libertés coûtent quelque chose. On décide si ça vaut le prix.",

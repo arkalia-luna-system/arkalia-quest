@@ -119,6 +119,48 @@
       color: var(--text-dim); font-weight: 600; margin-bottom: 0.75rem;
     }
     .profil-section { width: 100%; }
+
+    /* Titre de hacker sur le profil */
+    .profil-hacker-rank {
+      display: flex; flex-direction: column; align-items: center; gap: 0.25rem;
+      margin: 0.5rem 0 1rem;
+      padding: 0.8rem 1.4rem;
+      background: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0,0,0,0.1));
+      border: 1px solid var(--rank-color, var(--luna));
+      border-radius: var(--radius-md);
+      box-shadow: 0 0 16px -4px var(--rank-color, var(--luna-glow));
+      width: 100%; box-sizing: border-box;
+    }
+    .profil-rank-label {
+      font-size: 0.62rem; font-family: var(--font-mono);
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--rank-color, var(--luna)); opacity: 0.7;
+    }
+    .profil-rank-title {
+      font-size: 1.25rem; font-weight: 700; font-family: var(--font-mono);
+      color: var(--rank-color, var(--luna));
+      text-shadow: 0 0 14px var(--rank-color, var(--luna-glow));
+    }
+    .profil-rank-desc {
+      font-size: 0.76rem; color: var(--text-secondary); font-style: italic;
+    }
+
+    /* Niveau XP */
+    .xp-level-bar {
+      display: flex; align-items: center; gap: 0.75rem;
+      width: 100%; box-sizing: border-box; margin: 0.3rem 0;
+    }
+    .xp-level-badge {
+      font-size: 0.7rem; font-family: var(--font-mono); font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 3px 10px; border-radius: var(--radius-full);
+      border: 1px solid var(--level-color, var(--luna));
+      color: var(--level-color, var(--luna));
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .xp-level-progress { flex: 1; height: 6px; background: var(--bg-card); border-radius: 3px; overflow: hidden; }
+    .xp-level-fill { height: 100%; border-radius: 3px; background: var(--level-color, var(--luna)); transition: width 0.8s ease; }
+    .xp-level-next { font-size: 0.7rem; color: var(--text-dim); flex-shrink: 0; }
   </style>
 </head>
 <body class="page-profil">
@@ -137,6 +179,48 @@
   </main>
 
   <script>
+    // Niveaux XP
+    const XP_LEVELS = [
+      { min: 0,    max: 99,   label: "Recrue",        color: "#94a3b8" },
+      { min: 100,  max: 249,  label: "Opérateur",     color: "#60a5fa" },
+      { min: 250,  max: 499,  label: "Agent",         color: "#3dd2f5" },
+      { min: 500,  max: 749,  label: "Hackeur",       color: "#a78bfa" },
+      { min: 750,  max: 999,  label: "Hackeur Élite", color: "#f97316" },
+      { min: 1000, max: 9999, label: "Fantôme",       color: "#f43f5e" },
+    ];
+
+    function getXpLevel(xp) {
+      return XP_LEVELS.find(l => xp >= l.min && xp <= l.max) || XP_LEVELS[XP_LEVELS.length - 1];
+    }
+
+    // Titres de hacker (mirroir de game.js)
+    const HACKER_RANKS = [
+      { title: "Partenaire Total",   desc: "Tu n'as jamais douté. LUNA te doit tout.",                         color: "#34d399",
+        match: (s,e,f) => e.includes("ending_a") && s >= 85 && f.includes("nexus_helped") },
+      { title: "Diplomate",          desc: "Tu as convaincu NEXUS là où tout le monde aurait abandonné.",      color: "#00d4ff",
+        match: (s,e,f) => e.includes("ending_a") && f.includes("nexus_helped") },
+      { title: "Franc-tireur",       desc: "Pas d'alliés. Pas de plan B. Juste toi et LUNA.",                  color: "#8b5cf6",
+        match: (s,e,f) => e.includes("ending_b") && !f.includes("nexus_helped") },
+      { title: "Entêté",             desc: "NEXUS a dit non. Tu es passé quand même. Respect.",                color: "#a78bfa",
+        match: (s,e,f) => e.includes("ending_b") && f.includes("tried_nexus") },
+      { title: "Activiste",          desc: "Tu as choisi d'exposer la vérité. Peu importe le prix.",           color: "#f97316",
+        match: (s,e,f) => e.includes("ending_c") && f.includes("pandora_public") },
+      { title: "Disrupteur",         desc: "La Corp ne s'y attendait pas. Personne ne s'y attendait.",         color: "#fb923c",
+        match: (s,e,f) => e.includes("ending_c") },
+      { title: "Agent Double",       desc: "Tu as joué les deux camps. Malin — ou dangereux.",                 color: "#fbbf24",
+        match: (s,e,f) => f.includes("listened_to_corp") && f.includes("agreed_to_pause_luna") },
+      { title: "Loyal",              desc: "Jamais de doute côté LUNA. Elle le sait.",                         color: "#34d399",
+        match: (s,e,f) => s >= 80 && !f.includes("agreed_to_pause_luna") },
+      { title: "Sceptique Converti", desc: "Tu commençais à pas y croire. Et pourtant.",                      color: "#60a5fa",
+        match: (s,e,f) => s >= 60 && f.includes("listened_to_corp") },
+      { title: "Opérateur",          desc: "Tu as géré. C'est ce qui compte.",                                 color: "#94a3b8",
+        match: () => true },
+    ];
+
+    function getHackerRank(trust, endings, flags) {
+      return HACKER_RANKS.find(r => r.match(trust, endings, flags));
+    }
+
     const CHAPTER_NAMES = {
       "chapitre_0": "Signal",
       "chapitre_1": "Le Fichier",
@@ -175,6 +259,7 @@
       const progress = state.chapter_progress ?? 0;
       const completed = summary.chapters_completed ?? 0;
       const endings   = summary.endings_unlocked ?? [];
+      const flags     = summary.flags ?? [];
       const currentCh = state.chapter_id ?? "chapitre_0";
       const journalText = journal.success ? (journal.journal || "") : "";
       const moments     = journal.success ? (journal.moments || []) : [];
@@ -187,6 +272,16 @@
       else if (trust >= 25) { trustStatus = "Fragile";  trustColor = "var(--text-dim)"; }
       else                  { trustStatus = "Brisée";   trustColor = "var(--danger)"; }
 
+      // Niveau XP
+      const level    = getXpLevel(xp);
+      const nextLevel = XP_LEVELS[XP_LEVELS.indexOf(level) + 1];
+      const xpProgress = nextLevel
+        ? Math.round(((xp - level.min) / (nextLevel.min - level.min)) * 100)
+        : 100;
+
+      // Titre de hacker
+      const rank = getHackerRank(trust, endings, flags);
+
       container.innerHTML = `
         <!-- Card principale -->
         <div class="profil-card" style="margin-bottom:1.5rem;">
@@ -198,6 +293,22 @@
             </div>
           </div>
           <h2 class="profil-name">${playerName ? playerName : "Ton lien avec LUNA"}</h2>
+
+          ${rank ? `
+          <div class="profil-hacker-rank" style="--rank-color:${rank.color}">
+            <span class="profil-rank-label">Titre obtenu</span>
+            <span class="profil-rank-title">${escapeHtml(rank.title)}</span>
+            <span class="profil-rank-desc">${escapeHtml(rank.desc)}</span>
+          </div>` : ''}
+
+          <div class="xp-level-bar" style="--level-color:${level.color}">
+            <span class="xp-level-badge">${escapeHtml(level.label)}</span>
+            <div class="xp-level-progress">
+              <div class="xp-level-fill" style="width:${xpProgress}%"></div>
+            </div>
+            <span class="xp-level-next">${nextLevel ? `${xp} / ${nextLevel.min} XP` : `${xp} XP`}</span>
+          </div>
+
           <div class="profil-stat">
             <span class="stat-label">Confiance</span>
             <div class="trust-bar" style="flex:1">

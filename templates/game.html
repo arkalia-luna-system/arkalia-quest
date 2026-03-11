@@ -33,6 +33,11 @@
     </div>
   </header>
 
+  <!-- Barre de progression de l'histoire -->
+  <div class="story-progress-track" aria-hidden="true">
+    <div id="story-progress-fill" class="story-progress-fill" style="width:0%"></div>
+  </div>
+
   <!-- Zone principale du jeu -->
   <main class="game-main">
 
@@ -122,6 +127,9 @@
 
           <div class="ending-actions">
             <a href="/profil" class="btn-secondary">Voir mon profil</a>
+            <button id="share-btn" class="btn-share" aria-label="Partager ta fin">
+              <span class="share-icon">↗</span> Partager
+            </button>
             <button id="replay-btn" class="btn-outline">Rejouer</button>
           </div>
         </div>
@@ -133,6 +141,12 @@
 
   <!-- XP indicator flottant -->
   <div id="xp-indicator" class="xp-indicator" aria-live="assertive" hidden>+0 XP</div>
+
+  <!-- Streak COMBO -->
+  <div id="streak-popup" class="streak-popup" hidden aria-live="assertive">
+    <span class="streak-x" id="streak-x">×2</span>
+    <span class="streak-label">COMBO</span>
+  </div>
 
   <!-- Popup "Exploit découvert" -->
   <div id="exploit-popup" class="exploit-popup" hidden aria-live="assertive" role="status">

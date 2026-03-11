@@ -118,6 +118,24 @@
       font-style: italic;
     }
 
+    .lb-name-cell {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-width: 0;
+      overflow: hidden;
+    }
+    .lb-level-badge {
+      font-size: 0.58rem;
+      font-family: var(--font-mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 1px 7px;
+      border-radius: var(--radius-full);
+      border: 1px solid currentColor;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
     .lb-you-badge {
       font-size: 0.6rem;
       background: var(--action-dim);
@@ -179,6 +197,18 @@
   <script>
     const ENDING_IDS = ["ending_a", "ending_b", "ending_c"];
     const ENDING_LABELS = { ending_a: "FIN A", ending_b: "FIN B", ending_c: "FIN C" };
+
+    const XP_LEVELS = [
+      { min: 0,    max: 99,   label: "Recrue",        color: "#94a3b8" },
+      { min: 100,  max: 249,  label: "Opérateur",     color: "#60a5fa" },
+      { min: 250,  max: 499,  label: "Agent",         color: "#3dd2f5" },
+      { min: 500,  max: 749,  label: "Hackeur",       color: "#a78bfa" },
+      { min: 750,  max: 999,  label: "Hackeur Élite", color: "#f97316" },
+      { min: 1000, max: 9999, label: "Fantôme",       color: "#f43f5e" },
+    ];
+    function getXpLevel(xp) {
+      return XP_LEVELS.find(l => xp >= l.min && xp <= l.max) || XP_LEVELS[XP_LEVELS.length - 1];
+    }
 
     async function loadLeaderboard() {
       const container = document.getElementById("lb-content");
@@ -263,12 +293,18 @@
           return `<div class="lb-ending-dot ${unlocked ? id : ''}" title="${unlocked ? ENDING_LABELS[id] : '?'}"></div>`;
         }).join("");
 
+        const level = getXpLevel(entry.xp);
+        const levelBadge = `<span class="lb-level-badge" style="color:${level.color};border-color:${level.color}">${level.label}</span>`;
+
         const row = document.createElement("div");
         row.className = `lb-row ${rowCls}`;
         row.style.animationDelay = `${idx * 40}ms`;
         row.innerHTML = `
           <span class="lb-rank ${rankCls}">${rankEmoji}</span>
-          <span class="lb-name ${isMe ? 'is-me' : ''}">${escapeHtml(entry.name)}${isMe ? '<span class="lb-you-badge">Toi</span>' : ''}</span>
+          <div class="lb-name-cell">
+            <span class="lb-name ${isMe ? 'is-me' : ''}">${escapeHtml(entry.name)}${isMe ? '<span class="lb-you-badge">Toi</span>' : ''}</span>
+            ${levelBadge}
+          </div>
           <div class="lb-endings">${endingDots}</div>
           <span class="lb-chapters">${entry.chapters_done}/7</span>
           <span class="lb-xp">${entry.xp.toLocaleString("fr")} XP</span>

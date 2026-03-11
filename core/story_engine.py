@@ -88,7 +88,7 @@ class StoryEngine:
             "chapter_title": chapter.get("title", ""),
             "chapter_atmosphere": chapter.get("atmosphere", "dark"),
             "chapter_progress": self._get_chapter_progress(player_state),
-            "total_chapters": 7,
+            "total_chapters": self._story.get("meta", {}).get("total_chapters", 7),
             "scene_index": scene_index_in_chapter + 1,
             "scene_total": len(chapter_scenes),
             "scene_id": scene_id,

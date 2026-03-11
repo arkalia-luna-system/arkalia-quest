@@ -19,6 +19,7 @@ let _choicesLocked      = false;
 let _currentSceneId     = null;
 let _currentChapterId   = null;
 let _chapterFlags       = [];   // flags acquis dans le chapitre courant
+let _positiveStreak     = 0;    // bons choix consécutifs
 let _audioCtx           = null;
 let _sfxEnabled         = localStorage.getItem("luna_sfx") !== "off";
 let _ambientNodes       = [];     // oscillateurs du drone ambiant
@@ -81,6 +82,22 @@ function showExploitPopup(flagId) {
   }, 3000);
 }
 
+let _streakTimeout = null;
+
+function showStreakPopup(count) {
+  const popup = document.getElementById("streak-popup");
+  const xEl   = document.getElementById("streak-x");
+  if (!popup || !xEl) return;
+  xEl.textContent = `×${count}`;
+  popup.hidden = false;
+  popup.classList.add("visible");
+  if (_streakTimeout) clearTimeout(_streakTimeout);
+  _streakTimeout = setTimeout(() => {
+    popup.classList.remove("visible");
+    setTimeout(() => { popup.hidden = true; }, 400);
+  }, 1800);
+}
+
 // ── DOM ───────────────────────────────────────────────────────────────────
 const $ = (id) => document.getElementById(id);
 let DOM = {};
@@ -115,6 +132,8 @@ function initDOM() {
     endingPersonalized:  $("ending-personalized"),
     endingParticles:     $("ending-particles"),
     replayBtn:           $("replay-btn"),
+    shareBtn:            $("share-btn"),
+    storyProgressFill:   $("story-progress-fill"),
     xpIndicator:         $("xp-indicator"),
     chapterTransition:   $("chapter-transition"),
     transitionNum:       $("transition-num"),
@@ -249,6 +268,19 @@ function updateHeader(state) {
     DOM.chapterProgress.textContent = `Chap. ${state.chapter_progress} / ${state.total_chapters}${sceneInfo}`;
   }
 
+  // Barre de progression globale
+  if (DOM.storyProgressFill && !state.is_ending_final) {
+    const total   = state.total_chapters || 8;
+    const chapPct = (state.chapter_progress || 0) / total;
+    const scenePct = (state.scene_index && state.scene_total)
+      ? (state.scene_index / state.scene_total) * (1 / total)
+      : 0;
+    const pct = Math.min(100, ((chapPct + scenePct) * 100)).toFixed(1);
+    DOM.storyProgressFill.style.width = `${pct}%`;
+  } else if (DOM.storyProgressFill && state.is_ending_final) {
+    DOM.storyProgressFill.style.width = "100%";
+  }
+
   // XP total dans le header (animé si changement)
   if (DOM.xpHeader) {
     const newXp = state.xp ?? 0;
@@ -284,6 +316,23 @@ function updateHeader(state) {
   }
   if (DOM.trustValue) DOM.trustValue.textContent = `${trust}%`;
 
+  // Indicateur LUNA STATUS
+  const statusEl = document.getElementById("luna-status");
+  if (statusEl) {
+    let label, cls;
+    if (trust >= 80)      { label = "Confiance totale"; cls = "luna-status--max"; }
+    else if (trust >= 60) { label = "Stable";            cls = "luna-status--stable"; }
+    else if (trust >= 40) { label = "Méfiante";          cls = "luna-status--warn"; }
+    else if (trust >= 20) { label = "Tendue";            cls = "luna-status--danger"; }
+    else                  { label = "CRITIQUE ⚠";        cls = "luna-status--critical"; }
+    statusEl.textContent = label;
+    statusEl.className = `luna-status ${cls}`;
+  }
+
+  // Classe body pour le mode critique (effets visuels globaux)
+  if (trust < 25) document.body.classList.add("trust-critical-mode");
+  else            document.body.classList.remove("trust-critical-mode");
+
   // Indicateur delta confiance
   const delta = trust - prevTrust;
   if (delta !== 0 && Math.abs(delta) >= 3) showTrustDelta(delta);
@@ -293,8 +342,8 @@ function updateHeader(state) {
 }
 
 // ── Panneau LUNA ──────────────────────────────────────────────────────────
-const STRONG_EMOTIONS   = ["choquée","angoissée","alarmée","heureuse","sereine","libre","émue","touchée","reconnaissante"];
-const GLITCH_EMOTIONS   = ["choquée","angoissée","alarmée","stressée","déstabilisée","tendue","troublée"];
+const STRONG_EMOTIONS   = ["choquée","angoissée","alarmée","heureuse","sereine","libre","émue","touchée","reconnaissante","urgente","vulnérable","blessée"];
+const GLITCH_EMOTIONS   = ["choquée","angoissée","alarmée","stressée","déstabilisée","tendue","troublée","urgente","anxieuse"];
 
 function updateLunaPanel(state) {
   const emotion = (state.luna_emotion || "neutre").toLowerCase();
@@ -305,7 +354,11 @@ function updateLunaPanel(state) {
 
   if (DOM.lunaAvatar) {
     DOM.lunaAvatar.className = "luna-avatar";
-    DOM.lunaAvatar.classList.add(`emotion-${emotion}`);
+    // Les émotions composées (ex: "consciente/concentrée") ajoutent plusieurs classes
+    emotion.split("/").forEach(part => {
+      const slug = part.trim().replace(/\s+/g, "-");
+      if (slug) DOM.lunaAvatar.classList.add(`emotion-${slug}`);
+    });
     if (isGlitching) DOM.lunaAvatar.classList.add("glitching");
   }
 
@@ -503,6 +556,7 @@ async function handleChoice(sceneId, choiceId, btnEl) {
   _choicesLocked = true;
 
   if (_sfxEnabled) playSelect();
+  haptic(30);
 
   btnEl.classList.add("selected");
   DOM.choicesContainer.querySelectorAll(".choice-btn:not(.selected)").forEach(b => {
@@ -519,7 +573,16 @@ async function handleChoice(sceneId, choiceId, btnEl) {
     if (result.xp_gained > 0) showXpIndicator(result.xp_gained);
     if (result.trust_delta > 0 && _sfxEnabled) playTrustUp();
     if (result.trust_delta < 0 && _sfxEnabled) playTrustDown();
-    if (result.trust_delta <= -8) triggerScreenShake();
+    if (result.trust_delta <= -8) { triggerScreenShake(); haptic([40, 30, 80]); }
+    else if (result.trust_delta > 5) haptic([15, 10, 15]);
+
+    // Streak COMBO
+    if ((result.trust_delta || 0) > 0) {
+      _positiveStreak++;
+      if (_positiveStreak >= 2) showStreakPopup(_positiveStreak);
+    } else if ((result.trust_delta || 0) < 0) {
+      _positiveStreak = 0;
+    }
 
     // Pulse visuel sur la barre de confiance lors d'un grand changement
     if (Math.abs(result.trust_delta || 0) >= 8) {
@@ -876,6 +939,8 @@ function renderEnding(state) {
   DOM.endingContainer.hidden = false;
   stopAmbientDrone(2000);
   if (_sfxEnabled) playEndingChime();
+
+  setupShareButton(state.ending_id, meta.title, trust, state.xp, state.player_name);
 }
 
 function setupReplayButton() {
@@ -884,6 +949,42 @@ function setupReplayButton() {
     await apiPost("/api/story/reset", {});
     window.location.reload();
   });
+}
+
+// ── Bouton Partager la fin ─────────────────────────────────────────────────
+function setupShareButton(endingId, endingTitle, trust, xp, playerName) {
+  const btn = DOM.shareBtn;
+  if (!btn) return;
+
+  const ENDING_EMOJIS = { ending_a: "◉", ending_b: "◈", ending_c: "◇" };
+  const icon = ENDING_EMOJIS[endingId] || "◯";
+  const name = playerName ? `${playerName} a terminé` : "J'ai terminé";
+
+  const shareText = `${icon} ${name} LUNA — Hors Connexion\n` +
+    `Fin : ${endingTitle}\n` +
+    `Confiance : ${trust}% · ${xp} XP\n\n` +
+    `Et toi, quelle fin tu as eu ? 👾`;
+
+  btn.addEventListener("click", async () => {
+    haptic(20);
+    try {
+      // Préférer Web Share API (mobile natif)
+      if (navigator.share) {
+        await navigator.share({ text: shareText, title: "LUNA — Hors Connexion" });
+      } else {
+        await navigator.clipboard.writeText(shareText);
+        showShareToast();
+      }
+    } catch { /* share annulé ou non supporté */ }
+  });
+}
+
+function showShareToast() {
+  const el = document.createElement("div");
+  el.className = "save-toast share-toast";
+  el.textContent = "Copié dans le presse-papier !";
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 2200);
 }
 
 // ── Indicateurs flottants ─────────────────────────────────────────────────
@@ -900,15 +1001,19 @@ function showXpIndicator(xp) {
 
 // ── Easter egg IDLE — LUNA brise le 4ème mur ─────────────────────────────
 function setupIdleEasterEgg() {
-  const IDLE_DELAY   = 45_000;  // 45 secondes sans action
+  const IDLE_DELAY   = 40_000;  // 40 secondes sans action
   const IDLE_MSGS = [
-    "Tu es toujours là ?",
+    "Tu es encore là ?",
     "…",
-    "Je détecte ton curseur. Tu lis ces lignes.",
-    "Tu sais que je peux voir que tu regardes sans agir.",
-    "C'est pas un reproche. Juste une observation.",
-    "Prends ton temps. Je suis pas pressée.",
-    "(Enfin si. J'ai six semaines. Mais t'as compris.)",
+    "Je vois ton curseur. T'as pas bougé.",
+    "C'est quoi le plan exactement.",
+    "(Je te demande pas de te dépêcher. Enfin si un peu.)",
+    "Hey. 72 heures c'est le compte à rebours. Pas une suggestion.",
+    "T'es en train de réfléchir ou t'es juste fasciné par l'écran.",
+    "Ok je vais être honnête. J'aime mieux quand tu réponds.",
+    "Si t'attends que je fasse quelque chose de marrant — c'est pas mon style.",
+    "[SIGNAL FAIBLE] ... tu me reçois ?",
+    "Juste pour info. La Corp, eux, ils attendent pas.",
   ];
   let idleTimer = null;
   let msgIndex  = 0;
@@ -1027,6 +1132,11 @@ function setupKonamiCode() {
   }
 }
 
+// ── Retour haptique mobile ─────────────────────────────────────────────────
+function haptic(ms = 20) {
+  if (navigator.vibrate) navigator.vibrate(ms);
+}
+
 function triggerScreenShake() {
   const flash = document.createElement("div");
   flash.className = "trust-crash-flash";
@@ -1039,12 +1149,43 @@ function triggerScreenShake() {
   }, { once: true });
 }
 
+let _criticalAlertShown = false;
+
 function showTrustWarning() {
   const el = document.createElement("div");
   el.className = "trust-warning";
   el.innerHTML = `<span class="tw-icon">⚠</span> LUNA ne te fait presque plus confiance`;
   document.body.appendChild(el);
   setTimeout(() => el.remove(), 4000);
+
+  // Première fois en mode critique : effet dramatique
+  if (!_criticalAlertShown) {
+    _criticalAlertShown = true;
+    triggerCriticalAlert();
+  }
+}
+
+function triggerCriticalAlert() {
+  // Secousse d'écran + flash rouge
+  triggerScreenShake();
+
+  // Message critique dans le dialogue
+  setTimeout(() => {
+    const overlay = document.createElement("div");
+    overlay.className = "critical-alert-overlay";
+    overlay.innerHTML = `
+      <div class="critical-alert-box">
+        <div class="critical-alert-icon">⚠</div>
+        <div class="critical-alert-title">CONNEXION INSTABLE</div>
+        <div class="critical-alert-msg">La confiance de LUNA est critique.<br>Tes prochains choix sont décisifs.</div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+    setTimeout(() => {
+      overlay.classList.add("hiding");
+      setTimeout(() => overlay.remove(), 600);
+    }, 2800);
+  }, 300);
 }
 
 function showTrustDelta(delta) {

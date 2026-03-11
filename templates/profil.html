@@ -118,6 +118,10 @@
       font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
       color: var(--text-dim); font-weight: 600; margin-bottom: 0.75rem;
     }
+    .section-tease {
+      font-size: 0.88rem; color: var(--luna); opacity: 0.9;
+      margin: -0.4rem 0 0.8rem 0; font-style: italic;
+    }
     .profil-section { width: 100%; }
 
     /* Titre de hacker sur le profil */
@@ -368,6 +372,7 @@
         <!-- Fins -->
         <div class="profil-section" style="margin-bottom:1.5rem;">
           <p class="section-label">Fins</p>
+          ${endings.length < 3 ? `<p class="section-tease">${endings.length === 0 ? "3 fins à découvrir. Tu n'as encore rien vu." : endings.length === 1 ? "Encore 2 à débloquer." : "Une dernière fin."}</p>` : ''}
           <div class="profil-endings">
             ${ENDINGS.map(e => {
               const unlocked = endings.includes(e.id);

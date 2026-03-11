@@ -1,5 +1,5 @@
 // Service Worker — LUNA Hors Connexion
-const CACHE = "luna-v3";
+const CACHE = "luna-v4";
 const PRECACHE = [
   "/",
   "/game",

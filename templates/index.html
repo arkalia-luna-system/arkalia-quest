@@ -132,7 +132,7 @@
         <span style="color:var(--border)">·</span>
         <a href="/leaderboard">Classement</a>
       </div>
-      <p class="home-meta">8 chapitres &nbsp;·&nbsp; 3 fins &nbsp;·&nbsp; Tes choix comptent vraiment</p>
+      <p class="home-meta">7 chapitres &nbsp;·&nbsp; 3 fins &nbsp;·&nbsp; Tes choix changent tout</p>
     </div>
 
   </main>
@@ -153,8 +153,8 @@
         LUNA — Message entrant
       </div>
       <p style="color:var(--text-main); font-size:1rem; line-height:1.6; margin-bottom:1.5rem;">
-        Avant que je continue — j'ai besoin de savoir comment t'appeler.<br>
-        <span style="color:var(--text-dim); font-size:0.88rem;">Juste un prénom. C'est tout ce qu'il faut.</span>
+        Comment tu t'appelles ?<br>
+        <span style="color:var(--text-dim); font-size:0.88rem;">(Non, je suis pas dans ton téléphone. Pas encore.)</span>
       </p>
       <input
         id="name-input"
@@ -224,7 +224,7 @@
 
         // Remplacer le CTA
         document.getElementById('home-nav').innerHTML = `
-          <a href="/game" class="btn-continue">
+          <a href="/game" class="btn-continue cta-pulse">
             <span>↩</span> Continuer l'histoire
           </a>
           <button class="btn-primary" onclick="confirmRestart(event)">
@@ -285,9 +285,9 @@
 
     // ── Typewriter sur le message d'intro ────────────────────────────────
     const INTRO_LINES = [
-      "Tu reçois un message à 3h du matin.",
-      "Une IA piégée dit qu'elle t'a choisi.",
-      "Tu ne sais pas encore si tu peux lui faire confiance."
+      "Un message à 3h du matin. Tu ne devrais pas le lire.",
+      "Une IA dit qu'elle t'a choisi. Elle sait des trucs sur toi.",
+      "Tu vas répondre. Tu le sais déjà."
     ];
 
     function typewriterHome(el, lines, speed = 38) {

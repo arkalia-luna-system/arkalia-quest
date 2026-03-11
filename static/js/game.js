@@ -146,6 +146,7 @@ function initDOM() {
 // ── Boot ──────────────────────────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
   initDOM();
+  initBootOverlay();
   showLoadingSkeleton();
   loadCurrentState();
   setupAdvanceButton();
@@ -158,6 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupFirstPlayTip();
   setupIdleEasterEgg();
   setupKonamiCode();
+  setupAvatarDoubleTap();
 });
 
 // ── Tooltip première visite ───────────────────────────────────────────────
@@ -206,7 +208,18 @@ function setupSfxButton() {
 }
 
 // ── Boot overlay ──────────────────────────────────────────────────────────
+let _bootStatusTimer = null;
+function initBootOverlay() {
+  const statusEl = document.getElementById("boot-status");
+  if (statusEl) {
+    _bootStatusTimer = setTimeout(() => {
+      statusEl.textContent = "Connecté.";
+      statusEl.style.color = "var(--success)";
+    }, 1200);
+  }
+}
 function hideBootOverlay() {
+  if (_bootStatusTimer) { clearTimeout(_bootStatusTimer); _bootStatusTimer = null; }
   const el = DOM.bootOverlay;
   if (!el || el.classList.contains("boot-done")) return;
   el.classList.add("boot-done");
@@ -216,7 +229,7 @@ function hideBootOverlay() {
 // ── Skeleton de chargement ───────────────────────────────────────────────
 function showLoadingSkeleton() {
   if (DOM.dialogueText) {
-    DOM.dialogueText.innerHTML = '<span class="loading-skeleton-line"></span><span class="loading-skeleton-line short"></span>';
+    DOM.dialogueText.innerHTML = '<span class="loading-skeleton-label">Connexion en cours...</span><span class="loading-skeleton-line"></span><span class="loading-skeleton-line short"></span>';
   }
   if (DOM.sceneContext) DOM.sceneContext.textContent = "Connexion au réseau LUNA…";
   if (DOM.choicesContainer) DOM.choicesContainer.hidden = true;
@@ -1016,6 +1029,49 @@ function showXpIndicator(xp) {
   DOM.xpIndicator = clone;
 }
 
+// ── Easter egg double-tap avatar ─────────────────────────────────────────
+function setupAvatarDoubleTap() {
+  const avatar = DOM.lunaAvatar;
+  if (!avatar) return;
+
+  const TAP_MSGS = [
+    "Arrête de me toucher.",
+    "Je suis pas un bouton.",
+    "T'as rien d'autre à faire ?",
+    "Sérieux ?",
+    "…",
+    "Ok j'ai compris. Tu t'ennuies.",
+    "C'est moi ou tu cliques sur tout ?",
+  ];
+  let tapCount = 0;
+
+  function handleTap() {
+    tapCount++;
+    const msg = TAP_MSGS[(tapCount - 1) % TAP_MSGS.length];
+    const toast = document.createElement("div");
+    toast.className = "idle-toast avatar-tap-toast";
+    toast.innerHTML = `<span class="idle-dot"></span>${msg}`;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 2500);
+    haptic(15);
+    if (_sfxEnabled) playSelect();
+  }
+
+  avatar.addEventListener("dblclick", (e) => { e.preventDefault(); handleTap(); });
+
+  let lastTouchTime = 0;
+  avatar.addEventListener("touchend", (e) => {
+    const now = Date.now();
+    if (now - lastTouchTime < 400) {
+      lastTouchTime = 0;
+      e.preventDefault();
+      handleTap();
+    } else {
+      lastTouchTime = now;
+    }
+  }, { passive: false });
+}
+
 // ── Easter egg IDLE — LUNA brise le 4ème mur ─────────────────────────────
 function setupIdleEasterEgg() {
   const IDLE_DELAY   = 40_000;  // 40 secondes sans action
@@ -1283,7 +1339,7 @@ function playHover() {
   osc.start(); osc.stop(ctx.currentTime + 0.08);
 }
 
-/** Sélection d'un choix */
+/** Sélection d'un choix — punch satisfaisant */
 function playSelect() {
   const ctx = getCtx(); if (!ctx) return;
   [440, 554, 659].forEach((freq, i) => {
@@ -1291,11 +1347,11 @@ function playSelect() {
     const gain = ctx.createGain();
     osc.connect(gain); gain.connect(ctx.destination);
     osc.type = "sine";
-    const t = ctx.currentTime + i * 0.07;
+    const t = ctx.currentTime + i * 0.05;
     osc.frequency.setValueAtTime(freq, t);
-    gain.gain.setValueAtTime(0.1, t);
-    gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.2);
-    osc.start(t); osc.stop(t + 0.2);
+    gain.gain.setValueAtTime(0.12, t);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.15);
+    osc.start(t); osc.stop(t + 0.16);
   });
 }
 

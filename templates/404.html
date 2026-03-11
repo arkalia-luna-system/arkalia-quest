@@ -42,9 +42,10 @@
     }
     .error-code {
       font-family: var(--font-mono);
-      font-size: 4rem;
+      font-size: 2.8rem;
       font-weight: 700;
       color: var(--border);
+      letter-spacing: 0.08em;
       line-height: 1;
     }
     .error-title {
@@ -86,18 +87,18 @@
       </div>
     </div>
 
-    <div class="error-code">404</div>
+    <div class="error-code" aria-label="Erreur 404">[ERR_404]</div>
 
     <div>
-      <h1 class="error-title">Signal perdu</h1>
+      <h1 class="error-title">Route introuvable</h1>
       <p class="error-message">
-        Cette page n'existe pas — ou elle a été effacée.<br>
-        La Corp fait ce genre de choses.
+        Cette page n'existe pas — ou La Corp l'a effacée.<br>
+        Ils font ça. Souvent.
       </p>
     </div>
 
     <p class="error-luna-msg">
-      "Si tu cherches quelque chose d'important,<br>reviens par où tu es entré."
+      "T'as cliqué sur un lien mort. Reviens par l'accueil."
     </p>
 
     <div class="error-actions">

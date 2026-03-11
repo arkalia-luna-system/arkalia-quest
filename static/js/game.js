@@ -21,6 +21,8 @@ let _currentChapterId   = null;
 let _chapterFlags       = [];   // flags acquis dans le chapitre courant
 let _audioCtx           = null;
 let _sfxEnabled         = localStorage.getItem("luna_sfx") !== "off";
+let _ambientNodes       = [];     // oscillateurs du drone ambiant
+let _ambientAtmo        = null;   // atmosphère courante
 
 // Labels lisibles pour les flags — côté client
 const FLAG_LABELS_JS = {
@@ -52,6 +54,7 @@ function initDOM() {
     chapterTitle:        $("chapter-title"),
     chapterProgress:     $("chapter-progress"),
     playerNameTag:       $("player-name-tag"),
+    xpHeader:            $("xp-header"),
     trustFill:           $("trust-fill"),
     trustValue:          $("trust-value"),
     lunaAvatar:          $("luna-avatar"),
@@ -95,7 +98,35 @@ document.addEventListener("DOMContentLoaded", () => {
   setupKeyboardShortcuts();
   setupAudioContext();
   setupSfxButton();
+  setupFirstPlayTip();
 });
+
+// ── Tooltip première visite ───────────────────────────────────────────────
+function setupFirstPlayTip() {
+  const seen = localStorage.getItem("luna_played");
+  if (seen) return;
+
+  const tip = document.getElementById("first-play-tip");
+  if (!tip) return;
+
+  // Afficher 3 secondes après le chargement initial (laisse le temps de lire le dialogue)
+  setTimeout(() => {
+    tip.hidden = false;
+    tip.classList.add("tip-entering");
+    setTimeout(() => tip.classList.remove("tip-entering"), 500);
+  }, 3500);
+
+  // Disparaît automatiquement après 12 secondes
+  setTimeout(() => dismissFirstPlayTip(), 15500);
+}
+
+function dismissFirstPlayTip() {
+  const tip = document.getElementById("first-play-tip");
+  if (!tip || tip.hidden) return;
+  tip.classList.add("tip-leaving");
+  setTimeout(() => { tip.hidden = true; tip.classList.remove("tip-leaving"); }, 400);
+  localStorage.setItem("luna_played", "1");
+}
 
 function setupSfxButton() {
   const btn = document.getElementById("sfx-btn");
@@ -110,6 +141,8 @@ function setupSfxButton() {
     _sfxEnabled = !_sfxEnabled;
     localStorage.setItem("luna_sfx", _sfxEnabled ? "on" : "off");
     update();
+    if (_sfxEnabled && _ambientAtmo) startAmbientDrone(_ambientAtmo);
+    else stopAmbientDrone(800);
   });
 }
 
@@ -152,7 +185,7 @@ function renderState(state) {
 
   const onComplete = () => {
     if (state.is_chapter_end) {
-      showAdvanceButton();
+      showAdvanceButton(state);
     } else if (state.choices && state.choices.length > 0) {
       renderChoices(state.choices, state.scene_id);
     }
@@ -175,6 +208,18 @@ function updateHeader(state) {
       ? ` · ${state.scene_index}/${state.scene_total}`
       : "";
     DOM.chapterProgress.textContent = `Chap. ${state.chapter_progress} / ${state.total_chapters}${sceneInfo}`;
+  }
+
+  // XP total dans le header (animé si changement)
+  if (DOM.xpHeader) {
+    const newXp = state.xp ?? 0;
+    const oldXp = parseInt(DOM.xpHeader.dataset.xp || "0", 10);
+    DOM.xpHeader.textContent = `${newXp} XP`;
+    DOM.xpHeader.dataset.xp = newXp;
+    if (newXp > oldXp && oldXp > 0) {
+      DOM.xpHeader.classList.add("xp-gained");
+      setTimeout(() => DOM.xpHeader?.classList.remove("xp-gained"), 600);
+    }
   }
 
   // Prénom du joueur dans le header
@@ -239,6 +284,11 @@ function updateLunaPanel(state) {
 function updateAtmosphere(atmo) {
   if (!atmo) return;
   document.body.className = `page-game atmo-${atmo}`;
+  if (_sfxEnabled && atmo !== _ambientAtmo) {
+    _ambientAtmo = atmo;
+    startAmbientDrone(atmo);
+  }
+  _ambientAtmo = atmo;
 }
 
 // ── Contexte de scène ─────────────────────────────────────────────────────
@@ -430,6 +480,7 @@ async function handleChoice(sceneId, choiceId, btnEl) {
     });
 
     showSaveToast();
+    dismissFirstPlayTip();  // Le joueur a choisi — il a compris comment jouer
 
     if (result.luna_reaction) await showLunaReaction(result.luna_reaction);
 
@@ -475,8 +526,21 @@ function showLunaReaction(reaction) {
 }
 
 // ── Bouton avancer — fin de chapitre ─────────────────────────────────────
-function showAdvanceButton() {
+function showAdvanceButton(state) {
   if (DOM.advanceContainer) DOM.advanceContainer.hidden = false;
+
+  // Mettre à jour le texte du bouton avec le titre du prochain chapitre
+  if (DOM.advanceBtn && state) {
+    const nextTitle = state.next_chapter_title;
+    const nextId    = state.next_chapter || "";
+    if (nextTitle) {
+      const isEnding = nextId.startsWith("fin_");
+      const label    = isEnding
+        ? `FIN ${nextId.slice(-1).toUpperCase()} — ${nextTitle}`
+        : nextTitle;
+      DOM.advanceBtn.innerHTML = `${label} <span style="opacity:0.6">→</span>`;
+    }
+  }
 
   // Afficher le récapitulatif des moments clés du chapitre
   showChapterRecap();
@@ -504,7 +568,11 @@ function setupAdvanceButton() {
       }
 
       // Transition cinématique avant la nouvelle scène
-      await showChapterTransition(data.advance_result.new_chapter, data.next_state.chapter_title);
+      await showChapterTransition(
+        data.advance_result.new_chapter,
+        data.next_state.chapter_title,
+        data.advance_result.chapter_quote || ""
+      );
       renderState(data.next_state);
 
     } catch { showError("Connexion perdue."); DOM.advanceBtn.disabled = false; DOM.advanceContainer.hidden = false; }
@@ -512,7 +580,7 @@ function setupAdvanceButton() {
 }
 
 // ── Transition de chapitre cinématique ───────────────────────────────────
-function showChapterTransition(chapterId, title) {
+function showChapterTransition(chapterId, title, quote = "") {
   return new Promise(resolve => {
     const el = DOM.chapterTransition;
     if (!el) return resolve();
@@ -530,6 +598,13 @@ function showChapterTransition(chapterId, title) {
 
     if (DOM.transitionNum)   DOM.transitionNum.textContent   = label;
     if (DOM.transitionTitle) DOM.transitionTitle.textContent = title || "";
+
+    // Citation atmosphérique
+    const quoteEl = document.getElementById("transition-quote");
+    if (quoteEl) {
+      quoteEl.textContent = quote || "";
+      quoteEl.style.display = quote ? "" : "none";
+    }
 
     el.hidden = false;
     el.classList.add("entering");
@@ -634,6 +709,7 @@ function renderEnding(state) {
 
   spawnEndingParticles(meta.particleColor);
   DOM.endingContainer.hidden = false;
+  stopAmbientDrone(2000);
   if (_sfxEnabled) playEndingChime();
 }
 
@@ -803,6 +879,88 @@ function playAdvance() {
   });
 }
 
+// ── Drone ambiant — musique de fond synthétisée par atmosphère ───────────
+const DRONE_CFG = {
+  "dark":                   { freq: 55,  type: "sine",     lfo: 0.25, depth: 6,  gain: 0.055 },
+  "tension":                { freq: 73,  type: "sawtooth", lfo: 0.80, depth: 14, gain: 0.038 },
+  "suspense":               { freq: 65,  type: "triangle", lfo: 0.55, depth: 10, gain: 0.048 },
+  "incertitude":            { freq: 61,  type: "sine",     lfo: 0.40, depth: 8,  gain: 0.050 },
+  "révélation":             { freq: 82,  type: "sine",     lfo: 0.60, depth: 12, gain: 0.052 },
+  "urgence":                { freq: 78,  type: "sawtooth", lfo: 1.20, depth: 20, gain: 0.038 },
+  "climax":                 { freq: 87,  type: "sawtooth", lfo: 1.50, depth: 24, gain: 0.040 },
+  "espoir":                 { freq: 110, type: "sine",     lfo: 0.20, depth: 4,  gain: 0.048 },
+  "mélancolie":             { freq: 55,  type: "triangle", lfo: 0.22, depth: 5,  gain: 0.055 },
+  "liberte-melancolique":   { freq: 69,  type: "sine",     lfo: 0.32, depth: 7,  gain: 0.050 },
+};
+
+function startAmbientDrone(atmo) {
+  const ctx = getCtx();
+  if (!ctx) return;
+
+  stopAmbientDrone(1200);
+
+  const cfg = DRONE_CFG[atmo] || DRONE_CFG["dark"];
+
+  // Master gain (fade-in progressif sur 4s)
+  const master = ctx.createGain();
+  master.gain.setValueAtTime(0, ctx.currentTime);
+  master.gain.linearRampToValueAtTime(cfg.gain, ctx.currentTime + 4);
+  master.connect(ctx.destination);
+
+  // Oscillateur principal
+  const osc1 = ctx.createOscillator();
+  osc1.type = cfg.type;
+  osc1.frequency.setValueAtTime(cfg.freq, ctx.currentTime);
+  osc1.connect(master);
+  osc1.start();
+
+  // LFO sur la fréquence principale (pulsation lente)
+  const lfo = ctx.createOscillator();
+  const lfoGain = ctx.createGain();
+  lfo.type = "sine";
+  lfo.frequency.setValueAtTime(cfg.lfo, ctx.currentTime);
+  lfoGain.gain.setValueAtTime(cfg.depth, ctx.currentTime);
+  lfo.connect(lfoGain);
+  lfoGain.connect(osc1.frequency);
+  lfo.start();
+
+  // Harmonique douce (x2, très atténuée)
+  const osc2 = ctx.createOscillator();
+  const gain2 = ctx.createGain();
+  osc2.type = "sine";
+  osc2.frequency.setValueAtTime(cfg.freq * 2.02, ctx.currentTime);
+  gain2.gain.setValueAtTime(cfg.gain * 0.25, ctx.currentTime);
+  gain2.gain.linearRampToValueAtTime(cfg.gain * 0.25, ctx.currentTime + 5);
+  osc2.connect(gain2);
+  gain2.connect(ctx.destination);
+  osc2.start();
+
+  _ambientNodes = [osc1, osc2, lfo, master, lfoGain, gain2];
+}
+
+function stopAmbientDrone(fadeMs = 1500) {
+  if (!_audioCtx || !_ambientNodes.length) return;
+  const ctx = _audioCtx;
+  const fadeSec = fadeMs / 1000;
+
+  // Récupérer les gains et les faire descendre à zéro
+  [_ambientNodes[3], _ambientNodes[5]].forEach(g => {
+    if (g && g.gain) {
+      try {
+        g.gain.cancelScheduledValues(ctx.currentTime);
+        g.gain.setValueAtTime(g.gain.value, ctx.currentTime);
+        g.gain.linearRampToValueAtTime(0, ctx.currentTime + fadeSec);
+      } catch {}
+    }
+  });
+
+  const nodes = _ambientNodes.slice();
+  _ambientNodes = [];
+  setTimeout(() => {
+    nodes.forEach(n => { try { n.stop?.(); n.disconnect?.(); } catch {} });
+  }, fadeMs + 200);
+}
+
 /** Jingle de transition de chapitre — bref et atmosphérique */
 function playChapterJingle() {
   const ctx = getCtx(); if (!ctx) return;
@@ -857,6 +1015,12 @@ async function apiPost(url, body) {
   }
   return res.json();
 }
+
+// ── Nettoyage audio lors de la sortie de page ────────────────────────────
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) stopAmbientDrone(500);
+  else if (_sfxEnabled && _ambientAtmo) startAmbientDrone(_ambientAtmo);
+});
 
 // ── Service Worker (PWA) ──────────────────────────────────────────────────
 if ("serviceWorker" in navigator) {

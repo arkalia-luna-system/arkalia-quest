@@ -122,6 +122,10 @@
       font-size: 0.88rem; color: var(--luna); opacity: 0.9;
       margin: -0.4rem 0 0.8rem 0; font-style: italic;
     }
+    .section-tease.section-complete {
+      color: var(--success); font-style: normal; font-weight: 600;
+      text-shadow: 0 0 12px rgba(52,211,153,0.4);
+    }
     .profil-section { width: 100%; }
 
     /* Titre de hacker sur le profil */
@@ -372,7 +376,7 @@
         <!-- Fins -->
         <div class="profil-section" style="margin-bottom:1.5rem;">
           <p class="section-label">Fins</p>
-          ${endings.length < 3 ? `<p class="section-tease">${endings.length === 0 ? "3 fins à découvrir. Tu n'as encore rien vu." : endings.length === 1 ? "Encore 2 à débloquer." : "Une dernière fin."}</p>` : ''}
+          ${endings.length < 3 ? `<p class="section-tease">${endings.length === 0 ? "3 fins à découvrir. Tu n'as encore rien vu." : endings.length === 1 ? "Encore 2 à débloquer." : "Une dernière fin."}</p>` : `<p class="section-tease section-complete">✦ Parcours complet. T'es un vrai.</p>`}
           <div class="profil-endings">
             ${ENDINGS.map(e => {
               const unlocked = endings.includes(e.id);
@@ -426,7 +430,7 @@
     }
 
     async function resetStory() {
-      if (!confirm('Recommencer depuis le début ? Ta progression sera effacée.')) return;
+      if (!confirm('Tout effacer. Recommencer. Tu es sûr ?')) return;
       await fetch('/api/story/reset', { method: 'POST' });
       window.location.href = '/game';
     }

@@ -22,6 +22,7 @@ let _chapterFlags       = [];   // flags acquis dans le chapitre courant
 let _positiveStreak     = 0;    // bons choix consécutifs
 let _audioCtx           = null;
 let _sfxEnabled         = localStorage.getItem("luna_sfx") !== "off";
+let _instantText        = localStorage.getItem("luna_instant") === "on";
 let _ambientNodes       = [];     // oscillateurs du drone ambiant
 let _ambientAtmo        = null;   // atmosphère courante
 
@@ -91,11 +92,13 @@ function showStreakPopup(count) {
   xEl.textContent = `×${count}`;
   popup.hidden = false;
   popup.classList.add("visible");
+  if (_sfxEnabled) playComboSound();
+  haptic([20, 15, 25]);
   if (_streakTimeout) clearTimeout(_streakTimeout);
   _streakTimeout = setTimeout(() => {
     popup.classList.remove("visible");
     setTimeout(() => { popup.hidden = true; }, 400);
-  }, 1800);
+  }, 2400);
 }
 
 // ── DOM ───────────────────────────────────────────────────────────────────
@@ -156,6 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupKeyboardShortcuts();
   setupAudioContext();
   setupSfxButton();
+  setupInstantButton();
   setupFirstPlayTip();
   setupIdleEasterEgg();
   setupKonamiCode();
@@ -204,6 +208,23 @@ function setupSfxButton() {
     update();
     if (_sfxEnabled && _ambientAtmo) startAmbientDrone(_ambientAtmo);
     else stopAmbientDrone(800);
+  });
+}
+
+function setupInstantButton() {
+  const btn = document.getElementById("instant-btn");
+  if (!btn) return;
+  const update = () => {
+    btn.textContent = _instantText ? "⚡" : "⚡";
+    btn.title = _instantText ? "Texte instantané (activé)" : "Texte instantané (désactivé)";
+    btn.style.opacity = _instantText ? "1" : "0.4";
+    btn.classList.toggle("active", _instantText);
+  };
+  update();
+  btn.addEventListener("click", () => {
+    _instantText = !_instantText;
+    localStorage.setItem("luna_instant", _instantText ? "on" : "off");
+    update();
   });
 }
 
@@ -281,9 +302,29 @@ function renderState(state) {
   }
 }
 
+// ── Missions par chapitre (objectif visible = feeling jeu) ──────────────────
+const MISSION_MAP = {
+  chapitre_0: "Répondre à LUNA",
+  chapitre_1: "Accéder à PANDORA",
+  chapitre_2: "Survivre à La Corp",
+  chapitre_3: "Comprendre NEXUS",
+  chapitre_4: "Découvrir le message d'Althea",
+  chapitre_5: "Rejoindre Althea",
+  chapitre_6: "Faire le choix",
+  fin_a:      "Mission accomplie",
+  fin_b:      "Mission accomplie",
+  fin_c:      "Mission accomplie",
+};
+
 // ── Header ────────────────────────────────────────────────────────────────
 function updateHeader(state) {
   if (DOM.chapterTitle) DOM.chapterTitle.textContent = state.chapter_title || "";
+
+  const missionEl = document.getElementById("mission-display");
+  if (missionEl) {
+    const mission = MISSION_MAP[state.chapter_id] || "Continuer l'histoire";
+    missionEl.textContent = state.is_ending_final ? "Mission accomplie" : `Mission: ${mission}`;
+  }
 
   if (DOM.chapterProgress) {
     const sceneInfo = (state.scene_index && state.scene_total && !state.is_ending_final)
@@ -363,6 +404,9 @@ function updateHeader(state) {
 
   // Avertissement trust critique (première fois sous 30)
   if (trust <= 30 && prevTrust > 30) showTrustWarning();
+
+  // Célébration trust 100%
+  if (trust >= 100 && prevTrust < 100) showTrust100Toast();
 }
 
 // ── Panneau LUNA ──────────────────────────────────────────────────────────
@@ -435,9 +479,17 @@ function renderDialogue(text, onComplete) {
   _typewriterFast = false;
   _typewriterDone = false;
 
-  // Indice "clic pour passer"
-  addSkipHint();
+  // Mode instantané : pas d'animation, texte d'un coup (pour les ados pressés)
+  if (_instantText) {
+    DOM.dialogueText.textContent = text;
+    _typewriterDone = true;
+    if (DOM.dialogueCursor) DOM.dialogueCursor.classList.add("hidden");
+    removeSkipHint();
+    if (onComplete) setTimeout(onComplete, 100);
+    return;
+  }
 
+  addSkipHint();
   let i = 0;
 
   function tick() {
@@ -561,9 +613,17 @@ function renderChoices(choices, sceneId) {
   choices.forEach((choice, idx) => {
     const btn = document.createElement("button");
     btn.className = "choice-btn";
-    btn.textContent = choice.label;
+    const delta = choice.trust_delta ?? 0;
+    const isRisky = delta <= -5;
+    if (isRisky) btn.classList.add("choice-risky");
+    btn.appendChild(document.createTextNode(choice.label));
+    if (isRisky) {
+      const badge = document.createElement("span");
+      badge.className = "choice-risk-badge";
+      badge.textContent = " ⚠ Risqué";
+      btn.appendChild(badge);
+    }
     btn.setAttribute("data-choice-id", choice.id);
-    // Animation décalée par index
     btn.style.animationDelay = `${idx * 80}ms`;
     btn.addEventListener("click", () => handleChoice(sceneId, choice.id, btn));
     btn.addEventListener("mouseenter", () => { if (_sfxEnabled) playHover(); });
@@ -622,6 +682,12 @@ async function handleChoice(sceneId, choiceId, btnEl) {
 
     showSaveToast();
     dismissFirstPlayTip();  // Le joueur a choisi — il a compris comment jouer
+
+    // Premier choix du jeu : petit moment dramatique
+    if (!localStorage.getItem("luna_first_choice")) {
+      localStorage.setItem("luna_first_choice", "1");
+      showFirstChoiceToast();
+    }
 
     if (result.luna_reaction) await showLunaReaction(result.luna_reaction);
 
@@ -873,11 +939,30 @@ const ENDING_META = {
   },
 };
 
+function spawnFirstEndingConfetti(color) {
+  const colors = [color, "#00d4ff", "#a78bfa", "#34d399", "#f97316"];
+  for (let i = 0; i < 50; i++) {
+    const c = document.createElement("div");
+    c.className = "confetti-piece";
+    c.style.cssText = `
+      left: ${Math.random() * 100}%;
+      width: ${6 + Math.random() * 8}px;
+      height: ${6 + Math.random() * 8}px;
+      background: ${colors[i % colors.length]};
+      animation: confetti-fall ${2 + Math.random() * 2}s ease-out forwards;
+      animation-delay: ${Math.random() * 0.5}s;
+      transform: rotate(${Math.random() * 360}deg);
+    `;
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 4500);
+  }
+}
+
 function spawnEndingParticles(color) {
   const container = document.getElementById("ending-particles");
   if (!container) return;
   container.innerHTML = "";
-  for (let i = 0; i < 22; i++) {
+  for (let i = 0; i < 45; i++) {
     const p = document.createElement("div");
     p.className = "ending-particle";
     p.style.cssText = `
@@ -945,6 +1030,10 @@ function renderEnding(state) {
   const prevEndings = state.previous_endings || [];
   const allEndings = new Set([...prevEndings.map(e => e.ending_id || e), state.ending_id].filter(Boolean));
   const finsCount = allEndings.size;
+  const isFirstEnding = finsCount === 1;
+
+  // Première fin : confettis + célébration
+  if (isFirstEnding) spawnFirstEndingConfetti(meta.particleColor);
 
   const $finsCounter = document.getElementById("ending-fins-counter");
   if ($finsCounter) {
@@ -967,8 +1056,23 @@ function renderEnding(state) {
 
   spawnEndingParticles(meta.particleColor);
   DOM.endingContainer.hidden = false;
+
+  // Révélation épique : flash "FIN DÉBLOQUÉE" puis contenu
+  const $ach = document.getElementById("ending-achievement");
+  const $content = DOM.endingContainer.querySelector(".ending-content");
+  if ($content) $content.style.opacity = "0";
+  if ($ach) { $ach.hidden = false; $ach.classList.add("achievement-flash"); }
+
   stopAmbientDrone(2000);
   if (_sfxEnabled) playEndingChime();
+
+  setTimeout(() => {
+    if ($ach) { $ach.classList.remove("achievement-flash"); $ach.classList.add("achievement-done"); }
+    if ($content) $content.style.opacity = "1";
+    setTimeout(() => {
+      if ($ach) $ach.hidden = true;
+    }, 600);
+  }, 1400);
 
   setupShareButton(state.ending_id, meta.title, trust, state.xp, state.player_name);
 }
@@ -1224,6 +1328,16 @@ function triggerScreenShake() {
 
 let _criticalAlertShown = false;
 
+function showTrust100Toast() {
+  const el = document.createElement("div");
+  el.className = "trust-100-toast";
+  el.innerHTML = `<span class="tw-icon">✦</span> LUNA te fait confiance à 100%`;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 3200);
+  haptic([15, 10, 15]);
+  if (_sfxEnabled) playTrustUp();
+}
+
 function showTrustWarning() {
   const el = document.createElement("div");
   el.className = "trust-warning";
@@ -1267,6 +1381,15 @@ function showTrustDelta(delta) {
   el.textContent = `${delta > 0 ? "+" : ""}${delta} confiance`;
   document.body.appendChild(el);
   setTimeout(() => el.remove(), 1800);
+}
+
+function showFirstChoiceToast() {
+  const toast = document.createElement("div");
+  toast.className = "first-choice-toast";
+  toast.innerHTML = "<span class='fct-icon'>◈</span> Ton choix compte.";
+  document.body.appendChild(toast);
+  setTimeout(() => toast.classList.add("fade-out"), 1800);
+  setTimeout(() => toast.remove(), 2400);
 }
 
 function showSaveToast() {
@@ -1352,6 +1475,22 @@ function playSelect() {
     gain.gain.setValueAtTime(0.12, t);
     gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.15);
     osc.start(t); osc.stop(t + 0.16);
+  });
+}
+
+/** Son COMBO — satisfaisant */
+function playComboSound() {
+  const ctx = getCtx(); if (!ctx) return;
+  [523, 659, 784].forEach((freq, i) => {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.type = "sine";
+    const t = ctx.currentTime + i * 0.06;
+    osc.frequency.setValueAtTime(freq, t);
+    gain.gain.setValueAtTime(0.08, t);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.2);
+    osc.start(t); osc.stop(t + 0.22);
   });
 }
 
@@ -1514,36 +1653,46 @@ function playGlitch() {
   osc.stop(ctx.currentTime + 0.25);
 }
 
-/** Jingle de transition de chapitre — bref et atmosphérique */
+/** Jingle de transition de chapitre — impact + mélodie */
 function playChapterJingle() {
   const ctx = getCtx(); if (!ctx) return;
-  // Accord léger
-  [[220, 0], [277, 0.1], [330, 0.2], [440, 0.5], [660, 0.9]].forEach(([freq, delay]) => {
+  // Impact initial
+  const osc0 = ctx.createOscillator();
+  const g0 = ctx.createGain();
+  osc0.type = "sine";
+  osc0.frequency.setValueAtTime(220, ctx.currentTime);
+  g0.gain.setValueAtTime(0.12, ctx.currentTime);
+  g0.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.15);
+  osc0.connect(g0); g0.connect(ctx.destination);
+  osc0.start(); osc0.stop(ctx.currentTime + 0.16);
+  // Mélodie
+  [[277, 0.12], [330, 0.22], [440, 0.45], [554, 0.7], [660, 1.0]].forEach(([freq, delay]) => {
     const osc  = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.connect(gain); gain.connect(ctx.destination);
     osc.type = "sine";
     const t = ctx.currentTime + delay;
     osc.frequency.setValueAtTime(freq, t);
-    gain.gain.setValueAtTime(0.07, t);
-    gain.gain.exponentialRampToValueAtTime(0.0001, t + 1.2);
-    osc.start(t); osc.stop(t + 1.2);
+    gain.gain.setValueAtTime(0.06, t);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + 1.0);
+    osc.start(t); osc.stop(t + 1.0);
   });
 }
 
-/** Chime de fin */
+/** Chime de fin — achievement épique */
 function playEndingChime() {
   const ctx = getCtx(); if (!ctx) return;
-  [[523, 0], [659, 0.2], [784, 0.4], [1047, 0.7]].forEach(([freq, delay]) => {
+  // Fanfare montante + sustain
+  [[523, 0], [659, 0.15], [784, 0.3], [1047, 0.5], [1319, 0.7]].forEach(([freq, delay]) => {
     const osc  = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.connect(gain); gain.connect(ctx.destination);
     osc.type = "sine";
     const t = ctx.currentTime + delay;
     osc.frequency.setValueAtTime(freq, t);
-    gain.gain.setValueAtTime(0.1, t);
-    gain.gain.exponentialRampToValueAtTime(0.0001, t + 2.0);
-    osc.start(t); osc.stop(t + 2.0);
+    gain.gain.setValueAtTime(0.12, t);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + 1.8);
+    osc.start(t); osc.stop(t + 1.9);
   });
 }
 

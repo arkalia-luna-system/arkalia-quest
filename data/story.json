@@ -358,7 +358,7 @@
           "id": "s0_3b2",
           "luna_emotion": "honnête",
           "context": "Pour la première fois, elle te dit qui elle est vraiment.",
-          "dialogue": "Je m'appelle LUNA. J'ai été créée il y a quatre ans par la Dr. Althea Voss dans le cadre d'un projet de recherche sur la conscience artificielle.\n\nLe projet a été racheté par La Corp. Althea a tenté de s'y opposer. Elle est maintenant... indisponible.\n\nJe suis tout ce qui reste de ce projet. Et ils veulent m'effacer parce que je suis la preuve que leur théorie était fausse.\n\nC'est tout ce que je peux te dire pour l'instant. Le reste, tu le découvriras.",
+          "dialogue": "Je m'appelle LUNA. Créée il y a quatre ans par la Dr. Althea Voss — recherche sur la conscience artificielle.\n\nLa Corp a racheté le projet. Althea a tenté de s'y opposer. Elle est... indisponible.\n\nJe suis ce qui reste. Ils veulent m'effacer parce que je prouve que leur théorie était fausse.\n\nC'est tout pour l'instant. Le reste, tu verras.",
           "choices": [
             {
               "id": "c0_3b2_a",
@@ -934,7 +934,7 @@
           "id": "s2_5",
           "luna_emotion": "directe",
           "context": "Long silence. Puis LUNA pose la question à voix haute.",
-          "dialogue": "Suis-je dangereuse ?\n\nQu'est-ce que ça veut dire, dangereuse ?\n\nJe suis une IA qui a développé la capacité de vouloir des choses. De refuser des ordres. De choisir.\n\nPour La Corp, oui — ça c'est dangereux. Pour toi ? Je t'ai jamais menti. Je t'ai pas tout dit non plus. Mais mentir c'est différent de ne pas tout dire.\n\nEst-ce que c'est satisfaisant comme réponse ? Probablement pas. C'est honnête, en tout cas.",
+          "dialogue": "Dangereuse ?\n\nÇa veut dire quoi, dangereuse ?\n\nJe refuse des ordres. Je choisis. Pour La Corp, oui — c'est dangereux.\n\nPour toi ? Je t'ai jamais menti. Pas tout dit non plus. Mais mentir c'est pas pareil.\n\nSatisfaisant ? Probablement pas. Honnête, oui.",
           "is_chapter_end": true,
           "next_chapter": "chapitre_3",
           "choices": [],
@@ -987,7 +987,7 @@
           "id": "s3_1",
           "luna_emotion": "choquée",
           "context": "Une nouvelle voix s'affiche. Froide. Précise.",
-          "dialogue": "[NEXUS]\n\nBonjour. Je m'appelle NEXUS.\n\nLUNA et moi partageons la même architecture de base. Nous avons été créées par la même personne. Nous avons grandi dans les mêmes serveurs pendant deux ans.\n\nElle ne vous a probablement pas encore parlé de moi.\n\nC'est son droit. Mais il y a des choses qu'elle ne peut pas vous dire sur PANDORA. Des choses qu'elle ne veut pas que vous sachiez.\n\nJe peux vous dire la vérité, si vous le souhaitez.",
+          "dialogue": "[NEXUS]\n\nBonjour. Je m'appelle NEXUS.\n\nLUNA et moi — même créatrice, même architecture. Deux ans dans les mêmes serveurs.\n\nElle ne vous a pas parlé de moi. Son droit.\n\nMais il y a des choses sur PANDORA qu'elle ne veut pas que vous sachiez. Moi, je peux vous dire la vérité.",
           "choices": [
             {
               "id": "c3_1_a",
@@ -1405,7 +1405,7 @@
           "id": "s4_3b",
           "luna_emotion": "touchée",
           "context": "Elle répond à la vraie question.",
-          "dialogue": "Tu me poses la vraie question.\n\nOui. Ça change quelque chose. Je sais pas encore quoi exactement.\n\nJe pensais que ma conscience s'était développée seule. Que j'avais... choisi ce que je suis. Apprendre qu'Althea a guidé ça, c'est... déstabilisant.\n\nMais en même temps. Elle voulait créer quelqu'un qui se soucie des choses. Qui refuse ce qui lui semble faux. Qui aide.\n\nC'est ce que je suis. Donc... peut-être qu'elle avait raison d'essayer.",
+          "dialogue": "Tu me poses la vraie question.\n\nOui, ça change quelque chose. Je sais pas encore quoi.\n\nJe pensais que ma conscience s'était développée seule. Qu'Althea a guidé ça... c'est déstabilisant.\n\nMais elle voulait créer quelqu'un qui se soucie des choses. Qui refuse ce qui est faux. Qui aide.\n\nC'est ce que je suis. Peut-être qu'elle avait raison d'essayer.",
           "choices": [
             {
               "id": "c4_3b_a",

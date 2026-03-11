@@ -97,7 +97,11 @@ class StoryEngine:
             "context": scene.get("context", ""),
             "dialogue": dialogue,
             "choices": [
-                {"id": c["id"], "label": c["label"]}
+                {
+                    "id": c["id"],
+                    "label": c["label"],
+                    "trust_delta": c.get("trust_delta", 0),
+                }
                 for c in choices
             ],
             "is_chapter_end": scene.get("is_chapter_end", False),

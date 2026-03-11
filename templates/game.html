@@ -32,10 +32,12 @@
     <a href="/" class="nav-back" aria-label="Accueil">←</a>
     <div class="game-chapter-info">
       <span id="chapter-title" class="chapter-title">Signal</span>
-      <span id="chapter-progress" class="chapter-progress">Chap. 0 / 8</span>
+      <span id="mission-display" class="mission-display" aria-live="polite">Mission: Répondre à LUNA</span>
+      <span id="chapter-progress" class="chapter-progress">Chap. 0 / 7</span>
     </div>
     <div class="game-trust">
       <button id="sfx-btn" class="sfx-btn" aria-label="Activer/désactiver le son" title="Son">🔊</button>
+      <button id="instant-btn" class="sfx-btn" aria-label="Texte instantané" title="Texte instantané (pas d'animation)">⚡</button>
       <span id="player-name-tag" class="trust-label" style="display:none;color:var(--luna);opacity:0.7;font-size:0.72rem;letter-spacing:1px;"></span>
       <span id="xp-header" class="xp-header" aria-label="Points d'expérience">0 XP</span>
       <span class="trust-label">Confiance</span>
@@ -105,6 +107,9 @@
       <div id="ending-container" class="ending-container" hidden>
         <!-- Particules d'ambiance -->
         <div class="ending-particles" id="ending-particles" aria-hidden="true"></div>
+
+        <!-- Flash achievement -->
+        <div id="ending-achievement" class="ending-achievement" hidden aria-hidden="true">FIN DÉBLOQUÉE</div>
 
         <div class="ending-content">
           <div class="ending-icon" id="ending-icon" aria-hidden="true"></div>
@@ -192,7 +197,7 @@
       <li>Clique sur un choix pour répondre</li>
       <li>Tes réponses changent sa confiance en toi</li>
     </ul>
-    <p class="fpt-hint">Clique sur le dialogue pour passer l'animation</p>
+    <p class="fpt-hint">Clique sur le dialogue pour passer · ou ⚡ pour tout afficher d'un coup</p>
   </div>
 
   <div class="keyboard-hint" aria-hidden="true">

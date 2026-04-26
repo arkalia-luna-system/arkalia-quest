@@ -10,6 +10,8 @@ on:
 
 env:
   PYTHON_VERSION: "3.10"
+  # Anticipe la bascule GitHub Actions Node 24 (deprecation Node 20).
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
 jobs:
   lint_and_test:
@@ -63,7 +65,7 @@ jobs:
 
     - name: 📊 Upload coverage to Codecov
       if: matrix.python-version == '3.10' && matrix.os == 'ubuntu-latest'
-      uses: codecov/codecov-action@v4
+      uses: codecov/codecov-action@v5
       with:
         file: ./coverage.xml
         flags: unittests

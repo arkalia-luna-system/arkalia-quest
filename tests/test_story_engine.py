@@ -8,7 +8,7 @@ et la cohérence du score de confiance.
 
 import os
 import sys
-from typing import Any, cast
+from typing import Any, Optional, cast
 
 import pytest
 
@@ -262,7 +262,7 @@ class TestNarrativePaths:
 
     def test_all_endings_distinct(self, engine: StoryEngine) -> None:
         """Les 3 fins ont des next_chapter différents."""
-        endings: set[str | None] = set()
+        endings: set[Optional[str]] = set()
 
         def path_a(e: StoryEngine, s: PlayerState) -> None:
             navigate_to_chapter6(e, s)
@@ -292,7 +292,7 @@ class TestNarrativePaths:
             state = engine.new_player_state()
             path_fn(engine, state)
             current = engine.get_state(state)
-            endings.add(cast(str | None, current.get("next_chapter")))
+            endings.add(cast(Optional[str], current.get("next_chapter")))
 
         assert len(endings) == 3, f"Seulement {len(endings)} fins distinctes: {endings}"
 

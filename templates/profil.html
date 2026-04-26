@@ -186,6 +186,7 @@
     </div>
   </main>
 
+  <script src="/static/js/hacker-ranks.js"></script>
   <script>
     // Niveaux XP
     const XP_LEVELS = [
@@ -201,32 +202,18 @@
       return XP_LEVELS.find(l => xp >= l.min && xp <= l.max) || XP_LEVELS[XP_LEVELS.length - 1];
     }
 
-    // Titres de hacker (mirroir de game.js)
-    const HACKER_RANKS = [
-      { title: "Partenaire Total",   desc: "Tu n'as jamais douté. LUNA te doit tout.",                         color: "#34d399",
-        match: (s,e,f) => e.includes("ending_a") && s >= 85 && f.includes("nexus_helped") },
-      { title: "Diplomate",          desc: "Tu as convaincu NEXUS là où tout le monde aurait abandonné.",      color: "#00d4ff",
-        match: (s,e,f) => e.includes("ending_a") && f.includes("nexus_helped") },
-      { title: "Franc-tireur",       desc: "Pas d'alliés. Pas de plan B. Juste toi et LUNA.",                  color: "#8b5cf6",
-        match: (s,e,f) => e.includes("ending_b") && !f.includes("nexus_helped") },
-      { title: "Entêté",             desc: "NEXUS a dit non. Tu es passé quand même. Respect.",                color: "#a78bfa",
-        match: (s,e,f) => e.includes("ending_b") && f.includes("tried_nexus") },
-      { title: "Activiste",          desc: "Tu as choisi d'exposer la vérité. Peu importe le prix.",           color: "#f97316",
-        match: (s,e,f) => e.includes("ending_c") && f.includes("pandora_public") },
-      { title: "Disrupteur",         desc: "La Corp ne s'y attendait pas. Personne ne s'y attendait.",         color: "#fb923c",
-        match: (s,e,f) => e.includes("ending_c") },
-      { title: "Agent Double",       desc: "Tu as joué les deux camps. Malin — ou dangereux.",                 color: "#fbbf24",
-        match: (s,e,f) => f.includes("listened_to_corp") && f.includes("agreed_to_pause_luna") },
-      { title: "Loyal",              desc: "Jamais de doute côté LUNA. Elle le sait.",                         color: "#34d399",
-        match: (s,e,f) => s >= 80 && !f.includes("agreed_to_pause_luna") },
-      { title: "Sceptique Converti", desc: "Tu commençais à pas y croire. Et pourtant.",                      color: "#60a5fa",
-        match: (s,e,f) => s >= 60 && f.includes("listened_to_corp") },
-      { title: "Opérateur",          desc: "Tu as géré. C'est ce qui compte.",                                 color: "#94a3b8",
-        match: () => true },
-    ];
-
     function getHackerRank(trust, endings, flags) {
-      return HACKER_RANKS.find(r => r.match(trust, endings, flags));
+      const endingId = endings.includes("ending_a")
+        ? "ending_a"
+        : endings.includes("ending_b")
+          ? "ending_b"
+          : endings.includes("ending_c")
+            ? "ending_c"
+            : null;
+      if (typeof window.getHackerRankShared === "function") {
+        return window.getHackerRankShared({ trust, flags, endingId });
+      }
+      return { title: "Operateur", desc: "Tu as gere. C'est ce qui compte.", color: "#94a3b8" };
     }
 
     const CHAPTER_NAMES = {

@@ -19,6 +19,15 @@ def _is_production() -> bool:
     return env in {"prod", "production"}
 
 
+def _is_debug_enabled() -> bool:
+    raw = (os.environ.get("FLASK_DEBUG") or "").strip().lower()
+    if raw in {"1", "true", "yes", "on"}:
+        return True
+    if raw in {"0", "false", "no", "off"}:
+        return False
+    return not _is_production()
+
+
 def create_app() -> Flask:
     app = Flask(__name__)
     is_production = _is_production()
@@ -62,4 +71,8 @@ def create_app() -> Flask:
 app = create_app()
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=5001)
+    app.run(
+        debug=_is_debug_enabled(),
+        host=os.environ.get("HOST", "0.0.0.0"),
+        port=int(os.environ.get("PORT", "5001")),
+    )

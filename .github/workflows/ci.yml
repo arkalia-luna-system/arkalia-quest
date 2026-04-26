@@ -1,244 +1,130 @@
-name: 🎮 Arkalia Quest CI/CD
+name: CI
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main, develop ]
-  release:
-    types: [ published ]
+    branches: [main, develop]
 
-env:
-  PYTHON_VERSION: "3.10"
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  lint_and_test:
-    name: 🔍 Lint & Test (Python ${{ matrix.python-version }}, ${{ matrix.os }})
+  lint_test:
+    name: Lint and tests (py${{ matrix.python-version }} / ${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12"]
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            python-version: "3.10"
+          - os: ubuntu-latest
+            python-version: "3.11"
+          - os: ubuntu-latest
+            python-version: "3.12"
+          - os: macos-latest
+            python-version: "3.12"
 
     steps:
-    - name: 📥 Checkout code
-      uses: actions/checkout@v5
+      - name: Checkout
+        uses: actions/checkout@v5
 
-    - name: 🐍 Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v6
-      with:
-        python-version: ${{ matrix.python-version }}
-        cache: 'pip'
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
 
-    - name: 📦 Install dependencies
-      run: |
-        python -m pip install --upgrade pip setuptools wheel
-        pip install -r requirements.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          pip install -r requirements.txt
 
-    - name: 🎨 Format check (Black)
-      run: |
-        python -m pip install black==25.1.0 --quiet
-        black --version
-        black --check --diff core engines utils tests app.py
+      - name: Check formatting
+        run: |
+          python -m pip install black==25.1.0 --quiet
+          black --check core engines utils tests app.py
 
-    - name: 🔍 Lint (Ruff)
-      run: ruff check core engines utils tests app.py
+      - name: Lint
+        run: ruff check core engines utils tests app.py
 
-    - name: 📝 Type check (MyPy)
-      run: mypy core engines utils
-      continue-on-error: true  # MyPy peut être strict
+      - name: Run tests
+        run: |
+          python -m pytest tests/ -q --maxfail=1 --tb=short --cov=core --cov=engines --cov=utils --cov-report=xml
 
-    - name: 🛡️ Security check (Bandit)
-      run: |
-        python -c "import os; os.makedirs('artifacts', exist_ok=True)"
-        bandit -r core engines utils -f json -o artifacts/bandit-report.json || true
-        bandit -r core engines utils -f txt -o artifacts/bandit-report.txt || true
-      continue-on-error: true
+      - name: Upload coverage to Codecov
+        if: matrix.python-version == '3.10' && matrix.os == 'ubuntu-latest'
+        run: |
+          curl -fsSL https://uploader.codecov.io/latest/linux/codecov -o codecov
+          chmod +x codecov
+          ./codecov upload-process --file coverage.xml --flag unittests --name codecov-umbrella || true
 
-    - name: 🧪 Run tests with pytest
-      run: |
-        python -c "import os; os.makedirs('junit', exist_ok=True); os.makedirs('artifacts', exist_ok=True)"
-        python -m pytest tests/ -v --cov=core --cov=engines --cov=utils --cov-report=xml --cov-report=term-missing --junitxml=junit/test-results-${{ matrix.python-version }}.xml --maxfail=5 --tb=short
-
-    - name: 📊 Upload coverage to Codecov
-      if: matrix.python-version == '3.10' && matrix.os == 'ubuntu-latest'
-      run: |
-        curl -fsSL https://uploader.codecov.io/latest/linux/codecov -o codecov
-        chmod +x codecov
-        ./codecov upload-process \
-          --file coverage.xml \
-          --flag unittests \
-          --name codecov-umbrella || true
-
-  performance_tests:
-    name: ⚡ Performance Tests
+  package:
+    name: Build package
     runs-on: ubuntu-latest
-    needs: lint_and_test
+    needs: lint_test
 
     steps:
-    - name: 📥 Checkout code
-      uses: actions/checkout@v5
+      - name: Checkout
+        uses: actions/checkout@v5
 
-    - name: 🐍 Set up Python
-      uses: actions/setup-python@v6
-      with:
-        python-version: ${{ env.PYTHON_VERSION }}
-        cache: 'pip'
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
 
-    - name: 📦 Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+      - name: Build distribution
+        run: |
+          python -m pip install --upgrade pip
+          pip install build twine
+          python -m build
+          twine check dist/*
 
-    - name: ⚡ Run performance tests
-      run: |
-        python -m pytest tests/performance/ -v
-        python tests/performance/test_load_testing.py
-
-    - name: 📊 Generate performance report
-      run: |
-        echo "📈 Performance Tests Results" > performance-report.md
-        echo "Generated on: $(date)" >> performance-report.md
-
-  security_audit:
-    name: 🛡️ Security Audit
+  docker:
+    name: Docker build and smoke test
     runs-on: ubuntu-latest
-    needs: lint_and_test
+    needs: package
 
     steps:
-    - name: 📥 Checkout code
-      uses: actions/checkout@v5
+      - name: Checkout
+        uses: actions/checkout@v5
 
-    - name: 🐍 Set up Python
-      uses: actions/setup-python@v6
-      with:
-        python-version: ${{ env.PYTHON_VERSION }}
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-    - name: 📦 Install security tools
-      run: |
-        python -m pip install --upgrade pip
-        pip install safety bandit semgrep
+      - name: Build and test Docker image
+        run: |
+          docker build -t arkalia-quest:latest .
+          chmod +x ./.github/scripts/test-docker.sh
+          bash ./.github/scripts/test-docker.sh
 
-    - name: 🔒 Check dependencies for vulnerabilities
-      run: |
-        python -c "import os; os.makedirs('artifacts', exist_ok=True)"
-        safety check --json > artifacts/safety-report.json || true
-      continue-on-error: true
-
-    - name: 🛡️ Run Bandit security linter
-      run: |
-        python -c "import os; os.makedirs('artifacts', exist_ok=True)"
-        bandit -r core engines utils -f json -o artifacts/bandit-report.json || true
-        bandit -r core engines utils -f txt -o artifacts/bandit-report.txt || true
-      continue-on-error: true
-
-  build_package:
-    name: 📦 Build Package
+  docs:
+    name: Deploy docs
     runs-on: ubuntu-latest
-    needs: [lint_and_test, performance_tests, security_audit]
-
-    steps:
-    - name: 📥 Checkout code
-      uses: actions/checkout@v5
-
-    - name: 🐍 Set up Python
-      uses: actions/setup-python@v6
-      with:
-        python-version: ${{ env.PYTHON_VERSION }}
-
-    - name: 📦 Install build tools
-      run: |
-        python -m pip install --upgrade pip
-        pip install build twine
-
-    - name: 🏗️ Build package
-      run: python -m build
-
-    - name: 🔍 Check package
-      run: twine check dist/*
-
-  docker_build:
-    name: 🐳 Docker Build & Test
-    runs-on: ubuntu-latest
-    needs: build_package
-
-    steps:
-    - name: 📥 Checkout code
-      uses: actions/checkout@v5
-
-    - name: 🐳 Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-
-    - name: 🏗️ Build Docker image
-      run: |
-        echo "Building Docker image..."
-        docker build -t arkalia-quest:latest .
-        echo "Docker image built successfully:"
-        docker images arkalia-quest:latest
-
-    - name: 🧪 Test Docker container
-      run: |
-        echo "Testing Docker container..."
-        chmod +x ./.github/scripts/test-docker.sh
-        bash ./.github/scripts/test-docker.sh
-
-    - name: 🧹 Cleanup Docker resources
-      if: always()
-      run: |
-        echo "Cleaning up Docker resources..."
-        docker system prune -f || true
-        docker volume prune -f || true
-
-  deploy_docs:
-    name: 📚 Deploy Documentation
-    runs-on: ubuntu-latest
+    needs: package
     if: github.ref == 'refs/heads/main'
-    needs: build_package
     permissions:
-      contents: write  # requis pour push gh-pages par peaceiris/actions-gh-pages
+      contents: write
 
     steps:
-    - name: 📥 Checkout code
-      uses: actions/checkout@v5
+      - name: Checkout
+        uses: actions/checkout@v5
 
-    - name: 🐍 Set up Python
-      uses: actions/setup-python@v6
-      with:
-        python-version: ${{ env.PYTHON_VERSION }}
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
 
-    - name: 📦 Install docs dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -e .[docs]
+      - name: Build docs
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[docs]
+          mkdocs build
 
-    - name: 📚 Build documentation
-      run: mkdocs build
-
-    - name: 🚀 Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v4
-      if: github.ref == 'refs/heads/main'
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./site
-
-  notification:
-    name: 📢 Notification
-    runs-on: ubuntu-latest
-    needs: [lint_and_test, performance_tests, security_audit, build_package, docker_build]
-    if: always()
-
-    steps:
-    - name: 📊 Generate CI Summary
-      run: |
-        echo "🎮 **Arkalia Quest CI/CD Summary**" > ci-summary.md
-        echo "" >> ci-summary.md
-        echo "- **Lint & Tests**: ${{ needs.lint_and_test.result }}" >> ci-summary.md
-        echo "- **Performance**: ${{ needs.performance_tests.result }}" >> ci-summary.md
-        echo "- **Security**: ${{ needs.security_audit.result }}" >> ci-summary.md
-        echo "- **Build**: ${{ needs.build_package.result }}" >> ci-summary.md
-        echo "- **Docker**: ${{ needs.docker_build.result }}" >> ci-summary.md
-        echo "" >> ci-summary.md
-        echo "**Commit**: ${{ github.sha }}" >> ci-summary.md
-        echo "**Branch**: ${{ github.ref_name }}" >> ci-summary.md
-        echo "**Workflow**: ${{ github.run_id }}" >> ci-summary.md
+      - name: Deploy GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site

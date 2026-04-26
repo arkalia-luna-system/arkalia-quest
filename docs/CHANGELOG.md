@@ -17,6 +17,7 @@
 - Lancement `app.py` pilote par variables d'environnement (`HOST`, `PORT`, `FLASK_DEBUG`) au lieu d'un debug force.
 - Suppression de scripts utilitaires legacy non relies au projet actuel (`scripts/utilitaires/*`).
 - Suppression d'un doublon de rapport de tests historique (`tests/tests/reports/...`).
+- Suppression de fichiers legacy non references (anciens rapports, assets de tests HTML manuels, config de charge obsoletes, donnees JSON de l'ancien systeme).
 - Verification complete de la suite de tests Python.
 
 ---

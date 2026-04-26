@@ -2,16 +2,14 @@
 Tests des routes API — LUNA Hors Connexion.
 Vérifie les endpoints /api/story/* en mode test Flask.
 """
-import json
-import sys
 import os
+import sys
 
 import pytest
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from app import create_app
-
 
 COOKIE_NAME = "luna_player_id"
 
@@ -179,7 +177,7 @@ class TestGetJournal:
         assert isinstance(data["moments"], list)
 
     def test_journal_generated_with_flags(self, client):
-        from core.story_save import save_state, generate_player_id
+        from core.story_save import generate_player_id, save_state
         pid = generate_player_id()
         save_state(pid, {
             "current_chapter": "chapitre_3",

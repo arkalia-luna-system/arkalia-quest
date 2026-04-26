@@ -3,9 +3,10 @@ Tests du moteur narratif — LUNA Hors Connexion.
 Vérifie que les 3 fins sont atteignables, la progression des chapitres,
 et la cohérence du score de confiance.
 """
-import pytest
-import sys
 import os
+import sys
+
+import pytest
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 

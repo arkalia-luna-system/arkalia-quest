@@ -12,7 +12,6 @@ import uuid
 from datetime import datetime
 from typing import Optional
 
-
 DB_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "luna_saves.db")
 
 

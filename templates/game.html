@@ -14,7 +14,7 @@
   <link rel="manifest" href="/static/manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/static/css/game.css">
 </head>
 <body class="page-game">
@@ -23,7 +23,7 @@
   <div id="boot-overlay" class="boot-overlay" aria-hidden="true">
     <div class="boot-content">
       <span class="boot-logo">LUNA</span>
-      <span class="boot-status" id="boot-status">Accès non autorisé…</span>
+      <span class="boot-status" id="boot-status">Connexion…</span>
     </div>
   </div>
 
@@ -32,7 +32,7 @@
     <a href="/" class="nav-back" aria-label="Accueil">←</a>
     <div class="game-chapter-info">
       <span id="chapter-title" class="chapter-title">Signal</span>
-      <span id="mission-display" class="mission-display" aria-live="polite">Mission: Répondre à LUNA</span>
+      <span id="mission-display" class="mission-display" aria-live="polite">→ Répondre à LUNA</span>
       <span id="chapter-progress" class="chapter-progress">Chap. 0 / 7</span>
     </div>
     <div class="game-trust">
@@ -40,7 +40,9 @@
       <button id="instant-btn" class="sfx-btn" aria-label="Texte instantané" title="Texte instantané (pas d'animation)">⚡</button>
       <span id="player-name-tag" class="trust-label" style="display:none;color:var(--luna);opacity:0.7;font-size:0.72rem;letter-spacing:1px;"></span>
       <span id="xp-header" class="xp-header" aria-label="Points d'expérience">0 XP</span>
-      <span class="trust-label">Confiance</span>
+      <button id="journal-btn" class="journal-btn" type="button" aria-label="Journal LUNA">📓</button>
+      <span id="style-tag" class="style-tag" aria-live="polite"></span>
+      <span class="trust-label">LUNA te fait confiance</span>
       <div class="trust-bar" role="progressbar" aria-label="Confiance LUNA" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
         <div id="trust-fill" class="trust-fill" style="width: 50%"></div>
       </div>
@@ -53,6 +55,25 @@
   <div class="story-progress-track" aria-hidden="true">
     <div id="story-progress-fill" class="story-progress-fill" style="width:0%"></div>
   </div>
+
+  <!-- Objectifs du run (défis légers) -->
+  <section class="session-objectives" aria-label="Objectifs de la session">
+    <div class="session-obj-title">Objectifs du run</div>
+    <ul class="session-obj-list">
+      <li id="challenge-1" class="session-obj-item">
+        <span class="session-obj-dot"></span>
+        <span class="session-obj-text">Garder la confiance de LUNA élevée.</span>
+      </li>
+      <li id="challenge-2" class="session-obj-item">
+        <span class="session-obj-dot"></span>
+        <span class="session-obj-text">Débloquer au moins un exploit (◈).</span>
+      </li>
+      <li id="challenge-3" class="session-obj-item">
+        <span class="session-obj-dot"></span>
+        <span class="session-obj-text">Prendre au moins un choix risqué (⚠).</span>
+      </li>
+    </ul>
+  </section>
 
   <!-- Zone principale du jeu -->
   <main class="game-main">
@@ -90,16 +111,22 @@
       <div id="choices-container" class="choices-container" role="group" aria-label="Tes choix" hidden>
       </div>
 
+      <!-- Compte à rebours pour certains choix critiques -->
+      <div id="choice-timer" class="choice-timer" hidden aria-hidden="true">
+        <div id="choice-timer-fill" class="choice-timer-fill"></div>
+        <span id="choice-timer-label" class="choice-timer-label"></span>
+      </div>
+
       <!-- Récapitulatif fin de chapitre -->
       <div id="chapter-recap" class="chapter-recap" hidden aria-live="polite">
-        <p class="recap-label">Ce chapitre</p>
+        <p class="recap-label">Ce que t'as fait</p>
         <ul id="recap-items" class="recap-items"></ul>
       </div>
 
       <!-- Bouton avancer (fin de chapitre) -->
       <div id="advance-container" class="advance-container" hidden>
         <button id="advance-btn" class="btn-advance">
-          Chapitre suivant →
+          Suite →
         </button>
       </div>
 
@@ -127,12 +154,12 @@
           <div class="ending-stats">
             <div class="ending-stat">
               <span class="ending-stat-value" id="ending-trust">—</span>
-              <span class="ending-stat-label">Confiance finale</span>
+              <span class="ending-stat-label">Ta confiance finale</span>
             </div>
             <div class="ending-stat-sep" aria-hidden="true">·</div>
             <div class="ending-stat">
               <span class="ending-stat-value" id="ending-xp">—</span>
-              <span class="ending-stat-label">XP collectés</span>
+              <span class="ending-stat-label">Ton XP</span>
             </div>
           </div>
 
@@ -144,8 +171,11 @@
           <!-- Compteur fins explorées -->
           <p id="ending-fins-counter" class="ending-fins-counter" aria-live="polite"></p>
 
+          <!-- Récapitulatif du style de jeu sur ce run -->
+          <div id="ending-style-summary" class="ending-style-summary" hidden></div>
+
           <div class="ending-actions">
-            <a href="/profil" class="btn-secondary">Voir mon profil</a>
+            <a href="/profil" class="btn-secondary">Profil</a>
             <button id="share-btn" class="btn-share" aria-label="Partager ta fin">
               <span class="share-icon">↗</span> Partager
             </button>
@@ -178,10 +208,18 @@
     </div>
   </div>
 
+  <!-- Popup "Moment clé" (flags narratifs importants) -->
+  <div id="moment-popup" class="moment-popup" hidden aria-live="assertive" role="status">
+    <div class="moment-popup-inner">
+      <span class="moment-popup-dot">◈</span>
+      <span class="moment-popup-text" id="moment-popup-text"></span>
+    </div>
+  </div>
+
   <!-- Écran de transition entre chapitres -->
   <div id="chapter-transition" class="chapter-transition" hidden aria-hidden="true">
     <div class="transition-content">
-      <span class="transition-chapter-num" id="transition-num">CHAPITRE 1</span>
+        <span class="transition-chapter-num" id="transition-num">CHAP. 1</span>
       <h2 class="transition-chapter-title" id="transition-title"></h2>
       <p class="transition-quote" id="transition-quote"></p>
       <div class="transition-bar"></div>
@@ -191,17 +229,38 @@
   <!-- Tooltip première visite -->
   <div id="first-play-tip" class="first-play-tip" role="status" aria-live="polite" hidden>
     <button class="fpt-close" onclick="dismissFirstPlayTip()" aria-label="Fermer">✕</button>
-    <p class="fpt-title">Comment jouer</p>
-    <ul class="fpt-list">
-      <li>Lis le message de LUNA</li>
-      <li>Clique sur un choix pour répondre</li>
-      <li>Tes réponses changent sa confiance en toi</li>
-    </ul>
-    <p class="fpt-hint">Clique sur le dialogue pour passer · ou ⚡ pour tout afficher d'un coup</p>
+    <p class="fpt-title">C'est parti</p>
+    <p class="fpt-list">Lis le message · clique sur un choix · tes réponses changent tout.</p>
+    <p class="fpt-hint">Clique pour passer · ⚡ = tout afficher d'un coup</p>
   </div>
 
   <div class="keyboard-hint" aria-hidden="true">
-    Espace = passer · 1/2/3 = choisir · R = rejouer
+    Espace = passer · 1/2/3 = choix
+  </div>
+
+  <!-- Modale Journal LUNA -->
+  <div id="journal-modal" class="journal-modal" hidden>
+    <div id="journal-modal-backdrop" class="journal-modal-backdrop"></div>
+    <div class="journal-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="journal-modal-title">
+      <header class="journal-modal-header">
+        <div class="journal-modal-title-block">
+          <span class="journal-modal-kicker">Journal</span>
+          <h2 id="journal-modal-title">LUNA · journal</h2>
+        </div>
+        <button type="button" id="journal-modal-close" class="journal-modal-close" aria-label="Fermer le journal">✕</button>
+      </header>
+      <section class="journal-modal-body">
+        <div class="luna-journal">
+          <div class="luna-journal-header">
+            <span class="luna-journal-dot"></span>
+            <span class="luna-journal-label">Journal LUNA</span>
+          </div>
+          <p id="journal-modal-text" class="luna-journal-text">
+            Chargement du journal...
+          </p>
+        </div>
+      </section>
+    </div>
   </div>
 
   <script src="/static/js/game.js" defer></script>

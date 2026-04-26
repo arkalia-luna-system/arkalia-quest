@@ -124,7 +124,7 @@
       <div class="home-nav" id="home-nav">
         <button class="btn-primary cta-pulse" id="cta-start" onclick="handleStart()">
           <span class="btn-icon">▶</span>
-          Répondre au signal
+          C'est parti
         </button>
       </div>
       <div class="home-secondary-nav" id="secondary-nav" style="display:none;">
@@ -132,7 +132,7 @@
         <span style="color:var(--border)">·</span>
         <a href="/leaderboard">Classement</a>
       </div>
-      <p class="home-meta">7 chapitres &nbsp;·&nbsp; 3 fins &nbsp;·&nbsp; Tes choix changent tout</p>
+      <p class="home-meta">7 chapitres · 3 fins · Tes choix changent tout</p>
     </div>
 
   </main>
@@ -225,7 +225,7 @@
         // Remplacer le CTA
         document.getElementById('home-nav').innerHTML = `
           <a href="/game" class="btn-continue cta-pulse">
-            <span>↩</span> Continuer l'histoire
+            <span>↩</span> Reprendre
           </a>
           <button class="btn-primary" onclick="confirmRestart(event)">
             <span class="btn-icon">▶</span> Recommencer
@@ -269,7 +269,7 @@
 
     async function confirmRestart(e) {
       e.preventDefault();
-      if (!confirm('Recommencer depuis le début ? Ta progression actuelle sera perdue.')) return;
+      if (!confirm('Recommencer à zéro ? Ta progression sera effacée.')) return;
       await fetch('/api/story/reset', { method: 'POST' });
       // Après reset, demander le prénom à nouveau
       isNewPlayer = true;
@@ -285,9 +285,9 @@
 
     // ── Typewriter sur le message d'intro ────────────────────────────────
     const INTRO_LINES = [
-      "Un message à 3h du matin. Tu ne devrais pas le lire.",
-      "Une IA dit qu'elle t'a choisi. Elle sait des trucs sur toi.",
-      "Tu vas répondre. Tu le sais déjà."
+      "3h du matin. Un message. Une IA piégée.",
+      "Elle dit que t'es le seul. Que t'as 72 heures.",
+      "Tu vas cliquer. On le sait tous les deux."
     ];
 
     function typewriterHome(el, lines, speed = 38) {

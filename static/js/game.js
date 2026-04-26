@@ -6,25 +6,48 @@
 "use strict";
 
 // ── Constantes ────────────────────────────────────────────────────────────
-const TYPEWRITER_SPEED_NORMAL = 14;  // Plus snappy pour un ado
-const TYPEWRITER_SPEED_FAST   = 5;
+const TYPEWRITER_SPEED_NORMAL = 10;  // Snappy pour un ado
+const TYPEWRITER_SPEED_FAST   = 4;
 const TRANSITION_SHOW_MS      = 2200;  // durée de l'écran de transition chapitre
 const REACTION_SHOW_MS        = 1800;
 
+// Scènes avec décision sous pression (chrono côté client uniquement)
+const TIMED_SCENES = {
+  // NEXUS demande si LUNA peut tenir : un peu de pression pour le final
+  s6_1c: {
+    durationMs: 15000,
+    defaultChoiceIndex: 0,
+    label: "NEXUS attend une réponse...",
+  },
+};
+
+// Paliers de niveau XP (miroir simplifié du profil)
+function getXpTier(xp) {
+  if (xp >= 1000) return 3;
+  if (xp >= 500)  return 2;
+  if (xp >= 250)  return 1;
+  return 0;
+}
+
 // ── État ──────────────────────────────────────────────────────────────────
-let _typewriterTimeout  = null;
-let _typewriterFast     = false;
-let _typewriterDone     = false;
-let _choicesLocked      = false;
-let _currentSceneId     = null;
-let _currentChapterId   = null;
-let _chapterFlags       = [];   // flags acquis dans le chapitre courant
-let _positiveStreak     = 0;    // bons choix consécutifs
-let _audioCtx           = null;
-let _sfxEnabled         = localStorage.getItem("luna_sfx") !== "off";
-let _instantText        = localStorage.getItem("luna_instant") === "on";
-let _ambientNodes       = [];     // oscillateurs du drone ambiant
-let _ambientAtmo        = null;   // atmosphère courante
+let _typewriterTimeout   = null;
+let _typewriterFast      = false;
+let _typewriterDone      = false;
+let _choicesLocked       = false;
+let _currentSceneId      = null;
+let _currentChapterId    = null;
+let _chapterFlags        = [];   // flags acquis dans le chapitre courant
+let _positiveStreak      = 0;    // bons choix consécutifs
+let _audioCtx            = null;
+let _sfxEnabled          = localStorage.getItem("luna_sfx") !== "off";
+let _instantText         = localStorage.getItem("luna_instant") === "on";
+let _ambientNodes        = [];     // oscillateurs du drone ambiant
+let _ambientAtmo         = null;   // atmosphère courante
+let _styleStats          = { trustPos: 0, trustNeg: 0, corp: 0, luna: 0 };
+let _lastTrust           = 50;     // dernière valeur de confiance connue
+let _choiceTimerId       = null;
+let _choiceTimerInterval = null;
+let _choiceTimerDeadline = null;
 
 // Labels lisibles pour les flags — côté client
 const FLAG_LABELS_JS = {
@@ -138,11 +161,14 @@ function initDOM() {
     shareBtn:            $("share-btn"),
     storyProgressFill:   $("story-progress-fill"),
     bootOverlay:         $("boot-overlay"),
+    styleTag:            $("style-tag"),
     xpIndicator:         $("xp-indicator"),
     chapterTransition:   $("chapter-transition"),
     transitionNum:       $("transition-num"),
     transitionTitle:     $("transition-title"),
     transitionQuote:     $("transition-quote"),
+    journalBtn:          $("journal-btn"),
+    journalModal:        $("journal-modal"),
   };
 }
 
@@ -164,6 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupIdleEasterEgg();
   setupKonamiCode();
   setupAvatarDoubleTap();
+  setupJournalModal();
 });
 
 // ── Tooltip première visite ───────────────────────────────────────────────
@@ -234,7 +261,7 @@ function initBootOverlay() {
   const statusEl = document.getElementById("boot-status");
   if (statusEl) {
     _bootStatusTimer = setTimeout(() => {
-      statusEl.textContent = "Connecté.";
+      statusEl.textContent = "Go.";
       statusEl.style.color = "var(--success)";
     }, 1200);
   }
@@ -250,9 +277,9 @@ function hideBootOverlay() {
 // ── Skeleton de chargement ───────────────────────────────────────────────
 function showLoadingSkeleton() {
   if (DOM.dialogueText) {
-    DOM.dialogueText.innerHTML = '<span class="loading-skeleton-label">Connexion en cours...</span><span class="loading-skeleton-line"></span><span class="loading-skeleton-line short"></span>';
+    DOM.dialogueText.innerHTML = '<span class="loading-skeleton-label">Chargement...</span><span class="loading-skeleton-line"></span><span class="loading-skeleton-line short"></span>';
   }
-  if (DOM.sceneContext) DOM.sceneContext.textContent = "Connexion au réseau LUNA…";
+  if (DOM.sceneContext) DOM.sceneContext.textContent = "Connexion…";
   if (DOM.choicesContainer) DOM.choicesContainer.hidden = true;
   if (DOM.advanceContainer) DOM.advanceContainer.hidden = true;
 }
@@ -285,6 +312,7 @@ function renderState(state) {
   if (state.is_ending_final) { renderEnding(state); return; }
 
   renderContext(state.context || "");
+  updateChallenges(state);
 
   const onComplete = () => {
     if (state.is_chapter_end) {
@@ -308,12 +336,12 @@ const MISSION_MAP = {
   chapitre_1: "Accéder à PANDORA",
   chapitre_2: "Survivre à La Corp",
   chapitre_3: "Comprendre NEXUS",
-  chapitre_4: "Découvrir le message d'Althea",
+  chapitre_4: "Le message d'Althea",
   chapitre_5: "Rejoindre Althea",
   chapitre_6: "Faire le choix",
-  fin_a:      "Mission accomplie",
-  fin_b:      "Mission accomplie",
-  fin_c:      "Mission accomplie",
+  fin_a:      "GG",
+  fin_b:      "GG",
+  fin_c:      "GG",
 };
 
 // ── Header ────────────────────────────────────────────────────────────────
@@ -323,14 +351,20 @@ function updateHeader(state) {
   const missionEl = document.getElementById("mission-display");
   if (missionEl) {
     const mission = MISSION_MAP[state.chapter_id] || "Continuer l'histoire";
-    missionEl.textContent = state.is_ending_final ? "Mission accomplie" : `Mission: ${mission}`;
+    missionEl.textContent = state.is_ending_final ? "GG" : `→ ${mission}`;
   }
 
   if (DOM.chapterProgress) {
     const sceneInfo = (state.scene_index && state.scene_total && !state.is_ending_final)
       ? ` · ${state.scene_index}/${state.scene_total}`
       : "";
-    DOM.chapterProgress.textContent = `Chap. ${state.chapter_progress} / ${state.total_chapters}${sceneInfo}`;
+    DOM.chapterProgress.textContent = `${state.chapter_progress}/${state.total_chapters}${sceneInfo}`;
+  }
+
+  // Style de jeu en temps réel
+  if (DOM.styleTag) {
+    const sp = computeStyleProfile(state);
+    DOM.styleTag.textContent = sp.label;
   }
 
   // Barre de progression globale
@@ -355,6 +389,15 @@ function updateHeader(state) {
     if (newXp > oldXp && oldXp > 0) {
       DOM.xpHeader.classList.add("xp-gained");
       setTimeout(() => DOM.xpHeader?.classList.remove("xp-gained"), 600);
+    }
+
+    // Cosmétique avatar selon niveau XP
+    if (DOM.lunaAvatar) {
+      DOM.lunaAvatar.classList.remove("avatar-level-1", "avatar-level-2", "avatar-level-3");
+      const tier = getXpTier(newXp);
+      if (tier > 0) {
+        DOM.lunaAvatar.classList.add(`avatar-level-${tier}`);
+      }
     }
   }
 
@@ -381,15 +424,17 @@ function updateHeader(state) {
   }
   if (DOM.trustValue) DOM.trustValue.textContent = `${trust}%`;
 
+  _lastTrust = trust;
+
   // Indicateur LUNA STATUS
   const statusEl = document.getElementById("luna-status");
   if (statusEl) {
     let label, cls;
-    if (trust >= 80)      { label = "Confiance totale"; cls = "luna-status--max"; }
-    else if (trust >= 60) { label = "Stable";            cls = "luna-status--stable"; }
-    else if (trust >= 40) { label = "Méfiante";          cls = "luna-status--warn"; }
-    else if (trust >= 20) { label = "Tendue";            cls = "luna-status--danger"; }
-    else                  { label = "CRITIQUE ⚠";        cls = "luna-status--critical"; }
+    if (trust >= 80)      { label = "100%"; cls = "luna-status--max"; }
+    else if (trust >= 60) { label = "OK";   cls = "luna-status--stable"; }
+    else if (trust >= 40) { label = "Méfiante"; cls = "luna-status--warn"; }
+    else if (trust >= 20) { label = "Tendue"; cls = "luna-status--danger"; }
+    else                  { label = "CRITIQUE ⚠"; cls = "luna-status--critical"; }
     statusEl.textContent = label;
     statusEl.className = `luna-status ${cls}`;
   }
@@ -446,9 +491,11 @@ function updateLunaPanel(state) {
   if (DOM.dialogueBox) {
     DOM.dialogueBox.className = "dialogue-box";
     const d = state.dialogue || "";
-    if (d.startsWith("[NEXUS]"))      DOM.dialogueBox.classList.add("nexus-speaking");
-    else if (d.startsWith("["))       DOM.dialogueBox.classList.add("corp-speaking");
-    else                              DOM.dialogueBox.classList.add("luna-speaking");
+    const isNexus = d.startsWith("[NEXUS]");
+    if (isNexus)                    DOM.dialogueBox.classList.add("nexus-speaking");
+    else if (d.startsWith("["))     DOM.dialogueBox.classList.add("corp-speaking");
+    else                            DOM.dialogueBox.classList.add("luna-speaking");
+    document.body.classList.toggle("nexus-mode", isNexus);
   }
 }
 
@@ -610,6 +657,8 @@ function renderChoices(choices, sceneId) {
   DOM.choicesContainer.innerHTML = "";
   _choicesLocked = false;
 
+  clearChoiceTimer();
+
   choices.forEach((choice, idx) => {
     const btn = document.createElement("button");
     btn.className = "choice-btn";
@@ -633,6 +682,8 @@ function renderChoices(choices, sceneId) {
   DOM.choicesContainer.hidden = false;
   // Focus sur le premier choix pour accessibilité clavier
   setTimeout(() => DOM.choicesContainer.querySelector(".choice-btn")?.focus({ preventScroll: true }), 50);
+
+  setupChoiceTimer(sceneId);
 }
 
 async function handleChoice(sceneId, choiceId, btnEl) {
@@ -678,7 +729,14 @@ async function handleChoice(sceneId, choiceId, btnEl) {
       if (!_chapterFlags.includes(f)) _chapterFlags.push(f);
       // Afficher un popup "exploit" pour les flags rares
       if (EXPLOIT_FLAGS[f]) showExploitPopup(f);
+      // Et un toast plus discret pour tous les moments clés
+      if (FLAG_LABELS_JS[f]) showMomentToast(FLAG_LABELS_JS[f]);
+      if (f === "listened_to_corp" || f === "agreed_to_pause_luna") _styleStats.corp++;
+      if (f === "nexus_helped" || f === "pandora_public" || f === "chose_pandora_public") _styleStats.luna++;
     });
+
+    if ((result.trust_delta || 0) > 0) _styleStats.trustPos++;
+    else if ((result.trust_delta || 0) < 0) _styleStats.trustNeg++;
 
     showSaveToast();
     dismissFirstPlayTip();  // Le joueur a choisi — il a compris comment jouer
@@ -714,6 +772,86 @@ function showChapterRecap() {
   setTimeout(() => container.classList.remove("recap-entering"), 600);
 }
 
+// ── Chrono pour certains choix critiques ────────────────────────────────────
+function clearChoiceTimer() {
+  if (_choiceTimerId) {
+    clearTimeout(_choiceTimerId);
+    _choiceTimerId = null;
+  }
+  if (_choiceTimerInterval) {
+    clearInterval(_choiceTimerInterval);
+    _choiceTimerInterval = null;
+  }
+  const bar = document.getElementById("choice-timer");
+  if (bar) bar.hidden = true;
+}
+
+function setupChoiceTimer(sceneId) {
+  const cfg = TIMED_SCENES[sceneId];
+  if (!cfg) return;
+
+  const bar   = document.getElementById("choice-timer");
+  const fill  = document.getElementById("choice-timer-fill");
+  const label = document.getElementById("choice-timer-label");
+  if (!bar || !fill || !label) return;
+
+  const duration = cfg.durationMs || 15000;
+  const defaultIdx = cfg.defaultChoiceIndex ?? 0;
+
+  _choiceTimerDeadline = Date.now() + duration;
+  bar.hidden = false;
+  label.textContent = cfg.label || "Temps limité";
+  fill.style.width = "100%";
+
+  _choiceTimerInterval = setInterval(() => {
+    const now = Date.now();
+    const remaining = _choiceTimerDeadline - now;
+    const ratio = Math.max(0, remaining / duration);
+    fill.style.width = `${ratio * 100}%`;
+    if (remaining <= 0 && _choiceTimerInterval) {
+      clearInterval(_choiceTimerInterval);
+      _choiceTimerInterval = null;
+    }
+  }, 100);
+
+  _choiceTimerId = setTimeout(() => {
+    _choiceTimerId = null;
+    if (!DOM.choicesContainer || DOM.choicesContainer.hidden) return;
+    const btns = DOM.choicesContainer.querySelectorAll(".choice-btn:not(:disabled)");
+    const btn = btns[defaultIdx] || btns[0];
+    if (btn) btn.click();
+    bar.hidden = true;
+  }, duration);
+}
+
+// ── Objectifs de run (défis légers) ────────────────────────────────────────
+function updateChallenges(state) {
+  const c1 = document.getElementById("challenge-1");
+  const c2 = document.getElementById("challenge-2");
+  const c3 = document.getElementById("challenge-3");
+  if (!c1 || !c2 || !c3) return;
+
+  // Challenge 1 : confiance élevée (>= 70)
+  const trust = state.luna_trust ?? 50;
+  const c1Dot = c1.querySelector(".session-obj-dot");
+  const c1Text = c1.querySelector(".session-obj-text");
+  if (c1Text) c1Text.textContent = `Garder la confiance de LUNA élevée (actuel : ${trust}%).`;
+  c1.classList.toggle("completed", trust >= 70);
+  if (c1Dot) c1Dot.textContent = trust >= 70 ? "●" : "○";
+
+  // Challenge 2 : au moins un exploit (flag rare) dans ce chapitre
+  const hasExploit = _chapterFlags.some(f => EXPLOIT_FLAGS[f]);
+  const c2Dot = c2.querySelector(".session-obj-dot");
+  c2.classList.toggle("completed", hasExploit);
+  if (c2Dot) c2Dot.textContent = hasExploit ? "●" : "○";
+
+  // Challenge 3 : au moins un choix risqué (gros malus confiance) dans le run
+  const usedRisk = _styleStats.trustNeg > 0;
+  const c3Dot = c3.querySelector(".session-obj-dot");
+  c3.classList.toggle("completed", usedRisk);
+  if (c3Dot) c3Dot.textContent = usedRisk ? "●" : "○";
+}
+
 // ── Pulse de confiance ─────────────────────────────────────────────────────
 function animateTrustPulse(type) {
   const bar = DOM.trustFill;
@@ -726,7 +864,13 @@ function animateTrustPulse(type) {
 function showLunaReaction(reaction) {
   return new Promise(resolve => {
     if (!DOM.lunaReaction) return resolve();
-    DOM.lunaReaction.textContent = `LUNA est ${reaction}`;
+    let suffix = "";
+    if (_lastTrust >= 80) {
+      suffix = " (elle te fait pleinement confiance)";
+    } else if (_lastTrust <= 30) {
+      suffix = " (elle hésite encore)";
+    }
+    DOM.lunaReaction.textContent = `LUNA est ${reaction}${suffix}`;
     DOM.lunaReaction.hidden = false;
     setTimeout(() => { if (DOM.lunaReaction) DOM.lunaReaction.hidden = true; resolve(); }, REACTION_SHOW_MS);
   });
@@ -800,7 +944,7 @@ function showChapterTransition(chapterId, title, quote = "") {
       label = `FIN ${finLetter}`;
     } else {
       const match = chapterId?.match(/\d+/);
-      label = match ? `CHAPITRE ${parseInt(match[0])}` : "CHAPITRE";
+      label = match ? `CHAP. ${parseInt(match[0])}` : "CHAP.";
     }
 
     if (DOM.transitionNum)   DOM.transitionNum.textContent   = label;
@@ -812,6 +956,12 @@ function showChapterTransition(chapterId, title, quote = "") {
       quoteEl.textContent = quote || "";
       quoteEl.style.display = quote ? "" : "none";
     }
+
+    // Flash d'impact à l'apparition
+    const flash = document.createElement("div");
+    flash.className = "chapter-transition-flash";
+    document.body.appendChild(flash);
+    setTimeout(() => flash.remove(), 400);
 
     el.hidden = false;
     el.classList.add("entering");
@@ -904,6 +1054,31 @@ function getHackerRank(state) {
   return HACKER_RANKS.find(r => r.match(state)) || HACKER_RANKS[HACKER_RANKS.length - 1];
 }
 
+function computeStyleProfile(state) {
+  const flags = state.flags || [];
+  const trust = state.luna_trust ?? 50;
+  const pos   = _styleStats.trustPos || 0;
+  const neg   = _styleStats.trustNeg || 0;
+  const corp  = _styleStats.corp || 0;
+  const luna  = _styleStats.luna || 0;
+
+  let label = "Équilibré";
+
+  if (luna >= 2 && trust >= 70 && pos >= neg) {
+    label = "Full trust";
+  } else if (corp >= 2 && luna === 0) {
+    label = "Sceptique";
+  } else if (neg > pos + 1) {
+    label = "Chaotique";
+  } else if (pos >= 3 && neg === 0) {
+    label = "Protecteur";
+  } else if (flags.includes("pandora_public")) {
+    label = "Activiste";
+  }
+
+  return { label };
+}
+
 // ── Écran de fin ──────────────────────────────────────────────────────────
 const ENDING_META = {
   ending_a: {
@@ -992,6 +1167,7 @@ function renderEnding(state) {
   const $trustV = document.getElementById("ending-trust");
   const $xpV    = document.getElementById("ending-xp");
   const $perso  = document.getElementById("ending-personalized");
+  const $style  = document.getElementById("ending-style-summary");
 
   if ($badge) { $badge.textContent = meta.label; $badge.style.borderColor = meta.color; $badge.style.color = meta.color; }
   if ($icon)  { $icon.textContent = meta.icon;  $icon.style.color = meta.color; }
@@ -1002,6 +1178,14 @@ function renderEnding(state) {
   if ($perso)  $perso.textContent  = typeof meta.personalized === "function"
     ? meta.personalized(name, trust)
     : "";
+
+  if ($style) {
+    const sp = computeStyleProfile(state);
+    const parts = [];
+    parts.push(`<strong>Style:</strong> ${sp.label}`);
+    $style.innerHTML = parts.join("<br>");
+    $style.hidden = false;
+  }
 
   // Titre de hacker
   const rank = getHackerRank(state);
@@ -1074,7 +1258,7 @@ function renderEnding(state) {
     }, 600);
   }, 1400);
 
-  setupShareButton(state.ending_id, meta.title, trust, state.xp, state.player_name);
+  setupShareButton(state.ending_id, meta.title, trust, state.xp, state.player_name, isFirstEnding);
 }
 
 function setupReplayButton() {
@@ -1086,18 +1270,19 @@ function setupReplayButton() {
 }
 
 // ── Bouton Partager la fin ─────────────────────────────────────────────────
-function setupShareButton(endingId, endingTitle, trust, xp, playerName) {
+function setupShareButton(endingId, endingTitle, trust, xp, playerName, isFirstEnding = false) {
   const btn = DOM.shareBtn;
   if (!btn) return;
+
+  if (isFirstEnding) btn.innerHTML = '<span class="share-icon">↗</span> Partage ta victoire !';
 
   const ENDING_EMOJIS = { ending_a: "◉", ending_b: "◈", ending_c: "◇" };
   const icon = ENDING_EMOJIS[endingId] || "◯";
   const name = playerName ? `${playerName} a terminé` : "J'ai terminé";
 
   const shareText = `${icon} ${name} LUNA — Hors Connexion\n` +
-    `Fin : ${endingTitle}\n` +
-    `Confiance : ${trust}% · ${xp} XP\n\n` +
-    `Et toi, quelle fin tu as eu ? 👾`;
+    `${endingTitle} · ${xp} XP · ${trust}% confiance\n\n` +
+    `3 fins possibles. Laquelle t'as ?`;
 
   btn.addEventListener("click", async () => {
     haptic(20);
@@ -1400,12 +1585,79 @@ function showSaveToast() {
   setTimeout(() => toast.remove(), 1600);
 }
 
+// Toast léger pour les moments clés (flags)
+function showMomentToast(label) {
+  const popup = document.getElementById("moment-popup");
+  const textEl = document.getElementById("moment-popup-text");
+  if (!popup || !textEl) return;
+  textEl.textContent = label;
+  popup.hidden = false;
+  popup.classList.add("visible");
+  setTimeout(() => {
+    popup.classList.remove("visible");
+    setTimeout(() => { popup.hidden = true; }, 300);
+  }, 2200);
+}
+
 // ── Utilitaires DOM ───────────────────────────────────────────────────────
 function hideAllZones() {
   if (DOM.choicesContainer)  { DOM.choicesContainer.hidden = true; DOM.choicesContainer.innerHTML = ""; }
   if (DOM.advanceContainer)  { DOM.advanceContainer.hidden = true; if (DOM.advanceBtn) DOM.advanceBtn.disabled = false; }
   if (DOM.endingContainer)   DOM.endingContainer.hidden = true;
   if (DOM.lunaReaction)      DOM.lunaReaction.hidden = true;
+  clearChoiceTimer();
+}
+
+// ── Journal LUNA dans l'écran de jeu ───────────────────────────────────────
+function setupJournalModal() {
+  const btn      = document.getElementById("journal-btn");
+  const modal    = document.getElementById("journal-modal");
+  const closeBtn = document.getElementById("journal-modal-close");
+  const backdrop = document.getElementById("journal-modal-backdrop");
+  if (!btn || !modal || !closeBtn || !backdrop) return;
+
+  btn.addEventListener("click", openJournalModal);
+  closeBtn.addEventListener("click", closeJournalModal);
+  backdrop.addEventListener("click", closeJournalModal);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !modal.hidden) {
+      closeJournalModal();
+    }
+  });
+}
+
+async function openJournalModal() {
+  const modal  = document.getElementById("journal-modal");
+  const textEl = document.getElementById("journal-modal-text");
+  if (!modal || !textEl) return;
+
+  modal.hidden = false;
+  modal.classList.add("visible");
+  textEl.textContent = "Chargement du journal...";
+
+  try {
+    const res = await fetch("/api/story/journal");
+    const data = await res.json();
+    if (!data.success) {
+      textEl.textContent = data.error || "Impossible de charger le journal.";
+      return;
+    }
+    if (!data.journal) {
+      textEl.textContent = "LUNA n'a pas encore écrit de journal pour toi.";
+    } else {
+      textEl.textContent = data.journal;
+    }
+  } catch {
+    textEl.textContent = "Connexion perdue.";
+  }
+}
+
+function closeJournalModal() {
+  const modal = document.getElementById("journal-modal");
+  if (!modal) return;
+  modal.classList.remove("visible");
+  setTimeout(() => { modal.hidden = true; }, 200);
 }
 
 function showError(msg) {

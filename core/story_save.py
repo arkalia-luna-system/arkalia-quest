@@ -9,8 +9,10 @@ import json
 import os
 import sqlite3
 import uuid
-from datetime import datetime
-from typing import Optional
+from datetime import datetime, timezone
+from typing import Any, Optional, cast
+
+JsonDict = dict[str, Any]
 
 DB_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "luna_saves.db")
 
@@ -38,7 +40,7 @@ def generate_player_id() -> str:
     return str(uuid.uuid4())
 
 
-def save_state(player_id: str, state: dict) -> None:
+def save_state(player_id: str, state: JsonDict) -> None:
     """Sauvegarde (upsert) l'état du joueur."""
     with _get_conn() as conn:
         conn.execute("""
@@ -47,18 +49,18 @@ def save_state(player_id: str, state: dict) -> None:
             ON CONFLICT(player_id) DO UPDATE SET
                 state_json = excluded.state_json,
                 updated_at = excluded.updated_at
-        """, (player_id, json.dumps(state, ensure_ascii=False), datetime.utcnow().isoformat()))
+        """, (player_id, json.dumps(state, ensure_ascii=False), datetime.now(timezone.utc).isoformat()))
         conn.commit()
 
 
-def load_state(player_id: str) -> Optional[dict]:
+def load_state(player_id: str) -> Optional[JsonDict]:
     """Charge l'état du joueur. Retourne None si introuvable."""
     with _get_conn() as conn:
         row = conn.execute(
             "SELECT state_json FROM story_saves WHERE player_id = ?", (player_id,)
         ).fetchone()
     if row:
-        return json.loads(row["state_json"])
+        return cast(JsonDict, json.loads(row["state_json"]))
     return None
 
 
@@ -68,10 +70,10 @@ def delete_state(player_id: str) -> None:
     Preserve les fins débloquées dans previous_endings pour que LUNA s'en souvienne.
     """
     old = load_state(player_id)
-    previous = []
+    previous: list[str] = []
     if old:
-        previous = old.get("previous_endings", [])
-        for eid in old.get("endings_unlocked", []):
+        previous = cast(list[str], old.get("previous_endings", []))
+        for eid in cast(list[str], old.get("endings_unlocked", [])):
             if eid not in previous:
                 previous.append(eid)
 
@@ -87,7 +89,7 @@ def delete_state(player_id: str) -> None:
         save_state(player_id, new_state)
 
 
-def get_save_summary(player_id: str) -> Optional[dict]:
+def get_save_summary(player_id: str) -> Optional[JsonDict]:
     """Retourne un résumé de la sauvegarde (pour l'accueil)."""
     state = load_state(player_id)
     if not state:
@@ -104,7 +106,7 @@ def get_save_summary(player_id: str) -> Optional[dict]:
     }
 
 
-def get_leaderboard(limit: int = 10) -> list[dict]:
+def get_leaderboard(limit: int = 10) -> list[JsonDict]:
     """
     Retourne le classement des meilleurs joueurs (par XP décroissant).
     Le nom est anonymisé : les 3 premiers caractères + '***' (ou 'Joueur ???' si absent).
@@ -114,18 +116,18 @@ def get_leaderboard(limit: int = 10) -> list[dict]:
             "SELECT state_json FROM story_saves ORDER BY updated_at DESC"
         ).fetchall()
 
-    entries = []
+    entries: list[JsonDict] = []
     for row in rows:
         try:
-            state = json.loads(row["state_json"])
+            state = cast(JsonDict, json.loads(row["state_json"]))
         except (json.JSONDecodeError, TypeError):
             continue
 
-        xp = state.get("xp", 0)
+        xp = int(state.get("xp", 0))
         if xp == 0:
             continue  # Ignorer les joueurs sans progression
 
-        raw_name = (state.get("player_name") or "").strip()
+        raw_name = str(state.get("player_name") or "").strip()
         if raw_name:
             # Garder les 3 premiers caractères + *** pour la confidentialité
             display_name = raw_name[:3] + "***" if len(raw_name) > 3 else raw_name + "***"
@@ -136,12 +138,12 @@ def get_leaderboard(limit: int = 10) -> list[dict]:
             "name":             display_name,
             "xp":               xp,
             "luna_trust":       state.get("luna_trust", 50),
-            "chapters_done":    len(state.get("chapters_completed", [])),
-            "endings_unlocked": state.get("endings_unlocked", []),
+            "chapters_done":    len(cast(list[Any], state.get("chapters_completed", []))),
+            "endings_unlocked": cast(list[str], state.get("endings_unlocked", [])),
         })
 
     # Trier par XP décroissant, puis par trust en cas d'égalité
-    entries.sort(key=lambda e: (-e["xp"], -e["luna_trust"]))
+    entries.sort(key=lambda e: (-int(e["xp"]), -int(e["luna_trust"])))
     return entries[:limit]
 
 

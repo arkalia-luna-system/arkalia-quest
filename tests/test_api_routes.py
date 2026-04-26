@@ -2,6 +2,8 @@
 Tests des routes API — LUNA Hors Connexion.
 Vérifie les endpoints /api/story/* en mode test Flask.
 """
+# pyright: reportUnknownParameterType=false, reportUnknownVariableType=false, reportUnknownMemberType=false, reportMissingParameterType=false, reportUnknownArgumentType=false
+
 import os
 import sys
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 
 echo "🐳 Testing Docker container..."
 
@@ -19,9 +19,17 @@ echo "Cleaning up existing containers..."
 docker stop arkalia-test 2>/dev/null || true
 docker rm arkalia-test 2>/dev/null || true
 
+cleanup() {
+  echo "Cleaning up..."
+  docker logs arkalia-test --tail 100 2>/dev/null || true
+  docker stop arkalia-test 2>/dev/null || true
+  docker rm arkalia-test 2>/dev/null || true
+}
+trap cleanup EXIT
+
 # Démarrer le conteneur
 echo "Starting container..."
-CONTAINER_ID=$(docker run --rm -d --name arkalia-test -p 5001:10000 -e PORT=10000 arkalia-quest:latest)
+CONTAINER_ID=$(docker run -d --name arkalia-test -p 5001:10000 -e PORT=10000 arkalia-quest:latest)
 echo "Container started with ID: $CONTAINER_ID"
 
 # Attendre un peu et vérifier immédiatement
@@ -98,9 +106,5 @@ else
   docker logs arkalia-test --tail 50 2>/dev/null || echo "No logs available"
   exit 1
 fi
-
-# Nettoyer
-echo "Cleaning up..."
-docker stop arkalia-test || echo "Container already stopped"
 
 echo "✅ Docker test completed successfully!"

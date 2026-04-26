@@ -31,7 +31,11 @@ EXPOSE 10000
 ENV PYTHONPATH=/app
 ENV FLASK_APP=app.py
 ENV FLASK_ENV=production
+ENV APP_ENV=production
 ENV PORT=10000
+# Valeur par défaut pour les environnements de build/test.
+# En production reelle, fournir une SECRET_KEY forte via variable d'environnement.
+ENV SECRET_KEY=change-me-in-production
 
 # Healthcheck pour vérifier que l'application est prête
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \

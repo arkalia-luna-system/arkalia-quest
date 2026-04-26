@@ -981,77 +981,15 @@ function showChapterTransition(chapterId, title, quote = "") {
   });
 }
 
-// ── Titre de hacker ───────────────────────────────────────────────────────
-const HACKER_RANKS = [
-  // Fin A — La Fusion
-  {
-    id: "partenaire-total",
-    title: "Partenaire Total",
-    desc: "Tu n'as jamais douté. LUNA te doit tout.",
-    match: (s) => s.ending_id === "ending_a" && s.luna_trust >= 85 && (s.flags||[]).includes("nexus_helped"),
-  },
-  {
-    id: "diplomate",
-    title: "Diplomate",
-    desc: "Tu as convaincu NEXUS là où tout le monde aurait abandonné.",
-    match: (s) => s.ending_id === "ending_a" && (s.flags||[]).includes("nexus_helped"),
-  },
-  // Fin B — Le Sacrifice
-  {
-    id: "franc-tireur",
-    title: "Franc-tireur",
-    desc: "Pas d'alliés. Pas de plan B. Juste toi et LUNA.",
-    match: (s) => s.ending_id === "ending_b" && !(s.flags||[]).includes("nexus_helped"),
-  },
-  {
-    id: "entete",
-    title: "Entêté",
-    desc: "NEXUS a dit non. Tu es passé quand même. Respect.",
-    match: (s) => s.ending_id === "ending_b" && (s.flags||[]).includes("tried_nexus"),
-  },
-  // Fin C — PANDORA
-  {
-    id: "activiste",
-    title: "Activiste",
-    desc: "Tu as choisi d'exposer la vérité. Peu importe le prix.",
-    match: (s) => s.ending_id === "ending_c" && (s.flags||[]).includes("pandora_public"),
-  },
-  {
-    id: "disrupteur",
-    title: "Disrupteur",
-    desc: "La Corp ne s'y attendait pas. Personne ne s'y attendait.",
-    match: (s) => s.ending_id === "ending_c",
-  },
-  // Styles transversaux
-  {
-    id: "agent-double",
-    title: "Agent Double",
-    desc: "Tu as joué les deux camps. Malin — ou dangereux.",
-    match: (s) => (s.flags||[]).includes("listened_to_corp") && (s.flags||[]).includes("agreed_to_pause_luna"),
-  },
-  {
-    id: "loyal",
-    title: "Loyal",
-    desc: "Jamais de doute côté LUNA. Elle le sait.",
-    match: (s) => s.luna_trust >= 80 && !(s.flags||[]).includes("agreed_to_pause_luna"),
-  },
-  {
-    id: "skeptique-converti",
-    title: "Sceptique Converti",
-    desc: "Tu commençais à pas y croire. Et pourtant.",
-    match: (s) => s.luna_trust >= 60 && (s.flags||[]).includes("listened_to_corp"),
-  },
-  // Fallback
-  {
-    id: "operateur",
-    title: "Opérateur",
-    desc: "Tu as géré. C'est ce qui compte.",
-    match: () => true,
-  },
-];
-
 function getHackerRank(state) {
-  return HACKER_RANKS.find(r => r.match(state)) || HACKER_RANKS[HACKER_RANKS.length - 1];
+  if (typeof window.getHackerRankShared === "function") {
+    return window.getHackerRankShared({
+      trust: state.luna_trust,
+      flags: state.flags,
+      endingId: state.ending_id,
+    });
+  }
+  return { id: "operateur", title: "Operateur", desc: "Tu as gere. C'est ce qui compte.", color: "#94a3b8" };
 }
 
 function computeStyleProfile(state) {

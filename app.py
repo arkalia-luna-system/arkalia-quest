@@ -14,13 +14,25 @@ from routes.pages import register_pages
 from routes.story import story_bp
 
 
+def _is_production() -> bool:
+    env = (os.environ.get("FLASK_ENV") or os.environ.get("APP_ENV") or "").lower()
+    return env in {"prod", "production"}
+
+
 def create_app() -> Flask:
     app = Flask(__name__)
+    is_production = _is_production()
 
     # Configuration
-    app.secret_key = os.environ.get("SECRET_KEY", secrets.token_hex(32))
+    secret_key = os.environ.get("SECRET_KEY")
+    if is_production and not secret_key:
+        raise RuntimeError("SECRET_KEY est obligatoire en production.")
+    app.secret_key = secret_key or secrets.token_hex(32)
+
+    app.config["SESSION_COOKIE_NAME"] = "luna_session"
     app.config["SESSION_COOKIE_HTTPONLY"] = True
     app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+    app.config["SESSION_COOKIE_SECURE"] = is_production
     app.config["MAX_CONTENT_LENGTH"] = 1 * 1024 * 1024  # 1 MB max
 
     # Compression des réponses

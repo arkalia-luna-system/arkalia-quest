@@ -10,7 +10,7 @@ POST /api/story/name         → enregistrer le prénom du joueur
 GET  /api/story/leaderboard  → classement local des joueurs
 """
 
-from flask import Blueprint, jsonify, make_response, request
+from flask import Blueprint, current_app, jsonify, make_response, request
 
 from core.story_engine import get_story_engine
 from core.story_save import (
@@ -55,8 +55,14 @@ def _json_with_cookie(data: dict, player_id: str, is_new: bool):
             max_age=COOKIE_MAX_AGE,
             httponly=True,
             samesite="Lax",
+            secure=bool(current_app.config.get("SESSION_COOKIE_SECURE", False)),
         )
     return resp
+
+
+def _internal_error(context: str, exc: Exception):
+    current_app.logger.exception("Story API error (%s): %s", context, exc)
+    return jsonify({"success": False, "error": "Erreur interne."}), 500
 
 
 # ── GET /api/story/state ─────────────────────────────────────────────────
@@ -70,7 +76,7 @@ def get_state():
         state = engine.get_state(player_state)
         return _json_with_cookie({"success": True, **state}, player_id, is_new)
     except Exception as e:
-        return jsonify({"success": False, "error": str(e)}), 500
+        return _internal_error("state", e)
 
 
 # ── POST /api/story/choice ────────────────────────────────────────────────
@@ -103,7 +109,7 @@ def apply_choice():
         }, player_id, is_new)
 
     except Exception as e:
-        return jsonify({"success": False, "error": str(e)}), 500
+        return _internal_error("choice", e)
 
 
 # ── POST /api/story/advance ───────────────────────────────────────────────
@@ -135,7 +141,7 @@ def advance_chapter():
         }, player_id, is_new)
 
     except Exception as e:
-        return jsonify({"success": False, "error": str(e)}), 500
+        return _internal_error("advance", e)
 
 
 # ── POST /api/story/reset ─────────────────────────────────────────────────
@@ -150,7 +156,7 @@ def reset_story():
         save_state(player_id, new_state)
         return _json_with_cookie({"success": True}, player_id, is_new)
     except Exception as e:
-        return jsonify({"success": False, "error": str(e)}), 500
+        return _internal_error("reset", e)
 
 
 # ── POST /api/story/name ──────────────────────────────────────────────────
@@ -171,7 +177,7 @@ def set_name():
         save_state(player_id, player_state)
         return _json_with_cookie({"success": True, "player_name": name}, player_id, is_new)
     except Exception as e:
-        return jsonify({"success": False, "error": str(e)}), 500
+        return _internal_error("name", e)
 
 
 # ── GET /api/story/summary ────────────────────────────────────────────────
@@ -186,7 +192,7 @@ def get_summary():
             summary = {"exists": False}
         return _json_with_cookie({"success": True, **summary}, player_id, is_new)
     except Exception as e:
-        return jsonify({"success": False, "error": str(e)}), 500
+        return _internal_error("summary", e)
 
 
 # ── GET /api/story/leaderboard ────────────────────────────────────────────
@@ -198,7 +204,7 @@ def leaderboard_view():
         scores = get_leaderboard(limit=10)
         return jsonify({"success": True, "scores": scores})
     except Exception as e:
-        return jsonify({"success": False, "error": str(e)}), 500
+        return _internal_error("leaderboard", e)
 
 
 # ── GET /api/story/journal ────────────────────────────────────────────────
@@ -322,4 +328,4 @@ def get_journal():
         }, player_id, is_new)
 
     except Exception as e:
-        return jsonify({"success": False, "error": str(e)}), 500
+        return _internal_error("journal", e)

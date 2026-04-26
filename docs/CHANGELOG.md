@@ -13,6 +13,8 @@
 - Alignement du formatage Python sur Black 25.1.0 pour corriger le pipeline CI.
 - Durcissement securite/API (SECRET_KEY obligatoire en production, erreurs internes masquees cote client).
 - Unification de la logique de rang hacker entre jeu et profil via un module partage.
+- Nettoyage de `env.example` pour supprimer les variables legacy non utilisees et aligner les variables runtime reelles.
+- Lancement `app.py` pilote par variables d'environnement (`HOST`, `PORT`, `FLASK_DEBUG`) au lieu d'un debug force.
 - Verification complete de la suite de tests Python.
 
 ---

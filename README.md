@@ -131,7 +131,7 @@ Branche de travail active: `develop`.
 Après validation locale:
 1. Committer sur `develop`
 2. Pousser `develop`
-3. Aligner `main` et `backup` sur l'état validé de `develop` (merge ou fast-forward selon politique repo)
+3. Aligner `main` et `backup-stable` sur l'état validé de `develop` (merge ou fast-forward selon politique repo)
 
 ---
 

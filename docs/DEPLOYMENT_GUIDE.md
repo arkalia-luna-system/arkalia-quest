@@ -36,12 +36,16 @@ docker run -p 5001:5001 luna-hors-connexion
 ## Variables utiles
 
 - `SECRET_KEY` (obligatoire en production)
-- `PORT` (selon plateforme)
 - `FLASK_ENV=production`
+- `APP_ENV=production`
+- `FLASK_DEBUG=0`
+- `HOST` et `PORT` (selon plateforme)
+- Exemple de base: `env.example`
 
 ## Checklist avant mise en prod
 
 - `python -m pytest -q` OK
 - `ruff check .` OK
+- `python -m black --check .` OK
 - `README.md` et `docs/` a jour
 - branche `develop` validee puis fusion vers branches cibles

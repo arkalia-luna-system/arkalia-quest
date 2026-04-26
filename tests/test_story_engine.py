@@ -3,6 +3,8 @@ Tests du moteur narratif — LUNA Hors Connexion.
 Vérifie que les 3 fins sont atteignables, la progression des chapitres,
 et la cohérence du score de confiance.
 """
+# pyright: reportUnknownParameterType=false, reportUnknownVariableType=false, reportUnknownMemberType=false, reportMissingParameterType=false, reportUnknownArgumentType=false, reportUnknownLambdaType=false
+
 import os
 import sys
 

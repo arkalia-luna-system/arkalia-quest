@@ -7,32 +7,35 @@ met à jour le score de confiance LUNA et détermine les fins accessibles.
 
 import json
 import os
-from typing import Optional
+from typing import Any, Optional, cast
+
+JsonDict = dict[str, Any]
+PlayerState = dict[str, Any]
 
 STORY_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "story.json")
 
 
 class StoryEngine:
     def __init__(self):
-        self._story: dict = {}
-        self._chapters_index: dict = {}
-        self._scenes_index: dict = {}
+        self._story: JsonDict = {}
+        self._chapters_index: dict[str, JsonDict] = {}
+        self._scenes_index: dict[str, JsonDict] = {}
         self._load_story()
 
     def _load_story(self) -> None:
         with open(STORY_PATH, encoding="utf-8") as f:
-            self._story = json.load(f)
+            self._story = cast(JsonDict, json.load(f))
 
-        for chapter in self._story["chapters"]:
+        for chapter in cast(list[JsonDict], self._story["chapters"]):
             self._chapters_index[chapter["id"]] = chapter
-            for scene in chapter["scenes"]:
+            for scene in cast(list[JsonDict], chapter["scenes"]):
                 self._scenes_index[scene["id"]] = scene
 
     # ------------------------------------------------------------------ #
     #  État initial d'un nouveau joueur                                    #
     # ------------------------------------------------------------------ #
 
-    def new_player_state(self) -> dict:
+    def new_player_state(self) -> PlayerState:
         return {
             "current_chapter": "chapitre_0",
             "current_scene": "s0_0",
@@ -50,21 +53,21 @@ class StoryEngine:
     #  Récupérer l'état courant                                           #
     # ------------------------------------------------------------------ #
 
-    def get_state(self, player_state: dict) -> dict:
-        scene_id = player_state.get("current_scene", "s0_0")
+    def get_state(self, player_state: PlayerState) -> JsonDict:
+        scene_id = str(player_state.get("current_scene", "s0_0"))
         scene = self._scenes_index.get(scene_id)
 
         if not scene:
             return {"error": "Scène introuvable", "scene_id": scene_id}
 
-        chapter_id = player_state.get("current_chapter", "chapitre_0")
+        chapter_id = str(player_state.get("current_chapter", "chapitre_0"))
         chapter = self._chapters_index.get(chapter_id, {})
 
         # Filtrer les choix selon les flags du joueur si nécessaire
-        choices = scene.get("choices", [])
+        choices = cast(list[JsonDict], scene.get("choices", []))
 
-        player_name = player_state.get("player_name") or ""
-        raw_dialogue = scene.get("dialogue", "")
+        player_name = str(player_state.get("player_name") or "")
+        raw_dialogue = str(scene.get("dialogue", ""))
         # Substitution du prénom dans le dialogue
         if player_name:
             dialogue = raw_dialogue.replace("{name}", player_name).replace("{{joueur}}", player_name)
@@ -72,28 +75,28 @@ class StoryEngine:
             dialogue = raw_dialogue.replace("{name}", "").replace("{{joueur}}", "joueur")
 
         # Mémoire des fins précédentes — injectée dans la scène d'ouverture s0_0
-        previous = player_state.get("previous_endings", [])
+        previous = cast(list[str], player_state.get("previous_endings", []))
         if scene_id == "s0_0" and previous:
             dialogue = self._inject_memory(dialogue, previous, player_name or "joueur")
 
         # Progression dans le chapitre courant
-        chapter_scenes = chapter.get("scenes", [])
+        chapter_scenes = cast(list[JsonDict], chapter.get("scenes", []))
         scene_index_in_chapter = next(
             (i for i, s in enumerate(chapter_scenes) if s["id"] == scene_id), 0
         )
 
         return {
             "chapter_id": chapter_id,
-            "chapter_title": chapter.get("title", ""),
-            "chapter_atmosphere": chapter.get("atmosphere", "dark"),
+            "chapter_title": str(chapter.get("title", "")),
+            "chapter_atmosphere": str(chapter.get("atmosphere", "dark")),
             "chapter_progress": self._get_chapter_progress(player_state),
-            "total_chapters": self._story.get("meta", {}).get("total_chapters", 7),
+            "total_chapters": int(cast(JsonDict, self._story.get("meta", {})).get("total_chapters", 7)),
             "scene_index": scene_index_in_chapter + 1,
             "scene_total": len(chapter_scenes),
             "scene_id": scene_id,
-            "luna_emotion": scene.get("luna_emotion", "neutre"),
-            "luna_trust": player_state.get("luna_trust", 50),
-            "context": scene.get("context", ""),
+            "luna_emotion": str(scene.get("luna_emotion", "neutre")),
+            "luna_trust": int(player_state.get("luna_trust", 50)),
+            "context": str(scene.get("context", "")),
             "dialogue": dialogue,
             "choices": [
                 {
@@ -103,14 +106,14 @@ class StoryEngine:
                 }
                 for c in choices
             ],
-            "is_chapter_end": scene.get("is_chapter_end", False),
-            "is_ending_final": scene.get("is_ending_final", False),
+            "is_chapter_end": bool(scene.get("is_chapter_end", False)),
+            "is_ending_final": bool(scene.get("is_ending_final", False)),
             "ending_id": scene.get("ending_id"),
             "next_chapter": scene.get("next_chapter"),
             "next_chapter_title": self._chapters_index.get(
                 scene.get("next_chapter", ""), {}
             ).get("title", ""),
-            "xp": player_state.get("xp", 0),
+            "xp": int(player_state.get("xp", 0)),
             "last_luna_reaction": player_state.get("last_luna_reaction"),
             "player_name": player_name,
         }
@@ -119,7 +122,7 @@ class StoryEngine:
     #  Traiter un choix                                                   #
     # ------------------------------------------------------------------ #
 
-    def apply_choice(self, player_state: dict, scene_id: str, choice_id: str) -> dict:
+    def apply_choice(self, player_state: PlayerState, scene_id: str, choice_id: str) -> JsonDict:
         scene = self._scenes_index.get(scene_id)
         if not scene:
             return {"success": False, "error": "Scène introuvable"}
@@ -129,24 +132,25 @@ class StoryEngine:
             return {"success": False, "error": "Choix introuvable"}
 
         # Mettre à jour la confiance LUNA
-        trust_delta = choice.get("trust_delta", 0)
-        new_trust = max(0, min(100, player_state.get("luna_trust", 50) + trust_delta))
+        trust_delta = int(choice.get("trust_delta", 0))
+        new_trust = max(0, min(100, int(player_state.get("luna_trust", 50)) + trust_delta))
         player_state["luna_trust"] = new_trust
 
         # Mettre à jour les XP
-        xp_gained = choice.get("xp", 0)
-        player_state["xp"] = player_state.get("xp", 0) + xp_gained
+        xp_gained = int(choice.get("xp", 0))
+        player_state["xp"] = int(player_state.get("xp", 0)) + xp_gained
 
         # Ajouter les flags narratifs
-        for flag in choice.get("flags", []):
-            if flag not in player_state.get("flags", []):
-                player_state.setdefault("flags", []).append(flag)
+        for flag in cast(list[str], choice.get("flags", [])):
+            player_flags = cast(list[str], player_state.setdefault("flags", []))
+            if flag not in player_flags:
+                player_flags.append(flag)
 
         # Réaction LUNA
         player_state["last_luna_reaction"] = choice.get("luna_reaction")
 
         # Scène suivante
-        next_scene_id = choice.get("next_scene")
+        next_scene_id = cast(Optional[str], choice.get("next_scene"))
         if next_scene_id:
             player_state["current_scene"] = next_scene_id
 
@@ -171,16 +175,17 @@ class StoryEngine:
     #  Avancer vers le chapitre suivant (fin de chapitre)                 #
     # ------------------------------------------------------------------ #
 
-    def advance_chapter(self, player_state: dict, scene_id: str) -> dict:
+    def advance_chapter(self, player_state: PlayerState, scene_id: str) -> JsonDict:
         scene = self._scenes_index.get(scene_id)
         if not scene or not scene.get("is_chapter_end"):
             return {"success": False, "error": "Ce n'est pas une fin de chapitre"}
 
-        current_chapter = player_state.get("current_chapter")
-        if current_chapter not in player_state.get("chapters_completed", []):
-            player_state.setdefault("chapters_completed", []).append(current_chapter)
+        current_chapter = str(player_state.get("current_chapter", ""))
+        chapters_completed = cast(list[str], player_state.setdefault("chapters_completed", []))
+        if current_chapter and current_chapter not in chapters_completed:
+            chapters_completed.append(current_chapter)
 
-        next_chapter_id = scene.get("next_chapter")
+        next_chapter_id = cast(Optional[str], scene.get("next_chapter"))
         if not next_chapter_id:
             return {"success": False, "error": "Pas de chapitre suivant défini"}
 
@@ -188,7 +193,7 @@ class StoryEngine:
         if not next_chapter:
             return {"success": False, "error": "Chapitre suivant introuvable"}
 
-        first_scene = next_chapter["scenes"][0]
+        first_scene = cast(list[JsonDict], next_chapter["scenes"])[0]
         player_state["current_chapter"] = next_chapter_id
         player_state["current_scene"] = first_scene["id"]
         player_state["last_luna_reaction"] = None
@@ -200,32 +205,34 @@ class StoryEngine:
             "success": True,
             "new_chapter": next_chapter_id,
             "new_scene": first_scene["id"],
-            "chapter_title": next_chapter.get("title", ""),
-            "chapter_quote": next_chapter.get("chapter_quote", next_chapter.get("quote", "")),
+            "chapter_title": str(next_chapter.get("title", "")),
+            "chapter_quote": str(next_chapter.get("chapter_quote", next_chapter.get("quote", ""))),
         }
 
     # ------------------------------------------------------------------ #
     #  Vérification des fins accessibles                                  #
     # ------------------------------------------------------------------ #
 
-    def _check_endings(self, player_state: dict) -> None:
-        flags = player_state.get("flags", [])
-        trust = player_state.get("luna_trust", 50)
+    def _check_endings(self, player_state: PlayerState) -> None:
+        flags = cast(list[str], player_state.get("flags", []))
+        trust = int(player_state.get("luna_trust", 50))
 
-        for ending_id, ending in self._story["endings"].items():
-            condition = ending.get("unlock_condition", {})
-            required_flags = condition.get("flags", [])
-            min_trust = condition.get("min_trust", 0)
+        endings = cast(dict[str, JsonDict], self._story["endings"])
+        for ending_id, ending in endings.items():
+            condition = cast(JsonDict, ending.get("unlock_condition", {}))
+            required_flags = cast(list[str], condition.get("flags", []))
+            min_trust = int(condition.get("min_trust", 0))
 
             if all(f in flags for f in required_flags) and trust >= min_trust:
-                if ending_id not in player_state.get("endings_unlocked", []):
-                    player_state.setdefault("endings_unlocked", []).append(ending_id)
+                unlocked = cast(list[str], player_state.setdefault("endings_unlocked", []))
+                if ending_id not in unlocked:
+                    unlocked.append(ending_id)
 
     # ------------------------------------------------------------------ #
     #  Utilitaires                                                        #
     # ------------------------------------------------------------------ #
 
-    def _inject_memory(self, dialogue: str, previous_endings: list, player_name: str) -> str:
+    def _inject_memory(self, dialogue: str, previous_endings: list[str], player_name: str) -> str:
         """
         Modifie le dialogue d'ouverture s0_0 si le joueur a déjà joué.
         LUNA montre qu'elle se souvient — sans trop en dire.
@@ -253,35 +260,35 @@ class StoryEngine:
         return "\n".join(lines)
 
     def _find_chapter_of_scene(self, scene_id: str) -> Optional[str]:
-        for chapter in self._story["chapters"]:
-            for scene in chapter["scenes"]:
+        for chapter in cast(list[JsonDict], self._story["chapters"]):
+            for scene in cast(list[JsonDict], chapter["scenes"]):
                 if scene["id"] == scene_id:
-                    return chapter["id"]
+                    return str(chapter["id"])
         return None
 
-    def _get_chapter_progress(self, player_state: dict) -> int:
-        completed = player_state.get("chapters_completed", [])
+    def _get_chapter_progress(self, player_state: PlayerState) -> int:
+        completed = cast(list[str], player_state.get("chapters_completed", []))
         main_chapters = [
             "chapitre_0", "chapitre_1", "chapitre_2", "chapitre_3",
             "chapitre_4", "chapitre_5", "chapitre_6",
         ]
         return len([c for c in completed if c in main_chapters])
 
-    def get_story_meta(self) -> dict:
-        return self._story.get("meta", {})
+    def get_story_meta(self) -> JsonDict:
+        return cast(JsonDict, self._story.get("meta", {}))
 
     def is_valid_scene(self, scene_id: str) -> bool:
         return scene_id in self._scenes_index
 
-    def get_chapter_info(self, chapter_id: str) -> Optional[dict]:
+    def get_chapter_info(self, chapter_id: str) -> Optional[JsonDict]:
         chapter = self._chapters_index.get(chapter_id)
         if not chapter:
             return None
         return {
             "id": chapter["id"],
-            "title": chapter["title"],
-            "atmosphere": chapter.get("atmosphere", "dark"),
-            "scene_count": len(chapter["scenes"]),
+            "title": str(chapter["title"]),
+            "atmosphere": str(chapter.get("atmosphere", "dark")),
+            "scene_count": len(cast(list[JsonDict], chapter["scenes"])),
         }
 
 

@@ -15,6 +15,8 @@
 - Unification de la logique de rang hacker entre jeu et profil via un module partage.
 - Nettoyage de `env.example` pour supprimer les variables legacy non utilisees et aligner les variables runtime reelles.
 - Lancement `app.py` pilote par variables d'environnement (`HOST`, `PORT`, `FLASK_DEBUG`) au lieu d'un debug force.
+- Suppression de scripts utilitaires legacy non relies au projet actuel (`scripts/utilitaires/*`).
+- Suppression d'un doublon de rapport de tests historique (`tests/tests/reports/...`).
 - Verification complete de la suite de tests Python.
 
 ---

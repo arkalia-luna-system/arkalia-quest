@@ -98,7 +98,7 @@ exclude = ["tests*", "docs*", "scripts*", "venv*", "__pycache__*"]
 # === PYTEST ===
 [tool.pytest.ini_options]
 minversion = "7.0"
-addopts = "-ra -q --strict-markers --strict-config"
+addopts = "-ra -q --strict-markers --strict-config --ignore-glob=**/._*"
 testpaths = ["tests"]
 python_files = ["test_*.py", "*_test.py"]
 python_classes = ["Test*"]

@@ -1,0 +1,4140 @@
+/* ============================================================
+   LUNA — Hors Connexion · game.css
+   Un seul fichier CSS pour tout le jeu.
+   ============================================================ */
+
+/* ── Variables ─────────────────────────────────────────────── */
+:root {
+  --bg-deep: #080c14;
+  --bg-panel: #0d1220;
+  --bg-card: #111827;
+  --bg-choice: #131c2e;
+  --bg-choice-hov: #1a2540;
+
+  --luna: #ff6b4a;
+  /* orange vif — énergie, chaleur */
+  --luna-dim: #8b3a28;
+  --luna-glow: rgba(255, 107, 74, 0.35);
+
+  --action: #00e5ff;
+  /* cyan neon — punch */
+  --action-dim: rgba(0, 229, 255, 0.18);
+  --action-glow: rgba(0, 229, 255, 0.45);
+
+  --text-main: #c9d1d9;
+  --text-dim: #6e7681;
+  --text-context: #8b949e;
+  --text-white: #f0f6fc;
+
+  --danger: #ff3366;
+  --success: #00ff88;
+
+  --border: rgba(255, 255, 255, 0.07);
+  --border-luna: rgba(255, 107, 74, 0.35);
+  --border-action: rgba(0, 229, 255, 0.4);
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+
+  --font-main: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Consolas', 'Monaco', monospace;
+
+  --speed-fast: 150ms;
+  --speed-norm: 300ms;
+  --speed-slow: 500ms;
+
+  /* Glassmorphism 2026 */
+  --glass-bg: rgba(13, 18, 32, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --glass-blur: 12px;
+}
+
+/* ── Reset ──────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-deep);
+  color: var(--text-main);
+  font-family: var(--font-main);
+  font-size: 16px;
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--action);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-panel);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-choice);
+  border-radius: 3px;
+}
+
+/* ============================================================
+   AVATAR LUNA (partagé accueil + jeu)
+   ============================================================ */
+.luna-panel .luna-avatar {
+  cursor: pointer;
+}
+
+.luna-avatar,
+.home-luna-avatar {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--luna);
+  opacity: 0.6;
+  animation: ring-pulse 3s ease-in-out infinite;
+}
+
+.avatar-core {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-luna);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.avatar-eye {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--luna);
+  box-shadow: 0 0 8px var(--luna-glow);
+  animation: blink 5s ease-in-out infinite;
+}
+
+.avatar-eye.left {
+  animation-delay: 0s;
+}
+
+.avatar-eye.right {
+  animation-delay: 0.1s;
+}
+
+.avatar-glow {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--luna-glow), transparent 70%);
+  opacity: 0;
+  transition: opacity var(--speed-norm);
+}
+
+/* États émotionnels avatar */
+.luna-avatar.emotion-inquiète .avatar-eye,
+.luna-avatar.emotion-tendue .avatar-eye,
+.luna-avatar.emotion-angoissée .avatar-eye {
+  background: var(--danger);
+  box-shadow: 0 0 8px rgba(255, 77, 109, 0.4);
+}
+
+.luna-avatar.emotion-heureuse .avatar-eye,
+.luna-avatar.emotion-sereine .avatar-eye,
+.luna-avatar.emotion-reconnaissante .avatar-eye {
+  background: var(--success);
+  box-shadow: 0 0 8px rgba(63, 185, 80, 0.4);
+}
+
+.luna-avatar.emotion-mystérieuse .avatar-eye,
+.luna-avatar.emotion-pensive .avatar-eye {
+  background: #a78bfa;
+  box-shadow: 0 0 8px rgba(167, 139, 250, 0.4);
+}
+
+.luna-avatar.emotion-choquée .avatar-ring,
+.luna-avatar.emotion-alarmée .avatar-ring {
+  animation: ring-pulse 0.8s ease-in-out infinite;
+  border-color: var(--danger);
+}
+
+.luna-avatar.emotion-heureuse .avatar-ring {
+  border-color: var(--success);
+}
+
+/* ── Animations clés ───────────────────────────────────────── */
+@keyframes ring-pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+@keyframes blink {
+
+  0%,
+  90%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  95% {
+    transform: scaleY(0.1);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-fast {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float-up {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+}
+
+@keyframes cursor-blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes trust-pulse {
+
+  0%,
+  100% {
+    box-shadow: none;
+  }
+
+  50% {
+    box-shadow: 0 0 12px var(--luna-glow);
+  }
+}
+
+@keyframes signal-blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* ============================================================
+   PAGE ACCUEIL
+   ============================================================ */
+/* ── Police distinctive pour accueil ───────────────────────────── */
+.page-home,
+.page-home .home-title,
+.page-home .home-sender,
+.page-profil .page-title,
+.page-profil .profil-name,
+.page-profil .section-label,
+.page-profil .lb-rank-num,
+.transition-chapter-num,
+.transition-chapter-title {
+  font-family: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
+}
+
+.page-home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Fond animé page d'accueil ──────────────────────────────────── */
+.home-bg-grid {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle, rgba(61, 214, 245, 0.07) 1px, transparent 1px),
+    radial-gradient(circle, rgba(224, 124, 84, 0.04) 1px, transparent 1px);
+  background-size: 44px 44px, 88px 88px;
+  background-position: 0 0, 22px 22px;
+  animation: grid-drift 20s linear infinite;
+}
+
+/* Vignette radiale autour du contenu */
+.page-home::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 70% at 50% 50%, transparent 30%, rgba(8, 12, 20, 0.7) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.home-container {
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  animation: fade-in var(--speed-slow) ease-out;
+  position: relative;
+  z-index: 2;
+}
+
+.home-signal {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border: 1px solid var(--border-luna);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  color: var(--luna);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.signal-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--luna);
+  animation: signal-blink 1.5s ease-in-out infinite;
+}
+
+.home-luna-avatar {
+  width: 100px;
+  height: 100px;
+  animation: fade-in var(--speed-slow) 0.2s ease-out both;
+}
+
+.home-luna-avatar .avatar-ring {
+  animation: ring-pulse 4s ease-in-out infinite;
+}
+
+.home-luna-avatar .avatar-core {
+  width: 76px;
+  height: 76px;
+}
+
+.home-luna-avatar .avatar-eye {
+  width: 12px;
+  height: 12px;
+}
+
+.home-content {
+  animation: fade-in var(--speed-slow) 0.4s ease-out both;
+}
+
+.home-sender {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--luna);
+  margin-bottom: 0.5rem;
+}
+
+.home-title {
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 700;
+  color: var(--text-white);
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+/* Glitch du titre principal */
+.home-title-glitch {
+  position: relative;
+  display: inline-block;
+  animation: home-glitch 6s ease-in-out infinite;
+}
+
+.home-title-glitch::before,
+.home-title-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.home-title-glitch::before {
+  color: var(--action);
+  animation: home-glitch-before 6s ease-in-out infinite;
+  clip-path: polygon(0 30%, 100% 30%, 100% 50%, 0 50%);
+}
+
+.home-title-glitch::after {
+  color: var(--danger);
+  animation: home-glitch-after 6s ease-in-out infinite;
+  clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%);
+}
+
+@keyframes home-glitch {
+
+  0%,
+  88%,
+  100% {
+    transform: none;
+  }
+
+  89% {
+    transform: translateX(3px);
+  }
+
+  90% {
+    transform: translateX(-3px);
+  }
+
+  91% {
+    transform: none;
+  }
+}
+
+@keyframes home-glitch-before {
+
+  0%,
+  88%,
+  100% {
+    opacity: 0;
+    transform: none;
+  }
+
+  89% {
+    opacity: 0.8;
+    transform: translateX(-4px);
+  }
+
+  90% {
+    opacity: 0;
+  }
+}
+
+@keyframes home-glitch-after {
+
+  0%,
+  88%,
+  100% {
+    opacity: 0;
+    transform: none;
+  }
+
+  90% {
+    opacity: 0.8;
+    transform: translateX(4px);
+  }
+
+  91% {
+    opacity: 0;
+  }
+}
+
+.home-message {
+  font-size: 1rem;
+  color: var(--text-context);
+  line-height: 1.8;
+}
+
+.home-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  animation: fade-in var(--speed-slow) 0.6s ease-out both;
+}
+
+.home-meta {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   BOUTONS
+   ============================================================ */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  background: var(--luna);
+  color: #1a0f08;
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: var(--radius-md);
+  border: none;
+  text-decoration: none;
+  transition: transform var(--speed-fast), box-shadow var(--speed-fast), filter var(--speed-fast);
+  letter-spacing: 0.02em;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--luna-glow);
+  filter: brightness(1.1);
+  text-decoration: none;
+  color: #1a0f08;
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-icon {
+  font-size: 0.9rem;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  background: var(--bg-card);
+  color: var(--text-main);
+  font-size: 0.95rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  transition: border-color var(--speed-fast), background var(--speed-fast);
+}
+
+.btn-secondary:hover {
+  border-color: var(--luna);
+  background: var(--bg-choice);
+  text-decoration: none;
+  color: var(--text-white);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 22px;
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  transition: color var(--speed-fast), border-color var(--speed-fast);
+}
+
+.btn-outline:hover {
+  color: var(--text-main);
+  border-color: var(--text-dim);
+}
+
+.btn-outline.btn-danger:hover {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+/* ============================================================
+   PAGE JEU — 
+   ============================================================ */
+.page-game {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Vignette + cadre immersif */
+.page-game::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(ellipse 80% 70% at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.4) 100%);
+}
+
+.page-game .game-main {
+  position: relative;
+  z-index: 1;
+}
+
+.page-game .game-header {
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Header du jeu — glassmorphism ─────────────────────────── */
+.game-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 12px 20px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-bottom: 1px solid var(--glass-border);
+  flex-shrink: 0;
+  z-index: 10;
+  box-shadow: var(--glass-shadow);
+}
+
+/* ── Barre de progression de l'histoire ─────────────────── */
+.story-progress-track {
+  height: 2px;
+  background: var(--border);
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.story-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--luna) 0%, #7c3aed 100%);
+  transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 0 6px rgba(0, 212, 255, 0.5);
+}
+
+.session-objectives {
+  margin: 0.35rem 0 0.3rem;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+.session-obj-title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  opacity: 0.7;
+}
+
+.session-obj-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.3rem;
+  margin-top: 0.2rem;
+}
+
+.session-obj-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  opacity: 0.8;
+}
+
+.session-obj-item.completed {
+  color: var(--success);
+  opacity: 1;
+}
+
+.session-obj-dot {
+  font-size: 0.75rem;
+}
+
+.session-obj-text {
+  font-size: 0.72rem;
+}
+
+.nav-back {
+  font-size: 1.1rem;
+  color: var(--text-dim);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  transition: color var(--speed-fast), background var(--speed-fast);
+  text-decoration: none;
+}
+
+.nav-back:hover {
+  color: var(--text-main);
+  background: var(--bg-card);
+  text-decoration: none;
+}
+
+.game-chapter-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.chapter-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-white);
+  letter-spacing: -0.02em;
+}
+
+.mission-display {
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--action);
+  opacity: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+  text-shadow: 0 0 12px var(--action-glow);
+}
+
+.chapter-progress {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+}
+
+.style-tag {
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--action);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-action);
+  background: rgba(0,10,20,0.6);
+  margin-left: 0.25rem;
+  white-space: nowrap;
+}
+
+/* Journal LUNA partagé (profil + jeu) */
+.luna-journal {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-luna);
+  border-radius: var(--radius-md);
+  padding: 1.2rem 1.4rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+.luna-journal-header {
+  display: flex; align-items: center; gap: 0.6rem;
+  margin-bottom: 0.9rem;
+}
+.luna-journal-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--luna); box-shadow: 0 0 6px var(--luna-glow);
+  flex-shrink: 0;
+}
+.luna-journal-label {
+  font-size: 0.72rem; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--luna); font-weight: 600;
+}
+.luna-journal-text {
+  font-size: 0.88rem; color: var(--text-main); line-height: 1.75;
+  font-style: italic; white-space: pre-wrap;
+}
+
+.game-trust {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.trust-label {
+  font-size: 0.7rem;
+  color: var(--text-context);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.sfx-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 2px 4px;
+  border-radius: var(--radius-sm);
+  opacity: 0.7;
+  transition: opacity var(--speed-fast), background var(--speed-fast);
+}
+
+.sfx-btn:hover {
+  opacity: 1;
+  background: var(--bg-card);
+}
+
+.sfx-btn.active {
+  color: var(--action);
+  box-shadow: 0 0 8px rgba(61, 214, 245, 0.3);
+}
+
+.journal-btn {
+  margin: 0 0.4rem;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-action);
+  background: rgba(15, 23, 42, 0.7);
+  color: var(--action);
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+}
+
+.journal-btn:hover {
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.trust-bar {
+  width: 80px;
+  height: 4px;
+  background: var(--bg-card);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.trust-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--luna-dim), var(--luna));
+  border-radius: var(--radius-full);
+  transition: width var(--speed-slow) ease;
+  animation: trust-pulse 4s ease-in-out infinite;
+}
+
+.trust-value {
+  font-size: 0.78rem;
+  color: var(--luna);
+  font-family: var(--font-mono);
+  min-width: 34px;
+}
+
+/* ── LUNA STATUS indicator ─────────────────────────────────── */
+.luna-status {
+  font-size: 0.64rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  border: 1px solid currentColor;
+  transition: color 0.4s ease, border-color 0.4s ease, background 0.4s ease;
+  white-space: nowrap;
+}
+
+.luna-status--max {
+  color: #34d399;
+  border-color: #34d399;
+  background: rgba(52, 211, 153, 0.08);
+}
+
+.luna-status--stable {
+  color: #60a5fa;
+  border-color: #60a5fa;
+  background: rgba(96, 165, 250, 0.08);
+}
+
+.luna-status--warn {
+  color: #fbbf24;
+  border-color: #fbbf24;
+  background: rgba(251, 191, 36, 0.08);
+}
+
+.luna-status--danger {
+  color: #fb923c;
+  border-color: #fb923c;
+  background: rgba(251, 146, 60, 0.08);
+}
+
+.luna-status--critical {
+  color: #f43f5e;
+  border-color: #f43f5e;
+  background: rgba(244, 63, 94, 0.12);
+  animation: status-critical-blink 0.9s ease infinite;
+}
+
+@keyframes status-critical-blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* ── Mode critique global (trust < 25) ─────────────────────── */
+body.trust-critical-mode .page-game::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  border: 2px solid rgba(244, 63, 94, 0.2);
+  border-radius: 0;
+  animation: critical-border-pulse 2s ease infinite;
+}
+
+@keyframes critical-border-pulse {
+
+  0%,
+  100% {
+    border-color: rgba(244, 63, 94, 0.15);
+  }
+
+  50% {
+    border-color: rgba(244, 63, 94, 0.4);
+  }
+}
+
+body.trust-critical-mode .luna-avatar .avatar-ring {
+  border-color: rgba(244, 63, 94, 0.6) !important;
+  box-shadow: 0 0 20px rgba(244, 63, 94, 0.3) !important;
+  animation: critical-ring-pulse 1.5s ease infinite !important;
+}
+
+@keyframes critical-ring-pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+/* ── Main jeu ──────────────────────────────────────────────── */
+.game-main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ── Panneau LUNA (gauche) — style immersif AAA ───────────────── */
+.luna-panel {
+  width: 140px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2rem 1rem 1rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-right: 1px solid var(--glass-border);
+  gap: 0.75rem;
+  position: relative;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Lueur subtile quand LUNA parle */
+body:has(.dialogue-box.luna-speaking) .luna-panel .luna-avatar {
+  animation: luna-speaking-pulse 2s ease-in-out infinite;
+}
+
+@keyframes luna-speaking-pulse {
+  0%, 100% { filter: drop-shadow(0 0 8px var(--luna-glow)); }
+  50% { filter: drop-shadow(0 0 16px var(--luna-glow)); }
+}
+
+.luna-name {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--luna);
+  font-weight: 600;
+  text-shadow: 0 0 12px var(--luna-glow);
+}
+
+.luna-emotion {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-align: center;
+  font-style: italic;
+  min-height: 1.2em;
+  transition: color var(--speed-norm);
+}
+
+/* ── Zone narrative (droite) ───────────────────────────────── */
+.narrative-zone {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 1.5rem;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* Contexte de scène — style "objectif" type Detroit */
+.scene-context {
+  font-size: 0.8rem;
+  color: var(--text-context);
+  font-style: italic;
+  padding: 0.6rem 1rem;
+  background: rgba(0, 0, 0, 0.25);
+  border-left: 3px solid var(--action);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  min-height: 1.2em;
+  line-height: 1.6;
+  transition: opacity var(--speed-norm);
+  white-space: pre-wrap;
+  letter-spacing: 0.02em;
+}
+
+.scene-context:empty {
+  display: none;
+}
+
+/* Boîte dialogue — style AAA immersif (Detroit/LiS) */
+.dialogue-box {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 1.8rem 2rem;
+  min-height: 140px;
+  position: relative;
+  transition: border-color var(--speed-norm), box-shadow var(--speed-norm);
+  box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+}
+
+.dialogue-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  pointer-events: none;
+}
+
+.dialogue-box.luna-speaking {
+  border-color: rgba(224, 124, 84, 0.25);
+  box-shadow: var(--glass-shadow), 0 0 40px -10px var(--luna-glow);
+}
+
+.dialogue-box.nexus-speaking {
+  border-color: rgba(167, 139, 250, 0.35);
+  box-shadow: var(--glass-shadow), 0 0 40px -10px rgba(167, 139, 250, 0.2);
+}
+
+.dialogue-box.corp-speaking {
+  border-color: rgba(255, 77, 109, 0.3);
+  box-shadow: var(--glass-shadow), 0 0 40px -10px rgba(255, 77, 109, 0.15);
+}
+
+.page-game.nexus-mode .game-header {
+  border-bottom-color: rgba(167, 139, 250, 0.5);
+}
+
+.page-game.nexus-mode .chapter-title {
+  color: #a78bfa;
+}
+
+.dialogue-text {
+  font-size: 1.05rem;
+  font-weight: 450;
+  color: var(--text-white);
+  line-height: 1.85;
+  white-space: pre-wrap;
+  letter-spacing: 0.01em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.dialogue-cursor {
+  display: inline-block;
+  color: var(--luna);
+  animation: cursor-blink 0.8s step-end infinite;
+  margin-left: 1px;
+}
+
+.dialogue-cursor.hidden {
+  opacity: 0;
+}
+
+/* Réaction LUNA */
+.luna-reaction {
+  font-size: 0.85rem;
+  color: var(--luna);
+  font-style: italic;
+  padding: 8px 14px;
+  background: rgba(224, 124, 84, 0.08);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--luna);
+  animation: fade-in-fast var(--speed-norm);
+}
+
+/* Chrono pour choix critiques */
+.choice-timer {
+  position: relative;
+  margin: 0.6rem 0 0.2rem;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.9);
+  overflow: hidden;
+}
+
+.choice-timer-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #f97316, #ef4444);
+  transform-origin: left center;
+  transition: width 0.1s linear;
+}
+
+.choice-timer-label {
+  position: absolute;
+  top: -1.4rem;
+  right: 0;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+}
+
+/* Choix — style AAA (Detroit/LiS) */
+.choices-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  animation: slide-up var(--speed-norm) ease-out;
+}
+
+.choice-btn {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 20px;
+  min-height: 52px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-left: 3px solid var(--action);
+  border-radius: var(--radius-md);
+  color: var(--text-main);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.55;
+  text-align: left;
+  transition:
+    background var(--speed-norm),
+    border-color var(--speed-norm),
+    transform var(--speed-norm),
+    color var(--speed-norm),
+    box-shadow var(--speed-norm);
+  cursor: pointer;
+  width: 100%;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.choice-btn::before {
+  content: '›';
+  color: var(--action);
+  font-size: 1.2rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 0;
+  transition: transform var(--speed-norm);
+}
+
+.choice-btn:hover {
+  background: rgba(26, 37, 64, 0.85);
+  border-color: rgba(61, 214, 245, 0.35);
+  border-left-color: var(--action);
+  color: var(--text-white);
+  transform: translateX(6px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35), 0 0 20px -5px var(--action-glow);
+}
+
+.choice-btn:hover::before {
+  transform: translateX(4px);
+}
+
+.choice-btn:active {
+  transform: translateX(4px) scale(0.99);
+}
+
+.choice-btn:focus-visible {
+  outline: 2px solid var(--action);
+  outline-offset: 2px;
+}
+
+.choice-btn.selected {
+  background: var(--action-dim);
+  border-color: var(--action);
+  border-left-color: var(--action);
+  color: var(--text-white);
+  pointer-events: none;
+  animation: choice-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 20px rgba(61, 214, 245, 0.2);
+}
+
+/* Flash de validation — juice type Fortnite */
+.choice-btn.selected::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(61, 214, 245, 0.15), transparent 50%);
+  border-radius: inherit;
+  animation: choice-flash 0.5s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes choice-flash {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes choice-pop {
+  0% {
+    transform: scale(0.96);
+    opacity: 0.9;
+  }
+
+  60% {
+    transform: scale(1.02);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.choice-btn.choice-risky {
+  border-left-color: var(--danger);
+  border-color: rgba(244, 63, 94, 0.4);
+  background: rgba(244, 63, 94, 0.06);
+}
+
+.choice-btn.choice-risky::before {
+  color: var(--danger);
+}
+
+.choice-btn.choice-risky:hover {
+  border-color: rgba(244, 63, 94, 0.6);
+  background: rgba(244, 63, 94, 0.12);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35), 0 0 20px -5px rgba(255, 77, 109, 0.2);
+}
+
+.choice-risk-badge {
+  font-size: 0.62rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+  color: #f43f5e;
+  margin-left: 0.3em;
+  opacity: 0.9;
+}
+
+/* Bouton avancer */
+.advance-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-advance {
+  padding: 12px 28px;
+  background: transparent;
+  border: 1px solid var(--border-action);
+  border-radius: var(--radius-md);
+  color: var(--action);
+  font-size: 0.95rem;
+  transition: background var(--speed-fast), box-shadow var(--speed-fast);
+  animation: slide-up var(--speed-norm) ease-out;
+}
+
+.btn-advance:hover {
+  background: var(--action-dim);
+  box-shadow: 0 0 16px var(--action-glow);
+}
+
+/* Écran de fin */
+/* ── Écran de fin ───────────────────────────────────────────── */
+.ending-container {
+  --ending-color: var(--luna);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Halo de couleur en arrière-plan */
+.ending-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 40%, color-mix(in srgb, var(--ending-color) 12%, transparent) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.ending-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Flash achievement au déblocage */
+.ending-achievement {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--ending-color, var(--luna));
+  text-shadow: 0 0 30px var(--ending-color, var(--luna-glow));
+  pointer-events: none;
+}
+
+.ending-achievement.achievement-flash {
+  animation: achievement-flash-in 1.2s ease-out forwards;
+}
+
+.ending-achievement.achievement-done {
+  animation: achievement-flash-out 0.5s ease-in forwards;
+}
+
+@keyframes achievement-flash-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  20% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  80% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes achievement-flash-out {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.ending-particle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0;
+  animation: particle-rise linear forwards;
+}
+
+@keyframes particle-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0);
+  }
+
+  20% {
+    opacity: 0.8;
+    transform: translateY(-10px) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-80px) scale(0.5);
+  }
+}
+
+.ending-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  max-width: 520px;
+  padding: 0 1.5rem;
+  transition: opacity 0.6s ease-out;
+}
+
+@keyframes ending-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.ending-icon {
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--ending-color);
+  text-shadow: 0 0 30px var(--ending-color);
+  animation: icon-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes icon-pulse {
+
+  0%,
+  100% {
+    text-shadow: 0 0 20px var(--ending-color);
+  }
+
+  50% {
+    text-shadow: 0 0 50px var(--ending-color), 0 0 80px var(--ending-color);
+  }
+}
+
+.ending-badge {
+  padding: 5px 18px;
+  border: 1px solid var(--ending-color);
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--ending-color);
+  text-transform: uppercase;
+}
+
+.ending-title {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 700;
+  color: var(--text-white);
+  line-height: 1.15;
+}
+
+.ending-description {
+  font-size: 0.92rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+  max-width: 420px;
+}
+
+.ending-stats {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1.5rem;
+}
+
+.ending-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.ending-stat-value {
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--ending-color);
+}
+
+.ending-stat-label {
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ending-stat-sep {
+  color: var(--border);
+  font-size: 1.2rem;
+}
+
+.ending-personalized {
+  font-size: 0.88rem;
+  color: var(--luna);
+  font-style: italic;
+  opacity: 0.9;
+}
+
+/* ── Titre de hacker ───────────────────────────────────────── */
+.hacker-rank {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 1.4rem auto 0;
+  padding: 1rem 1.8rem;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
+  border: 1px solid var(--ending-color, var(--luna));
+  border-radius: var(--radius-md);
+  box-shadow: 0 0 18px -4px var(--ending-color, var(--luna-glow));
+  max-width: 340px;
+  animation: hacker-rank-reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 0.4s;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.hacker-rank-label {
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ending-color, var(--luna));
+  opacity: 0.7;
+}
+
+.hacker-rank-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--ending-color, var(--luna));
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 16px var(--ending-color, var(--luna-glow));
+}
+
+.hacker-rank-desc {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  text-align: center;
+  max-width: 260px;
+}
+
+@keyframes hacker-rank-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Moments clés sur l'écran de fin */
+.ending-style-summary {
+  margin: 1.2rem auto 0;
+  max-width: 420px;
+  padding: 0.9rem 1.1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(148,163,184,0.5);
+  background: rgba(15,23,42,0.85);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.ending-style-summary strong {
+  color: var(--luna);
+}
+
+.ending-moments {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin: 1.2rem auto 0;
+  max-width: 420px;
+  padding: 1rem 1.2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--radius-md);
+  animation: fade-in 0.6s ease both;
+  animation-delay: 0.8s;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.ending-moment-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.ending-moment-dot {
+  flex-shrink: 0;
+  font-size: 0.7rem;
+  margin-top: 2px;
+}
+
+/* Compteur fins explorées */
+.ending-fins-counter {
+  font-size: 0.78rem;
+  color: var(--text-muted, #6b7280);
+  margin: 0.9rem 0 0;
+  letter-spacing: 0.03em;
+  animation: fade-in 0.5s ease both;
+  animation-delay: 1.2s;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.ending-fins-all {
+  color: var(--ending-color, var(--luna));
+  font-weight: 600;
+}
+
+.ending-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+/* ── Bouton Partager ────────────────────────────────────── */
+.btn-share {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 10px 20px;
+  background: transparent;
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  border-radius: var(--radius-full);
+  color: var(--luna);
+  font-size: 0.82rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background var(--speed-fast), border-color var(--speed-fast), box-shadow var(--speed-fast);
+}
+
+.btn-share:hover {
+  background: rgba(0, 212, 255, 0.08);
+  border-color: var(--luna);
+  box-shadow: 0 0 14px rgba(0, 212, 255, 0.2);
+}
+
+.share-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.share-toast {
+  border-color: rgba(0, 212, 255, 0.4) !important;
+  color: var(--luna) !important;
+}
+
+/* ── Streak COMBO ───────────────────────────────────────── */
+.streak-popup {
+  position: fixed;
+  top: 72px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.7);
+  animation: streak-pop-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  z-index: 400;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(52, 211, 153, 0.12);
+  border: 1px solid rgba(52, 211, 153, 0.5);
+  border-radius: var(--radius-full);
+  padding: 0.3rem 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.streak-popup.visible {
+  opacity: 1;
+}
+
+@keyframes streak-pop-in {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.5);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.08);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+.streak-x {
+  font-size: 1.35rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: #34d399;
+  text-shadow: 0 0 12px rgba(52, 211, 153, 0.5);
+}
+
+.streak-label {
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #34d399;
+  opacity: 0.95;
+}
+
+/* ── Popup "Exploit débloqué" ───────────────────────────── */
+.exploit-popup {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  z-index: 400;
+  background: rgba(5, 5, 12, 0.95);
+  border: 1px solid var(--luna);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 1.1rem;
+  box-shadow: 0 0 24px -4px var(--luna-glow), 0 4px 16px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.exploit-popup.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.exploit-popup-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.exploit-icon {
+  font-size: 1.1rem;
+  color: var(--luna);
+  animation: exploit-pulse 1.2s ease infinite;
+}
+
+@keyframes exploit-pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.exploit-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.exploit-title {
+  font-size: 0.6rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--luna);
+  opacity: 0.7;
+}
+
+.exploit-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+
+/* ── Premier choix — "Ton choix compte" ─────────────────────── */
+.first-choice-toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 450;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem 1.8rem;
+  background: rgba(5, 5, 12, 0.95);
+  border: 1px solid var(--action);
+  border-radius: var(--radius-md);
+  box-shadow: 0 0 30px rgba(61, 214, 245, 0.25);
+  color: var(--action);
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+  animation: first-choice-in 0.4s ease-out both;
+}
+
+.first-choice-toast.fade-out {
+  animation: first-choice-out 0.5s ease-in both;
+}
+
+.first-choice-toast .fct-icon {
+  font-size: 1.1rem;
+  animation: fct-pulse 0.8s ease-in-out infinite;
+}
+
+/* Popup moment clé (flags) */
+.moment-popup {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  z-index: 360;
+  transform: translateY(10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--speed-norm), transform var(--speed-norm);
+}
+
+.moment-popup.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.moment-popup-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.85rem;
+  background: rgba(15, 23, 42, 0.96);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-action);
+  box-shadow: 0 0 18px rgba(61, 214, 245, 0.2);
+}
+
+.moment-popup-dot {
+  font-size: 0.8rem;
+  color: var(--action);
+}
+
+.moment-popup-text {
+  font-size: 0.78rem;
+  color: var(--text-main);
+}
+
+/* Modale journal dans le jeu */
+.journal-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 420;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.journal-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.journal-modal-dialog {
+  position: relative;
+  width: min(640px, 100% - 2rem);
+  max-height: min(480px, 100% - 4rem);
+  background: rgba(15, 23, 42, 0.96);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-luna);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.7);
+  padding: 1.2rem 1.4rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  animation: fade-in var(--speed-norm);
+}
+
+.journal-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.journal-modal-title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.journal-modal-kicker {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--text-dim);
+}
+
+#journal-modal-title {
+  font-size: 1rem;
+  color: var(--text-white);
+}
+
+.journal-modal-close {
+  border: none;
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 1rem;
+}
+
+.journal-modal-body {
+  overflow-y: auto;
+}
+
+@keyframes first-choice-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes first-choice-out {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.02);
+  }
+}
+
+@keyframes fct-pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* ── Confettis première fin ────────────────────────────────── */
+.confetti-piece {
+  position: fixed;
+  top: -20px;
+  z-index: 600;
+  pointer-events: none;
+  border-radius: 2px;
+  opacity: 0.9;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* ── Indicateur XP flottant ────────────────────────────────── */
+.xp-indicator {
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  padding: 8px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--luna);
+  border-radius: var(--radius-full);
+  color: var(--luna);
+  font-size: 0.9rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  z-index: 100;
+  pointer-events: none;
+  animation: float-up 1.8s ease-out forwards;
+  box-shadow: 0 0 20px var(--luna-glow);
+}
+
+/* ============================================================
+   PAGE PROFIL
+   ============================================================ */
+.page-profil {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.simple-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 14px 20px;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border);
+}
+
+.page-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-white);
+}
+
+.profil-main {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.profil-content {
+  max-width: 400px;
+  width: 100%;
+}
+
+.profil-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  animation: fade-in var(--speed-slow) ease-out;
+  margin-bottom: 1.5rem;
+}
+
+.profil-luna-avatar {
+  width: 80px;
+  height: 80px;
+  position: relative;
+}
+
+.profil-luna-avatar .avatar-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--luna);
+  opacity: 0.6;
+}
+
+.profil-luna-avatar .avatar-core {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-luna);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px;
+}
+
+.profil-luna-avatar .avatar-eye {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--luna);
+}
+
+.profil-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-white);
+}
+
+.profil-stat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  min-width: 70px;
+}
+
+.profil-stat .trust-bar {
+  flex: 1;
+  height: 6px;
+}
+
+.stat-value {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--luna);
+  min-width: 36px;
+}
+
+.profil-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  width: 100%;
+}
+
+.stat-item {
+  background: var(--bg-panel);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-white);
+  font-family: var(--font-mono);
+}
+
+.stat-desc {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+.profil-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ============================================================
+   UTILITAIRES
+   ============================================================ */
+.loading-text {
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.error-text {
+  color: var(--danger);
+}
+
+/* ── Tooltip première visite ── */
+.first-play-tip {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-panel);
+  border: 1px solid var(--border-luna);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.4rem 1rem 1.1rem;
+  max-width: 300px;
+  width: calc(100% - 3rem);
+  z-index: 200;
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: all;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.first-play-tip:not([hidden]) {
+  opacity: 1;
+}
+
+.first-play-tip.tip-entering {
+  animation: tip-slide-up 0.4s ease-out forwards;
+}
+
+.first-play-tip.tip-leaving {
+  animation: tip-slide-down 0.35s ease-in forwards;
+}
+
+@keyframes tip-slide-up {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes tip-slide-down {
+  from {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(-50%) translateY(8px);
+  }
+}
+
+.fpt-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.6rem;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: 0.7rem;
+  padding: 2px 4px;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+.fpt-close:hover {
+  opacity: 1;
+}
+
+.fpt-title {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--luna);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.fpt-list {
+  font-size: 0.88rem;
+  color: var(--text-main);
+  margin: 0 0 0.5rem;
+  line-height: 1.5;
+}
+
+.fpt-hint {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+/* ── Compteur XP header ── */
+.xp-header {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
+  opacity: 0.6;
+  transition: color 0.3s, opacity 0.3s;
+}
+
+.xp-header.xp-gained {
+  color: var(--luna);
+  opacity: 1;
+  animation: xp-pop 0.5s ease-out;
+}
+
+@keyframes xp-pop {
+  0% {
+    transform: scale(1.3);
+  }
+
+  60% {
+    transform: scale(0.95);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ── Récapitulatif fin de chapitre ── */
+.chapter-recap {
+  margin: 0 0 1rem;
+  padding: 0.9rem 1.1rem;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-luna);
+  border-radius: var(--radius-md);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.chapter-recap:not([hidden]) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.recap-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--luna);
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+.recap-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.recap-item {
+  font-size: 0.82rem;
+  color: var(--text-main);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  line-height: 1.4;
+}
+
+.recap-dot {
+  color: var(--luna);
+  opacity: 0.7;
+  flex-shrink: 0;
+  font-size: 0.7rem;
+  margin-top: 2px;
+}
+
+/* ── Pulse barre de confiance ── */
+@keyframes trust-pulse-positive {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.6);
+  }
+
+  50% {
+    box-shadow: 0 0 0 6px rgba(0, 212, 255, 0);
+  }
+
+  100% {
+    box-shadow: none;
+  }
+}
+
+@keyframes trust-pulse-negative {
+  0% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6);
+  }
+
+  50% {
+    box-shadow: 0 0 0 6px rgba(239, 68, 68, 0);
+  }
+
+  100% {
+    box-shadow: none;
+  }
+}
+
+.trust-fill.trust-pulse-positive {
+  animation: trust-pulse-positive 0.7s ease-out;
+}
+
+.trust-fill.trust-pulse-negative {
+  animation: trust-pulse-negative 0.7s ease-out;
+}
+
+/* ── Boot overlay ───────────────────────────────────────── */
+.boot-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-page);
+  transition: opacity 0.5s ease-out;
+}
+
+.boot-overlay.boot-done {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.boot-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.boot-logo {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: var(--luna);
+  text-shadow: 0 0 24px rgba(0, 212, 255, 0.4);
+  animation: boot-pulse 1.8s ease-in-out infinite;
+}
+
+.boot-status {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+}
+
+@keyframes boot-pulse {
+
+  0%,
+  100% {
+    opacity: 0.9;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Skeleton loading */
+.loading-skeleton-label {
+  display: block;
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  margin-bottom: 0.8em;
+  opacity: 0.7;
+}
+
+.loading-skeleton-line {
+  display: block;
+  height: 1em;
+  width: 80%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--surface) 25%, var(--border) 50%, var(--surface) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+  margin-bottom: 0.6em;
+  opacity: 0.5;
+}
+
+.loading-skeleton-line.short {
+  width: 50%;
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Hint raccourcis clavier — caché par défaut, révélé par JS après premier usage */
+.keyboard-hint {
+  display: none;
+  position: fixed;
+  bottom: 1.2rem;
+  right: 1.2rem;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  opacity: 0;
+  pointer-events: none;
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+  transition: opacity 0.6s ease;
+}
+
+.keyboard-hint.visible {
+  opacity: 0.5;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .keyboard-hint {
+    display: block;
+  }
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 640px) {
+
+  .luna-panel {
+    width: 60px;
+    padding: 1rem 0.5rem;
+  }
+
+  .luna-panel .luna-avatar {
+    width: 44px;
+    height: 44px;
+  }
+
+  .luna-panel .luna-avatar .avatar-core {
+    width: 36px;
+    height: 36px;
+    gap: 6px;
+  }
+
+  .luna-panel .luna-avatar .avatar-eye {
+    width: 7px;
+    height: 7px;
+  }
+
+  .luna-panel .luna-name {
+    font-size: 0.6rem;
+  }
+
+  .luna-panel .luna-emotion {
+    display: none;
+  }
+
+  .narrative-zone {
+    padding: 0.8rem;
+    gap: 0.8rem;
+  }
+
+  .dialogue-box {
+    padding: 0.9rem 1rem;
+  }
+
+  .dialogue-text {
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  /* Touch targets plus grands sur mobile (min 44px de hauteur) */
+  .choice-btn {
+    font-size: 0.9rem;
+    padding: 14px 16px;
+    min-height: 44px;
+    border-radius: 8px;
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-outline {
+    min-height: 44px;
+    padding: 12px 20px;
+  }
+
+  .nav-back {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sfx-btn {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .game-trust .trust-bar {
+    width: 44px;
+  }
+
+  .trust-label {
+    display: none;
+  }
+
+  .trust-value {
+    font-size: 0.72rem;
+  }
+
+  .xp-header {
+    display: none;
+  }
+
+  /* Ending screen sur mobile */
+  .ending-actions {
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .ending-actions>* {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .ending-title {
+    font-size: 1.5rem;
+  }
+
+  .ending-stats {
+    gap: 1.2rem;
+  }
+
+  /* Header compact */
+  .game-header {
+    padding: 8px 12px;
+    gap: 0.6rem;
+  }
+
+  .chapter-title {
+    font-size: 0.72rem;
+  }
+
+  .chapter-progress {
+    font-size: 0.65rem;
+  }
+
+}
+
+/* ============================================================
+   AVATAR LUNA — EXPRESSIONS PAR ÉMOTION
+   ============================================================ */
+
+/* Yeux en forme de croissant (content) */
+.luna-avatar.emotion-heureuse .avatar-eye,
+.luna-avatar.emotion-sereine .avatar-eye,
+.luna-avatar.emotion-reconnaissante .avatar-eye {
+  border-radius: 50% 50% 0 0 / 60% 60% 0 0;
+  height: 7px;
+  background: var(--success);
+}
+
+/* Yeux rétrécis (méfiant) */
+.luna-avatar.emotion-fermée .avatar-eye,
+.luna-avatar.emotion-inconfortable .avatar-eye,
+.luna-avatar.emotion-blessée .avatar-eye {
+  height: 5px;
+  width: 12px;
+  border-radius: 2px;
+  background: var(--luna-dim);
+}
+
+/* Yeux grands ouverts (choc) */
+.luna-avatar.emotion-choquée .avatar-eye,
+.luna-avatar.emotion-alarmée .avatar-eye {
+  width: 13px;
+  height: 13px;
+  background: var(--danger);
+  box-shadow: 0 0 12px rgba(255, 77, 109, 0.6);
+}
+
+/* Yeux mi-clos (pensive) */
+.luna-avatar.emotion-pensive .avatar-eye,
+.luna-avatar.emotion-hésitante .avatar-eye,
+.luna-avatar.emotion-troublée .avatar-eye {
+  height: 6px;
+  background: #a78bfa;
+  box-shadow: 0 0 6px rgba(167, 139, 250, 0.4);
+}
+
+/* Yeux asymétriques (mystérieuse) */
+.luna-avatar.emotion-mystérieuse .avatar-eye.left {
+  width: 12px;
+  height: 8px;
+}
+
+.luna-avatar.emotion-mystérieuse .avatar-eye.right {
+  width: 8px;
+  height: 12px;
+}
+
+/* Yeux tremblants (angoisse) */
+.luna-avatar.emotion-angoissée .avatar-eye,
+.luna-avatar.emotion-tendue .avatar-eye {
+  background: var(--danger);
+  animation: eye-shake 0.3s ease-in-out infinite;
+}
+
+@keyframes eye-shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-2px);
+  }
+
+  75% {
+    transform: translateX(2px);
+  }
+}
+
+/* Honnête — yeux légèrement plus petits, couleur neutre chaude */
+.luna-avatar.emotion-honnête .avatar-eye,
+.luna-avatar.emotion-directe .avatar-eye {
+  height: 7px;
+  background: #f0b429;
+  box-shadow: 0 0 6px rgba(240, 180, 41, 0.3);
+}
+
+/* Triste — yeux inclinés vers le bas */
+.luna-avatar.emotion-triste .avatar-eye,
+.luna-avatar.emotion-mélancolique .avatar-eye,
+.luna-avatar.emotion-blessée .avatar-eye {
+  height: 6px;
+  width: 10px;
+  background: var(--luna-dim);
+  opacity: 0.7;
+  animation: eye-droop 3s ease-in-out infinite;
+}
+
+@keyframes eye-droop {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(1px);
+  }
+}
+
+/* Consciente — yeux qui scintillent légèrement */
+.luna-avatar.emotion-consciente .avatar-eye,
+.luna-avatar.emotion-concentrée .avatar-eye,
+.luna-avatar.emotion-focalisée .avatar-eye {
+  background: var(--luna);
+  animation: eye-focus 2s ease-in-out infinite;
+}
+
+@keyframes eye-focus {
+
+  0%,
+  100% {
+    box-shadow: 0 0 4px rgba(0, 212, 255, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.7);
+  }
+}
+
+/* Épuisée — yeux à demi fermés */
+.luna-avatar.emotion-épuisée .avatar-eye,
+.luna-avatar.emotion-résignée .avatar-eye {
+  height: 4px;
+  width: 11px;
+  border-radius: 2px;
+  background: var(--text-dim);
+  opacity: 0.6;
+}
+
+/* Émue / touchée — légère pulsation chaleureuse */
+.luna-avatar.emotion-émue .avatar-eye,
+.luna-avatar.emotion-touchée .avatar-eye {
+  background: var(--success);
+  animation: eye-touched 2s ease-in-out infinite;
+}
+
+@keyframes eye-touched {
+
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 4px rgba(63, 185, 80, 0.3);
+  }
+
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(63, 185, 80, 0.6);
+  }
+}
+
+/* Yeux dispersés (libre, fin C) */
+.luna-avatar.emotion-libre .avatar-eye,
+.luna-avatar.emotion-dispersée .avatar-eye {
+  background: var(--action);
+  box-shadow: 0 0 12px var(--action-glow);
+  animation: eye-scatter 3s ease-in-out infinite;
+}
+
+@keyframes eye-scatter {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.3);
+    opacity: 0.7;
+  }
+}
+
+/* Corps du core qui palpite selon l'émotion */
+.luna-avatar.emotion-heureuse .avatar-core,
+.luna-avatar.emotion-émue .avatar-core,
+.luna-avatar.emotion-touchée .avatar-core {
+  animation: core-pulse-happy 1.5s ease-in-out infinite;
+}
+
+.luna-avatar.emotion-choquée .avatar-core,
+.luna-avatar.emotion-angoissée .avatar-core {
+  animation: core-pulse-fear 0.6s ease-in-out infinite;
+}
+
+@keyframes core-pulse-happy {
+
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: none;
+  }
+
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 16px var(--luna-glow);
+  }
+}
+
+@keyframes core-pulse-fear {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.04);
+    border-color: var(--danger);
+  }
+}
+
+/* ─── Émotions supplémentaires ──────────────────────────────────── */
+
+/* Honnête / directe / sérieuse — regard droit, légèrement plus lumineux */
+.luna-avatar.emotion-honnête .avatar-eye,
+.luna-avatar.emotion-directe .avatar-eye,
+.luna-avatar.emotion-sérieuse .avatar-eye {
+  background: #e2e8f0;
+  box-shadow: 0 0 6px rgba(226, 232, 240, 0.4);
+}
+
+/* Déterminée / concentrée / focalisée / dans l'action — yeux resserrés, couleur action */
+.luna-avatar.emotion-déterminée .avatar-eye,
+.luna-avatar.emotion-concentrée .avatar-eye,
+.luna-avatar.emotion-focalisée .avatar-eye,
+.luna-avatar.emotion-dans\ l\'action .avatar-eye {
+  width: 10px;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--action);
+  box-shadow: 0 0 8px rgba(88, 166, 255, 0.5);
+}
+
+.luna-avatar.emotion-déterminée .avatar-core,
+.luna-avatar.emotion-concentrée .avatar-core {
+  animation: core-pulse-action 2s ease-in-out infinite;
+}
+
+@keyframes core-pulse-action {
+
+  0%,
+  100% {
+    border-color: var(--action);
+  }
+
+  50% {
+    border-color: var(--luna);
+  }
+}
+
+/* Calme / apaisée / patiente — yeux légèrement plus petits, teinte bleue douce */
+.luna-avatar.emotion-calme .avatar-eye,
+.luna-avatar.emotion-apaisée .avatar-eye,
+.luna-avatar.emotion-patiente .avatar-eye {
+  background: #7dd3fc;
+  box-shadow: 0 0 5px rgba(125, 211, 252, 0.3);
+  width: 9px;
+  height: 9px;
+}
+
+/* Soulagée — yeux mi-fermés en arc (soulagement) */
+.luna-avatar.emotion-soulagée .avatar-eye {
+  border-radius: 0 0 50% 50% / 0 0 60% 60%;
+  height: 7px;
+  background: var(--success);
+  box-shadow: 0 0 8px rgba(63, 185, 80, 0.3);
+}
+
+/* Épuisée / résignée — yeux très petits et ternes */
+.luna-avatar.emotion-épuisée .avatar-eye,
+.luna-avatar.emotion-résignée .avatar-eye {
+  height: 4px;
+  width: 10px;
+  border-radius: 2px;
+  background: var(--text-dim);
+  opacity: 0.7;
+}
+
+.luna-avatar.emotion-épuisée .avatar-core,
+.luna-avatar.emotion-résignée .avatar-core {
+  opacity: 0.75;
+}
+
+/* Mélancolique / incertaine — yeux légèrement asymétriques, bleu froid */
+.luna-avatar.emotion-mélancolique .avatar-eye,
+.luna-avatar.emotion-incertaine .avatar-eye {
+  background: #94a3b8;
+  box-shadow: 0 0 4px rgba(148, 163, 184, 0.3);
+  height: 7px;
+}
+
+.luna-avatar.emotion-mélancolique .avatar-eye.left {
+  opacity: 0.8;
+}
+
+/* Vulnérable / coupable — yeux mi-clos, teinte chaleureuse */
+.luna-avatar.emotion-vulnérable .avatar-eye,
+.luna-avatar.emotion-coupable .avatar-eye {
+  height: 6px;
+  background: #fbbf24;
+  box-shadow: 0 0 6px rgba(251, 191, 36, 0.3);
+  border-radius: 50% 50% 40% 40%;
+}
+
+/* Stressée / déstabilisée — yeux clignotants rapides */
+.luna-avatar.emotion-stressée .avatar-eye,
+.luna-avatar.emotion-déstabilisée .avatar-eye {
+  background: #fb923c;
+  animation: eye-blink-fast 1.2s ease-in-out infinite;
+}
+
+@keyframes eye-blink-fast {
+
+  0%,
+  90%,
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+
+  95% {
+    opacity: 0;
+    transform: scaleY(0.1);
+  }
+}
+
+/* Analytique / logique — yeux calmes, bleu vif, symétrie parfaite */
+.luna-avatar.emotion-analytique .avatar-eye {
+  background: #38bdf8;
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+  height: 9px;
+  width: 9px;
+  border-radius: 2px;
+  /* légèrement carré = précision */
+}
+
+.luna-avatar.emotion-analytique .avatar-core {
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+/* Froide / distante — yeux blancs/gris, presque éteints */
+.luna-avatar.emotion-froide .avatar-eye,
+.luna-avatar.emotion-distante .avatar-eye {
+  background: #cbd5e1;
+  box-shadow: none;
+  height: 7px;
+  width: 7px;
+  opacity: 0.65;
+}
+
+.luna-avatar.emotion-froide .avatar-core {
+  opacity: 0.6;
+}
+
+/* Méfiante — yeux légèrement réduits, orange-ambre */
+.luna-avatar.emotion-méfiante .avatar-eye {
+  background: #f59e0b;
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.4);
+  height: 7px;
+  width: 11px;
+  border-radius: 3px;
+}
+
+/* Urgente / alarmée-rapide — yeux qui pulsent vite en rouge */
+.luna-avatar.emotion-urgente .avatar-eye {
+  background: #ef4444;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
+  animation: eye-urgent-pulse 0.5s ease-in-out infinite;
+}
+
+@keyframes eye-urgent-pulse {
+
+  0%,
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scaleY(1.3);
+    opacity: 0.8;
+  }
+}
+
+/* Anxieuse — yeux un peu plus petits, légèrement tremblants */
+.luna-avatar.emotion-anxieuse .avatar-eye {
+  background: #fb923c;
+  box-shadow: 0 0 7px rgba(251, 146, 60, 0.45);
+  height: 7px;
+  animation: eye-anxious 2s ease-in-out infinite;
+}
+
+@keyframes eye-anxious {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  20% {
+    transform: translateX(1px);
+  }
+
+  40% {
+    transform: translateX(-1px);
+  }
+
+  60% {
+    transform: translateX(0.5px);
+  }
+}
+
+/* Défensive — yeux rétrécis, regard dur, violet */
+.luna-avatar.emotion-défensive .avatar-eye {
+  background: #a78bfa;
+  box-shadow: 0 0 6px rgba(167, 139, 250, 0.4);
+  height: 6px;
+  width: 12px;
+  border-radius: 2px;
+}
+
+/* Déçue / blessée — yeux mi-clos, rouge doux */
+.luna-avatar.emotion-déçue .avatar-eye {
+  background: #f87171;
+  box-shadow: 0 0 5px rgba(248, 113, 113, 0.3);
+  height: 6px;
+  transform: translateY(1px);
+}
+
+/* Avertissante / sérieuse-warning — yeux jaune-ambre, fixés */
+.luna-avatar.emotion-avertissante .avatar-eye {
+  background: #fbbf24;
+  box-shadow: 0 0 8px rgba(251, 191, 36, 0.5);
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  animation: eye-fixed-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes eye-fixed-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 8px rgba(251, 191, 36, 0.5);
+  }
+
+  50% {
+    box-shadow: 0 0 16px rgba(251, 191, 36, 0.8);
+  }
+}
+
+/* Excitée — yeux scintillants */
+.luna-avatar.emotion-excitée .avatar-eye {
+  background: #f0abfc;
+  box-shadow: 0 0 10px rgba(240, 171, 252, 0.6);
+  animation: eye-sparkle 0.8s ease-in-out infinite;
+}
+
+@keyframes eye-sparkle {
+
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 6px rgba(240, 171, 252, 0.4);
+  }
+
+  50% {
+    transform: scale(1.2);
+    box-shadow: 0 0 14px rgba(240, 171, 252, 0.8);
+  }
+}
+
+/* Compréhensive / attend / espère — yeux doux, légèrement plus grands */
+.luna-avatar.emotion-compréhensive .avatar-eye,
+.luna-avatar.emotion-attend .avatar-eye,
+.luna-avatar.emotion-espère .avatar-eye {
+  width: 11px;
+  height: 11px;
+  background: #a5f3fc;
+  box-shadow: 0 0 6px rgba(165, 243, 252, 0.3);
+}
+
+/* ============================================================
+   TRANSITION DE CHAPITRE
+   ============================================================ */
+.chapter-transition-flash {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: radial-gradient(ellipse at center, rgba(61, 214, 245, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+  animation: chapter-flash 0.4s ease-out forwards;
+}
+
+@keyframes chapter-flash {
+  0% {
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.chapter-transition {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-deep);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Grille de points animés dans la transition */
+.chapter-transition::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(61, 214, 245, 0.08) 1px, transparent 1px);
+  background-size: 36px 36px;
+  animation: grid-drift 8s linear infinite;
+  pointer-events: none;
+}
+
+/* Ligne de scan horizontale qui balaie la transition */
+.chapter-transition::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(61, 214, 245, 0.6), transparent);
+  animation: scan-sweep 2.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes scan-sweep {
+  0% {
+    top: -2px;
+    opacity: 0;
+  }
+
+  5% {
+    opacity: 1;
+  }
+
+  95% {
+    opacity: 1;
+  }
+
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+.chapter-transition.entering {
+  animation: transition-in 0.4s ease-out forwards;
+}
+
+.chapter-transition.leaving {
+  animation: transition-out 0.5s ease-in forwards;
+}
+
+@keyframes transition-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes transition-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.transition-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.transition-chapter-num {
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--luna);
+  opacity: 0;
+  animation: transition-text-in 0.5s 0.3s ease-out forwards;
+}
+
+.transition-chapter-title {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 700;
+  color: var(--text-white);
+  letter-spacing: -0.02em;
+  opacity: 0;
+  animation: transition-text-in 0.6s 0.6s ease-out forwards;
+  text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+}
+
+.transition-quote {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  font-style: italic;
+  max-width: 380px;
+  line-height: 1.7;
+  opacity: 0;
+  animation: transition-text-in 0.7s 1s ease-out forwards;
+  margin-top: 0.25rem;
+}
+
+.transition-bar {
+  width: 0;
+  height: 2px;
+  background: var(--luna);
+  border-radius: var(--radius-full);
+  animation: transition-bar-grow 0.8s 0.9s ease-out forwards;
+}
+
+@keyframes transition-text-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes transition-bar-grow {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 200px;
+  }
+}
+
+/* ============================================================
+   TRUST CHANGE INDICATOR
+   ============================================================ */
+.trust-delta {
+  position: fixed;
+  top: 58px;
+  right: 20px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  z-index: 200;
+  pointer-events: none;
+  animation: float-up 1.5s ease-out forwards;
+}
+
+.trust-delta.positive {
+  color: var(--luna);
+}
+
+.trust-delta.negative {
+  color: var(--danger);
+}
+
+/* ── Barre de confiance — états critiques ───────────────────────── */
+.trust-bar.trust-critical .trust-fill {
+  background: var(--danger);
+  box-shadow: 0 0 8px rgba(255, 77, 109, 0.5);
+}
+
+.trust-bar.trust-critical {
+  border-color: rgba(255, 77, 109, 0.4);
+  animation: trust-pulse-danger 1.5s ease-in-out infinite;
+}
+
+@keyframes trust-pulse-danger {
+
+  0%,
+  100% {
+    box-shadow: none;
+  }
+
+  50% {
+    box-shadow: 0 0 6px rgba(255, 77, 109, 0.4);
+  }
+}
+
+.trust-bar.trust-warm .trust-fill {
+  background: var(--luna);
+  box-shadow: 0 0 8px var(--luna-glow);
+}
+
+/* ── Avertissement trust critique ───────────────────────────────── */
+.trust-warning {
+  position: fixed;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 18px;
+  background: rgba(255, 77, 109, 0.12);
+  border: 1px solid rgba(255, 77, 109, 0.5);
+  border-radius: var(--radius-md);
+  color: var(--danger);
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+  z-index: 300;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: trust-warn-anim 4s ease-out forwards;
+}
+
+.trust-warning .tw-icon {
+  font-size: 0.9rem;
+}
+
+.trust-100-toast {
+  position: fixed;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background: rgba(52, 211, 153, 0.15);
+  border: 1px solid rgba(52, 211, 153, 0.5);
+  border-radius: var(--radius-full);
+  color: var(--success);
+  font-size: 0.82rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  z-index: 300;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: trust-100-in 0.4s ease-out forwards;
+  box-shadow: 0 0 20px rgba(52, 211, 153, 0.25);
+}
+
+.trust-100-toast .tw-icon {
+  font-size: 1rem;
+}
+
+@keyframes trust-100-in {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.9);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+@keyframes trust-warn-anim {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-6px);
+  }
+
+  10% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  75% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ── Alerte critique confiance ──────────────────────────────── */
+.critical-alert-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+  animation: critical-overlay-in 0.3s ease both;
+}
+
+.critical-alert-overlay.hiding {
+  animation: critical-overlay-out 0.5s ease both;
+}
+
+@keyframes critical-overlay-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes critical-overlay-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.critical-alert-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 2rem 2.5rem;
+  background: rgba(5, 5, 12, 0.97);
+  border: 1px solid rgba(244, 63, 94, 0.6);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 0 40px rgba(244, 63, 94, 0.25), 0 8px 32px rgba(0, 0, 0, 0.8);
+  text-align: center;
+  max-width: 340px;
+  animation: critical-box-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 0.1s;
+}
+
+@keyframes critical-box-in {
+  from {
+    transform: scale(0.9) translateY(10px);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.critical-alert-icon {
+  font-size: 2rem;
+  color: #f43f5e;
+  animation: critical-icon-pulse 0.8s ease infinite;
+}
+
+@keyframes critical-icon-pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+}
+
+.critical-alert-title {
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #f43f5e;
+}
+
+.critical-alert-msg {
+  font-size: 0.88rem;
+  color: var(--text-main);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* ── Easter egg idle — LUNA te parle ───────────────────────────── */
+.idle-toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-luna);
+  border-radius: var(--radius-full);
+  color: var(--luna);
+  font-size: 0.85rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.03em;
+  z-index: 400;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+  animation: idle-toast-in 0.4s ease-out;
+  box-shadow: 0 0 20px var(--luna-glow);
+}
+
+.idle-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--luna);
+  animation: signal-blink 1.5s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes idle-toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* ── Konami toast variant ───────────────────────────────────────── */
+.konami-toast {
+  border-color: rgba(0, 212, 255, 0.35) !important;
+  background: rgba(0, 20, 40, 0.97) !important;
+}
+
+.konami-toast .idle-dot {
+  background: #00d4ff !important;
+  box-shadow: 0 0 6px #00d4ff !important;
+}
+
+@keyframes konami-flash {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ── Toast de sauvegarde ────────────────────────────────────────── */
+.save-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 5px 14px;
+  background: var(--bg-card);
+  border: 1px solid rgba(63, 185, 80, 0.3);
+  border-radius: var(--radius-full);
+  color: var(--success);
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  z-index: 200;
+  pointer-events: none;
+  animation: save-toast-anim 1.6s ease-out forwards;
+}
+
+@keyframes save-toast-anim {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(8px);
+  }
+
+  15% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  75% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-4px);
+  }
+}
+
+/* ============================================================
+   SCAN LINE (ambiance CRT légère sur le jeu)
+   ============================================================ */
+.page-game::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(to bottom,
+      transparent,
+      transparent 3px,
+      rgba(0, 0, 0, 0.04) 3px,
+      rgba(0, 0, 0, 0.04) 4px);
+  pointer-events: none;
+  z-index: 500;
+}
+
+/* ============================================================
+   ATMOSPHÈRES PAR CHAPITRE (teinte subtile du bg)
+   ============================================================ */
+/* Chapitre 0 — sombre, neutre */
+body.atmo-dark {
+  --bg-deep: #080c14;
+  --atmo-accent: var(--luna);
+  --atmo-glow: rgba(0, 212, 255, 0.06);
+}
+
+/* Chapitre 1 — tension croissante, violet trouble */
+body.atmo-tension {
+  --bg-deep: #0c0a14;
+  --atmo-accent: #a78bfa;
+  --atmo-glow: rgba(139, 92, 246, 0.08);
+}
+
+/* Chapitre 2 — suspense, bleu-nuit */
+body.atmo-suspense {
+  --bg-deep: #0a0c12;
+  --atmo-accent: #60a5fa;
+  --atmo-glow: rgba(96, 165, 250, 0.07);
+}
+
+/* Chapitre 3 — incertitude, gris-bleu froid */
+body.atmo-incertitude {
+  --bg-deep: #0a0c0e;
+  --atmo-accent: #94a3b8;
+  --atmo-glow: rgba(148, 163, 184, 0.05);
+}
+
+/* Chapitre 4 — révélation, rouge chaud tamisé */
+body.atmo-révélation {
+  --bg-deep: #0e0a0a;
+  --atmo-accent: #f87171;
+  --atmo-glow: rgba(248, 113, 113, 0.09);
+}
+
+/* Chapitre 5 — urgence, orange vif */
+body.atmo-urgence {
+  --bg-deep: #100907;
+  --atmo-accent: #fb923c;
+  --atmo-glow: rgba(251, 146, 60, 0.09);
+}
+
+/* Chapitre 6 — climax, rouge-noir intense */
+body.atmo-climax {
+  --bg-deep: #0d0606;
+  --atmo-accent: #f43f5e;
+  --atmo-glow: rgba(244, 63, 94, 0.1);
+}
+
+/* Fin A — espoir, bleu-cyan doux */
+body.atmo-espoir {
+  --bg-deep: #070e10;
+  --atmo-accent: #34d399;
+  --atmo-glow: rgba(52, 211, 153, 0.09);
+}
+
+/* Fin B — mélancolie, violet doux */
+body.atmo-mélancolie {
+  --bg-deep: #08060e;
+  --atmo-accent: #c084fc;
+  --atmo-glow: rgba(192, 132, 252, 0.08);
+}
+
+/* Fin C — liberté mélancolique, cyan-orange */
+body.atmo-liberte-melancolique {
+  --bg-deep: #060c12;
+  --atmo-accent: #38bdf8;
+  --atmo-glow: rgba(56, 189, 248, 0.08);
+}
+
+/* ── Application de l'accent atmosphérique ─────────────────── */
+/* La barre de trust prend la couleur de l'ambiance */
+body[class*="atmo-"] .trust-fill {
+  background: var(--atmo-accent, var(--luna));
+  box-shadow: 0 0 8px var(--atmo-accent, var(--luna-glow));
+  transition: background 1.5s ease, box-shadow 1.5s ease;
+}
+
+/* Le badge de chapitre prend l'accent */
+body[class*="atmo-"] .chapter-badge {
+  border-color: var(--atmo-accent, var(--border-luna));
+  color: var(--atmo-accent, var(--luna));
+  transition: color 1.5s ease, border-color 1.5s ease;
+}
+
+/* Lueur de fond derrière le dialogue selon l'ambiance */
+body[class*="atmo-"] .dialogue-box::before {
+  background: var(--atmo-glow, transparent);
+  transition: background 2s ease;
+}
+
+/* ============================================================
+   SKIP HINT (indication clique pour passer le texte)
+   ============================================================ */
+.skip-hint {
+  position: absolute;
+  bottom: 10px;
+  right: 14px;
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  font-style: italic;
+  opacity: 0;
+  animation: fade-in-fast 0.4s 0.8s forwards;
+  pointer-events: none;
+}
+
+/* ============================================================
+   EFFET GLITCH — LUNA en état de stress
+   ============================================================ */
+
+/* Glitch sur le texte du dialogue */
+.dialogue-text.glitch {
+  animation: glitch-text 3s ease-in-out infinite;
+}
+
+@keyframes glitch-text {
+
+  0%,
+  85%,
+  100% {
+    text-shadow: none;
+    transform: none;
+    clip-path: none;
+  }
+
+  86% {
+    text-shadow: 3px 0 var(--danger), -3px 0 var(--action);
+    transform: translateX(3px);
+  }
+
+  87% {
+    text-shadow: -3px 0 var(--danger), 3px 0 var(--action);
+    transform: translateX(-3px);
+  }
+
+  88% {
+    text-shadow: 2px 0 var(--luna), -2px 0 var(--action);
+    transform: translateX(1px);
+  }
+
+  89% {
+    text-shadow: none;
+    transform: translateX(0);
+  }
+
+  90% {
+    text-shadow: 1px 0 var(--danger), -1px 0 var(--action);
+    transform: translateX(-1px);
+  }
+}
+
+/* Glitch sur le contexte aussi */
+.scene-context.glitch {
+  animation: glitch-ctx 4s ease-in-out infinite;
+}
+
+@keyframes glitch-ctx {
+
+  0%,
+  88%,
+  100% {
+    opacity: 0.75;
+    transform: none;
+  }
+
+  89% {
+    opacity: 0.3;
+    transform: translateX(4px);
+  }
+
+  90% {
+    opacity: 0.85;
+    transform: translateX(-2px);
+  }
+
+  91% {
+    opacity: 0.75;
+    transform: none;
+  }
+}
+
+/* Avatar en état de glitch */
+.luna-avatar.glitching .avatar-ring {
+  animation: glitch-ring 2.5s ease-in-out infinite;
+}
+
+@keyframes glitch-ring {
+
+  0%,
+  80%,
+  100% {
+    border-color: var(--danger);
+    transform: rotate(0deg);
+    box-shadow: none;
+  }
+
+  82% {
+    border-color: var(--action);
+    transform: rotate(5deg) scale(1.08);
+    box-shadow: 0 0 16px var(--danger);
+  }
+
+  84% {
+    border-color: var(--luna);
+    transform: rotate(-4deg) scale(0.96);
+    box-shadow: 0 0 8px var(--action);
+  }
+
+  86% {
+    border-color: var(--danger);
+    transform: rotate(2deg) scale(1.03);
+    box-shadow: none;
+  }
+}
+
+.luna-avatar.glitching .avatar-core {
+  animation: glitch-core 2.5s ease-in-out infinite;
+}
+
+@keyframes glitch-core {
+
+  0%,
+  80%,
+  100% {
+    box-shadow: none;
+  }
+
+  82% {
+    box-shadow: 0 0 20px rgba(255, 77, 109, 0.6), inset 0 0 12px rgba(255, 77, 109, 0.2);
+  }
+
+  85% {
+    box-shadow: 0 0 10px rgba(61, 214, 245, 0.4);
+  }
+
+  88% {
+    box-shadow: none;
+  }
+}
+
+/* ============================================================
+   FOND ANIMÉ — GRILLE DE POINTS PAR ATMOSPHÈRE
+   ============================================================ */
+
+/* Grille de points flottants en arrière-plan */
+.page-game::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: radial-gradient(circle, rgba(61, 214, 245, 0.06) 1px, transparent 1px);
+  background-size: 44px 44px;
+  animation: grid-drift 25s linear infinite;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+/* Grille visible sur tous les chapitres, teintée selon l'accent */
+body[class*="atmo-"] .page-game::before {
+  opacity: 1;
+  background-image: radial-gradient(circle, var(--atmo-glow, rgba(61, 214, 245, 0.06)) 1px, transparent 1px);
+}
+
+/* Vitesse de dérive selon l'urgence narrative */
+body.atmo-dark .page-game::before,
+body.atmo-tension .page-game::before,
+body.atmo-suspense .page-game::before,
+body.atmo-incertitude .page-game::before {
+  animation-duration: 30s;
+}
+
+body.atmo-révélation .page-game::before {
+  animation-duration: 22s;
+}
+
+body.atmo-urgence .page-game::before,
+body.atmo-climax .page-game::before {
+  animation-duration: 11s;
+}
+
+body.atmo-espoir .page-game::before {
+  animation-duration: 40s;
+}
+
+body.atmo-mélancolie .page-game::before,
+body.atmo-liberte-melancolique .page-game::before {
+  opacity: 0.65;
+  animation-duration: 45s;
+}
+
+@keyframes grid-drift {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 44px 44px;
+  }
+}
+
+/* ============================================================
+   SCREEN SHAKE — gros drop de confiance
+   ============================================================ */
+
+@keyframes screen-shake {
+
+  0%,
+  100% {
+    transform: none;
+  }
+
+  10% {
+    transform: translate(-5px, 2px);
+  }
+
+  20% {
+    transform: translate(5px, -2px);
+  }
+
+  30% {
+    transform: translate(-4px, 1px);
+  }
+
+  40% {
+    transform: translate(4px, -1px);
+  }
+
+  50% {
+    transform: translate(-3px, 2px);
+  }
+
+  60% {
+    transform: translate(3px, -1px);
+  }
+
+  70% {
+    transform: translate(-2px, 1px);
+  }
+
+  80% {
+    transform: translate(2px, 0px);
+  }
+}
+
+body.screen-shaking {
+  animation: screen-shake 0.45s ease-out;
+}
+
+/* Flash rouge quand confiance s'effondre */
+.trust-crash-flash {
+  position: fixed;
+  inset: 0;
+  background: var(--danger);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 800;
+  animation: crash-flash 0.5s ease-out forwards;
+}
+
+@keyframes crash-flash {
+  0% {
+    opacity: 0.18;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ============================================================
+   CHOIX — EFFETS HOVER IMMERSIFS
+   ============================================================ */
+
+/* Remplace le simple translateX par un effet de scan + glow */
+.choice-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ligne de scan qui glisse au hover */
+.choice-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(61, 214, 245, 0.07) 50%, transparent 100%);
+  transform: translateX(-100%);
+  transition: transform 0.35s ease;
+  pointer-events: none;
+}
+
+.choice-btn:hover::after {
+  transform: translateX(100%);
+}
+
+.choice-btn:hover {
+  border-color: rgba(61, 214, 245, 0.5);
+  box-shadow: 0 0 12px rgba(61, 214, 245, 0.12), inset 0 0 6px rgba(61, 214, 245, 0.04);
+}
+
+/* Barre gauche animée au hover */
+.choice-btn:hover::before {
+  color: var(--action);
+  text-shadow: 0 0 8px var(--action);
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

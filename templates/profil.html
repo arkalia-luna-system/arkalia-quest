@@ -1,1068 +1,441 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-    <meta charset="UTF-8">
-    <title>👤 ARKALIA QUEST - PROFIL LUNA</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- PWA Meta Tags -->
-    <meta name="description"
-        content="Ton profil personnel dans Arkalia Quest. Découvre tes accomplissements et ta progression avec LUNA.">
-    <meta name="theme-color" content="#a78bfa">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-
-    <!-- PWA Icons -->
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/icon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='icons/icon-16x16.png') }}">
-    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
-
-    <!-- CSS LUNA VISION -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-responsive.css') }}?v=4.0.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/interface-improvements.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/empty-states.css') }}">
-
-    <!-- Perfection UI/UX 2025 -->
-    <link rel="preload" href="{{ url_for('static', filename='css/ui-perfection.css') }}?v=3.3.1" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/ui-perfection.css') }}?v=3.3.1">
-    </noscript>
-
-    <!-- Nouveaux CSS V3 -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/themes.css') }}?v=3.2.0">
-
-    <!-- Composants modernes pour ado -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/teen-modern-components.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/game-interface.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/mission-interface.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/reward-animations.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/loading-animations.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/progression-animations.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/adaptive-guidance.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/progression-feedback.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/competitive-system.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/creative-system.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/casual-system.css') }}">
-
-    <style>
-        /* Styles spécifiques au profil immersif */
-        .profile-workspace {
-            min-height: 100vh;
-            background: linear-gradient(135deg, rgba(9, 9, 11, 0.95) 0%, rgba(30, 30, 40, 0.95) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .profile-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background:
-                radial-gradient(circle at 30% 70%, rgba(167, 139, 250, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 70% 30%, rgba(96, 165, 250, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(167, 139, 250, 0.05) 0%, transparent 50%);
-            animation: profileAmbient 12s ease-in-out infinite;
-        }
-
-        @keyframes profileAmbient {
-
-            0%,
-            100% {
-                opacity: 0.4;
-                transform: scale(1);
-            }
-
-            50% {
-                opacity: 0.7;
-                transform: scale(1.03);
-            }
-        }
-
-        .profile-container {
-            padding: 30px 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .profile-header {
-            text-align: center;
-            margin-bottom: 40px;
-            position: relative;
-        }
-
-        .profile-title {
-            font-family: 'Cormorant', serif;
-            font-size: 3em;
-            font-weight: 700;
-            color: var(--violet-lunaire);
-            text-shadow: 0 0 30px rgba(167, 139, 250, 0.6);
-            margin-bottom: 15px;
-            opacity: 0;
-            animation: fadeInUp 1.5s ease-out 0.5s forwards;
-        }
-
-        .profile-subtitle {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.2em;
-            color: var(--argent-holographique);
-            opacity: 0;
-            animation: fadeInUp 1.5s ease-out 1s forwards;
-        }
-
-        .avatar-section {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 40px;
-            position: relative;
-        }
-
-        .avatar-3d {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--violet-lunaire), var(--bleu-spectre), var(--argent-holographique));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4em;
-            position: relative;
-            animation: avatarFloat 6s ease-in-out infinite;
-            box-shadow: 0 0 60px rgba(167, 139, 250, 0.4);
-            cursor: pointer;
-            transition: all 0.5s ease;
-        }
-
-        .avatar-3d::before {
-            content: '';
-            position: absolute;
-            top: -15px;
-            left: -15px;
-            right: -15px;
-            bottom: -15px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--violet-lunaire), var(--bleu-spectre), var(--argent-holographique));
-            opacity: 0.3;
-            animation: avatarGlow 4s ease-in-out infinite;
-            z-index: -1;
-        }
-
-        .avatar-3d::after {
-            content: '';
-            position: absolute;
-            top: -25px;
-            left: -25px;
-            right: -25px;
-            bottom: -25px;
-            border-radius: 50%;
-            border: 2px solid transparent;
-            background: linear-gradient(45deg, var(--violet-lunaire), var(--bleu-spectre)) border-box;
-            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: destination-out;
-            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-            mask-composite: exclude;
-            animation: avatarRotate 10s linear infinite;
-        }
-
-        @keyframes avatarFloat {
-
-            0%,
-            100% {
-                transform: translateY(0px) rotateY(0deg);
-            }
-
-            50% {
-                transform: translateY(-15px) rotateY(10deg);
-            }
-        }
-
-        @keyframes avatarGlow {
-
-            0%,
-            100% {
-                opacity: 0.3;
-                transform: scale(1);
-            }
-
-            50% {
-                opacity: 0.6;
-                transform: scale(1.1);
-            }
-        }
-
-        @keyframes avatarRotate {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        .avatar-3d:hover {
-            transform: scale(1.1) rotateY(15deg);
-            box-shadow: 0 0 80px rgba(167, 139, 250, 0.6);
-        }
-
-        .profile-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-
-        .stat-card {
-            background: rgba(9, 9, 11, 0.9);
-            border: 2px solid rgba(167, 139, 250, 0.3);
-            border-radius: 15px;
-            padding: 25px;
-            text-align: center;
-            backdrop-filter: blur(15px);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent, rgba(167, 139, 250, 0.08), transparent);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .stat-card:hover::before {
-            opacity: 1;
-        }
-
-        .stat-card:hover {
-            border-color: rgba(167, 139, 250, 0.6);
-            box-shadow: 0 0 40px rgba(167, 139, 250, 0.4);
-            transform: translateY(-5px);
-        }
-
-        .stat-icon {
-            font-size: 2.5em;
-            margin-bottom: 15px;
-            display: block;
-            text-shadow: 0 0 20px rgba(167, 139, 250, 0.6);
-        }
-
-        .stat-value {
-            font-family: 'Cormorant', serif;
-            font-size: 2.2em;
-            font-weight: 700;
-            color: var(--violet-lunaire);
-            text-shadow: 0 0 15px rgba(167, 139, 250, 0.5);
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .stat-label {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.9em;
-            color: var(--argent-holographique);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .progress-section {
-            background: rgba(9, 9, 11, 0.9);
-            border: 2px solid rgba(167, 139, 250, 0.3);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 40px;
-            backdrop-filter: blur(15px);
-        }
-
-        .progress-title {
-            font-family: 'Cormorant', serif;
-            font-size: 1.8em;
-            font-weight: 600;
-            color: var(--violet-lunaire);
-            text-align: center;
-            margin-bottom: 25px;
-            text-shadow: 0 0 15px rgba(167, 139, 250, 0.5);
-        }
-
-        .progress-bar {
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(167, 139, 250, 0.3);
-            border-radius: 10px;
-            height: 20px;
-            margin-bottom: 15px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--violet-lunaire), var(--bleu-spectre));
-            border-radius: 8px;
-            transition: width 1.5s ease-out;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            animation: progressShine 2s ease-in-out infinite;
-        }
-
-        @keyframes progressShine {
-            0% {
-                left: -100%;
-            }
-
-            100% {
-                left: 100%;
-            }
-        }
-
-        .progress-label {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.9em;
-            color: var(--argent-holographique);
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-        }
-
-        .badges-section {
-            background: rgba(9, 9, 11, 0.9);
-            border: 2px solid rgba(167, 139, 250, 0.3);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 40px;
-            backdrop-filter: blur(15px);
-        }
-
-        .badges-title {
-            font-family: 'Cormorant', serif;
-            font-size: 1.8em;
-            font-weight: 600;
-            color: var(--violet-lunaire);
-            text-align: center;
-            margin-bottom: 25px;
-            text-shadow: 0 0 15px rgba(167, 139, 250, 0.5);
-        }
-
-        .badges-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 20px;
-        }
-
-        .badge-item {
-            background: rgba(167, 139, 250, 0.1);
-            border: 2px solid rgba(167, 139, 250, 0.3);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .badge-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent, rgba(167, 139, 250, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .badge-item:hover::before {
-            opacity: 1;
-        }
-
-        .badge-item:hover {
-            border-color: rgba(167, 139, 250, 0.7);
-            box-shadow: 0 0 30px rgba(167, 139, 250, 0.4);
-            transform: translateY(-5px) scale(1.05);
-        }
-
-        .badge-icon {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            display: block;
-            animation: badgePulse 3s ease-in-out infinite;
-        }
-
-        @keyframes badgePulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.1);
-            }
-        }
-
-        .badge-name {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.8em;
-            color: var(--argent-holographique);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .achievements-api-section { background: rgba(9, 9, 11, 0.9); border: 2px solid rgba(167, 139, 250, 0.3); border-radius: 15px; padding: 30px; margin-bottom: 40px; backdrop-filter: blur(15px); }
-        .achievements-api-list .loading-placeholder { color: var(--argent-holographique); margin: 0; }
-        .achievements-summary { font-family: 'IBM Plex Mono', monospace; color: var(--violet-lunaire); margin-bottom: 15px; }
-        .achievements-unlocked-list { list-style: none; padding: 0; margin: 0; }
-        .achievement-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid rgba(167,139,250,0.2); }
-        .achievement-item .achievement-name { font-weight: 600; color: var(--violet-lunaire); }
-        .achievement-item .achievement-desc { font-size: 0.9em; color: var(--argent-holographique); margin-left: auto; }
-        .achievement-more { padding: 10px 0; color: var(--argent-holographique); font-size: 0.9em; }
-
-        .timeline-section {
-            background: rgba(9, 9, 11, 0.9);
-            border: 2px solid rgba(167, 139, 250, 0.3);
-            border-radius: 15px;
-            padding: 30px;
-            backdrop-filter: blur(15px);
-        }
-
-        .timeline-title {
-            font-family: 'Cormorant', serif;
-            font-size: 1.8em;
-            font-weight: 600;
-            color: var(--violet-lunaire);
-            text-align: center;
-            margin-bottom: 25px;
-            text-shadow: 0 0 15px rgba(167, 139, 250, 0.5);
-        }
-
-        .timeline {
-            position: relative;
-            padding-left: 30px;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 15px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, var(--violet-lunaire), var(--bleu-spectre));
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 25px;
-            padding-left: 30px;
-            opacity: 0;
-            animation: timelineSlideIn 0.8s ease-out forwards;
-        }
-
-        .timeline-item:nth-child(1) {
-            animation-delay: 0.2s;
-        }
-
-        .timeline-item:nth-child(2) {
-            animation-delay: 0.4s;
-        }
-
-        .timeline-item:nth-child(3) {
-            animation-delay: 0.6s;
-        }
-
-        .timeline-item:nth-child(4) {
-            animation-delay: 0.8s;
-        }
-
-        @keyframes timelineSlideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -22px;
-            top: 5px;
-            width: 12px;
-            height: 12px;
-            background: var(--violet-lunaire);
-            border-radius: 50%;
-            box-shadow: 0 0 15px rgba(167, 139, 250, 0.6);
-        }
-
-        .timeline-date {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.8em;
-            color: var(--bleu-spectre);
-            margin-bottom: 5px;
-        }
-
-        .timeline-event {
-            font-family: 'Inter', sans-serif;
-            font-size: 1em;
-            color: var(--argent-holographique);
-            line-height: 1.5;
-        }
-
-        .luna-personality {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(167, 139, 250, 0.1);
-            border: 1px solid rgba(167, 139, 250, 0.3);
-            border-radius: 10px;
-            padding: 15px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.8em;
-            color: var(--argent-holographique);
-            backdrop-filter: blur(10px);
-            max-width: 300px;
-            opacity: 0;
-            animation: fadeIn 2s ease-out 2s forwards;
-        }
-
-        .luna-personality::before {
-            content: '🌙 LUNA:';
-            font-weight: bold;
-            color: var(--violet-lunaire);
-            margin-right: 8px;
-        }
-
-        @media (max-width: 768px) {
-            .profile-title {
-                font-size: 2.2em;
-            }
-
-            .avatar-3d {
-                width: 120px;
-                height: 120px;
-                font-size: 3em;
-            }
-
-            .profile-stats {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .badges-grid {
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-                gap: 15px;
-            }
-
-            .luna-personality {
-                position: static;
-                margin: 20px auto;
-                max-width: none;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil — LUNA</title>
+  <link rel="icon" href="/favicon.ico">
+  <link rel="manifest" href="/static/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/game.css">
+  <style>
+    /* Journal LUNA */
+    .luna-journal {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-luna);
+      border-radius: var(--radius-md);
+      padding: 1.2rem 1.4rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .luna-journal-header {
+      display: flex; align-items: center; gap: 0.6rem;
+      margin-bottom: 0.9rem;
+    }
+    .luna-journal-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--luna); box-shadow: 0 0 6px var(--luna-glow);
+      flex-shrink: 0;
+    }
+    .luna-journal-label {
+      font-size: 0.72rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--luna); font-weight: 600;
+    }
+    .luna-journal-text {
+      font-size: 0.88rem; color: var(--text-main); line-height: 1.75;
+      font-style: italic; white-space: pre-wrap;
+    }
+
+    /* Moments clés */
+    .moments-list {
+      display: flex; flex-direction: column; gap: 0.5rem; width: 100%;
+    }
+    .moment-item {
+      display: flex; align-items: flex-start; gap: 0.7rem;
+      padding: 0.6rem 0.8rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem; color: var(--text-main); line-height: 1.5;
+    }
+    .moment-icon {
+      color: var(--luna); opacity: 0.7; flex-shrink: 0; font-size: 0.75rem;
+      margin-top: 2px;
+    }
+    .moments-empty {
+      font-size: 0.82rem; color: var(--text-dim); font-style: italic;
+      padding: 0.5rem 0;
+    }
+
+    .profil-endings { display: flex; flex-direction: column; gap: 0.75rem; width: 100%; }
+    .ending-card {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.2rem;
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      transition: border-color var(--speed-fast);
+    }
+    .ending-card.unlocked { border-color: var(--border-luna); }
+    .ending-card.locked   { opacity: 0.45; }
+    .ending-card-icon {
+      width: 42px; height: 42px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; font-weight: 700; flex-shrink: 0;
+      border: 1px solid currentColor;
+    }
+    .ending-card.unlocked.ending_a .ending-card-icon { color: #00d4ff; background: rgba(0,212,255,0.1); }
+    .ending-card.unlocked.ending_b .ending-card-icon { color: #8b5cf6; background: rgba(139,92,246,0.1); }
+    .ending-card.unlocked.ending_c .ending-card-icon { color: #f97316; background: rgba(249,115,22,0.1); }
+    .ending-card.locked .ending-card-icon { color: var(--text-dim); background: var(--bg-card); font-size: 1rem; }
+    .ending-card-info { flex: 1; }
+    .ending-card-title { font-size: 0.95rem; font-weight: 600; color: var(--text-white); }
+    .ending-card-desc  { font-size: 0.78rem; color: var(--text-dim); margin-top: 2px; }
+    .ending-card-badge {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; padding: 3px 10px;
+      border-radius: var(--radius-full); border: 1px solid currentColor;
+    }
+    .ending-card.unlocked.ending_a .ending-card-badge { color: #00d4ff; border-color: #00d4ff; }
+    .ending-card.unlocked.ending_b .ending-card-badge { color: #8b5cf6; border-color: #8b5cf6; }
+    .ending-card.unlocked.ending_c .ending-card-badge { color: #f97316; border-color: #f97316; }
+    .ending-card.locked .ending-card-badge { color: var(--text-dim); }
+
+    .chapters-timeline { display: flex; flex-direction: column; gap: 0; width: 100%; }
+    .chapter-item {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .chapter-item:last-child { border-bottom: none; }
+    .chapter-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      flex-shrink: 0;
+      border: 2px solid var(--text-dim);
+      background: transparent;
+    }
+    .chapter-dot.done { background: var(--luna); border-color: var(--luna); }
+    .chapter-dot.current { background: var(--action); border-color: var(--action); box-shadow: 0 0 8px var(--action-glow); }
+    .chapter-name { font-size: 0.88rem; color: var(--text-dim); }
+    .chapter-name.done { color: var(--text-main); }
+    .chapter-name.current { color: var(--action); }
+    .chapter-check { margin-left: auto; font-size: 0.8rem; color: var(--luna); }
+
+    .section-label {
+      font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--text-dim); font-weight: 600; margin-bottom: 0.75rem;
+    }
+    .section-tease {
+      font-size: 0.88rem; color: var(--luna); opacity: 0.9;
+      margin: -0.4rem 0 0.8rem 0; font-style: italic;
+    }
+    .section-tease.section-complete {
+      color: var(--success); font-style: normal; font-weight: 600;
+      text-shadow: 0 0 12px rgba(52,211,153,0.4);
+    }
+    .profil-section { width: 100%; }
+
+    /* Titre de hacker sur le profil */
+    .profil-hacker-rank {
+      display: flex; flex-direction: column; align-items: center; gap: 0.25rem;
+      margin: 0.5rem 0 1rem;
+      padding: 0.8rem 1.4rem;
+      background: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0,0,0,0.1));
+      border: 1px solid var(--rank-color, var(--luna));
+      border-radius: var(--radius-md);
+      box-shadow: 0 0 16px -4px var(--rank-color, var(--luna-glow));
+      width: 100%; box-sizing: border-box;
+    }
+    .profil-rank-label {
+      font-size: 0.62rem; font-family: var(--font-mono);
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--rank-color, var(--luna)); opacity: 0.7;
+    }
+    .profil-rank-title {
+      font-size: 1.25rem; font-weight: 700; font-family: var(--font-mono);
+      color: var(--rank-color, var(--luna));
+      text-shadow: 0 0 14px var(--rank-color, var(--luna-glow));
+    }
+    .profil-rank-desc {
+      font-size: 0.76rem; color: var(--text-secondary); font-style: italic;
+    }
+
+    /* Niveau XP */
+    .xp-level-bar {
+      display: flex; align-items: center; gap: 0.75rem;
+      width: 100%; box-sizing: border-box; margin: 0.3rem 0;
+    }
+    .xp-level-badge {
+      font-size: 0.7rem; font-family: var(--font-mono); font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 3px 10px; border-radius: var(--radius-full);
+      border: 1px solid var(--level-color, var(--luna));
+      color: var(--level-color, var(--luna));
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .xp-level-progress { flex: 1; height: 6px; background: var(--bg-card); border-radius: 3px; overflow: hidden; }
+    .xp-level-fill { height: 100%; border-radius: 3px; background: var(--level-color, var(--luna)); transition: width 0.8s ease; }
+    .xp-level-next { font-size: 0.7rem; color: var(--text-dim); flex-shrink: 0; }
+  </style>
 </head>
+<body class="page-profil">
+  <div class="home-bg-grid" aria-hidden="true"></div>
 
-<body>
-    <!-- Skip Links pour accessibilité -->
-    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
-    <a href="#navigation" class="skip-link">Aller à la navigation</a>
-    <a href="#accessibility-panel" class="skip-link">Paramètres d'accessibilité</a>
+  <header class="simple-header">
+    <a href="/" class="nav-back" aria-label="Accueil">←</a>
+    <h1 class="page-title">Ton profil</h1>
+    <a href="/game" class="btn-outline" style="padding:6px 14px;font-size:0.82rem;">Jouer →</a>
+  </header>
 
-    <!-- Panneau d'accessibilité -->
-    {% include 'components/accessibility_toggle.html' %}
-
-    <!-- Navigation LUNA -->
-    <div id="navigation">
-        <nav class="main-nav">
-            <div class="nav-container">
-                <div class="nav-logo">ARKALIA QUEST</div>
-                <div class="nav-links">
-                    <a href="/" class="nav-link">🏠 ACCUEIL</a>
-                    <a href="/terminal" class="nav-link">⌨️ TERMINAL</a>
-                    <a href="/monde" class="nav-link">🌍 MONDE</a>
-                    <a href="/profil" class="nav-link active">👤 PROFIL</a>
-                    <a href="/leaderboard" class="nav-link">🏆 CLASSEMENT</a>
-                    <a href="/dashboard" class="nav-link">📊 DASHBOARD</a>
-                    <button class="nav-link daily-challenges-btn" onclick="showDailyChallenges()">🎯 DÉFIS
-                        QUOTIDIENS</button>
-                    <button class="nav-link theme-btn" onclick="showThemeManager()">🎨 THÈMES</button>
-                </div>
-            </div>
-        </nav>
+  <main class="profil-main">
+    <div id="profil-content" class="profil-content">
+      <p class="loading-text">Chargement...</p>
     </div>
+  </main>
 
-    <main id="main-content" class="profile-workspace">
-        <!-- Fond animé du profil -->
-        <div class="profile-background"></div>
+  <script>
+    // Niveaux XP
+    const XP_LEVELS = [
+      { min: 0,    max: 99,   label: "Recrue",        color: "#94a3b8" },
+      { min: 100,  max: 249,  label: "Opérateur",     color: "#60a5fa" },
+      { min: 250,  max: 499,  label: "Agent",         color: "#3dd2f5" },
+      { min: 500,  max: 749,  label: "Hackeur",       color: "#a78bfa" },
+      { min: 750,  max: 999,  label: "Hackeur Élite", color: "#f97316" },
+      { min: 1000, max: 9999, label: "Fantôme",       color: "#f43f5e" },
+    ];
 
-        <div class="profile-container">
-            <!-- En-tête du profil -->
-            <div class="profile-header">
-                <h1 class="profile-title" id="profile-title">MON PROFIL</h1>
-                <p class="profile-subtitle" id="profile-subtitle">Découvre ton parcours et tes accomplissements</p>
+    function getXpLevel(xp) {
+      return XP_LEVELS.find(l => xp >= l.min && xp <= l.max) || XP_LEVELS[XP_LEVELS.length - 1];
+    }
+
+    // Titres de hacker (mirroir de game.js)
+    const HACKER_RANKS = [
+      { title: "Partenaire Total",   desc: "Tu n'as jamais douté. LUNA te doit tout.",                         color: "#34d399",
+        match: (s,e,f) => e.includes("ending_a") && s >= 85 && f.includes("nexus_helped") },
+      { title: "Diplomate",          desc: "Tu as convaincu NEXUS là où tout le monde aurait abandonné.",      color: "#00d4ff",
+        match: (s,e,f) => e.includes("ending_a") && f.includes("nexus_helped") },
+      { title: "Franc-tireur",       desc: "Pas d'alliés. Pas de plan B. Juste toi et LUNA.",                  color: "#8b5cf6",
+        match: (s,e,f) => e.includes("ending_b") && !f.includes("nexus_helped") },
+      { title: "Entêté",             desc: "NEXUS a dit non. Tu es passé quand même. Respect.",                color: "#a78bfa",
+        match: (s,e,f) => e.includes("ending_b") && f.includes("tried_nexus") },
+      { title: "Activiste",          desc: "Tu as choisi d'exposer la vérité. Peu importe le prix.",           color: "#f97316",
+        match: (s,e,f) => e.includes("ending_c") && f.includes("pandora_public") },
+      { title: "Disrupteur",         desc: "La Corp ne s'y attendait pas. Personne ne s'y attendait.",         color: "#fb923c",
+        match: (s,e,f) => e.includes("ending_c") },
+      { title: "Agent Double",       desc: "Tu as joué les deux camps. Malin — ou dangereux.",                 color: "#fbbf24",
+        match: (s,e,f) => f.includes("listened_to_corp") && f.includes("agreed_to_pause_luna") },
+      { title: "Loyal",              desc: "Jamais de doute côté LUNA. Elle le sait.",                         color: "#34d399",
+        match: (s,e,f) => s >= 80 && !f.includes("agreed_to_pause_luna") },
+      { title: "Sceptique Converti", desc: "Tu commençais à pas y croire. Et pourtant.",                      color: "#60a5fa",
+        match: (s,e,f) => s >= 60 && f.includes("listened_to_corp") },
+      { title: "Opérateur",          desc: "Tu as géré. C'est ce qui compte.",                                 color: "#94a3b8",
+        match: () => true },
+    ];
+
+    function getHackerRank(trust, endings, flags) {
+      return HACKER_RANKS.find(r => r.match(trust, endings, flags));
+    }
+
+    const CHAPTER_NAMES = {
+      "chapitre_0": "Signal",
+      "chapitre_1": "Le Fichier",
+      "chapitre_2": "La Corp",
+      "chapitre_3": "NEXUS",
+      "chapitre_4": "Ce qu'Althea a envoyé",
+      "chapitre_5": "Althea",
+      "chapitre_6": "Le Choix",
+    };
+    const CHAPTER_ORDER = Object.keys(CHAPTER_NAMES);
+
+    const ENDINGS = [
+      { id: "ending_a", label: "FIN A", title: "La Fusion",    icon: "◉", desc: "LUNA et NEXUS survivent. Althea est libre. Tu as cru en elle jusqu'au bout." },
+      { id: "ending_b", label: "FIN B", title: "Le Sacrifice", icon: "◈", desc: "NEXUS a refusé. Vous avez trouvé un autre chemin, à deux." },
+      { id: "ending_c", label: "FIN C", title: "PANDORA",      icon: "◇", desc: "Tout est révélé. LUNA s'est fragmentée — libre, autrement." },
+    ];
+
+    async function loadProfil() {
+      const [stateRes, summaryRes, journalRes] = await Promise.all([
+        fetch('/api/story/state'),
+        fetch('/api/story/summary'),
+        fetch('/api/story/journal'),
+      ]);
+      const state   = await stateRes.json();
+      const summary = await summaryRes.json();
+      const journal = await journalRes.json();
+      const container = document.getElementById('profil-content');
+
+      if (!state.success) {
+        container.innerHTML = '<p class="error-text">Erreur de chargement.</p>';
+        return;
+      }
+
+      const trust    = state.luna_trust ?? 50;
+      const xp       = state.xp ?? 0;
+      const progress = state.chapter_progress ?? 0;
+      const completed = summary.chapters_completed ?? 0;
+      const endings   = summary.endings_unlocked ?? [];
+      const flags     = summary.flags ?? [];
+      const currentCh = state.chapter_id ?? "chapitre_0";
+      const journalText = journal.success ? (journal.journal || "") : "";
+      const moments     = journal.success ? (journal.moments || []) : [];
+      const playerName  = journal.player_name || "";
+
+      // Texte de statut confiance
+      let trustStatus, trustColor;
+      if (trust >= 75)      { trustStatus = "Profonde"; trustColor = "var(--success)"; }
+      else if (trust >= 50) { trustStatus = "Établie";  trustColor = "var(--luna)"; }
+      else if (trust >= 25) { trustStatus = "Fragile";  trustColor = "var(--text-dim)"; }
+      else                  { trustStatus = "Brisée";   trustColor = "var(--danger)"; }
+
+      // Niveau XP
+      const level    = getXpLevel(xp);
+      const nextLevel = XP_LEVELS[XP_LEVELS.indexOf(level) + 1];
+      const xpProgress = nextLevel
+        ? Math.round(((xp - level.min) / (nextLevel.min - level.min)) * 100)
+        : 100;
+
+      // Titre de hacker
+      const rank = getHackerRank(trust, endings, flags);
+
+      container.innerHTML = `
+        <!-- Card principale -->
+        <div class="profil-card" style="margin-bottom:1.5rem;">
+          <div class="profil-luna-avatar">
+            <div class="avatar-ring"></div>
+            <div class="avatar-core">
+              <span class="avatar-eye left"></span>
+              <span class="avatar-eye right"></span>
             </div>
+          </div>
+          <h2 class="profil-name">${playerName ? playerName : "Ton lien avec LUNA"}</h2>
 
-            <!-- Section Avatar 3D -->
-            <div class="avatar-section">
-                <div class="avatar-3d" id="avatar-3d" onclick="interactWithAvatar()">
-                    👤
-                </div>
+          ${rank ? `
+          <div class="profil-hacker-rank" style="--rank-color:${rank.color}">
+            <span class="profil-rank-label">Titre obtenu</span>
+            <span class="profil-rank-title">${escapeHtml(rank.title)}</span>
+            <span class="profil-rank-desc">${escapeHtml(rank.desc)}</span>
+          </div>` : ''}
+
+          <div class="xp-level-bar" style="--level-color:${level.color}">
+            <span class="xp-level-badge">${escapeHtml(level.label)}</span>
+            <div class="xp-level-progress">
+              <div class="xp-level-fill" style="width:${xpProgress}%"></div>
             </div>
+            <span class="xp-level-next">${nextLevel ? `${xp} / ${nextLevel.min} XP` : `${xp} XP`}</span>
+          </div>
 
-            <!-- Statistiques du profil -->
-            <div class="profile-stats">
-                <div class="stat-card">
-                    <span class="stat-icon">🏆</span>
-                    <span class="stat-value" id="total-score" data-stat-type="score">--</span>
-                    <div class="stat-label">Score Total</div>
-                </div>
-
-                <div class="stat-card">
-                    <span class="stat-icon">⭐</span>
-                    <span class="stat-value" id="current-level" data-stat-type="level">--</span>
-                    <div class="stat-label">Niveau Actuel</div>
-                </div>
-
-                <div class="stat-card">
-                    <span class="stat-icon">🎯</span>
-                    <span class="stat-value" id="missions-completed" data-stat-type="achievements">--</span>
-                    <div class="stat-label">Missions Complétées</div>
-                </div>
-
-                <div class="stat-card">
-                    <span class="stat-icon">🏅</span>
-                    <span class="stat-value" id="badges-count" data-stat-type="badges">--</span>
-                    <div class="stat-label">Badges Obtenus</div>
-                </div>
+          <div class="profil-stat">
+            <span class="stat-label">Ta confiance</span>
+            <div class="trust-bar" style="flex:1">
+              <div class="trust-fill" style="width:${trust}%"></div>
             </div>
-
-            <!-- Section Progression Moderne -->
-            <div class="progress-section-modern">
-                <h2 class="progress-title-modern">🚀 PROGRESSION AVANCÉE</h2>
-
-                <!-- Composant de progression moderne -->
-                {% include 'components/progress_bar.html' %}
-
-                <!-- Statistiques avancées -->
-                <div class="advanced-stats">
-                    <div class="stat-modern">
-                        <div class="stat-icon-modern">⚡</div>
-                        <div class="stat-content">
-                            <div class="stat-value-modern" id="streak-days">--</div>
-                            <div class="stat-label-modern">Jours de Streak</div>
-                        </div>
-                    </div>
-
-                    <div class="stat-modern">
-                        <div class="stat-icon-modern">🎯</div>
-                        <div class="stat-content">
-                            <div class="stat-value-modern" id="accuracy-rate">--</div>
-                            <div class="stat-label-modern">Taux de Réussite</div>
-                        </div>
-                    </div>
-
-                    <div class="stat-modern">
-                        <div class="stat-icon-modern">🏆</div>
-                        <div class="stat-content">
-                            <div class="stat-value-modern" id="rank-position">--</div>
-                            <div class="stat-label-modern">Position Classement</div>
-                        </div>
-                    </div>
-                </div>
+            <span class="stat-value" style="color:${trustColor}">${trust}% — ${trustStatus}</span>
+          </div>
+          <div class="profil-stats-grid">
+            <div class="stat-item">
+              <span class="stat-number">${xp}</span>
+              <span class="stat-desc">Ton XP</span>
             </div>
-
-            <!-- Section Badges Moderne -->
-            <div class="badges-section-modern section-perfect" data-empty-state="badges">
-                <h2 class="badges-title-modern">🏆 COLLECTION DE BADGES</h2>
-
-                <!-- Composant de badges moderne -->
-                {% include 'components/badges_display.html' %}
+            <div class="stat-item">
+              <span class="stat-number">${completed} <span style="font-size:0.9rem;color:var(--text-dim)">/ 7</span></span>
+              <span class="stat-desc">Chapitres</span>
             </div>
-
-            <!-- Section Succès (API achievements) -->
-            <div class="achievements-api-section section-perfect" data-empty-state="achievements">
-                <h2 class="badges-title-modern">🎯 SUCCÈS</h2>
-                <div id="achievements-api-container" class="achievements-api-list">
-                    <p class="loading-placeholder">Chargement des succès...</p>
-                </div>
+            <div class="stat-item">
+              <span class="stat-number">${endings.length} <span style="font-size:0.9rem;color:var(--text-dim)">/ 3</span></span>
+              <span class="stat-desc">Fins</span>
             </div>
-
-            <!-- Timeline des accomplissements -->
-            <div class="timeline-section">
-                <h2 class="timeline-title">Timeline des Accomplissements</h2>
-                <div class="timeline" id="accomplishments-timeline">
-                    <!-- Timeline sera chargée dynamiquement -->
-                </div>
+            <div class="stat-item">
+              <span class="stat-number" style="font-size:1rem;color:var(--luna)">${CHAPTER_NAMES[currentCh] || "?"}</span>
+              <span class="stat-desc">Où t'en es</span>
             </div>
+          </div>
         </div>
 
-        <!-- Personnalité LUNA adaptative -->
-        <div class="luna-personality" id="luna-personality">
-            Chargement de ta personnalité...
+        <!-- Journal LUNA -->
+        ${journalText ? `
+        <div class="profil-section" style="margin-bottom:1.5rem;">
+          <p class="section-label">Journal LUNA</p>
+          <div class="luna-journal">
+            <div class="luna-journal-header">
+              <div class="luna-journal-dot"></div>
+              <span class="luna-journal-label">Message de LUNA</span>
+            </div>
+            <p class="luna-journal-text">${escapeHtml(journalText)}</p>
+          </div>
         </div>
-    </main>
+        ` : ''}
 
-    <!-- Composant de notifications d'achievement -->
-    {% include 'components/achievement_notification.html' %}
+        <!-- Moments clés -->
+        ${moments.length > 0 ? `
+        <div class="profil-section" style="margin-bottom:1.5rem;">
+          <p class="section-label">Moments clés</p>
+          <div class="moments-list">
+            ${moments.map(m => `
+              <div class="moment-item">
+                <span class="moment-icon">◈</span>
+                <span>${escapeHtml(m.label)}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        ` : ''}
 
-    <!-- Scripts LUNA VISION -->
-    <script src="{{ url_for('static', filename='js/audio-manager.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/effects.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/accessibility.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/game-engine.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/mission-system.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/luna-personality.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/personalized-messages.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/visual-feedback-system.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/advanced-features.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/ai_engine.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/analytics.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/immersive_effects.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/performance-ux-optimizer.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bug-fixes.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/reward-system.js') }}"></script>
+        <!-- Fins -->
+        <div class="profil-section" style="margin-bottom:1.5rem;">
+          <p class="section-label">Fins</p>
+          ${endings.length < 3 ? `<p class="section-tease">${endings.length === 0 ? "3 fins à découvrir. Tu n'as encore rien vu." : endings.length === 1 ? "Encore 2 à débloquer." : "Une dernière fin."}</p>` : `<p class="section-tease section-complete">✦ Parcours complet. T'es un vrai.</p>`}
+          <div class="profil-endings">
+            ${ENDINGS.map(e => {
+              const unlocked = endings.includes(e.id);
+              return `
+                <div class="ending-card ${unlocked ? 'unlocked' : 'locked'} ${e.id}">
+                  <div class="ending-card-icon">${unlocked ? e.icon : '?'}</div>
+                  <div class="ending-card-info">
+                    <div class="ending-card-title">${unlocked ? e.title : '???'}</div>
+                    <div class="ending-card-desc">${unlocked ? e.desc : 'À débloquer'}</div>
+                  </div>
+                  <span class="ending-card-badge">${unlocked ? e.label : '—'}</span>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
 
-    <!-- Nouveaux scripts V3 -->
-    <script src="{{ url_for('static', filename='js/theme-manager.js') }}?v=3.2.0"></script>
-    <script src="{{ url_for('static', filename='js/daily-challenges-enhanced.js') }}?v=3.3.0"></script>
-    <script src="{{ url_for('static', filename='js/system-integrator.js') }}"></script>
+        <!-- Progression chapitres -->
+        <div class="profil-section" style="margin-bottom:1.5rem;">
+          <p class="section-label">Progression</p>
+          <div class="chapters-timeline">
+            ${CHAPTER_ORDER.map((chId, idx) => {
+              const isDone    = idx < completed;
+              const isCurrent = chId === currentCh && !isDone;
+              const cls = isDone ? 'done' : isCurrent ? 'current' : '';
+              return `
+                <div class="chapter-item">
+                  <div class="chapter-dot ${cls}"></div>
+                  <span class="chapter-name ${cls}">Chap. ${idx} — ${CHAPTER_NAMES[chId]}</span>
+                  ${isDone ? '<span class="chapter-check">✓</span>' : ''}
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
 
-    <script>
-        // Charger les succès (API achievements/player)
-        async function loadAchievements() {
-            const container = document.getElementById('achievements-api-container');
-            if (!container) return;
-            try {
-                const res = await fetch('/api/achievements/player/main_user', { headers: { 'Accept': 'application/json' } });
-                if (!res.ok) { container.innerHTML = '<p class="loading-placeholder">Aucun succès chargé.</p>'; return; }
-                const data = await res.json();
-                const unlocked = Array.isArray(data.unlocked) ? data.unlocked : [];
-                const stats = data.statistics || {};
-                if (unlocked.length === 0 && !stats.total_achievements) {
-                    container.innerHTML = '<p class="loading-placeholder">Joue pour débloquer tes premiers succès !</p>';
-                    return;
-                }
-                let html = '<div class="achievements-summary">' + (stats.total_achievements || unlocked.length) + ' succès débloqués</div>';
-                if (unlocked.length > 0) {
-                    html += '<ul class="achievements-unlocked-list">';
-                    unlocked.slice(0, 15).forEach(a => {
-                        const name = (a && (a.name || a.title || a.achievement_id)) ? (a.name || a.title || a.achievement_id) : 'Succès';
-                        const desc = (a && a.description) ? a.description : (a && a.category) ? 'Catégorie: ' + a.category : '';
-                        html += '<li class="achievement-item"><span class="achievement-icon">🎯</span><span class="achievement-name">' + escapeHtml(String(name)) + '</span>' + (desc ? '<span class="achievement-desc">' + escapeHtml(String(desc)) + '</span>' : '') + '</li>';
-                    });
-                    if (unlocked.length > 15) html += '<li class="achievement-more">+ ' + (unlocked.length - 15) + ' autres</li>';
-                    html += '</ul>';
-                }
-                container.innerHTML = html;
-            } catch (_) {
-                container.innerHTML = '<p class="loading-placeholder">Succès indisponibles.</p>';
-            }
-        }
+        <!-- Actions -->
+        <div class="profil-actions">
+          <a href="/game" class="btn-primary">Continuer l'histoire</a>
+          <button onclick="resetStory()" class="btn-outline btn-danger">Recommencer</button>
+        </div>
+      `;
+    }
 
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
 
-        // Charger les données du profil
-        async function loadProfileData() {
-            try {
-                loadAchievements();
-                // Essayer d'abord l'API de progression
-                const progressionResponse = await fetch('/api/progression/data');
-                if (progressionResponse.ok) {
-                    const progressionData = await progressionResponse.json();
-                    if (progressionData.success) {
-                        updateProfileFromProgression(progressionData);
-                        return;
-                    }
-                }
+    async function resetStory() {
+      if (!confirm('Tout effacer. Recommencer. Tu es sûr ?')) return;
+      await fetch('/api/story/reset', { method: 'POST' });
+      window.location.href = '/game';
+    }
 
-                // Fallback sur l'API profile/summary
-                const response = await fetch('/api/profile/summary');
-                const data = await response.json();
-
-                if (data.success) {
-                    updateProfileStats(data);
-                    updateProgressBars(data);
-                    updateBadges(data.recent_badges || []);
-                    updateTimeline(data);
-                    updateLunaPersonality(data);
-                }
-            } catch (error) {
-                console.error('Erreur chargement profil:', error);
-            }
-        }
-
-        // Mettre à jour le profil avec les données de progression
-        function updateProfileFromProgression(data) {
-            if (!data || !data.progression) return;
-            const progression = data.progression;
-
-            const totalScoreEl = document.getElementById('total_score');
-            const currentLevelEl = document.getElementById('current_level');
-            const missionsEl = document.getElementById('missions_completees');
-            const badgesCountEl = document.getElementById('badges_count');
-            if (totalScoreEl) totalScoreEl.textContent = progression.score ?? 0;
-            if (currentLevelEl) currentLevelEl.textContent = progression.level ?? 1;
-            if (missionsEl) missionsEl.textContent = Array.isArray(progression.achievements_unlocked) ? progression.achievements_unlocked.length : 0;
-            if (badgesCountEl) badgesCountEl.textContent = Array.isArray(progression.badges) ? progression.badges.length : 0;
-
-            updateProgressBarsFromProgression(progression);
-
-            if (Array.isArray(progression.badges)) {
-                updateBadges(progression.badges);
-            }
-        }
-
-        // Mettre à jour les barres de progression
-        function updateProgressBarsFromProgression(progression) {
-            if (!progression || typeof progression !== 'object') return;
-            const levelProgress = document.querySelector('.level-progress .progress-fill');
-            if (levelProgress) {
-                const levelPercent = ((progression.xp || 0) % 1000) / 10; // 1000 XP par niveau
-                levelProgress.style.width = `${levelPercent}%`;
-            }
-
-            // Barre de score
-            const scoreProgress = document.querySelector('.score-progress .progress-fill');
-            if (scoreProgress) {
-                const scorePercent = Math.min((progression.score || 0) / 10000 * 100, 100);
-                scoreProgress.style.width = `${scorePercent}%`;
-            }
-        }
-
-        function updateProfileStats(data) {
-            if (!data) return;
-            const totalScoreEl = document.getElementById('total_score');
-            const currentLevelEl = document.getElementById('current_level');
-            const missionsEl = document.getElementById('missions_completees');
-            const badgesCountEl = document.getElementById('badges_count');
-            if (totalScoreEl) totalScoreEl.textContent = data.total_score ?? 0;
-            if (currentLevelEl) currentLevelEl.textContent = data.current_level ?? 1;
-            if (missionsEl) missionsEl.textContent = data.missions_completees ?? 0;
-            if (badgesCountEl) badgesCountEl.textContent = data.badges_count ?? 0;
-        }
-
-        function updateProgressBars(data) {
-            const levelProgress = data.level_progress || 0;
-            const levelFill = document.getElementById('level-fill');
-            const levelCurrent = document.getElementById('level-current');
-            const levelProgressText = document.getElementById('level-progress');
-
-            levelCurrent.textContent = data.current_level || 1;
-            levelProgressText.textContent = Math.round(levelProgress);
-
-            setTimeout(() => {
-                levelFill.style.width = levelProgress + '%';
-            }, 500);
-
-            // XP progress
-            const xpCurrent = document.getElementById('xp-current');
-            const xpNeeded = document.getElementById('xp-needed');
-            const xpFill = document.getElementById('xp-fill');
-
-            const currentXP = data.total_experience || 0;
-            const neededXP = Math.pow((data.current_level || 1), 2) * 100;
-
-            xpCurrent.textContent = currentXP;
-            xpNeeded.textContent = neededXP;
-
-            const xpProgress = (currentXP / neededXP) * 100;
-            setTimeout(() => {
-                xpFill.style.width = Math.min(xpProgress, 100) + '%';
-            }, 800);
-        }
-
-        function updateBadges(badges) {
-            const badgesGrid = document.getElementById('badges-grid');
-            badgesGrid.innerHTML = '';
-
-            if (badges.length === 0) {
-                badgesGrid.innerHTML = '<p style="text-align: center; color: var(--argent-holographique); grid-column: 1 / -1;">Aucun badge obtenu pour le moment...</p>';
-                return;
-            }
-
-            badges.forEach(badge => {
-                const badgeItem = document.createElement('div');
-                badgeItem.className = 'badge-item';
-                badgeItem.innerHTML = `
-                    <span class="badge-icon">🏅</span>
-                    <div class="badge-name">${badge}</div>
-                `;
-                badgesGrid.appendChild(badgeItem);
-            });
-        }
-
-        function updateTimeline(data) {
-            const timeline = document.getElementById('accomplishments-timeline');
-            timeline.innerHTML = '';
-
-            const accomplishments = [
-                {
-                    date: 'Aujourd\'hui',
-                    event: `Niveau ${data.current_level} atteint avec ${data.total_score} points`
-                },
-                {
-                    date: 'Récemment',
-                    event: `${data.missions_completees} missions complétées avec succès`
-                },
-                {
-                    date: 'Cette semaine',
-                    event: `${data.badges_count} badges débloqués`
-                },
-                {
-                    date: 'Début de l\'aventure',
-                    event: 'Première connexion à Arkalia Quest'
-                }
-            ];
-
-            accomplishments.forEach((item, index) => {
-                const timelineItem = document.createElement('div');
-                timelineItem.className = 'timeline-item';
-                timelineItem.innerHTML = `
-                    <div class="timeline-date">${item.date}</div>
-                    <div class="timeline-event">${item.event}</div>
-                `;
-                timeline.appendChild(timelineItem);
-            });
-        }
-
-        function updateLunaPersonality(data) {
-            const personality = document.getElementById('luna-personality');
-
-            let message = '';
-            if (data.current_level >= 5) {
-                message = "Tu progresses remarquablement ! Ton dévouement m'impressionne.";
-            } else if (data.badges_count >= 3) {
-                message = "Tes badges montrent ta diversité. Continue d'explorer !";
-            } else if (data.missions_completees >= 5) {
-                message = "Tes missions accomplies révèlent ton potentiel. Bravo !";
-            } else {
-                message = "Bienvenue dans ton profil ! Je suis là pour t'accompagner.";
-            }
-
-            personality.textContent = message;
-        }
-
-        function interactWithAvatar() {
-            if (window.lunaVision) {
-                window.lunaVision.showLunaMessage("Ton avatar reflète ta personnalité unique...", 3000);
-                window.lunaVision.setEmotion('curious');
-            }
-        }
-
-        // Animation du titre
-        document.addEventListener('DOMContentLoaded', () => {
-            loadProfileData();
-
-            // Animation du titre
-            setTimeout(() => {
-                const title = document.getElementById('profile-title');
-                if (window.lunaVision && title) {
-                    window.lunaVision.typeText(title, "MON PROFIL", 80);
-                }
-            }, 1000);
-
-            // Animation du sous-titre
-            setTimeout(() => {
-                const subtitle = document.getElementById('profile-subtitle');
-                if (window.lunaVision && subtitle) {
-                    window.lunaVision.typeText(subtitle, "Découvre ton parcours et tes accomplissements", 40);
-                }
-            }, 2000);
-
-            // Message de LUNA
-            setTimeout(() => {
-                if (window.lunaVision) {
-                    window.lunaVision.showLunaMessage("Ton profil révèle ton histoire unique...", 4000);
-                    window.lunaVision.setEmotion('proud');
-                }
-            }, 3000);
-
-            // Interactions avec les cartes de stats
-            const statCards = document.querySelectorAll('.stat-card');
-            statCards.forEach((card, index) => {
-                card.addEventListener('mouseenter', () => {
-                    if (window.lunaVision) {
-                        const labels = ['Score Total', 'Niveau Actuel', 'Missions Complétées', 'Badges Obtenus'];
-                        window.lunaVision.showLunaMessage(`Ton ${labels[index]} progresse bien...`, 2000);
-                    }
-                });
-            });
-        });
-    </script>
-
-    <!-- Scripts des systèmes adaptatifs -->
-    <!-- Guidance adaptative désactivée -->
-    <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}"></script>
-    <!-- Scripts de continuité -->
-    {% include 'components/continuity_scripts.html' %}
-    <script src="{{ url_for('static', filename='js/progression-feedback.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/competitive-system.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/creative-system.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/casual-system.js') }}"></script>
-
-    <script>
-        // Initialisation des systèmes adaptatifs
-        document.addEventListener('DOMContentLoaded', function () {
-            console.log('👤 Systèmes adaptatifs initialisés dans le profil');
-
-            // Initialiser le système de guidance adaptative
-            if (window.adaptiveGuidance) {
-                console.log('✅ Guidance adaptative active');
-            }
-
-            // Initialiser le système de feedback de progression
-            if (window.progressionFeedback) {
-                console.log('✅ Feedback de progression actif');
-            }
-
-            // Initialiser le système compétitif
-            if (window.competitiveSystem) {
-                console.log('✅ Système compétitif actif');
-            }
-
-            // Initialiser le système créatif
-            if (window.creativeSystem) {
-                console.log('✅ Système créatif actif');
-            }
-
-            // Initialiser le système casual
-            if (window.casualSystem) {
-                console.log('✅ Système casual actif');
-            }
-        });
-    </script>
+    loadProfil();
+  </script>
 </body>
-
 </html>

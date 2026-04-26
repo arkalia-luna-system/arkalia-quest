@@ -1,74 +1,26 @@
-# Blueprint pages — routes des vues HTML (allège app.py)
-from flask import render_template, send_from_directory
+"""Routes HTML — 4 pages : accueil, jeu, profil, leaderboard."""
+
+from flask import render_template, send_from_directory, url_for
 
 
-def register_pages(app, charger_profil):
-    """Enregistre les routes des pages et assets (favicon, tests)."""
+def register_pages(app) -> None:
 
     @app.route("/favicon.ico")
     def favicon():
-        return send_from_directory(".", "favicon.ico")
-
-    @app.route("/tests/<filename>")
-    def serve_test_file(filename):
-        return send_from_directory("tests", filename)
+        return send_from_directory("static", "favicon.ico", mimetype="image/x-icon")
 
     @app.route("/")
     def index():
-        return render_template("index.html")
+        return render_template("index.html", canonical_url=url_for("index", _external=True))
 
-    @app.route("/tutorial")
-    def tutorial():
-        return render_template("tutorial_welcome.html")
-
-    @app.route("/terminal")
-    def terminal():
-        return render_template("terminal.html")
-
-    @app.route("/monde")
-    def monde():
-        profil = charger_profil()
-        return render_template("monde.html", profil=profil)
+    @app.route("/game")
+    def game():
+        return render_template("game.html", canonical_url=url_for("game", _external=True))
 
     @app.route("/profil")
     def profil():
-        profil = charger_profil()
-        return render_template("profil.html", profil=profil)
-
-    @app.route("/dashboard")
-    def dashboard():
-        profil = charger_profil()
-        return render_template("dashboard.html", profil=profil)
-
-    @app.route("/explorateur")
-    def explorateur():
-        profil = charger_profil()
-        return render_template("explorateur.html", profil=profil)
-
-    @app.route("/mail")
-    def mail():
-        profil = charger_profil()
-        return render_template("mail.html", profil=profil)
-
-    @app.route("/audio")
-    def audio():
-        profil = charger_profil()
-        return render_template("audio.html", profil=profil)
-
-    @app.route("/accessibility")
-    def accessibility():
-        profil = charger_profil()
-        return render_template("accessibility_panel.html", profil=profil)
+        return render_template("profil.html")
 
     @app.route("/leaderboard")
-    def leaderboard_page():
+    def leaderboard():
         return render_template("leaderboard.html")
-
-    @app.route("/skill-tree")
-    def skill_tree_page():
-        return render_template("skill_tree.html")
-
-    @app.route("/technical-tutorials")
-    def technical_tutorials_page():
-        profil = charger_profil()
-        return render_template("technical_tutorials.html", profil=profil)

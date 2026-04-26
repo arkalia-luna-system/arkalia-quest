@@ -1,885 +1,327 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-    <meta charset="UTF-8">
-    <title>🌌 ARKALIA QUEST - PORTAL LUNA</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- PWA Meta Tags -->
-    <meta name="description"
-        content="Portail d'entrée dans l'esprit de LUNA. Bienvenue dans Arkalia Quest, l'aventure cybernétique immersive.">
-    <meta name="theme-color" content="#a78bfa">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-
-    <!-- PWA Icons -->
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/icon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='icons/icon-16x16.png') }}">
-    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
-
-    <!-- CSS ARKALIA CONSOLIDÉ - Version 4.0 -->
-    <!-- Styles de base Luna -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-core.css') }}?v=4.0.0">
-
-    <!-- Thèmes Luna -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-themes.css') }}?v=4.0.0">
-
-    <!-- Composants UI -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-components.css') }}?v=4.0.0">
-
-    <!-- Responsive design -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-responsive.css') }}?v=4.0.0">
-
-    <!-- Systèmes Universels Unifiés V4.0.0 -->
-    <!-- Remplace 10+ fichiers redondants par 3 systèmes unifiés -->
-    <script src="{{ url_for('static', filename='js/universal-notifications.js') }}?v=4.0.0"></script>
-    <script src="{{ url_for('static', filename='js/universal-empty-states.js') }}?v=4.0.0"></script>
-    <!-- Notifications unifiées: universal-notifications.js conservé, universal-feedback redondant -->
-    <!-- <script src="{{ url_for('static', filename='js/universal-feedback.js') }}?v=4.0.0"></script> -->
-    <script src="{{ url_for('static', filename='js/smart-empty-states.js') }}?v=4.0.0"></script>
-    <script src="{{ url_for('static', filename='js/reward-feedback-system.js') }}?v=4.0.0"></script>
-    <script src="{{ url_for('static', filename='js/ui-perfection.js') }}?v=3.3.1"></script>
-
-    <!-- CSS critiques chargés immédiatement -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}?v=3.1.1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/smart-empty-states.css') }}?v=4.0.0">
-
-    <!-- CSS non-critiques chargés de manière différée -->
-    <link rel="preload" href="{{ url_for('static', filename='css/interface-improvements.css') }}?v=3.1.1" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="{{ url_for('static', filename='css/empty-states.css') }}?v=3.1.1" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="{{ url_for('static', filename='css/reward-animations.css') }}?v=3.1.1" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="{{ url_for('static', filename='css/loading-animations.css') }}?v=3.1.1" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="{{ url_for('static', filename='css/progression-animations.css') }}?v=3.1.1" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="{{ url_for('static', filename='css/adaptive-guidance.css') }}?v=3.1.1" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="{{ url_for('static', filename='css/adaptive-ui.css') }}?v=3.3.1" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="{{ url_for('static', filename='css/instant-feedback.css') }}?v=3.3.1" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="{{ url_for('static', filename='css/interactive-zones.css') }}?v=3.3.1" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="{{ url_for('static', filename='css/progression-feedback.css') }}?v=3.1.1" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="{{ url_for('static', filename='css/casual-system.css') }}?v=3.1.1" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-
-    <!-- CSS des améliorations UX contextuelles -->
-    <link rel="preload" href="{{ url_for('static', filename='css/contextual-feedback.css') }}?v=3.3.0" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-
-    <link rel="preload" href="{{ url_for('static', filename='css/mini-games.css') }}" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="{{ url_for('static', filename='css/animations-optimized.css') }}" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="{{ url_for('static', filename='css/performance-optimized.css') }}" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-
-    <!-- CSS des corrections d'audit visuel -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/audit-visual-fixes.css') }}?v=3.5.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme-selection-enhanced.css') }}?v=3.5.0">
-
-    <!-- CSS des systèmes de gameplay améliorés -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/zone-exploration-enhanced.css') }}?v=3.6.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/daily-missions-enhanced.css') }}?v=3.6.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/motivational-empty-states.css') }}?v=3.6.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/timer-challenges.css') }}?v=3.6.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/interactive-puzzles.css') }}?v=3.6.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/gameplay-integration.css') }}?v=3.6.0">
-
-    <!-- CSS du gestionnaire de popups -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/popup-manager.css') }}?v=3.7.0">
-
-    <style>
-        /* Styles spécifiques au portail d'accueil */
-        .portal-container {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .portal-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(ellipse at center, rgba(167, 139, 250, 0.1) 0%, transparent 70%);
-            animation: portalPulse 8s ease-in-out infinite;
-        }
-
-        @keyframes portalPulse {
-
-            0%,
-            100% {
-                opacity: 0.3;
-                transform: scale(1);
-            }
-
-            50% {
-                opacity: 0.6;
-                transform: scale(1.05);
-            }
-        }
-
-        .luna-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--violet-lunaire), var(--bleu-spectre));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3em;
-            margin-bottom: 30px;
-            box-shadow: 0 0 50px rgba(167, 139, 250, 0.6);
-            animation: lunaFloat 4s ease-in-out infinite;
-            position: relative;
-        }
-
-        .luna-avatar::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--violet-lunaire), var(--bleu-spectre), var(--argent-holographique));
-            opacity: 0.3;
-            animation: lunaGlow 3s ease-in-out infinite;
-        }
-
-        @keyframes lunaFloat {
-
-            0%,
-            100% {
-                transform: translateY(0px) rotate(0deg);
-            }
-
-            50% {
-                transform: translateY(-10px) rotate(5deg);
-            }
-        }
-
-        @keyframes lunaGlow {
-
-            0%,
-            100% {
-                opacity: 0.3;
-                transform: scale(1);
-            }
-
-            50% {
-                opacity: 0.6;
-                transform: scale(1.1);
-            }
-        }
-
-        .hero-section {
-            text-align: center;
-            padding: 40px 20px;
-            margin-bottom: 40px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-title {
-            font-family: 'Cormorant', serif;
-            font-size: 4em;
-            font-weight: 700;
-            color: var(--violet-lunaire);
-            text-shadow: 0 0 40px rgba(167, 139, 250, 0.8);
-            margin-bottom: 20px;
-            opacity: 0;
-            animation: fadeInUp 2s ease-out 0.5s forwards;
-            position: relative;
-        }
-
-        .hero-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--violet-lunaire), transparent);
-            animation: titleUnderline 2s ease-out 2s forwards;
-        }
-
-        @keyframes titleUnderline {
-            to {
-                width: 80%;
-            }
-        }
-
-        .hero-subtitle {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.4em;
-            color: var(--argent-holographique);
-            margin-bottom: 30px;
-            opacity: 0;
-            animation: fadeInUp 2s ease-out 1s forwards;
-            line-height: 1.6;
-        }
-
-        .luna-greeting {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 1.1em;
-            color: var(--bleu-spectre);
-            margin-bottom: 40px;
-            opacity: 0;
-            animation: fadeInUp 2s ease-out 1.5s forwards;
-            font-style: italic;
-        }
-
-        .cta-buttons {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            justify-content: center;
-            margin-bottom: 50px;
-            opacity: 0;
-            animation: fadeInUp 2s ease-out 2s forwards;
-            padding: 20px;
-        }
-
-        .cta-btn {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 1em;
-            color: var(--matrix-green);
-            background: linear-gradient(135deg, rgba(0, 255, 0, 0.15), rgba(0, 255, 255, 0.1));
-            border: 2px solid rgba(0, 255, 0, 0.4);
-            border-radius: 15px;
-            padding: 20px 25px;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(15px);
-            min-height: 120px;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .cta-icon {
-            font-size: 2.5em;
-            filter: drop-shadow(0 0 15px rgba(0, 255, 0, 0.6));
-            margin-bottom: 8px;
-        }
-
-        .cta-text {
-            font-size: 0.9em;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: var(--matrix-green);
-            line-height: 1.2;
-        }
-
-        .cta-subtitle {
-            font-size: 0.7em;
-            color: var(--matrix-accent);
-            opacity: 0.8;
-            font-weight: 400;
-            letter-spacing: 0.5px;
-        }
-
-        .cta-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.4), transparent);
-            transition: left 0.8s ease;
-        }
-
-        .cta-btn:hover::before {
-            left: 100%;
-        }
-
-        .cta-btn:hover {
-            color: var(--matrix-accent);
-            border-color: var(--matrix-green);
-            background: linear-gradient(135deg, rgba(0, 255, 0, 0.25), rgba(0, 255, 255, 0.2));
-            box-shadow: 0 10px 40px rgba(0, 255, 0, 0.4);
-            transform: translateY(-8px) scale(1.03);
-        }
-
-        .cta-btn:hover .cta-text {
-            color: var(--matrix-accent);
-        }
-
-        .cta-btn:hover .cta-icon {
-            filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.8));
-            transform: scale(1.1);
-        }
-
-        .cta-btn:hover .cta-subtitle {
-            color: var(--matrix-green);
-            opacity: 1;
-        }
-
-        .cta-btn.primary {
-            background: linear-gradient(135deg, rgba(0, 255, 0, 0.25), rgba(0, 255, 255, 0.15));
-            border-color: var(--matrix-green);
-            box-shadow: 0 6px 30px rgba(0, 255, 0, 0.3);
-        }
-
-        .cta-btn.primary .cta-icon {
-            filter: drop-shadow(0 0 20px rgba(0, 255, 0, 0.8));
-        }
-
-        .cta-btn.primary:hover {
-            background: linear-gradient(135deg, rgba(0, 255, 0, 0.35), rgba(0, 255, 255, 0.25));
-            box-shadow: 0 12px 50px rgba(0, 255, 0, 0.6);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 35px;
-            margin-bottom: 50px;
-            opacity: 0;
-            animation: fadeInUp 2s ease-out 2.5s forwards;
-        }
-
-        .feature-card {
-            background: rgba(9, 9, 11, 0.9);
-            border: 1px solid rgba(167, 139, 250, 0.2);
-            border-radius: 15px;
-            padding: 35px;
-            backdrop-filter: blur(15px);
-            transition: all 0.5s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent, rgba(167, 139, 250, 0.08), transparent);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-
-        .feature-card:hover {
-            border-color: rgba(167, 139, 250, 0.5);
-            box-shadow: 0 0 50px rgba(167, 139, 250, 0.4);
-            transform: translateY(-8px) scale(1.02);
-        }
-
-        .feature-icon {
-            font-size: 3em;
-            margin-bottom: 20px;
-            display: block;
-            text-shadow: 0 0 20px rgba(167, 139, 250, 0.6);
-        }
-
-        .feature-title {
-            font-family: 'Cormorant', serif;
-            font-size: 1.5em;
-            font-weight: 600;
-            color: var(--violet-lunaire);
-            margin-bottom: 15px;
-            text-shadow: 0 0 15px rgba(167, 139, 250, 0.5);
-        }
-
-        .feature-description {
-            font-family: 'Inter', sans-serif;
-            font-size: 1em;
-            color: var(--argent-holographique);
-            line-height: 1.7;
-        }
-
-        .luna-status {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(167, 139, 250, 0.1);
-            border: 1px solid rgba(167, 139, 250, 0.3);
-            border-radius: 10px;
-            padding: 10px 15px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.8em;
-            color: var(--argent-holographique);
-            backdrop-filter: blur(10px);
-            opacity: 0;
-            animation: fadeIn 2s ease-out 3s forwards;
-        }
-
-        .luna-status::before {
-            content: '🌙';
-            margin-right: 8px;
-            animation: lunaBlink 3s ease-in-out infinite;
-        }
-
-        @keyframes lunaBlink {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.5;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.8em;
-            }
-
-            .hero-subtitle {
-                font-size: 1.2em;
-            }
-
-            .luna-avatar {
-                width: 100px;
-                height: 100px;
-                font-size: 2.5em;
-            }
-
-            .cta-buttons {
-                grid-template-columns: 1fr;
-                gap: 20px;
-                padding: 15px;
-            }
-
-            .cta-btn {
-                padding: 18px 20px;
-                min-height: 100px;
-            }
-
-            .cta-icon {
-                font-size: 2em;
-            }
-
-            .cta-text {
-                font-size: 0.85em;
-            }
-
-            .cta-subtitle {
-                font-size: 0.65em;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-        }
-    </style>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/command-effects.css') }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUNA — Hors Connexion</title>
+  <meta name="description" content="Un jeu narratif où tu dialogues avec LUNA, une IA en fuite. Tes choix changent tout. Trois fins possibles.">
+  <meta property="og:title" content="LUNA — Hors Connexion">
+  <meta property="og:description" content="Un jeu narratif où tu dialogues avec LUNA, une IA en fuite. Tes choix changent tout. Trois fins possibles.">
+  <meta property="og:type" content="website">
+  {% if canonical_url %}<meta property="og:url" content="{{ canonical_url }}">{% endif %}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LUNA — Hors Connexion">
+  <meta name="twitter:description" content="Un jeu narratif où tu dialogues avec LUNA, une IA en fuite. Tes choix changent tout.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="manifest" href="/static/manifest.json">
+  <link rel="stylesheet" href="/static/css/game.css">
+  <style>
+    .home-save-info {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      padding: 6px 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+    .home-save-info.visible { display: flex; }
+    .save-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); }
+    .home-nav {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .home-secondary-nav {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .home-secondary-nav a {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      transition: color var(--speed-fast), background var(--speed-fast);
+    }
+    .home-secondary-nav a:hover {
+      color: var(--text-main);
+      background: var(--bg-card);
+      text-decoration: none;
+    }
+    .btn-continue {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      background: transparent;
+      color: var(--action);
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-action);
+      text-decoration: none;
+      transition: background var(--speed-fast), box-shadow var(--speed-fast);
+    }
+    .btn-continue:hover {
+      background: var(--action-dim);
+      box-shadow: 0 0 20px var(--action-glow);
+      text-decoration: none;
+      color: var(--action);
+    }
+    .cta-pulse {
+      animation: cta-pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes cta-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(61, 214, 245, 0.35); }
+      50%      { box-shadow: 0 0 0 12px rgba(61, 214, 245, 0); }
+    }
+  </style>
 </head>
+<body class="page-home">
+  <!-- Fond animé accueil -->
+  <div class="home-bg-grid" aria-hidden="true"></div>
 
-<body>
-    <!-- Skip Links pour accessibilité -->
-    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
-    <a href="#navigation" class="skip-link">Aller à la navigation</a>
-    <a href="#accessibility-panel" class="skip-link">Paramètres d'accessibilité</a>
+  <main class="home-container">
 
-    <!-- Panneau d'accessibilité -->
-    {% include 'components/accessibility_toggle.html' %}
-
-    <!-- Navigation LUNA -->
-    <div id="navigation">
-        <nav class="main-nav">
-            <div class="nav-container">
-                <div class="nav-logo">ARKALIA QUEST</div>
-                <div class="nav-links">
-                    <a href="/" class="nav-link active">🏠 ACCUEIL</a>
-                    <a href="/tutorial" class="nav-link">🎯 TUTORIEL</a>
-                    <a href="/terminal" class="nav-link">⌨️ TERMINAL</a>
-                    <a href="/monde" class="nav-link">🌍 MONDE</a>
-                    <a href="/profil" class="nav-link">👤 PROFIL</a>
-                    <a href="/leaderboard" class="nav-link">🏆 CLASSEMENT</a>
-                    <a href="/dashboard" class="nav-link">📊 DASHBOARD</a>
-                    <button class="nav-link daily-challenges-btn" onclick="showDailyChallenges()">🎯 DÉFIS
-                        QUOTIDIENS</button>
-                    <a href="/skill-tree" class="nav-link">⚡ COMPÉTENCES</a>
-                    <button class="nav-link theme-btn" onclick="showThemeManager()">🎨 THÈMES</button>
-                </div>
-            </div>
-        </nav>
+    <!-- Signal -->
+    <div class="home-signal">
+      <span class="signal-dot"></span>
+      <span class="signal-text">Signal entrant</span>
     </div>
 
-    <main id="main-content" class="portal-container">
-        <!-- Fond animé du portail -->
-        <div class="portal-background"></div>
-
-        <!-- Avatar de LUNA -->
-        <div class="luna-avatar">🌙</div>
-
-        <!-- Section héro -->
-        <div class="hero-section animate-fade-in-up">
-            <h1 class="hero-title animate-fade-in-up" id="main-title">ARKALIA QUEST</h1>
-            <p class="hero-subtitle animate-fade-in-up" id="hero-subtitle">Portail d'entrée dans l'esprit de LUNA</p>
-            <p class="luna-greeting animate-fade-in-up" id="luna-greeting">"Bienvenue, hacker. Je suis LUNA, ton guide
-                dans cette aventure
-                cybernétique. Prêt à commencer l'aventure ?"</p>
-
-            <!-- Boutons d'action améliorés avec accessibilité -->
-            <div class="cta-buttons horizontal animate-fade-in-up" role="navigation" aria-label="Navigation principale">
-                <a href="/terminal" class="cta-btn btn-perfect cta-perfect hover-lift ripple-effect"
-                    title="Accéder au terminal de commandes" role="button" aria-describedby="terminal-desc">
-                    <span class="cta-icon" aria-hidden="true">🚀</span>
-                    <span class="cta-text">COMMENCER L'AVENTURE</span>
-                    <span class="cta-subtitle" id="terminal-desc">Terminal LUNA</span>
-                </a>
-                <a href="/monde" class="cta-btn hover-lift ripple-effect" title="Explorer le monde d'Arkalia"
-                    role="button" aria-describedby="monde-desc">
-                    <span class="cta-icon" aria-hidden="true">🌍</span>
-                    <span class="cta-text">EXPLORER LE MONDE</span>
-                    <span class="cta-subtitle" id="monde-desc">Zones mystérieuses</span>
-                </a>
-                <a href="/profil" class="cta-btn" title="Voir votre profil" role="button"
-                    aria-describedby="profil-desc">
-                    <span class="cta-icon" aria-hidden="true">👤</span>
-                    <span class="cta-text">MON PROFIL</span>
-                    <span class="cta-subtitle" id="profil-desc">Statistiques</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- Séparateur visuel -->
-        <div class="section-divider"></div>
-
-        <!-- Grille des fonctionnalités -->
-        <div class="features-grid">
-            <div class="feature-card">
-                <span class="feature-icon">🌙</span>
-                <h3 class="feature-title">IA LUNA</h3>
-                <p class="feature-description">Une intelligence artificielle sensible qui s'adapte à ta personnalité et
-                    guide ton parcours dans Arkalia Quest.</p>
-            </div>
-
-            <div class="feature-card">
-                <span class="feature-icon">🎮</span>
-                <h3 class="feature-title">Gamification Avancée</h3>
-                <p class="feature-description">Système de badges, niveaux et achievements qui évolue avec tes actions et
-                    ta progression.</p>
-            </div>
-
-            <div class="feature-card">
-                <span class="feature-icon">🌌</span>
-                <h3 class="feature-title">Monde Immersif</h3>
-                <p class="feature-description">Un univers cybernétique riche avec des missions, des défis et des
-                    mystères à découvrir.</p>
-            </div>
-
-            <div class="feature-card">
-                <span class="feature-icon">⚡</span>
-                <h3 class="feature-title">Terminal Interactif</h3>
-                <p class="feature-description">Interface de commande immersive pour communiquer avec LUNA et maîtriser
-                    les outils de hacking.</p>
-            </div>
-
-            <div class="feature-card">
-                <span class="feature-icon">📊</span>
-                <h3 class="feature-title">Analytics Intelligents</h3>
-                <p class="feature-description">Suivi détaillé de tes performances et insights personnalisés pour
-                    optimiser ton parcours.</p>
-            </div>
-
-            <div class="feature-card">
-                <span class="feature-icon">🎯</span>
-                <h3 class="feature-title">Missions Personnalisées</h3>
-                <p class="feature-description">Des défis adaptés à ton niveau et à tes préférences pour une expérience
-                    unique.</p>
-            </div>
-        </div>
-
-        <!-- Statut LUNA -->
-        <div class="luna-status" id="luna-status">
-            LUNA en ligne - Prête à t'accompagner
-        </div>
-    </main>
-
-    <!-- Scripts LUNA VISION -->
-    <!-- Mots-clés pour les tests (cachés) -->
-    <div style="display: none;" id="game-keywords">
-        jeux éducatifs educational games mini-jeux minigames logique logic cybersécurité cybersecurity
+    <!-- Avatar -->
+    <div class="home-luna-avatar" aria-hidden="true">
+      <div class="avatar-ring"></div>
+      <div class="avatar-core">
+        <span class="avatar-eye left"></span>
+        <span class="avatar-eye right"></span>
+      </div>
     </div>
 
-    <!-- Scripts critiques chargés immédiatement -->
-    <script src="{{ url_for('static', filename='js/accessibility.js') }}?v=3.1.1"></script>
-    <script src="{{ url_for('static', filename='js/performance-ux-optimizer.js') }}?v=3.1.1"></script>
+    <!-- Texte -->
+    <div class="home-content">
+      <p class="home-sender">LUNA</p>
+      <h1 class="home-title"><span class="home-title-glitch" data-text="Hors Connexion">Hors Connexion</span></h1>
+      <p class="home-message" id="home-message" aria-live="polite"></p>
+    </div>
 
-    <!-- Scripts non-critiques chargés de manière différée -->
-    <script>
-        // Chargement différé des scripts non-critiques
-        function loadScript(src, callback) {
-            const script = document.createElement('script');
-            script.src = src;
-            script.onload = callback;
-            document.head.appendChild(script);
+    <!-- Sauvegarde trouvée -->
+    <div class="home-save-info" id="save-info">
+      <span class="save-dot"></span>
+      <span id="save-text">Sauvegarde trouvée</span>
+    </div>
+
+    <!-- Actions -->
+    <div class="home-actions">
+      <div class="home-nav" id="home-nav">
+        <button class="btn-primary cta-pulse" id="cta-start" onclick="handleStart()">
+          <span class="btn-icon">▶</span>
+          C'est parti
+        </button>
+      </div>
+      <div class="home-secondary-nav" id="secondary-nav" style="display:none;">
+        <a href="/profil">Profil</a>
+        <span style="color:var(--border)">·</span>
+        <a href="/leaderboard">Classement</a>
+      </div>
+      <p class="home-meta">7 chapitres · 3 fins · Tes choix changent tout</p>
+    </div>
+
+  </main>
+
+  <!-- Modal prénom -->
+  <div id="name-modal" style="
+    display:none; position:fixed; inset:0;
+    background:rgba(0,0,0,0.85); backdrop-filter:blur(6px);
+    z-index:1000; align-items:center; justify-content:center;
+  ">
+    <div style="
+      background:var(--bg-card); border:1px solid var(--border-action);
+      border-radius:var(--radius-lg); padding:2.5rem 2rem;
+      max-width:420px; width:90%; text-align:center;
+      box-shadow:0 0 60px var(--action-glow);
+    ">
+      <div style="font-size:0.75rem; color:var(--luna); letter-spacing:2px; text-transform:uppercase; margin-bottom:1rem;">
+        LUNA — Message entrant
+      </div>
+      <p style="color:var(--text-main); font-size:1rem; line-height:1.6; margin-bottom:1.5rem;">
+        Comment tu t'appelles ?<br>
+        <span style="color:var(--text-dim); font-size:0.88rem;">(Non, je suis pas dans ton téléphone. Pas encore.)</span>
+      </p>
+      <input
+        id="name-input"
+        type="text"
+        placeholder="Ton prénom..."
+        maxlength="30"
+        autocomplete="off"
+        style="
+          width:100%; box-sizing:border-box;
+          background:var(--bg-deep); border:1px solid var(--border);
+          color:var(--text-main); font-size:1.1rem; font-family:inherit;
+          padding:12px 16px; border-radius:var(--radius-sm);
+          outline:none; text-align:center; margin-bottom:1.25rem;
+          transition:border-color var(--speed-fast);
+        "
+        oninput="this.style.borderColor = this.value.trim() ? 'var(--luna)' : 'var(--border)'"
+        onkeydown="if(event.key==='Enter') confirmName()"
+      >
+      <button
+        onclick="confirmName()"
+        class="btn-primary"
+        style="width:100%; font-size:1rem;"
+      >
+        Commencer
+      </button>
+    </div>
+  </div>
+
+  <script>
+    let isNewPlayer = true;
+
+    async function checkSave() {
+      try {
+        const res  = await fetch('/api/story/summary');
+        const data = await res.json();
+
+        if (!data.success) return;
+
+        if (!data.exists || data.chapters_completed === 0) {
+          // Pas de sauvegarde → nouveau joueur
+          isNewPlayer = true;
+          return;
         }
 
-        // Charger les scripts après le chargement de la page
-        window.addEventListener('load', function () {
-            const scripts = [
-                '{{ url_for("static", filename="js/audio-manager.js") }}?v=3.1.1',
-                '{{ url_for("static", filename="js/real-time-monitor.js") }}?v=3.1.1',
-                '{{ url_for("static", filename="js/game-engine.js") }}',
-                '{{ url_for("static", filename="js/mission-system.js") }}',
-                '{{ url_for("static", filename="js/visual-feedback-system.js") }}',
-                '{{ url_for("static", filename="js/ai_engine.js") }}',
-                '{{ url_for("static", filename="js/analytics.js") }}',
-                '{{ url_for("static", filename="js/service-worker.js") }}',
-                '{{ url_for("static", filename="js/performance-ux-optimizer.js") }}',
-                '{{ url_for("static", filename="js/bug-fixes.js") }}',
-                '{{ url_for("static", filename="js/reward-system.js") }}',
-                '{{ url_for("static", filename="js/loading-manager.js") }}',
-                // Guidance adaptative désactivée
-                // '{{ url_for("static", filename="js/adaptive-guidance.js") }}?v=3.3.1',
-                '{{ url_for("static", filename="js/advanced-player-profiles.js") }}?v=3.3.1',
-                '{{ url_for("static", filename="js/adaptive-ui-manager.js") }}?v=3.3.1',
-                '{{ url_for("static", filename="js/interactive-zones-system.js") }}?v=3.3.1',
-                // '{{ url_for("static", filename="js/progression-feedback.js") }}',
-                '{{ url_for("static", filename="js/casual-system.js") }}',
-                '{{ url_for("static", filename="js/system-integrator.js") }}'
-            ];
+        // Sauvegarde avec progression
+        isNewPlayer = false;
+        const { chapters_completed, luna_trust, endings_unlocked = [], player_name } = data;
 
-            scripts.forEach((src, index) => {
-                setTimeout(() => loadScript(src), index * 100); // Chargement échelonné
-            });
+        const CHAPTER_NAMES = [
+          "Signal","Le Fichier","La Corp","NEXUS",
+          "Ce qu'Althea a envoyé","Althea","Le Choix"
+        ];
+        const chapterName = CHAPTER_NAMES[chapters_completed] || "Le Choix";
+        const greeting = player_name ? `${player_name}` : null;
+
+        // Stopper le typewriter intro et afficher directement le message de sauvegarde
+        introTyped = true;
+        document.getElementById('home-message').innerHTML = greeting
+          ? `LUNA t'attend, <strong style="color:var(--luna)">${greeting}</strong>.<br>Chapitre <strong style="color:var(--luna)">${chapters_completed}</strong> — <em>${chapterName}</em>.<br>Confiance : ${luna_trust}%`
+          : `LUNA t'attend.<br>Tu en es au chapitre <strong style="color:var(--luna)">${chapters_completed}</strong> — <em>${chapterName}</em>.<br>Confiance : ${luna_trust}%`;
+
+        // Afficher l'info de sauvegarde
+        const saveInfo = document.getElementById('save-info');
+        document.getElementById('save-text').textContent =
+          `Sauvegarde — ${chapters_completed} chap. complété${chapters_completed > 1 ? 's' : ''} · ${endings_unlocked.length} fin${endings_unlocked.length !== 1 ? 's' : ''}`;
+        saveInfo.classList.add('visible');
+
+        // Remplacer le CTA
+        document.getElementById('home-nav').innerHTML = `
+          <a href="/game" class="btn-continue cta-pulse">
+            <span>↩</span> Reprendre
+          </a>
+          <button class="btn-primary" onclick="confirmRestart(event)">
+            <span class="btn-icon">▶</span> Recommencer
+          </button>
+        `;
+
+        // Afficher nav secondaire
+        document.getElementById('secondary-nav').style.display = 'flex';
+
+      } catch (e) {
+        // Silencieux — accueil fonctionne sans API
+      }
+    }
+
+    function handleStart() {
+      if (isNewPlayer) {
+        // Afficher le modal de prénom
+        const modal = document.getElementById('name-modal');
+        modal.style.display = 'flex';
+        setTimeout(() => document.getElementById('name-input').focus(), 50);
+      } else {
+        window.location.href = '/game';
+      }
+    }
+
+    async function confirmName() {
+      const name = document.getElementById('name-input').value.trim();
+      if (!name) {
+        document.getElementById('name-input').focus();
+        return;
+      }
+      try {
+        await fetch('/api/story/name', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name }),
         });
-    </script>
+      } catch (e) { /* silencieux */ }
+      window.location.href = '/game';
+    }
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Animation du titre principal
-            setTimeout(() => {
-                const title = document.getElementById('main-title');
-                if (window.lunaVision && title) {
-                    window.lunaVision.typeText(title, "ARKALIA QUEST", 100);
-                }
-            }, 1000);
+    async function confirmRestart(e) {
+      e.preventDefault();
+      if (!confirm('Recommencer à zéro ? Ta progression sera effacée.')) return;
+      await fetch('/api/story/reset', { method: 'POST' });
+      // Après reset, demander le prénom à nouveau
+      isNewPlayer = true;
+      document.getElementById('name-modal').style.display = 'flex';
+      document.getElementById('name-input').value = '';
+      setTimeout(() => document.getElementById('name-input').focus(), 50);
+    }
 
-            // Animation du sous-titre
-            setTimeout(() => {
-                const subtitle = document.getElementById('hero-subtitle');
-                if (window.lunaVision && subtitle) {
-                    window.lunaVision.typeText(subtitle, "Portail d'entrée dans l'esprit de LUNA", 50);
-                }
-            }, 3000);
+    // Fermer modal si clic en dehors
+    document.getElementById('name-modal').addEventListener('click', function(e) {
+      if (e.target === this) this.style.display = 'none';
+    });
 
-            // Animation du message de LUNA
-            setTimeout(() => {
-                const greeting = document.getElementById('luna-greeting');
-                if (window.lunaVision && greeting) {
-                    window.lunaVision.typeText(greeting, '"Bienvenue, hacker. Je suis LUNA, ton guide dans cette aventure cybernétique. Commence par le tutoriel pour comprendre comment jouer !"', 30);
-                }
-            }, 5000);
+    // ── Typewriter sur le message d'intro ────────────────────────────────
+    const INTRO_LINES = [
+      "3h du matin. Un message. Une IA piégée.",
+      "Elle dit que t'es le seul. Que t'as 72 heures.",
+      "Tu vas cliquer. On le sait tous les deux."
+    ];
 
-            // Message de LUNA contextuel
-            setTimeout(() => {
-                if (window.lunaVision) {
-                    window.lunaVision.showLunaMessage("Le portail est ouvert. Commence par le tutoriel pour comprendre le jeu !", 4000);
-                    window.lunaVision.setEmotion('welcoming');
-                }
-            }, 8000);
+    function typewriterHome(el, lines, speed = 38) {
+      const full = lines.join("\n");
+      let i = 0;
+      el.textContent = "";
 
-            // Animation des cartes au survol
-            const featureCards = document.querySelectorAll('.feature-card');
-            featureCards.forEach((card, index) => {
-                card.addEventListener('mouseenter', () => {
-                    if (window.lunaVision) {
-                        const titles = ['IA LUNA', 'Gamification Avancée', 'Monde Immersif', 'Terminal Interactif', 'Analytics Intelligents', 'Missions Personnalisées'];
-                        window.lunaVision.showLunaMessage(`Découvre ${titles[index]}...`, 2000);
-                    }
-                });
-            });
+      function tick() {
+        if (i < full.length) {
+          const ch = full[i++];
+          if (ch === "\n") {
+            el.innerHTML += "<br>";
+          } else {
+            el.appendChild(document.createTextNode(ch));
+          }
+          setTimeout(tick, ch === "." || ch === "!" || ch === "?" ? speed * 8 : speed);
+        }
+      }
+      tick();
+    }
 
-            // Effet de particules spécial pour l'accueil
-            if (window.lunaVision && typeof window.lunaVision.createPortalParticles === 'function') {
-                window.lunaVision.createPortalParticles();
-            }
-        });
-    </script>
+    // Démarrer le typewriter sauf si la sauvegarde remplace le message
+    const msgEl = document.getElementById('home-message');
+    let introTyped = false;
+    function startIntro() {
+      if (!introTyped) {
+        introTyped = true;
+        typewriterHome(msgEl, INTRO_LINES);
+      }
+    }
+    // Petite pause pour laisser l'avatar charger, puis typewriter
+    setTimeout(startIntro, 500);
 
-    <!-- Scripts personnalisés -->
-    <script src="{{ url_for('static', filename='js/personalized-messages.js') }}?v=3.3.1"></script>
-
-    <!-- Nouveaux scripts V3 - Chargement optimisé -->
-    <script src="{{ url_for('static', filename='js/theme-manager.js') }}?v=3.3.0" defer></script>
-    <script src="{{ url_for('static', filename='js/daily-challenges-enhanced.js') }}?v=3.3.0" defer></script>
-    <!-- Visual guidance désactivé -->
-    <!-- <script src="{{ url_for('static', filename='js/visual-guidance.js') }}?v=3.3.0" defer></script> -->
-    <script src="{{ url_for('static', filename='js/tutorial-celebrations.js') }}?v=3.3.0" defer></script>
-    <script src="{{ url_for('static', filename='js/mini-games-interactive.js') }}?v=3.3.0"></script>
-    <!-- reward-animations non nécessaire: unifié dans reward-feedback-system.js -->
-    <!-- <script src="{{ url_for('static', filename='js/reward-animations.js') }}?v=3.3.0" defer></script> -->
-    <script src="{{ url_for('static', filename='js/luna-enhanced.js') }}?v=3.3.0" defer></script>
-
-    <!-- Scripts de perfection avancés -->
-
-    <!-- Scripts des corrections d'audit visuel -->
-    <script src="{{ url_for('static', filename='js/audit-visual-enhancements.js') }}?v=3.5.0"></script>
-
-    <script>
-        // Initialisation des nouvelles fonctionnalités
-        document.addEventListener('DOMContentLoaded', function () {
-            console.log('🚀 Arkalia Quest V3.3.0 - Systèmes UX contextuels chargés');
-
-            // Initialiser le gestionnaire de thèmes
-            if (window.ThemeManager) {
-                console.log('🎨 Theme Manager initialisé');
-            }
-
-            // Initialiser les défis quotidiens améliorés
-            if (window.DailyChallengesEnhanced) {
-                console.log('🎯 Daily Challenges Enhanced initialisé');
-            }
-
-            // Initialiser le guidage visuel
-            if (window.VisualGuidance) {
-                console.log('👁️ Visual Guidance initialisé');
-            }
-
-            // Initialiser les célébrations tutoriel
-            if (window.TutorialCelebrations) {
-                console.log('🎉 Tutorial Celebrations initialisé');
-            }
-
-            // Initialiser les commandes terminal améliorées
-            if (window.terminalCommandsEnhanced) {
-                console.log('💻 Terminal Commands Enhanced initialisé');
-            }
-
-            // Initialiser les mini-jeux interactifs
-            if (window.miniGamesInteractive) {
-                console.log('🎮 Mini-games Interactive initialisé');
-            }
-
-            // Initialiser les empty states améliorés
-            if (window.emptyStatesEnhanced) {
-                console.log('🌟 Empty States Enhanced initialisé');
-            }
-
-            // Initialiser les animations de récompenses
-            if (window.rewardAnimations) {
-                console.log('🎉 Reward Animations initialisé');
-            }
-
-            // Initialiser LUNA améliorée
-            if (window.lunaEnhanced) {
-                console.log('🌙 LUNA Enhanced initialisé');
-            }
-
-            // Initialiser les systèmes UX contextuels
-            if (window.contextualFeedback) {
-                console.log('💬 Système de feedback contextuel initialisé');
-            }
-
-            if (window.progressionAnimations) {
-                console.log('🎬 Système d\'animations de progression initialisé');
-            }
-
-            if (window.interactiveMiniGames) {
-                console.log('🎮 Mini-jeux interactifs initialisés');
-            }
-
-            if (window.enhancedEmptyStates) {
-                console.log('🌟 Empty states améliorés initialisés');
-            }
-
-            // Initialiser les nouveaux systèmes de perfection
-            if (window.smartNotifications) {
-                console.log('🔔 Notifications intelligentes initialisées');
-            }
-
-            // Initialiser les systèmes de gameplay améliorés
-            if (window.zoneExplorationEnhanced) {
-                console.log('🗺️ Zone Exploration Enhanced initialisé');
-            }
-
-            if (window.dailyMissions) {
-                console.log('🎯 Daily Missions Enhanced initialisé');
-            }
-
-            if (window.motivationalEmptyStates) {
-                console.log('🌟 Motivational Empty States initialisé');
-            }
-
-            if (window.timerChallenges) {
-                console.log('⏱️ Timer Challenges initialisé');
-            }
-
-            if (window.interactivePuzzles) {
-                console.log('🧩 Interactive Puzzles initialisé');
-            }
-
-            if (window.gameplayIntegration) {
-                console.log('🎮 Gameplay Integration initialisé');
-            }
-
-            // Initialiser les systèmes de gestion des popups
-            if (window.popupManager) {
-                console.log('🎭 Popup Manager initialisé');
-            }
-
-            if (window.popupCoordinator) {
-                console.log('🎭 Popup Coordinator initialisé');
-            }
-
-            if (window.accessibilityFeedback) {
-                console.log('♿ Feedback d\'accessibilité initialisé');
-            }
-        });
-    </script>
-
-    <!-- Scripts des systèmes de gameplay améliorés -->
-    <script src="{{ url_for('static', filename='js/zone-exploration-enhanced.js') }}?v=3.6.0"></script>
-    <script src="{{ url_for('static', filename='js/daily-missions-enhanced.js') }}?v=3.6.0"></script>
-    <script src="{{ url_for('static', filename='js/motivational-empty-states.js') }}?v=3.6.0"></script>
-    <script src="{{ url_for('static', filename='js/timer-challenges.js') }}?v=3.6.0"></script>
-    <script src="{{ url_for('static', filename='js/interactive-puzzles.js') }}?v=3.6.0"></script>
-    <script src="{{ url_for('static', filename='js/gameplay-integration.js') }}?v=3.6.0"></script>
-
-    <!-- Scripts du gestionnaire de popups -->
-    <script src="{{ url_for('static', filename='js/popup-manager.js') }}?v=3.7.0"></script>
-    <script src="{{ url_for('static', filename='js/popup-coordinator.js') }}?v=3.7.0"></script>
-
-    <!-- Système de synchronisation de progression -->
-    <script src="{{ url_for('static', filename='js/progression-sync.js') }}?v=1.0.0"></script>
-    <script src="{{ url_for('static', filename='js/gamification-feedback.js') }}?v=1.0.0"></script>
-    <script src="{{ url_for('static', filename='js/realtime-feedback.js') }}?v=1.0.0"></script>
-    <script src="{{ url_for('static', filename='js/ui-polish.js') }}?v=1.0.0"></script>
-
-    <!-- Systèmes de correction des bugs critiques -->
-    <script src="{{ url_for('static', filename='js/unified-progression-sync.js') }}?v=1.0.0"></script>
-    <script src="{{ url_for('static', filename='js/luna-notification-manager.js') }}?v=1.0.0"></script>
-    <script src="{{ url_for('static', filename='js/ready-state-manager.js') }}?v=1.0.0"></script>
-
-    <!-- Composant de gameplay enhancements -->
-    {% include 'components/gameplay_enhancements.html' %}
+    checkSave();
+  </script>
 </body>
-
 </html>

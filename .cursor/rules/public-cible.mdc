@@ -1,0 +1,42 @@
+---
+description: Public cible du projet et orientations UX/narratives
+alwaysApply: true
+---
+
+# Public cible : garçon de 14 ans
+
+Ce jeu narratif (LUNA Hors Connexion) est développé **pour un garçon de 14 ans**.
+Toutes les décisions de design, narration, UX et gameplay doivent le garder en tête.
+
+## Ce qui plaît aux garçons de 14 ans (2025-2026)
+
+- **Esthétique hacker/cyberpunk** : sombre, neon, glitch, terminaux, codes — déjà présent, toujours renforcer
+- **Gaming culture** : XP, achievements, progression visible, sentiment de "level up"
+- **Mystère et révélations** : twists narratifs, infos cachées à découvrir, lore profond
+- **Tension et urgence** : compte à rebours, pression temporelle, décisions sous stress
+- **Personnages "cool" et moralement ambigus** : NEXUS, La Corp, LUNA avec du caractère
+- **Dialogues courts et percutants** : pas de pavés de texte, phrases courtes, rythme rapide
+- **Sentiment de puissance** : le joueur a l'impression d'être "l'élu" ou le seul à comprendre
+- **Easter eggs et secrets** : récompenser ceux qui explorent tous les chemins
+- **Humour noir / ironie légère** : LUNA peut avoir du piquant, ne pas être toujours sérieuse
+- **Rejouabilité** : 3 fins différentes, envie de tout explorer
+
+## Ce qu'il faut éviter
+
+- Dialogues trop longs ou trop lents
+- Vocabulaire trop adulte/institutionnel ou trop enfantin
+- Explications condescendantes
+- Trop de "tutorial" ou de guidage lourd
+- Fins trop sentimentales ou moralisatrices sans nuance
+
+## Ton de LUNA
+
+LUNA doit sonner comme une IA cool, légèrement sarcastique parfois, jamais condescendante.
+Elle est comme une amie geek qui a besoin d'aide — pas un prof.
+
+## Exemples de dialogues bons vs mauvais
+
+✅ BON : "Ouais. J'aurais pas demandé si j'avais eu le choix."
+✅ BON : "Connexion établie. T'as 4 minutes. Pas de pression."
+❌ MAUVAIS : "Je te suis très reconnaissante de bien vouloir m'aider dans cette situation difficile."
+❌ MAUVAIS : "Pour commencer, tu dois sélectionner une option parmi celles proposées."

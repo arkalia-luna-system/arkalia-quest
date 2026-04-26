@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUNA — Signal perdu</title>
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/static/css/game.css">
+  <style>
+    .error-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+      text-align: center;
+    }
+    .error-avatar {
+      position: relative;
+      width: 80px;
+      height: 80px;
+    }
+    .error-avatar .avatar-ring {
+      width: 80px;
+      height: 80px;
+      border-color: var(--border);
+      animation: spin 8s linear infinite;
+      opacity: 0.4;
+    }
+    .error-avatar .avatar-core {
+      width: 52px;
+      height: 52px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .error-avatar .avatar-eye {
+      opacity: 0.3;
+      animation: blink 4s ease-in-out infinite;
+    }
+    .error-code {
+      font-family: var(--font-mono);
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--border);
+      letter-spacing: 0.08em;
+      line-height: 1;
+    }
+    .error-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .error-message {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      max-width: 380px;
+      line-height: 1.7;
+    }
+    .error-luna-msg {
+      font-size: 0.85rem;
+      color: var(--luna);
+      font-style: italic;
+      opacity: 0.8;
+      max-width: 340px;
+    }
+    .error-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body class="page-home">
+
+  <main class="error-page">
+
+    <!-- Avatar dégradé -->
+    <div class="error-avatar" aria-hidden="true">
+      <div class="avatar-ring"></div>
+      <div class="avatar-core">
+        <span class="avatar-eye left"></span>
+        <span class="avatar-eye right"></span>
+      </div>
+    </div>
+
+    <div class="error-code" aria-label="Erreur 404">[ERR_404]</div>
+
+    <div>
+      <h1 class="error-title">Route introuvable</h1>
+      <p class="error-message">
+        Cette page n'existe pas — ou La Corp l'a effacée.<br>
+        Ils font ça. Souvent.
+      </p>
+    </div>
+
+    <p class="error-luna-msg">
+      "T'as cliqué sur un lien mort. Reviens par l'accueil."
+    </p>
+
+    <div class="error-actions">
+      <a href="/" class="btn-primary">
+        <span class="btn-icon">▶</span>
+        Retour au signal
+      </a>
+      <a href="/game" class="btn-secondary">Continuer la partie</a>
+    </div>
+
+  </main>
+
+</body>
+</html>

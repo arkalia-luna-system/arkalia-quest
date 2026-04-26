@@ -1,1538 +1,323 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-    <meta charset="UTF-8">
-    <title>🏆 ARKALIA QUEST - LEADERBOARD LUNA</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- PWA Meta Tags -->
-    <meta name="description"
-        content="Classement des meilleurs hackers d'Arkalia Quest. Découvre qui domine le leaderboard !">
-    <meta name="theme-color" content="#a78bfa">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-
-    <!-- PWA Icons -->
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/icon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='icons/icon-16x16.png') }}">
-    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
-
-    <!-- CSS LUNA VISION -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-luna-vision.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/arkalia-responsive.css') }}?v=4.0.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/interface-improvements.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/empty-states.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/game-interface.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/mission-interface.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/reward-animations.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/loading-animations.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/progression-animations.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/adaptive-guidance.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/progression-feedback.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/competitive-system.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/creative-system.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/casual-system.css') }}">
-
-    <style>
-        /* Styles spécifiques au leaderboard immersif */
-        .leaderboard-workspace {
-            min-height: 100vh;
-            background: linear-gradient(135deg, rgba(9, 9, 11, 0.95) 0%, rgba(30, 30, 40, 0.95) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .leaderboard-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background:
-                radial-gradient(circle at 30% 70%, rgba(167, 139, 250, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 70% 30%, rgba(96, 165, 250, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(167, 139, 250, 0.06) 0%, transparent 50%);
-            animation: leaderboardAmbient 14s ease-in-out infinite;
-        }
-
-        @keyframes leaderboardAmbient {
-
-            0%,
-            100% {
-                opacity: 0.4;
-                transform: scale(1);
-            }
-
-            50% {
-                opacity: 0.7;
-                transform: scale(1.03);
-            }
-        }
-
-        .leaderboard-container {
-            padding: 30px 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .leaderboard-header {
-            text-align: center;
-            margin-bottom: 40px;
-            position: relative;
-        }
-
-        .leaderboard-title {
-            font-family: 'Cormorant', serif;
-            font-size: 3em;
-            font-weight: 700;
-            color: var(--violet-lunaire);
-            text-shadow: 0 0 30px rgba(167, 139, 250, 0.6);
-            margin-bottom: 15px;
-            opacity: 0;
-            animation: fadeInUp 1.5s ease-out 0.5s forwards;
-        }
-
-        .leaderboard-subtitle {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.2em;
-            color: var(--argent-holographique);
-            opacity: 0;
-            animation: fadeInUp 1.5s ease-out 1s forwards;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-
-        .stat-card {
-            background: rgba(9, 9, 11, 0.9);
-            border: 2px solid rgba(167, 139, 250, 0.3);
-            border-radius: 15px;
-            padding: 25px;
-            text-align: center;
-            backdrop-filter: blur(15px);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent, rgba(167, 139, 250, 0.08), transparent);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .stat-card:hover::before,
-        .stat-card:focus::before {
-            opacity: 1;
-        }
-
-        .stat-card:hover,
-        .stat-card:focus {
-            border-color: rgba(167, 139, 250, 0.6);
-            box-shadow: 0 0 40px rgba(167, 139, 250, 0.4);
-            transform: translateY(-5px);
-            outline: none;
-        }
-
-        .stat-value {
-            font-family: 'Cormorant', serif;
-            font-size: 2.5em;
-            font-weight: 700;
-            color: var(--violet-lunaire);
-            text-shadow: 0 0 20px rgba(167, 139, 250, 0.6);
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .stat-label {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.9em;
-            color: var(--argent-holographique);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .leaderboard-tabs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 20px;
-            align-items: center;
-        }
-        .leaderboard-tabs-inner { display: flex; flex-wrap: wrap; gap: 8px; }
-        .leaderboard-tab {
-            padding: 10px 16px;
-            border: 2px solid rgba(167, 139, 250, 0.3);
-            border-radius: 8px;
-            background: rgba(9, 9, 11, 0.9);
-            color: var(--argent-holographique);
-            font-family: 'IBM Plex Mono', monospace;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .leaderboard-tab:hover {
-            border-color: rgba(167, 139, 250, 0.6);
-            color: var(--violet-lunaire);
-        }
-        .leaderboard-tab.active {
-            border-color: var(--violet-lunaire);
-            background: rgba(167, 139, 250, 0.2);
-            color: var(--violet-lunaire);
-        }
-
-        .leaderboard-section {
-            background: rgba(9, 9, 11, 0.9);
-            border: 2px solid rgba(167, 139, 250, 0.3);
-            border-radius: 15px;
-            padding: 30px;
-            backdrop-filter: blur(15px);
-            margin-bottom: 30px;
-        }
-
-        .leaderboard-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        .leaderboard-table th {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.9em;
-            color: var(--violet-lunaire);
-            text-align: left;
-            padding: 20px 15px;
-            border-bottom: 2px solid rgba(167, 139, 250, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-            position: relative;
-        }
-
-        .leaderboard-table th::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--violet-lunaire), var(--bleu-spectre));
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .leaderboard-table th:hover::after {
-            transform: scaleX(1);
-        }
-
-        .leaderboard-table td {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95em;
-            color: var(--argent-holographique);
-            padding: 15px;
-            border-bottom: 1px solid rgba(167, 139, 250, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .leaderboard-table tr {
-            transition: all 0.3s ease;
-            opacity: 0;
-            animation: rowSlideIn 0.6s ease-out forwards;
-        }
-
-        .leaderboard-table tr:nth-child(1) {
-            animation-delay: 0.1s;
-        }
-
-        .leaderboard-table tr:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .leaderboard-table tr:nth-child(3) {
-            animation-delay: 0.3s;
-        }
-
-        .leaderboard-table tr:nth-child(4) {
-            animation-delay: 0.4s;
-        }
-
-        .leaderboard-table tr:nth-child(5) {
-            animation-delay: 0.5s;
-        }
-
-        .leaderboard-table tr:nth-child(6) {
-            animation-delay: 0.6s;
-        }
-
-        .leaderboard-table tr:nth-child(7) {
-            animation-delay: 0.7s;
-        }
-
-        .leaderboard-table tr:nth-child(8) {
-            animation-delay: 0.8s;
-        }
-
-        .leaderboard-table tr:nth-child(9) {
-            animation-delay: 0.9s;
-        }
-
-        .leaderboard-table tr:nth-child(10) {
-            animation-delay: 1.0s;
-        }
-
-        @keyframes rowSlideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .leaderboard-table tr:hover td {
-            background: rgba(167, 139, 250, 0.08);
-            color: var(--violet-lunaire);
-            transform: translateX(5px);
-        }
-
-        /* Styling spécial pour les 3 premiers rangs */
-        .leaderboard-table tr:nth-child(1) {
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 193, 7, 0.05));
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
-        }
-
-        .leaderboard-table tr:nth-child(1) td {
-            color: #FFD700;
-            font-weight: 700;
-        }
-
-        .leaderboard-table tr:nth-child(1) .rank-cell {
-            background: linear-gradient(135deg, #FFD700, #FFA500);
-            color: #000;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-            font-size: 1.4em;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-        }
-
-        .leaderboard-table tr:nth-child(2) {
-            background: linear-gradient(135deg, rgba(192, 192, 192, 0.1), rgba(169, 169, 169, 0.05));
-            border: 2px solid rgba(192, 192, 192, 0.3);
-            box-shadow: 0 0 15px rgba(192, 192, 192, 0.2);
-        }
-
-        .leaderboard-table tr:nth-child(2) td {
-            color: #C0C0C0;
-            font-weight: 600;
-        }
-
-        .leaderboard-table tr:nth-child(2) .rank-cell {
-            background: linear-gradient(135deg, #C0C0C0, #A9A9A9);
-            color: #000;
-            border-radius: 50%;
-            width: 35px;
-            height: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-            font-size: 1.2em;
-            box-shadow: 0 0 10px rgba(192, 192, 192, 0.4);
-        }
-
-        .leaderboard-table tr:nth-child(3) {
-            background: linear-gradient(135deg, rgba(205, 127, 50, 0.1), rgba(184, 115, 51, 0.05));
-            border: 2px solid rgba(205, 127, 50, 0.3);
-            box-shadow: 0 0 15px rgba(205, 127, 50, 0.2);
-        }
-
-        .leaderboard-table tr:nth-child(3) td {
-            color: #CD7F32;
-            font-weight: 600;
-        }
-
-        .leaderboard-table tr:nth-child(3) .rank-cell {
-            background: linear-gradient(135deg, #CD7F32, #B87333);
-            color: #000;
-            border-radius: 50%;
-            width: 35px;
-            height: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-            font-size: 1.2em;
-            box-shadow: 0 0 10px rgba(205, 127, 50, 0.4);
-        }
-
-        /* Alternance de couleurs pour les autres rangs */
-        .leaderboard-table tr:nth-child(even):not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)) {
-            background: rgba(167, 139, 250, 0.03);
-        }
-
-        .leaderboard-table tr:nth-child(odd):not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)) {
-            background: rgba(96, 165, 250, 0.03);
-        }
-
-        .rank-cell {
-            text-align: center;
-            font-family: 'Cormorant', serif;
-            font-weight: 700;
-            font-size: 1.2em;
-            position: relative;
-        }
-
-        .rank-1 {
-            color: #fbbf24;
-            text-shadow: 0 0 15px rgba(251, 191, 36, 0.8);
-        }
-
-        .rank-1::before {
-            content: '👑';
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.8em;
-            animation: crownFloat 3s ease-in-out infinite;
-        }
-
-        @keyframes crownFloat {
-
-            0%,
-            100% {
-                transform: translateX(-50%) translateY(0px);
-            }
-
-            50% {
-                transform: translateX(-50%) translateY(-5px);
-            }
-        }
-
-        .rank-2 {
-            color: #e5e7eb;
-            text-shadow: 0 0 15px rgba(229, 231, 235, 0.8);
-        }
-
-        .rank-3 {
-            color: #f59e0b;
-            text-shadow: 0 0 15px rgba(245, 158, 11, 0.8);
-        }
-
-        .player-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .player-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--violet-lunaire), var(--bleu-spectre));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2em;
-            box-shadow: 0 0 15px rgba(167, 139, 250, 0.4);
-            transition: all 0.3s ease;
-        }
-
-        .player-avatar:hover {
-            transform: scale(1.2);
-            box-shadow: 0 0 25px rgba(167, 139, 250, 0.6);
-        }
-
-        .player-details {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .player-name {
-            font-weight: 600;
-            color: var(--violet-lunaire);
-            font-size: 1em;
-        }
-
-        .player-level {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.8em;
-            color: var(--argent-holographique);
-        }
-
-        .score-cell {
-            font-family: 'Cormorant', serif;
-            font-weight: 700;
-            font-size: 1.1em;
-            color: var(--violet-lunaire);
-            text-shadow: 0 0 10px rgba(167, 139, 250, 0.4);
-        }
-
-        .badges-cell {
-            display: flex;
-            gap: 5px;
-            flex-wrap: wrap;
-        }
-
-        .badge-mini {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--violet-lunaire), var(--bleu-spectre));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7em;
-            box-shadow: 0 0 8px rgba(167, 139, 250, 0.4);
-            transition: all 0.3s ease;
-        }
-
-        .badge-mini:hover {
-            transform: scale(1.3);
-            box-shadow: 0 0 15px rgba(167, 139, 250, 0.6);
-        }
-
-        .current-player {
-            background: rgba(167, 139, 250, 0.1);
-            border-left: 4px solid var(--violet-lunaire);
-            position: relative;
-        }
-
-        .current-player::before {
-            content: '🌙';
-            position: absolute;
-            left: -30px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.2em;
-            animation: lunaPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes lunaPulse {
-
-            0%,
-            100% {
-                opacity: 0.7;
-                transform: translateY(-50%) scale(1);
-            }
-
-            50% {
-                opacity: 1;
-                transform: translateY(-50%) scale(1.2);
-            }
-        }
-
-        .current-player td {
-            color: var(--violet-lunaire);
-            font-weight: 600;
-        }
-
-        .refresh-button {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.95em;
-            color: var(--argent-holographique);
-            background: rgba(167, 139, 250, 0.2);
-            border: 2px solid rgba(167, 139, 250, 0.4);
-            border-radius: 10px;
-            padding: 15px 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 20px;
-            position: relative;
-            overflow: hidden;
-            outline: none;
-        }
-
-        .refresh-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .refresh-button:hover::before,
-        .refresh-button:focus::before {
-            left: 100%;
-        }
-
-        .refresh-button:hover,
-        .refresh-button:focus {
-            color: var(--violet-lunaire);
-            border-color: rgba(167, 139, 250, 0.7);
-            box-shadow: 0 0 25px rgba(167, 139, 250, 0.4);
-            transform: translateY(-3px);
-        }
-
-        .refresh-button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .last-updated {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.8em;
-            color: var(--argent-holographique);
-            text-align: center;
-            opacity: 0.7;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: var(--argent-holographique);
-            font-family: 'Inter', sans-serif;
-        }
-
-        .loading::after {
-            content: '';
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--violet-lunaire);
-            border-radius: 50%;
-            border-top-color: transparent;
-            animation: spin 1s linear infinite;
-            margin-left: 10px;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .challenge-section {
-            background: rgba(9, 9, 11, 0.9);
-            border: 2px solid rgba(167, 139, 250, 0.3);
-            border-radius: 15px;
-            padding: 25px;
-            backdrop-filter: blur(15px);
-            margin-bottom: 30px;
-        }
-
-        .challenge-title {
-            font-family: 'Cormorant', serif;
-            font-size: 1.8em;
-            font-weight: 600;
-            color: var(--violet-lunaire);
-            text-align: center;
-            margin-bottom: 20px;
-            text-shadow: 0 0 15px rgba(167, 139, 250, 0.5);
-        }
-
-        .challenge-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .challenge-card {
-            background: rgba(167, 139, 250, 0.1);
-            border: 1px solid rgba(167, 139, 250, 0.3);
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            outline: none;
-        }
-
-        .challenge-card:hover,
-        .challenge-card:focus {
-            border-color: rgba(167, 139, 250, 0.6);
-            box-shadow: 0 0 20px rgba(167, 139, 250, 0.3);
-            transform: translateY(-3px);
-        }
-
-        .challenge-card.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            background: rgba(100, 100, 100, 0.1);
-            border: 2px solid rgba(100, 100, 100, 0.3);
-        }
-
-        .challenge-card.disabled:hover,
-        .challenge-card.disabled:focus {
-            transform: none;
-            box-shadow: 0 5px 15px rgba(100, 100, 100, 0.2);
-            border-color: rgba(100, 100, 100, 0.3);
-        }
-
-        .challenge-card.disabled .challenge-icon {
-            filter: grayscale(100%);
-        }
-
-        .challenge-card.disabled .challenge-name {
-            color: rgba(167, 139, 250, 0.5);
-        }
-
-        .challenge-card.disabled .challenge-description {
-            color: rgba(255, 255, 255, 0.3);
-        }
-
-        .challenge-status {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(255, 193, 7, 0.9);
-            color: #000;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.8em;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .challenge-icon {
-            font-size: 2em;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .challenge-name {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.9em;
-            color: var(--violet-lunaire);
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .challenge-description {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.8em;
-            color: var(--argent-holographique);
-            line-height: 1.3;
-        }
-
-        .luna-leaderboard-guide {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(167, 139, 250, 0.1);
-            border: 1px solid rgba(167, 139, 250, 0.3);
-            border-radius: 10px;
-            padding: 15px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.8em;
-            color: var(--argent-holographique);
-            backdrop-filter: blur(10px);
-            max-width: 300px;
-            opacity: 0;
-            animation: fadeIn 2s ease-out 2s forwards;
-        }
-
-        .luna-leaderboard-guide::before {
-            content: '🌙 LUNA:';
-            font-weight: bold;
-            color: var(--violet-lunaire);
-            margin-right: 8px;
-        }
-
-        /* États d'erreur et de succès */
-        .error-message {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            color: #fca5a5;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
-            text-align: center;
-            font-family: 'IBM Plex Mono', monospace;
-        }
-
-        .success-message {
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            color: #86efac;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
-            text-align: center;
-            font-family: 'IBM Plex Mono', monospace;
-        }
-
-        /* Améliorations d'accessibilité */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-
-        /* Focus visible pour l'accessibilité */
-        .stat-card:focus,
-        .challenge-card:focus,
-        .refresh-button:focus {
-            outline: 2px solid var(--violet-lunaire);
-            outline-offset: 2px;
-        }
-
-        @media (max-width: 768px) {
-            .leaderboard-title {
-                font-size: 2.2em;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .leaderboard-table th,
-            .leaderboard-table td {
-                padding: 10px 8px;
-                font-size: 0.85em;
-            }
-
-            .player-info {
-                gap: 10px;
-            }
-
-            .player-avatar {
-                width: 30px;
-                height: 30px;
-                font-size: 1em;
-            }
-
-            .luna-leaderboard-guide {
-                position: static;
-                margin: 20px auto;
-                max-width: none;
-            }
-
-            .challenge-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .leaderboard-container {
-                padding: 20px 10px;
-            }
-
-            .leaderboard-title {
-                font-size: 1.8em;
-            }
-
-            .leaderboard-table {
-                font-size: 0.8em;
-            }
-
-            .stat-card {
-                padding: 20px 15px;
-            }
-
-            .stat-value {
-                font-size: 2em;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classement — LUNA</title>
+  <link rel="icon" href="/favicon.ico">
+  <link rel="manifest" href="/static/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/game.css">
+  <style>
+    .leaderboard-table {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .lb-row {
+      display: grid;
+      grid-template-columns: 40px 1fr auto auto auto;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem 1.2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      animation: fade-in var(--speed-norm) ease-out both;
+      transition: border-color var(--speed-fast);
+    }
+
+    .lb-row:hover { border-color: var(--border-luna); }
+
+    .lb-row.lb-me {
+      border-color: var(--border-action);
+      background: rgba(61, 214, 245, 0.04);
+    }
+
+    .lb-row.lb-top-1 { border-color: rgba(255,215,0,0.4); }
+    .lb-row.lb-top-2 { border-color: rgba(192,192,192,0.4); }
+    .lb-row.lb-top-3 { border-color: rgba(205,127,50,0.4); }
+
+    .lb-rank {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-dim);
+      text-align: center;
+    }
+    .lb-rank.rank-1 { color: gold; }
+    .lb-rank.rank-2 { color: silver; }
+    .lb-rank.rank-3 { color: #cd7f32; }
+
+    .lb-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-white);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .lb-name.is-me { color: var(--action); }
+
+    .lb-meta {
+      font-size: 0.72rem;
+      color: var(--text-dim);
+    }
+
+    .lb-chapters {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      white-space: nowrap;
+    }
+
+    .lb-xp {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--luna);
+      white-space: nowrap;
+      min-width: 64px;
+      text-align: right;
+    }
+
+    .lb-endings {
+      display: flex;
+      gap: 4px;
+    }
+
+    .lb-ending-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--text-dim);
+    }
+    .lb-ending-dot.ending_a { background: var(--success); }
+    .lb-ending-dot.ending_b { background: var(--luna); }
+    .lb-ending-dot.ending_c { background: var(--action); }
+
+    .lb-header-row {
+      display: grid;
+      grid-template-columns: 40px 1fr auto auto auto;
+      gap: 1rem;
+      padding: 0 1.2rem 0.5rem;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+    }
+
+    .lb-empty {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-dim);
+      font-style: italic;
+    }
+
+    .lb-name-cell {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-width: 0;
+      overflow: hidden;
+    }
+    .lb-level-badge {
+      font-size: 0.58rem;
+      font-family: var(--font-mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 1px 7px;
+      border-radius: var(--radius-full);
+      border: 1px solid currentColor;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .lb-you-badge {
+      font-size: 0.6rem;
+      background: var(--action-dim);
+      color: var(--action);
+      border: 1px solid var(--border-action);
+      border-radius: var(--radius-full);
+      padding: 1px 6px;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      margin-left: 6px;
+      text-transform: uppercase;
+    }
+
+    .lb-stats-bar {
+      display: flex;
+      gap: 1.5rem;
+      padding: 1rem 1.2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .lb-stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .lb-stat-val {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-white);
+    }
+    .lb-stat-lbl {
+      font-size: 0.68rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+  </style>
 </head>
+<body class="page-profil">
+  <div class="home-bg-grid" aria-hidden="true"></div>
 
-<body>
-    <!-- Skip Links pour accessibilité -->
-    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
-    <a href="#navigation" class="skip-link">Aller à la navigation</a>
-    <a href="#accessibility-panel" class="skip-link">Paramètres d'accessibilité</a>
+  <header class="simple-header">
+    <a href="/" class="nav-back" aria-label="Accueil">←</a>
+    <h1 class="page-title">Classement</h1>
+    <a href="/game" class="btn-outline" style="padding:6px 14px;font-size:0.82rem;">Jouer →</a>
+  </header>
 
-    <!-- Panneau d'accessibilité -->
-    {% include 'components/accessibility_toggle.html' %}
-
-    <!-- Navigation LUNA -->
-    <div id="navigation">
-        {% set active_page = 'leaderboard' %}
-        {% include 'components/navbar.html' with context %}
+  <main class="profil-main">
+    <div class="profil-content" id="lb-content">
+      <p class="loading-text" style="text-align:center;padding:3rem">Chargement...</p>
     </div>
+  </main>
 
-    <main id="main-content" class="leaderboard-workspace">
-        <!-- Fond animé du leaderboard -->
-        <div class="leaderboard-background" aria-hidden="true"></div>
+  <script>
+    const ENDING_IDS = ["ending_a", "ending_b", "ending_c"];
+    const ENDING_LABELS = { ending_a: "FIN A", ending_b: "FIN B", ending_c: "FIN C" };
 
-        <div class="leaderboard-container">
-            <!-- En-tête du leaderboard -->
-            <div class="leaderboard-header">
-                <h1 class="leaderboard-title" id="leaderboard-title">LEADERBOARD HACKERS</h1>
-                <p class="leaderboard-subtitle" id="leaderboard-subtitle">Classement des meilleurs hackers d'Arkalia</p>
-            </div>
+    const XP_LEVELS = [
+      { min: 0,    max: 99,   label: "Recrue",        color: "#94a3b8" },
+      { min: 100,  max: 249,  label: "Opérateur",     color: "#60a5fa" },
+      { min: 250,  max: 499,  label: "Agent",         color: "#3dd2f5" },
+      { min: 500,  max: 749,  label: "Hackeur",       color: "#a78bfa" },
+      { min: 750,  max: 999,  label: "Hackeur Élite", color: "#f97316" },
+      { min: 1000, max: 9999, label: "Fantôme",       color: "#f43f5e" },
+    ];
+    function getXpLevel(xp) {
+      return XP_LEVELS.find(l => xp >= l.min && xp <= l.max) || XP_LEVELS[XP_LEVELS.length - 1];
+    }
 
-            <!-- Messages d'état -->
-            <div id="status-messages" aria-live="polite"></div>
+    async function loadLeaderboard() {
+      const container = document.getElementById("lb-content");
 
-            <!-- Statistiques globales -->
-            <div class="stats-grid" role="region" aria-label="Statistiques globales">
-                <div class="stat-card" tabindex="0" role="button" aria-label="Nombre de hackers actifs">
-                    <span class="stat-value" id="total-players" aria-live="polite">--</span>
-                    <div class="stat-label">Hackers Actifs</div>
-                </div>
-                <div class="stat-card" tabindex="0" role="button" aria-label="Score total cumulé">
-                    <span class="stat-value" id="total-score" aria-live="polite">--</span>
-                    <div class="stat-label">Score Total</div>
-                </div>
-                <div class="stat-card" tabindex="0" role="button" aria-label="Niveau moyen des joueurs">
-                    <span class="stat-value" id="avg-level" aria-live="polite">--</span>
-                    <div class="stat-label">Niveau Moyen</div>
-                </div>
-                <div class="stat-card" tabindex="0" role="button" aria-label="Nombre total de badges décernés">
-                    <span class="stat-value" id="total-badges" aria-live="polite">--</span>
-                    <div class="stat-label">Badges Décernés</div>
-                </div>
-            </div>
+      // Charger classement + état joueur courant en parallèle
+      const [lbRes, meRes] = await Promise.allSettled([
+        fetch("/api/story/leaderboard").then(r => r.json()),
+        fetch("/api/story/summary").then(r => r.json()),
+      ]);
 
-            <!-- Section Défis -->
-            <div class="challenge-section" role="region" aria-label="Défis actifs">
-                <h2 class="challenge-title">Défis Actifs</h2>
-                <div class="challenge-grid">
-                    <div class="challenge-card disabled" tabindex="-1" role="button"
-                        aria-label="Défi Vitesse - Bientôt disponible" aria-disabled="true"
-                        title="Défi bientôt disponible">
-                        <span class="challenge-icon" aria-hidden="true">⚡</span>
-                        <div class="challenge-name">Défi Vitesse</div>
-                        <div class="challenge-description">Complète 10 missions en moins de 30 minutes</div>
-                        <div class="challenge-status">Bientôt disponible</div>
-                    </div>
-                    <div class="challenge-card disabled" tabindex="-1" role="button"
-                        aria-label="Défi Précision - Bientôt disponible" aria-disabled="true"
-                        title="Défi bientôt disponible">
-                        <span class="challenge-icon" aria-hidden="true">🎯</span>
-                        <div class="challenge-name">Défi Précision</div>
-                        <div class="challenge-description">100% de réussite sur 5 missions consécutives</div>
-                        <div class="challenge-status">Bientôt disponible</div>
-                    </div>
-                    <div class="challenge-card disabled" tabindex="-1" role="button"
-                        aria-label="Défi Exploration - Bientôt disponible" aria-disabled="true"
-                        title="Défi bientôt disponible">
-                        <span class="challenge-icon" aria-hidden="true">🗺️</span>
-                        <div class="challenge-name">Défi Exploration</div>
-                        <div class="challenge-description">Découvre 3 nouvelles zones en une journée</div>
-                        <div class="challenge-status">Bientôt disponible</div>
-                    </div>
-                </div>
-            </div>
+      const lb     = lbRes.status === "fulfilled" && lbRes.value.success ? lbRes.value.scores : [];
+      const me     = meRes.status === "fulfilled" && meRes.value.success ? meRes.value : null;
+      const myName = me?.player_name || null;
+      const myXp   = me?.xp ?? 0;
 
-            <!-- Onglets Général / Par catégorie -->
-            <div class="leaderboard-tabs" role="tablist" aria-label="Type de classement">
-                <button type="button" class="leaderboard-tab active" role="tab" id="tab-general" aria-selected="true" data-view="general" onclick="switchLeaderboardView('general')">🏆 Général</button>
-                <div id="category-tabs-container" class="leaderboard-tabs-inner"></div>
-            </div>
+      if (lb.length === 0) {
+        container.innerHTML = `
+          <div class="lb-empty">
+            <p>Aucun joueur avec de la progression pour l'instant.</p>
+            <p style="margin-top:0.5rem;font-size:0.82rem;">Commence l'histoire pour apparaître ici.</p>
+            <a href="/game" class="btn-primary" style="margin-top:1.5rem;display:inline-flex;">
+              Jouer maintenant
+            </a>
+          </div>
+        `;
+        return;
+      }
 
-            <!-- Tableau du leaderboard -->
-            <div class="leaderboard-section" role="region" aria-label="Classement des joueurs">
-                <table class="leaderboard-table" role="table" aria-label="Classement des hackers">
-                    <thead>
-                        <tr>
-                            <th scope="col">RANG</th>
-                            <th scope="col">HACKER</th>
-                            <th scope="col">SCORE</th>
-                            <th scope="col">NIVEAU</th>
-                            <th scope="col">BADGES</th>
-                        </tr>
-                    </thead>
-                    <tbody id="leaderboard-body">
-                        <tr>
-                            <td colspan="5" class="loading">Chargement du classement...</td>
-                        </tr>
-                    </tbody>
-                </table>
+      // Stats globales
+      const totalXp    = lb.reduce((s, e) => s + e.xp, 0);
+      const totalFinA  = lb.filter(e => (e.endings_unlocked || []).includes("ending_a")).length;
+      const avgTrust   = Math.round(lb.reduce((s, e) => s + e.luna_trust, 0) / lb.length);
 
-                <button class="refresh-button" id="refresh-button" onclick="refreshLeaderboard()"
-                    aria-label="Actualiser le classement">
-                    <span class="sr-only">Actualiser</span>
-                    🔄 ACTUALISER
-                </button>
-
-                <div class="last-updated" id="last-updated" aria-live="polite">
-                    Dernière mise à jour: Chargement...
-                </div>
-            </div>
+      container.innerHTML = `
+        <!-- Stats globales -->
+        <div class="lb-stats-bar">
+          <div class="lb-stat-item">
+            <span class="lb-stat-val">${lb.length}</span>
+            <span class="lb-stat-lbl">Joueurs actifs</span>
+          </div>
+          <div class="lb-stat-item">
+            <span class="lb-stat-val">${totalXp.toLocaleString("fr")}</span>
+            <span class="lb-stat-lbl">XP total</span>
+          </div>
+          <div class="lb-stat-item">
+            <span class="lb-stat-val">${totalFinA}</span>
+            <span class="lb-stat-lbl">Fin A débloquée</span>
+          </div>
+          <div class="lb-stat-item">
+            <span class="lb-stat-val">${avgTrust}%</span>
+            <span class="lb-stat-lbl">Confiance</span>
+          </div>
         </div>
 
-        <!-- Guide LUNA -->
-        <div class="luna-leaderboard-guide" id="luna-leaderboard-guide" aria-live="polite">
-            Le classement se met à jour en temps réel...
+        <!-- En-tête colonnes -->
+        <div class="lb-header-row">
+          <span>#</span>
+          <span>Joueur</span>
+          <span>Fins</span>
+          <span>Chap.</span>
+          <span style="text-align:right">XP</span>
         </div>
-    </main>
 
-    <!-- Scripts LUNA VISION -->
-    <script src="{{ url_for('static', filename='js/navigation.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/audio-manager.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/effects.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/accessibility.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/game-engine.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/mission-system.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/luna-personality.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/personalized-messages.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/performance-ux-optimizer.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bug-fixes.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/reward-system.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/system-integrator.js') }}"></script>
-
-    <script>
-        // Variables globales
-        let isLoading = false;
-        let refreshTimeout = null;
-        let lastUpdateTime = null;
-        let currentView = 'general';
-
-        // Charger les catégories et créer les onglets
-        async function loadCategoryTabs() {
-            const container = document.getElementById('category-tabs-container');
-            if (!container) return;
-            try {
-                const res = await fetch('/api/leaderboards/categories', { headers: { 'Accept': 'application/json' } });
-                if (!res.ok) return;
-                const data = await res.json();
-                if (!data.success || !data.categories || typeof data.categories !== 'object') return;
-                container.innerHTML = '';
-                Object.entries(data.categories).forEach(([key, cat]) => {
-                    const btn = document.createElement('button');
-                    btn.type = 'button';
-                    btn.className = 'leaderboard-tab';
-                    btn.role = 'tab';
-                    btn.setAttribute('aria-selected', 'false');
-                    btn.dataset.view = 'category';
-                    btn.dataset.category = key;
-                    btn.textContent = (cat.icon || '') + ' ' + (cat.name || key);
-                    btn.addEventListener('click', () => switchLeaderboardView(key));
-                    container.appendChild(btn);
-                });
-            } catch (_) {}
-        }
-
-        function switchLeaderboardView(category) {
-            document.querySelectorAll('.leaderboard-tab').forEach(t => {
-                t.classList.remove('active');
-                t.setAttribute('aria-selected', 'false');
-            });
-            if (category === 'general' || !category) {
-                currentView = 'general';
-                const tab = document.getElementById('tab-general');
-                if (tab) { tab.classList.add('active'); tab.setAttribute('aria-selected', 'true'); }
-                loadLeaderboard();
-            } else {
-                currentView = category;
-                const tab = document.querySelector(`.leaderboard-tab[data-category="${category}"]`);
-                if (tab) { tab.classList.add('active'); tab.setAttribute('aria-selected', 'true'); }
-                loadCategoryLeaderboard(category);
-            }
-        }
-
-        async function loadCategoryLeaderboard(category) {
-            const tbody = document.getElementById('leaderboard-body');
-            if (!tbody) return;
-            tbody.innerHTML = '<tr><td colspan="5" class="loading">Chargement...</td></tr>';
-            try {
-                const res = await fetch(`/api/leaderboards/category/${encodeURIComponent(category)}?limit=50`, { headers: { 'Accept': 'application/json' } });
-                if (!res.ok) throw new Error(res.status);
-                const data = await res.json();
-                if (data.error) throw new Error(data.error);
-                updateTableFromCategory(data);
-                updateLastUpdated();
-            } catch (e) {
-                tbody.innerHTML = `<tr><td colspan="5" class="loading">Aucun classement pour cette catégorie</td></tr>`;
-            }
-        }
-
-        function updateTableFromCategory(data) {
-            const tbody = document.getElementById('leaderboard-body');
-            if (!tbody) return;
-            tbody.innerHTML = '';
-            const players = (data && data.players) ? data.players : [];
-            if (players.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" class="loading">Aucun joueur dans ce classement</td></tr>';
-                return;
-            }
-            players.forEach((p, index) => {
-                const row = document.createElement('tr');
-                const name = (p.player_id || 'Joueur').toString().substring(0, 20);
-                row.innerHTML = `
-                    <td class="rank-cell rank-${index + 1}">${index + 1}</td>
-                    <td><div class="player-info"><div class="player-avatar">${name.charAt(0).toUpperCase()}</div><div class="player-details"><div class="player-name">${escapeHtml(name)}</div><div class="player-level">Catégorie</div></div></div></td>
-                    <td class="score-cell">${Number(p.score).toLocaleString()}</td>
-                    <td>—</td>
-                    <td>—</td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        // Fonction utilitaire pour debouncing
-        function debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        }
-
-        // Fonction utilitaire pour afficher les messages
-        function showMessage(message, type = 'info') {
-            const statusContainer = document.getElementById('status-messages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `${type}-message`;
-            messageDiv.textContent = message;
-            messageDiv.setAttribute('role', 'alert');
-
-            statusContainer.innerHTML = '';
-            statusContainer.appendChild(messageDiv);
-
-            // Auto-suppression après 5 secondes
-            setTimeout(() => {
-                if (messageDiv.parentNode) {
-                    messageDiv.remove();
-                }
-            }, 5000);
-        }
-
-        // Fonction utilitaire pour valider les données
-        function validateLeaderboardData(data) {
-            if (!data || typeof data !== 'object') {
-                return false;
-            }
-
-            if (!Array.isArray(data.leaderboard)) {
-                return false;
-            }
-
-            if (!data.stats || typeof data.stats !== 'object') {
-                return false;
-            }
-
-            return true;
-        }
-
-        // Protection anti-spam pour les clics
-        let lastRefreshTime = 0;
-        const MIN_REFRESH_INTERVAL = 2000; // 2 secondes minimum entre les rafraîchissements
-
-        // Charger le leaderboard avec gestion d'erreurs améliorée
-        async function loadLeaderboard() {
-            const currentTime = Date.now();
-
-            // Vérifier l'intervalle minimum
-            if (currentTime - lastRefreshTime < MIN_REFRESH_INTERVAL) {
-                showMessage('Veuillez patienter avant de rafraîchir à nouveau', 'warning');
-                return;
-            }
-
-            if (isLoading) {
-                return; // Éviter les requêtes multiples
-            }
-
-            isLoading = true;
-            lastRefreshTime = currentTime;
-            const refreshButton = document.getElementById('refresh-button');
-            refreshButton.disabled = true;
-
-            try {
-                const response = await fetch('/api/leaderboard', {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Cache-Control': 'no-cache'
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error(`Erreur HTTP: ${response.status}`);
-                }
-
-                const data = await response.json();
-
-                if (!validateLeaderboardData(data)) {
-                    throw new Error('Format de données invalide');
-                }
-
-                if (data.success) {
-                    updateStats(data.stats);
-                    updateTable(data.leaderboard);
-                    updateLastUpdated();
-                    showMessage('Classement mis à jour avec succès', 'success');
-                } else {
-                    throw new Error(data.error || 'Erreur lors du chargement');
-                }
-
-            } catch (error) {
-                // Gestion d'erreurs améliorée
-                let errorMessage = 'Erreur lors du chargement du classement';
-
-                if (error.message.includes('429')) {
-                    errorMessage = 'Trop de requêtes. Veuillez patienter quelques secondes.';
-                } else if (error.message.includes('500')) {
-                    errorMessage = 'Erreur temporaire du serveur. Réessayez dans quelques instants.';
-                } else if (error.message.includes('502')) {
-                    errorMessage = 'Service temporairement indisponible. Réessayez plus tard.';
-                } else if (error.message) {
-                    errorMessage = error.message;
-                }
-
-                showMessage(errorMessage, 'error');
-
-                // Afficher des données de fallback
-                updateStats({
-                    total_players: 0,
-                    total_score: 0,
-                    avg_level: 1,
-                    total_badges: 0
-                });
-
-                const tbody = document.getElementById('leaderboard-body');
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="5" class="error-message">
-                            Impossible de charger le classement. Veuillez réessayer.
-                        </td>
-                    </tr>
-                `;
-            } finally {
-                isLoading = false;
-                refreshButton.disabled = false;
-            }
-        }
-
-        // Mise à jour des statistiques avec validation
-        function updateStats(stats) {
-            const elements = {
-                'total-players': stats.total_players || 0,
-                'total-score': stats.total_score || 0,
-                'avg-level': Math.round(stats.avg_level || 1),
-                'total-badges': stats.total_badges || 0
-            };
-
-            Object.entries(elements).forEach(([id, value]) => {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.textContent = value.toLocaleString();
-                }
-            });
-        }
-
-        // Mise à jour du tableau avec validation et sécurité
-        function updateTable(leaderboard) {
-            const tbody = document.getElementById('leaderboard-body');
-            if (!tbody) return;
-            tbody.innerHTML = '';
-
-            if (!Array.isArray(leaderboard) || leaderboard.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="5" class="loading">
-                            Aucun joueur dans le classement
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-
-            // Dédupliquer par username en gardant le meilleur score
-            const mapByUser = new Map();
-            leaderboard.forEach((p) => {
-                const key = (p.username || '').toLowerCase();
-                const existing = mapByUser.get(key);
-                if (!existing || (parseInt(p.score) || 0) > (parseInt(existing.score) || 0)) {
-                    mapByUser.set(key, p);
-                }
-            });
-            const deduped = Array.from(mapByUser.values())
-                .sort((a, b) => (parseInt(b.score) || 0) - (parseInt(a.score) || 0))
-                .slice(0, 100);
-
-            deduped.forEach((player, index) => {
-                // Validation et nettoyage des données
-                const safePlayer = {
-                    username: (player.username || 'Hacker').substring(0, 20),
-                    score: parseInt(player.score) || 0,
-                    level: parseInt(player.level) || 1,
-                    badges_count: parseInt(player.badges_count) || 0,
-                    is_current: Boolean(player.is_current)
-                };
-
-                const row = document.createElement('tr');
-                row.className = safePlayer.is_current ? 'current-player' : '';
-
-                // Créer l'avatar du joueur
-                const avatar = document.createElement('div');
-                avatar.className = 'player-avatar';
-                avatar.textContent = safePlayer.username.charAt(0).toUpperCase();
-                avatar.setAttribute('aria-label', `Avatar de ${safePlayer.username}`);
-
-                // Créer les détails du joueur
-                const playerDetails = document.createElement('div');
-                playerDetails.className = 'player-details';
-                playerDetails.innerHTML = `
-                    <div class="player-name">${escapeHtml(safePlayer.username)}</div>
-                    <div class="player-level">Niveau ${safePlayer.level}</div>
-                `;
-
-                // Créer les badges
-                const badges = document.createElement('div');
-                badges.className = 'badges-cell';
-                badges.setAttribute('aria-label', `${safePlayer.badges_count} badges`);
-
-                for (let i = 0; i < Math.min(safePlayer.badges_count, 5); i++) {
-                    const badge = document.createElement('div');
-                    badge.className = 'badge-mini';
-                    badge.textContent = '🏅';
-                    badge.setAttribute('aria-label', `Badge ${i + 1}`);
-                    badges.appendChild(badge);
-                }
-
-                row.innerHTML = `
-                    <td class="rank-cell rank-${index + 1}">${index + 1}</td>
-                    <td>
-                        <div class="player-info">
-                            ${avatar.outerHTML}
-                            ${playerDetails.outerHTML}
-                        </div>
-                    </td>
-                    <td class="score-cell">${safePlayer.score.toLocaleString()}</td>
-                    <td>${safePlayer.level}</td>
-                    <td>${badges.outerHTML}</td>
-                `;
-
-                tbody.appendChild(row);
-            });
-        }
-
-        // Fonction d'échappement HTML pour la sécurité
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        // Mise à jour de la date de dernière mise à jour
-        function updateLastUpdated() {
-            const now = new Date();
-            lastUpdateTime = now;
-            const element = document.getElementById('last-updated');
-            if (element) {
-                element.textContent = `Dernière mise à jour: ${now.toLocaleTimeString()}`;
-            }
-        }
-
-        // Actualisation du leaderboard avec debouncing
-        const debouncedRefresh = debounce(() => {
-            loadLeaderboard();
-        }, 300);
-
-        function refreshLeaderboard() {
-            if (isLoading) {
-                return;
-            }
-
-            debouncedRefresh();
-
-            if (window.lunaVision) {
-                window.lunaVision.showLunaMessage("Classement actualisé...", 2000);
-                window.lunaVision.setEmotion('analytical');
-            }
-        }
-
-        // Gestion des défis avec validation
-        function startChallenge(challengeType) {
-            const challenges = {
-                speed: "Défi Vitesse",
-                precision: "Défi Précision",
-                exploration: "Défi Exploration"
-            };
-
-            const challengeName = challenges[challengeType];
-            if (!challengeName) {
-                showMessage('Type de défi invalide', 'error');
-                return;
-            }
-
-            if (window.lunaVision) {
-                window.lunaVision.showLunaMessage(`Défi "${challengeName}" lancé !`, 3000);
-                window.lunaVision.setEmotion('excited');
-            }
-
-            showMessage(`Défi "${challengeName}" lancé ! Redirection vers le terminal...`, 'success');
-
-            // Rediriger vers le terminal pour le défi
-            setTimeout(() => {
-                window.location.href = '/terminal';
-            }, 2000);
-        }
-
-        // Gestion des événements clavier pour l'accessibilité
-        function handleChallengeKeydown(event, challengeType) {
-            if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                startChallenge(challengeType);
-            }
-        }
-
-        // Auto-refresh périodique (toutes les 5 minutes)
-        function startAutoRefresh() {
-            setInterval(() => {
-                if (!isLoading && document.visibilityState === 'visible') {
-                    loadLeaderboard();
-                }
-            }, 5 * 60 * 1000); // 5 minutes
-        }
-
-        // Initialisation au chargement de la page
-        document.addEventListener('DOMContentLoaded', () => {
-            loadCategoryTabs();
-            loadLeaderboard();
-
-            // Animation du titre
-            setTimeout(() => {
-                const title = document.getElementById('leaderboard-title');
-                if (window.lunaVision && title) {
-                    window.lunaVision.typeText(title, "LEADERBOARD HACKERS", 80);
-                }
-            }, 1000);
-
-            // Animation du sous-titre
-            setTimeout(() => {
-                const subtitle = document.getElementById('leaderboard-subtitle');
-                if (window.lunaVision && subtitle) {
-                    window.lunaVision.typeText(subtitle, "Classement des meilleurs hackers d'Arkalia", 40);
-                }
-            }, 2000);
-
-            // Message de LUNA
-            setTimeout(() => {
-                if (window.lunaVision) {
-                    window.lunaVision.showLunaMessage("Le classement se met à jour en temps réel...", 4000);
-                    window.lunaVision.setEmotion('excited');
-                }
-            }, 3000);
-
-            // Interactions avec les cartes de stats
-            const statCards = document.querySelectorAll('.stat-card');
-            statCards.forEach((card, index) => {
-                card.addEventListener('mouseenter', () => {
-                    if (window.lunaVision) {
-                        const labels = ['Hackers Actifs', 'Score Total', 'Niveau Moyen', 'Badges Décernés'];
-                        window.lunaVision.showLunaMessage(`Statistique ${labels[index]} mise à jour...`, 2000);
-                    }
-                });
-
-                // Gestion clavier pour l'accessibilité
-                card.addEventListener('keydown', (event) => {
-                    if (event.key === 'Enter' || event.key === ' ') {
-                        event.preventDefault();
-                        card.click();
-                    }
-                });
-            });
-
-            // Interactions avec les défis
-            const challengeCards = document.querySelectorAll('.challenge-card');
-            challengeCards.forEach(card => {
-                card.addEventListener('mouseenter', () => {
-                    if (window.lunaVision) {
-                        const challengeName = card.querySelector('.challenge-name').textContent;
-                        window.lunaVision.showLunaMessage(`Défi ${challengeName} - Prêt à relever le défi ?`, 2000);
-                    }
-                });
-            });
-
-            // Démarrer l'auto-refresh
-            startAutoRefresh();
-
-            // Gestion de la visibilité de la page
-            document.addEventListener('visibilitychange', () => {
-                if (document.visibilityState === 'visible' && lastUpdateTime) {
-                    const timeSinceUpdate = Date.now() - lastUpdateTime.getTime();
-                    if (timeSinceUpdate > 5 * 60 * 1000) { // Plus de 5 minutes
-                        loadLeaderboard();
-                    }
-                }
-            });
-        });
-
-        // Gestion des erreurs globales
-        window.addEventListener('error', (event) => {
-            console.error('Erreur JavaScript:', event.error);
-            showMessage('Une erreur inattendue s\'est produite', 'error');
-        });
-
-        // Gestion des promesses rejetées
-        window.addEventListener('unhandledrejection', (event) => {
-            console.error('Promesse rejetée:', event.reason);
-            showMessage('Erreur de connexion', 'error');
-        });
-    </script>
-
-    <!-- Scripts des systèmes adaptatifs -->
-    <!-- Guidance adaptative désactivée -->
-    <script src="{{ url_for('static', filename='js/adaptive-guidance.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/progression-feedback.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/competitive-system.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/creative-system.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/casual-system.js') }}"></script>
-
-    <script>
-        // Initialisation des systèmes adaptatifs
-        document.addEventListener('DOMContentLoaded', function () {
-            console.log('🏆 Systèmes adaptatifs initialisés dans le leaderboard');
-
-            // Initialiser le système de guidance adaptative
-            if (window.adaptiveGuidance) {
-                console.log('✅ Guidance adaptative active');
-            }
-
-            // Initialiser le système de feedback de progression
-            if (window.progressionFeedback) {
-                console.log('✅ Feedback de progression actif');
-            }
-
-            // Initialiser le système compétitif
-            if (window.competitiveSystem) {
-                console.log('✅ Système compétitif actif');
-            }
-
-            // Initialiser le système créatif
-            if (window.creativeSystem) {
-                console.log('✅ Système créatif actif');
-            }
-
-            // Initialiser le système casual
-            if (window.casualSystem) {
-                console.log('✅ Système casual actif');
-            }
-        });
-    </script>
+        <!-- Lignes classement -->
+        <div class="leaderboard-table" id="lb-rows"></div>
+      `;
+
+      const rowsEl = document.getElementById("lb-rows");
+      lb.forEach((entry, idx) => {
+        const rank    = idx + 1;
+        const isMe    = myName && entry.name.startsWith(myName.slice(0,3));
+        const rankCls = rank <= 3 ? `rank-${rank}` : "";
+        const rowCls  = [
+          rank === 1 ? "lb-top-1" : rank === 2 ? "lb-top-2" : rank === 3 ? "lb-top-3" : "",
+          isMe ? "lb-me" : "",
+        ].filter(Boolean).join(" ");
+
+        const rankEmoji = rank === 1 ? "🥇" : rank === 2 ? "🥈" : rank === 3 ? "🥉" : rank;
+
+        const endingDots = ENDING_IDS.map(id => {
+          const unlocked = (entry.endings_unlocked || []).includes(id);
+          return `<div class="lb-ending-dot ${unlocked ? id : ''}" title="${unlocked ? ENDING_LABELS[id] : '?'}"></div>`;
+        }).join("");
+
+        const level = getXpLevel(entry.xp);
+        const levelBadge = `<span class="lb-level-badge" style="color:${level.color};border-color:${level.color}">${level.label}</span>`;
+
+        const row = document.createElement("div");
+        row.className = `lb-row ${rowCls}`;
+        row.style.animationDelay = `${idx * 40}ms`;
+        row.innerHTML = `
+          <span class="lb-rank ${rankCls}">${rankEmoji}</span>
+          <div class="lb-name-cell">
+            <span class="lb-name ${isMe ? 'is-me' : ''}">${escapeHtml(entry.name)}${isMe ? '<span class="lb-you-badge">Toi</span>' : ''}</span>
+            ${levelBadge}
+          </div>
+          <div class="lb-endings">${endingDots}</div>
+          <span class="lb-chapters">${entry.chapters_done}/7</span>
+          <span class="lb-xp">${entry.xp.toLocaleString("fr")} XP</span>
+        `;
+        rowsEl.appendChild(row);
+      });
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    loadLeaderboard();
+  </script>
 </body>
-
 </html>

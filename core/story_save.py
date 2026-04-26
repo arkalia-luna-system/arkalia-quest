@@ -26,13 +26,15 @@ def _get_conn() -> sqlite3.Connection:
 def init_db() -> None:
     """Crée la table saves si elle n'existe pas."""
     with _get_conn() as conn:
-        conn.execute("""
+        conn.execute(
+            """
             CREATE TABLE IF NOT EXISTS story_saves (
                 player_id   TEXT PRIMARY KEY,
                 state_json  TEXT NOT NULL,
                 updated_at  TEXT NOT NULL
             )
-        """)
+        """
+        )
         conn.commit()
 
 
@@ -43,13 +45,20 @@ def generate_player_id() -> str:
 def save_state(player_id: str, state: JsonDict) -> None:
     """Sauvegarde (upsert) l'état du joueur."""
     with _get_conn() as conn:
-        conn.execute("""
+        conn.execute(
+            """
             INSERT INTO story_saves (player_id, state_json, updated_at)
             VALUES (?, ?, ?)
             ON CONFLICT(player_id) DO UPDATE SET
                 state_json = excluded.state_json,
                 updated_at = excluded.updated_at
-        """, (player_id, json.dumps(state, ensure_ascii=False), datetime.now(timezone.utc).isoformat()))
+        """,
+            (
+                player_id,
+                json.dumps(state, ensure_ascii=False),
+                datetime.now(timezone.utc).isoformat(),
+            ),
+        )
         conn.commit()
 
 
@@ -84,6 +93,7 @@ def delete_state(player_id: str) -> None:
     # Réinjecter dans le nouvel état vide si il y a eu des fins
     if previous:
         from core.story_engine import get_story_engine
+
         new_state = get_story_engine().new_player_state()
         new_state["previous_endings"] = previous
         save_state(player_id, new_state)
@@ -130,17 +140,23 @@ def get_leaderboard(limit: int = 10) -> list[JsonDict]:
         raw_name = str(state.get("player_name") or "").strip()
         if raw_name:
             # Garder les 3 premiers caractères + *** pour la confidentialité
-            display_name = raw_name[:3] + "***" if len(raw_name) > 3 else raw_name + "***"
+            display_name = (
+                raw_name[:3] + "***" if len(raw_name) > 3 else raw_name + "***"
+            )
         else:
             display_name = "Joueur anonyme"
 
-        entries.append({
-            "name":             display_name,
-            "xp":               xp,
-            "luna_trust":       state.get("luna_trust", 50),
-            "chapters_done":    len(cast(list[Any], state.get("chapters_completed", []))),
-            "endings_unlocked": cast(list[str], state.get("endings_unlocked", [])),
-        })
+        entries.append(
+            {
+                "name": display_name,
+                "xp": xp,
+                "luna_trust": state.get("luna_trust", 50),
+                "chapters_done": len(
+                    cast(list[Any], state.get("chapters_completed", []))
+                ),
+                "endings_unlocked": cast(list[str], state.get("endings_unlocked", [])),
+            }
+        )
 
     # Trier par XP décroissant, puis par trust en cas d'égalité
     entries.sort(key=lambda e: (-int(e["xp"]), -int(e["luna_trust"])))

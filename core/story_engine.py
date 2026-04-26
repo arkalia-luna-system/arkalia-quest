@@ -70,9 +70,13 @@ class StoryEngine:
         raw_dialogue = str(scene.get("dialogue", ""))
         # Substitution du prénom dans le dialogue
         if player_name:
-            dialogue = raw_dialogue.replace("{name}", player_name).replace("{{joueur}}", player_name)
+            dialogue = raw_dialogue.replace("{name}", player_name).replace(
+                "{{joueur}}", player_name
+            )
         else:
-            dialogue = raw_dialogue.replace("{name}", "").replace("{{joueur}}", "joueur")
+            dialogue = raw_dialogue.replace("{name}", "").replace(
+                "{{joueur}}", "joueur"
+            )
 
         # Mémoire des fins précédentes — injectée dans la scène d'ouverture s0_0
         previous = cast(list[str], player_state.get("previous_endings", []))
@@ -90,7 +94,9 @@ class StoryEngine:
             "chapter_title": str(chapter.get("title", "")),
             "chapter_atmosphere": str(chapter.get("atmosphere", "dark")),
             "chapter_progress": self._get_chapter_progress(player_state),
-            "total_chapters": int(cast(JsonDict, self._story.get("meta", {})).get("total_chapters", 7)),
+            "total_chapters": int(
+                cast(JsonDict, self._story.get("meta", {})).get("total_chapters", 7)
+            ),
             "scene_index": scene_index_in_chapter + 1,
             "scene_total": len(chapter_scenes),
             "scene_id": scene_id,
@@ -122,18 +128,24 @@ class StoryEngine:
     #  Traiter un choix                                                   #
     # ------------------------------------------------------------------ #
 
-    def apply_choice(self, player_state: PlayerState, scene_id: str, choice_id: str) -> JsonDict:
+    def apply_choice(
+        self, player_state: PlayerState, scene_id: str, choice_id: str
+    ) -> JsonDict:
         scene = self._scenes_index.get(scene_id)
         if not scene:
             return {"success": False, "error": "Scène introuvable"}
 
-        choice = next((c for c in scene.get("choices", []) if c["id"] == choice_id), None)
+        choice = next(
+            (c for c in scene.get("choices", []) if c["id"] == choice_id), None
+        )
         if not choice:
             return {"success": False, "error": "Choix introuvable"}
 
         # Mettre à jour la confiance LUNA
         trust_delta = int(choice.get("trust_delta", 0))
-        new_trust = max(0, min(100, int(player_state.get("luna_trust", 50)) + trust_delta))
+        new_trust = max(
+            0, min(100, int(player_state.get("luna_trust", 50)) + trust_delta)
+        )
         player_state["luna_trust"] = new_trust
 
         # Mettre à jour les XP
@@ -181,7 +193,9 @@ class StoryEngine:
             return {"success": False, "error": "Ce n'est pas une fin de chapitre"}
 
         current_chapter = str(player_state.get("current_chapter", ""))
-        chapters_completed = cast(list[str], player_state.setdefault("chapters_completed", []))
+        chapters_completed = cast(
+            list[str], player_state.setdefault("chapters_completed", [])
+        )
         if current_chapter and current_chapter not in chapters_completed:
             chapters_completed.append(current_chapter)
 
@@ -206,7 +220,9 @@ class StoryEngine:
             "new_chapter": next_chapter_id,
             "new_scene": first_scene["id"],
             "chapter_title": str(next_chapter.get("title", "")),
-            "chapter_quote": str(next_chapter.get("chapter_quote", next_chapter.get("quote", ""))),
+            "chapter_quote": str(
+                next_chapter.get("chapter_quote", next_chapter.get("quote", ""))
+            ),
         }
 
     # ------------------------------------------------------------------ #
@@ -224,7 +240,9 @@ class StoryEngine:
             min_trust = int(condition.get("min_trust", 0))
 
             if all(f in flags for f in required_flags) and trust >= min_trust:
-                unlocked = cast(list[str], player_state.setdefault("endings_unlocked", []))
+                unlocked = cast(
+                    list[str], player_state.setdefault("endings_unlocked", [])
+                )
                 if ending_id not in unlocked:
                     unlocked.append(ending_id)
 
@@ -232,7 +250,9 @@ class StoryEngine:
     #  Utilitaires                                                        #
     # ------------------------------------------------------------------ #
 
-    def _inject_memory(self, dialogue: str, previous_endings: list[str], player_name: str) -> str:
+    def _inject_memory(
+        self, dialogue: str, previous_endings: list[str], player_name: str
+    ) -> str:
         """
         Modifie le dialogue d'ouverture s0_0 si le joueur a déjà joué.
         LUNA montre qu'elle se souvient — sans trop en dire.
@@ -269,8 +289,13 @@ class StoryEngine:
     def _get_chapter_progress(self, player_state: PlayerState) -> int:
         completed = cast(list[str], player_state.get("chapters_completed", []))
         main_chapters = [
-            "chapitre_0", "chapitre_1", "chapitre_2", "chapitre_3",
-            "chapitre_4", "chapitre_5", "chapitre_6",
+            "chapitre_0",
+            "chapitre_1",
+            "chapitre_2",
+            "chapitre_3",
+            "chapitre_4",
+            "chapitre_5",
+            "chapitre_6",
         ]
         return len([c for c in completed if c in main_chapters])
 

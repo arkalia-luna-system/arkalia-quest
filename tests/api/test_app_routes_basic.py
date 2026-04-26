@@ -3,6 +3,7 @@ Tests de l'ancien système terminal (arkalia-quest v1).
 Ces routes n'existent plus dans la version narrative actuelle.
 Ce fichier est conservé pour l'historique et ignoré dans la suite CI.
 """
+
 import pytest
 
 pytestmark = pytest.mark.skip(

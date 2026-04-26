@@ -3,6 +3,7 @@ Tests du moteur narratif — LUNA Hors Connexion.
 Vérifie que les 3 fins sont atteignables, la progression des chapitres,
 et la cohérence du score de confiance.
 """
+
 # pyright: reportPrivateUsage=false
 
 import os
@@ -23,18 +24,23 @@ def engine() -> StoryEngine:
     return StoryEngine()
 
 
-def apply_sequence(engine: StoryEngine, choices_seq: list[tuple[str, str]]) -> PlayerState:
+def apply_sequence(
+    engine: StoryEngine, choices_seq: list[tuple[str, str]]
+) -> PlayerState:
     """Joue une séquence (scene_id, choice_id) et retourne l'état final."""
     state = engine.new_player_state()
     for scene_id, choice_id in choices_seq:
         result = engine.apply_choice(state, scene_id, choice_id)
-        assert result.get("success"), f"Choix invalide: {scene_id}/{choice_id} → {result}"
+        assert result.get(
+            "success"
+        ), f"Choix invalide: {scene_id}/{choice_id} → {result}"
     return state
 
 
 # ─────────────────────────────────────────────
 # Tests unitaires de base
 # ─────────────────────────────────────────────
+
 
 class TestPlayerState:
     def test_new_player_state_defaults(self, engine: StoryEngine) -> None:
@@ -101,10 +107,12 @@ class TestApplyChoice:
     def test_flags_set_on_choice(self, engine: StoryEngine) -> None:
         state = engine.new_player_state()
         # Le flag accepted_chapter_0 est posé par c0_3b_a (choix "Je t'aide.")
-        engine.apply_choice(state, "s0_0", "c0_0_a")   # → s0_1
+        engine.apply_choice(state, "s0_0", "c0_0_a")  # → s0_1
         engine.apply_choice(state, "s0_1", "c0_1a_c")  # → s0_2c
-        engine.apply_choice(state, "s0_2c", "c0_2c_a") # → s0_3b
-        engine.apply_choice(state, "s0_3b", "c0_3b_a") # → s0_fin (flags: accepted_chapter_0)
+        engine.apply_choice(state, "s0_2c", "c0_2c_a")  # → s0_3b
+        engine.apply_choice(
+            state, "s0_3b", "c0_3b_a"
+        )  # → s0_fin (flags: accepted_chapter_0)
         assert "accepted_chapter_0" in state["flags"]
 
     def test_trust_clamped_between_0_and_100(self, engine: StoryEngine) -> None:
@@ -167,6 +175,7 @@ class TestAdvanceChapter:
 # ─────────────────────────────────────────────
 # Tests des 3 chemins narratifs (fins)
 # ─────────────────────────────────────────────
+
 
 def navigate_to_chapter6(engine: StoryEngine, state: PlayerState) -> dict[str, Any]:
     """Avance jusqu'au début du chapitre 6 en prenant toujours le premier choix."""
@@ -316,6 +325,7 @@ class TestNarrativePaths:
 # Tests de cohérence du story.json
 # ─────────────────────────────────────────────
 
+
 class TestStoryCoherence:
     def test_all_next_scenes_exist(self, engine: StoryEngine) -> None:
         """Toutes les références next_scene pointent vers des scènes existantes."""
@@ -333,9 +343,9 @@ class TestStoryCoherence:
         for chapter in cast(list[dict[str, Any]], engine._story["chapters"]):
             for scene in cast(list[dict[str, Any]], chapter["scenes"]):
                 if scene.get("is_chapter_end"):
-                    assert "next_chapter" in scene, (
-                        f"Scène {scene['id']} is_chapter_end mais pas de next_chapter"
-                    )
+                    assert (
+                        "next_chapter" in scene
+                    ), f"Scène {scene['id']} is_chapter_end mais pas de next_chapter"
 
     def test_each_chapter_has_scenes(self, engine: StoryEngine) -> None:
         """Chaque chapitre a au moins une scène."""
@@ -344,7 +354,10 @@ class TestStoryCoherence:
 
     def test_all_chapters_referenced(self, engine: StoryEngine) -> None:
         """Les 3 fins existent comme chapitres."""
-        chapter_ids = {str(ch["id"]) for ch in cast(list[dict[str, Any]], engine._story["chapters"])}
+        chapter_ids = {
+            str(ch["id"])
+            for ch in cast(list[dict[str, Any]], engine._story["chapters"])
+        }
         for fin in ["fin_a", "fin_b", "fin_c"]:
             assert fin in chapter_ids, f"Chapitre '{fin}' manquant"
 
@@ -356,7 +369,11 @@ class TestStoryCoherence:
 
     def test_no_orphan_scenes_in_chapter_0(self, engine: StoryEngine) -> None:
         """Les scènes du chapitre 0 sont toutes référencées depuis la première."""
-        ch0 = next(ch for ch in cast(list[dict[str, Any]], engine._story["chapters"]) if ch["id"] == "chapitre_0")
+        ch0 = next(
+            ch
+            for ch in cast(list[dict[str, Any]], engine._story["chapters"])
+            if ch["id"] == "chapitre_0"
+        )
         reachable: set[str] = set()
         chapter_scenes = cast(list[dict[str, Any]], ch0["scenes"])
         to_visit: set[str] = {str(chapter_scenes[0]["id"])}

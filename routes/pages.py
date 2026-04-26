@@ -11,11 +11,15 @@ def register_pages(app) -> None:
 
     @app.route("/")
     def index():
-        return render_template("index.html", canonical_url=url_for("index", _external=True))
+        return render_template(
+            "index.html", canonical_url=url_for("index", _external=True)
+        )
 
     @app.route("/game")
     def game():
-        return render_template("game.html", canonical_url=url_for("game", _external=True))
+        return render_template(
+            "game.html", canonical_url=url_for("game", _external=True)
+        )
 
     @app.route("/profil")
     def profil():

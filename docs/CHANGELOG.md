@@ -3,6 +3,11 @@
 ## [Unreleased] — Avril 2026
 
 ### Documentation et qualite
+
+- Nettoyage massif des tags techniques parasites (test-permissions + tags hash v3.0.0).
+- Conservation d'un set de tags releases significatifs: `v3.0.0-complete`, `v3.0.0-professional`, `v3.1.0`.
+- Ajout d'un audit des tags dans `docs/TAGS_AUDIT_2026-04-27.md`.
+- Ajout de l'URL de demo live Render dans le README.
 - Re-audit documentaire au 27/04/2026 (README + docs principales).
 - Ajout d'un plan de visibilite (demo live + screenshots/GIF) dans le README.
 - Ajout d'un axe roadmap sur la rationalisation des tags Git.
@@ -12,6 +17,7 @@
 - Simplification du guide de contribution et de deploiement.
 
 ### Qualite code
+
 - Correction des erreurs Ruff (imports et hygiene tests).
 - Alignement du formatage Python sur Black 25.1.0 pour corriger le pipeline CI.
 - Durcissement securite/API (SECRET_KEY obligatoire en production, erreurs internes masquees cote client).

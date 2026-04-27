@@ -119,9 +119,9 @@ black .
 
 ## Visibilité du projet
 
-- **Démo live**: à publier (Render conseillé pour Flask).  
-  Ajoute ensuite le lien ici et en haut du repo GitHub.
-- **Screenshots/GIF**: à ajouter dans `docs/assets/` puis référencer dans ce README.
+- **Démo live**: [https://arkalia-quest.onrender.com](https://arkalia-quest.onrender.com)
+- **Healthcheck**: [https://arkalia-quest.onrender.com/health](https://arkalia-quest.onrender.com/health)
+- **Screenshots/GIF**: à placer dans `docs/assets/` puis référencer dans ce README.
 - **Positionnement public**: c'est le projet le plus actif, il doit devenir la vitrine principale.
 
 Checklist publication:
@@ -130,6 +130,17 @@ Checklist publication:
 2. Générer 1 GIF court d'un run (30-45 sec)
 3. Ajouter le lien de démo live dans cette section
 4. Mettre à jour la description du repo GitHub (thème cyberpunk + choix narratifs)
+
+---
+
+## Aperçu visuel (à compléter)
+
+_Assets attendus dans `docs/assets/`:_
+
+- `screenshot-accueil.png`
+- `screenshot-game.png`
+- `screenshot-profil-leaderboard.png`
+- `demo-run.gif`
 
 ---
 

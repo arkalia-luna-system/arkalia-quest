@@ -1,6 +1,6 @@
 # Architecture Technique — Arkalia Quest
 
-Mise a jour: **26 avril 2026**
+Mise a jour: **27 avril 2026**
 
 Ce document remplace l'ancienne version orientee "plateforme educative multi-modules".
 Le code actuel est centre sur un **jeu narratif web**.

@@ -282,6 +282,12 @@ class TestReset:
 
 
 class TestPages:
+    def test_health_page(self, client: FlaskClient) -> None:
+        r = client.get("/health")
+        data = json_obj(r)
+        assert r.status_code == 200
+        assert data["status"] == "ok"
+
     def test_index_page(self, client: FlaskClient) -> None:
         r = client.get("/")
         assert r.status_code == 200

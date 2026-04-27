@@ -1,6 +1,6 @@
 # Guide de Deploiement — LUNA Hors Connexion
 
-Mise a jour: **26 avril 2026**
+Mise a jour: **27 avril 2026**
 
 ## Prerequis
 

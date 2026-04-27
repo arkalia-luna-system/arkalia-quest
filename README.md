@@ -2,13 +2,14 @@
 
 Jeu narratif web cyberpunk: tu dialogues avec LUNA, une IA en fuite, et tes choix modifient la confiance, la progression et les fins.
 
-Statut de ce README: **audité et mis à jour le 26 avril 2026**.
+Statut de ce README: **audité et mis à jour le 27 avril 2026**.
 
 ---
 
 ## Ce projet, en vrai
 
 `arkalia-quest` est une application Flask avec:
+
 - une interface narrative (accueil, jeu, profil, classement),
 - un moteur d'histoire piloté par `data/story.json`,
 - une sauvegarde persistante SQLite par joueur (cookie + `player_id`),
@@ -18,9 +19,10 @@ Public cible: ado, ton direct, rythme rapide, ambiance néon/hacker.
 
 ---
 
-## Audit rapide (26/04/2026)
+## Audit rapide (27/04/2026)
 
 Points confirmés côté code:
+
 - Backend principal en `Flask` (`app.py`) + blueprint API `routes/story.py`.
 - Frontend en `HTML/CSS/JS` vanilla (`templates/` + `static/`).
 - Sauvegarde SQLite locale (`core/story_save.py`).
@@ -28,6 +30,7 @@ Points confirmés côté code:
 - PWA partielle (manifest + service worker).
 
 Écarts constatés dans la doc historique:
+
 - Plusieurs docs parlent encore d'un périmètre "éducatif/gamification large" qui ne reflète plus la boucle centrale actuelle.
 - Le nombre de chapitres est parfois présenté différemment selon les pages et docs.
 - Certains endpoints mentionnés dans les docs ne correspondent pas exactement aux endpoints réellement exposés.
@@ -114,6 +117,22 @@ black .
 
 ---
 
+## Visibilité du projet
+
+- **Démo live**: à publier (Render conseillé pour Flask).  
+  Ajoute ensuite le lien ici et en haut du repo GitHub.
+- **Screenshots/GIF**: à ajouter dans `docs/assets/` puis référencer dans ce README.
+- **Positionnement public**: c'est le projet le plus actif, il doit devenir la vitrine principale.
+
+Checklist publication:
+
+1. Capturer 3 screenshots (`accueil`, `jeu`, `profil/leaderboard`)
+2. Générer 1 GIF court d'un run (30-45 sec)
+3. Ajouter le lien de démo live dans cette section
+4. Mettre à jour la description du repo GitHub (thème cyberpunk + choix narratifs)
+
+---
+
 ## Documentation complémentaire
 
 - `docs/VISION.md` -> vision narrative
@@ -129,6 +148,7 @@ black .
 Branche de travail active: `develop`.
 
 Après validation locale:
+
 1. Committer sur `develop`
 2. Pousser `develop`
 3. Aligner `main` et `backup-stable` sur l'état validé de `develop` (merge ou fast-forward selon politique repo)

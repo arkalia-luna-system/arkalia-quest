@@ -3,6 +3,9 @@
 ## [Unreleased] — Avril 2026
 
 ### Documentation et qualite
+- Re-audit documentaire au 27/04/2026 (README + docs principales).
+- Ajout d'un plan de visibilite (demo live + screenshots/GIF) dans le README.
+- Ajout d'un axe roadmap sur la rationalisation des tags Git.
 - Audit complet de coherence (README + docs principales).
 - Mise a jour des documents d'architecture sur l'etat reel du code.
 - Mise a jour de la roadmap et de la vision produit.

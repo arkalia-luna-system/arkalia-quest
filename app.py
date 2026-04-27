@@ -6,7 +6,7 @@ Application Flask principale.
 import os
 import secrets
 
-from flask import Flask, render_template
+from flask import Flask, jsonify, render_template
 from flask_compress import Compress
 
 from core.story_engine import get_story_engine
@@ -55,6 +55,11 @@ def create_app() -> Flask:
 
     # Pages HTML
     register_pages(app)
+
+    @app.get("/health")
+    def health():
+        """Healthcheck simple pour les plateformes de deploiement."""
+        return jsonify({"status": "ok"}), 200
 
     # Pages d'erreur thématiques
     @app.errorhandler(404)

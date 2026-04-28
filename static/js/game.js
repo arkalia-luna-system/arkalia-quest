@@ -48,6 +48,7 @@ let _lastTrust           = 50;     // dernière valeur de confiance connue
 let _choiceTimerId       = null;
 let _choiceTimerInterval = null;
 let _choiceTimerDeadline = null;
+let _lastThreat          = 15;
 let _textSpeedMode       = localStorage.getItem("luna_text_speed") || "normal";
 let _seenSceneTelemetry  = new Set();
 
@@ -138,6 +139,8 @@ function initDOM() {
     xpHeader:            $("xp-header"),
     trustFill:           $("trust-fill"),
     trustValue:          $("trust-value"),
+    traceFill:           $("trace-fill"),
+    traceValue:          $("trace-value"),
     lunaAvatar:          $("luna-avatar"),
     avatarRing:          $("avatar-ring"),
     avatarGlow:          $("avatar-glow"),
@@ -266,6 +269,11 @@ function setupFirstPlayTip() {
     tip.classList.add("tip-entering");
     setTimeout(() => tip.classList.remove("tip-entering"), 500);
   }, 3500);
+
+  // Hook fort: mission claire tout de suite.
+  setTimeout(() => {
+    showMomentToast("Mission: tu as une seule fenetre pour sauver LUNA.");
+  }, 1800);
 
   // Disparaît automatiquement après 12 secondes
   setTimeout(() => dismissFirstPlayTip(), 15500);
@@ -486,6 +494,15 @@ function updateHeader(state) {
     else if (trust >= 75) bar?.classList.add("trust-warm");
   }
   if (DOM.trustValue) DOM.trustValue.textContent = `${trust}%`;
+
+  const threat = state.threat_level ?? 15;
+  if (DOM.traceFill) {
+    DOM.traceFill.style.width = `${threat}%`;
+    DOM.traceFill.parentElement?.setAttribute("aria-valuenow", threat);
+    DOM.traceFill.parentElement?.classList.toggle("trace-hot", threat >= 75);
+  }
+  if (DOM.traceValue) DOM.traceValue.textContent = `${threat}%`;
+  _lastThreat = threat;
 
   _lastTrust = trust;
 
@@ -772,6 +789,9 @@ async function handleChoice(sceneId, choiceId, btnEl) {
     if (result.xp_gained > 0) showXpIndicator(result.xp_gained);
     if (result.trust_delta > 0 && _sfxEnabled) playTrustUp();
     if (result.trust_delta < 0 && _sfxEnabled) playTrustDown();
+    if (typeof result.threat_delta === "number" && Math.abs(result.threat_delta) >= 4) {
+      showThreatDelta(result.threat_delta);
+    }
     if (result.trust_delta <= -8) { triggerScreenShake(); haptic([40, 30, 80]); }
     else if (result.trust_delta > 5) haptic([15, 10, 15]);
 
@@ -1567,6 +1587,14 @@ function showTrustDelta(delta) {
   const el = document.createElement("div");
   el.className = `trust-delta ${delta > 0 ? "positive" : "negative"}`;
   el.textContent = `${delta > 0 ? "+" : ""}${delta} confiance`;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 1800);
+}
+
+function showThreatDelta(delta) {
+  const el = document.createElement("div");
+  el.className = `trust-delta ${delta > 0 ? "negative" : "positive"}`;
+  el.textContent = `${delta > 0 ? "+" : ""}${delta} trace`;
   document.body.appendChild(el);
   setTimeout(() => el.remove(), 1800);
 }

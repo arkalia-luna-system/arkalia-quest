@@ -69,6 +69,7 @@ class TestGetState:
         assert isinstance(data["choices"], list)
         assert isinstance(data["luna_trust"], int)
         assert isinstance(data["xp"], int)
+        assert isinstance(data["threat_level"], int)
 
     def test_sets_cookie(self) -> None:
         """Le cookie est bien posé pour un tout nouveau client."""

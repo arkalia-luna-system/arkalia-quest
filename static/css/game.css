@@ -884,6 +884,23 @@ button {
   min-width: 34px;
 }
 
+.trace-bar {
+  width: 70px;
+}
+
+.trace-fill {
+  background: linear-gradient(90deg, #f59e0b, #ef4444);
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.35);
+}
+
+.trace-value {
+  color: #fb923c;
+}
+
+.trace-hot .trace-fill {
+  animation: status-critical-blink 0.8s ease infinite;
+}
+
 /* ── LUNA STATUS indicator ─────────────────────────────────── */
 .luna-status {
   font-size: 0.64rem;

@@ -33,6 +33,7 @@
 - Suppression d'un doublon de rapport de tests historique (`tests/tests/reports/...`).
 - Suppression de fichiers legacy non references (anciens rapports, assets de tests HTML manuels, config de charge obsoletes, donnees JSON de l'ancien systeme).
 - Verification complete de la suite de tests Python.
+- Durcissement API supplementaire: validation UUID cookie, rate-limit POST configurable, header `Retry-After` sur 429, et headers de securite HTTP.
 
 ---
 

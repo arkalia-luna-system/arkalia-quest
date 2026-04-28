@@ -52,6 +52,7 @@ class TestPlayerState:
         assert state["chapters_completed"] == []
         assert state["endings_unlocked"] == []
         assert state["threat_level"] == 15
+        assert state["secrets_found"] == []
 
     def test_get_state_initial(self, engine: StoryEngine) -> None:
         state = engine.new_player_state()
@@ -61,6 +62,8 @@ class TestPlayerState:
         assert result["scene_id"] == "s0_0"
         assert result["chapter_id"] == "chapitre_0"
         assert len(result["choices"]) > 0
+        assert isinstance(result["secrets_found"], list)
+        assert result["secrets_total"] == 5
 
     def test_get_state_contains_dialogue(self, engine: StoryEngine) -> None:
         state = engine.new_player_state()
@@ -123,6 +126,14 @@ class TestApplyChoice:
             state, "s0_3b", "c0_3b_a"
         )  # → s0_fin (flags: accepted_chapter_0)
         assert "accepted_chapter_0" in state["flags"]
+
+    def test_secret_unlock_is_returned(self, engine: StoryEngine) -> None:
+        state = engine.new_player_state()
+        state["luna_trust"] = 95
+        result = engine.apply_choice(state, "s0_0", "c0_0_a")
+        assert result["success"] is True
+        assert "perfect-trust" in result["secrets_unlocked"]
+        assert "perfect-trust" in state["secrets_found"]
 
     def test_trust_clamped_between_0_and_100(self, engine: StoryEngine) -> None:
         state = engine.new_player_state()

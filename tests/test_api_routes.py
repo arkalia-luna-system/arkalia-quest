@@ -60,6 +60,16 @@ class TestGetState:
         ]:
             assert field in data, f"Champ manquant: {field}"
 
+    def test_state_contract_types(self, client: FlaskClient) -> None:
+        r = client.get("/api/story/state")
+        data = json_obj(r)
+        assert isinstance(data["scene_id"], str)
+        assert isinstance(data["chapter_id"], str)
+        assert isinstance(data["dialogue"], str)
+        assert isinstance(data["choices"], list)
+        assert isinstance(data["luna_trust"], int)
+        assert isinstance(data["xp"], int)
+
     def test_sets_cookie(self) -> None:
         """Le cookie est bien posé pour un tout nouveau client."""
         from app import create_app
@@ -424,3 +434,21 @@ class TestAppRuntimeHardening:
         assert r.status_code == 404
         assert data["success"] is False
         assert "introuvable" in data["error"]
+
+
+class TestTelemetry:
+    def test_accepts_telemetry_event(self, client: FlaskClient) -> None:
+        r = client.post(
+            "/api/story/telemetry",
+            json={"event_type": "scene_viewed", "payload": {"scene_id": "s0_0"}},
+        )
+        data = json_obj(r)
+        assert r.status_code == 200
+        assert data["success"] is True
+
+    def test_rejects_invalid_telemetry_payload(self, client: FlaskClient) -> None:
+        r = client.post(
+            "/api/story/telemetry",
+            json={"event_type": "scene_viewed", "payload": "invalid"},
+        )
+        assert r.status_code == 400

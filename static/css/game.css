@@ -1987,6 +1987,24 @@ body:has(.dialogue-box.luna-speaking) .luna-panel .luna-avatar {
   overflow-y: auto;
 }
 
+.acc-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  font-size: 0.9rem;
+  color: var(--text-main);
+  margin: 0.55rem 0;
+}
+
+.acc-row select {
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.3rem 0.5rem;
+}
+
 @keyframes first-choice-in {
   from {
     opacity: 0;
@@ -4137,4 +4155,24 @@ body.screen-shaking {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+body.reduced-motion *,
+body.reduced-motion *::before,
+body.reduced-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+body.high-contrast {
+  --bg-deep: #000000;
+  --bg-panel: #060606;
+  --bg-card: #0d0d0d;
+  --text-main: #ffffff;
+  --text-dim: #d1d5db;
+  --text-context: #e5e7eb;
+  --border: rgba(255, 255, 255, 0.35);
+  --action: #38bdf8;
+  --luna: #ff8a65;
 }

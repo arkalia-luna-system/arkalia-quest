@@ -202,8 +202,8 @@
       { min: 0,    max: 99,   label: "Recrue",        color: "#94a3b8" },
       { min: 100,  max: 249,  label: "Opérateur",     color: "#60a5fa" },
       { min: 250,  max: 499,  label: "Agent",         color: "#3dd2f5" },
-      { min: 500,  max: 749,  label: "Hackeur",       color: "#a78bfa" },
-      { min: 750,  max: 999,  label: "Hackeur Élite", color: "#f97316" },
+      { min: 500,  max: 749,  label: "Hacker",       color: "#a78bfa" },
+      { min: 750,  max: 999,  label: "Hacker Élite", color: "#f97316" },
       { min: 1000, max: 9999, label: "Fantôme",       color: "#f43f5e" },
     ];
     function getXpLevel(xp) {
@@ -314,7 +314,7 @@
     }
 
     function escapeHtml(str) {
-      return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+      return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     }
 
     loadLeaderboard();

@@ -102,6 +102,7 @@ black .
 - `docs/ROADMAP.md` -> roadmap produit
 - `docs/DEPLOYMENT_GUIDE.md` -> déploiement
 - `docs/CONTRIBUTING.md` -> contribution
+- `docs/RELEASE_CHECKLIST_v3.1.1.md` -> checklist de release opérationnelle
 
 ## Git flow recommandé
 

@@ -170,6 +170,22 @@ def _enforce_post_rate_limit() -> Optional[tuple[JsonDict, int]]:
     return None
 
 
+def _sanitize_telemetry_value(value: object) -> object:
+    if value is None:
+        return None
+    if isinstance(value, bool | int | float):
+        return value
+    if isinstance(value, str):
+        return value[:128]
+    if isinstance(value, list):
+        raw_list = cast(list[object], value)
+        return [str(v)[:64] for v in raw_list[:8]]
+    if isinstance(value, dict):
+        raw_dict = cast(dict[object, object], value)
+        return {str(k)[:32]: str(v)[:64] for k, v in list(raw_dict.items())[:8]}
+    return str(value)[:128]
+
+
 # ── GET /api/story/state ─────────────────────────────────────────────────
 
 
@@ -360,10 +376,13 @@ def set_name():
         body, code = error
         return jsonify(body), code
 
-    name = (data.get("name") or "").strip()[:30]  # max 30 chars
-
-    if not name:
+    name, name_error = _require_string_field(data, "name")
+    if name_error:
+        body, code = name_error
+        # Message métier côté API publique.
         return jsonify({"success": False, "error": "Prénom requis"}), 400
+    assert name is not None
+    name = name[:30]  # max 30 chars
 
     try:
         player_id, is_new = _get_or_create_player_id()
@@ -572,14 +591,17 @@ def telemetry_event():
     try:
         player_id, is_new = _get_or_create_player_id()
         safe_payload = {
-            "scene_id": payload.get("scene_id"),
-            "chapter_id": payload.get("chapter_id"),
-            "choice_id": payload.get("choice_id"),
-            "ending_id": payload.get("ending_id"),
-            "ui": payload.get("ui"),
-            "value": payload.get("value"),
+            "scene_id": _sanitize_telemetry_value(payload.get("scene_id")),
+            "chapter_id": _sanitize_telemetry_value(payload.get("chapter_id")),
+            "choice_id": _sanitize_telemetry_value(payload.get("choice_id")),
+            "ending_id": _sanitize_telemetry_value(payload.get("ending_id")),
+            "ui": _sanitize_telemetry_value(payload.get("ui")),
+            "value": _sanitize_telemetry_value(payload.get("value")),
         }
-        log_telemetry_event(player_id, event_type, safe_payload)
+        try:
+            log_telemetry_event(player_id, event_type, safe_payload)
+        except Exception as exc:
+            current_app.logger.warning("Telemetry write skipped: %s", exc)
         return _json_with_cookie({"success": True}, player_id, is_new)
     except Exception as e:
         return _internal_error("telemetry", e)

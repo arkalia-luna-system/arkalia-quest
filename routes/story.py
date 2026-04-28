@@ -154,15 +154,28 @@ def guard_post_rate_limit():
 
 
 def _get_rate_limit_config() -> tuple[int, int]:
+    def _read_env_int(name: str, default: int) -> int:
+        raw_value = os.environ.get(name)
+        if raw_value is None:
+            return default
+        try:
+            return int(raw_value)
+        except ValueError:
+            current_app.logger.warning(
+                "Invalid %s value %r, falling back to default=%s",
+                name,
+                raw_value,
+                default,
+            )
+            return default
+
     window_seconds = max(
         1,
-        int(
-            os.environ.get("STORY_RATE_LIMIT_WINDOW_SECONDS", RATE_LIMIT_WINDOW_SECONDS)
-        ),
+        _read_env_int("STORY_RATE_LIMIT_WINDOW_SECONDS", RATE_LIMIT_WINDOW_SECONDS),
     )
     max_posts = max(
         1,
-        int(os.environ.get("STORY_RATE_LIMIT_MAX_POSTS", RATE_LIMIT_MAX_POSTS)),
+        _read_env_int("STORY_RATE_LIMIT_MAX_POSTS", RATE_LIMIT_MAX_POSTS),
     )
     return window_seconds, max_posts
 

@@ -53,7 +53,11 @@ let _textSpeedMode       = localStorage.getItem("luna_text_speed") || "normal";
 let _seenSceneTelemetry  = new Set();
 let _lastWowChapter      = null;
 let _advanceLocked       = false;
+let _activeAtmoClass     = "";
 let _journalCloseTimerId = null;
+let _journalRequestSeq   = 0;
+let _replayLocked        = false;
+let _shareLocked         = false;
 const TELEMETRY_DEDUPE_MS = 900;
 const TELEMETRY_MAX_SIGNATURES = 200;
 const _telemetryRecent = new Map();
@@ -281,6 +285,9 @@ function setupAccessibilityModal() {
   btn.addEventListener("click", open);
   closeBtn.addEventListener("click", close);
   backdrop.addEventListener("click", close);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !modal.hidden) close();
+  });
 
   highContrast.addEventListener("change", () => {
     localStorage.setItem("luna_high_contrast", highContrast.checked ? "on" : "off");
@@ -878,7 +885,11 @@ async function handleChoice(sceneId, choiceId, btnEl) {
   try {
     postTelemetry("choice_selected", { scene_id: sceneId, choice_id: choiceId, chapter_id: _currentChapterId });
     const data = await apiPost("/api/story/choice", { scene_id: sceneId, choice_id: choiceId });
-    if (!data.success) { showError(data.error || "Erreur lors du choix."); _choicesLocked = false; return; }
+    if (!data.success) {
+      restoreChoicesAfterFailure(sceneId, btnEl);
+      showError(data.error || "Erreur lors du choix.");
+      return;
+    }
 
     const result = data.choice_result;
 
@@ -935,7 +946,22 @@ async function handleChoice(sceneId, choiceId, btnEl) {
 
     setTimeout(() => renderState(data.next_state), REACTION_SHOW_MS * 0.3);
 
-  } catch { showError("Connexion perdue."); _choicesLocked = false; }
+  } catch {
+    restoreChoicesAfterFailure(sceneId, btnEl);
+    showError("Connexion perdue.");
+  }
+}
+
+function restoreChoicesAfterFailure(sceneId, selectedBtn) {
+  _choicesLocked = false;
+  if (!DOM.choicesContainer || DOM.choicesContainer.hidden) return;
+  const btns = DOM.choicesContainer.querySelectorAll(".choice-btn");
+  btns.forEach((b) => {
+    b.disabled = false;
+    b.style.opacity = "";
+  });
+  if (selectedBtn) selectedBtn.classList.remove("selected");
+  setupChoiceTimer(sceneId);
 }
 
 // ── Récapitulatif fin de chapitre ─────────────────────────────────────────
@@ -1493,8 +1519,17 @@ function renderEnding(state) {
 function setupReplayButton() {
   if (!DOM.replayBtn) return;
   DOM.replayBtn.addEventListener("click", async () => {
-    await apiPost("/api/story/reset", {});
-    window.location.reload();
+    if (_replayLocked) return;
+    _replayLocked = true;
+    DOM.replayBtn.disabled = true;
+    try {
+      await apiPost("/api/story/reset", {});
+      window.location.reload();
+    } catch {
+      _replayLocked = false;
+      DOM.replayBtn.disabled = false;
+      showError("Impossible de relancer la partie.");
+    }
   });
 }
 
@@ -1518,6 +1553,9 @@ function setupShareButton(endingId, endingTitle, trust, xp, playerName, isFirstE
   // On remplace le handler au lieu d'empiler des listeners
   // a chaque renderEnding (sinon partages/telemetry dupliques).
   btn.onclick = async () => {
+    if (_shareLocked) return;
+    _shareLocked = true;
+    btn.disabled = true;
     haptic(20);
     try {
       // Préférer Web Share API (mobile natif)
@@ -1528,6 +1566,10 @@ function setupShareButton(endingId, endingTitle, trust, xp, playerName, isFirstE
         showShareToast();
       }
     } catch { /* share annulé ou non supporté */ }
+    finally {
+      _shareLocked = false;
+      btn.disabled = false;
+    }
   };
 }
 
@@ -1615,6 +1657,10 @@ function setupIdleEasterEgg() {
   let idleToast = null;
 
   function showIdleMsg() {
+    if (document.hidden) {
+      idleTimer = setTimeout(showIdleMsg, IDLE_DELAY);
+      return;
+    }
     if (idleToast) { idleToast.remove(); idleToast = null; }
 
     const msg = IDLE_MSGS[msgIndex % IDLE_MSGS.length];
@@ -1820,6 +1866,7 @@ function showFirstChoiceToast() {
 }
 
 function showSaveToast() {
+  document.querySelectorAll(".save-toast:not(.share-toast)").forEach((el) => el.remove());
   const toast = document.createElement("div");
   toast.className = "save-toast";
   toast.textContent = "✓ sauvegardé";
@@ -1830,6 +1877,9 @@ function showSaveToast() {
 // Toast léger pour les moments clés (flags)
 function showMomentToast(label) {
   if (!label || typeof label !== "string") return;
+  if (_momentPopupQueue[_momentPopupQueue.length - 1] === label) return;
+  const currentLabel = document.getElementById("moment-popup-text")?.textContent;
+  if (_momentPopupActive && currentLabel === label) return;
   _momentPopupQueue.push(label);
   if (_momentPopupActive) return;
   _consumeMomentToastQueue();
@@ -1916,6 +1966,7 @@ async function openJournalModal() {
     clearTimeout(_journalCloseTimerId);
     _journalCloseTimerId = null;
   }
+  const requestSeq = ++_journalRequestSeq;
   modal.hidden = false;
   modal.classList.add("visible");
   textEl.textContent = "Chargement du journal...";
@@ -1923,6 +1974,7 @@ async function openJournalModal() {
   try {
     const res = await fetch("/api/story/journal");
     const data = await res.json();
+    if (requestSeq !== _journalRequestSeq || modal.hidden) return;
     if (!data.success) {
       textEl.textContent = data.error || "Impossible de charger le journal.";
       return;
@@ -1933,6 +1985,7 @@ async function openJournalModal() {
       textEl.textContent = data.journal;
     }
   } catch {
+    if (requestSeq !== _journalRequestSeq || modal.hidden) return;
     textEl.textContent = "Connexion perdue.";
   }
 }
@@ -1941,6 +1994,7 @@ function closeJournalModal() {
   const modal = document.getElementById("journal-modal");
   if (!modal) return;
   modal.classList.remove("visible");
+  _journalRequestSeq++;
   if (_journalCloseTimerId) clearTimeout(_journalCloseTimerId);
   _journalCloseTimerId = setTimeout(() => {
     if (!modal.classList.contains("visible")) modal.hidden = true;

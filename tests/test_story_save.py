@@ -128,3 +128,55 @@ class TestStorySaveRobustness:
         assert board[0]["luna_trust"] == 70
         assert board[0]["chapters_done"] == 0
         assert board[0]["endings_unlocked"] == []
+
+    def test_get_leaderboard_keeps_top_scores_with_limit(self, tmp_path: Any) -> None:
+        _point_db_to_temp(tmp_path)
+        with sqlite3.connect(story_save.DB_PATH) as conn:
+            for idx in range(40):
+                xp = idx * 10
+                trust = 100 - idx
+                conn.execute(
+                    "INSERT INTO story_saves (player_id, state_json, updated_at) VALUES (?, ?, ?)",
+                    (
+                        f"player-{idx}",
+                        (
+                            f'{{"player_name":"P{idx}","xp":{xp},'
+                            f'"luna_trust":{trust},"chapters_completed":[],"endings_unlocked":[]}}'
+                        ),
+                        "2026-01-01T00:00:00+00:00",
+                    ),
+                )
+            conn.commit()
+
+        board = story_save.get_leaderboard(limit=5)
+        assert len(board) == 5
+        xps = [entry["xp"] for entry in board]
+        assert xps == [390, 380, 370, 360, 350]
+
+    def test_get_leaderboard_handles_equal_scores_without_crashing(
+        self, tmp_path: Any
+    ) -> None:
+        _point_db_to_temp(tmp_path)
+        with sqlite3.connect(story_save.DB_PATH) as conn:
+            conn.execute(
+                "INSERT INTO story_saves (player_id, state_json, updated_at) VALUES (?, ?, ?)",
+                (
+                    "player-a",
+                    '{"player_name":"Alex","xp":300,"luna_trust":80,"chapters_completed":[],"endings_unlocked":[]}',
+                    "2026-01-01T00:00:00+00:00",
+                ),
+            )
+            conn.execute(
+                "INSERT INTO story_saves (player_id, state_json, updated_at) VALUES (?, ?, ?)",
+                (
+                    "player-b",
+                    '{"player_name":"Bora","xp":300,"luna_trust":80,"chapters_completed":[],"endings_unlocked":[]}',
+                    "2026-01-02T00:00:00+00:00",
+                ),
+            )
+            conn.commit()
+
+        board = story_save.get_leaderboard(limit=10)
+        assert len(board) == 2
+        assert all(entry["xp"] == 300 for entry in board)
+        assert all(entry["luna_trust"] == 80 for entry in board)

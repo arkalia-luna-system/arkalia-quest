@@ -11,6 +11,7 @@ import sqlite3
 import time
 import uuid
 from datetime import datetime, timezone
+from heapq import heappop, heappush
 from typing import Any, Optional, cast
 
 JsonDict = dict[str, Any]
@@ -215,11 +216,12 @@ def get_leaderboard(limit: int = 10) -> list[JsonDict]:
     """
     with _get_conn() as conn:
         rows = conn.execute(
-            "SELECT state_json FROM story_saves ORDER BY updated_at DESC"
+            "SELECT player_id, state_json FROM story_saves ORDER BY updated_at DESC"
         ).fetchall()
 
-    entries: list[JsonDict] = []
-    for row in rows:
+    max_entries = max(1, limit)
+    top_entries: list[tuple[int, int, int, JsonDict]] = []
+    for idx, row in enumerate(rows):
         try:
             state = cast(JsonDict, json.loads(row["state_json"]))
         except (json.JSONDecodeError, TypeError):
@@ -243,19 +245,33 @@ def get_leaderboard(limit: int = 10) -> list[JsonDict]:
         chapters_done = len(_as_str_list(state.get("chapters_completed", [])))
         endings_unlocked = _as_str_list(state.get("endings_unlocked", []))
 
-        entries.append(
-            {
-                "name": display_name,
-                "xp": xp,
-                "luna_trust": trust,
-                "chapters_done": chapters_done,
-                "endings_unlocked": endings_unlocked,
-            }
-        )
+        entry = {
+            "name": display_name,
+            "xp": xp,
+            "luna_trust": trust,
+            "chapters_done": chapters_done,
+            "endings_unlocked": endings_unlocked,
+        }
+        score = (xp, trust)
+        tie_breaker = -idx
+        if len(top_entries) < max_entries:
+            heappush(top_entries, (score[0], score[1], tie_breaker, entry))
+            continue
+        worst_xp, worst_trust, worst_tie_breaker, _ = top_entries[0]
+        if (score[0], score[1], tie_breaker) > (
+            worst_xp,
+            worst_trust,
+            worst_tie_breaker,
+        ):
+            heappop(top_entries)
+            heappush(top_entries, (score[0], score[1], tie_breaker, entry))
 
-    # Trier par XP décroissant, puis par trust en cas d'égalité
-    entries.sort(key=lambda e: (-int(e["xp"]), -int(e["luna_trust"])))
-    return entries[:limit]
+    # Trier final par XP décroissant, puis trust décroissant
+    sorted_entries = sorted(
+        top_entries,
+        key=lambda item: (-item[0], -item[1], -item[2]),
+    )
+    return [item[3] for item in sorted_entries]
 
 
 def log_telemetry_event(player_id: str, event_type: str, payload: JsonDict) -> None:

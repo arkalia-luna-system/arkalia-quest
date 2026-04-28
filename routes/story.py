@@ -11,7 +11,9 @@ GET  /api/story/leaderboard  → classement local des joueurs
 """
 
 import os
+import re
 import time
+import unicodedata
 from collections import defaultdict, deque
 from typing import Optional, cast
 from uuid import UUID
@@ -184,6 +186,13 @@ def _sanitize_telemetry_value(value: object) -> object:
         raw_dict = cast(dict[object, object], value)
         return {str(k)[:32]: str(v)[:64] for k, v in list(raw_dict.items())[:8]}
     return str(value)[:128]
+
+
+def _normalize_player_name(raw_name: str) -> str:
+    name = unicodedata.normalize("NFKC", raw_name)
+    name = "".join(ch for ch in name if unicodedata.category(ch)[0] != "C")
+    name = re.sub(r"\s+", " ", name).strip()
+    return name[:30]
 
 
 # ── GET /api/story/state ─────────────────────────────────────────────────
@@ -382,7 +391,11 @@ def set_name():
         # Message métier côté API publique.
         return jsonify({"success": False, "error": "Prénom requis"}), 400
     assert name is not None
-    name = name[:30]  # max 30 chars
+    name = _normalize_player_name(name)
+    if not name:
+        return jsonify({"success": False, "error": "Prénom requis"}), 400
+    if not any(ch.isalnum() for ch in name):
+        return jsonify({"success": False, "error": "Prénom invalide"}), 400
 
     try:
         player_id, is_new = _get_or_create_player_id()

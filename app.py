@@ -14,6 +14,17 @@ from routes.pages import register_pages
 from routes.story import story_bp
 
 
+def _read_env_int(name: str, default: int, minimum: int = 1) -> int:
+    raw = os.environ.get(name)
+    if raw is None:
+        return default
+    try:
+        value = int(raw)
+    except ValueError:
+        return default
+    return max(minimum, value)
+
+
 def _is_production() -> bool:
     env = (os.environ.get("FLASK_ENV") or os.environ.get("APP_ENV") or "").lower()
     return env in {"prod", "production"}
@@ -42,7 +53,11 @@ def create_app() -> Flask:
     app.config["SESSION_COOKIE_HTTPONLY"] = True
     app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
     app.config["SESSION_COOKIE_SECURE"] = is_production
-    app.config["MAX_CONTENT_LENGTH"] = 1 * 1024 * 1024  # 1 MB max
+    app.config["MAX_CONTENT_LENGTH"] = _read_env_int(
+        "APP_MAX_CONTENT_LENGTH_BYTES",
+        1 * 1024 * 1024,
+        minimum=1024,
+    )  # 1 MB max by default
 
     @app.after_request
     def apply_security_headers(response: Response) -> Response:
@@ -67,6 +82,11 @@ def create_app() -> Flask:
             "Permissions-Policy",
             "camera=(), microphone=(), geolocation=()",
         )
+        if is_production:
+            response.headers.setdefault(
+                "Strict-Transport-Security",
+                "max-age=31536000; includeSubDomains",
+            )
         return response
 
     # Compression des réponses
@@ -104,5 +124,5 @@ if __name__ == "__main__":
     app.run(
         debug=_is_debug_enabled(),
         host=os.environ.get("HOST", "0.0.0.0"),
-        port=int(os.environ.get("PORT", "5001")),
+        port=_read_env_int("PORT", 5001),
     )

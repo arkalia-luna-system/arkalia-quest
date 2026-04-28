@@ -11,6 +11,8 @@ from typing import Any, cast
 import pytest
 from flask.testing import FlaskClient
 
+from routes import story as story_routes
+
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from app import create_app
@@ -145,6 +147,26 @@ class TestApplyChoice:
             content_type="text/plain",
         )
         assert r.status_code == 415
+
+    def test_rate_limit_returns_429_and_retry_after(self, client: FlaskClient) -> None:
+        os.environ["STORY_RATE_LIMIT_WINDOW_SECONDS"] = "60"
+        os.environ["STORY_RATE_LIMIT_MAX_POSTS"] = "1"
+        story_routes.reset_story_rate_limit()
+        try:
+            first = client.post(
+                "/api/story/choice", json={"scene_id": "s0_0", "choice_id": "c0_0_a"}
+            )
+            assert first.status_code in {200, 400}
+
+            second = client.post(
+                "/api/story/choice", json={"scene_id": "s0_0", "choice_id": "c0_0_a"}
+            )
+            assert second.status_code == 429
+            assert second.headers.get("Retry-After") == "60"
+        finally:
+            os.environ.pop("STORY_RATE_LIMIT_WINDOW_SECONDS", None)
+            os.environ.pop("STORY_RATE_LIMIT_MAX_POSTS", None)
+            story_routes.reset_story_rate_limit()
 
 
 # ─────────────────────────────────────────────

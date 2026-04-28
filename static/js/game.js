@@ -207,6 +207,7 @@ function initDOM() {
     journalBtn:          $("journal-btn"),
     journalModal:        $("journal-modal"),
     accessModal:         $("access-modal"),
+    endingAchievement:   $("ending-achievement"),
   };
 }
 
@@ -777,8 +778,8 @@ function setupKeyboardShortcuts() {
     const isEndingAchievementVisible = !!(
       DOM.endingContainer &&
       !DOM.endingContainer.hidden &&
-      document.getElementById("ending-achievement") &&
-      !document.getElementById("ending-achievement").hidden
+      DOM.endingAchievement &&
+      !DOM.endingAchievement.hidden
     );
     if (isBootVisible || isChapterTransitionVisible || isEndingAchievementVisible) {
       return;
@@ -841,6 +842,7 @@ function renderChoices(choices, sceneId) {
 
   clearChoiceTimer();
 
+  const fragment = document.createDocumentFragment();
   choices.forEach((choice, idx) => {
     const btn = document.createElement("button");
     btn.className = "choice-btn";
@@ -858,8 +860,9 @@ function renderChoices(choices, sceneId) {
     btn.style.animationDelay = `${idx * 80}ms`;
     btn.addEventListener("click", () => handleChoice(sceneId, choice.id, btn));
     btn.addEventListener("mouseenter", () => { if (_sfxEnabled) playHover(); });
-    DOM.choicesContainer.appendChild(btn);
+    fragment.appendChild(btn);
   });
+  DOM.choicesContainer.appendChild(fragment);
 
   DOM.choicesContainer.hidden = false;
   // Focus sur le premier choix pour accessibilité clavier

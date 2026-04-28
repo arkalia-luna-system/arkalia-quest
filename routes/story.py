@@ -10,6 +10,8 @@ POST /api/story/name         → enregistrer le prénom du joueur
 GET  /api/story/leaderboard  → classement local des joueurs
 """
 
+from typing import Any, Optional
+
 from flask import Blueprint, current_app, jsonify, make_response, request
 
 from core.story_engine import get_story_engine
@@ -67,6 +69,17 @@ def _internal_error(context: str, exc: Exception):
     return jsonify({"success": False, "error": "Erreur interne."}), 500
 
 
+def _read_json_payload() -> tuple[dict[str, Any], Optional[tuple[dict[str, Any], int]]]:
+    if not request.is_json:
+        return {}, ({"success": False, "error": "Content-Type JSON requis"}, 415)
+
+    payload = request.get_json(silent=True)
+    if not isinstance(payload, dict):
+        return {}, ({"success": False, "error": "Payload JSON invalide"}, 400)
+
+    return payload, None
+
+
 # ── GET /api/story/state ─────────────────────────────────────────────────
 
 
@@ -87,7 +100,11 @@ def get_state():
 
 @story_bp.route("/choice", methods=["POST"])
 def apply_choice():
-    data = request.get_json(silent=True) or {}
+    data, error = _read_json_payload()
+    if error:
+        body, code = error
+        return jsonify(body), code
+
     scene_id = data.get("scene_id")
     choice_id = data.get("choice_id")
 
@@ -125,7 +142,11 @@ def apply_choice():
 
 @story_bp.route("/advance", methods=["POST"])
 def advance_chapter():
-    data = request.get_json(silent=True) or {}
+    data, error = _read_json_payload()
+    if error:
+        body, code = error
+        return jsonify(body), code
+
     scene_id = data.get("scene_id")
 
     if not scene_id:
@@ -179,7 +200,11 @@ def reset_story():
 @story_bp.route("/name", methods=["POST"])
 def set_name():
     """Enregistre le prénom du joueur dans sa sauvegarde."""
-    data = request.get_json(silent=True) or {}
+    data, error = _read_json_payload()
+    if error:
+        body, code = error
+        return jsonify(body), code
+
     name = (data.get("name") or "").strip()[:30]  # max 30 chars
 
     if not name:

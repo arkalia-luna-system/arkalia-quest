@@ -15,8 +15,8 @@ Mise a jour: **27 avril 2026**
 - Ajouter des tests API supplementaires sur les cas d'erreur.
 - Stabiliser le wording UI (accueil, fin, profil) pour ton adolescent.
 - Reducer le code historique non utilise dans la configuration.
-- Ajouter une demo live publique et des captures du jeu dans le README.
 - Rationaliser les tags Git (garder uniquement des tags de release significatifs).
+- Ajouter les assets visuels de demo dans `docs/assets/` et les lier depuis `README.md`.
 
 ## Priorites moyen terme (P2)
 

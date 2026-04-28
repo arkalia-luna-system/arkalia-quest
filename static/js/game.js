@@ -52,6 +52,10 @@ let _lastThreat          = 15;
 let _textSpeedMode       = localStorage.getItem("luna_text_speed") || "normal";
 let _seenSceneTelemetry  = new Set();
 let _lastWowChapter      = null;
+let _advanceLocked       = false;
+const TELEMETRY_DEDUPE_MS = 900;
+const TELEMETRY_MAX_SIGNATURES = 200;
+const _telemetryRecent = new Map();
 
 // Labels lisibles pour les flags — côté client
 const FLAG_LABELS_JS = {
@@ -112,6 +116,8 @@ const SECRET_HINTS = {
 
 let _exploitTimeout = null;
 let _secretTimeout = null;
+let _momentPopupQueue = [];
+let _momentPopupActive = false;
 
 function showExploitPopup(flagId) {
   const label = EXPLOIT_FLAGS[flagId];
@@ -384,6 +390,7 @@ async function loadCurrentState() {
 // ── Rendu complet d'un état ───────────────────────────────────────────────
 function renderState(state) {
   hideBootOverlay();
+  _advanceLocked = false;
 
   // Réinitialiser les flags du chapitre si on change de chapitre
   if (state.chapter_id !== _currentChapterId) {
@@ -728,6 +735,21 @@ function setupKeyboardShortcuts() {
   const hint = document.querySelector(".keyboard-hint");
 
   document.addEventListener("keydown", (e) => {
+    // Eviter les actions fantomes pendant les transitions visuelles.
+    const isBootVisible = !!(DOM.bootOverlay && !DOM.bootOverlay.hidden);
+    const isChapterTransitionVisible = !!(
+      DOM.chapterTransition && !DOM.chapterTransition.hidden
+    );
+    const isEndingAchievementVisible = !!(
+      DOM.endingContainer &&
+      !DOM.endingContainer.hidden &&
+      document.getElementById("ending-achievement") &&
+      !document.getElementById("ending-achievement").hidden
+    );
+    if (isBootVisible || isChapterTransitionVisible || isEndingAchievementVisible) {
+      return;
+    }
+
     // Ignorer si focus dans un input/textarea
     if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement?.tagName)) return;
 
@@ -1050,6 +1072,8 @@ function showAdvanceButton(state) {
 function setupAdvanceButton() {
   if (!DOM.advanceBtn) return;
   DOM.advanceBtn.addEventListener("click", async () => {
+    if (_advanceLocked) return;
+    _advanceLocked = true;
     if (_sfxEnabled) playAdvance();
     DOM.advanceBtn.disabled = true;
     DOM.advanceContainer.hidden = true;
@@ -1062,6 +1086,7 @@ function setupAdvanceButton() {
         showError(data.error || "Impossible d'avancer.");
         DOM.advanceBtn.disabled = false;
         DOM.advanceContainer.hidden = false;
+        _advanceLocked = false;
         return;
       }
 
@@ -1073,7 +1098,12 @@ function setupAdvanceButton() {
       );
       renderState(data.next_state);
 
-    } catch { showError("Connexion perdue."); DOM.advanceBtn.disabled = false; DOM.advanceContainer.hidden = false; }
+    } catch {
+      showError("Connexion perdue.");
+      DOM.advanceBtn.disabled = false;
+      DOM.advanceContainer.hidden = false;
+      _advanceLocked = false;
+    }
   });
 }
 
@@ -1449,9 +1479,11 @@ function setupShareButton(endingId, endingTitle, trust, xp, playerName, isFirstE
 
   const shareText = `${icon} ${name} LUNA — Hors Connexion\n` +
     `${endingTitle} · ${xp} XP · ${trust}% confiance\n\n` +
-    `3 fins possibles. Laquelle t'as ?`;
+    `4 fins possibles. Laquelle t'as ?`;
 
-  btn.addEventListener("click", async () => {
+  // On remplace le handler au lieu d'empiler des listeners
+  // a chaque renderEnding (sinon partages/telemetry dupliques).
+  btn.onclick = async () => {
     haptic(20);
     try {
       // Préférer Web Share API (mobile natif)
@@ -1462,7 +1494,7 @@ function setupShareButton(endingId, endingTitle, trust, xp, playerName, isFirstE
         showShareToast();
       }
     } catch { /* share annulé ou non supporté */ }
-  });
+  };
 }
 
 function showShareToast() {
@@ -1762,15 +1794,35 @@ function showSaveToast() {
 
 // Toast léger pour les moments clés (flags)
 function showMomentToast(label) {
+  if (!label || typeof label !== "string") return;
+  _momentPopupQueue.push(label);
+  if (_momentPopupActive) return;
+  _consumeMomentToastQueue();
+}
+
+function _consumeMomentToastQueue() {
   const popup = document.getElementById("moment-popup");
   const textEl = document.getElementById("moment-popup-text");
-  if (!popup || !textEl) return;
-  textEl.textContent = label;
+  if (!popup || !textEl) {
+    _momentPopupQueue = [];
+    _momentPopupActive = false;
+    return;
+  }
+  const nextLabel = _momentPopupQueue.shift();
+  if (!nextLabel) {
+    _momentPopupActive = false;
+    return;
+  }
+  _momentPopupActive = true;
+  textEl.textContent = nextLabel;
   popup.hidden = false;
   popup.classList.add("visible");
   setTimeout(() => {
     popup.classList.remove("visible");
-    setTimeout(() => { popup.hidden = true; }, 300);
+    setTimeout(() => {
+      popup.hidden = true;
+      _consumeMomentToastQueue();
+    }, 300);
   }, 2200);
 }
 
@@ -2164,6 +2216,17 @@ async function apiPost(url, body) {
 }
 
 function postTelemetry(eventType, payload = {}) {
+  const signature = `${eventType}|${JSON.stringify(payload)}`;
+  const now = Date.now();
+  const lastSentAt = _telemetryRecent.get(signature) || 0;
+  if (now - lastSentAt < TELEMETRY_DEDUPE_MS) return;
+  _telemetryRecent.set(signature, now);
+  if (_telemetryRecent.size > TELEMETRY_MAX_SIGNATURES) {
+    // Eviter une croissance infinie de la table locale de dedupe.
+    const oldestKey = _telemetryRecent.keys().next().value;
+    if (oldestKey) _telemetryRecent.delete(oldestKey);
+  }
+
   // Fire-and-forget: pas bloquant pour l'UX.
   fetch("/api/story/telemetry", {
     method: "POST",

@@ -259,6 +259,10 @@ class TestSetName:
         r = client.post("/api/story/name", json={"name": ""})
         assert r.status_code == 400
 
+    def test_non_string_name_returns_400(self, client: FlaskClient) -> None:
+        r = client.post("/api/story/name", json={"name": {"bad": "value"}})
+        assert r.status_code == 400
+
     def test_name_trimmed_to_30_chars(self, client: FlaskClient) -> None:
         long_name = "A" * 50
         r = client.post("/api/story/name", json={"name": long_name})
@@ -531,6 +535,61 @@ class TestTelemetry:
         )
         assert r.status_code == 400
 
+    def test_sanitizes_telemetry_payload_values(self, client: FlaskClient) -> None:
+        captured: dict[str, Any] = {}
+
+        def _fake_log(player_id: str, event_type: str, payload: dict[str, Any]) -> None:
+            captured["player_id"] = player_id
+            captured["event_type"] = event_type
+            captured["payload"] = payload
+
+        original_log = story_routes.log_telemetry_event
+        story_routes.log_telemetry_event = _fake_log
+        try:
+            long_text = "X" * 400
+            r = client.post(
+                "/api/story/telemetry",
+                json={
+                    "event_type": "scene_viewed",
+                    "payload": {
+                        "scene_id": long_text,
+                        "chapter_id": {"a": long_text},
+                        "value": ["a", "b", "c", "d", "e", "f", "g", "h", "i"],
+                    },
+                },
+            )
+            data = json_obj(r)
+            assert r.status_code == 200
+            assert data["success"] is True
+            safe_payload = cast(dict[str, Any], captured["payload"])
+            assert len(cast(str, safe_payload["scene_id"])) == 128
+            assert isinstance(safe_payload["chapter_id"], dict)
+            assert isinstance(safe_payload["value"], list)
+            assert len(cast(list[Any], safe_payload["value"])) == 8
+        finally:
+            story_routes.log_telemetry_event = original_log
+
+    def test_telemetry_storage_failure_does_not_fail_request(
+        self, client: FlaskClient
+    ) -> None:
+        def _fake_log_fail(
+            player_id: str, event_type: str, payload: dict[str, Any]
+        ) -> None:
+            raise RuntimeError("telemetry-db-offline")
+
+        original_log = story_routes.log_telemetry_event
+        story_routes.log_telemetry_event = _fake_log_fail
+        try:
+            r = client.post(
+                "/api/story/telemetry",
+                json={"event_type": "scene_viewed", "payload": {"scene_id": "s0_0"}},
+            )
+            data = json_obj(r)
+            assert r.status_code == 200
+            assert data["success"] is True
+        finally:
+            story_routes.log_telemetry_event = original_log
+
     def test_telemetry_requires_json_content_type(self, client: FlaskClient) -> None:
         r = client.post(
             "/api/story/telemetry",
@@ -563,3 +622,49 @@ class TestTelemetry:
         data = json_obj(r)
         assert r.status_code == 400
         assert "payload trop volumineux" in data["error"]
+
+    def test_telemetry_sanitizes_nested_values(self, client: FlaskClient) -> None:
+        captured: dict[str, Any] = {}
+
+        def fake_log(player_id: str, event_type: str, payload: dict[str, Any]) -> None:
+            captured["player_id"] = player_id
+            captured["event_type"] = event_type
+            captured["payload"] = payload
+
+        original = story_routes.log_telemetry_event
+        story_routes.log_telemetry_event = fake_log  # type: ignore[assignment]
+        try:
+            r = client.post(
+                "/api/story/telemetry",
+                json={
+                    "event_type": "ui_setting_changed",
+                    "payload": {
+                        "ui": {"long_key_name_abcdefghijklmnopqrstuvwxyz": "x" * 200},
+                        "value": ["a" * 200, "b"],
+                    },
+                },
+            )
+            assert r.status_code == 200
+            assert captured["event_type"] == "ui_setting_changed"
+            assert isinstance(captured["payload"]["ui"], dict)
+            assert len(next(iter(captured["payload"]["ui"].keys()))) <= 32
+            assert len(next(iter(captured["payload"]["ui"].values()))) <= 64
+            assert isinstance(captured["payload"]["value"], list)
+            assert len(captured["payload"]["value"][0]) <= 64
+        finally:
+            story_routes.log_telemetry_event = original  # type: ignore[assignment]
+
+    def test_telemetry_still_succeeds_when_storage_fails(
+        self, client: FlaskClient, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        def raise_on_log(*_: Any, **__: Any) -> None:
+            raise RuntimeError("db down")
+
+        monkeypatch.setattr(story_routes, "log_telemetry_event", raise_on_log)
+        r = client.post(
+            "/api/story/telemetry",
+            json={"event_type": "scene_viewed", "payload": {"scene_id": "s0_0"}},
+        )
+        data = json_obj(r)
+        assert r.status_code == 200
+        assert data["success"] is True

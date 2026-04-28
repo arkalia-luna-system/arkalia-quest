@@ -400,3 +400,17 @@ class TestAppRuntimeHardening:
         monkeypatch.setenv("APP_MAX_CONTENT_LENGTH_BYTES", "invalid")
         app = create_app()
         assert app.config["MAX_CONTENT_LENGTH"] == 1 * 1024 * 1024
+
+    def test_api_returns_json_413_when_payload_too_large(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        monkeypatch.setenv("APP_MAX_CONTENT_LENGTH_BYTES", "1024")
+        app = create_app()
+        app.config["TESTING"] = True
+        with app.test_client() as c:
+            big_name = "A" * 5000
+            r = c.post("/api/story/name", json={"name": big_name})
+            data = json_obj(r)
+            assert r.status_code == 413
+            assert data["success"] is False
+            assert "Payload trop volumineux" in data["error"]

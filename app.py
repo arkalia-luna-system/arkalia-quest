@@ -5,9 +5,11 @@ Application Flask principale.
 
 import os
 import secrets
+from typing import Any
 
-from flask import Flask, Response, jsonify, render_template
+from flask import Flask, Response, jsonify, render_template, request
 from flask_compress import Compress
+from werkzeug.exceptions import RequestEntityTooLarge
 
 from core.story_engine import get_story_engine
 from routes.pages import register_pages
@@ -108,12 +110,26 @@ def create_app() -> Flask:
 
     # Pages d'erreur thématiques
     @app.errorhandler(404)
-    def not_found(e):
+    def not_found(e: Any):
         return render_template("404.html"), 404
 
     @app.errorhandler(500)
-    def server_error(e):
+    def server_error(e: Any):
         return render_template("404.html"), 500
+
+    @app.errorhandler(RequestEntityTooLarge)
+    def payload_too_large(e: RequestEntityTooLarge):
+        if request.path.startswith("/api/"):
+            return (
+                jsonify(
+                    {
+                        "success": False,
+                        "error": "Payload trop volumineux. Réduis la taille de la requête.",
+                    }
+                ),
+                413,
+            )
+        return render_template("404.html"), 413
 
     return app
 

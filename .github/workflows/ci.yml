@@ -79,6 +79,18 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install build twine
+          python - <<'PY'
+          import os
+          removed = 0
+          for root, _, files in os.walk("."):
+              if root.startswith("./.git"):
+                  continue
+              for name in files:
+                  if name.startswith("._"):
+                      os.remove(os.path.join(root, name))
+                      removed += 1
+          print(f"Removed AppleDouble artifacts: {removed}")
+          PY
           python -m build
           twine check dist/*
 

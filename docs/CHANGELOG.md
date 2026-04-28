@@ -34,6 +34,7 @@
 - Suppression de fichiers legacy non references (anciens rapports, assets de tests HTML manuels, config de charge obsoletes, donnees JSON de l'ancien systeme).
 - Verification complete de la suite de tests Python.
 - Durcissement API supplementaire: validation UUID cookie, rate-limit POST configurable, header `Retry-After` sur 429, et headers de securite HTTP.
+- Stabilisation release packaging: exclusion explicite des artefacts macOS (`._*`) et correction de la detection des paquets Python dans `pyproject.toml`.
 
 ---
 

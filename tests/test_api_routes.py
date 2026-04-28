@@ -297,6 +297,16 @@ class TestGetSummary:
         assert "secrets_found" in data
         assert "secrets_total" in data
 
+    def test_empty_summary_returns_exists_false_on_fresh_client(self) -> None:
+        fresh_app = create_app()
+        fresh_app.config["TESTING"] = True
+        with fresh_app.test_client() as fresh:
+            r = fresh.get("/api/story/summary")
+            data = json_obj(r)
+            assert r.status_code == 200
+            assert data["success"] is True
+            assert data["exists"] is False
+
 
 # ─────────────────────────────────────────────
 # GET /api/story/journal
@@ -344,6 +354,17 @@ class TestGetJournal:
         assert len(data["moments"]) >= 2
         assert data["player_name"] == "Tester"
 
+    def test_journal_is_none_on_fresh_client(self) -> None:
+        fresh_app = create_app()
+        fresh_app.config["TESTING"] = True
+        with fresh_app.test_client() as fresh:
+            r = fresh.get("/api/story/journal")
+            data = json_obj(r)
+            assert r.status_code == 200
+            assert data["success"] is True
+            assert data["journal"] is None
+            assert data["moments"] == []
+
 
 # ─────────────────────────────────────────────
 # GET /api/story/leaderboard
@@ -390,6 +411,12 @@ class TestReset:
 
 
 class TestAdvance:
+    def test_missing_scene_id_returns_400(self, client: FlaskClient) -> None:
+        r = client.post("/api/story/advance", json={})
+        data = json_obj(r)
+        assert r.status_code == 400
+        assert "scene_id requis" in data["error"]
+
     def test_non_string_scene_id_returns_400(self, client: FlaskClient) -> None:
         r = client.post("/api/story/advance", json={"scene_id": {"bad": "value"}})
         data = json_obj(r)
@@ -503,3 +530,36 @@ class TestTelemetry:
             json={"event_type": "scene_viewed", "payload": "invalid"},
         )
         assert r.status_code == 400
+
+    def test_telemetry_requires_json_content_type(self, client: FlaskClient) -> None:
+        r = client.post(
+            "/api/story/telemetry",
+            data='{"event_type":"scene_viewed","payload":{"scene_id":"s0_0"}}',
+            content_type="text/plain",
+        )
+        assert r.status_code == 415
+
+    def test_rejects_missing_event_type(self, client: FlaskClient) -> None:
+        r = client.post("/api/story/telemetry", json={"payload": {"scene_id": "s0_0"}})
+        data = json_obj(r)
+        assert r.status_code == 400
+        assert "event_type requis" in data["error"]
+
+    def test_rejects_too_long_event_type(self, client: FlaskClient) -> None:
+        r = client.post(
+            "/api/story/telemetry",
+            json={"event_type": "x" * 65, "payload": {"scene_id": "s0_0"}},
+        )
+        data = json_obj(r)
+        assert r.status_code == 400
+        assert "event_type trop long" in data["error"]
+
+    def test_rejects_too_large_telemetry_payload(self, client: FlaskClient) -> None:
+        payload = {f"k{i}": i for i in range(21)}
+        r = client.post(
+            "/api/story/telemetry",
+            json={"event_type": "scene_viewed", "payload": payload},
+        )
+        data = json_obj(r)
+        assert r.status_code == 400
+        assert "payload trop volumineux" in data["error"]

@@ -18,6 +18,7 @@ DB_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "luna_saves.db")
 
 
 def _get_conn() -> sqlite3.Connection:
+    os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
     conn = sqlite3.connect(DB_PATH, timeout=5.0)
     conn.row_factory = sqlite3.Row
     return conn
@@ -75,10 +76,13 @@ def save_state(player_id: str, state: JsonDict) -> None:
 
 def load_state(player_id: str) -> Optional[JsonDict]:
     """Charge l'état du joueur. Retourne None si introuvable."""
-    with _get_conn() as conn:
-        row = conn.execute(
-            "SELECT state_json FROM story_saves WHERE player_id = ?", (player_id,)
-        ).fetchone()
+    try:
+        with _get_conn() as conn:
+            row = conn.execute(
+                "SELECT state_json FROM story_saves WHERE player_id = ?", (player_id,)
+            ).fetchone()
+    except sqlite3.DatabaseError:
+        return None
     if row:
         try:
             loaded = json.loads(row["state_json"])

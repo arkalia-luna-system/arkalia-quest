@@ -39,6 +39,17 @@ RATE_LIMIT_MAX_POSTS = 60
 _POST_RATE_LIMIT: dict[str, deque[float]] = defaultdict(deque)
 
 
+def _cleanup_rate_limit_buckets(now: float, window_seconds: int) -> None:
+    stale_keys: list[str] = []
+    for ip, bucket in _POST_RATE_LIMIT.items():
+        while bucket and (now - bucket[0]) > window_seconds:
+            bucket.popleft()
+        if not bucket:
+            stale_keys.append(ip)
+    for ip in stale_keys:
+        _POST_RATE_LIMIT.pop(ip, None)
+
+
 # ── Helpers ───────────────────────────────────────────────────────────────
 
 
@@ -133,9 +144,10 @@ def _enforce_post_rate_limit() -> Optional[tuple[JsonDict, int]]:
 
     key = request.remote_addr or "unknown"
     now = time.monotonic()
-    bucket = _POST_RATE_LIMIT[key]
-
     window_seconds, max_posts = _get_rate_limit_config()
+    _cleanup_rate_limit_buckets(now, window_seconds)
+
+    bucket = _POST_RATE_LIMIT[key]
 
     while bucket and (now - bucket[0]) > window_seconds:
         bucket.popleft()
@@ -214,6 +226,20 @@ def _get_rate_limit_config() -> tuple[int, int]:
 
 def reset_story_rate_limit() -> None:
     _POST_RATE_LIMIT.clear()
+
+
+def cleanup_story_rate_limit(now: Optional[float] = None) -> None:
+    current_now = time.monotonic() if now is None else now
+    window_seconds, _ = _get_rate_limit_config()
+    _cleanup_rate_limit_buckets(current_now, window_seconds)
+
+
+def seed_story_rate_limit_bucket(ip: str, timestamp: float) -> None:
+    _POST_RATE_LIMIT[ip].append(timestamp)
+
+
+def has_story_rate_limit_bucket(ip: str) -> bool:
+    return ip in _POST_RATE_LIMIT
 
 
 # ── POST /api/story/choice ────────────────────────────────────────────────

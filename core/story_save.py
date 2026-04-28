@@ -18,7 +18,7 @@ DB_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "luna_saves.db")
 
 
 def _get_conn() -> sqlite3.Connection:
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(DB_PATH, timeout=5.0)
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -80,7 +80,13 @@ def load_state(player_id: str) -> Optional[JsonDict]:
             "SELECT state_json FROM story_saves WHERE player_id = ?", (player_id,)
         ).fetchone()
     if row:
-        return cast(JsonDict, json.loads(row["state_json"]))
+        try:
+            loaded = json.loads(row["state_json"])
+        except (json.JSONDecodeError, TypeError):
+            return None
+        if not isinstance(loaded, dict):
+            return None
+        return cast(JsonDict, loaded)
     return None
 
 

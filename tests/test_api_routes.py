@@ -368,3 +368,35 @@ class TestPages:
         r = client.get("/cette-page-nexiste-vraiment-pas")
         assert r.status_code == 404
         assert b"404" in r.data or b"perdu" in r.data.lower()
+
+
+class TestAppRuntimeHardening:
+    def test_hsts_header_enabled_in_production(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        monkeypatch.setenv("APP_ENV", "production")
+        monkeypatch.setenv("SECRET_KEY", "test-secret-key")
+        app = create_app()
+        app.config["TESTING"] = True
+        with app.test_client() as c:
+            r = c.get("/api/story/state")
+            assert (
+                r.headers.get("Strict-Transport-Security")
+                == "max-age=31536000; includeSubDomains"
+            )
+
+    def test_hsts_header_not_set_outside_production(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        monkeypatch.delenv("APP_ENV", raising=False)
+        monkeypatch.delenv("FLASK_ENV", raising=False)
+        app = create_app()
+        app.config["TESTING"] = True
+        with app.test_client() as c:
+            r = c.get("/api/story/state")
+            assert r.headers.get("Strict-Transport-Security") is None
+
+    def test_max_content_length_fallback_when_invalid_env(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        monkeypatch.setenv("APP_MAX_CONTENT_LENGTH_BYTES", "invalid")
+        app = create_app()
+        assert app.config["MAX_CONTENT_LENGTH"] == 1 * 1024 * 1024

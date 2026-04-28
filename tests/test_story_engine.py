@@ -8,6 +8,7 @@ et la cohérence du score de confiance.
 
 import json
 import os
+import statistics
 import sys
 from typing import Any, Optional, cast
 
@@ -221,95 +222,10 @@ def navigate_to_chapter6(engine: StoryEngine, state: PlayerState) -> dict[str, A
     return engine.get_state(state)
 
 
-def simulate_run(
-    engine: StoryEngine, strategy: str
-) -> tuple[PlayerState, dict[str, Any]]:
-    """
-    Joue un run complet jusqu'à une fin finale en appliquant une stratégie de sélection.
-    """
-    state = engine.new_player_state()
-    step = 0
-    max_steps = 500
-    scene_visits: dict[str, int] = {}
-
-    while step < max_steps:
-        current = engine.get_state(state)
-        if current.get("error"):
-            raise AssertionError(f"Etat invalide pendant simulation: {current}")
-        if current.get("is_ending_final"):
-            return state, current
-
-        choices = cast(list[dict[str, Any]], current.get("choices", []))
-        if choices:
-            scene_id = str(current["scene_id"])
-            scene_visits[scene_id] = scene_visits.get(scene_id, 0) + 1
-
-            # On s'appuie sur les choix "raw" du story.json pour conserver next_scene
-            # et casser les boucles si une stratégie revisitait toujours la même scène.
-            raw_scene = engine._scenes_index[scene_id]
-            raw_choices = cast(list[dict[str, Any]], raw_scene.get("choices", []))
-            ordered_raw_choices = [
-                c
-                for c in sorted(
-                    raw_choices,
-                    key=lambda c: str(c.get("id", "")),
-                )
-                if any(str(c.get("id")) == str(p["id"]) for p in choices)
-            ]
-            if not ordered_raw_choices:
-                raise AssertionError(f"Aucun choix exploitable sur {scene_id}")
-
-            if strategy == "first":
-                ordered_raw_choices = ordered_raw_choices
-            elif strategy == "last":
-                ordered_raw_choices = list(reversed(ordered_raw_choices))
-            elif strategy == "max_trust":
-                ordered_raw_choices = sorted(
-                    ordered_raw_choices,
-                    key=lambda c: (
-                        int(c.get("trust_delta", 0)),
-                        int(c.get("xp", 0)),
-                    ),
-                    reverse=True,
-                )
-            elif strategy == "min_trust":
-                ordered_raw_choices = sorted(
-                    ordered_raw_choices,
-                    key=lambda c: (
-                        int(c.get("trust_delta", 0)),
-                        -int(c.get("xp", 0)),
-                    ),
-                )
-            else:
-                raise AssertionError(f"Strategie inconnue en simulation: {strategy}")
-
-            visit_index = (scene_visits[scene_id] - 1) % len(ordered_raw_choices)
-            chosen = ordered_raw_choices[visit_index]
-            result = engine.apply_choice(state, scene_id, str(chosen["id"]))
-            assert result.get(
-                "success"
-            ), f"Echec apply_choice ({strategy}) sur {current['scene_id']}: {result}"
-        elif current.get("is_chapter_end"):
-            result = engine.advance_chapter(state, current["scene_id"])
-            assert result.get(
-                "success"
-            ), f"Echec advance_chapter ({strategy}) sur {current['scene_id']}: {result}"
-        else:
-            raise AssertionError(
-                f"Softlock detecte ({strategy}) sur scene {current['scene_id']}"
-            )
-
-        step += 1
-
-    raise AssertionError(f"Simulation depasse {max_steps} etapes ({strategy})")
-
-
-def simulate_run_with_metrics(
+def _simulate_run_core(
     engine: StoryEngine, strategy: str
 ) -> tuple[PlayerState, dict[str, Any], int]:
-    """
-    Variante de simulation qui retourne aussi le nombre d'étapes.
-    """
+    """Coeur de simulation d'un run complet + nombre d'étapes."""
     state = engine.new_player_state()
     step = 0
     max_steps = 500
@@ -383,6 +299,25 @@ def simulate_run_with_metrics(
         step += 1
 
     raise AssertionError(f"Simulation depasse {max_steps} etapes ({strategy})")
+
+
+def simulate_run(
+    engine: StoryEngine, strategy: str
+) -> tuple[PlayerState, dict[str, Any]]:
+    """
+    Joue un run complet jusqu'à une fin finale en appliquant une stratégie.
+    """
+    state, ending_state, _ = _simulate_run_core(engine, strategy)
+    return state, ending_state
+
+
+def simulate_run_with_metrics(
+    engine: StoryEngine, strategy: str
+) -> tuple[PlayerState, dict[str, Any], int]:
+    """
+    Variante de simulation qui retourne aussi le nombre d'étapes.
+    """
+    return _simulate_run_core(engine, strategy)
 
 
 class TestNarrativePaths:
@@ -702,13 +637,24 @@ class TestRunSimulations:
             endings.add(str(ending_key))
         assert len(endings) >= 2, f"Pas assez de variete de fins: {endings}"
 
+    @pytest.mark.parametrize("strategy", ["first", "last", "max_trust", "min_trust"])
+    def test_simulated_runs_stay_under_step_budget(
+        self, engine: StoryEngine, strategy: str
+    ) -> None:
+        _, _, steps = simulate_run_with_metrics(engine, strategy)
+        assert (
+            steps <= 120
+        ), f"Run trop long pour {strategy}: {steps} etapes (budget=120)"
+
     def test_simulation_metrics_report_json(self, engine: StoryEngine) -> None:
         """
         Genere un rapport JSON lisible pour suivre l'equilibrage d'une version a l'autre.
         """
         report: dict[str, Any] = {}
+        step_values: list[int] = []
         for strategy in ["first", "last", "max_trust", "min_trust"]:
             state, ending_state, steps = simulate_run_with_metrics(engine, strategy)
+            step_values.append(steps)
             report[strategy] = {
                 "steps": steps,
                 "chapter_id": ending_state.get("chapter_id"),
@@ -723,6 +669,15 @@ class TestRunSimulations:
                 ),
             }
 
+        report["stability"] = {
+            "runs_count": len(step_values),
+            "steps_min": min(step_values),
+            "steps_max": max(step_values),
+            "steps_mean": round(statistics.mean(step_values), 2),
+            "steps_median": float(statistics.median(step_values)),
+            "steps_stdev": round(statistics.pstdev(step_values), 2),
+        }
+
         os.makedirs("tests/.artifacts", exist_ok=True)
         report_path = os.path.join("tests", ".artifacts", "simulation_metrics.json")
         with open(report_path, "w", encoding="utf-8") as report_file:
@@ -731,4 +686,10 @@ class TestRunSimulations:
         assert os.path.exists(report_path)
         with open(report_path, encoding="utf-8") as report_file:
             loaded = cast(dict[str, Any], json.load(report_file))
-        assert set(loaded.keys()) == {"first", "last", "max_trust", "min_trust"}
+        assert set(loaded.keys()) == {
+            "first",
+            "last",
+            "max_trust",
+            "min_trust",
+            "stability",
+        }

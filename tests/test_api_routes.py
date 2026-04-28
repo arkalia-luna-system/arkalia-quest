@@ -222,6 +222,20 @@ class TestApplyChoice:
             os.environ.pop("STORY_RATE_LIMIT_MAX_POSTS", None)
             story_routes.reset_story_rate_limit()
 
+    def test_rate_limit_cleanup_removes_stale_buckets(self) -> None:
+        os.environ["STORY_RATE_LIMIT_WINDOW_SECONDS"] = "60"
+        story_routes.reset_story_rate_limit()
+        now = 1000.0
+        try:
+            story_routes.seed_story_rate_limit_bucket("old-ip", now - 999)
+            story_routes.seed_story_rate_limit_bucket("fresh-ip", now - 10)
+            story_routes.cleanup_story_rate_limit(now=now)
+            assert story_routes.has_story_rate_limit_bucket("old-ip") is False
+            assert story_routes.has_story_rate_limit_bucket("fresh-ip") is True
+        finally:
+            os.environ.pop("STORY_RATE_LIMIT_WINDOW_SECONDS", None)
+            story_routes.reset_story_rate_limit()
+
 
 # ─────────────────────────────────────────────
 # POST /api/story/name

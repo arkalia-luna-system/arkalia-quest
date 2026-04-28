@@ -53,6 +53,7 @@ let _textSpeedMode       = localStorage.getItem("luna_text_speed") || "normal";
 let _seenSceneTelemetry  = new Set();
 let _lastWowChapter      = null;
 let _advanceLocked       = false;
+let _journalCloseTimerId = null;
 const TELEMETRY_DEDUPE_MS = 900;
 const TELEMETRY_MAX_SIGNATURES = 200;
 const _telemetryRecent = new Map();
@@ -240,6 +241,7 @@ function applyAccessibilityPreferences() {
   document.body.classList.toggle("reduced-motion", reducedMotion);
   _textSpeedMode = localStorage.getItem("luna_text_speed") || "normal";
   _instantText = _textSpeedMode === "instant" || localStorage.getItem("luna_instant") === "on";
+  syncInstantButtonState();
 }
 
 function setupAccessibilityModal() {
@@ -251,6 +253,7 @@ function setupAccessibilityModal() {
   const reducedMotion = document.getElementById("acc-reduced-motion");
   const textSpeed = document.getElementById("acc-text-speed");
   if (!btn || !modal || !closeBtn || !backdrop || !highContrast || !reducedMotion || !textSpeed) return;
+  let closeTimerId = null;
 
   const sync = () => {
     highContrast.checked = localStorage.getItem("luna_high_contrast") === "on";
@@ -258,8 +261,23 @@ function setupAccessibilityModal() {
     textSpeed.value = localStorage.getItem("luna_text_speed") || "normal";
   };
 
-  const open = () => { sync(); modal.hidden = false; modal.classList.add("visible"); };
-  const close = () => { modal.classList.remove("visible"); setTimeout(() => { modal.hidden = true; }, 200); };
+  const open = () => {
+    if (closeTimerId) {
+      clearTimeout(closeTimerId);
+      closeTimerId = null;
+    }
+    sync();
+    modal.hidden = false;
+    modal.classList.add("visible");
+  };
+  const close = () => {
+    modal.classList.remove("visible");
+    if (closeTimerId) clearTimeout(closeTimerId);
+    closeTimerId = setTimeout(() => {
+      if (!modal.classList.contains("visible")) modal.hidden = true;
+      closeTimerId = null;
+    }, 200);
+  };
   btn.addEventListener("click", open);
   closeBtn.addEventListener("click", close);
   backdrop.addEventListener("click", close);
@@ -335,18 +353,21 @@ function setupSfxButton() {
 function setupInstantButton() {
   const btn = document.getElementById("instant-btn");
   if (!btn) return;
-  const update = () => {
-    btn.textContent = _instantText ? "⚡" : "⚡";
-    btn.title = _instantText ? "Texte instantané (activé)" : "Texte instantané (désactivé)";
-    btn.style.opacity = _instantText ? "1" : "0.4";
-    btn.classList.toggle("active", _instantText);
-  };
-  update();
+  syncInstantButtonState();
   btn.addEventListener("click", () => {
     _instantText = !_instantText;
     localStorage.setItem("luna_instant", _instantText ? "on" : "off");
-    update();
+    syncInstantButtonState();
   });
+}
+
+function syncInstantButtonState() {
+  const btn = document.getElementById("instant-btn");
+  if (!btn) return;
+  btn.textContent = "⚡";
+  btn.title = _instantText ? "Texte instantané (activé)" : "Texte instantané (désactivé)";
+  btn.style.opacity = _instantText ? "1" : "0.4";
+  btn.classList.toggle("active", _instantText);
 }
 
 // ── Boot overlay ──────────────────────────────────────────────────────────
@@ -632,7 +653,13 @@ function updateLunaPanel(state) {
 // ── Atmosphère du chapitre ────────────────────────────────────────────────
 function updateAtmosphere(atmo) {
   if (!atmo) return;
-  document.body.className = `page-game atmo-${atmo}`;
+  const body = document.body;
+  if (!body) return;
+  body.classList.add("page-game");
+  Array.from(body.classList)
+    .filter((cls) => cls.startsWith("atmo-"))
+    .forEach((cls) => body.classList.remove(cls));
+  body.classList.add(`atmo-${atmo}`);
   if (_sfxEnabled && atmo !== _ambientAtmo) {
     _ambientAtmo = atmo;
     startAmbientDrone(atmo);
@@ -749,6 +776,9 @@ function setupKeyboardShortcuts() {
     if (isBootVisible || isChapterTransitionVisible || isEndingAchievementVisible) {
       return;
     }
+    const isJournalOpen = !!(DOM.journalModal && !DOM.journalModal.hidden);
+    const isAccessOpen = !!(DOM.accessModal && !DOM.accessModal.hidden);
+    if (isJournalOpen || isAccessOpen) return;
 
     // Ignorer si focus dans un input/textarea
     if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement?.tagName)) return;
@@ -834,6 +864,7 @@ function renderChoices(choices, sceneId) {
 async function handleChoice(sceneId, choiceId, btnEl) {
   if (_choicesLocked) return;
   _choicesLocked = true;
+  clearChoiceTimer();
 
   if (_sfxEnabled) playSelect();
   haptic(30);
@@ -935,6 +966,7 @@ function clearChoiceTimer() {
     clearInterval(_choiceTimerInterval);
     _choiceTimerInterval = null;
   }
+  _choiceTimerDeadline = null;
   const bar = document.getElementById("choice-timer");
   if (bar) bar.hidden = true;
 }
@@ -1471,7 +1503,9 @@ function setupShareButton(endingId, endingTitle, trust, xp, playerName, isFirstE
   const btn = DOM.shareBtn;
   if (!btn) return;
 
-  if (isFirstEnding) btn.innerHTML = '<span class="share-icon">↗</span> Partage ta victoire !';
+  btn.innerHTML = isFirstEnding
+    ? '<span class="share-icon">↗</span> Partage ta victoire !'
+    : '<span class="share-icon">↗</span> Partager ma fin';
 
   const ENDING_EMOJIS = { ending_a: "◉", ending_b: "◈", ending_c: "◇", ending_d: "⬡" };
   const icon = ENDING_EMOJIS[endingId] || "◯";
@@ -1638,6 +1672,7 @@ function setupKonamiCode() {
   ];
 
   document.addEventListener("keydown", (e) => {
+    if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement?.tagName)) return;
     if (e.key === KONAMI[pos]) {
       pos++;
       if (pos === KONAMI.length) {
@@ -1877,6 +1912,10 @@ async function openJournalModal() {
   const textEl = document.getElementById("journal-modal-text");
   if (!modal || !textEl) return;
 
+  if (_journalCloseTimerId) {
+    clearTimeout(_journalCloseTimerId);
+    _journalCloseTimerId = null;
+  }
   modal.hidden = false;
   modal.classList.add("visible");
   textEl.textContent = "Chargement du journal...";
@@ -1902,7 +1941,11 @@ function closeJournalModal() {
   const modal = document.getElementById("journal-modal");
   if (!modal) return;
   modal.classList.remove("visible");
-  setTimeout(() => { modal.hidden = true; }, 200);
+  if (_journalCloseTimerId) clearTimeout(_journalCloseTimerId);
+  _journalCloseTimerId = setTimeout(() => {
+    if (!modal.classList.contains("visible")) modal.hidden = true;
+    _journalCloseTimerId = null;
+  }, 200);
 }
 
 function showError(msg) {

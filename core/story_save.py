@@ -8,6 +8,7 @@ Chaque joueur est identifié par un player_id (UUID stocké dans un cookie long)
 import json
 import os
 import sqlite3
+import time
 import uuid
 from datetime import datetime, timezone
 from typing import Any, Optional, cast
@@ -15,6 +16,7 @@ from typing import Any, Optional, cast
 JsonDict = dict[str, Any]
 
 DB_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "luna_saves.db")
+_DB_LOCK_RETRIES = 3
 
 
 def _get_conn() -> sqlite3.Connection:
@@ -47,7 +49,59 @@ def init_db() -> None:
             )
         """
         )
+        conn.execute(
+            """
+            CREATE INDEX IF NOT EXISTS idx_story_saves_updated_at
+            ON story_saves(updated_at)
+        """
+        )
+        conn.execute(
+            """
+            CREATE INDEX IF NOT EXISTS idx_story_telemetry_created_at
+            ON story_telemetry(created_at)
+        """
+        )
         conn.commit()
+
+
+def _is_locked_error(exc: sqlite3.OperationalError) -> bool:
+    return "locked" in str(exc).lower()
+
+
+def _with_db_retry(fn: Any) -> Any:
+    for attempt in range(_DB_LOCK_RETRIES):
+        try:
+            return fn()
+        except sqlite3.OperationalError as exc:
+            if not _is_locked_error(exc) or attempt >= (_DB_LOCK_RETRIES - 1):
+                raise
+            time.sleep(0.05 * (attempt + 1))
+    raise RuntimeError("Unreachable retry loop")
+
+
+def _safe_int(value: object, default: int) -> int:
+    if isinstance(value, bool):
+        return int(value)
+    if isinstance(value, int):
+        return value
+    if isinstance(value, float):
+        return int(value)
+    if isinstance(value, str):
+        try:
+            return int(value)
+        except ValueError:
+            return default
+    try:
+        return int(str(value))
+    except (TypeError, ValueError):
+        return default
+
+
+def _as_str_list(value: object) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    raw_items = cast(list[object], value)
+    return [item for item in raw_items if isinstance(item, str)]
 
 
 def generate_player_id() -> str:
@@ -56,31 +110,39 @@ def generate_player_id() -> str:
 
 def save_state(player_id: str, state: JsonDict) -> None:
     """Sauvegarde (upsert) l'état du joueur."""
-    with _get_conn() as conn:
-        conn.execute(
-            """
-            INSERT INTO story_saves (player_id, state_json, updated_at)
-            VALUES (?, ?, ?)
-            ON CONFLICT(player_id) DO UPDATE SET
-                state_json = excluded.state_json,
-                updated_at = excluded.updated_at
-        """,
-            (
-                player_id,
-                json.dumps(state, ensure_ascii=False),
-                datetime.now(timezone.utc).isoformat(),
-            ),
-        )
-        conn.commit()
+
+    def _write() -> None:
+        with _get_conn() as conn:
+            conn.execute(
+                """
+                INSERT INTO story_saves (player_id, state_json, updated_at)
+                VALUES (?, ?, ?)
+                ON CONFLICT(player_id) DO UPDATE SET
+                    state_json = excluded.state_json,
+                    updated_at = excluded.updated_at
+            """,
+                (
+                    player_id,
+                    json.dumps(state, ensure_ascii=False),
+                    datetime.now(timezone.utc).isoformat(),
+                ),
+            )
+            conn.commit()
+
+    _with_db_retry(_write)
 
 
 def load_state(player_id: str) -> Optional[JsonDict]:
     """Charge l'état du joueur. Retourne None si introuvable."""
-    try:
+
+    def _read() -> Optional[sqlite3.Row]:
         with _get_conn() as conn:
-            row = conn.execute(
+            return conn.execute(
                 "SELECT state_json FROM story_saves WHERE player_id = ?", (player_id,)
             ).fetchone()
+
+    try:
+        row = _with_db_retry(_read)
     except sqlite3.DatabaseError:
         return None
     if row:
@@ -107,9 +169,12 @@ def delete_state(player_id: str) -> None:
             if eid not in previous:
                 previous.append(eid)
 
-    with _get_conn() as conn:
-        conn.execute("DELETE FROM story_saves WHERE player_id = ?", (player_id,))
-        conn.commit()
+    def _delete() -> None:
+        with _get_conn() as conn:
+            conn.execute("DELETE FROM story_saves WHERE player_id = ?", (player_id,))
+            conn.commit()
+
+    _with_db_retry(_delete)
 
     # Réinjecter dans le nouvel état vide si il y a eu des fins
     if previous:
@@ -125,16 +190,20 @@ def get_save_summary(player_id: str) -> Optional[JsonDict]:
     state = load_state(player_id)
     if not state:
         return None
+    chapters_completed = _as_str_list(state.get("chapters_completed", []))
+    endings_unlocked = _as_str_list(state.get("endings_unlocked", []))
+    flags = _as_str_list(state.get("flags", []))
+    secrets_found = _as_str_list(state.get("secrets_found", []))
     return {
         "exists": True,
-        "player_name": state.get("player_name"),
-        "current_chapter": state.get("current_chapter", "chapitre_0"),
-        "luna_trust": state.get("luna_trust", 50),
-        "xp": state.get("xp", 0),
-        "chapters_completed": len(state.get("chapters_completed", [])),
-        "endings_unlocked": state.get("endings_unlocked", []),
-        "flags": state.get("flags", []),
-        "secrets_found": state.get("secrets_found", []),
+        "player_name": str(state.get("player_name") or ""),
+        "current_chapter": str(state.get("current_chapter", "chapitre_0")),
+        "luna_trust": _safe_int(state.get("luna_trust", 50), 50),
+        "xp": _safe_int(state.get("xp", 0), 0),
+        "chapters_completed": len(chapters_completed),
+        "endings_unlocked": endings_unlocked,
+        "flags": flags,
+        "secrets_found": secrets_found,
         "secrets_total": 5,
     }
 
@@ -156,9 +225,11 @@ def get_leaderboard(limit: int = 10) -> list[JsonDict]:
         except (json.JSONDecodeError, TypeError):
             continue
 
-        xp = int(state.get("xp", 0))
+        xp = _safe_int(state.get("xp", 0), 0)
         if xp == 0:
             continue  # Ignorer les joueurs sans progression
+
+        trust = _safe_int(state.get("luna_trust", 50), 50)
 
         raw_name = str(state.get("player_name") or "").strip()
         if raw_name:
@@ -169,15 +240,16 @@ def get_leaderboard(limit: int = 10) -> list[JsonDict]:
         else:
             display_name = "Joueur anonyme"
 
+        chapters_done = len(_as_str_list(state.get("chapters_completed", [])))
+        endings_unlocked = _as_str_list(state.get("endings_unlocked", []))
+
         entries.append(
             {
                 "name": display_name,
                 "xp": xp,
-                "luna_trust": state.get("luna_trust", 50),
-                "chapters_done": len(
-                    cast(list[Any], state.get("chapters_completed", []))
-                ),
-                "endings_unlocked": cast(list[str], state.get("endings_unlocked", [])),
+                "luna_trust": trust,
+                "chapters_done": chapters_done,
+                "endings_unlocked": endings_unlocked,
             }
         )
 
@@ -188,20 +260,24 @@ def get_leaderboard(limit: int = 10) -> list[JsonDict]:
 
 def log_telemetry_event(player_id: str, event_type: str, payload: JsonDict) -> None:
     """Stocke un événement de télémétrie locale non sensible."""
-    with _get_conn() as conn:
-        conn.execute(
-            """
-            INSERT INTO story_telemetry (player_id, event_type, payload_json, created_at)
-            VALUES (?, ?, ?, ?)
-        """,
-            (
-                player_id,
-                event_type,
-                json.dumps(payload, ensure_ascii=False),
-                datetime.now(timezone.utc).isoformat(),
-            ),
-        )
-        conn.commit()
+
+    def _write() -> None:
+        with _get_conn() as conn:
+            conn.execute(
+                """
+                INSERT INTO story_telemetry (player_id, event_type, payload_json, created_at)
+                VALUES (?, ?, ?, ?)
+            """,
+                (
+                    player_id,
+                    event_type,
+                    json.dumps(payload, ensure_ascii=False),
+                    datetime.now(timezone.utc).isoformat(),
+                ),
+            )
+            conn.commit()
+
+    _with_db_retry(_write)
 
 
 # Init au chargement du module

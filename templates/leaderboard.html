@@ -99,6 +99,7 @@
     .lb-ending-dot.ending_a { background: var(--success); }
     .lb-ending-dot.ending_b { background: var(--luna); }
     .lb-ending-dot.ending_c { background: var(--action); }
+    .lb-ending-dot.ending_d { background: #94a3b8; }
 
     .lb-header-row {
       display: grid;
@@ -195,8 +196,8 @@
   </main>
 
   <script>
-    const ENDING_IDS = ["ending_a", "ending_b", "ending_c"];
-    const ENDING_LABELS = { ending_a: "FIN A", ending_b: "FIN B", ending_c: "FIN C" };
+    const ENDING_IDS = ["ending_a", "ending_b", "ending_c", "ending_d"];
+    const ENDING_LABELS = { ending_a: "FIN A", ending_b: "FIN B", ending_c: "FIN C", ending_d: "FIN D" };
 
     const XP_LEVELS = [
       { min: 0,    max: 99,   label: "Recrue",        color: "#94a3b8" },
@@ -209,6 +210,17 @@
     function getXpLevel(xp) {
       return XP_LEVELS.find(l => xp >= l.min && xp <= l.max) || XP_LEVELS[XP_LEVELS.length - 1];
     }
+    function toSafeNumber(value, fallback = 0) {
+      const n = Number(value);
+      return Number.isFinite(n) ? n : fallback;
+    }
+    function toSafeArray(value) {
+      return Array.isArray(value) ? value : [];
+    }
+    function toSafeName(value) {
+      const text = typeof value === "string" ? value : "";
+      return text.trim() || "Joueur anonyme";
+    }
 
     async function loadLeaderboard() {
       const container = document.getElementById("lb-content");
@@ -219,10 +231,11 @@
         fetch("/api/story/summary").then(r => r.json()),
       ]);
 
-      const lb     = lbRes.status === "fulfilled" && lbRes.value.success ? lbRes.value.scores : [];
+      const lbRaw  = lbRes.status === "fulfilled" && lbRes.value.success ? lbRes.value.scores : [];
+      const lb     = Array.isArray(lbRaw) ? lbRaw : [];
       const me     = meRes.status === "fulfilled" && meRes.value.success ? meRes.value : null;
-      const myName = me?.player_name || null;
-      const myXp   = me?.xp ?? 0;
+      const myName = typeof me?.player_name === "string" ? me.player_name : null;
+      const myXp   = toSafeNumber(me?.xp, 0);
 
       if (lb.length === 0) {
         container.innerHTML = `
@@ -238,9 +251,9 @@
       }
 
       // Stats globales
-      const totalXp    = lb.reduce((s, e) => s + e.xp, 0);
-      const totalFinA  = lb.filter(e => (e.endings_unlocked || []).includes("ending_a")).length;
-      const avgTrust   = Math.round(lb.reduce((s, e) => s + e.luna_trust, 0) / lb.length);
+      const totalXp    = lb.reduce((s, e) => s + toSafeNumber(e?.xp, 0), 0);
+      const totalFinA  = lb.filter(e => toSafeArray(e?.endings_unlocked).includes("ending_a")).length;
+      const avgTrust   = Math.round(lb.reduce((s, e) => s + toSafeNumber(e?.luna_trust, 50), 0) / lb.length);
 
       container.innerHTML = `
         <!-- Stats globales -->
@@ -279,7 +292,11 @@
       const rowsEl = document.getElementById("lb-rows");
       lb.forEach((entry, idx) => {
         const rank    = idx + 1;
-        const isMe    = myName && entry.name.startsWith(myName.slice(0,3));
+        const safeName = toSafeName(entry?.name);
+        const safeXp = toSafeNumber(entry?.xp, 0);
+        const safeChaptersDone = Math.max(0, Math.floor(toSafeNumber(entry?.chapters_done, 0)));
+        const safeEndings = toSafeArray(entry?.endings_unlocked).filter(v => typeof v === "string");
+        const isMe    = myName && safeName.startsWith(myName.slice(0,3)) && safeXp === myXp;
         const rankCls = rank <= 3 ? `rank-${rank}` : "";
         const rowCls  = [
           rank === 1 ? "lb-top-1" : rank === 2 ? "lb-top-2" : rank === 3 ? "lb-top-3" : "",
@@ -289,11 +306,11 @@
         const rankEmoji = rank === 1 ? "🥇" : rank === 2 ? "🥈" : rank === 3 ? "🥉" : rank;
 
         const endingDots = ENDING_IDS.map(id => {
-          const unlocked = (entry.endings_unlocked || []).includes(id);
+          const unlocked = safeEndings.includes(id);
           return `<div class="lb-ending-dot ${unlocked ? id : ''}" title="${unlocked ? ENDING_LABELS[id] : '?'}"></div>`;
         }).join("");
 
-        const level = getXpLevel(entry.xp);
+        const level = getXpLevel(safeXp);
         const levelBadge = `<span class="lb-level-badge" style="color:${level.color};border-color:${level.color}">${level.label}</span>`;
 
         const row = document.createElement("div");
@@ -302,12 +319,12 @@
         row.innerHTML = `
           <span class="lb-rank ${rankCls}">${rankEmoji}</span>
           <div class="lb-name-cell">
-            <span class="lb-name ${isMe ? 'is-me' : ''}">${escapeHtml(entry.name)}${isMe ? '<span class="lb-you-badge">Toi</span>' : ''}</span>
+            <span class="lb-name ${isMe ? 'is-me' : ''}">${escapeHtml(safeName)}${isMe ? '<span class="lb-you-badge">Toi</span>' : ''}</span>
             ${levelBadge}
           </div>
           <div class="lb-endings">${endingDots}</div>
-          <span class="lb-chapters">${entry.chapters_done}/7</span>
-          <span class="lb-xp">${entry.xp.toLocaleString("fr")} XP</span>
+          <span class="lb-chapters">${safeChaptersDone}/7</span>
+          <span class="lb-xp">${safeXp.toLocaleString("fr")} XP</span>
         `;
         rowsEl.appendChild(row);
       });

@@ -93,6 +93,9 @@ class TestGetState:
         assert r.headers.get("X-Content-Type-Options") == "nosniff"
         assert r.headers.get("X-Frame-Options") == "DENY"
         assert r.headers.get("Referrer-Policy") == "no-referrer"
+        assert r.headers.get("Cache-Control") == "no-store"
+        assert r.headers.get("Pragma") == "no-cache"
+        assert r.headers.get("Expires") == "0"
         assert "frame-ancestors 'none'" in (
             r.headers.get("Content-Security-Policy") or ""
         )
@@ -414,3 +417,10 @@ class TestAppRuntimeHardening:
             assert r.status_code == 413
             assert data["success"] is False
             assert "Payload trop volumineux" in data["error"]
+
+    def test_api_404_returns_json_error(self, client: FlaskClient) -> None:
+        r = client.get("/api/route-inexistante")
+        data = json_obj(r)
+        assert r.status_code == 404
+        assert data["success"] is False
+        assert "introuvable" in data["error"]

@@ -1,13 +1,15 @@
 # Makefile pour Arkalia Quest
 # Version 3.1.0
 
-.PHONY: help install install-dev test test-fast lint format check ci security docs docs-serve build clean run run-dev docker-build docker-run
+.PHONY: help install install-dev test test-fast lint format check ci security docs docs-serve build clean run run-dev docker-build docker-run purge-appledouble
 
 PYTHON := python3
 PIP := pip
 PROJECT_NAME := arkalia-quest
 TEST_DIR := tests
 SRC := app.py core routes tests
+
+PURGE_APPLEDOUBLE = $(PYTHON) -c "import pathlib; root=pathlib.Path('.'); files=list(root.rglob('._*')); [p.unlink(missing_ok=True) for p in files if p.is_file()]"
 
 help: ## Afficher l'aide
 	@echo "Arkalia Quest - commandes maintenues"
@@ -39,13 +41,15 @@ security: ## Audit securite des dependances
 	$(PYTHON) -m pip_audit -r requirements.txt
 
 docs: ## Build docs strict
+	$(MAKE) purge-appledouble
 	mkdocs build --strict
 
 docs-serve: ## Servir docs en local
 	mkdocs serve
 
 build: ## Construire le package Python
-	$(PYTHON) -m build
+	$(MAKE) purge-appledouble
+	COPYFILE_DISABLE=1 COPY_EXTENDED_ATTRIBUTES_DISABLE=1 $(PYTHON) -m build --wheel
 
 run: ## Lancer l'app (mode script)
 	$(PYTHON) app.py
@@ -61,6 +65,9 @@ docker-run: ## Lancer image Docker
 
 clean: ## Nettoyer artefacts locaux courants
 	$(PYTHON) -c "import pathlib,shutil; root=pathlib.Path('.'); targets=['build','dist','site','__pycache__','.mypy_cache','.pytest_cache','.ruff_cache','.benchmarks','arkalia_quest.egg-info','logs']; [shutil.rmtree(root/t, ignore_errors=True) for t in targets]; [p.unlink() for p in root.rglob('._*') if p.is_file()]; [p.unlink() for p in [root/'.coverage', root/'coverage.xml'] if p.exists()]"
+
+purge-appledouble: ## Supprimer les artefacts macOS ._*
+	@$(PURGE_APPLEDOUBLE)
 
 check: ## Verification locale recommandee
 	$(MAKE) format

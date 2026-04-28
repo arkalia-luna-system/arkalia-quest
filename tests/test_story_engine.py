@@ -6,6 +6,7 @@ et la cohérence du score de confiance.
 
 # pyright: reportPrivateUsage=false
 
+import json
 import os
 import sys
 from typing import Any, Optional, cast
@@ -218,6 +219,170 @@ def navigate_to_chapter6(engine: StoryEngine, state: PlayerState) -> dict[str, A
             break
         step += 1
     return engine.get_state(state)
+
+
+def simulate_run(
+    engine: StoryEngine, strategy: str
+) -> tuple[PlayerState, dict[str, Any]]:
+    """
+    Joue un run complet jusqu'à une fin finale en appliquant une stratégie de sélection.
+    """
+    state = engine.new_player_state()
+    step = 0
+    max_steps = 500
+    scene_visits: dict[str, int] = {}
+
+    while step < max_steps:
+        current = engine.get_state(state)
+        if current.get("error"):
+            raise AssertionError(f"Etat invalide pendant simulation: {current}")
+        if current.get("is_ending_final"):
+            return state, current
+
+        choices = cast(list[dict[str, Any]], current.get("choices", []))
+        if choices:
+            scene_id = str(current["scene_id"])
+            scene_visits[scene_id] = scene_visits.get(scene_id, 0) + 1
+
+            # On s'appuie sur les choix "raw" du story.json pour conserver next_scene
+            # et casser les boucles si une stratégie revisitait toujours la même scène.
+            raw_scene = engine._scenes_index[scene_id]
+            raw_choices = cast(list[dict[str, Any]], raw_scene.get("choices", []))
+            ordered_raw_choices = [
+                c
+                for c in sorted(
+                    raw_choices,
+                    key=lambda c: str(c.get("id", "")),
+                )
+                if any(str(c.get("id")) == str(p["id"]) for p in choices)
+            ]
+            if not ordered_raw_choices:
+                raise AssertionError(f"Aucun choix exploitable sur {scene_id}")
+
+            if strategy == "first":
+                ordered_raw_choices = ordered_raw_choices
+            elif strategy == "last":
+                ordered_raw_choices = list(reversed(ordered_raw_choices))
+            elif strategy == "max_trust":
+                ordered_raw_choices = sorted(
+                    ordered_raw_choices,
+                    key=lambda c: (
+                        int(c.get("trust_delta", 0)),
+                        int(c.get("xp", 0)),
+                    ),
+                    reverse=True,
+                )
+            elif strategy == "min_trust":
+                ordered_raw_choices = sorted(
+                    ordered_raw_choices,
+                    key=lambda c: (
+                        int(c.get("trust_delta", 0)),
+                        -int(c.get("xp", 0)),
+                    ),
+                )
+            else:
+                raise AssertionError(f"Strategie inconnue en simulation: {strategy}")
+
+            visit_index = (scene_visits[scene_id] - 1) % len(ordered_raw_choices)
+            chosen = ordered_raw_choices[visit_index]
+            result = engine.apply_choice(state, scene_id, str(chosen["id"]))
+            assert result.get(
+                "success"
+            ), f"Echec apply_choice ({strategy}) sur {current['scene_id']}: {result}"
+        elif current.get("is_chapter_end"):
+            result = engine.advance_chapter(state, current["scene_id"])
+            assert result.get(
+                "success"
+            ), f"Echec advance_chapter ({strategy}) sur {current['scene_id']}: {result}"
+        else:
+            raise AssertionError(
+                f"Softlock detecte ({strategy}) sur scene {current['scene_id']}"
+            )
+
+        step += 1
+
+    raise AssertionError(f"Simulation depasse {max_steps} etapes ({strategy})")
+
+
+def simulate_run_with_metrics(
+    engine: StoryEngine, strategy: str
+) -> tuple[PlayerState, dict[str, Any], int]:
+    """
+    Variante de simulation qui retourne aussi le nombre d'étapes.
+    """
+    state = engine.new_player_state()
+    step = 0
+    max_steps = 500
+    scene_visits: dict[str, int] = {}
+
+    while step < max_steps:
+        current = engine.get_state(state)
+        if current.get("error"):
+            raise AssertionError(f"Etat invalide pendant simulation: {current}")
+        if current.get("is_ending_final"):
+            return state, current, step
+
+        choices = cast(list[dict[str, Any]], current.get("choices", []))
+        if choices:
+            scene_id = str(current["scene_id"])
+            scene_visits[scene_id] = scene_visits.get(scene_id, 0) + 1
+
+            raw_scene = engine._scenes_index[scene_id]
+            raw_choices = cast(list[dict[str, Any]], raw_scene.get("choices", []))
+            ordered_raw_choices = [
+                c
+                for c in sorted(
+                    raw_choices,
+                    key=lambda c: str(c.get("id", "")),
+                )
+                if any(str(c.get("id")) == str(p["id"]) for p in choices)
+            ]
+            if not ordered_raw_choices:
+                raise AssertionError(f"Aucun choix exploitable sur {scene_id}")
+
+            if strategy == "first":
+                ordered_raw_choices = ordered_raw_choices
+            elif strategy == "last":
+                ordered_raw_choices = list(reversed(ordered_raw_choices))
+            elif strategy == "max_trust":
+                ordered_raw_choices = sorted(
+                    ordered_raw_choices,
+                    key=lambda c: (
+                        int(c.get("trust_delta", 0)),
+                        int(c.get("xp", 0)),
+                    ),
+                    reverse=True,
+                )
+            elif strategy == "min_trust":
+                ordered_raw_choices = sorted(
+                    ordered_raw_choices,
+                    key=lambda c: (
+                        int(c.get("trust_delta", 0)),
+                        -int(c.get("xp", 0)),
+                    ),
+                )
+            else:
+                raise AssertionError(f"Strategie inconnue en simulation: {strategy}")
+
+            visit_index = (scene_visits[scene_id] - 1) % len(ordered_raw_choices)
+            chosen = ordered_raw_choices[visit_index]
+            result = engine.apply_choice(state, scene_id, str(chosen["id"]))
+            assert result.get(
+                "success"
+            ), f"Echec apply_choice ({strategy}) sur {current['scene_id']}: {result}"
+        elif current.get("is_chapter_end"):
+            result = engine.advance_chapter(state, current["scene_id"])
+            assert result.get(
+                "success"
+            ), f"Echec advance_chapter ({strategy}) sur {current['scene_id']}: {result}"
+        else:
+            raise AssertionError(
+                f"Softlock detecte ({strategy}) sur scene {current['scene_id']}"
+            )
+
+        step += 1
+
+    raise AssertionError(f"Simulation depasse {max_steps} etapes ({strategy})")
 
 
 class TestNarrativePaths:
@@ -496,9 +661,74 @@ class TestBalanceGuardrails:
                 for scene in cast(list[dict[str, Any]], chapter["scenes"])
                 for c in cast(list[dict[str, Any]], scene.get("choices", []))
             ]
-            assert any(int(c.get("trust_delta", 0)) < 0 for c in choices), (
-                f"{chapter_id} n'a plus de choix risqué (trust<0)"
-            )
-            assert any(int(c.get("xp", 0)) >= 30 for c in choices), (
-                f"{chapter_id} n'a plus de choix à forte récompense (xp>=30)"
-            )
+            assert any(
+                int(c.get("trust_delta", 0)) < 0 for c in choices
+            ), f"{chapter_id} n'a plus de choix risqué (trust<0)"
+            assert any(
+                int(c.get("xp", 0)) >= 30 for c in choices
+            ), f"{chapter_id} n'a plus de choix à forte récompense (xp>=30)"
+
+
+class TestRunSimulations:
+    @pytest.mark.parametrize(
+        "strategy",
+        ["first", "last", "max_trust", "min_trust"],
+    )
+    def test_simulated_runs_reach_a_final_ending(
+        self, engine: StoryEngine, strategy: str
+    ) -> None:
+        state, ending_state = simulate_run(engine, strategy)
+        assert ending_state["is_ending_final"] is True
+        ending_id = ending_state.get("ending_id")
+        chapter_id = ending_state.get("chapter_id")
+        assert (ending_id in {"ending_a", "ending_b", "ending_c", "ending_d"}) or (
+            chapter_id in {"fin_a", "fin_b", "fin_c", "fin_d"}
+        )
+        assert 0 <= int(state["luna_trust"]) <= 100
+        assert 0 <= int(state["threat_level"]) <= 100
+        assert int(state["xp"]) >= 0
+
+    def test_simulation_strategies_produce_varied_endings(
+        self, engine: StoryEngine
+    ) -> None:
+        endings: set[str] = set()
+        for strategy in ["first", "last", "max_trust", "min_trust"]:
+            _, ending_state = simulate_run(engine, strategy)
+            ending_key = ending_state.get("ending_id") or ending_state.get("chapter_id")
+            if ending_key is None:
+                raise AssertionError(
+                    f"Fin sans identifiant pour la strategie {strategy}"
+                )
+            endings.add(str(ending_key))
+        assert len(endings) >= 2, f"Pas assez de variete de fins: {endings}"
+
+    def test_simulation_metrics_report_json(self, engine: StoryEngine) -> None:
+        """
+        Genere un rapport JSON lisible pour suivre l'equilibrage d'une version a l'autre.
+        """
+        report: dict[str, Any] = {}
+        for strategy in ["first", "last", "max_trust", "min_trust"]:
+            state, ending_state, steps = simulate_run_with_metrics(engine, strategy)
+            report[strategy] = {
+                "steps": steps,
+                "chapter_id": ending_state.get("chapter_id"),
+                "scene_id": ending_state.get("scene_id"),
+                "ending_id": ending_state.get("ending_id"),
+                "luna_trust": int(state.get("luna_trust", 0)),
+                "threat_level": int(state.get("threat_level", 0)),
+                "xp": int(state.get("xp", 0)),
+                "secrets_found": len(cast(list[str], state.get("secrets_found", []))),
+                "chapters_completed": len(
+                    cast(list[str], state.get("chapters_completed", []))
+                ),
+            }
+
+        os.makedirs("tests/.artifacts", exist_ok=True)
+        report_path = os.path.join("tests", ".artifacts", "simulation_metrics.json")
+        with open(report_path, "w", encoding="utf-8") as report_file:
+            json.dump(report, report_file, ensure_ascii=True, indent=2, sort_keys=True)
+
+        assert os.path.exists(report_path)
+        with open(report_path, encoding="utf-8") as report_file:
+            loaded = cast(dict[str, Any], json.load(report_file))
+        assert set(loaded.keys()) == {"first", "last", "max_trust", "min_trust"}

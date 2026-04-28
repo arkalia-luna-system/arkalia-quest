@@ -180,3 +180,27 @@ class TestStorySaveRobustness:
         assert len(board) == 2
         assert all(entry["xp"] == 300 for entry in board)
         assert all(entry["luna_trust"] == 80 for entry in board)
+
+    def test_get_leaderboard_handles_many_equal_scores_with_limit(
+        self, tmp_path: Any
+    ) -> None:
+        _point_db_to_temp(tmp_path)
+        with sqlite3.connect(story_save.DB_PATH) as conn:
+            for idx in range(25):
+                conn.execute(
+                    "INSERT INTO story_saves (player_id, state_json, updated_at) VALUES (?, ?, ?)",
+                    (
+                        f"equal-{idx:02d}",
+                        (
+                            '{"player_name":"Same","xp":250,"luna_trust":70,'
+                            '"chapters_completed":[],"endings_unlocked":[]}'
+                        ),
+                        f"2026-01-01T00:00:{idx:02d}+00:00",
+                    ),
+                )
+            conn.commit()
+
+        board = story_save.get_leaderboard(limit=10)
+        assert len(board) == 10
+        assert all(entry["xp"] == 250 for entry in board)
+        assert all(entry["luna_trust"] == 70 for entry in board)

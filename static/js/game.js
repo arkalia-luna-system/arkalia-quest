@@ -95,7 +95,16 @@ const EXPLOIT_FLAGS = {
   "ghost_protocol":           "Ghost Protocol active",
 };
 
+const SECRET_LABELS = {
+  "ghost-entry":   "Entree fantome",
+  "perfect-trust": "Confiance max",
+  "double-agent":  "Double jeu",
+  "pandora-scout": "PANDORA complete",
+  "nexus-gambit":  "Pari NEXUS",
+};
+
 let _exploitTimeout = null;
+let _secretTimeout = null;
 
 function showExploitPopup(flagId) {
   const label = EXPLOIT_FLAGS[flagId];
@@ -141,6 +150,7 @@ function initDOM() {
     chapterProgress:     $("chapter-progress"),
     playerNameTag:       $("player-name-tag"),
     xpHeader:            $("xp-header"),
+    secretsCounter:      $("secrets-counter"),
     trustFill:           $("trust-fill"),
     trustValue:          $("trust-value"),
     traceFill:           $("trace-fill"),
@@ -488,6 +498,13 @@ function updateHeader(state) {
     }
   }
 
+  if (DOM.secretsCounter) {
+    const found = Array.isArray(state.secrets_found) ? state.secrets_found.length : 0;
+    const total = Number.isInteger(state.secrets_total) ? state.secrets_total : 5;
+    DOM.secretsCounter.textContent = `Secrets ${found}/${total}`;
+    DOM.secretsCounter.classList.toggle("xp-gained", found > 0);
+  }
+
   // Prénom du joueur dans le header
   if (DOM.playerNameTag && state.player_name) {
     DOM.playerNameTag.textContent = state.player_name;
@@ -833,6 +850,10 @@ async function handleChoice(sceneId, choiceId, btnEl) {
       if (FLAG_LABELS_JS[f]) showMomentToast(FLAG_LABELS_JS[f]);
       if (f === "listened_to_corp" || f === "agreed_to_pause_luna") _styleStats.corp++;
       if (f === "nexus_helped" || f === "pandora_public" || f === "chose_pandora_public") _styleStats.luna++;
+    });
+    (result.secrets_unlocked || []).forEach(secretId => {
+      showSecretPopup(secretId);
+      postTelemetry("secret_detected", { secret_id: secretId, scene_id: sceneId, chapter_id: _currentChapterId });
     });
 
     if ((result.trust_delta || 0) > 0) _styleStats.trustPos++;
@@ -1654,6 +1675,24 @@ function showMomentToast(label) {
     popup.classList.remove("visible");
     setTimeout(() => { popup.hidden = true; }, 300);
   }, 2200);
+}
+
+function showSecretPopup(secretId) {
+  const label = SECRET_LABELS[secretId] || "Secret inconnu";
+  const popup = document.getElementById("exploit-popup");
+  const nameEl = document.getElementById("exploit-name");
+  if (!popup || !nameEl) return;
+  const titleEl = popup.querySelector(".exploit-title");
+  if (titleEl) titleEl.textContent = "SECRET DETECTE";
+  nameEl.textContent = label;
+  popup.hidden = false;
+  popup.classList.add("visible");
+  if (_secretTimeout) clearTimeout(_secretTimeout);
+  _secretTimeout = setTimeout(() => {
+    popup.classList.remove("visible");
+    if (titleEl) titleEl.textContent = "EXPLOIT DEBLOQUE";
+    setTimeout(() => { popup.hidden = true; }, 400);
+  }, 3200);
 }
 
 // ── Utilitaires DOM ───────────────────────────────────────────────────────

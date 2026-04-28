@@ -48,6 +48,7 @@ class StoryEngine:
             "player_name": None,
             "previous_endings": [],  # Fins des runs précédents — persistantes entre resets
             "threat_level": 15,  # Niveau de traque de La Corp (0-100)
+            "secrets_found": [],
         }
 
     # ------------------------------------------------------------------ #
@@ -124,6 +125,8 @@ class StoryEngine:
             "last_luna_reaction": player_state.get("last_luna_reaction"),
             "player_name": player_name,
             "threat_level": int(player_state.get("threat_level", 15)),
+            "secrets_found": cast(list[str], player_state.get("secrets_found", [])),
+            "secrets_total": 5,
         }
 
     # ------------------------------------------------------------------ #
@@ -180,6 +183,8 @@ class StoryEngine:
         new_threat = max(0, min(100, threat_before + threat_delta))
         player_state["threat_level"] = new_threat
 
+        newly_found_secrets = self._unlock_secrets(player_state, scene_id, choice_id)
+
         # Réaction LUNA
         player_state["last_luna_reaction"] = choice.get("luna_reaction")
 
@@ -205,6 +210,7 @@ class StoryEngine:
             "luna_reaction": choice.get("luna_reaction"),
             "next_scene": next_scene_id,
             "flags_added": choice.get("flags", []),
+            "secrets_unlocked": newly_found_secrets,
         }
 
     # ------------------------------------------------------------------ #
@@ -309,6 +315,29 @@ class StoryEngine:
                 if scene["id"] == scene_id:
                     return str(chapter["id"])
         return None
+
+    def _unlock_secrets(
+        self, player_state: PlayerState, scene_id: str, choice_id: str
+    ) -> list[str]:
+        """Débloque des secrets cachés selon les choix/flags."""
+        flags = set(cast(list[str], player_state.get("flags", [])))
+        triggers: list[tuple[str, bool]] = [
+            ("ghost-entry", scene_id == "s6_0" and choice_id == "c6_0_c"),
+            ("perfect-trust", int(player_state.get("luna_trust", 0)) >= 95),
+            (
+                "double-agent",
+                "listened_to_corp" in flags and "nexus_helped" in flags,
+            ),
+            ("pandora-scout", "looked_at_pandora" in flags and "pandora_public" in flags),
+            ("nexus-gambit", "tried_nexus" in flags and "abandoned_nexus" in flags),
+        ]
+        found = cast(list[str], player_state.setdefault("secrets_found", []))
+        newly_found: list[str] = []
+        for secret_id, condition in triggers:
+            if condition and secret_id not in found:
+                found.append(secret_id)
+                newly_found.append(secret_id)
+        return newly_found
 
     def _get_chapter_progress(self, player_state: PlayerState) -> int:
         completed = cast(list[str], player_state.get("chapters_completed", []))

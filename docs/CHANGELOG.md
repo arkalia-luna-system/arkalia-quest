@@ -63,6 +63,7 @@
 - Renforcement des tests contractuels API (`/api/story/state`) et tests d'acceptation/rejet pour la route telemetry.
 - Rework gameplay "fun-first": hook d'ouverture plus agressif (fenetre 4 minutes), nouveau systeme de pression `threat_level` (traque La Corp) expose API+HUD, et feedback immediate des choix risqués.
 - Ajout d'une route narrative secrete (Fin D: "Signal Fantome"), compteur de fins et rangs hacker mis a jour pour 4 fins, et nouveaux moments "wow" en progression de chapitre.
+- Ajout d'un systeme "secrets detectes" en run (5 secrets caches), avec unlock visuel instantane, compteur `Secrets x/5` en HUD, persistance serveur, et telemetry `secret_detected`.
 
 ---
 

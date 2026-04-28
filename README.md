@@ -70,6 +70,15 @@ ruff check .
 black .
 ```
 
+## Sécurité (ops)
+
+- `SECRET_KEY` est obligatoire en production.
+- Les endpoints `POST /api/story/*` exigent `Content-Type: application/json`.
+- Un rate-limit léger est actif sur les `POST` story:
+  - `STORY_RATE_LIMIT_WINDOW_SECONDS` (défaut: `60`)
+  - `STORY_RATE_LIMIT_MAX_POSTS` (défaut: `60`)
+- En cas de dépassement, l'API renvoie `429` avec l'header `Retry-After`.
+
 ## Structure principale
 
 - `app.py` -> point d'entrée Flask

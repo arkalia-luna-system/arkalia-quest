@@ -1,14 +1,6 @@
-# Guide de Deploiement — LUNA Hors Connexion
+# Déploiement
 
-Mise a jour: **27 avril 2026**
-
-## Prerequis
-
-- Python 3.9+
-- `pip`
-- Acces ecriture au dossier `data/`
-
-## Deploiement local (reference)
+## Local (smoke rapide)
 
 ```bash
 python3 -m venv venv
@@ -17,51 +9,27 @@ pip install -r requirements.txt
 python app.py
 ```
 
-Application disponible sur `http://localhost:5001`.
-
-## Deploiement Gunicorn
+## Production (Gunicorn)
 
 ```bash
-pip install -r requirements.txt
 gunicorn -c gunicorn.conf.py app:app
 ```
 
-## Deploiement Docker
+## Docker (option)
 
 ```bash
 docker build -t luna-hors-connexion .
 docker run -p 5001:5001 luna-hors-connexion
 ```
 
-## Script de deploiement unifie
+## Variables critiques
 
-Le script `scripts/deploy.sh` est maintenu pour les cibles suivantes:
-
-- `local`
-- `docker`
-- `docker-build`
-- `render`
-
-Exemples:
-
-```bash
-./scripts/deploy.sh docker-build
-./scripts/deploy.sh docker
-```
-
-## Variables utiles
-
-- `SECRET_KEY` (obligatoire en production)
-- `FLASK_ENV=production`
+- `SECRET_KEY` (prod obligatoire)
 - `APP_ENV=production`
 - `FLASK_DEBUG=0`
-- `HOST` et `PORT` (selon plateforme)
-- Exemple de base: `env.example`
 
-## Checklist avant mise en prod
+## Gate avant déploiement
 
-- `python -m pytest -q` OK
-- `ruff check .` OK
-- `python -m black --check .` OK
-- `README.md` et `docs/` a jour
-- branche `develop` validee puis fusion vers branches cibles
+- `python -m pytest -q`
+- `ruff check .`
+- `black --check .`

@@ -1,39 +1,17 @@
-# Guide de Contribution — LUNA Hors Connexion
+# Contribution
 
-Mise a jour: **27 avril 2026**
+Workflow court:
 
-Merci de contribuer.
-
-## Setup rapide
-
-```bash
-git clone https://github.com/arkalia-luna-system/arkalia-quest.git
-cd arkalia-quest
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
-
-## Workflow
-
-1. Creer une branche depuis `develop`.
-2. Faire une modif ciblee (code + tests + docs si impact fonctionnel).
-3. Verifier localement:
-   - `python -m pytest -q`
+1. Branche depuis `develop`.
+2. Fais une modif ciblée.
+3. Vérifie:
+   - `python -m pytest tests -q`
    - `ruff check .`
-4. Commit clair (`feat:`, `fix:`, `docs:`, `refactor:`, `test:`).
-5. Ouvrir PR vers `develop`.
+   - `black --check .`
+4. Ouvre une PR claire.
 
-## Standards minimaux
+Règles:
 
-- Respect du style Python (ruff/black).
-- Pas de secret dans le repo.
-- Toute modif API doit mettre a jour `README.md` et `docs/ARCHITECTURE.md`.
-- Toute modif narrative doit rester adaptee a la cible adolescente.
-
-## Quand modifier la documentation
-
-Mettre a jour au minimum:
-- `README.md` pour impact produit/global,
-- `docs/ARCHITECTURE.md` pour impact technique,
-- `docs/CHANGELOG.md` pour impact release.
+- Pas de secrets committés.
+- Si API modifiée: mettre à jour `README.md` et `docs/ARCHITECTURE.md`.
+- Si comportement joueur modifié: mettre à jour `docs/VISION.md` ou `docs/ROADMAP.md`.

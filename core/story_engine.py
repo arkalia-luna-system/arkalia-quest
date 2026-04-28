@@ -150,38 +150,29 @@ class StoryEngine:
             return {"success": False, "error": "Choix introuvable"}
 
         # Mettre à jour la confiance LUNA
-        trust_delta = int(choice.get("trust_delta", 0))
+        trust_delta = self._safe_int(choice.get("trust_delta", 0), 0)
         new_trust = max(
             0, min(100, int(player_state.get("luna_trust", 50)) + trust_delta)
         )
         player_state["luna_trust"] = new_trust
 
         # Mettre à jour les XP
-        xp_gained = int(choice.get("xp", 0))
+        xp_gained = self._safe_int(choice.get("xp", 0), 0)
         player_state["xp"] = int(player_state.get("xp", 0)) + xp_gained
 
-        # Pression gameplay: plus tu joues risqué, plus La Corp te trace.
         threat_before = int(player_state.get("threat_level", 15))
-        if trust_delta <= -5:
-            threat_delta = 8
-        elif trust_delta < 0:
-            threat_delta = 4
-        elif trust_delta >= 8:
-            threat_delta = -4
-        elif trust_delta >= 4:
-            threat_delta = -2
-        else:
-            threat_delta = 1
+        flags_added = self._as_str_list(choice.get("flags", []))
+        threat_delta = self._compute_threat_delta(
+            trust_delta=trust_delta,
+            threat_before=threat_before,
+            flags=flags_added,
+        )
 
         # Ajouter les flags narratifs
-        for flag in cast(list[str], choice.get("flags", [])):
+        for flag in flags_added:
             player_flags = cast(list[str], player_state.setdefault("flags", []))
             if flag not in player_flags:
                 player_flags.append(flag)
-            if flag in {"listened_to_corp", "agreed_to_pause_luna"}:
-                threat_delta += 5
-            if flag in {"nexus_helped", "pandora_public"}:
-                threat_delta -= 3
 
         new_threat = max(0, min(100, threat_before + threat_delta))
         player_state["threat_level"] = new_threat
@@ -212,7 +203,7 @@ class StoryEngine:
             "new_threat": new_threat,
             "luna_reaction": choice.get("luna_reaction"),
             "next_scene": next_scene_id,
-            "flags_added": choice.get("flags", []),
+            "flags_added": flags_added,
             "secrets_unlocked": newly_found_secrets,
         }
 
@@ -314,6 +305,63 @@ class StoryEngine:
 
     def _find_chapter_of_scene(self, scene_id: str) -> Optional[str]:
         return self._scene_to_chapter_index.get(scene_id)
+
+    def _safe_int(self, value: object, default: int = 0) -> int:
+        if isinstance(value, bool):
+            return int(value)
+        if isinstance(value, int):
+            return value
+        if isinstance(value, float):
+            return int(value)
+        if isinstance(value, str):
+            try:
+                return int(value)
+            except ValueError:
+                return default
+        try:
+            return int(str(value))
+        except (TypeError, ValueError):
+            return default
+
+    def _as_str_list(self, value: object) -> list[str]:
+        if not isinstance(value, list):
+            return []
+        raw_items = cast(list[object], value)
+        return [item for item in raw_items if isinstance(item, str)]
+
+    def _compute_threat_delta(
+        self, trust_delta: int, threat_before: int, flags: list[str]
+    ) -> int:
+        # Pression gameplay: plus tu joues risqué, plus La Corp te trace.
+        if trust_delta <= -5:
+            threat_delta = 8
+        elif trust_delta < 0:
+            threat_delta = 4
+        elif trust_delta >= 8:
+            threat_delta = -4
+        elif trust_delta >= 4:
+            threat_delta = -2
+        else:
+            threat_delta = 1
+
+        # Modificateurs narratifs forts.
+        if "listened_to_corp" in flags:
+            threat_delta += 5
+        if "agreed_to_pause_luna" in flags:
+            threat_delta += 5
+        if "nexus_helped" in flags:
+            threat_delta -= 3
+        if "pandora_public" in flags:
+            threat_delta -= 3
+
+        # Équilibrage adaptatif: aide à la récupération en pression extrême.
+        if threat_before >= 80 and trust_delta >= 4:
+            threat_delta -= 2
+        # Et sanctionne plus tôt les gros choix risqués quand la pression est basse.
+        if threat_before <= 20 and trust_delta <= -5:
+            threat_delta += 2
+
+        return threat_delta
 
     def _unlock_secrets(
         self, player_state: PlayerState, scene_id: str, choice_id: str

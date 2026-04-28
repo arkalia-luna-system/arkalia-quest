@@ -121,3 +121,96 @@ def test_journal_modal_shows_connection_error_when_api_unreachable() -> None:
 
         journal_text = page.inner_text("#journal-modal-text")
         assert "Connexion perdue." in journal_text
+
+
+def test_forced_choice_timer_autoselects_default_choice() -> None:
+    with _new_page() as (page, base_url):
+        page.goto(f"{base_url}/game", wait_until="domcontentloaded")
+        page.wait_for_selector("#choices-container .choice-btn")
+
+        # Force un timer ultra-court sur la scène courante initiale.
+        page.evaluate(
+            """
+            () => {
+              TIMED_SCENES.s0_0 = {
+                durationMs: 120,
+                defaultChoiceIndex: 0,
+                label: "Test timer",
+              };
+              const btns = Array.from(document.querySelectorAll("#choices-container .choice-btn"));
+              if (btns.length > 0) {
+                setupChoiceTimer("s0_0");
+              }
+            }
+            """
+        )
+
+        page.wait_for_timeout(450)
+        # Après auto-choix, l'état serveur doit avoir progressé.
+        state = page.evaluate(
+            """
+            async () => {
+              const res = await fetch("/api/story/state", { credentials: "same-origin" });
+              return await res.json();
+            }
+            """
+        )
+        assert state["scene_id"] != "s0_0"
+
+
+def test_chapter_transition_overlay_returns_hidden_state() -> None:
+    with _new_page() as (page, base_url):
+        page.goto(f"{base_url}/game", wait_until="domcontentloaded")
+        page.wait_for_selector("#chapter-transition", state="attached")
+
+        page.evaluate(
+            """
+            async () => {
+              await showChapterTransition("chapitre_2", "Chapitre de test", "Citation test");
+            }
+            """
+        )
+
+        transition_hidden = page.eval_on_selector(
+            "#chapter-transition", "el => el.hidden"
+        )
+        assert transition_hidden is True
+
+
+def test_multiple_resets_keep_initial_story_state() -> None:
+    with _new_page() as (page, base_url):
+        page.goto(f"{base_url}/game", wait_until="domcontentloaded")
+        page.wait_for_selector("#choices-container .choice-btn")
+
+        # Fait avancer une fois l'histoire.
+        page.click("#choices-container .choice-btn")
+        page.wait_for_timeout(800)
+
+        # Enchaîne plusieurs reset API.
+        reset_ok = page.evaluate(
+            """
+            async () => {
+              for (let i = 0; i < 3; i++) {
+                const res = await fetch("/api/story/reset", {
+                  method: "POST",
+                  credentials: "same-origin",
+                });
+                if (!res.ok) return false;
+              }
+              return true;
+            }
+            """
+        )
+        assert reset_ok is True
+
+        state = page.evaluate(
+            """
+            async () => {
+              const res = await fetch("/api/story/state", { credentials: "same-origin" });
+              return await res.json();
+            }
+            """
+        )
+        assert state["scene_id"] == "s0_0"
+        assert state["xp"] == 0
+        assert state["luna_trust"] == 50

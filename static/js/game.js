@@ -53,7 +53,15 @@ let _textSpeedMode       = localStorage.getItem("luna_text_speed") || "normal";
 let _seenSceneTelemetry  = new Set();
 let _lastWowChapter      = null;
 let _advanceLocked       = false;
+let _activeAtmoClass     = "";
 let _journalCloseTimerId = null;
+let _journalRequestSeq   = 0;
+let _replayLocked        = false;
+let _shareLocked         = false;
+let _chapterTransitionTimerId = null;
+let _chapterTransitionLeaveTimerId = null;
+let _endingRevealTimerId = null;
+let _endingHideBadgeTimerId = null;
 const TELEMETRY_DEDUPE_MS = 900;
 const TELEMETRY_MAX_SIGNATURES = 200;
 const _telemetryRecent = new Map();
@@ -203,6 +211,7 @@ function initDOM() {
     journalBtn:          $("journal-btn"),
     journalModal:        $("journal-modal"),
     accessModal:         $("access-modal"),
+    endingAchievement:   $("ending-achievement"),
   };
 }
 
@@ -281,6 +290,9 @@ function setupAccessibilityModal() {
   btn.addEventListener("click", open);
   closeBtn.addEventListener("click", close);
   backdrop.addEventListener("click", close);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !modal.hidden) close();
+  });
 
   highContrast.addEventListener("change", () => {
     localStorage.setItem("luna_high_contrast", highContrast.checked ? "on" : "off");
@@ -656,10 +668,11 @@ function updateAtmosphere(atmo) {
   const body = document.body;
   if (!body) return;
   body.classList.add("page-game");
-  Array.from(body.classList)
-    .filter((cls) => cls.startsWith("atmo-"))
-    .forEach((cls) => body.classList.remove(cls));
-  body.classList.add(`atmo-${atmo}`);
+  if (_activeAtmoClass) {
+    body.classList.remove(_activeAtmoClass);
+  }
+  _activeAtmoClass = `atmo-${atmo}`;
+  body.classList.add(_activeAtmoClass);
   if (_sfxEnabled && atmo !== _ambientAtmo) {
     _ambientAtmo = atmo;
     startAmbientDrone(atmo);
@@ -770,8 +783,8 @@ function setupKeyboardShortcuts() {
     const isEndingAchievementVisible = !!(
       DOM.endingContainer &&
       !DOM.endingContainer.hidden &&
-      document.getElementById("ending-achievement") &&
-      !document.getElementById("ending-achievement").hidden
+      DOM.endingAchievement &&
+      !DOM.endingAchievement.hidden
     );
     if (isBootVisible || isChapterTransitionVisible || isEndingAchievementVisible) {
       return;
@@ -834,6 +847,7 @@ function renderChoices(choices, sceneId) {
 
   clearChoiceTimer();
 
+  const fragment = document.createDocumentFragment();
   choices.forEach((choice, idx) => {
     const btn = document.createElement("button");
     btn.className = "choice-btn";
@@ -851,8 +865,9 @@ function renderChoices(choices, sceneId) {
     btn.style.animationDelay = `${idx * 80}ms`;
     btn.addEventListener("click", () => handleChoice(sceneId, choice.id, btn));
     btn.addEventListener("mouseenter", () => { if (_sfxEnabled) playHover(); });
-    DOM.choicesContainer.appendChild(btn);
+    fragment.appendChild(btn);
   });
+  DOM.choicesContainer.appendChild(fragment);
 
   DOM.choicesContainer.hidden = false;
   // Focus sur le premier choix pour accessibilité clavier
@@ -878,7 +893,11 @@ async function handleChoice(sceneId, choiceId, btnEl) {
   try {
     postTelemetry("choice_selected", { scene_id: sceneId, choice_id: choiceId, chapter_id: _currentChapterId });
     const data = await apiPost("/api/story/choice", { scene_id: sceneId, choice_id: choiceId });
-    if (!data.success) { showError(data.error || "Erreur lors du choix."); _choicesLocked = false; return; }
+    if (!data.success) {
+      restoreChoicesAfterFailure(sceneId, btnEl);
+      showError(data.error || "Erreur lors du choix.");
+      return;
+    }
 
     const result = data.choice_result;
 
@@ -935,7 +954,22 @@ async function handleChoice(sceneId, choiceId, btnEl) {
 
     setTimeout(() => renderState(data.next_state), REACTION_SHOW_MS * 0.3);
 
-  } catch { showError("Connexion perdue."); _choicesLocked = false; }
+  } catch {
+    restoreChoicesAfterFailure(sceneId, btnEl);
+    showError("Connexion perdue.");
+  }
+}
+
+function restoreChoicesAfterFailure(sceneId, selectedBtn) {
+  _choicesLocked = false;
+  if (!DOM.choicesContainer || DOM.choicesContainer.hidden) return;
+  const btns = DOM.choicesContainer.querySelectorAll(".choice-btn");
+  btns.forEach((b) => {
+    b.disabled = false;
+    b.style.opacity = "";
+  });
+  if (selectedBtn) selectedBtn.classList.remove("selected");
+  setupChoiceTimer(sceneId);
 }
 
 // ── Récapitulatif fin de chapitre ─────────────────────────────────────────
@@ -1144,6 +1178,15 @@ function showChapterTransition(chapterId, title, quote = "") {
   return new Promise(resolve => {
     const el = DOM.chapterTransition;
     if (!el) return resolve();
+    if (_chapterTransitionTimerId) {
+      clearTimeout(_chapterTransitionTimerId);
+      _chapterTransitionTimerId = null;
+    }
+    if (_chapterTransitionLeaveTimerId) {
+      clearTimeout(_chapterTransitionLeaveTimerId);
+      _chapterTransitionLeaveTimerId = null;
+    }
+    el.classList.remove("entering", "leaving");
 
     // Détecter si c'est un chapitre de fin (fin_a, fin_b, fin_c)
     const isEnding = chapterId?.startsWith("fin_");
@@ -1176,11 +1219,13 @@ function showChapterTransition(chapterId, title, quote = "") {
     el.classList.add("entering");
     if (_sfxEnabled) playChapterJingle();
 
-    setTimeout(() => {
+    _chapterTransitionTimerId = setTimeout(() => {
+      _chapterTransitionTimerId = null;
       el.classList.remove("entering");
       el.classList.add("leaving");
 
-      setTimeout(() => {
+      _chapterTransitionLeaveTimerId = setTimeout(() => {
+        _chapterTransitionLeaveTimerId = null;
         el.classList.remove("leaving");
         el.hidden = true;
         resolve();
@@ -1473,16 +1518,30 @@ function renderEnding(state) {
   // Révélation épique : flash "FIN DÉBLOQUÉE" puis contenu
   const $ach = document.getElementById("ending-achievement");
   const $content = DOM.endingContainer.querySelector(".ending-content");
+  if (_endingRevealTimerId) {
+    clearTimeout(_endingRevealTimerId);
+    _endingRevealTimerId = null;
+  }
+  if (_endingHideBadgeTimerId) {
+    clearTimeout(_endingHideBadgeTimerId);
+    _endingHideBadgeTimerId = null;
+  }
+  if ($ach) {
+    $ach.classList.remove("achievement-flash", "achievement-done");
+    $ach.hidden = true;
+  }
   if ($content) $content.style.opacity = "0";
   if ($ach) { $ach.hidden = false; $ach.classList.add("achievement-flash"); }
 
   stopAmbientDrone(2000);
   if (_sfxEnabled) playEndingChime();
 
-  setTimeout(() => {
+  _endingRevealTimerId = setTimeout(() => {
+    _endingRevealTimerId = null;
     if ($ach) { $ach.classList.remove("achievement-flash"); $ach.classList.add("achievement-done"); }
     if ($content) $content.style.opacity = "1";
-    setTimeout(() => {
+    _endingHideBadgeTimerId = setTimeout(() => {
+      _endingHideBadgeTimerId = null;
       if ($ach) $ach.hidden = true;
     }, 600);
   }, 1400);
@@ -1493,8 +1552,17 @@ function renderEnding(state) {
 function setupReplayButton() {
   if (!DOM.replayBtn) return;
   DOM.replayBtn.addEventListener("click", async () => {
-    await apiPost("/api/story/reset", {});
-    window.location.reload();
+    if (_replayLocked) return;
+    _replayLocked = true;
+    DOM.replayBtn.disabled = true;
+    try {
+      await apiPost("/api/story/reset", {});
+      window.location.reload();
+    } catch {
+      _replayLocked = false;
+      DOM.replayBtn.disabled = false;
+      showError("Impossible de relancer la partie.");
+    }
   });
 }
 
@@ -1518,6 +1586,9 @@ function setupShareButton(endingId, endingTitle, trust, xp, playerName, isFirstE
   // On remplace le handler au lieu d'empiler des listeners
   // a chaque renderEnding (sinon partages/telemetry dupliques).
   btn.onclick = async () => {
+    if (_shareLocked) return;
+    _shareLocked = true;
+    btn.disabled = true;
     haptic(20);
     try {
       // Préférer Web Share API (mobile natif)
@@ -1528,6 +1599,10 @@ function setupShareButton(endingId, endingTitle, trust, xp, playerName, isFirstE
         showShareToast();
       }
     } catch { /* share annulé ou non supporté */ }
+    finally {
+      _shareLocked = false;
+      btn.disabled = false;
+    }
   };
 }
 
@@ -1615,6 +1690,10 @@ function setupIdleEasterEgg() {
   let idleToast = null;
 
   function showIdleMsg() {
+    if (document.hidden) {
+      idleTimer = setTimeout(showIdleMsg, IDLE_DELAY);
+      return;
+    }
     if (idleToast) { idleToast.remove(); idleToast = null; }
 
     const msg = IDLE_MSGS[msgIndex % IDLE_MSGS.length];
@@ -1820,6 +1899,7 @@ function showFirstChoiceToast() {
 }
 
 function showSaveToast() {
+  document.querySelectorAll(".save-toast:not(.share-toast)").forEach((el) => el.remove());
   const toast = document.createElement("div");
   toast.className = "save-toast";
   toast.textContent = "✓ sauvegardé";
@@ -1830,6 +1910,9 @@ function showSaveToast() {
 // Toast léger pour les moments clés (flags)
 function showMomentToast(label) {
   if (!label || typeof label !== "string") return;
+  if (_momentPopupQueue[_momentPopupQueue.length - 1] === label) return;
+  const currentLabel = document.getElementById("moment-popup-text")?.textContent;
+  if (_momentPopupActive && currentLabel === label) return;
   _momentPopupQueue.push(label);
   if (_momentPopupActive) return;
   _consumeMomentToastQueue();
@@ -1884,6 +1967,18 @@ function hideAllZones() {
   if (DOM.choicesContainer)  { DOM.choicesContainer.hidden = true; DOM.choicesContainer.innerHTML = ""; }
   if (DOM.advanceContainer)  { DOM.advanceContainer.hidden = true; if (DOM.advanceBtn) DOM.advanceBtn.disabled = false; }
   if (DOM.endingContainer)   DOM.endingContainer.hidden = true;
+  if (_endingRevealTimerId) {
+    clearTimeout(_endingRevealTimerId);
+    _endingRevealTimerId = null;
+  }
+  if (_endingHideBadgeTimerId) {
+    clearTimeout(_endingHideBadgeTimerId);
+    _endingHideBadgeTimerId = null;
+  }
+  if (DOM.endingAchievement) {
+    DOM.endingAchievement.hidden = true;
+    DOM.endingAchievement.classList.remove("achievement-flash", "achievement-done");
+  }
   if (DOM.lunaReaction)      DOM.lunaReaction.hidden = true;
   clearChoiceTimer();
 }
@@ -1916,6 +2011,7 @@ async function openJournalModal() {
     clearTimeout(_journalCloseTimerId);
     _journalCloseTimerId = null;
   }
+  const requestSeq = ++_journalRequestSeq;
   modal.hidden = false;
   modal.classList.add("visible");
   textEl.textContent = "Chargement du journal...";
@@ -1923,6 +2019,7 @@ async function openJournalModal() {
   try {
     const res = await fetch("/api/story/journal");
     const data = await res.json();
+    if (requestSeq !== _journalRequestSeq || modal.hidden) return;
     if (!data.success) {
       textEl.textContent = data.error || "Impossible de charger le journal.";
       return;
@@ -1933,6 +2030,7 @@ async function openJournalModal() {
       textEl.textContent = data.journal;
     }
   } catch {
+    if (requestSeq !== _journalRequestSeq || modal.hidden) return;
     textEl.textContent = "Connexion perdue.";
   }
 }
@@ -1941,6 +2039,7 @@ function closeJournalModal() {
   const modal = document.getElementById("journal-modal");
   if (!modal) return;
   modal.classList.remove("visible");
+  _journalRequestSeq++;
   if (_journalCloseTimerId) clearTimeout(_journalCloseTimerId);
   _journalCloseTimerId = setTimeout(() => {
     if (!modal.classList.contains("visible")) modal.hidden = true;
@@ -2259,7 +2358,13 @@ async function apiPost(url, body) {
 }
 
 function postTelemetry(eventType, payload = {}) {
-  const signature = `${eventType}|${JSON.stringify(payload)}`;
+  let payloadSignature = "";
+  try {
+    payloadSignature = JSON.stringify(payload);
+  } catch {
+    payloadSignature = "[unserializable]";
+  }
+  const signature = `${eventType}|${payloadSignature}`;
   const now = Date.now();
   const lastSentAt = _telemetryRecent.get(signature) || 0;
   if (now - lastSentAt < TELEMETRY_DEDUPE_MS) return;

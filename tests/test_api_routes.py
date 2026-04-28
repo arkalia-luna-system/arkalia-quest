@@ -269,6 +269,24 @@ class TestSetName:
         data = json_obj(r)
         assert len(data["player_name"]) <= 30
 
+    def test_name_normalizes_whitespace(self, client: FlaskClient) -> None:
+        r = client.post("/api/story/name", json={"name": "   Luna   Rider   "})
+        data = json_obj(r)
+        assert r.status_code == 200
+        assert data["player_name"] == "Luna Rider"
+
+    def test_name_rejects_non_alphanumeric_only(self, client: FlaskClient) -> None:
+        r = client.post("/api/story/name", json={"name": "!!!???"})
+        data = json_obj(r)
+        assert r.status_code == 400
+        assert data["error"] == "Prénom invalide"
+
+    def test_name_strips_control_characters(self, client: FlaskClient) -> None:
+        r = client.post("/api/story/name", json={"name": "A\nth\talia"})
+        data = json_obj(r)
+        assert r.status_code == 200
+        assert data["player_name"] == "Athalia"
+
 
 # ─────────────────────────────────────────────
 # GET /api/story/summary

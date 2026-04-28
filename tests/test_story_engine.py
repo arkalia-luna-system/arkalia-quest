@@ -157,6 +157,44 @@ class TestApplyChoice:
         engine.apply_choice(state, "s0_0", "c0_0_b")
         assert state["luna_trust"] >= 0
 
+    def test_adaptive_threat_recovery_at_high_pressure(self, engine: StoryEngine) -> None:
+        threat_delta = engine._compute_threat_delta(
+            trust_delta=8, threat_before=85, flags=[]
+        )
+        # Base trust>=8: -4, bonus recovery en pression haute: -2
+        assert threat_delta <= -6
+
+    def test_adaptive_threat_penalty_at_low_pressure(self, engine: StoryEngine) -> None:
+        threat_delta = engine._compute_threat_delta(
+            trust_delta=-5, threat_before=15, flags=[]
+        )
+        # Base trust<=-5: +8, malus pression basse: +2
+        assert threat_delta >= 10
+
+    def test_choice_with_malformed_numeric_values_does_not_crash(
+        self, engine: StoryEngine
+    ) -> None:
+        state = engine.new_player_state()
+        scene = engine._scenes_index["s0_0"]
+        choices = cast(list[dict[str, Any]], scene["choices"])
+        target = choices[0]
+        old_trust = target.get("trust_delta")
+        old_xp = target.get("xp")
+        old_flags = target.get("flags")
+        try:
+            target["trust_delta"] = "not-an-int"
+            target["xp"] = {"bad": "value"}
+            target["flags"] = "not-a-list"
+            result = engine.apply_choice(state, "s0_0", str(target["id"]))
+            assert result["success"] is True
+            assert isinstance(result["trust_delta"], int)
+            assert isinstance(result["xp_gained"], int)
+            assert isinstance(result["flags_added"], list)
+        finally:
+            target["trust_delta"] = old_trust
+            target["xp"] = old_xp
+            target["flags"] = old_flags
+
 
 class TestAdvanceChapter:
     def test_advance_from_chapter_end_scene(self, engine: StoryEngine) -> None:

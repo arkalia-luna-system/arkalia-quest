@@ -1652,6 +1652,11 @@ body:has(.dialogue-box.luna-speaking) .luna-panel .luna-avatar {
   color: var(--luna);
 }
 
+#ending-rank-summary {
+  border-color: rgba(245, 158, 11, 0.4);
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(30, 41, 59, 0.9));
+}
+
 .ending-moments {
   display: flex;
   flex-direction: column;

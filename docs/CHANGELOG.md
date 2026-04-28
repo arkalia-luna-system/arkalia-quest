@@ -65,6 +65,7 @@
 - Ajout d'une route narrative secrete (Fin D: "Signal Fantome"), compteur de fins et rangs hacker mis a jour pour 4 fins, et nouveaux moments "wow" en progression de chapitre.
 - Ajout d'un systeme "secrets detectes" en run (5 secrets caches), avec unlock visuel instantane, compteur `Secrets x/5` en HUD, persistance serveur, et telemetry `secret_detected`.
 - Ajout d'une meta-progression secrets sur le profil (`x/5`), badge `Secret Master` a 5/5, support de la Fin D sur la page profil, et recompense cosmetique in-game quand tous les secrets sont trouves.
+- Ajout d'un mode "run classe" sur l'ecran de fin: score de run calcule (XP/confiance/secrets/pression) et grade `S/A/B/C` pour renforcer la competition personnelle et la rejouabilite.
 
 ---
 

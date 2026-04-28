@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "arkalia-quest"
 version = "3.1.0"
-description = "Jeu éducatif intelligent pour adolescents - Architecture Flask/Python/IA modulaire, sécurité avancée, gamification"
+description = "Jeu narratif cyberpunk avec IA LUNA, choix a consequences et progression rejouable"
 readme = "README.md"
 license = "MIT"
 authors = [
@@ -14,10 +14,10 @@ authors = [
 maintainers = [
     {name = "Arkalia Luna System", email = "arkalia.luna.system@gmail.com"}
 ]
-keywords = ["education", "game", "ai", "flask", "gamification", "security", "performance", "luna"]
+keywords = ["game", "narrative", "ai", "flask", "cyberpunk", "security", "luna"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
-    "Intended Audience :: Education",
+    "Intended Audience :: End Users/Desktop",
     "Intended Audience :: Developers",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
@@ -25,8 +25,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
-    "Topic :: Education :: Computer Aided Instruction (CAI)",
-    "Topic :: Games/Entertainment :: Educational",
+    "Topic :: Games/Entertainment :: Role-Playing",
     "Topic :: Software Development :: Libraries :: Application Frameworks",
 ]
 requires-python = ">=3.9"
@@ -89,7 +88,7 @@ arkalia-quest = "app:app"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["core.*", "engines.*", "utils.*"]
+include = ["core", "core.*", "engines", "engines.*", "utils", "utils.*"]
 exclude = ["tests*", "docs*", "scripts*", "venv*", "__pycache__*"]
 
 [tool.setuptools.package-data]

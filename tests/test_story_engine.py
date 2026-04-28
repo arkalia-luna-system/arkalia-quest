@@ -157,7 +157,9 @@ class TestApplyChoice:
         engine.apply_choice(state, "s0_0", "c0_0_b")
         assert state["luna_trust"] >= 0
 
-    def test_adaptive_threat_recovery_at_high_pressure(self, engine: StoryEngine) -> None:
+    def test_adaptive_threat_recovery_at_high_pressure(
+        self, engine: StoryEngine
+    ) -> None:
         threat_delta = engine._compute_threat_delta(
             trust_delta=8, threat_before=85, flags=[]
         )

@@ -205,9 +205,7 @@ def get_save_summary(player_id: str) -> Optional[JsonDict]:
     return {
         "exists": True,
         "player_name": _safe_str(state.get("player_name"), ""),
-        "current_chapter": _safe_str(
-            state.get("current_chapter"), "chapitre_0"
-        ),
+        "current_chapter": _safe_str(state.get("current_chapter"), "chapitre_0"),
         "luna_trust": _safe_int(state.get("luna_trust", 50), 50),
         "xp": _safe_int(state.get("xp", 0), 0),
         "chapters_completed": len(chapters_completed),

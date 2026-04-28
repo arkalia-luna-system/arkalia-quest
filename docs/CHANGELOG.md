@@ -35,6 +35,9 @@
 - Verification complete de la suite de tests Python.
 - Durcissement API supplementaire: validation UUID cookie, rate-limit POST configurable, header `Retry-After` sur 429, et headers de securite HTTP.
 - Stabilisation release packaging: exclusion explicite des artefacts macOS (`._*`) et correction de la detection des paquets Python dans `pyproject.toml`.
+- Harmonisation wording frontend: `Hackeur` -> `Hacker` sur profil/classement.
+- Renforcement robustesse frontend: `escapeHtml` defensif sur le leaderboard.
+- Ajout d'une checklist de release `v3.1.1` dans `docs/RELEASE_CHECKLIST_v3.1.1.md`.
 
 ---
 

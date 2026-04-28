@@ -171,7 +171,7 @@ cython_debug/
 .LSOverride
 Icon
 ._*
-.*!*
+*.DS_Store
 
 # Windows
 Thumbs.db
@@ -180,7 +180,6 @@ Desktop.ini
 $RECYCLE.BIN/
 
 # Linux
-*~
 .fuse_hidden*
 .directory
 .Trash-*
@@ -204,7 +203,6 @@ logs/
 *~
 
 # IDE
-.vscode/
 .idea/
 *.sublime-project
 *.sublime-workspace
@@ -221,11 +219,8 @@ logs/
 
 # Coverage reports
 coverage.json
-.coverage
-htmlcov/
 
 # Test results
-.pytest_cache/
 test-results/
 
 # Backups (copies complètes du projet, inutiles en version control)

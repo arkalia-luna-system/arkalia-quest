@@ -6,7 +6,7 @@
 
 - Nettoyage massif des tags techniques parasites (test-permissions + tags hash v3.0.0).
 - Conservation d'un set de tags releases significatifs: `v3.0.0-complete`, `v3.0.0-professional`, `v3.1.0`.
-- Ajout d'un audit des tags dans `docs/TAGS_AUDIT_2026-04-27.md`.
+- Consolidation de la documentation tags dans ce changelog (suppression du dump historique dédié).
 - Ajout de l'URL de demo live Render dans le README.
 - Re-audit documentaire au 27/04/2026 (README + docs principales).
 - Ajout d'un plan de visibilite (demo live + screenshots/GIF) dans le README.

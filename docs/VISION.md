@@ -1,35 +1,29 @@
 # Vision Produit — LUNA Hors Connexion
 
-Mise a jour: **27 avril 2026**
+Public coeur: garçon de 14 ans.
 
-## Positionnement
+## Promesse joueur
 
-LUNA est un jeu narratif web pour ado (coeur de cible: 14 ans), avec une ambiance cyberpunk et des choix a consequences.
+- Dialogues courts, directs, jamais scolaires.
+- Tension constante: urgence, risques, conséquences visibles.
+- Rejouabilité forte: plusieurs fins, secrets, ranking de run.
 
-## Promesse
+## Ton de LUNA
 
-- Dialogues courts, intenses, memorables.
-- Sensation d'urgence et de responsabilite.
-- Rejouabilite reelle via plusieurs fins.
-- LUNA reagit a la confiance, aux mensonges et aux risques pris.
+- Cool, vive, parfois sarcastique.
+- Jamais condescendante.
+- Pas de texte explicatif long.
 
-## Experience visee
+## Règles de décision produit
 
-- Le joueur se sent "dans la conversation", pas dans un tuto.
-- L'interface reste lisible, rapide et sans surcharge.
-- Les choix doivent etre comprehensibles mais jamais triviaux.
-- Chaque run doit laisser une trace emotionnelle differente.
+Si une feature n’améliore pas au moins un point ci-dessous, elle passe après:
 
-## Piliers narratifs
+1. Intensité (pression, rythme, choix forts).
+2. Lisibilité immédiate (comprendre en quelques secondes).
+3. Rejouabilité (nouvelle info, nouvelle route, nouveau score).
 
-- Confiance vs doute.
-- Verite incomplete.
-- Pouvoir et consequence.
-- Liberation et sacrifice.
+## Interdits
 
-## Ce qu'on evite
-
-- Ton scolaire ou institutionnel.
-- Textes trop longs.
-- Morale simpliste en fin de run.
-- Guidage excessif qui casse la tension.
+- Tutoriel lourd.
+- Vocabulaire trop institutionnel.
+- Fins moralisatrices plates.

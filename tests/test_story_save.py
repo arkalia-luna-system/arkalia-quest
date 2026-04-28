@@ -204,3 +204,30 @@ class TestStorySaveRobustness:
         assert len(board) == 10
         assert all(entry["xp"] == 250 for entry in board)
         assert all(entry["luna_trust"] == 70 for entry in board)
+
+    def test_get_save_summary_sanitizes_non_string_text_fields(
+        self, tmp_path: Any
+    ) -> None:
+        _point_db_to_temp(tmp_path)
+        player_id = "summary-sanitize"
+        with sqlite3.connect(story_save.DB_PATH) as conn:
+            conn.execute(
+                "INSERT INTO story_saves (player_id, state_json, updated_at) VALUES (?, ?, ?)",
+                (
+                    player_id,
+                    (
+                        '{"player_name":null,"current_chapter":{"bad":"value"},'
+                        '"luna_trust":"80","xp":"120","flags":["ok",3]}'
+                    ),
+                    "2026-01-01T00:00:00+00:00",
+                ),
+            )
+            conn.commit()
+
+        summary = story_save.get_save_summary(player_id)
+        assert summary is not None
+        assert summary["player_name"] == ""
+        assert summary["current_chapter"] == "chapitre_0"
+        assert summary["luna_trust"] == 80
+        assert summary["xp"] == 120
+        assert summary["flags"] == ["ok"]

@@ -1,83 +1,48 @@
 # Architecture — LUNA Hors Connexion
 
-Mise a jour: **27 avril 2026**
+## Stack
 
-## Vue d'ensemble
+- Monolithe Flask
+- Templates HTML + JS/CSS vanilla
+- SQLite pour sauvegarde + telemetry locale
 
-Le projet est une application Flask monolithique legere:
-- rendu HTML cote serveur pour les pages principales,
-- API JSON pour la progression narrative,
-- moteur d'histoire base sur `data/story.json`,
-- persistance SQLite par joueur via cookie `luna_player_id`.
-
-## Structure reelle
+## Fichiers clés
 
 ```text
 app.py
-routes/
-  pages.py        # routes HTML
-  story.py        # API /api/story/*
-core/
-  story_engine.py # logique narrative
-  story_save.py   # persistance sqlite
-data/
-  story.json      # chapitres, scenes, choix, fins
+routes/story.py
+routes/pages.py
+core/story_engine.py
+core/story_save.py
+data/story.json
+static/js/game.js
 templates/
-  index.html
-  game.html
-  profil.html
-  leaderboard.html
-static/
-  css/game.css
-  js/game.js
-  js/service-worker.js
 tests/
-  test_story_engine.py
-  test_api_routes.py
 ```
 
-## Routes HTML
+## Flux runtime
 
-- `GET /` -> page d'accueil narrative
-- `GET /game` -> interface de jeu
-- `GET /profil` -> progression et recap joueur
-- `GET /leaderboard` -> classement local
+1. `GET /game` sert l’UI.
+2. UI appelle `/api/story/state`.
+3. Choix joueur via `/api/story/choice` puis `/api/story/advance`.
+4. État persistant en SQLite (`story_saves`).
+5. Événements gameplay via `/api/story/telemetry`.
 
-## API Story
+## API publique `/api/story`
 
-Base: `/api/story`
-
-- `GET /state` -> etat courant joueur
-- `POST /choice` -> appliquer un choix de scene
-- `POST /advance` -> passer au chapitre suivant
-- `POST /reset` -> reset de sauvegarde (memoire des fins conservee)
-- `POST /name` -> enregistrer le prenom
-- `GET /summary` -> resume de sauvegarde
-- `GET /leaderboard` -> classement local
-- `GET /journal` -> journal narratif personnalise
+- `GET /api/story/state`
+- `POST /api/story/choice`
+- `POST /api/story/advance`
+- `POST /api/story/reset`
+- `POST /api/story/name`
+- `GET /api/story/summary`
+- `GET /api/story/leaderboard`
+- `GET /api/story/journal`
+- `POST /api/story/telemetry`
 
 ## Persistance
 
 - DB: `data/luna_saves.db`
-- Table: `story_saves(player_id, state_json, updated_at)`
-- Le `state_json` contient notamment:
-  - chapitre/scene courants
-  - confiance LUNA
-  - XP
-  - flags narratifs
-  - fins debloquees
-  - fins precedentes (memoire inter-runs)
-
-## Flux principal
-
-1. Chargement initial: `GET /api/story/state`
-2. Choix joueur: `POST /api/story/choice`
-3. Fin de chapitre: `POST /api/story/advance`
-4. Sauvegarde auto a chaque action serveur
-5. Reprise via cookie + sauvegarde SQLite
-
-## Qualite
-
-- Tests: `pytest`
-- Lint: `ruff`
-- Le projet est volontairement sans framework frontend lourd.
+- Table `story_saves`: état narratif JSON par `player_id`
+- Table `story_telemetry`: événements anonymisés locaux
+- Cookie joueur: `luna_player_id`

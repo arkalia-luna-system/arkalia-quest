@@ -105,6 +105,13 @@ def _as_str_list(value: object) -> list[str]:
     return [item for item in raw_items if isinstance(item, str)]
 
 
+def _safe_str(value: object, default: str = "") -> str:
+    if isinstance(value, str):
+        clean = value.strip()
+        return clean if clean else default
+    return default
+
+
 def generate_player_id() -> str:
     return str(uuid.uuid4())
 
@@ -197,8 +204,10 @@ def get_save_summary(player_id: str) -> Optional[JsonDict]:
     secrets_found = _as_str_list(state.get("secrets_found", []))
     return {
         "exists": True,
-        "player_name": str(state.get("player_name") or ""),
-        "current_chapter": str(state.get("current_chapter", "chapitre_0")),
+        "player_name": _safe_str(state.get("player_name"), ""),
+        "current_chapter": _safe_str(
+            state.get("current_chapter"), "chapitre_0"
+        ),
         "luna_trust": _safe_int(state.get("luna_trust", 50), 50),
         "xp": _safe_int(state.get("xp", 0), 0),
         "chapters_completed": len(chapters_completed),

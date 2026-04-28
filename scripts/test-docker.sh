@@ -108,7 +108,7 @@ echo "🚀 Tests de fonctionnalité..."
 
 # Test 6: Construction d'image
 echo "🔨 Test de construction d'image..."
-if docker build -f config/Dockerfile -t arkalia-quest:test . &> /tmp/docker_build.log; then
+if docker build -t arkalia-quest:test . &> /tmp/docker_build.log; then
     print_result 0 "Construction d'image réussie"
     # Nettoyer l'image de test
     docker rmi arkalia-quest:test &> /dev/null

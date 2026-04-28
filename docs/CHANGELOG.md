@@ -9,6 +9,9 @@
 - Consolidation de la documentation tags dans ce changelog (suppression du dump historique dédié).
 - Suppression du doublon `docs/ARCHITECTURE_TECHNIQUE.md` pour garder une seule source d'architecture.
 - Simplification du template de pull request pour reduire le bruit de maintenance.
+- Suppression des modules `config/*` non utilises (ancienne couche de config non branchee au runtime actuel).
+- Suppression du `config/Dockerfile` duplique et alignement des scripts/build sur le `Dockerfile` racine.
+- Simplification de `docker-compose.yml` pour reflecter l'execution reelle (service unique app).
 - Ajout de l'URL de demo live Render dans le README.
 - Re-audit documentaire au 27/04/2026 (README + docs principales).
 - Ajout d'un plan de visibilite (demo live + screenshots/GIF) dans le README.

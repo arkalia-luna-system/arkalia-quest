@@ -4,7 +4,7 @@ steps:
       [
         "build",
         "-f",
-        "config/Dockerfile",
+        "Dockerfile",
         "-t",
         "gcr.io/$PROJECT_ID/arkalia-quest:$COMMIT_SHA",
         ".",

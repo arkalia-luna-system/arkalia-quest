@@ -55,7 +55,7 @@ case $PLATFORM in
         
         # Construire l'image
         echo "🔨 Construction de l'image Docker..."
-        docker build -f config/Dockerfile -t arkalia-quest:$VERSION .
+        docker build -t arkalia-quest:$VERSION .
         
         # Lancer le conteneur
         echo "🚀 Lancement du conteneur..."
@@ -80,7 +80,7 @@ case $PLATFORM in
         fi
         
         echo "🔨 Construction de l'image Docker..."
-        docker build -f config/Dockerfile -t arkalia-quest:$VERSION .
+        docker build -t arkalia-quest:$VERSION .
         echo "✅ Image construite: arkalia-quest:$VERSION"
         ;;
     "heroku")

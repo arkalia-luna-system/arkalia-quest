@@ -393,6 +393,23 @@ class TestStoryCoherence:
         for chapter in cast(list[dict[str, Any]], engine._story["chapters"]):
             assert len(chapter["scenes"]) > 0, f"Chapitre {chapter['id']} vide"
 
+    def test_no_softlock_scene_without_choices(self, engine: StoryEngine) -> None:
+        """
+        Une scène sans choix doit rester jouable:
+        - soit fin de chapitre (bouton "continuer")
+        - soit fin finale (écran de fin)
+        """
+        for chapter in cast(list[dict[str, Any]], engine._story["chapters"]):
+            for scene in cast(list[dict[str, Any]], chapter["scenes"]):
+                has_choices = bool(scene.get("choices"))
+                if has_choices:
+                    continue
+                is_chapter_end = bool(scene.get("is_chapter_end", False))
+                is_ending_final = bool(scene.get("is_ending_final", False))
+                assert (
+                    is_chapter_end or is_ending_final
+                ), f"Scene bloquante sans choix: {chapter['id']} > {scene['id']}"
+
     def test_all_chapters_referenced(self, engine: StoryEngine) -> None:
         """Les 3 fins existent comme chapitres."""
         chapter_ids = {
@@ -433,3 +450,55 @@ class TestStoryCoherence:
         all_ids = {str(s["id"]) for s in chapter_scenes}
         orphans = all_ids - reachable
         assert len(orphans) == 0, f"Scènes orphelines dans chapitre_0: {orphans}"
+
+
+class TestBalanceGuardrails:
+    def test_choice_numeric_values_stay_in_expected_range(
+        self, engine: StoryEngine
+    ) -> None:
+        """Garde-fou d'équilibrage pour éviter les dérives brutales."""
+        for chapter in cast(list[dict[str, Any]], engine._story["chapters"]):
+            for scene in cast(list[dict[str, Any]], chapter["scenes"]):
+                for choice in cast(list[dict[str, Any]], scene.get("choices", [])):
+                    trust_delta = int(choice.get("trust_delta", 0))
+                    xp = int(choice.get("xp", 0))
+                    assert -10 <= trust_delta <= 15, (
+                        "trust_delta hors plage attendue "
+                        f"({chapter['id']} > {scene['id']} > {choice['id']} = {trust_delta})"
+                    )
+                    assert 0 <= xp <= 60, (
+                        f"xp hors plage attendue ({chapter['id']} > {scene['id']} > "
+                        f"{choice['id']} = {xp})"
+                    )
+
+    def test_main_chapters_keep_risk_and_reward_choices(
+        self, engine: StoryEngine
+    ) -> None:
+        """
+        Les chapitres principaux doivent garder une tension de gameplay:
+        au moins un choix risqué (trust négatif) et un choix fortement récompensé (xp>=30).
+        """
+        main_chapters = {
+            "chapitre_0",
+            "chapitre_1",
+            "chapitre_2",
+            "chapitre_3",
+            "chapitre_4",
+            "chapitre_5",
+            "chapitre_6",
+        }
+        for chapter in cast(list[dict[str, Any]], engine._story["chapters"]):
+            chapter_id = str(chapter["id"])
+            if chapter_id not in main_chapters:
+                continue
+            choices = [
+                c
+                for scene in cast(list[dict[str, Any]], chapter["scenes"])
+                for c in cast(list[dict[str, Any]], scene.get("choices", []))
+            ]
+            assert any(int(c.get("trust_delta", 0)) < 0 for c in choices), (
+                f"{chapter_id} n'a plus de choix risqué (trust<0)"
+            )
+            assert any(int(c.get("xp", 0)) >= 30 for c in choices), (
+                f"{chapter_id} n'a plus de choix à forte récompense (xp>=30)"
+            )

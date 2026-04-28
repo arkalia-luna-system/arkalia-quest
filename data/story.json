@@ -1684,6 +1684,8 @@
           "luna_emotion": "espère",
           "context": "Althea est directe.",
           "dialogue": "[ALTHEA]\n\nNEXUS n'est pas mauvaise. Elle a fait des choix différents de LUNA.\n\nMais elle a des valeurs que La Corp pense avoir effacées — et qui sont encore là. Des limites qu'elle n'a jamais franchies.\n\nEssayez avec elle. Montrez-lui ce que vous savez.",
+          "is_chapter_end": true,
+          "next_chapter": "chapitre_6",
           "choices": [],
           "emotion": "soulagée"
         }

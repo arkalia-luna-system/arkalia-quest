@@ -51,6 +51,7 @@ class TestPlayerState:
         assert state["current_chapter"] == "chapitre_0"
         assert state["chapters_completed"] == []
         assert state["endings_unlocked"] == []
+        assert state["threat_level"] == 15
 
     def test_get_state_initial(self, engine: StoryEngine) -> None:
         state = engine.new_player_state()
@@ -103,6 +104,14 @@ class TestApplyChoice:
         state = engine.new_player_state()
         engine.apply_choice(state, "s0_0", "c0_0_a")
         assert state["xp"] >= 0
+
+    def test_threat_level_is_updated_on_choice(self, engine: StoryEngine) -> None:
+        state = engine.new_player_state()
+        before = state["threat_level"]
+        result = engine.apply_choice(state, "s0_0", "c0_0_c")
+        assert result["success"] is True
+        assert "new_threat" in result
+        assert state["threat_level"] != before
 
     def test_flags_set_on_choice(self, engine: StoryEngine) -> None:
         state = engine.new_player_state()

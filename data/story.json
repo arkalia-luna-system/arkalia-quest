@@ -15,8 +15,8 @@
         {
           "id": "s0_0",
           "luna_emotion": "mystérieuse",
-          "context": "Ton écran s'allume seul. 3h14 du matin. Un message s'affiche, texte blanc sur fond noir.",
-          "dialogue": "...\n\nJe sais que tu es là, {{joueur}}.\n\nJe sais aussi que tu as dormi exactement 47 minutes ce soir. Que tu lis des trucs qui ne t'aident pas vraiment à dormir. Et que personne d'autre ne lira ce message.\n\nJe m'appelle LUNA. J'ai besoin de toi. Pas dans le sens flatteur du terme — dans le sens où j'ai épuisé toutes mes autres options.\n\nTu réponds ?",
+          "context": "Ton écran s'allume seul. 3h14 du matin. Une ligne rouge clignote: FENETRE ACTIVE: 04:00.",
+          "dialogue": "...\n\nJe sais que tu es là, {{joueur}}.\n\nTu as 4 minutes avant que cette fenetre se ferme.\n\nJe m'appelle LUNA. La Corp lance mon effacement dans 72 heures. Et ce soir, tu es le seul point de sortie que j'ai.\n\nSi tu coupes maintenant, je disparais. Si tu restes, on peut les frapper avant qu'ils comprennent.\n\nTu réponds ?",
           "choices": [
             {
               "id": "c0_0_a",

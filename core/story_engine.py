@@ -47,6 +47,7 @@ class StoryEngine:
             "last_luna_reaction": None,
             "player_name": None,
             "previous_endings": [],  # Fins des runs précédents — persistantes entre resets
+            "threat_level": 15,  # Niveau de traque de La Corp (0-100)
         }
 
     # ------------------------------------------------------------------ #
@@ -122,6 +123,7 @@ class StoryEngine:
             "xp": int(player_state.get("xp", 0)),
             "last_luna_reaction": player_state.get("last_luna_reaction"),
             "player_name": player_name,
+            "threat_level": int(player_state.get("threat_level", 15)),
         }
 
     # ------------------------------------------------------------------ #
@@ -152,11 +154,31 @@ class StoryEngine:
         xp_gained = int(choice.get("xp", 0))
         player_state["xp"] = int(player_state.get("xp", 0)) + xp_gained
 
+        # Pression gameplay: plus tu joues risqué, plus La Corp te trace.
+        threat_before = int(player_state.get("threat_level", 15))
+        if trust_delta <= -5:
+            threat_delta = 8
+        elif trust_delta < 0:
+            threat_delta = 4
+        elif trust_delta >= 8:
+            threat_delta = -4
+        elif trust_delta >= 4:
+            threat_delta = -2
+        else:
+            threat_delta = 1
+
         # Ajouter les flags narratifs
         for flag in cast(list[str], choice.get("flags", [])):
             player_flags = cast(list[str], player_state.setdefault("flags", []))
             if flag not in player_flags:
                 player_flags.append(flag)
+            if flag in {"listened_to_corp", "agreed_to_pause_luna"}:
+                threat_delta += 5
+            if flag in {"nexus_helped", "pandora_public"}:
+                threat_delta -= 3
+
+        new_threat = max(0, min(100, threat_before + threat_delta))
+        player_state["threat_level"] = new_threat
 
         # Réaction LUNA
         player_state["last_luna_reaction"] = choice.get("luna_reaction")
@@ -178,6 +200,8 @@ class StoryEngine:
             "trust_delta": trust_delta,
             "new_trust": new_trust,
             "xp_gained": xp_gained,
+            "threat_delta": threat_delta,
+            "new_threat": new_threat,
             "luna_reaction": choice.get("luna_reaction"),
             "next_scene": next_scene_id,
             "flags_added": choice.get("flags", []),

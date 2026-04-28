@@ -73,11 +73,15 @@ black .
 ## Sécurité (ops)
 
 - `SECRET_KEY` est obligatoire en production.
+- `APP_MAX_CONTENT_LENGTH_BYTES` permet de regler la taille max des payloads HTTP (defaut: `1048576`).
 - Les endpoints `POST /api/story/*` exigent `Content-Type: application/json`.
 - Un rate-limit léger est actif sur les `POST` story:
   - `STORY_RATE_LIMIT_WINDOW_SECONDS` (défaut: `60`)
   - `STORY_RATE_LIMIT_MAX_POSTS` (défaut: `60`)
 - En cas de dépassement, l'API renvoie `429` avec l'header `Retry-After`.
+- En production, l'app applique `Strict-Transport-Security`.
+- Les reponses `/api/*` sont `no-store` (`Cache-Control`, `Pragma`, `Expires`) pour eviter le cache de donnees sensibles.
+- Les erreurs API sont uniformisees en JSON (`404`, `413`, `500`).
 
 ## Structure principale
 

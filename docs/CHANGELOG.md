@@ -24,7 +24,7 @@
 ### Qualite code
 
 - Correction des erreurs Ruff (imports et hygiene tests).
-- Alignement du formatage Python sur Black 25.1.0 pour corriger le pipeline CI.
+- Alignement du formatage Python sur Black 26.3.1 pour corriger le pipeline CI.
 - Durcissement securite/API (SECRET_KEY obligatoire en production, erreurs internes masquees cote client).
 - Unification de la logique de rang hacker entre jeu et profil via un module partage.
 - Nettoyage de `env.example` pour supprimer les variables legacy non utilisees et aligner les variables runtime reelles.
@@ -38,6 +38,10 @@
 - Harmonisation wording frontend: `Hackeur` -> `Hacker` sur profil/classement.
 - Renforcement robustesse frontend: `escapeHtml` defensif sur le leaderboard.
 - Ajout d'une checklist de release `v3.1.1` dans `docs/RELEASE_CHECKLIST_v3.1.1.md`.
+- Durcissement runtime: parsing robuste des variables d'environnement (`PORT`, limites payload), header HSTS en production.
+- Gestion explicite `413` pour `/api/*` avec message JSON clair.
+- Durcissement des reponses API: headers anti-cache (`no-store`) et format d'erreurs JSON uniforme (`404`, `500`).
+- Audit securite dependances projet via `pip-audit` et mise a niveau de `black`/`pytest` vers versions non vulnerables.
 
 ---
 

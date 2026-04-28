@@ -269,6 +269,21 @@ class TestNarrativePaths:
         assert current.get("next_chapter") == "fin_c"
         assert "pandora_public" in state["flags"]
 
+    def test_path_to_fin_d_secret(self, engine: StoryEngine) -> None:
+        """Chemin D secret : protocole fantome hors-reseau."""
+        state = engine.new_player_state()
+        navigate_to_chapter6(engine, state)
+
+        engine.apply_choice(state, "s6_0", "c6_0_c")
+        engine.apply_choice(state, "s6_3", "c6_3_a")
+        engine.apply_choice(state, "s6_fin_d", "c6fd_1")
+
+        current = engine.get_state(state)
+        assert current["scene_id"] == "s6_fin_d_echo"
+        assert current.get("is_chapter_end") is True
+        assert current.get("next_chapter") == "fin_d"
+        assert "ghost_protocol" in state["flags"]
+
     def test_all_endings_distinct(self, engine: StoryEngine) -> None:
         """Les 3 fins ont des next_chapter différents."""
         endings: set[Optional[str]] = set()

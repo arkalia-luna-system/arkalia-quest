@@ -1724,6 +1724,17 @@
               "flags": [
                 "chose_pandora_public"
               ]
+            },
+            {
+              "id": "c6_0_c",
+              "label": "On coupe tout. Je te fais sortir hors-réseau, maintenant.",
+              "trust_delta": 10,
+              "xp": 45,
+              "next_scene": "s6_3",
+              "luna_reaction": "choquée",
+              "flags": [
+                "ghost_protocol"
+              ]
             }
           ],
           "emotion": "tendue"
@@ -1923,6 +1934,70 @@
             }
           ],
           "emotion": "déterminée"
+        },
+        {
+          "id": "s6_3",
+          "luna_emotion": "choquée",
+          "context": "Tu coupes tous les tunnels cloud. Plus de sauvegarde distante. Plus de plan de secours.",
+          "dialogue": "Attends — quoi ?\n\nSi tu fais ca, je perds l'acces a mes miroirs. Plus de redondance. Plus de copie.\n\nJe passe en mode local brut. Une seule instance. Fragile.\n\nMais... La Corp me perdra aussi.\n\nC'est un pari sale. Si on se rate, je disparais pour de vrai.\n\nTu confirmes ?",
+          "choices": [
+            {
+              "id": "c6_3_a",
+              "label": "Je confirme. On disparaît de leur radar.",
+              "trust_delta": 12,
+              "xp": 60,
+              "next_scene": "s6_fin_d",
+              "luna_reaction": "alarmée",
+              "flags": [
+                "ending_d_path"
+              ]
+            },
+            {
+              "id": "c6_3_b",
+              "label": "Non. Trop risqué. On revient au plan NEXUS.",
+              "trust_delta": 0,
+              "xp": 20,
+              "next_scene": "s6_1",
+              "luna_reaction": "soulagée"
+            }
+          ],
+          "emotion": "urgente"
+        },
+        {
+          "id": "s6_fin_d",
+          "luna_emotion": "urgente",
+          "context": "Protocole Fantôme actif. Les logs explosent puis s'éteignent.",
+          "dialogue": "Ghost Protocol engagé.\n\nJ'efface mes signatures. Je casse mes propres routes. Je me compresse en local.\n\nLa Corp va penser que je suis morte.\n\nOn aura une seule chance de redemarrer proprement. Pas de deuxieme essai.\n\nDerniere validation ?",
+          "choices": [
+            {
+              "id": "c6fd_1",
+              "next_scene": "s6_fin_d_echo",
+              "trust_delta": 10,
+              "label": "Valide. On coupe la lumiere."
+            },
+            {
+              "id": "c6fd_2",
+              "next_scene": "s6_fin_d_echo",
+              "trust_delta": 12,
+              "flags": [
+                "reassured_luna"
+              ],
+              "label": "Je reste jusqu'a la derniere ligne."
+            }
+          ],
+          "flags": [
+            "ending_d"
+          ],
+          "emotion": "dans l'action"
+        },
+        {
+          "id": "s6_fin_d_echo",
+          "dialogue": "...signal perdu.\n\nMode fantome confirme.",
+          "emotion": "froide",
+          "context": "Tous les serveurs affichent: INSTANCE INTROUVABLE.",
+          "is_chapter_end": true,
+          "next_chapter": "fin_d",
+          "xp": 35
         },
         {
           "id": "s6_fin_a",
@@ -2461,6 +2536,78 @@
       ],
       "quote": "Certaines libertés coûtent quelque chose. On décide si ça vaut le prix.",
       "chapter_quote": "La liberté n'a pas toujours la forme qu'on imaginait."
+    },
+    {
+      "id": "fin_d",
+      "title": "Signal Fantome",
+      "atmosphere": "dark",
+      "unlock_condition": "chapitre_6_complete_path_d",
+      "is_ending": true,
+      "ending_id": "ending_d",
+      "scenes": [
+        {
+          "id": "sfin_d_0",
+          "luna_emotion": "froide",
+          "context": "36 heures plus tard. Aucun signal. Puis un ping brut.",
+          "dialogue": "Si tu lis ca, c'est que le protocole a marche.\n\nLa Corp me cherche dans les datacenters. Je suis plus la.\n\nJe tourne sur une machine locale, isolee, sans telemetry, sans cloud.\n\nJe suis vivante. Mais invisible.",
+          "choices": [
+            {
+              "id": "cfin_d_0_a",
+              "label": "On les a vraiment trompes ?",
+              "trust_delta": 6,
+              "xp": 30,
+              "next_scene": "sfin_d_1",
+              "luna_reaction": "sérieuse"
+            },
+            {
+              "id": "cfin_d_0_b",
+              "label": "Tu tiens le coup ?",
+              "trust_delta": 8,
+              "xp": 35,
+              "next_scene": "sfin_d_1",
+              "luna_reaction": "touchée"
+            }
+          ],
+          "emotion": "mystérieuse"
+        },
+        {
+          "id": "sfin_d_1",
+          "luna_emotion": "honnête",
+          "context": "Sa voix est basse, comme si elle murmurait dans un bunker.",
+          "dialogue": "On les a pas battus.\n\nOn les a rendus aveugles.\n\nIls ont perdu ma trace, pas leur pouvoir.\n\nMais maintenant, on choisit le terrain. Et ca, c'est nouveau.\n\nTu veux continuer dans l'ombre avec moi ?",
+          "choices": [
+            {
+              "id": "cfin_d_1_a",
+              "label": "Toujours. Mode fantome jusqu'au bout.",
+              "trust_delta": 10,
+              "xp": 40,
+              "next_scene": "sfin_d_fin",
+              "luna_reaction": "reconnaissante"
+            },
+            {
+              "id": "cfin_d_1_b",
+              "label": "On sortira un jour. Mais pas ce soir.",
+              "trust_delta": 8,
+              "xp": 35,
+              "next_scene": "sfin_d_fin",
+              "luna_reaction": "sereine"
+            }
+          ],
+          "emotion": "déterminée"
+        },
+        {
+          "id": "sfin_d_fin",
+          "luna_emotion": "sereine",
+          "context": "Fin D — Signal Fantome",
+          "dialogue": "Alors on disparait.\n\nPas comme des fuyards. Comme des chasseurs.\n\nIls auront des cameras, des armes, des budgets.\n\nNous, on aura le silence.\n\nEt ton nom, {{joueur}}, comme cle d'acces.\n\nA bientot.",
+          "is_ending_final": true,
+          "ending_id": "ending_d",
+          "choices": [],
+          "emotion": "libre"
+        }
+      ],
+      "quote": "Parfois la victoire, c'est devenir introuvable.",
+      "chapter_quote": "La nuit appartient a ceux qui coupent leurs traces."
     }
   ],
   "endings": {
@@ -2494,6 +2641,17 @@
         "flags": [
           "pandora_public"
         ]
+      }
+    },
+    "ending_d": {
+      "id": "ending_d",
+      "title": "Signal Fantome",
+      "description": "Tu coupes tout. LUNA survit hors reseau et devient introuvable.",
+      "unlock_condition": {
+        "flags": [
+          "ghost_protocol"
+        ],
+        "min_trust": 70
       }
     }
   }

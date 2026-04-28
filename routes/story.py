@@ -374,6 +374,8 @@ FLAG_LABELS = {
     "ending_a_path": "Tu as suivi le chemin de la Fusion",
     "ending_b_path": "Tu as suivi le chemin du Sacrifice",
     "ending_c_path": "Tu as suivi le chemin de PANDORA",
+    "ending_d_path": "Tu as suivi le chemin du Signal Fantome",
+    "ghost_protocol": "Tu as active le protocole fantome",
 }
 
 
@@ -431,6 +433,7 @@ def _build_luna_journal(state: JsonDict, name: str) -> str:
         "ending_a": "La Fusion",
         "ending_b": "Le Sacrifice",
         "ending_c": "PANDORA",
+        "ending_d": "Signal Fantome",
     }
     seen_fins = [fin_map[e] for e in endings if e in fin_map]
     if seen_fins:

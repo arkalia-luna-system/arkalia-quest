@@ -25,7 +25,6 @@ python -m pytest tests/ --cov=core --cov-report=term-missing
 ```bash
 python -m pytest tests/test_story_engine.py -q
 python -m pytest tests/test_api_routes.py -q
-python -m pytest tests/api/test_app_routes_basic.py -q
 ```
 
 ## Scripts de lancement

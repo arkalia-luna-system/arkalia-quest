@@ -6,7 +6,7 @@ Application Flask principale.
 import os
 import secrets
 
-from flask import Flask, jsonify, render_template
+from flask import Flask, Response, jsonify, render_template
 from flask_compress import Compress
 
 from core.story_engine import get_story_engine
@@ -43,6 +43,17 @@ def create_app() -> Flask:
     app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
     app.config["SESSION_COOKIE_SECURE"] = is_production
     app.config["MAX_CONTENT_LENGTH"] = 1 * 1024 * 1024  # 1 MB max
+
+    @app.after_request
+    def apply_security_headers(response: Response) -> Response:
+        response.headers.setdefault("X-Content-Type-Options", "nosniff")
+        response.headers.setdefault("X-Frame-Options", "DENY")
+        response.headers.setdefault("Referrer-Policy", "no-referrer")
+        response.headers.setdefault(
+            "Permissions-Policy",
+            "camera=(), microphone=(), geolocation=()",
+        )
+        return response
 
     # Compression des réponses
     Compress(app)

@@ -57,6 +57,7 @@
 - Polish documentation final: guide de deploiement aligne sur les cibles maintenues et corrections wording roadmap.
 - Nettoyage final MkDocs: ajout de `docs/assets/README.md` dans la navigation et exclusion des artefacts `._*`.
 - Nettoyage final structure: suppression du test legacy 100% skip `tests/api/test_app_routes_basic.py` et de la config Elastic Beanstalk obsolete `config/.ebextensions/01_packages.config`.
+- Rationalisation outillage racine: refonte du `Makefile` pour ne garder que des cibles maintenues, alignees avec la stack actuelle (tests/lint/docs/security/build/run/docker).
 
 ---
 

@@ -89,6 +89,10 @@ def create_app() -> Flask:
                 "Strict-Transport-Security",
                 "max-age=31536000; includeSubDomains",
             )
+        if request.path.startswith("/api/"):
+            response.headers.setdefault("Cache-Control", "no-store")
+            response.headers.setdefault("Pragma", "no-cache")
+            response.headers.setdefault("Expires", "0")
         return response
 
     # Compression des réponses
@@ -111,10 +115,14 @@ def create_app() -> Flask:
     # Pages d'erreur thématiques
     @app.errorhandler(404)
     def not_found(e: Any):
+        if request.path.startswith("/api/"):
+            return jsonify({"success": False, "error": "Endpoint API introuvable."}), 404
         return render_template("404.html"), 404
 
     @app.errorhandler(500)
     def server_error(e: Any):
+        if request.path.startswith("/api/"):
+            return jsonify({"success": False, "error": "Erreur interne."}), 500
         return render_template("404.html"), 500
 
     @app.errorhandler(RequestEntityTooLarge)

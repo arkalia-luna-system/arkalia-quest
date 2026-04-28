@@ -46,6 +46,8 @@
 - Suppression de `build.sh` legacy (non reference et destructif pour `pyproject.toml`).
 - Remise a plat de `mkdocs.yml` avec une navigation alignee sur les documents existants.
 - Ajout de `docs/index.md` comme page d'accueil MkDocs.
+- Suppression des scripts Docker legacy redondants: `scripts/test-docker.sh` et `scripts/docker-diagnostic.sh`.
+- Modernisation de `scripts/deploy.sh` et `scripts/docker-auth.sh` (bash strict, robustesse shell, message de sortie aligne sur l'app).
 
 ---
 

@@ -1164,6 +1164,35 @@ function computeStyleProfile(state) {
   return { label };
 }
 
+function computeRunRank(state) {
+  const trust = Number(state.luna_trust || 0);
+  const xp = Number(state.xp || 0);
+  const threat = Number(state.threat_level || 0);
+  const secrets = Array.isArray(state.secrets_found) ? state.secrets_found.length : 0;
+  const endingsSeen = new Set([...(state.previous_endings || []), state.ending_id].filter(Boolean)).size;
+  const score = Math.max(
+    0,
+    Math.round(
+      xp * 0.6 +
+      trust * 1.8 +
+      secrets * 40 +
+      endingsSeen * 15 -
+      Math.max(0, threat - 35) * 1.2
+    )
+  );
+  let grade = "C";
+  if (score >= 520) grade = "S";
+  else if (score >= 420) grade = "A";
+  else if (score >= 320) grade = "B";
+  const labels = {
+    S: "Legendary Operateur",
+    A: "Elite Operateur",
+    B: "Operateur Solide",
+    C: "Operateur Instable",
+  };
+  return { score, grade, label: labels[grade] };
+}
+
 // ── Écran de fin ──────────────────────────────────────────────────────────
 const ENDING_META = {
   ending_a: {
@@ -1263,6 +1292,7 @@ function renderEnding(state) {
   const $xpV    = document.getElementById("ending-xp");
   const $perso  = document.getElementById("ending-personalized");
   const $style  = document.getElementById("ending-style-summary");
+  const $rank   = document.getElementById("ending-rank-summary");
   const $secretsBoard = document.getElementById("ending-secrets-board");
 
   if ($badge) { $badge.textContent = meta.label; $badge.style.borderColor = meta.color; $badge.style.color = meta.color; }
@@ -1281,6 +1311,21 @@ function renderEnding(state) {
     parts.push(`<strong>Style:</strong> ${sp.label}`);
     $style.innerHTML = parts.join("<br>");
     $style.hidden = false;
+  }
+
+  if ($rank) {
+    const rank = computeRunRank(state);
+    const gradeColor = rank.grade === "S"
+      ? "#f59e0b"
+      : rank.grade === "A"
+        ? "#22d3ee"
+        : rank.grade === "B"
+          ? "#a78bfa"
+          : "#94a3b8";
+    $rank.innerHTML =
+      `<strong>Run classe:</strong> <span style="color:${gradeColor};font-weight:700;">${rank.grade}</span> ` +
+      `(${rank.label})<br><strong>Score:</strong> ${rank.score}`;
+    $rank.hidden = false;
   }
 
   if ($secretsBoard) {

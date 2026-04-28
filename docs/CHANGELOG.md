@@ -53,6 +53,7 @@
 - Rationalisation deployment/config: suppression des descriptors legacy non relies au runtime principal (`config/cloudbuild.yaml`, `config/digitalocean.yaml`, `config/railway.json`, `config/Procfile`, `config/runtime.txt`, `config/app.json`, `config/nginx.conf`, `config/pytest.ini`).
 - Suppression des manifests Kubernetes dormants (`k8s/k8s-deployment.yaml`, `k8s/k8s-service.yaml`) et de `config/systemd/arkalia-quest.service`.
 - Simplification de `scripts/deploy.sh` pour limiter les cibles aux plateformes maintenues (`local`, `docker`, `docker-build`, `render`).
+- Rationalisation des dependances Python: suppression des paquets non utilises (websocket/async/monitoring/scraping/crypto) et alignement `requirements.txt` + `pyproject.toml` sur les usages reels.
 
 ---
 

@@ -1,6 +1,6 @@
 # MkDocs Configuration for Arkalia Quest
 site_name: Arkalia Quest Documentation
-site_description: Documentation complète du jeu Arkalia Quest
+site_description: Documentation du jeu narratif LUNA Hors Connexion
 site_author: Arkalia Luna System
 site_url: https://arkalia-luna-system.github.io/arkalia-quest/
 
@@ -62,27 +62,13 @@ markdown_extensions:
 # Navigation
 nav:
   - Accueil: index.md
-  - Guide de développement:
-      - Architecture technique: docs/ARCHITECTURE_TECHNIQUE.md
-      - Guide technique développeur: docs/GUIDE_TECHNIQUE_DEVELOPPEUR.md
-      - Guide de développement: docs/GUIDE_DEVELOPPEMENT.md
-  - Déploiement:
-      - Guide de déploiement: docs/GUIDE_DEPLOIEMENT.md
-      - Docker: docs/DOCKER_AUTH.md
-  - Tests et qualité:
-      - Guide test utilisateur: docs/GUIDE_TEST_UTILISATEUR.md
-      - Test plan utilisateur: docs/TEST_PLAN_UTILISATEUR.md
-      - Checklists test: docs/CHECKLISTS_TEST_UTILISATEUR.md
-  - Contribution:
-      - Contributing: docs/CONTRIBUTING.md
-      - GitHub contribution setup: docs/GITHUB_CONTRIBUTION_SETUP.md
-  - Documentation:
-      - Index documentation: docs/INDEX_DOCUMENTATION.md
-      - Statut projet actuel: docs/STATUT_PROJET_ACTUEL.md
-      - Roadmap stratégique: docs/ROADMAP_STRATEGIQUE.md
-  - Changelog:
-      - Changelog: CHANGELOG.md
-      - Changelog documentation: docs/CHANGELOG_DOCUMENTATION.md
+  - Vision: VISION.md
+  - Architecture: ARCHITECTURE.md
+  - Roadmap: ROADMAP.md
+  - Déploiement: DEPLOYMENT_GUIDE.md
+  - Contribution: CONTRIBUTING.md
+  - Changelog: CHANGELOG.md
+  - Release Checklist v3.1.1: RELEASE_CHECKLIST_v3.1.1.md
 
 # Extra
 extra:
@@ -94,5 +80,8 @@ extra:
   version:
     provider: mike
 
+# Documentation source directory
+docs_dir: docs
+
 # Copyright
-copyright: Copyright &copy; 2024 Arkalia Luna System
+copyright: Copyright &copy; 2026 Arkalia Luna System

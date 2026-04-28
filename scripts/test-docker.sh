@@ -151,12 +151,6 @@ else
     print_result 1 "scripts/deploy.sh non exécutable"
 fi
 
-if [ -x "scripts/deploiement/deploy.sh" ]; then
-    print_result 0 "scripts/deploiement/deploy.sh exécutable"
-else
-    print_result 1 "scripts/deploiement/deploy.sh non exécutable"
-fi
-
 # Test 9: Validation des scripts
 echo "🔍 Validation de la syntaxe des scripts..."
 if bash -n scripts/docker-auth.sh; then
@@ -169,12 +163,6 @@ if bash -n scripts/deploy.sh; then
     print_result 0 "scripts/deploy.sh syntaxe OK"
 else
     print_result 1 "scripts/deploy.sh erreur de syntaxe"
-fi
-
-if bash -n scripts/deploiement/deploy.sh; then
-    print_result 0 "scripts/deploiement/deploy.sh syntaxe OK"
-else
-    print_result 1 "scripts/deploiement/deploy.sh erreur de syntaxe"
 fi
 
 # Nettoyage

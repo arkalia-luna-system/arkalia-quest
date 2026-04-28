@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # 🔐 Script d'authentification Docker sécurisé
 # Usage: ./scripts/docker-auth.sh [registry]
 
-set -e
+set -euo pipefail
 
 REGISTRY=${1:-"docker.io"}
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -60,7 +60,7 @@ read_credentials() {
     local password_var="DOCKER_PASSWORD"
     
     # Essayer de lire depuis les variables d'environnement
-    if [ -n "${!username_var}" ] && [ -n "${!password_var}" ]; then
+    if [ -n "${!username_var:-}" ] && [ -n "${!password_var:-}" ]; then
         echo "✅ Credentials trouvés dans les variables d'environnement"
         DOCKER_USERNAME="${!username_var}"
         DOCKER_PASSWORD="${!password_var}"
@@ -77,6 +77,7 @@ read_credentials() {
     # Essayer de lire depuis un fichier .env
     if [ -f "$SCRIPT_DIR/../.env" ]; then
         echo "📁 Lecture des credentials depuis .env"
+        # shellcheck disable=SC1090
         source "$SCRIPT_DIR/../.env"
         if [ -n "$DOCKER_USERNAME" ] && [ -n "$DOCKER_PASSWORD" ]; then
             echo "✅ Credentials trouvés dans .env"

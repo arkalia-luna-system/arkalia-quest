@@ -1,12 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # 🚀 Script de déploiement Arkalia Quest
 # Usage: ./scripts/deploy.sh [platform]
 
-set -e
+set -euo pipefail
 
 PLATFORM=${1:-"local"}
-VERSION="3.0.0"
+VERSION="${VERSION:-3.1.0}"
 
 echo "🚀 Déploiement Arkalia Quest v$VERSION sur $PLATFORM"
 echo "=================================================="
@@ -16,7 +16,7 @@ echo "🔍 Vérifications pré-déploiement..."
 
 # Tests
 echo "🧪 Exécution des tests..."
-python -m pytest tests/ --tb=no -q | tail -1
+python -m pytest tests/ --tb=no -q
 
 # Qualité du code
 echo "🎨 Vérification de la qualité..."
@@ -26,7 +26,7 @@ ruff check . --quiet && echo "✅ Ruff: PASS"
 # Construction
 echo "🔨 Construction de l'application..."
 
-case $PLATFORM in
+case "$PLATFORM" in
     "local")
         echo "🏠 Déploiement local..."
         python app.py
@@ -55,7 +55,7 @@ case $PLATFORM in
         
         # Construire l'image
         echo "🔨 Construction de l'image Docker..."
-        docker build -t arkalia-quest:$VERSION .
+        docker build -t "arkalia-quest:$VERSION" .
         
         # Lancer le conteneur
         echo "🚀 Lancement du conteneur..."
@@ -63,7 +63,7 @@ case $PLATFORM in
             -p 5001:5001 \
             --name arkalia-quest \
             --restart unless-stopped \
-            arkalia-quest:$VERSION
+            "arkalia-quest:$VERSION"
         
         echo "✅ Déployé sur http://localhost:5001"
         echo "📋 Commandes utiles:"
@@ -80,7 +80,7 @@ case $PLATFORM in
         fi
         
         echo "🔨 Construction de l'image Docker..."
-        docker build -t arkalia-quest:$VERSION .
+        docker build -t "arkalia-quest:$VERSION" .
         echo "✅ Image construite: arkalia-quest:$VERSION"
         ;;
     "heroku")
@@ -127,4 +127,3 @@ esac
 echo ""
 echo "🎉 Déploiement terminé avec succès !"
 echo "🌍 Vérifiez l'endpoint de santé: /health"
-echo "📊 Vérifiez les métriques: /metrics"

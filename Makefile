@@ -48,8 +48,7 @@ docs-serve: ## Servir docs en local
 	mkdocs serve
 
 build: ## Construire le package Python
-	$(MAKE) purge-appledouble
-	COPYFILE_DISABLE=1 COPY_EXTENDED_ATTRIBUTES_DISABLE=1 $(PYTHON) -m build --wheel
+	bash scripts/build_package.sh
 
 run: ## Lancer l'app (mode script)
 	$(PYTHON) app.py

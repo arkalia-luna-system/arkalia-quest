@@ -48,6 +48,8 @@
 - Ajout de `docs/index.md` comme page d'accueil MkDocs.
 - Suppression des scripts Docker legacy redondants: `scripts/test-docker.sh` et `scripts/docker-diagnostic.sh`.
 - Modernisation de `scripts/deploy.sh` et `scripts/docker-auth.sh` (bash strict, robustesse shell, message de sortie aligne sur l'app).
+- Suppression de modules Python dormants non references: `engines/luna_ai_v3.py` et `utils/logger.py`.
+- Nettoyage des paquets `engines` et `utils` pour supprimer les imports casses/legacy.
 
 ---
 

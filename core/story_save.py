@@ -28,6 +28,17 @@ def init_db() -> None:
     with _get_conn() as conn:
         conn.execute(
             """
+            CREATE TABLE IF NOT EXISTS story_telemetry (
+                id           INTEGER PRIMARY KEY AUTOINCREMENT,
+                player_id    TEXT NOT NULL,
+                event_type   TEXT NOT NULL,
+                payload_json TEXT NOT NULL,
+                created_at   TEXT NOT NULL
+            )
+        """
+        )
+        conn.execute(
+            """
             CREATE TABLE IF NOT EXISTS story_saves (
                 player_id   TEXT PRIMARY KEY,
                 state_json  TEXT NOT NULL,
@@ -161,6 +172,24 @@ def get_leaderboard(limit: int = 10) -> list[JsonDict]:
     # Trier par XP décroissant, puis par trust en cas d'égalité
     entries.sort(key=lambda e: (-int(e["xp"]), -int(e["luna_trust"])))
     return entries[:limit]
+
+
+def log_telemetry_event(player_id: str, event_type: str, payload: JsonDict) -> None:
+    """Stocke un événement de télémétrie locale non sensible."""
+    with _get_conn() as conn:
+        conn.execute(
+            """
+            INSERT INTO story_telemetry (player_id, event_type, payload_json, created_at)
+            VALUES (?, ?, ?, ?)
+        """,
+            (
+                player_id,
+                event_type,
+                json.dumps(payload, ensure_ascii=False),
+                datetime.now(timezone.utc).isoformat(),
+            ),
+        )
+        conn.commit()
 
 
 # Init au chargement du module

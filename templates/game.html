@@ -38,6 +38,7 @@
     <div class="game-trust">
       <button id="sfx-btn" class="sfx-btn" aria-label="Activer/désactiver le son" title="Son">🔊</button>
       <button id="instant-btn" class="sfx-btn" aria-label="Texte instantané" title="Texte instantané (pas d'animation)">⚡</button>
+      <button id="access-btn" class="sfx-btn" aria-label="Paramètres d'accessibilité" title="Accessibilité">⚙</button>
       <span id="player-name-tag" class="trust-label" style="display:none;color:var(--luna);opacity:0.7;font-size:0.72rem;letter-spacing:1px;"></span>
       <span id="xp-header" class="xp-header" aria-label="Points d'expérience">0 XP</span>
       <button id="journal-btn" class="journal-btn" type="button" aria-label="Journal LUNA">📓</button>
@@ -259,6 +260,31 @@
             Chargement du journal...
           </p>
         </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Modale Accessibilité -->
+  <div id="access-modal" class="journal-modal" hidden>
+    <div id="access-modal-backdrop" class="journal-modal-backdrop"></div>
+    <div class="journal-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="access-modal-title">
+      <header class="journal-modal-header">
+        <div class="journal-modal-title-block">
+          <span class="journal-modal-kicker">Confort</span>
+          <h2 id="access-modal-title">Accessibilité</h2>
+        </div>
+        <button type="button" id="access-modal-close" class="journal-modal-close" aria-label="Fermer">✕</button>
+      </header>
+      <section class="journal-modal-body">
+        <label class="acc-row"><input id="acc-high-contrast" type="checkbox"> Contraste renforcé</label>
+        <label class="acc-row"><input id="acc-reduced-motion" type="checkbox"> Réduire les animations</label>
+        <label class="acc-row">Vitesse texte
+          <select id="acc-text-speed">
+            <option value="normal">Normale</option>
+            <option value="fast">Rapide</option>
+            <option value="instant">Instantanée</option>
+          </select>
+        </label>
       </section>
     </div>
   </div>

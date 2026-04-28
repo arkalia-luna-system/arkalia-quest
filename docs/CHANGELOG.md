@@ -58,6 +58,9 @@
 - Nettoyage final MkDocs: ajout de `docs/assets/README.md` dans la navigation et exclusion des artefacts `._*`.
 - Nettoyage final structure: suppression du test legacy 100% skip `tests/api/test_app_routes_basic.py` et de la config Elastic Beanstalk obsolete `config/.ebextensions/01_packages.config`.
 - Rationalisation outillage racine: refonte du `Makefile` pour ne garder que des cibles maintenues, alignees avec la stack actuelle (tests/lint/docs/security/build/run/docker).
+- Ajout d'une observabilite gameplay locale via `POST /api/story/telemetry` (events anonymises scene/choix/fin/UI).
+- Ajout d'un panneau d'accessibilite in-game (contraste renforce, reduction animations, vitesse de texte configurable).
+- Renforcement des tests contractuels API (`/api/story/state`) et tests d'acceptation/rejet pour la route telemetry.
 
 ---
 

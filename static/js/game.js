@@ -48,6 +48,8 @@ let _lastTrust           = 50;     // dernière valeur de confiance connue
 let _choiceTimerId       = null;
 let _choiceTimerInterval = null;
 let _choiceTimerDeadline = null;
+let _textSpeedMode       = localStorage.getItem("luna_text_speed") || "normal";
+let _seenSceneTelemetry  = new Set();
 
 // Labels lisibles pour les flags — côté client
 const FLAG_LABELS_JS = {
@@ -169,6 +171,7 @@ function initDOM() {
     transitionQuote:     $("transition-quote"),
     journalBtn:          $("journal-btn"),
     journalModal:        $("journal-modal"),
+    accessModal:         $("access-modal"),
   };
 }
 
@@ -191,7 +194,63 @@ document.addEventListener("DOMContentLoaded", () => {
   setupKonamiCode();
   setupAvatarDoubleTap();
   setupJournalModal();
+  setupAccessibilityModal();
+  applyAccessibilityPreferences();
 });
+
+function getTypewriterSpeed() {
+  if (_textSpeedMode === "fast") return TYPEWRITER_SPEED_FAST;
+  return TYPEWRITER_SPEED_NORMAL;
+}
+
+function applyAccessibilityPreferences() {
+  const highContrast = localStorage.getItem("luna_high_contrast") === "on";
+  const reducedMotion = localStorage.getItem("luna_reduced_motion") === "on";
+  document.body.classList.toggle("high-contrast", highContrast);
+  document.body.classList.toggle("reduced-motion", reducedMotion);
+  _textSpeedMode = localStorage.getItem("luna_text_speed") || "normal";
+  _instantText = _textSpeedMode === "instant" || localStorage.getItem("luna_instant") === "on";
+}
+
+function setupAccessibilityModal() {
+  const btn = document.getElementById("access-btn");
+  const modal = document.getElementById("access-modal");
+  const closeBtn = document.getElementById("access-modal-close");
+  const backdrop = document.getElementById("access-modal-backdrop");
+  const highContrast = document.getElementById("acc-high-contrast");
+  const reducedMotion = document.getElementById("acc-reduced-motion");
+  const textSpeed = document.getElementById("acc-text-speed");
+  if (!btn || !modal || !closeBtn || !backdrop || !highContrast || !reducedMotion || !textSpeed) return;
+
+  const sync = () => {
+    highContrast.checked = localStorage.getItem("luna_high_contrast") === "on";
+    reducedMotion.checked = localStorage.getItem("luna_reduced_motion") === "on";
+    textSpeed.value = localStorage.getItem("luna_text_speed") || "normal";
+  };
+
+  const open = () => { sync(); modal.hidden = false; modal.classList.add("visible"); };
+  const close = () => { modal.classList.remove("visible"); setTimeout(() => { modal.hidden = true; }, 200); };
+  btn.addEventListener("click", open);
+  closeBtn.addEventListener("click", close);
+  backdrop.addEventListener("click", close);
+
+  highContrast.addEventListener("change", () => {
+    localStorage.setItem("luna_high_contrast", highContrast.checked ? "on" : "off");
+    applyAccessibilityPreferences();
+    postTelemetry("ui_setting_changed", { ui: "high_contrast", value: highContrast.checked });
+  });
+  reducedMotion.addEventListener("change", () => {
+    localStorage.setItem("luna_reduced_motion", reducedMotion.checked ? "on" : "off");
+    applyAccessibilityPreferences();
+    postTelemetry("ui_setting_changed", { ui: "reduced_motion", value: reducedMotion.checked });
+  });
+  textSpeed.addEventListener("change", () => {
+    localStorage.setItem("luna_text_speed", textSpeed.value);
+    localStorage.setItem("luna_instant", textSpeed.value === "instant" ? "on" : "off");
+    applyAccessibilityPreferences();
+    postTelemetry("ui_setting_changed", { ui: "text_speed", value: textSpeed.value });
+  });
+}
 
 // ── Tooltip première visite ───────────────────────────────────────────────
 function setupFirstPlayTip() {
@@ -303,6 +362,10 @@ function renderState(state) {
     _currentChapterId = state.chapter_id;
   }
   _currentSceneId = state.scene_id;
+  if (state.scene_id && !_seenSceneTelemetry.has(state.scene_id)) {
+    _seenSceneTelemetry.add(state.scene_id);
+    postTelemetry("scene_viewed", { scene_id: state.scene_id, chapter_id: state.chapter_id });
+  }
 
   updateHeader(state);
   updateLunaPanel(state);
@@ -548,7 +611,7 @@ function renderDialogue(text, onComplete) {
       return;
     }
 
-    const speed = _typewriterFast ? TYPEWRITER_SPEED_FAST : TYPEWRITER_SPEED_NORMAL;
+    const speed = _typewriterFast ? TYPEWRITER_SPEED_FAST : getTypewriterSpeed();
     const chunk = _typewriterFast ? 5 : 1;
     const slice = text.slice(i, i + chunk);
 
@@ -700,6 +763,7 @@ async function handleChoice(sceneId, choiceId, btnEl) {
   });
 
   try {
+    postTelemetry("choice_selected", { scene_id: sceneId, choice_id: choiceId, chapter_id: _currentChapterId });
     const data = await apiPost("/api/story/choice", { scene_id: sceneId, choice_id: choiceId });
     if (!data.success) { showError(data.error || "Erreur lors du choix."); _choicesLocked = false; return; }
 
@@ -1095,6 +1159,7 @@ function renderEnding(state) {
   if (!DOM.endingContainer) return;
 
   const meta    = ENDING_META[state.ending_id] || { label: "FIN", title: "Fin", color: "var(--luna)", icon: "◯", description: "", personalized: () => "", particleColor: "var(--luna)" };
+  postTelemetry("ending_reached", { ending_id: state.ending_id, chapter_id: state.chapter_id, scene_id: state.scene_id });
   const name    = state.player_name || "joueur";
   const trust   = state.luna_trust ?? 50;
 
@@ -1906,6 +1971,16 @@ async function apiPost(url, body) {
     try { return await res.json(); } catch { throw new Error(`HTTP ${res.status}`); }
   }
   return res.json();
+}
+
+function postTelemetry(eventType, payload = {}) {
+  // Fire-and-forget: pas bloquant pour l'UX.
+  fetch("/api/story/telemetry", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    credentials: "same-origin",
+    body: JSON.stringify({ event_type: eventType, payload }),
+  }).catch(() => {});
 }
 
 // ── Nettoyage audio lors de la sortie de page ────────────────────────────

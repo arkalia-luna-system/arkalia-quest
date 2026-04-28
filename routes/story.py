@@ -13,18 +13,20 @@ GET  /api/story/leaderboard  → classement local des joueurs
 import os
 import time
 from collections import defaultdict, deque
-from typing import Any, Optional
+from typing import Optional, cast
 from uuid import UUID
 
 from flask import Blueprint, current_app, jsonify, make_response, request
 
 from core.story_engine import get_story_engine
 from core.story_save import (
+    JsonDict,
     delete_state,
     generate_player_id,
     get_leaderboard,
     get_save_summary,
     load_state,
+    log_telemetry_event,
     save_state,
 )
 
@@ -56,7 +58,7 @@ def _is_valid_player_id(value: str) -> bool:
         return False
 
 
-def _get_player_state(player_id: str) -> dict:
+def _get_player_state(player_id: str) -> JsonDict:
     engine = get_story_engine()
     state = load_state(player_id)
     if not state:
@@ -65,7 +67,7 @@ def _get_player_state(player_id: str) -> dict:
     return state
 
 
-def _json_with_cookie(data: dict, player_id: str, is_new: bool):
+def _json_with_cookie(data: JsonDict, player_id: str, is_new: bool):
     resp = make_response(jsonify(data))
     if is_new:
         resp.set_cookie(
@@ -84,19 +86,24 @@ def _internal_error(context: str, exc: Exception):
     return jsonify({"success": False, "error": "Erreur interne."}), 500
 
 
-def _read_json_payload() -> tuple[dict[str, Any], Optional[tuple[dict[str, Any], int]]]:
+def _read_json_payload() -> tuple[JsonDict, Optional[tuple[JsonDict, int]]]:
     if not request.is_json:
-        return {}, ({"success": False, "error": "Content-Type JSON requis"}, 415)
+        return cast(JsonDict, {}), (
+            {"success": False, "error": "Content-Type JSON requis"},
+            415,
+        )
 
     payload = request.get_json(silent=True)
     if not isinstance(payload, dict):
-        return {}, ({"success": False, "error": "Payload JSON invalide"}, 400)
+        return cast(JsonDict, {}), ({"success": False, "error": "Payload JSON invalide"}, 400)
 
-    return payload, None
+    return cast(JsonDict, payload), None
 
 
-def _enforce_post_rate_limit() -> Optional[tuple[dict[str, Any], int]]:
+def _enforce_post_rate_limit() -> Optional[tuple[JsonDict, int]]:
     if request.method != "POST":
+        return None
+    if request.path.endswith("/telemetry"):
         return None
 
     key = request.remote_addr or "unknown"
@@ -370,7 +377,7 @@ FLAG_LABELS = {
 }
 
 
-def _build_luna_journal(state: dict, name: str) -> str:
+def _build_luna_journal(state: JsonDict, name: str) -> str:
     """Génère un texte de journal LUNA personnalisé selon les flags et la confiance."""
     trust = state.get("luna_trust", 50)
     flags = set(state.get("flags", []))
@@ -476,3 +483,40 @@ def get_journal():
 
     except Exception as e:
         return _internal_error("journal", e)
+
+
+@story_bp.route("/telemetry", methods=["POST"])
+def telemetry_event():
+    """Capture locale d'événements gameplay non sensibles."""
+    data, error = _read_json_payload()
+    if error:
+        body, code = error
+        return jsonify(body), code
+
+    event_type = str(data.get("event_type") or "").strip()
+    payload = cast(JsonDict, data.get("payload") or {})
+    if not event_type:
+        return jsonify({"success": False, "error": "event_type requis"}), 400
+    if len(event_type) > 64:
+        return jsonify({"success": False, "error": "event_type trop long"}), 400
+    if not isinstance(payload, dict):
+        return jsonify({"success": False, "error": "payload invalide"}), 400
+
+    # Limite défensive pour éviter les payloads trop volumineux.
+    if len(payload) > 20:
+        return jsonify({"success": False, "error": "payload trop volumineux"}), 400
+
+    try:
+        player_id, is_new = _get_or_create_player_id()
+        safe_payload = {
+            "scene_id": payload.get("scene_id"),
+            "chapter_id": payload.get("chapter_id"),
+            "choice_id": payload.get("choice_id"),
+            "ending_id": payload.get("ending_id"),
+            "ui": payload.get("ui"),
+            "value": payload.get("value"),
+        }
+        log_telemetry_event(player_id, event_type, safe_payload)
+        return _json_with_cookie({"success": True}, player_id, is_new)
+    except Exception as e:
+        return _internal_error("telemetry", e)

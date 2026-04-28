@@ -2,11 +2,7 @@
 
 Jeu narratif web cyberpunk: tu dialogues avec LUNA, une IA en fuite, et tes choix modifient la confiance, la progression et les fins.
 
-Statut de ce README: **audité et mis à jour le 27 avril 2026**.
-
----
-
-## Ce projet, en vrai
+## Aperçu
 
 `arkalia-quest` est une application Flask avec:
 
@@ -17,28 +13,6 @@ Statut de ce README: **audité et mis à jour le 27 avril 2026**.
 
 Public cible: ado, ton direct, rythme rapide, ambiance néon/hacker.
 
----
-
-## Audit rapide (27/04/2026)
-
-Points confirmés côté code:
-
-- Backend principal en `Flask` (`app.py`) + blueprint API `routes/story.py`.
-- Frontend en `HTML/CSS/JS` vanilla (`templates/` + `static/`).
-- Sauvegarde SQLite locale (`core/story_save.py`).
-- Moteur narratif central (`core/story_engine.py`).
-- PWA partielle (manifest + service worker).
-
-Écarts constatés dans la doc historique:
-
-- Plusieurs docs parlent encore d'un périmètre "éducatif/gamification large" qui ne reflète plus la boucle centrale actuelle.
-- Le nombre de chapitres est parfois présenté différemment selon les pages et docs.
-- Certains endpoints mentionnés dans les docs ne correspondent pas exactement aux endpoints réellement exposés.
-
-Ce README devient la base de référence opérationnelle.
-
----
-
 ## Fonctionnalités actuelles
 
 - **Accueil dynamique**: détection de sauvegarde, reprise, reset, saisie prénom.
@@ -48,8 +22,6 @@ Ce README devient la base de référence opérationnelle.
 - **Fins multiples**: déblocage progressif + mémoire des runs précédents.
 - **Profil joueur**: journal personnalisé, moments clés, timeline des chapitres.
 - **Classement local**: top joueurs par XP (anonymisé).
-
----
 
 ## API Story (source de vérité)
 
@@ -63,8 +35,6 @@ Base: `/api/story`
 - `GET /summary` -> résumé de sauvegarde pour l'accueil
 - `GET /leaderboard` -> top local des joueurs
 - `GET /journal` -> journal narratif personnalisé LUNA
-
----
 
 ## Démarrage local
 
@@ -87,8 +57,6 @@ Alternative:
 flask --app app run --host=0.0.0.0 --port=5001
 ```
 
----
-
 ## Commandes utiles
 
 ```bash
@@ -102,8 +70,6 @@ ruff check .
 black .
 ```
 
----
-
 ## Structure principale
 
 - `app.py` -> point d'entrée Flask
@@ -115,44 +81,18 @@ black .
 - `templates/` -> pages UI
 - `static/css/game.css` et `static/js/game.js` -> UX gameplay
 
----
-
 ## Visibilité du projet
 
 - **Démo live**: [https://arkalia-quest.onrender.com](https://arkalia-quest.onrender.com)
 - **Healthcheck**: [https://arkalia-quest.onrender.com/health](https://arkalia-quest.onrender.com/health)
-- **Screenshots/GIF**: à placer dans `docs/assets/` puis référencer dans ce README.
-- **Positionnement public**: c'est le projet le plus actif, il doit devenir la vitrine principale.
-
-Checklist publication:
-
-1. Capturer 3 screenshots (`accueil`, `jeu`, `profil/leaderboard`)
-2. Générer 1 GIF court d'un run (30-45 sec)
-3. Ajouter le lien de démo live dans cette section
-4. Mettre à jour la description du repo GitHub (thème cyberpunk + choix narratifs)
-
----
-
-## Aperçu visuel (à compléter)
-
-_Assets attendus dans `docs/assets/`:_
-
-- `screenshot-accueil.png`
-- `screenshot-game.png`
-- `screenshot-profil-leaderboard.png`
-- `demo-run.gif`
-
----
 
 ## Documentation complémentaire
 
 - `docs/VISION.md` -> vision narrative
-- `docs/ARCHITECTURE.md` -> architecture globale (à relire avec l'audit ci-dessus)
+- `docs/ARCHITECTURE.md` -> architecture globale
 - `docs/ROADMAP.md` -> roadmap produit
 - `docs/DEPLOYMENT_GUIDE.md` -> déploiement
 - `docs/CONTRIBUTING.md` -> contribution
-
----
 
 ## Git flow recommandé
 
@@ -162,8 +102,6 @@ Après validation locale:
 
 1. Committer sur `develop`
 2. Pousser `develop`
-3. Aligner `main` et `backup-stable` sur l'état validé de `develop` (merge ou fast-forward selon politique repo)
-
----
+3. Aligner `main` sur l'état validé de `develop` selon la politique du repo
 
 LUNA te parle en premier. Le reste dépend de tes choix.

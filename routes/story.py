@@ -10,6 +10,7 @@ POST /api/story/name         → enregistrer le prénom du joueur
 GET  /api/story/leaderboard  → classement local des joueurs
 """
 
+import os
 import time
 from collections import defaultdict, deque
 from typing import Any, Optional
@@ -102,14 +103,24 @@ def _enforce_post_rate_limit() -> Optional[tuple[dict[str, Any], int]]:
     now = time.monotonic()
     bucket = _POST_RATE_LIMIT[key]
 
-    while bucket and (now - bucket[0]) > RATE_LIMIT_WINDOW_SECONDS:
+    window_seconds, max_posts = _get_rate_limit_config()
+
+    while bucket and (now - bucket[0]) > window_seconds:
         bucket.popleft()
 
-    if len(bucket) >= RATE_LIMIT_MAX_POSTS:
-        return {
-            "success": False,
-            "error": "Trop de requêtes, réessaie dans 1 minute.",
-        }, 429
+    if len(bucket) >= max_posts:
+        current_app.logger.warning(
+            "Story API rate limit hit for IP=%s path=%s",
+            key,
+            request.path,
+        )
+        return (
+            {
+                "success": False,
+                "error": "Trop de requêtes, réessaie dans 1 minute.",
+            },
+            429,
+        )
 
     bucket.append(now)
     return None
@@ -135,8 +146,29 @@ def guard_post_rate_limit():
     limited = _enforce_post_rate_limit()
     if limited:
         body, code = limited
-        return jsonify(body), code
+        window_seconds, _ = _get_rate_limit_config()
+        resp = make_response(jsonify(body), code)
+        resp.headers["Retry-After"] = str(window_seconds)
+        return resp
     return None
+
+
+def _get_rate_limit_config() -> tuple[int, int]:
+    window_seconds = max(
+        1,
+        int(
+            os.environ.get("STORY_RATE_LIMIT_WINDOW_SECONDS", RATE_LIMIT_WINDOW_SECONDS)
+        ),
+    )
+    max_posts = max(
+        1,
+        int(os.environ.get("STORY_RATE_LIMIT_MAX_POSTS", RATE_LIMIT_MAX_POSTS)),
+    )
+    return window_seconds, max_posts
+
+
+def reset_story_rate_limit() -> None:
+    _POST_RATE_LIMIT.clear()
 
 
 # ── POST /api/story/choice ────────────────────────────────────────────────

@@ -33,6 +33,22 @@ docker build -t luna-hors-connexion .
 docker run -p 5001:5001 luna-hors-connexion
 ```
 
+## Script de deploiement unifie
+
+Le script `scripts/deploy.sh` est maintenu pour les cibles suivantes:
+
+- `local`
+- `docker`
+- `docker-build`
+- `render`
+
+Exemples:
+
+```bash
+./scripts/deploy.sh docker-build
+./scripts/deploy.sh docker
+```
+
 ## Variables utiles
 
 - `SECRET_KEY` (obligatoire en production)

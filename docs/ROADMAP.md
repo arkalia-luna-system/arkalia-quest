@@ -14,7 +14,7 @@ Mise a jour: **27 avril 2026**
 - Renforcer la coherence narrative de chaque chapitre.
 - Ajouter des tests API supplementaires sur les cas d'erreur.
 - Stabiliser le wording UI (accueil, fin, profil) pour ton adolescent.
-- Reducer le code historique non utilise dans la configuration.
+- Reduire le code historique non utilise dans la configuration.
 - Rationaliser les tags Git (garder uniquement des tags de release significatifs).
 - Ajouter les assets visuels de demo dans `docs/assets/` et les lier depuis `README.md`.
 
@@ -29,7 +29,7 @@ Mise a jour: **27 avril 2026**
 
 - Mode saison narrative (nouveaux arcs).
 - Outils auteur pour editer `story.json` sans casser les references.
-- Packaging distribution simplifiee (Docker/VPS) avec checks automatises.
+- Packaging distribution simplifiee (Docker) avec checks automatises.
 
 ## Hors scope actuel
 

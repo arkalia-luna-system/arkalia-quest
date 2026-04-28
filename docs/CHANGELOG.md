@@ -42,6 +42,10 @@
 - Gestion explicite `413` pour `/api/*` avec message JSON clair.
 - Durcissement des reponses API: headers anti-cache (`no-store`) et format d'erreurs JSON uniforme (`404`, `500`).
 - Audit securite dependances projet via `pip-audit` et mise a niveau de `black`/`pytest` vers versions non vulnerables.
+- Nettoyage repository: suppression du doublon `.github/pull_request_template.md`.
+- Suppression de `build.sh` legacy (non reference et destructif pour `pyproject.toml`).
+- Remise a plat de `mkdocs.yml` avec une navigation alignee sur les documents existants.
+- Ajout de `docs/index.md` comme page d'accueil MkDocs.
 
 ---
 

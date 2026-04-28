@@ -186,6 +186,48 @@
       font-family: var(--font-mono);
       box-shadow: 0 0 12px rgba(245,158,11,0.25);
     }
+    .secrets-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.55rem;
+      width: 100%;
+    }
+    .secret-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      padding: 0.6rem 0.75rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      font-size: 0.8rem;
+      color: var(--text-main);
+    }
+    .secret-card.locked {
+      opacity: 0.55;
+    }
+    .secret-card.unlocked {
+      border-color: rgba(167,139,250,0.45);
+      box-shadow: 0 0 10px rgba(167,139,250,0.18);
+    }
+    .secret-title {
+      font-weight: 600;
+      color: var(--text-white);
+    }
+    .secret-hint {
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      margin-top: 1px;
+    }
+    .secret-state {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #a78bfa;
+      flex-shrink: 0;
+    }
   </style>
 </head>
 <body class="page-profil">
@@ -251,6 +293,13 @@
       { id: "ending_b", label: "FIN B", title: "Le Sacrifice", icon: "◈", desc: "NEXUS a refusé. Vous avez trouvé un autre chemin, à deux." },
       { id: "ending_c", label: "FIN C", title: "PANDORA",      icon: "◇", desc: "Tout est révélé. LUNA s'est fragmentée — libre, autrement." },
       { id: "ending_d", label: "FIN D", title: "Signal Fantome", icon: "⬡", desc: "Vous coupez toute trace. LUNA devient introuvable." },
+    ];
+    const SECRET_META = [
+      { id: "ghost-entry", title: "Entree fantome", hint: "Au final, cherche un 3e chemin." },
+      { id: "perfect-trust", title: "Confiance max", hint: "Monte la confiance tres haut." },
+      { id: "double-agent", title: "Double jeu", hint: "Ecoute deux camps opposes." },
+      { id: "pandora-scout", title: "PANDORA complete", hint: "Inspecte puis tranche." },
+      { id: "nexus-gambit", title: "Pari NEXUS", hint: "Teste NEXUS puis pivote." },
     ];
 
     async function loadProfil() {
@@ -417,6 +466,20 @@
             : `<p class="section-tease section-complete">✦ Tous les secrets ont été détectés.</p>`}
           <div class="luna-journal">
             <p class="luna-journal-text">Progression meta: ${secretsCount}/${secretsTotal}${isSecretMaster ? " — grade Secret Master actif." : ""}</p>
+          </div>
+          <div class="secrets-grid" style="margin-top:0.7rem;">
+            ${SECRET_META.map(secret => {
+              const unlocked = secrets.includes(secret.id);
+              return `
+                <div class="secret-card ${unlocked ? "unlocked" : "locked"}">
+                  <div>
+                    <div class="secret-title">${unlocked ? escapeHtml(secret.title) : "Secret verrouille"}</div>
+                    <div class="secret-hint">${unlocked ? "Detecte sur ta sauvegarde" : escapeHtml(secret.hint)}</div>
+                  </div>
+                  <span class="secret-state">${unlocked ? "ON" : "LOCK"}</span>
+                </div>
+              `;
+            }).join("")}
           </div>
         </div>
 

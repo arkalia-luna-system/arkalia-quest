@@ -116,7 +116,10 @@ def create_app() -> Flask:
     @app.errorhandler(404)
     def not_found(e: Any):
         if request.path.startswith("/api/"):
-            return jsonify({"success": False, "error": "Endpoint API introuvable."}), 404
+            return (
+                jsonify({"success": False, "error": "Endpoint API introuvable."}),
+                404,
+            )
         return render_template("404.html"), 404
 
     @app.errorhandler(500)

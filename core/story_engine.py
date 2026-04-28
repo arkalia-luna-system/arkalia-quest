@@ -327,7 +327,10 @@ class StoryEngine:
                 "double-agent",
                 "listened_to_corp" in flags and "nexus_helped" in flags,
             ),
-            ("pandora-scout", "looked_at_pandora" in flags and "pandora_public" in flags),
+            (
+                "pandora-scout",
+                "looked_at_pandora" in flags and "pandora_public" in flags,
+            ),
             ("nexus-gambit", "tried_nexus" in flags and "abandoned_nexus" in flags),
         ]
         found = cast(list[str], player_state.setdefault("secrets_found", []))

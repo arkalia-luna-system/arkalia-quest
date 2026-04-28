@@ -419,7 +419,9 @@ class TestPages:
 
 
 class TestAppRuntimeHardening:
-    def test_hsts_header_enabled_in_production(self, monkeypatch: pytest.MonkeyPatch) -> None:
+    def test_hsts_header_enabled_in_production(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
         monkeypatch.setenv("APP_ENV", "production")
         monkeypatch.setenv("SECRET_KEY", "test-secret-key")
         app = create_app()

@@ -235,3 +235,4 @@ artifacts/
 # Rapports de tests générés (JSON volumineux, régénérés par les tests)
 reports/*.json
 reports/test_reports/
+tests/.artifacts/

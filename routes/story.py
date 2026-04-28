@@ -100,7 +100,10 @@ def _read_json_payload() -> tuple[JsonDict, Optional[tuple[JsonDict, int]]]:
 
     payload = request.get_json(silent=True)
     if not isinstance(payload, dict):
-        return cast(JsonDict, {}), ({"success": False, "error": "Payload JSON invalide"}, 400)
+        return cast(JsonDict, {}), (
+            {"success": False, "error": "Payload JSON invalide"},
+            400,
+        )
 
     return cast(JsonDict, payload), None
 

@@ -55,6 +55,7 @@
 - Simplification de `scripts/deploy.sh` pour limiter les cibles aux plateformes maintenues (`local`, `docker`, `docker-build`, `render`).
 - Rationalisation des dependances Python: suppression des paquets non utilises (websocket/async/monitoring/scraping/crypto) et alignement `requirements.txt` + `pyproject.toml` sur les usages reels.
 - Polish documentation final: guide de deploiement aligne sur les cibles maintenues et corrections wording roadmap.
+- Nettoyage final MkDocs: ajout de `docs/assets/README.md` dans la navigation et exclusion des artefacts `._*`.
 
 ---
 

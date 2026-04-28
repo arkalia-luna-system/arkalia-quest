@@ -69,6 +69,7 @@ nav:
   - Contribution: CONTRIBUTING.md
   - Changelog: CHANGELOG.md
   - Release Checklist v3.1.1: RELEASE_CHECKLIST_v3.1.1.md
+  - Assets Demo: assets/README.md
 
 # Extra
 extra:
@@ -82,6 +83,8 @@ extra:
 
 # Documentation source directory
 docs_dir: docs
+exclude_docs: |
+  ._*
 
 # Copyright
 copyright: Copyright &copy; 2026 Arkalia Luna System

@@ -34,7 +34,6 @@ static/
 tests/
   test_story_engine.py
   test_api_routes.py
-  api/test_app_routes_basic.py
 ```
 
 ## Routes HTML

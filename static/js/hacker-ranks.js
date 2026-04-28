@@ -49,6 +49,13 @@
       match: (p) => p.endingId === "ending_c",
     },
     {
+      id: "fantome",
+      title: "Fantome",
+      desc: "Invisible, introuvable, mais toujours connecte.",
+      color: "#94a3b8",
+      match: (p) => p.endingId === "ending_d" && p.flags.includes("ghost_protocol"),
+    },
+    {
       id: "agent-double",
       title: "Agent Double",
       desc: "Tu as joue les deux camps. Malin - ou dangereux.",

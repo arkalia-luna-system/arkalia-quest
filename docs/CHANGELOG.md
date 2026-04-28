@@ -62,6 +62,7 @@
 - Ajout d'un panneau d'accessibilite in-game (contraste renforce, reduction animations, vitesse de texte configurable).
 - Renforcement des tests contractuels API (`/api/story/state`) et tests d'acceptation/rejet pour la route telemetry.
 - Rework gameplay "fun-first": hook d'ouverture plus agressif (fenetre 4 minutes), nouveau systeme de pression `threat_level` (traque La Corp) expose API+HUD, et feedback immediate des choix risqués.
+- Ajout d'une route narrative secrete (Fin D: "Signal Fantome"), compteur de fins et rangs hacker mis a jour pour 4 fins, et nouveaux moments "wow" en progression de chapitre.
 
 ---
 

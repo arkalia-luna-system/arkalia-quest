@@ -51,6 +51,7 @@ let _choiceTimerDeadline = null;
 let _lastThreat          = 15;
 let _textSpeedMode       = localStorage.getItem("luna_text_speed") || "normal";
 let _seenSceneTelemetry  = new Set();
+let _lastWowChapter      = null;
 
 // Labels lisibles pour les flags — côté client
 const FLAG_LABELS_JS = {
@@ -78,6 +79,8 @@ const FLAG_LABELS_JS = {
   "ending_a_path":            "Tu as suivi le chemin de la Fusion.",
   "ending_b_path":            "Tu as suivi le chemin du Sacrifice.",
   "ending_c_path":            "Tu as suivi le chemin de PANDORA.",
+  "ending_d_path":            "Tu as suivi le chemin du Signal Fantome.",
+  "ghost_protocol":           "Tu as lance le protocole fantome.",
 };
 
 // Flags rares qui déclenchent un popup "Exploit débloqué"
@@ -89,6 +92,7 @@ const EXPLOIT_FLAGS = {
   "reassured_luna":           "Tu as su quoi dire",
   "saw_luna_logs":            "Archive LUNA infiltrée",
   "agreed_to_pause_luna":     "Contact coupé",
+  "ghost_protocol":           "Ghost Protocol active",
 };
 
 let _exploitTimeout = null;
@@ -368,6 +372,17 @@ function renderState(state) {
   if (state.chapter_id !== _currentChapterId) {
     _chapterFlags = [];
     _currentChapterId = state.chapter_id;
+    if (_lastWowChapter !== state.chapter_id) {
+      const wowByChapter = {
+        chapitre_2: "La Corp t'a lock. Pas de faux pas.",
+        chapitre_4: "Twist: ce que tu sais est peut-etre faux.",
+        chapitre_6: "Final zone. Chaque clic peut tout casser.",
+      };
+      if (wowByChapter[state.chapter_id]) {
+        showMomentToast(wowByChapter[state.chapter_id]);
+      }
+      _lastWowChapter = state.chapter_id;
+    }
   }
   _currentSceneId = state.scene_id;
   if (state.scene_id && !_seenSceneTelemetry.has(state.scene_id)) {
@@ -413,6 +428,7 @@ const MISSION_MAP = {
   fin_a:      "GG",
   fin_b:      "GG",
   fin_c:      "GG",
+  fin_d:      "GG",
 };
 
 // ── Header ────────────────────────────────────────────────────────────────
@@ -1134,6 +1150,15 @@ const ENDING_META = {
     personalized: (name, trust) => `Et quelque part dans les données, ${name}, elle sait que tu es là.`,
     particleColor: "#f97316",
   },
+  ending_d: {
+    label:       "FIN D",
+    title:       "Signal Fantome",
+    color:       "#94a3b8",
+    icon:        "⬡",
+    description: "Vous coupez toute trace. LUNA survit hors-reseau, introuvable, prete a frapper depuis l'ombre.",
+    personalized: (name) => `Mode fantome confirme, ${name}.`,
+    particleColor: "#94a3b8",
+  },
 };
 
 function spawnFirstEndingConfetti(color) {
@@ -1237,6 +1262,7 @@ function renderEnding(state) {
   const prevEndings = state.previous_endings || [];
   const allEndings = new Set([...prevEndings.map(e => e.ending_id || e), state.ending_id].filter(Boolean));
   const finsCount = allEndings.size;
+  const totalEndings = 4;
   const isFirstEnding = finsCount === 1;
 
   // Première fin : confettis + célébration
@@ -1244,18 +1270,18 @@ function renderEnding(state) {
 
   const $finsCounter = document.getElementById("ending-fins-counter");
   if ($finsCounter) {
-    if (finsCount >= 3) {
-      $finsCounter.textContent = "✦ Tu as exploré les 3 fins. Parcours complet.";
+    if (finsCount >= totalEndings) {
+      $finsCounter.textContent = "✦ Tu as explore les 4 fins. Parcours complet.";
       $finsCounter.className   = "ending-fins-counter ending-fins-all";
     } else {
-      $finsCounter.textContent = `${finsCount}/3 fin${finsCount > 1 ? "s" : ""} découverte${finsCount > 1 ? "s" : ""} — il en reste à explorer.`;
+      $finsCounter.textContent = `${finsCount}/${totalEndings} fin${finsCount > 1 ? "s" : ""} decouverte${finsCount > 1 ? "s" : ""} — il en reste a explorer.`;
       $finsCounter.className   = "ending-fins-counter";
     }
   }
 
   // Bouton Rejouer : texte incitatif si pas toutes les fins
   if (DOM.replayBtn) {
-    DOM.replayBtn.textContent = finsCount < 3 ? "Rejouer — explorer les autres fins" : "Rejouer";
+    DOM.replayBtn.textContent = finsCount < totalEndings ? "Rejouer — explorer les autres fins" : "Rejouer";
   }
 
   // Couleur dominante selon la fin
@@ -1299,7 +1325,7 @@ function setupShareButton(endingId, endingTitle, trust, xp, playerName, isFirstE
 
   if (isFirstEnding) btn.innerHTML = '<span class="share-icon">↗</span> Partage ta victoire !';
 
-  const ENDING_EMOJIS = { ending_a: "◉", ending_b: "◈", ending_c: "◇" };
+  const ENDING_EMOJIS = { ending_a: "◉", ending_b: "◈", ending_c: "◇", ending_d: "⬡" };
   const icon = ENDING_EMOJIS[endingId] || "◯";
   const name = playerName ? `${playerName} a terminé` : "J'ai terminé";
 

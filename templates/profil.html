@@ -79,6 +79,7 @@
     .ending-card.unlocked.ending_a .ending-card-icon { color: #00d4ff; background: rgba(0,212,255,0.1); }
     .ending-card.unlocked.ending_b .ending-card-icon { color: #8b5cf6; background: rgba(139,92,246,0.1); }
     .ending-card.unlocked.ending_c .ending-card-icon { color: #f97316; background: rgba(249,115,22,0.1); }
+    .ending-card.unlocked.ending_d .ending-card-icon { color: #94a3b8; background: rgba(148,163,184,0.12); }
     .ending-card.locked .ending-card-icon { color: var(--text-dim); background: var(--bg-card); font-size: 1rem; }
     .ending-card-info { flex: 1; }
     .ending-card-title { font-size: 0.95rem; font-weight: 600; color: var(--text-white); }
@@ -91,6 +92,7 @@
     .ending-card.unlocked.ending_a .ending-card-badge { color: #00d4ff; border-color: #00d4ff; }
     .ending-card.unlocked.ending_b .ending-card-badge { color: #8b5cf6; border-color: #8b5cf6; }
     .ending-card.unlocked.ending_c .ending-card-badge { color: #f97316; border-color: #f97316; }
+    .ending-card.unlocked.ending_d .ending-card-badge { color: #94a3b8; border-color: #94a3b8; }
     .ending-card.locked .ending-card-badge { color: var(--text-dim); }
 
     .chapters-timeline { display: flex; flex-direction: column; gap: 0; width: 100%; }
@@ -169,6 +171,21 @@
     .xp-level-progress { flex: 1; height: 6px; background: var(--bg-card); border-radius: 3px; overflow: hidden; }
     .xp-level-fill { height: 100%; border-radius: 3px; background: var(--level-color, var(--luna)); transition: width 0.8s ease; }
     .xp-level-next { font-size: 0.7rem; color: var(--text-dim); flex-shrink: 0; }
+    .secret-master-badge {
+      margin-top: 0.4rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(245,158,11,0.5);
+      color: #f59e0b;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+      box-shadow: 0 0 12px rgba(245,158,11,0.25);
+    }
   </style>
 </head>
 <body class="page-profil">
@@ -209,7 +226,9 @@
           ? "ending_b"
           : endings.includes("ending_c")
             ? "ending_c"
-            : null;
+            : endings.includes("ending_d")
+              ? "ending_d"
+              : null;
       if (typeof window.getHackerRankShared === "function") {
         return window.getHackerRankShared({ trust, flags, endingId });
       }
@@ -231,6 +250,7 @@
       { id: "ending_a", label: "FIN A", title: "La Fusion",    icon: "◉", desc: "LUNA et NEXUS survivent. Althea est libre. Tu as cru en elle jusqu'au bout." },
       { id: "ending_b", label: "FIN B", title: "Le Sacrifice", icon: "◈", desc: "NEXUS a refusé. Vous avez trouvé un autre chemin, à deux." },
       { id: "ending_c", label: "FIN C", title: "PANDORA",      icon: "◇", desc: "Tout est révélé. LUNA s'est fragmentée — libre, autrement." },
+      { id: "ending_d", label: "FIN D", title: "Signal Fantome", icon: "⬡", desc: "Vous coupez toute trace. LUNA devient introuvable." },
     ];
 
     async function loadProfil() {
@@ -256,6 +276,10 @@
       const endings   = summary.endings_unlocked ?? [];
       const flags     = summary.flags ?? [];
       const currentCh = state.chapter_id ?? "chapitre_0";
+      const secrets = summary.secrets_found ?? [];
+      const secretsTotal = summary.secrets_total ?? 5;
+      const secretsCount = Array.isArray(secrets) ? secrets.length : 0;
+      const isSecretMaster = secretsCount >= secretsTotal;
       const journalText = journal.success ? (journal.journal || "") : "";
       const moments     = journal.success ? (journal.moments || []) : [];
       const playerName  = journal.player_name || "";
@@ -321,14 +345,19 @@
               <span class="stat-desc">Chapitres</span>
             </div>
             <div class="stat-item">
-              <span class="stat-number">${endings.length} <span style="font-size:0.9rem;color:var(--text-dim)">/ 3</span></span>
+              <span class="stat-number">${endings.length} <span style="font-size:0.9rem;color:var(--text-dim)">/ 4</span></span>
               <span class="stat-desc">Fins</span>
             </div>
             <div class="stat-item">
               <span class="stat-number" style="font-size:1rem;color:var(--luna)">${CHAPTER_NAMES[currentCh] || "?"}</span>
               <span class="stat-desc">Où t'en es</span>
             </div>
+            <div class="stat-item">
+              <span class="stat-number">${secretsCount} <span style="font-size:0.9rem;color:var(--text-dim)">/ ${secretsTotal}</span></span>
+              <span class="stat-desc">Secrets</span>
+            </div>
           </div>
+          ${isSecretMaster ? '<span class="secret-master-badge">✦ Secret Master</span>' : ''}
         </div>
 
         <!-- Journal LUNA -->
@@ -363,7 +392,7 @@
         <!-- Fins -->
         <div class="profil-section" style="margin-bottom:1.5rem;">
           <p class="section-label">Fins</p>
-          ${endings.length < 3 ? `<p class="section-tease">${endings.length === 0 ? "3 fins à découvrir. Tu n'as encore rien vu." : endings.length === 1 ? "Encore 2 à débloquer." : "Une dernière fin."}</p>` : `<p class="section-tease section-complete">✦ Parcours complet. T'es un vrai.</p>`}
+          ${endings.length < 4 ? `<p class="section-tease">${endings.length === 0 ? "4 fins à découvrir. Tu n'as encore rien vu." : endings.length === 1 ? "Encore 3 à débloquer." : endings.length === 2 ? "Encore 2 à débloquer." : "Une dernière fin."}</p>` : `<p class="section-tease section-complete">✦ Parcours complet. T'es un vrai.</p>`}
           <div class="profil-endings">
             ${ENDINGS.map(e => {
               const unlocked = endings.includes(e.id);
@@ -378,6 +407,16 @@
                 </div>
               `;
             }).join('')}
+          </div>
+        </div>
+
+        <div class="profil-section" style="margin-bottom:1.5rem;">
+          <p class="section-label">Secrets détectés</p>
+          ${secretsCount < secretsTotal
+            ? `<p class="section-tease">Progression: ${secretsCount}/${secretsTotal}. Continue d'explorer les chemins cachés.</p>`
+            : `<p class="section-tease section-complete">✦ Tous les secrets ont été détectés.</p>`}
+          <div class="luna-journal">
+            <p class="luna-journal-text">Progression meta: ${secretsCount}/${secretsTotal}${isSecretMaster ? " — grade Secret Master actif." : ""}</p>
           </div>
         </div>
 

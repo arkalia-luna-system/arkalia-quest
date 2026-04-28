@@ -96,12 +96,9 @@ class TestApplyChoice:
     def test_trust_delta_applied(self, engine: StoryEngine) -> None:
         state = engine.new_player_state()
         initial_trust = state["luna_trust"]
-        # c0_0_a a trust_delta=+10
-        engine.apply_choice(state, "s0_0", "c0_0_a")
-        # La trust doit avoir bougé (positif ou négatif selon le choix)
-        # On vérifie juste qu'elle change si trust_delta != 0
-        # On accepte les deux directions
-        assert state["luna_trust"] != initial_trust or True  # au moins pas crashé
+        result = engine.apply_choice(state, "s0_0", "c0_0_a")
+        assert result["success"] is True
+        assert state["luna_trust"] == min(100, initial_trust + result["trust_delta"])
 
     def test_xp_increases_on_choice(self, engine: StoryEngine) -> None:
         state = engine.new_player_state()

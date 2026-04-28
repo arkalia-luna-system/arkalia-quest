@@ -21,6 +21,7 @@ class StoryEngine:
         self._story: JsonDict = {}
         self._chapters_index: dict[str, JsonDict] = {}
         self._scenes_index: dict[str, JsonDict] = {}
+        self._scene_to_chapter_index: dict[str, str] = {}
         self._load_story()
 
     def _load_story(self) -> None:
@@ -31,6 +32,7 @@ class StoryEngine:
             self._chapters_index[chapter["id"]] = chapter
             for scene in cast(list[JsonDict], chapter["scenes"]):
                 self._scenes_index[scene["id"]] = scene
+                self._scene_to_chapter_index[scene["id"]] = chapter["id"]
 
     # ------------------------------------------------------------------ #
     #  État initial d'un nouveau joueur                                    #
@@ -311,11 +313,7 @@ class StoryEngine:
         return "\n".join(lines)
 
     def _find_chapter_of_scene(self, scene_id: str) -> Optional[str]:
-        for chapter in cast(list[JsonDict], self._story["chapters"]):
-            for scene in cast(list[JsonDict], chapter["scenes"]):
-                if scene["id"] == scene_id:
-                    return str(chapter["id"])
-        return None
+        return self._scene_to_chapter_index.get(scene_id)
 
     def _unlock_secrets(
         self, player_state: PlayerState, scene_id: str, choice_id: str

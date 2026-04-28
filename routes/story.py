@@ -70,13 +70,18 @@ def _get_player_state(player_id: str) -> JsonDict:
 def _json_with_cookie(data: JsonDict, player_id: str, is_new: bool):
     resp = make_response(jsonify(data))
     if is_new:
+        secure_cookie = bool(
+            cast(dict[str, object], current_app.config).get(
+                "SESSION_COOKIE_SECURE", False
+            )
+        )
         resp.set_cookie(
             COOKIE_NAME,
             player_id,
             max_age=COOKIE_MAX_AGE,
             httponly=True,
             samesite="Lax",
-            secure=bool(current_app.config.get("SESSION_COOKIE_SECURE", False)),
+            secure=secure_cookie,
         )
     return resp
 
@@ -98,6 +103,23 @@ def _read_json_payload() -> tuple[JsonDict, Optional[tuple[JsonDict, int]]]:
         return cast(JsonDict, {}), ({"success": False, "error": "Payload JSON invalide"}, 400)
 
     return cast(JsonDict, payload), None
+
+
+def _require_string_field(
+    payload: JsonDict, field_name: str
+) -> tuple[Optional[str], Optional[tuple[JsonDict, int]]]:
+    value = payload.get(field_name)
+    if value is None:
+        return None, ({"success": False, "error": f"{field_name} requis"}, 400)
+    if not isinstance(value, str):
+        return None, (
+            {"success": False, "error": f"{field_name} doit être une chaîne"},
+            400,
+        )
+    clean = value.strip()
+    if not clean:
+        return None, ({"success": False, "error": f"{field_name} requis"}, 400)
+    return clean, None
 
 
 def _enforce_post_rate_limit() -> Optional[tuple[JsonDict, int]]:
@@ -201,11 +223,17 @@ def apply_choice():
         body, code = error
         return jsonify(body), code
 
-    scene_id = data.get("scene_id")
-    choice_id = data.get("choice_id")
+    scene_id, scene_error = _require_string_field(data, "scene_id")
+    if scene_error:
+        body, code = scene_error
+        return jsonify(body), code
+    choice_id, choice_error = _require_string_field(data, "choice_id")
+    if choice_error:
+        body, code = choice_error
+        return jsonify(body), code
 
-    if not scene_id or not choice_id:
-        return jsonify({"success": False, "error": "scene_id et choice_id requis"}), 400
+    assert scene_id is not None
+    assert choice_id is not None
 
     try:
         engine = get_story_engine()
@@ -243,10 +271,12 @@ def advance_chapter():
         body, code = error
         return jsonify(body), code
 
-    scene_id = data.get("scene_id")
+    scene_id, scene_error = _require_string_field(data, "scene_id")
+    if scene_error:
+        body, code = scene_error
+        return jsonify(body), code
 
-    if not scene_id:
-        return jsonify({"success": False, "error": "scene_id requis"}), 400
+    assert scene_id is not None
 
     try:
         engine = get_story_engine()
@@ -384,7 +414,7 @@ def _build_luna_journal(state: JsonDict, name: str) -> str:
     trust = state.get("luna_trust", 50)
     flags = set(state.get("flags", []))
     chapters = len(state.get("chapters_completed", []))
-    endings = state.get("endings_unlocked", [])
+    endings = cast(list[str], state.get("endings_unlocked", []))
     player = name or "joueur"
 
     # Ton selon la confiance
@@ -404,7 +434,7 @@ def _build_luna_journal(state: JsonDict, name: str) -> str:
         tone_close = "Je suis encore là. Mais je garde ça en mémoire."
 
     # Moments marquants selon les flags
-    moments = []
+    moments: list[str] = []
     if "looked_at_pandora" in flags:
         moments.append(
             "Tu as regardé dans PANDORA avant même de savoir ce que c'était."
@@ -497,13 +527,14 @@ def telemetry_event():
         return jsonify(body), code
 
     event_type = str(data.get("event_type") or "").strip()
-    payload = cast(JsonDict, data.get("payload") or {})
+    payload_raw: object = data.get("payload", {})
     if not event_type:
         return jsonify({"success": False, "error": "event_type requis"}), 400
     if len(event_type) > 64:
         return jsonify({"success": False, "error": "event_type trop long"}), 400
-    if not isinstance(payload, dict):
+    if not isinstance(payload_raw, dict):
         return jsonify({"success": False, "error": "payload invalide"}), 400
+    payload = cast(JsonDict, payload_raw)
 
     # Limite défensive pour éviter les payloads trop volumineux.
     if len(payload) > 20:

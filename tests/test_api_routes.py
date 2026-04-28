@@ -137,6 +137,24 @@ class TestApplyChoice:
         r = client.post("/api/story/choice", json={"scene_id": "s0_0"})
         assert r.status_code == 400
 
+    def test_non_string_scene_id_returns_400(self, client: FlaskClient) -> None:
+        r = client.post(
+            "/api/story/choice",
+            json={"scene_id": {"bad": "value"}, "choice_id": "c0_0_a"},
+        )
+        data = json_obj(r)
+        assert r.status_code == 400
+        assert "scene_id doit être une chaîne" in data["error"]
+
+    def test_non_string_choice_id_returns_400(self, client: FlaskClient) -> None:
+        r = client.post(
+            "/api/story/choice",
+            json={"scene_id": "s0_0", "choice_id": ["bad"]},
+        )
+        data = json_obj(r)
+        assert r.status_code == 400
+        assert "choice_id doit être une chaîne" in data["error"]
+
     def test_invalid_scene_returns_400(self, client: FlaskClient) -> None:
         r = client.post(
             "/api/story/choice", json={"scene_id": "inexistante", "choice_id": "c0_0_a"}
@@ -259,6 +277,12 @@ class TestGetSummary:
         data = json_obj(r)
         assert "flags" in data
 
+    def test_secrets_fields_present(self, client: FlaskClient) -> None:
+        r = client.get("/api/story/summary")
+        data = json_obj(r)
+        assert "secrets_found" in data
+        assert "secrets_total" in data
+
 
 # ─────────────────────────────────────────────
 # GET /api/story/journal
@@ -349,6 +373,14 @@ class TestReset:
         assert data["scene_id"] == "s0_0"
         assert data["luna_trust"] == 50
         assert data["xp"] == 0
+
+
+class TestAdvance:
+    def test_non_string_scene_id_returns_400(self, client: FlaskClient) -> None:
+        r = client.post("/api/story/advance", json={"scene_id": {"bad": "value"}})
+        data = json_obj(r)
+        assert r.status_code == 400
+        assert "scene_id doit être une chaîne" in data["error"]
 
 
 # ─────────────────────────────────────────────

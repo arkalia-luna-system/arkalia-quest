@@ -168,6 +168,26 @@ class TestApplyChoice:
             os.environ.pop("STORY_RATE_LIMIT_MAX_POSTS", None)
             story_routes.reset_story_rate_limit()
 
+    def test_rate_limit_invalid_env_falls_back_to_defaults(
+        self, client: FlaskClient
+    ) -> None:
+        os.environ["STORY_RATE_LIMIT_WINDOW_SECONDS"] = "invalide"
+        os.environ["STORY_RATE_LIMIT_MAX_POSTS"] = "oops"
+        story_routes.reset_story_rate_limit()
+        try:
+            first = client.post(
+                "/api/story/choice", json={"scene_id": "s0_0", "choice_id": "c0_0_a"}
+            )
+            second = client.post(
+                "/api/story/choice", json={"scene_id": "s0_0", "choice_id": "c0_0_a"}
+            )
+            assert first.status_code in {200, 400}
+            assert second.status_code in {200, 400}
+        finally:
+            os.environ.pop("STORY_RATE_LIMIT_WINDOW_SECONDS", None)
+            os.environ.pop("STORY_RATE_LIMIT_MAX_POSTS", None)
+            story_routes.reset_story_rate_limit()
+
 
 # ─────────────────────────────────────────────
 # POST /api/story/name

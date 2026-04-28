@@ -50,6 +50,9 @@
 - Modernisation de `scripts/deploy.sh` et `scripts/docker-auth.sh` (bash strict, robustesse shell, message de sortie aligne sur l'app).
 - Suppression de modules Python dormants non references: `engines/luna_ai_v3.py` et `utils/logger.py`.
 - Nettoyage des paquets `engines` et `utils` pour supprimer les imports casses/legacy.
+- Rationalisation deployment/config: suppression des descriptors legacy non relies au runtime principal (`config/cloudbuild.yaml`, `config/digitalocean.yaml`, `config/railway.json`, `config/Procfile`, `config/runtime.txt`, `config/app.json`, `config/nginx.conf`, `config/pytest.ini`).
+- Suppression des manifests Kubernetes dormants (`k8s/k8s-deployment.yaml`, `k8s/k8s-service.yaml`) et de `config/systemd/arkalia-quest.service`.
+- Simplification de `scripts/deploy.sh` pour limiter les cibles aux plateformes maintenues (`local`, `docker`, `docker-build`, `render`).
 
 ---
 

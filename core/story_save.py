@@ -124,6 +124,8 @@ def get_save_summary(player_id: str) -> Optional[JsonDict]:
         "chapters_completed": len(state.get("chapters_completed", [])),
         "endings_unlocked": state.get("endings_unlocked", []),
         "flags": state.get("flags", []),
+        "secrets_found": state.get("secrets_found", []),
+        "secrets_total": 5,
     }
 
 

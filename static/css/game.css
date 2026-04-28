@@ -2385,6 +2385,17 @@ body:has(.dialogue-box.luna-speaking) .luna-panel .luna-avatar {
   opacity: 0.9;
 }
 
+#secrets-counter.secret-master-counter {
+  color: #f59e0b;
+  border-color: rgba(245, 158, 11, 0.5);
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.35);
+}
+
+body.secret-master .luna-avatar .avatar-ring {
+  border-color: #f59e0b;
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.35);
+}
+
 @keyframes xp-pop {
   0% {
     transform: scale(1.3);

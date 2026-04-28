@@ -508,8 +508,11 @@ function updateHeader(state) {
   if (DOM.secretsCounter) {
     const found = Array.isArray(state.secrets_found) ? state.secrets_found.length : 0;
     const total = Number.isInteger(state.secrets_total) ? state.secrets_total : 5;
-    DOM.secretsCounter.textContent = `Secrets ${found}/${total}`;
+    const allUnlocked = found >= total && total > 0;
+    DOM.secretsCounter.textContent = allUnlocked ? `✦ Secrets ${found}/${total}` : `Secrets ${found}/${total}`;
     DOM.secretsCounter.classList.toggle("xp-gained", found > 0);
+    DOM.secretsCounter.classList.toggle("secret-master-counter", allUnlocked);
+    document.body.classList.toggle("secret-master", allUnlocked);
   }
 
   // Prénom du joueur dans le header

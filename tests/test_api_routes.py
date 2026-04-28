@@ -86,6 +86,15 @@ class TestGetState:
         assert data["scene_index"] >= 1
         assert data["scene_total"] >= 1
 
+    def test_security_headers_present(self, client: FlaskClient) -> None:
+        r = client.get("/api/story/state")
+        assert r.headers.get("X-Content-Type-Options") == "nosniff"
+        assert r.headers.get("X-Frame-Options") == "DENY"
+        assert r.headers.get("Referrer-Policy") == "no-referrer"
+        assert "frame-ancestors 'none'" in (
+            r.headers.get("Content-Security-Policy") or ""
+        )
+
 
 # ─────────────────────────────────────────────
 # POST /api/story/choice
@@ -128,6 +137,14 @@ class TestApplyChoice:
         )
         data = json_obj(r)
         assert "xp_gained" in data["choice_result"]
+
+    def test_json_content_type_required(self, client: FlaskClient) -> None:
+        r = client.post(
+            "/api/story/choice",
+            data='{"scene_id":"s0_0","choice_id":"c0_0_a"}',
+            content_type="text/plain",
+        )
+        assert r.status_code == 415
 
 
 # ─────────────────────────────────────────────

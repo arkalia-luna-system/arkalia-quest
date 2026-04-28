@@ -10,7 +10,10 @@ POST /api/story/name         → enregistrer le prénom du joueur
 GET  /api/story/leaderboard  → classement local des joueurs
 """
 
+import time
+from collections import defaultdict, deque
 from typing import Any, Optional
+from uuid import UUID
 
 from flask import Blueprint, current_app, jsonify, make_response, request
 
@@ -28,6 +31,9 @@ story_bp = Blueprint("story", __name__, url_prefix="/api/story")
 
 COOKIE_NAME = "luna_player_id"
 COOKIE_MAX_AGE = 60 * 60 * 24 * 365  # 1 an
+RATE_LIMIT_WINDOW_SECONDS = 60
+RATE_LIMIT_MAX_POSTS = 60
+_POST_RATE_LIMIT: dict[str, deque[float]] = defaultdict(deque)
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────
@@ -36,9 +42,17 @@ COOKIE_MAX_AGE = 60 * 60 * 24 * 365  # 1 an
 def _get_or_create_player_id() -> tuple[str, bool]:
     """Retourne (player_id, is_new)."""
     pid = request.cookies.get(COOKIE_NAME)
-    if pid:
+    if pid and _is_valid_player_id(pid):
         return pid, False
     return generate_player_id(), True
+
+
+def _is_valid_player_id(value: str) -> bool:
+    try:
+        UUID(value)
+        return True
+    except (TypeError, ValueError):
+        return False
 
 
 def _get_player_state(player_id: str) -> dict:
@@ -80,6 +94,27 @@ def _read_json_payload() -> tuple[dict[str, Any], Optional[tuple[dict[str, Any],
     return payload, None
 
 
+def _enforce_post_rate_limit() -> Optional[tuple[dict[str, Any], int]]:
+    if request.method != "POST":
+        return None
+
+    key = request.remote_addr or "unknown"
+    now = time.monotonic()
+    bucket = _POST_RATE_LIMIT[key]
+
+    while bucket and (now - bucket[0]) > RATE_LIMIT_WINDOW_SECONDS:
+        bucket.popleft()
+
+    if len(bucket) >= RATE_LIMIT_MAX_POSTS:
+        return {
+            "success": False,
+            "error": "Trop de requêtes, réessaie dans 1 minute.",
+        }, 429
+
+    bucket.append(now)
+    return None
+
+
 # ── GET /api/story/state ─────────────────────────────────────────────────
 
 
@@ -93,6 +128,15 @@ def get_state():
         return _json_with_cookie({"success": True, **state}, player_id, is_new)
     except Exception as e:
         return _internal_error("state", e)
+
+
+@story_bp.before_request
+def guard_post_rate_limit():
+    limited = _enforce_post_rate_limit()
+    if limited:
+        body, code = limited
+        return jsonify(body), code
+    return None
 
 
 # ── POST /api/story/choice ────────────────────────────────────────────────

@@ -135,6 +135,15 @@ class TestApplyChoice:
         assert "perfect-trust" in result["secrets_unlocked"]
         assert "perfect-trust" in state["secrets_found"]
 
+    def test_secret_is_not_unlocked_twice(self, engine: StoryEngine) -> None:
+        state = engine.new_player_state()
+        state["luna_trust"] = 95
+        first = engine.apply_choice(state, "s0_0", "c0_0_a")
+        second = engine.apply_choice(state, state["current_scene"], "c0_1a_a")
+        assert "perfect-trust" in first["secrets_unlocked"]
+        assert "perfect-trust" not in second["secrets_unlocked"]
+        assert state["secrets_found"].count("perfect-trust") == 1
+
     def test_trust_clamped_between_0_and_100(self, engine: StoryEngine) -> None:
         state = engine.new_player_state()
         state["luna_trust"] = 98

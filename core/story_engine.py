@@ -13,6 +13,7 @@ JsonDict = dict[str, Any]
 PlayerState = dict[str, Any]
 
 STORY_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "story.json")
+TOTAL_SECRETS = 5
 
 
 class StoryEngine:
@@ -126,7 +127,7 @@ class StoryEngine:
             "player_name": player_name,
             "threat_level": int(player_state.get("threat_level", 15)),
             "secrets_found": cast(list[str], player_state.get("secrets_found", [])),
-            "secrets_total": 5,
+            "secrets_total": TOTAL_SECRETS,
         }
 
     # ------------------------------------------------------------------ #

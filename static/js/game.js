@@ -102,6 +102,13 @@ const SECRET_LABELS = {
   "pandora-scout": "PANDORA complete",
   "nexus-gambit":  "Pari NEXUS",
 };
+const SECRET_HINTS = {
+  "ghost-entry":   "Indice: au chapitre final, un 3e chemin coupe les traces.",
+  "perfect-trust": "Indice: pousse la confiance au max avant la fin.",
+  "double-agent":  "Indice: ecoute deux camps ennemis dans la meme run.",
+  "pandora-scout": "Indice: inspecte PANDORA, puis decide son sort.",
+  "nexus-gambit":  "Indice: teste NEXUS... puis change de plan.",
+};
 
 let _exploitTimeout = null;
 let _secretTimeout = null;
@@ -950,7 +957,8 @@ function updateChallenges(state) {
   const c1 = document.getElementById("challenge-1");
   const c2 = document.getElementById("challenge-2");
   const c3 = document.getElementById("challenge-3");
-  if (!c1 || !c2 || !c3) return;
+  const c4 = document.getElementById("challenge-4");
+  if (!c1 || !c2 || !c3 || !c4) return;
 
   // Challenge 1 : confiance élevée (>= 70)
   const trust = state.luna_trust ?? 50;
@@ -971,6 +979,21 @@ function updateChallenges(state) {
   const c3Dot = c3.querySelector(".session-obj-dot");
   c3.classList.toggle("completed", usedRisk);
   if (c3Dot) c3Dot.textContent = usedRisk ? "●" : "○";
+
+  // Challenge 4 : progression secret + hint du prochain secret
+  const foundSecrets = Array.isArray(state.secrets_found) ? state.secrets_found : [];
+  const allSecretIds = Object.keys(SECRET_LABELS);
+  const missingSecret = allSecretIds.find(id => !foundSecrets.includes(id));
+  const c4Dot = c4.querySelector(".session-obj-dot");
+  const c4Text = c4.querySelector(".session-obj-text");
+  if (missingSecret && c4Text) {
+    c4Text.textContent = SECRET_HINTS[missingSecret] || "Indice secret: ???";
+  } else if (c4Text) {
+    c4Text.textContent = "Tous les secrets detectes sur cette sauvegarde.";
+  }
+  const allSecretsFound = !missingSecret;
+  c4.classList.toggle("completed", allSecretsFound);
+  if (c4Dot) c4Dot.textContent = allSecretsFound ? "●" : "○";
 }
 
 // ── Pulse de confiance ─────────────────────────────────────────────────────
@@ -1237,6 +1260,7 @@ function renderEnding(state) {
   const $xpV    = document.getElementById("ending-xp");
   const $perso  = document.getElementById("ending-personalized");
   const $style  = document.getElementById("ending-style-summary");
+  const $secretsBoard = document.getElementById("ending-secrets-board");
 
   if ($badge) { $badge.textContent = meta.label; $badge.style.borderColor = meta.color; $badge.style.color = meta.color; }
   if ($icon)  { $icon.textContent = meta.icon;  $icon.style.color = meta.color; }
@@ -1254,6 +1278,26 @@ function renderEnding(state) {
     parts.push(`<strong>Style:</strong> ${sp.label}`);
     $style.innerHTML = parts.join("<br>");
     $style.hidden = false;
+  }
+
+  if ($secretsBoard) {
+    const foundSecrets = Array.isArray(state.secrets_found) ? state.secrets_found : [];
+    const allSecretIds = Object.keys(SECRET_LABELS);
+    const missing = allSecretIds.filter(id => !foundSecrets.includes(id));
+    const discovered = foundSecrets
+      .map(id => SECRET_LABELS[id])
+      .filter(Boolean)
+      .join(" · ");
+    if (missing.length === 0) {
+      $secretsBoard.innerHTML = "<strong>Secrets:</strong> 5/5 detectes. Tu as vide les ombres.";
+    } else {
+      const teaser = SECRET_HINTS[missing[0]] || "Indice: un chemin cache reste a trouver.";
+      $secretsBoard.innerHTML =
+        `<strong>Secrets:</strong> ${foundSecrets.length}/5 detectes<br>` +
+        `<strong>Trouves:</strong> ${discovered || "Aucun"}<br>` +
+        `<strong>Prochain:</strong> ${teaser}`;
+    }
+    $secretsBoard.hidden = false;
   }
 
   // Titre de hacker
@@ -1302,7 +1346,12 @@ function renderEnding(state) {
 
   // Bouton Rejouer : texte incitatif si pas toutes les fins
   if (DOM.replayBtn) {
-    DOM.replayBtn.textContent = finsCount < totalEndings ? "Rejouer — explorer les autres fins" : "Rejouer";
+    const foundSecrets = Array.isArray(state.secrets_found) ? state.secrets_found.length : 0;
+    if (finsCount < totalEndings || foundSecrets < 5) {
+      DOM.replayBtn.textContent = "Rejouer — debloquer fins + secrets";
+    } else {
+      DOM.replayBtn.textContent = "Rejouer";
+    }
   }
 
   // Couleur dominante selon la fin

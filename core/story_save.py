@@ -24,6 +24,8 @@ def _get_conn() -> sqlite3.Connection:
     os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
     conn = sqlite3.connect(DB_PATH, timeout=5.0)
     conn.row_factory = sqlite3.Row
+    # WAL: meilleures lectures concurrentes (API Flask + écritures saves).
+    conn.execute("PRAGMA journal_mode=WAL")
     return conn
 
 
@@ -208,11 +210,34 @@ def get_save_summary(player_id: str) -> Optional[JsonDict]:
     }
 
 
-def get_leaderboard(limit: int = 10) -> list[JsonDict]:
-    """
-    Retourne le classement des meilleurs joueurs (par XP décroissant).
-    Le nom est anonymisé : les 3 premiers caractères + '***' (ou 'Joueur ???' si absent).
-    """
+def _leaderboard_entry_from_state(state: JsonDict) -> Optional[JsonDict]:
+    """Construit une entrée leaderboard depuis un état déjà parsé (xp > 0 attendu)."""
+    xp = _safe_int(state.get("xp", 0), 0)
+    if xp == 0:
+        return None
+
+    trust = _safe_int(state.get("luna_trust", 50), 50)
+
+    raw_name = str(state.get("player_name") or "").strip()
+    if raw_name:
+        display_name = raw_name[:3] + "***" if len(raw_name) > 3 else raw_name + "***"
+    else:
+        display_name = "Joueur anonyme"
+
+    chapters_done = len(_as_str_list(state.get("chapters_completed", [])))
+    endings_unlocked = _as_str_list(state.get("endings_unlocked", []))
+
+    return {
+        "name": display_name,
+        "xp": xp,
+        "luna_trust": trust,
+        "chapters_done": chapters_done,
+        "endings_unlocked": endings_unlocked,
+    }
+
+
+def _get_leaderboard_legacy(limit: int) -> list[JsonDict]:
+    """Parcourt toutes les lignes (chemins SQLite sans extension JSON1)."""
     with _get_conn() as conn:
         rows = conn.execute(
             "SELECT player_id, state_json FROM story_saves ORDER BY updated_at DESC"
@@ -226,51 +251,74 @@ def get_leaderboard(limit: int = 10) -> list[JsonDict]:
         except (json.JSONDecodeError, TypeError):
             continue
 
-        xp = _safe_int(state.get("xp", 0), 0)
-        if xp == 0:
-            continue  # Ignorer les joueurs sans progression
+        entry = _leaderboard_entry_from_state(state)
+        if entry is None:
+            continue
 
-        trust = _safe_int(state.get("luna_trust", 50), 50)
-
-        raw_name = str(state.get("player_name") or "").strip()
-        if raw_name:
-            # Garder les 3 premiers caractères + *** pour la confidentialité
-            display_name = (
-                raw_name[:3] + "***" if len(raw_name) > 3 else raw_name + "***"
-            )
-        else:
-            display_name = "Joueur anonyme"
-
-        chapters_done = len(_as_str_list(state.get("chapters_completed", [])))
-        endings_unlocked = _as_str_list(state.get("endings_unlocked", []))
-
-        entry = {
-            "name": display_name,
-            "xp": xp,
-            "luna_trust": trust,
-            "chapters_done": chapters_done,
-            "endings_unlocked": endings_unlocked,
-        }
-        score = (xp, trust)
+        xp = cast(int, entry["xp"])
+        trust = cast(int, entry["luna_trust"])
         tie_breaker = -idx
         if len(top_entries) < max_entries:
-            heappush(top_entries, (score[0], score[1], tie_breaker, entry))
+            heappush(top_entries, (xp, trust, tie_breaker, entry))
             continue
         worst_xp, worst_trust, worst_tie_breaker, _ = top_entries[0]
-        if (score[0], score[1], tie_breaker) > (
-            worst_xp,
-            worst_trust,
-            worst_tie_breaker,
-        ):
+        if (xp, trust, tie_breaker) > (worst_xp, worst_trust, worst_tie_breaker):
             heappop(top_entries)
-            heappush(top_entries, (score[0], score[1], tie_breaker, entry))
+            heappush(top_entries, (xp, trust, tie_breaker, entry))
 
-    # Trier final par XP décroissant, puis trust décroissant
     sorted_entries = sorted(
         top_entries,
         key=lambda item: (-item[0], -item[1], -item[2]),
     )
     return [item[3] for item in sorted_entries]
+
+
+def get_leaderboard(limit: int = 10) -> list[JsonDict]:
+    """
+    Retourne le classement des meilleurs joueurs (par XP décroissant).
+    Le nom est anonymisé : les 3 premiers caractères + '***' (ou 'Joueur ???' si absent).
+
+    Utilise json_extract + ORDER BY pour éviter de charger et parser toute la table
+    (repli automatique si SQLite sans JSON1).
+    """
+    max_entries = max(1, limit)
+    fetch_cap = max(max_entries * 25, 64)
+
+    try:
+        with _get_conn() as conn:
+            rows = conn.execute(
+                """
+                SELECT state_json FROM story_saves
+                WHERE CAST(COALESCE(json_extract(state_json, '$.xp'), '0') AS INTEGER) > 0
+                ORDER BY
+                  CAST(COALESCE(json_extract(state_json, '$.xp'), '0') AS INTEGER) DESC,
+                  CAST(COALESCE(json_extract(state_json, '$.luna_trust'), '50') AS INTEGER) DESC,
+                  updated_at DESC
+                LIMIT ?
+                """,
+                (fetch_cap,),
+            ).fetchall()
+    except sqlite3.OperationalError:
+        return _get_leaderboard_legacy(limit)
+
+    result: list[JsonDict] = []
+    for row in rows:
+        try:
+            state = cast(JsonDict, json.loads(row["state_json"]))
+        except (json.JSONDecodeError, TypeError):
+            continue
+        entry = _leaderboard_entry_from_state(state)
+        if entry is None:
+            continue
+        result.append(entry)
+        if len(result) >= max_entries:
+            break
+
+    # Plein écran de candidats mais trop de lignes invalides au parse → repli sûr.
+    if len(rows) == fetch_cap and len(result) < max_entries:
+        return _get_leaderboard_legacy(limit)
+
+    return result
 
 
 def log_telemetry_event(player_id: str, event_type: str, payload: JsonDict) -> None:

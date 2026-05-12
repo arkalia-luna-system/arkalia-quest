@@ -18,6 +18,7 @@ JsonDict = dict[str, Any]
 
 DB_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "luna_saves.db")
 _DB_LOCK_RETRIES = 3
+_SCORES_INDEX_NAME = "idx_story_saves_scores"
 
 
 def _get_conn() -> sqlite3.Connection:
@@ -52,11 +53,40 @@ def init_db() -> None:
             CREATE INDEX IF NOT EXISTS idx_story_saves_updated_at
             ON story_saves(updated_at)
         """)
+        _ensure_story_save_schema(conn)
         conn.execute("""
             CREATE INDEX IF NOT EXISTS idx_story_telemetry_created_at
             ON story_telemetry(created_at)
         """)
         conn.commit()
+
+
+def _ensure_story_save_schema(conn: sqlite3.Connection) -> None:
+    columns = {
+        str(row["name"])
+        for row in conn.execute("PRAGMA table_info(story_saves)").fetchall()
+    }
+
+    if "xp_cache" not in columns:
+        conn.execute(
+            "ALTER TABLE story_saves ADD COLUMN xp_cache INTEGER NOT NULL DEFAULT 0"
+        )
+    if "luna_trust_cache" not in columns:
+        conn.execute(
+            "ALTER TABLE story_saves ADD COLUMN luna_trust_cache INTEGER NOT NULL DEFAULT 50"
+        )
+
+    conn.execute(f"""
+        CREATE INDEX IF NOT EXISTS {_SCORES_INDEX_NAME}
+        ON story_saves(xp_cache DESC, luna_trust_cache DESC, updated_at DESC)
+    """)
+    # Backfill idempotent: utile après migration d'une base existante.
+    conn.execute("""
+        UPDATE story_saves
+        SET
+            xp_cache = CAST(COALESCE(json_extract(state_json, '$.xp'), '0') AS INTEGER),
+            luna_trust_cache = CAST(COALESCE(json_extract(state_json, '$.luna_trust'), '50') AS INTEGER)
+    """)
 
 
 def _is_locked_error(exc: sqlite3.OperationalError) -> bool:
@@ -110,23 +140,36 @@ def generate_player_id() -> str:
     return str(uuid.uuid4())
 
 
+def _state_scores(state: JsonDict) -> tuple[int, int]:
+    xp = _safe_int(state.get("xp", 0), 0)
+    trust = _safe_int(state.get("luna_trust", 50), 50)
+    return xp, trust
+
+
 def save_state(player_id: str, state: JsonDict) -> None:
     """Sauvegarde (upsert) l'état du joueur."""
 
     def _write() -> None:
         with _get_conn() as conn:
+            xp, trust = _state_scores(state)
             conn.execute(
                 """
-                INSERT INTO story_saves (player_id, state_json, updated_at)
-                VALUES (?, ?, ?)
+                INSERT INTO story_saves (
+                    player_id, state_json, updated_at, xp_cache, luna_trust_cache
+                )
+                VALUES (?, ?, ?, ?, ?)
                 ON CONFLICT(player_id) DO UPDATE SET
                     state_json = excluded.state_json,
-                    updated_at = excluded.updated_at
+                    updated_at = excluded.updated_at,
+                    xp_cache = excluded.xp_cache,
+                    luna_trust_cache = excluded.luna_trust_cache
             """,
                 (
                     player_id,
                     json.dumps(state, ensure_ascii=False),
                     datetime.now(timezone.utc).isoformat(),
+                    xp,
+                    trust,
                 ),
             )
             conn.commit()
@@ -278,8 +321,8 @@ def get_leaderboard(limit: int = 10) -> list[JsonDict]:
     Retourne le classement des meilleurs joueurs (par XP décroissant).
     Le nom est anonymisé : les 3 premiers caractères + '***' (ou 'Joueur ???' si absent).
 
-    Utilise json_extract + ORDER BY pour éviter de charger et parser toute la table
-    (repli automatique si SQLite sans JSON1).
+    Utilise les colonnes cache indexées pour éviter de parser toute la table.
+    Repli automatique vers la stratégie legacy si la requête optimisée échoue.
     """
     max_entries = max(1, limit)
     fetch_cap = max(max_entries * 25, 64)
@@ -289,16 +332,19 @@ def get_leaderboard(limit: int = 10) -> list[JsonDict]:
             rows = conn.execute(
                 """
                 SELECT state_json FROM story_saves
-                WHERE CAST(COALESCE(json_extract(state_json, '$.xp'), '0') AS INTEGER) > 0
+                WHERE xp_cache > 0
                 ORDER BY
-                  CAST(COALESCE(json_extract(state_json, '$.xp'), '0') AS INTEGER) DESC,
-                  CAST(COALESCE(json_extract(state_json, '$.luna_trust'), '50') AS INTEGER) DESC,
+                  xp_cache DESC,
+                  luna_trust_cache DESC,
                   updated_at DESC
                 LIMIT ?
                 """,
                 (fetch_cap,),
             ).fetchall()
     except sqlite3.OperationalError:
+        return _get_leaderboard_legacy(limit)
+
+    if not rows:
         return _get_leaderboard_legacy(limit)
 
     result: list[JsonDict] = []

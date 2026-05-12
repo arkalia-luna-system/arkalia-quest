@@ -76,7 +76,46 @@ class TestStorySaveRobustness:
             ).fetchall()
         index_names = {row[0] for row in rows}
         assert "idx_story_saves_updated_at" in index_names
+        assert "idx_story_saves_scores" in index_names
         assert "idx_story_telemetry_created_at" in index_names
+
+    def test_init_db_migrates_legacy_schema_and_backfills_scores(
+        self, tmp_path: Any
+    ) -> None:
+        db_path = tmp_path / "legacy.db"
+        with sqlite3.connect(db_path) as conn:
+            conn.execute("""
+                CREATE TABLE story_saves (
+                    player_id   TEXT PRIMARY KEY,
+                    state_json  TEXT NOT NULL,
+                    updated_at  TEXT NOT NULL
+                )
+            """)
+            conn.execute(
+                "INSERT INTO story_saves (player_id, state_json, updated_at) VALUES (?, ?, ?)",
+                (
+                    "legacy-player",
+                    '{"player_name":"Neo","xp":321,"luna_trust":77}',
+                    "2026-01-01T00:00:00+00:00",
+                ),
+            )
+            conn.commit()
+
+        story_save.DB_PATH = str(db_path)
+        story_save.init_db()
+
+        with sqlite3.connect(story_save.DB_PATH) as conn:
+            row = conn.execute(
+                """
+                SELECT xp_cache, luna_trust_cache
+                FROM story_saves
+                WHERE player_id = ?
+                """,
+                ("legacy-player",),
+            ).fetchone()
+        assert row is not None
+        assert row[0] == 321
+        assert row[1] == 77
 
     def test_save_state_retries_when_database_is_locked(self, tmp_path: Any) -> None:
         _point_db_to_temp(tmp_path)
@@ -99,6 +138,25 @@ class TestStorySaveRobustness:
         assert loaded is not None
         assert loaded["current_scene"] == "s0_0"
         assert attempts["count"] >= 2
+
+    def test_save_state_updates_cache_columns(self, tmp_path: Any) -> None:
+        _point_db_to_temp(tmp_path)
+        story_save.save_state(
+            "cache-player",
+            {"current_scene": "s0_0", "xp": "12", "luna_trust": "66"},
+        )
+        with sqlite3.connect(story_save.DB_PATH) as conn:
+            row = conn.execute(
+                """
+                SELECT xp_cache, luna_trust_cache
+                FROM story_saves
+                WHERE player_id = ?
+                """,
+                ("cache-player",),
+            ).fetchone()
+        assert row is not None
+        assert row[0] == 12
+        assert row[1] == 66
 
     def test_get_leaderboard_ignores_malformed_entries(self, tmp_path: Any) -> None:
         _point_db_to_temp(tmp_path)

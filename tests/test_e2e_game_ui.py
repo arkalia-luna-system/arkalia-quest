@@ -129,8 +129,7 @@ def test_forced_choice_timer_autoselects_default_choice() -> None:
         page.wait_for_selector("#choices-container .choice-btn")
 
         # Force un timer ultra-court sur la scène courante initiale.
-        page.evaluate(
-            """
+        page.evaluate("""
             () => {
               TIMED_SCENES.s0_0 = {
                 durationMs: 120,
@@ -142,19 +141,16 @@ def test_forced_choice_timer_autoselects_default_choice() -> None:
                 setupChoiceTimer("s0_0");
               }
             }
-            """
-        )
+            """)
 
         page.wait_for_timeout(450)
         # Après auto-choix, l'état serveur doit avoir progressé.
-        state = page.evaluate(
-            """
+        state = page.evaluate("""
             async () => {
               const res = await fetch("/api/story/state", { credentials: "same-origin" });
               return await res.json();
             }
-            """
-        )
+            """)
         assert state["scene_id"] != "s0_0"
 
 
@@ -163,13 +159,11 @@ def test_chapter_transition_overlay_returns_hidden_state() -> None:
         page.goto(f"{base_url}/game", wait_until="domcontentloaded")
         page.wait_for_selector("#chapter-transition", state="attached")
 
-        page.evaluate(
-            """
+        page.evaluate("""
             async () => {
               await showChapterTransition("chapitre_2", "Chapitre de test", "Citation test");
             }
-            """
-        )
+            """)
 
         transition_hidden = page.eval_on_selector(
             "#chapter-transition", "el => el.hidden"
@@ -187,8 +181,7 @@ def test_multiple_resets_keep_initial_story_state() -> None:
         page.wait_for_timeout(800)
 
         # Enchaîne plusieurs reset API.
-        reset_ok = page.evaluate(
-            """
+        reset_ok = page.evaluate("""
             async () => {
               for (let i = 0; i < 3; i++) {
                 const res = await fetch("/api/story/reset", {
@@ -199,18 +192,15 @@ def test_multiple_resets_keep_initial_story_state() -> None:
               }
               return true;
             }
-            """
-        )
+            """)
         assert reset_ok is True
 
-        state = page.evaluate(
-            """
+        state = page.evaluate("""
             async () => {
               const res = await fetch("/api/story/state", { credentials: "same-origin" });
               return await res.json();
             }
-            """
-        )
+            """)
         assert state["scene_id"] == "s0_0"
         assert state["xp"] == 0
         assert state["luna_trust"] == 50

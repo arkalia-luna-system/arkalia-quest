@@ -46,8 +46,9 @@ let _ambientAtmo         = null;   // atmosphère courante
 let _styleStats          = { trustPos: 0, trustNeg: 0, corp: 0, luna: 0 };
 let _lastTrust           = 50;     // dernière valeur de confiance connue
 let _choiceTimerId       = null;
-let _choiceTimerInterval = null;
+let _choiceTimerRafId    = null;
 let _choiceTimerDeadline = null;
+let _choiceTimerDurationMs = 15000;
 let _lastThreat          = 15;
 let _textSpeedMode       = localStorage.getItem("luna_text_speed") || "normal";
 let _seenSceneTelemetry  = new Set();
@@ -212,6 +213,13 @@ function initDOM() {
     journalModal:        $("journal-modal"),
     accessModal:         $("access-modal"),
     endingAchievement:   $("ending-achievement"),
+    choiceTimerBar:      $("choice-timer"),
+    choiceTimerFill:     $("choice-timer-fill"),
+    choiceTimerLabel:    $("choice-timer-label"),
+    challenge1:          $("challenge-1"),
+    challenge2:          $("challenge-2"),
+    challenge3:          $("challenge-3"),
+    challenge4:          $("challenge-4"),
   };
 }
 
@@ -996,42 +1004,59 @@ function clearChoiceTimer() {
     clearTimeout(_choiceTimerId);
     _choiceTimerId = null;
   }
-  if (_choiceTimerInterval) {
-    clearInterval(_choiceTimerInterval);
-    _choiceTimerInterval = null;
+  if (_choiceTimerRafId !== null) {
+    cancelAnimationFrame(_choiceTimerRafId);
+    _choiceTimerRafId = null;
   }
   _choiceTimerDeadline = null;
-  const bar = document.getElementById("choice-timer");
+  const bar = DOM.choiceTimerBar;
   if (bar) bar.hidden = true;
+}
+
+function _tickChoiceTimer() {
+  if (_choiceTimerDeadline === null) {
+    _choiceTimerRafId = null;
+    return;
+  }
+
+  const fill = DOM.choiceTimerFill;
+  const bar = DOM.choiceTimerBar;
+  if (!fill || !bar || bar.hidden) {
+    _choiceTimerRafId = null;
+    return;
+  }
+
+  const now = Date.now();
+  const remaining = _choiceTimerDeadline - now;
+  const ratio = Math.max(0, remaining / _choiceTimerDurationMs);
+  fill.style.width = `${ratio * 100}%`;
+
+  if (remaining <= 0) {
+    _choiceTimerRafId = null;
+    return;
+  }
+  _choiceTimerRafId = requestAnimationFrame(_tickChoiceTimer);
 }
 
 function setupChoiceTimer(sceneId) {
   const cfg = TIMED_SCENES[sceneId];
   if (!cfg) return;
 
-  const bar   = document.getElementById("choice-timer");
-  const fill  = document.getElementById("choice-timer-fill");
-  const label = document.getElementById("choice-timer-label");
+  const bar = DOM.choiceTimerBar;
+  const fill = DOM.choiceTimerFill;
+  const label = DOM.choiceTimerLabel;
   if (!bar || !fill || !label) return;
 
   const duration = cfg.durationMs || 15000;
   const defaultIdx = cfg.defaultChoiceIndex ?? 0;
 
+  _choiceTimerDurationMs = duration;
   _choiceTimerDeadline = Date.now() + duration;
   bar.hidden = false;
   label.textContent = cfg.label || "Temps limité";
   fill.style.width = "100%";
 
-  _choiceTimerInterval = setInterval(() => {
-    const now = Date.now();
-    const remaining = _choiceTimerDeadline - now;
-    const ratio = Math.max(0, remaining / duration);
-    fill.style.width = `${ratio * 100}%`;
-    if (remaining <= 0 && _choiceTimerInterval) {
-      clearInterval(_choiceTimerInterval);
-      _choiceTimerInterval = null;
-    }
-  }, 100);
+  _choiceTimerRafId = requestAnimationFrame(_tickChoiceTimer);
 
   _choiceTimerId = setTimeout(() => {
     _choiceTimerId = null;
@@ -1045,10 +1070,10 @@ function setupChoiceTimer(sceneId) {
 
 // ── Objectifs de run (défis légers) ────────────────────────────────────────
 function updateChallenges(state) {
-  const c1 = document.getElementById("challenge-1");
-  const c2 = document.getElementById("challenge-2");
-  const c3 = document.getElementById("challenge-3");
-  const c4 = document.getElementById("challenge-4");
+  const c1 = DOM.challenge1;
+  const c2 = DOM.challenge2;
+  const c3 = DOM.challenge3;
+  const c4 = DOM.challenge4;
   if (!c1 || !c2 || !c3 || !c4) return;
 
   // Challenge 1 : confiance élevée (>= 70)
@@ -1730,7 +1755,17 @@ function setupIdleEasterEgg() {
     idleTimer = setTimeout(showIdleMsg, IDLE_DELAY);
   }
 
-  ["mousemove", "click", "keydown", "touchstart", "scroll"].forEach(ev => {
+  const MOVE_IDLE_THROTTLE_MS = 400;
+  let lastMoveReset = 0;
+  function resetIdleOnMove() {
+    const now = Date.now();
+    if (now - lastMoveReset < MOVE_IDLE_THROTTLE_MS) return;
+    lastMoveReset = now;
+    resetIdle();
+  }
+
+  document.addEventListener("mousemove", resetIdleOnMove, { passive: true });
+  ["click", "keydown", "touchstart", "scroll"].forEach(ev => {
     document.addEventListener(ev, resetIdle, { passive: true });
   });
 

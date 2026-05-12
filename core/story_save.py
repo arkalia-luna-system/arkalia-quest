@@ -30,8 +30,7 @@ def _get_conn() -> sqlite3.Connection:
 def init_db() -> None:
     """Crée la table saves si elle n'existe pas."""
     with _get_conn() as conn:
-        conn.execute(
-            """
+        conn.execute("""
             CREATE TABLE IF NOT EXISTS story_telemetry (
                 id           INTEGER PRIMARY KEY AUTOINCREMENT,
                 player_id    TEXT NOT NULL,
@@ -39,29 +38,22 @@ def init_db() -> None:
                 payload_json TEXT NOT NULL,
                 created_at   TEXT NOT NULL
             )
-        """
-        )
-        conn.execute(
-            """
+        """)
+        conn.execute("""
             CREATE TABLE IF NOT EXISTS story_saves (
                 player_id   TEXT PRIMARY KEY,
                 state_json  TEXT NOT NULL,
                 updated_at  TEXT NOT NULL
             )
-        """
-        )
-        conn.execute(
-            """
+        """)
+        conn.execute("""
             CREATE INDEX IF NOT EXISTS idx_story_saves_updated_at
             ON story_saves(updated_at)
-        """
-        )
-        conn.execute(
-            """
+        """)
+        conn.execute("""
             CREATE INDEX IF NOT EXISTS idx_story_telemetry_created_at
             ON story_telemetry(created_at)
-        """
-        )
+        """)
         conn.commit()
 
 

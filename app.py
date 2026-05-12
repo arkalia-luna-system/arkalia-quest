@@ -33,12 +33,13 @@ def _is_production() -> bool:
 
 
 def _is_debug_enabled() -> bool:
+    """Debug serveur uniquement si FLASK_DEBUG est explicitement activé (jamais par défaut)."""
     raw = (os.environ.get("FLASK_DEBUG") or "").strip().lower()
     if raw in {"1", "true", "yes", "on"}:
         return True
     if raw in {"0", "false", "no", "off"}:
         return False
-    return not _is_production()
+    return False
 
 
 def create_app() -> Flask:

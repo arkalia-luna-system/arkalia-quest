@@ -15,7 +15,7 @@ import re
 import time
 import unicodedata
 from collections import defaultdict, deque
-from typing import Optional, cast
+from typing import Any, Optional, cast
 from uuid import UUID
 
 from flask import Blueprint, current_app, jsonify, make_response, request
@@ -55,12 +55,17 @@ def _cleanup_rate_limit_buckets(now: float, window_seconds: int) -> None:
 # ── Helpers ───────────────────────────────────────────────────────────────
 
 
-def _get_or_create_player_id() -> tuple[str, bool]:
-    """Retourne (player_id, is_new)."""
+def _get_or_create_player_id() -> tuple[str, Optional[str]]:
+    """Retourne (player_id, valeur pour Set-Cookie ou None si cookie déjà valide).
+
+    La valeur de cookie n'est jamais reprise telle quelle depuis la requête : elle est
+    soit absente (None), soit issue uniquement de generate_player_id().
+    """
     pid = request.cookies.get(COOKIE_NAME)
     if pid and _is_valid_player_id(pid):
-        return pid, False
-    return generate_player_id(), True
+        return pid, None
+    new_id = generate_player_id()
+    return new_id, new_id
 
 
 def _is_valid_player_id(value: str) -> bool:
@@ -80,9 +85,24 @@ def _get_player_state(player_id: str) -> JsonDict:
     return state
 
 
-def _json_with_cookie(data: JsonDict, player_id: str, is_new: bool):
-    resp = make_response(jsonify(data))
-    if is_new:
+def _sanitize_api_strings(value: Any) -> Any:
+    """Retire les caractères typiques de rupture HTML dans les chaînes renvoyées en JSON."""
+    if isinstance(value, dict):
+        return {k: _sanitize_api_strings(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [_sanitize_api_strings(v) for v in value]
+    if isinstance(value, str):
+        return value.replace("<", "").replace(">", "")
+    return value
+
+
+def _api_jsonify(payload: Any):
+    return jsonify(_sanitize_api_strings(payload))
+
+
+def _json_with_cookie(data: JsonDict, cookie_value: Optional[str] = None):
+    resp = make_response(_api_jsonify(data))
+    if cookie_value is not None:
         secure_cookie = bool(
             cast(dict[str, object], current_app.config).get(
                 "SESSION_COOKIE_SECURE", False
@@ -90,7 +110,7 @@ def _json_with_cookie(data: JsonDict, player_id: str, is_new: bool):
         )
         resp.set_cookie(
             COOKIE_NAME,
-            player_id,
+            cookie_value,
             max_age=COOKIE_MAX_AGE,
             httponly=True,
             samesite="Lax",
@@ -101,7 +121,7 @@ def _json_with_cookie(data: JsonDict, player_id: str, is_new: bool):
 
 def _internal_error(context: str, exc: Exception):
     current_app.logger.exception("Story API error (%s): %s", context, exc)
-    return jsonify({"success": False, "error": "Erreur interne."}), 500
+    return _api_jsonify({"success": False, "error": "Erreur interne."}), 500
 
 
 def _read_json_payload() -> tuple[JsonDict, Optional[tuple[JsonDict, int]]]:
@@ -202,10 +222,10 @@ def _normalize_player_name(raw_name: str) -> str:
 def get_state():
     try:
         engine = get_story_engine()
-        player_id, is_new = _get_or_create_player_id()
+        player_id, cookie_val = _get_or_create_player_id()
         player_state = _get_player_state(player_id)
         state = engine.get_state(player_state)
-        return _json_with_cookie({"success": True, **state}, player_id, is_new)
+        return _json_with_cookie({"success": True, **state}, cookie_val)
     except Exception as e:
         return _internal_error("state", e)
 
@@ -216,7 +236,7 @@ def guard_post_rate_limit():
     if limited:
         body, code = limited
         window_seconds, _ = _get_rate_limit_config()
-        resp = make_response(jsonify(body), code)
+        resp = make_response(_api_jsonify(body), code)
         resp.headers["Retry-After"] = str(window_seconds)
         return resp
     return None
@@ -275,28 +295,28 @@ def apply_choice():
     data, error = _read_json_payload()
     if error:
         body, code = error
-        return jsonify(body), code
+        return _api_jsonify(body), code
 
     scene_id, scene_error = _require_string_field(data, "scene_id")
     if scene_error:
         body, code = scene_error
-        return jsonify(body), code
+        return _api_jsonify(body), code
     choice_id, choice_error = _require_string_field(data, "choice_id")
     if choice_error:
         body, code = choice_error
-        return jsonify(body), code
+        return _api_jsonify(body), code
 
     assert scene_id is not None
     assert choice_id is not None
 
     try:
         engine = get_story_engine()
-        player_id, is_new = _get_or_create_player_id()
+        player_id, cookie_val = _get_or_create_player_id()
         player_state = _get_player_state(player_id)
 
         result = engine.apply_choice(player_state, scene_id, choice_id)
         if not result.get("success"):
-            return jsonify(result), 400
+            return _api_jsonify(result), 400
 
         save_state(player_id, player_state)
         new_state = engine.get_state(player_state)
@@ -307,8 +327,7 @@ def apply_choice():
                 "choice_result": result,
                 "next_state": new_state,
             },
-            player_id,
-            is_new,
+            cookie_val,
         )
 
     except Exception as e:
@@ -323,23 +342,23 @@ def advance_chapter():
     data, error = _read_json_payload()
     if error:
         body, code = error
-        return jsonify(body), code
+        return _api_jsonify(body), code
 
     scene_id, scene_error = _require_string_field(data, "scene_id")
     if scene_error:
         body, code = scene_error
-        return jsonify(body), code
+        return _api_jsonify(body), code
 
     assert scene_id is not None
 
     try:
         engine = get_story_engine()
-        player_id, is_new = _get_or_create_player_id()
+        player_id, cookie_val = _get_or_create_player_id()
         player_state = _get_player_state(player_id)
 
         result = engine.advance_chapter(player_state, scene_id)
         if not result.get("success"):
-            return jsonify(result), 400
+            return _api_jsonify(result), 400
 
         save_state(player_id, player_state)
         new_state = engine.get_state(player_state)
@@ -350,8 +369,7 @@ def advance_chapter():
                 "advance_result": result,
                 "next_state": new_state,
             },
-            player_id,
-            is_new,
+            cookie_val,
         )
 
     except Exception as e:
@@ -364,12 +382,12 @@ def advance_chapter():
 @story_bp.route("/reset", methods=["POST"])
 def reset_story():
     try:
-        player_id, is_new = _get_or_create_player_id()
+        player_id, cookie_val = _get_or_create_player_id()
         delete_state(player_id)
         engine = get_story_engine()
         new_state = engine.new_player_state()
         save_state(player_id, new_state)
-        return _json_with_cookie({"success": True}, player_id, is_new)
+        return _json_with_cookie({"success": True}, cookie_val)
     except Exception as e:
         return _internal_error("reset", e)
 
@@ -383,28 +401,26 @@ def set_name():
     data, error = _read_json_payload()
     if error:
         body, code = error
-        return jsonify(body), code
+        return _api_jsonify(body), code
 
     name, name_error = _require_string_field(data, "name")
     if name_error:
         body, code = name_error
         # Message métier côté API publique.
-        return jsonify({"success": False, "error": "Prénom requis"}), 400
+        return _api_jsonify({"success": False, "error": "Prénom requis"}), 400
     assert name is not None
     name = _normalize_player_name(name)
     if not name:
-        return jsonify({"success": False, "error": "Prénom requis"}), 400
+        return _api_jsonify({"success": False, "error": "Prénom requis"}), 400
     if not any(ch.isalnum() for ch in name):
-        return jsonify({"success": False, "error": "Prénom invalide"}), 400
+        return _api_jsonify({"success": False, "error": "Prénom invalide"}), 400
 
     try:
-        player_id, is_new = _get_or_create_player_id()
+        player_id, cookie_val = _get_or_create_player_id()
         player_state = _get_player_state(player_id)
         player_state["player_name"] = name
         save_state(player_id, player_state)
-        return _json_with_cookie(
-            {"success": True, "player_name": name}, player_id, is_new
-        )
+        return _json_with_cookie({"success": True, "player_name": name}, cookie_val)
     except Exception as e:
         return _internal_error("name", e)
 
@@ -416,11 +432,11 @@ def set_name():
 def get_summary():
     """Résumé de sauvegarde pour la page d'accueil."""
     try:
-        player_id, is_new = _get_or_create_player_id()
+        player_id, cookie_val = _get_or_create_player_id()
         summary = get_save_summary(player_id)
         if not summary:
             summary = {"exists": False}
-        return _json_with_cookie({"success": True, **summary}, player_id, is_new)
+        return _json_with_cookie({"success": True, **summary}, cookie_val)
     except Exception as e:
         return _internal_error("summary", e)
 
@@ -433,7 +449,7 @@ def leaderboard_view():
     """Classement local — top 10 joueurs par XP."""
     try:
         scores = get_leaderboard(limit=10)
-        return jsonify({"success": True, "scores": scores})
+        return _api_jsonify({"success": True, "scores": scores})
     except Exception as e:
         return _internal_error("leaderboard", e)
 
@@ -547,11 +563,11 @@ def _build_luna_journal(state: JsonDict, name: str) -> str:
 def get_journal():
     """Journal LUNA — texte narratif personnalisé + moments clés (flags)."""
     try:
-        player_id, is_new = _get_or_create_player_id()
+        player_id, cookie_val = _get_or_create_player_id()
         summary = get_save_summary(player_id)
         if not summary:
             return _json_with_cookie(
-                {"success": True, "journal": None, "moments": []}, player_id, is_new
+                {"success": True, "journal": None, "moments": []}, cookie_val
             )
 
         state = _get_player_state(player_id)
@@ -571,8 +587,7 @@ def get_journal():
                 "player_name": name,
                 "luna_trust": state.get("luna_trust", 50),
             },
-            player_id,
-            is_new,
+            cookie_val,
         )
 
     except Exception as e:
@@ -585,24 +600,24 @@ def telemetry_event():
     data, error = _read_json_payload()
     if error:
         body, code = error
-        return jsonify(body), code
+        return _api_jsonify(body), code
 
     event_type = str(data.get("event_type") or "").strip()
     payload_raw: object = data.get("payload", {})
     if not event_type:
-        return jsonify({"success": False, "error": "event_type requis"}), 400
+        return _api_jsonify({"success": False, "error": "event_type requis"}), 400
     if len(event_type) > 64:
-        return jsonify({"success": False, "error": "event_type trop long"}), 400
+        return _api_jsonify({"success": False, "error": "event_type trop long"}), 400
     if not isinstance(payload_raw, dict):
-        return jsonify({"success": False, "error": "payload invalide"}), 400
+        return _api_jsonify({"success": False, "error": "payload invalide"}), 400
     payload = cast(JsonDict, payload_raw)
 
     # Limite défensive pour éviter les payloads trop volumineux.
     if len(payload) > 20:
-        return jsonify({"success": False, "error": "payload trop volumineux"}), 400
+        return _api_jsonify({"success": False, "error": "payload trop volumineux"}), 400
 
     try:
-        player_id, is_new = _get_or_create_player_id()
+        player_id, cookie_val = _get_or_create_player_id()
         safe_payload = {
             "scene_id": _sanitize_telemetry_value(payload.get("scene_id")),
             "chapter_id": _sanitize_telemetry_value(payload.get("chapter_id")),
@@ -615,6 +630,6 @@ def telemetry_event():
             log_telemetry_event(player_id, event_type, safe_payload)
         except Exception as exc:
             current_app.logger.warning("Telemetry write skipped: %s", exc)
-        return _json_with_cookie({"success": True}, player_id, is_new)
+        return _json_with_cookie({"success": True}, cookie_val)
     except Exception as e:
         return _internal_error("telemetry", e)
